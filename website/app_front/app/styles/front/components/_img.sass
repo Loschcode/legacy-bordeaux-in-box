@@ -1,0 +1,107 @@
+@include component(img)
+
+  // ---------------------------------------------------------------
+  // Logo
+  // ---------------------------------------------------------------
+  // Display the logo
+  //
+  @include option(logo)
+    margin-top: 2.5em
+    img
+      width: 400px
+
+  // ---------------------------------------------------------------
+  // Thumbnail
+  // ---------------------------------------------------------------
+  // When you need to display a thumbnail
+  //
+  @include option(thumbnail)
+    width: 100%
+
+    img
+      max-width: 100%
+      border-radius: 6px
+
+  // ---------------------------------------------------------------
+  // Artwork
+  // ---------------------------------------------------------------
+  // It's the picture of the home page on the top
+  //
+  @include option(artwork)
+    height: 400px
+    width: 522px
+
+    @media(max-width: 480px)
+      width: 100% !important
+      height: auto !important
+      margin-right: auto
+      margin-left: auto
+
+  // ---------------------------------------------------------------
+  // Artwork 2
+  // ---------------------------------------------------------------
+  // It's the picture of the home page on the top
+  //
+  @include option(artwork2)
+    width: 434px
+    height: 443px
+
+    @media(max-width: 480px)
+      width: 100% !important
+      height: auto !important
+      margin-right: auto
+      margin-left: auto
+
+  // ---------------------------------------------------------------
+  // Artwork Hommage
+  // ---------------------------------------------------------------
+  // It's the picture of the home page on the top (for paris ...)
+  //
+  @include option(artwork-hommage)
+    width: 600px
+
+    @media(max-width: 480px)
+      width: 100% !important
+      height: auto !important
+      margin-right: auto
+      margin-left: auto
+
+
+  // ---------------------------------------------------------------
+  // Step1
+  // ---------------------------------------------------------------
+  // The step1 image in the home page
+  //
+  @include option(step1)
+    height: 25em
+
+    img
+      width: 70%
+
+
+  // ---------------------------------------------------------------
+  // Step2
+  // ---------------------------------------------------------------
+  // The step2 image in the home page
+  //
+  @include option(step2)
+    height: 25em
+    padding-top: 3em
+
+    img
+      width: 70%
+
+
+  // ---------------------------------------------------------------
+  // Step3
+  // ---------------------------------------------------------------
+  // The step3 image in the home page
+  //
+  @include option(step3)
+    height: 25em
+    padding-top: 3em
+
+    img
+      width: 70%
+
+

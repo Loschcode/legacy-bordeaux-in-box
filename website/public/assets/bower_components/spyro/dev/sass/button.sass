@@ -1,0 +1,91 @@
+// ==================================================
+//
+// @module :: Buttons
+// @description :: Buttons section
+// @since :: 0.0.2
+// @updated :: 0.0.2
+//
+// ==================================================
+
+// Default button
+.spyro-btn
+
+	padding: 6px 12px
+	color: white
+	border-radius: 3px
+	transition: all 0.2s ease-in-out 0s
+	text-decoration: none
+	font-weight: 400
+	font-size: 14px
+	display: inline-block
+	text-decoration: none
+	opacity: 0.8
+	outline: 0
+	webkit-user-select: none
+	-moz-user-select: none
+	-ms-user-select: none
+	user-select: none
+	border: none
+
+
+	// Hover effect
+	&:hover
+		color: white
+		text-decoration: none
+		cursor: pointer
+		opacity: 1
+
+	// Colors
+	&.spyro-btn-success
+		background-color: $color-success
+
+	&.spyro-btn-default
+		background-color: $color-default
+		color: #2D2D2D
+
+	&.spyro-btn-warning
+		background-color: $color-warning
+
+	&.spyro-btn-danger
+		background-color: $color-danger
+
+	&.spyro-btn-inverse
+		background-color: $color-inverse
+
+	&.spyro-btn-primary
+		background-color: $color-primary
+
+
+	// Sizes
+	&.spyro-btn-xl
+		padding: 12px 18px
+		font-size: 20px
+
+	&.spyro-btn-lg
+		padding: 10px 16px
+		font-size: 18px
+
+	&.spyro-btn-sm
+		padding: 5px 10px
+		font-size: 12px
+
+	&.spyro-btn-xs
+		padding: 1px 5px
+		font-size: 12px
+
+	// Fit block
+	&.spyro-btn-block
+		width: 100%
+
+	// Opacity
+	&.spyro-btn-opacity-inverse
+		opacity: 1
+
+		&:hover
+			opacity: 0.8
+
+	&.spyro-btn-no-opacity
+		opacity: 1
+
+		&:hover
+			opacity: 1

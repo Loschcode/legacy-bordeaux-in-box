@@ -1,0 +1,12 @@
+@include component(button)
+  
+  @include option(xxl)
+    +csstyle-button-size($csstyle-button-base-font-size * 1.8, $csstyle-button-base-padding-top-bottom * 2, $csstyle-button-base-padding-right-left * 2)
+  
+  @include option(facebook)
+    +csstyle-button-variant(#45619d, #fff, #45619d)
+
+    &:hover,
+    &:active,
+    &:focus
+      +csstyle-button-variant(#4d6aa9, #fff, #4d6aa9)

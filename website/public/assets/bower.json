@@ -1,0 +1,32 @@
+{
+  "name": "assets",
+  "version": "0.0.0",
+  "authors": [
+    "Jeremie Ges <bonjour@gesjeremie.fr>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "underscore": "~1.7.0",
+    "bootstrap": "~3.2.0",
+    "fontawesome": "~4.2.0",
+    "appear": "~0.3.3",
+    "spyro": "~0.0.3",
+    "datatables": "~1.10.3",
+    "iCheck": "~1.0.2",
+    "jquery-alphanum": "~1.0.17",
+    "summernote": "~0.5.10",
+    "Bootflat": "~2.0.4",
+    "morris.js": "~0.5.1",
+    "bootstrap-confirmation2": "~2.1.2",
+    "fancyselect": "~1.1.0",
+    "chosen": "~1.4.2"
+  }
+}

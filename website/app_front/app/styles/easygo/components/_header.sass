@@ -1,0 +1,32 @@
+@import url(https://fonts.googleapis.com/css?family=Londrina+Solid)
+
+@include component(header)
+
+  background-color: #2980b9
+  padding-top: 1em
+  padding-bottom: 1em
+  text-align: left
+
+  @include part(logo)
+    color: white
+    font-size: 50px
+    font-family: 'Londrina Solid', cursive
+    display: inline
+    margin-right: 10px
+
+  @include part(title)
+    color: white
+    font-weight: 100
+    font-size: 23px
+    display: inline
+
+  @include part(stats)
+    color: white
+    font-size: 18px
+    padding: 7.2px 14.4px
+    border-radius: 5px
+    border: 1px solid white
+    font-weight: 300
+    margin-top: 10px
+    margin-right: 10px
+    display: inline-block

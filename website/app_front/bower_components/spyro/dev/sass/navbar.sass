@@ -1,0 +1,81 @@
+// ==================================================
+//
+// @module :: Navbar
+// @description :: Navbar section
+// @since :: 0.0.1
+// @updated :: 0.0.1
+//
+// ==================================================
+
+.spyro-navbar
+	height: 72px
+	width: 100%
+	background-color: $color-inverse
+	position: relative
+	overflow: hidden
+
+	// Colors
+	&.spyro-navbar-primary
+		background-color: $color-primary
+	&.spyro-navbar-success
+		background-color: $color-success
+	&.spyro-navbar-danger
+		background-color: $color-danger
+	&.spyro-navbar-warning
+		background-color: $color-warning
+	&.spyro-navbar-inverse
+		background-color: $color-inverse
+
+	// Fit to the navbar
+	.spyro-navbar-container
+		margin-top: 26px
+
+	// Brand title
+	.spyro-navbar-brand
+		font-size: 25px
+		color: white
+		margin: 0
+		padding: 0
+		letter-spacing: -1px
+		text-decoration: none
+		display: block
+
+	// Fix bug with links
+	a.spyro-navbar-brand
+		margin-top: -5px
+
+	// Links
+	ul.spyro-navbar-links
+		margin: 0
+		padding: 0
+		list-style: none
+
+		li
+			float: left
+			margin-right: 32px
+
+		a
+			color: white
+			color: #ffffff
+			text-transform: uppercase
+			font-size: 14px
+			font-weight: 600
+			text-decoration: none
+			letter-spacing: 1px
+
+		a:hover
+			border-bottom: 1px dotted #fff
+
+
+	// Special button for navbar
+	a.spyro-navbar-button
+		padding: 10px 11px
+		border: 1px solid #dadada
+		-webkit-border-radius: 3px
+		-moz-border-radius: 3px
+		-ms-border-radius: 3px
+		-o-border-radius: 3px
+		border-radius: 3px
+
+		&:hover
+			border-bottom: 1px solid #dadada !important

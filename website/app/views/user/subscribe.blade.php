@@ -1,0 +1,117 @@
+@section('content')
+
+  <div class="col-md-6 col-md-offset-3">
+
+    <div class="description text-center">
+      C’est le moment de créer ton compte, le formulaire juste en dessous va te poser quelques questions histoire de savoir qui tu es ... Ne prends pas peur tu connais déjà les réponses !<br/>
+      Si tu as déjà un compte, tu peux <a href="{{ url('user/login') }}">te connecter</a> !
+    </div>
+
+    <div class="spacer20"></div>
+
+
+    {{ Form::open() }}
+
+    {{ Form::text("first_name", Input::old("first_name"), ['placeholder' => 'Prénom']) }}
+
+    @if ($errors->first('first_name'))
+      <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('first_name') }}}</span>
+    @endif
+
+
+    {{ Form::text("last_name", Input::old("last_name"), ['placeholder' => 'Nom de famille']) }}
+    @if ($errors->first('last_name'))
+      <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('last_name') }}}</span>
+    @endif
+
+    {{ Form::text("email", Input::old("email"), ['placeholder' => 'Email']) }}
+    @if ($errors->first('email'))
+      <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('email') }}}</span>
+    @endif
+
+
+    {{ Form::text("phone", Input::old("phone"), ['placeholder' => 'Téléphone']) }}
+    @if ($errors->first('phone'))
+      <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('phone') }}}</span>
+    @endif
+
+
+    {{ Form::password("password", ['placeholder' => 'Mot de passe']) }}
+    @if ($errors->first('password'))
+      <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('password') }}}</span>
+    @endif
+
+
+    {{ Form::password("password_confirmation", ['placeholder' => 'Confirmation du mot de passe']) }}
+    @if ($errors->first('password_confirmation'))
+      <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('password_confirmation') }}}</span>
+    @endif
+
+    {{ Form::submit("S'inscrire", ['class' => 'upper spyro-btn spyro-btn-red spyro-btn-lg spyro-btn-block spyro-btn-opacity-inverse']) }}
+    {{ Form::close() }}
+
+  </div>
+
+
+
+  <div class="clearfix"></div>
+
+  <div class="spacer250"></div>
+  <div class="footer-container">
+    @include('_includes.footer')
+  </div>
+@stop
+<!--
+@section("content")
+  
+  <h2>Rejoins-nous !</h2>
+
+  {{ Form::open() }}
+
+  @if ($errors->first('first_name'))
+  {{{ $errors->first('first_name') }}}<br />
+  @endif
+  {{ Form::label("first_name", "Prénom") }}
+  {{ Form::text("first_name", Input::old("first_name")) }}
+  <br />
+
+  @if ($errors->first('last_name'))
+  {{{ $errors->first('last_name') }}}<br />
+  @endif
+  {{ Form::label("last_name", "Nom") }}
+  {{ Form::text("last_name", Input::old("last_name")) }}
+  <br />
+
+  @if ($errors->first('email'))
+  {{{ $errors->first('email') }}}<br />
+  @endif
+  {{ Form::label("email", "E-mail") }}
+  {{ Form::text("email", Input::old("email")) }}
+  <br />
+
+  @if ($errors->first('phone'))
+  {{{ $errors->first('phone') }}}<br />
+  @endif
+  {{ Form::label("phone", "Téléphone") }}
+  {{ Form::text("phone", Input::old("phone")) }}
+  <br />
+
+  @if ($errors->first('password'))
+  {{{ $errors->first('password') }}}<br />
+  @endif
+  {{ Form::label("password", "Mot de passe") }}
+  {{ Form::password("password") }}
+  <br />
+
+  @if ($errors->first('password_confirmation'))
+  {{{ $errors->first('password_confirmation') }}}<br />
+  @endif
+  {{ Form::label("password_confirmation", "Mot de passe (confirmation)") }}
+  {{ Form::password("password_confirmation") }}
+  <br /><br />
+
+  {{ Form::submit("S'inscrire") }}
+  {{ Form::close() }}
+
+@stop
+-->
