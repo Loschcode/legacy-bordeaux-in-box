@@ -1,3 +1,11 @@
 /vendor
 /node_modules
 .env
+/uploads/bill
+/uploads/blog
+/uploads/boxes
+/uploads/illustrations
+/uploads/others
+/uploads/packs
+/uploads/partners
+/uploads/products
