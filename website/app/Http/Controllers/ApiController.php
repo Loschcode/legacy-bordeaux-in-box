@@ -12,7 +12,7 @@ class ApiController extends \BaseController {
   */
   public function __construct()
   {
-    $this->beforeFilter('isAdmin', ['only' => ['getContacts', 'getOrdersCount']]);
+    $this->middleware('isAdmin', ['only' => ['getContacts', 'getOrdersCount']]);
   }
 
   /**

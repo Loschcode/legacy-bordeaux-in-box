@@ -18,7 +18,7 @@ class AdminDashboardController extends BaseController {
     {
     	
         $this->beforeMethod();
-        $this->beforeFilter('isAdmin');
+        $this->middleware('isAdmin');
 
     }
 

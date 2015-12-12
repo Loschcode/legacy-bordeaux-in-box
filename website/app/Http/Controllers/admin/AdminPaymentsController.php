@@ -16,10 +16,8 @@ class AdminPaymentsController extends BaseController {
      */
     public function __construct()
     {
-
     	$this->beforeMethod();
-        $this->beforeFilter('isAdmin');
-
+      $this->middleware('isAdmin');
     }
     
 	/**

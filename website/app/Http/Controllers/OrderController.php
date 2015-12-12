@@ -16,13 +16,11 @@ class OrderController extends \BaseController {
      */
     public function __construct()
     {
+        $this->middleware('isConnected', array('except' => ['getClassic', 'getGift']));
+        $this->middleware('hasOrderBuilding', array('except' => ['getClassic', 'getGift']));
+        $this->middleware('belowSerieCounter', array('except' => ['postPayment']));
 
-        $this->beforeFilter('isConnected', array('except' => ['getClassic', 'getGift']));
-        $this->beforeFilter('hasOrderBuilding', array('except' => ['getClassic', 'getGift']));
-        $this->beforeFilter('belowSerieCounter', array('except' => ['postPayment']));
-
-        $this->beforeFilter('isNotRegionalOrTakeAway', array('only' => ['getChooseSpot', 'postChooseSpot']));
-        //$this->beforeFilter('isNotRegional', array('only' => ['getDeliveryMode', 'postDeliveryMode']));
+        $this->middleware('isNotRegionalOrTakeAway', array('only' => ['getChooseSpot', 'postChooseSpot']));
     }
 
 	/**

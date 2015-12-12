@@ -9,11 +9,11 @@ class EasygoHomeController extends BaseController {
   {
 
     $this->beforeMethod();
-    $this->beforeFilter('isAdmin');
-    $this->beforeFilter('isNotSerieReady', ['except' => 'getLocked']);
-    $this->beforeFilter('isSerieReady', ['only' => 'getLocked']);
-    $this->beforeFilter('stillUnpaidOrdersWithFailCard', ['except' => array('getLocked', 'getUnpaidOrders')]);
-    $this->beforeFilter('skipUnpaidOrdersWithFailCard', ['only' => 'getUnpaidOrders']);
+    $this->middleware('isAdmin');
+    $this->middleware('isNotSerieReady', ['except' => 'getLocked']);
+    $this->middleware('isSerieReady', ['only' => 'getLocked']);
+    $this->middleware('stillUnpaidOrdersWithFailCard', ['except' => array('getLocked', 'getUnpaidOrders')]);
+    $this->middleware('skipUnpaidOrdersWithFailCard', ['only' => 'getUnpaidOrders']);
   }
 
   private function _fetch_boxes_ordered($orders)

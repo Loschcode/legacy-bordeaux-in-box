@@ -17,7 +17,7 @@ class UserController extends \BaseController {
     public function __construct()
     {
     	
-        $this->beforeFilter('isNotConnected', array('except' => 'getLogout'));
+        $this->middleware('isNotConnected', array('except' => 'getLogout'));
 
     }
 

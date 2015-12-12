@@ -27,6 +27,19 @@ class Kernel extends HttpKernel {
     'auth' => 'App\Http\Middleware\Authenticate',
     'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
     'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
+
+    // App
+    'belowSerieCounter' => 'App\Http\Middleware\BelowSerieCounterMiddleware',
+    'hasOrderBuilding' => 'App\Http\Middleware\HasOrderBuildingMiddleware',
+    'isAdmin' => 'App\Http\Middleware\RedirectIfAuthenticated\IsAdminMiddleware',
+    'isConnected' => 'App\Http\Middleware\IsConnectedMiddleware',
+    'isNotConnected' => 'App\Http\Middleware\IsNotConnectedMiddleware',
+    'isNotRegional' => 'App\Http\Middleware\IsNotRegionalMiddleware',
+    'isNotRegionalOrTakeAway' => 'App\Http\Middleware\IsNotRegionalMiddleware',
+    'isNotSerieReady' => 'App\Http\Middleware\IsNotSerieReadyMiddleware',
+    'isSerieReady' => 'App\Http\Middleware\IsSerieReadyMiddleware',
+    'skipUnpaidOrdersWithFailCard' => 'App\Http\Middleware\SkipUnpaidOrdersWithFailCardMiddleware',
+    'stillUnpaidOrdersWithFailCard' => 'App\Http\Middleware\StillUnpaidOrdersWithFailCardMiddleware',
   ];
 
 }
