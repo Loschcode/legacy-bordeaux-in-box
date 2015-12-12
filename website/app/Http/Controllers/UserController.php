@@ -13,19 +13,17 @@ class UserController extends BaseController {
 	|
 	*/
 
-    /**
-     * Filters
-     */
-    public function __construct()
-    {
-    	
-        $this->middleware('isNotConnected', array('except' => 'getLogout'));
-
-    }
+ 	/**
+	 * Filters
+ 	 */
+  public function __construct()
+	{
+		$this->middleware('isNotConnected', array('except' => 'getLogout'));
+	}
 
 	/**
-     * The layout that should be used for responses.
-     */
+   * The layout that should be used for responses.
+ 	 */
     protected $layout = 'layouts.master';
 
     /**
@@ -34,7 +32,7 @@ class UserController extends BaseController {
      */
     public function getSubscribe()
     {
-		$this->layout->content = view()->make('user.subscribe');
+			return view('user.subscribe');
     }
 
 	/**

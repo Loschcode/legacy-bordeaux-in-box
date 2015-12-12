@@ -148,6 +148,7 @@ return [
 		/* 
 		 * App
 		 */
+    'Illuminate\Html\HtmlServiceProvider',
 		//'Thujohn\Pdf\PdfServiceProvider',
 		//'Jenssegers\Date\DateServiceProvider',
 		//'Fadion\Maneuver\ManeuverServiceProvider',
@@ -206,6 +207,9 @@ return [
 		/*
 		 * App
 		 */
+    'Form' => 'Illuminate\Html\FormFacade', 
+    'HTML' => 'Illuminate\Html\HtmlFacade'
+    
 		//'PDF' => 'Thujohn\Pdf\PdfFacade',
 		//'Date' => 'Jenssegers\Date\Date',
 		//'Formatter' => 'SoapBox\Formatter\Formatter',

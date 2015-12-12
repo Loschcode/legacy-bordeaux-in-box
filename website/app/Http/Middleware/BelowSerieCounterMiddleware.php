@@ -2,6 +2,8 @@
 
 use Closure;
 
+use App\Models\DeliverySerie;
+
 class BelowSerieCounterMiddleware {
 
   /**
