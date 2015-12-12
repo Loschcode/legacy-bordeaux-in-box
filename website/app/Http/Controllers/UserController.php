@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\BaseController;
 
+use Input, Validator, Redirect, Hash;
+
+use App\Models\User;
+
 class UserController extends BaseController {
 
 	/*

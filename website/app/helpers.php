@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\EmailTrace;
+
 function mailing_send($profile, $subject, $template, $template_data, $additional_mailgun_variables=NULL) {
 
   // We resolve everything
