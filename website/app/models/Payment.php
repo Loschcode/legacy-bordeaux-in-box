@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Payment extends Eloquent {
+class Payment extends Model {
 
 	use SoftDeletingTrait;
 

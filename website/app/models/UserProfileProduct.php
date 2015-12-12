@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class UserProfileProduct extends Eloquent {
+class UserProfileProduct extends Model {
 
   /**
    * The database table used by the model.

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Box extends Eloquent {
+class Box extends Model {
 
 	use SoftDeletingTrait;
 

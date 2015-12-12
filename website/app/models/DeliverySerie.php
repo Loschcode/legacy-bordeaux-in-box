@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class DeliverySerie extends Eloquent {
+class DeliverySerie extends Model {
 
 	public function manyThroughMany($related, $through, $firstKey, $secondKey, $pivotKey)
 	{

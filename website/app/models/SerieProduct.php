@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class SerieProduct extends Eloquent {
+class SerieProduct extends Model {
 
   /**
    * The database table used by the model.

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
-class Order extends Eloquent {
+class Order extends Model {
 
 	use SoftDeletingTrait;
 

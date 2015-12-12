@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class UserAnswer extends Eloquent {
+class UserAnswer extends Model {
 
 	/**
 	 * The database table used by the model.

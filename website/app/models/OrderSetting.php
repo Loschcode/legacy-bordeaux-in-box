@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class OrderSetting extends Eloquent {
+class OrderSetting extends Model {
 
 	/**
 	 * The database table used by the model.

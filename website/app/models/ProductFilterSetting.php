@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class ProductFilterSetting extends Eloquent {
+class ProductFilterSetting extends Model {
 
   /**
    * The database table used by the model.

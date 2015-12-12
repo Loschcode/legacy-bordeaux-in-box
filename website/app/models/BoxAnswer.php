@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class BoxAnswer extends Eloquent {
+class BoxAnswer extends Model {
 
 	/**
 	 * The database table used by the model.

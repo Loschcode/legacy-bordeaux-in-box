@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class ProductFilterBoxAnswer extends Eloquent {
+class ProductFilterBoxAnswer extends Model {
 
   /**
    * The database table used by the model.

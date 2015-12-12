@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class EmailTrace extends Eloquent {
+class EmailTrace extends Model {
 
   /**
    * The database table used by the model.

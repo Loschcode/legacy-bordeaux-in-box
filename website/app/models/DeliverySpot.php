@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class DeliverySpot extends Eloquent {
+class DeliverySpot extends Model {
 
 	/**
 	 * The database table used by the model.

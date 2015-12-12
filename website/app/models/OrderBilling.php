@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class OrderBilling extends Eloquent {
+class OrderBilling extends Model {
 
 	/**
 	 * The database table used by the model.

@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class DeliverySetting extends Eloquent {
+class DeliverySetting extends Model {
 
 	/**
 	 * The database table used by the model.

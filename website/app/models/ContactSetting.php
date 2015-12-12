@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class ContactSetting extends Eloquent {
+class ContactSetting extends Model {
 
 	/**
 	 * The database table used by the model.

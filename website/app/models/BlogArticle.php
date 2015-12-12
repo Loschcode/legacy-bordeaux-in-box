@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class BlogArticle extends Eloquent {
+class BlogArticle extends Model {
 
 	/**
 	 * The database table used by the model.

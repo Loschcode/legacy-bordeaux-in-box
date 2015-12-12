@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class PartnerImage extends Eloquent {
+class PartnerImage extends Model {
 
 	/**
 	 * The database table used by the model.

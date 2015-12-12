@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class ProductImage extends Eloquent {
+class ProductImage extends Model {
 
   /**
    * The database table used by the model.

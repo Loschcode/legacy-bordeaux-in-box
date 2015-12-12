@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class UserOrderBuilding extends Eloquent {
+class UserOrderBuilding extends Model {
 
 	/**
 	 * The database table used by the model.

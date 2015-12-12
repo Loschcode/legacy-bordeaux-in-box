@@ -1,6 +1,6 @@
 <?php namespace App\Models;
 
-class DeliveryPrice extends Eloquent {
+class DeliveryPrice extends Model {
 
 	/**
 	 * The database table used by the model.
