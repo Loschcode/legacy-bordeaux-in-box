@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-class TracesController extends \BaseController {
+use App\Http\Controllers\BaseController;
+
+class TracesController extends BaseController {
 
   /*
   |--------------------------------------------------------------------------

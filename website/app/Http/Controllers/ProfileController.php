@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-class ProfileController extends \BaseController {
+use App\Http\Controllers\BaseController;
+
+class ProfileController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

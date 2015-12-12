@@ -1,6 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
-class AdminDebugController extends BaseController {
+use App\Http\Controllers\BaseController;
+
+class DebugController extends BaseController {
 
   /*
   |--------------------------------------------------------------------------

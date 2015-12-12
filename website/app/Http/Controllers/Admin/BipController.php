@@ -1,6 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
-class AdminBipController extends BaseController {
+use App\Http\Controllers\BaseController;
+
+class BipController extends BaseController {
 
   /*
   |--------------------------------------------------------------------------

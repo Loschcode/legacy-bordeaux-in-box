@@ -6,18 +6,7 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "5.0.*",
-
-		"ifsnop/mysqldump-php":"1.*",
-		"caouecs/laravel4-lang": "dev-master",
-		"thujohn/pdf": "dev-master",
-		"stripe/stripe-php": "1.*",
-		"jenssegers/date": "*",
-		"guzzlehttp/guzzle": "~4.0",
-		"soapbox/laravel-formatter": "2.x",
-		"psy/psysh": "@stable",
-		"doctrine/dbal": "*",
-		"Chumper/Zipper": "0.5.x",
-		"symfony/var-dumper" : "*"
+		"caouecs/laravel4-lang": "~2.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
@@ -42,8 +31,8 @@
 			"php artisan optimize"
 		],
 		"pre-update-cmd": [
-        		"php artisan clear-compiled"
-        	],
+			"php artisan clear-compiled"
+    ],
 		"post-update-cmd": [
 			"php artisan optimize"
 		],

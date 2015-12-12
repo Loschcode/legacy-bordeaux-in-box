@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-class OrderController extends \BaseController {
+use App\Http\Controllers\BaseController;
+
+class OrderController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

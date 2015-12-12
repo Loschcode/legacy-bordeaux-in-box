@@ -1,6 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
-class AdminLightboxController extends BaseController {
+use App\Http\Controllers\BaseController;
+
+class LightboxController extends BaseController {
 
   /*
   |--------------------------------------------------------------------------

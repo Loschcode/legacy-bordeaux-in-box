@@ -1,6 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
-class AdminLogsController extends BaseController {
+use App\Http\Controllers\BaseController;
+
+class LogsController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

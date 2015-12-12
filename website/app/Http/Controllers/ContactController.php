@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-class ContactController extends \BaseController {
+use App\Http\Controllers\BaseController;
+
+class ContactController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

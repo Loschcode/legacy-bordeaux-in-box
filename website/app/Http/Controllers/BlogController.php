@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-class BlogController extends \BaseController {
+use App\Http\Controllers\BaseController;
+
+class BlogController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

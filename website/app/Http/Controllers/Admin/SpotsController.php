@@ -1,6 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
-class AdminSpotsController extends BaseController {
+use App\Http\Controllers\BaseController;
+
+class SpotsController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

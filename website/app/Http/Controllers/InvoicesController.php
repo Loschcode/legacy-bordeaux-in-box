@@ -1,6 +1,9 @@
 <?php namespace App\Http\Controllers;
 
-class InvoicesController extends \BaseController {
+use App\Http\Controllers\BaseController;
+use Config;
+
+class InvoicesController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

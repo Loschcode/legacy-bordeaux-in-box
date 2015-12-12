@@ -41,29 +41,29 @@ Route::controller('home', 'HomeController');
 /**
  * Admin
  */
-Route::controller('admin/bip', 'AdminBipController');
-Route::controller('admin/lightbox', 'AdminLightboxController');
-Route::controller('admin/orders', 'AdminOrdersController');
-Route::controller('admin/deliveries', 'AdminDeliveriesController');
-Route::controller('admin/taxes', 'AdminTaxesController');
-Route::controller('admin/products', 'AdminProductsController');
-Route::controller('admin/payments', 'AdminPaymentsController');
-Route::controller('admin/users', 'AdminUsersController');
-Route::controller('admin/spots', 'AdminSpotsController');
+Route::controller('admin/bip', 'Admin\BipController');
+Route::controller('admin/lightbox', 'Admin\LightboxController');
+Route::controller('admin/orders', 'Admin\OrdersController');
+Route::controller('admin/deliveries', 'Admin\DeliveriesController');
+Route::controller('admin/taxes', 'Admin\TaxesController');
+Route::controller('admin/products', 'Admin\ProductsController');
+Route::controller('admin/payments', 'Admin\PaymentsController');
+Route::controller('admin/users', 'Admin\UsersController');
+Route::controller('admin/spots', 'Admin\SpotsController');
 
-Route::controller('admin/statistics', 'AdminStatisticsController');
+Route::controller('admin/statistics', 'Admin\StatisticsController');
 
-Route::controller('admin/debug', 'AdminDebugController');
+Route::controller('admin/debug', 'Admin\DebugController');
 
-Route::controller('admin/boxes/questions/answers', 'AdminBoxesQuestionsAnswersController');
-Route::controller('admin/boxes/questions', 'AdminBoxesQuestionsController');
-Route::controller('admin/boxes', 'AdminBoxesController');
+Route::controller('admin/boxes/questions/answers', 'Admin\BoxesQuestionsAnswersController');
+Route::controller('admin/boxes/questions', 'Admin\BoxesQuestionsController');
+Route::controller('admin/boxes', 'Admin\BoxesController');
 
-Route::controller('admin/profiles', 'AdminProfilesController');
-Route::controller('admin/logs', 'AdminLogsController');
-Route::controller('admin/email-manager', 'AdminEmailManagerController');
-Route::controller('admin/content', 'AdminContentController');
-Route::controller('admin', 'AdminDashboardController');
+Route::controller('admin/profiles', 'Admin\ProfilesController');
+Route::controller('admin/logs', 'Admin\LogsController');
+Route::controller('admin/email-manager', 'Admin\EmailManagerController');
+Route::controller('admin/content', 'Admin\ContentController');
+Route::controller('admin', 'Admin\DashboardController');
 
 
 /**
@@ -116,7 +116,7 @@ Route::controller('user-password', 'RemindersController');
 /**
  * EasyGo
  */
-Route::controller('easygo', 'EasygoHomeController');
+Route::controller('easygo', 'Easygo\HomeController');
 Route::get('easygo/index', array('as' => 'easygo'));
 
 

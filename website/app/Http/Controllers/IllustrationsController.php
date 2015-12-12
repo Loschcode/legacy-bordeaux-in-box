@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-class IllustrationsController extends \BaseController {
+use App\Http\Controllers\BaseController;
+
+class IllustrationsController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

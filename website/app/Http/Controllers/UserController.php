@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers;
 
-class UserController extends \BaseController {
+use App\Http\Controllers\BaseController;
+
+class UserController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

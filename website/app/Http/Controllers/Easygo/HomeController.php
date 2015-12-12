@@ -1,6 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Easygo;
 
-class EasygoHomeController extends BaseController {
+use App\Http\Controllers\BaseController;
+
+class HomeController extends BaseController {
 
   protected $layout = 'layouts.easygo';
 

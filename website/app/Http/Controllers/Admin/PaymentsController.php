@@ -1,6 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
-class AdminPaymentsController extends BaseController {
+use App\Http\Controllers\BaseController;
+
+class PaymentsController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

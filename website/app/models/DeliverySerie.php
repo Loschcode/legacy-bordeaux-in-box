@@ -1,5 +1,7 @@
 <?php namespace App\Models;
 
+use Illuminate\Database\Eloquent\Model;
+
 class DeliverySerie extends Model {
 
 	public function manyThroughMany($related, $through, $firstKey, $secondKey, $pivotKey)

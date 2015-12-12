@@ -148,11 +148,11 @@ return [
 		/* 
 		 * App
 		 */
-		'Thujohn\Pdf\PdfServiceProvider',
-		'Jenssegers\Date\DateServiceProvider',
-		'Fadion\Maneuver\ManeuverServiceProvider',
-		'Chumper\Zipper\ZipperServiceProvider',
-		'Illuminate\Html\HtmlServiceProvider',
+		//'Thujohn\Pdf\PdfServiceProvider',
+		//'Jenssegers\Date\DateServiceProvider',
+		//'Fadion\Maneuver\ManeuverServiceProvider',
+		//'Chumper\Zipper\ZipperServiceProvider',
+		//'Illuminate\Html\HtmlServiceProvider',
 
 
 	],
@@ -206,13 +206,13 @@ return [
 		/*
 		 * App
 		 */
-		'PDF' => 'Thujohn\Pdf\PdfFacade',
-		'Date' => 'Jenssegers\Date\Date',
-		'Formatter' => 'SoapBox\Formatter\Formatter',
-		'Dumper' => 'Symfony\Component\VarDumper\VarDumper',
-		'Zipper' => 'Chumper\Zipper\Zipper',
-		'Form' => 'Illuminate\Html\FormFacade',
-		'HTML' => 'Illuminate\Html\HtmlFacade',
+		//'PDF' => 'Thujohn\Pdf\PdfFacade',
+		//'Date' => 'Jenssegers\Date\Date',
+		//'Formatter' => 'SoapBox\Formatter\Formatter',
+		//'Dumper' => 'Symfony\Component\VarDumper\VarDumper',
+		//'Zipper' => 'Chumper\Zipper\Zipper',
+		//'Form' => 'Illuminate\Html\FormFacade',
+		//'HTML' => 'Illuminate\Html\HtmlFacade',
 	],
 
 ];

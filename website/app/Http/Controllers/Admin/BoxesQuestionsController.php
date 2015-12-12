@@ -1,6 +1,8 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
-class AdminBoxesQuestionsController extends BaseController {
+use App\Http\Controllers\BaseController;
+
+class BoxesQuestionsController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------

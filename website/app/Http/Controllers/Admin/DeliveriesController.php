@@ -1,8 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\BaseController;
 use Carbon\Carbon; 
 
-class AdminDeliveriesController extends BaseController {
+class DeliveriesController extends BaseController {
 
   /*
   |--------------------------------------------------------------------------

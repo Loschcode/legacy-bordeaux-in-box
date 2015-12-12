@@ -1,8 +1,10 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\BaseController;
 
 use Carbon\Carbon; 
 
-class AdminTaxesController extends BaseController {
+class TaxesController extends BaseController {
 
   /*
   |--------------------------------------------------------------------------
