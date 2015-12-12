@@ -152,6 +152,8 @@ return [
 		'Jenssegers\Date\DateServiceProvider',
 		'Fadion\Maneuver\ManeuverServiceProvider',
 		'Chumper\Zipper\ZipperServiceProvider',
+		'Illuminate\Html\HtmlServiceProvider',
+
 
 	],
 
@@ -209,6 +211,8 @@ return [
 		'Formatter' => 'SoapBox\Formatter\Formatter',
 		'Dumper' => 'Symfony\Component\VarDumper\VarDumper',
 		'Zipper' => 'Chumper\Zipper\Zipper',
+		'Form' => 'Illuminate\Html\FormFacade',
+		'HTML' => 'Illuminate\Html\HtmlFacade',
 	],
 
 ];
