@@ -43,11 +43,11 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 			$answers = $question->answers()->orderBy('created_at', 'desc')->get();
 
-			View::share('answers', $answers);
-			View::share('question', $question);
-			View::share('box', $box);
+			view()->share('answers', $answers);
+			view()->share('question', $question);
+			view()->share('box', $box);
 
-		$this->layout->content = View::make('admin.boxes.questions.answers.index');
+		$this->layout->content = view()->make('admin.boxes.questions.answers.index');
 
 		}
 
@@ -65,10 +65,10 @@ class BoxesQuestionsAnswersController extends BaseController {
 		if ($answer !== NULL)
 		{
 
-			View::share('answer', $answer);
-			View::share('question', $question);
+			view()->share('answer', $answer);
+			view()->share('question', $question);
 
-			$this->layout->content = View::make('admin.boxes.questions.answers.edit');
+			$this->layout->content = view()->make('admin.boxes.questions.answers.edit');
 
 		}
 
@@ -126,9 +126,9 @@ class BoxesQuestionsAnswersController extends BaseController {
 		$question = BoxQuestion::find($id);
 		if ($question === NULL) return Response::error(404);
 
-		View::share('question', $question);
+		view()->share('question', $question);
 
-		$this->layout->content = View::make('admin.boxes.questions.answers.new');
+		$this->layout->content = view()->make('admin.boxes.questions.answers.new');
 
 	}
 

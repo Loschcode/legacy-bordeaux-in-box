@@ -35,7 +35,7 @@ class DashboardController extends BaseController {
      */
 	public function getIndex()
 	{
-		$this->layout->content = View::make('admin.dashboard.index');
+		$this->layout->content = view()->make('admin.dashboard.index');
 	}
 
 }

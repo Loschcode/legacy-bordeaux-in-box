@@ -46,11 +46,11 @@ class OrdersController extends BaseController {
 
 		$problem_orders = Order::where('status', 'problem')->orderBy('updated_at', 'asc')->get();
 
-		View::share('locked_orders', $locked_orders);
-		View::share('packed_orders', $packed_orders);
-		View::share('problem_orders', $problem_orders);
+		view()->share('locked_orders', $locked_orders);
+		view()->share('packed_orders', $packed_orders);
+		view()->share('problem_orders', $problem_orders);
 
-		$this->layout->content = View::make('admin.orders.index');
+		$this->layout->content = view()->make('admin.orders.index');
 
 	}
 
@@ -218,8 +218,8 @@ class OrdersController extends BaseController {
 		if ($spot !== NULL)
 		{
 
-			View::share('spot', $spot);
-			$this->layout->content = View::make('admin.spots.edit');
+			view()->share('spot', $spot);
+			$this->layout->content = view()->make('admin.spots.edit');
 
 		}
 
@@ -285,7 +285,7 @@ class OrdersController extends BaseController {
 	public function getNew()
 	{
 
-		$this->layout->content = View::make('admin.spots.new');
+		$this->layout->content = view()->make('admin.spots.new');
 
 	}
 
@@ -413,9 +413,9 @@ class OrdersController extends BaseController {
 
 		$locked_orders = Order::LockedOrders()->notCanceledOrders()->get();
 
-		View::share('locked_orders', $locked_orders);
+		view()->share('locked_orders', $locked_orders);
 
-		$this->layout->content = View::make('admin.orders.email_locked_orders');
+		$this->layout->content = view()->make('admin.orders.email_locked_orders');
 
 	}
 

@@ -38,11 +38,11 @@ class PaymentsController extends BaseController {
 		$series = DeliverySerie::orderBy('delivery', 'desc')->get();
 		$boxes = Box::orderBy('created_at', 'desc')->get();
 
-		View::share('payments', $payments);
-		View::share('series', $series);
-		View::share('boxes', $boxes);
+		view()->share('payments', $payments);
+		view()->share('series', $series);
+		view()->share('boxes', $boxes);
 
-		$this->layout->content = View::make('admin.payments.index');
+		$this->layout->content = view()->make('admin.payments.index');
 
 	}
 
@@ -50,15 +50,15 @@ class PaymentsController extends BaseController {
 	{
 
 		$payment = Payment::find($id);
-		View::share('payment', $payment);
+		view()->share('payment', $payment);
 
 		$profile = $payment->profile()->first();
-		View::share('profile', $profile);
+		view()->share('profile', $profile);
 
 		if ($payment->order()->first() == NULL) $payment_order_id = 0;
 		else $payment_order_id = $payment->order()->first()->id;
 
-		View::share('payment_order_id', $payment_order_id);
+		view()->share('payment_order_id', $payment_order_id);
 
 		// We generate the order depending on what the user got
 		$order_series_list = [0 => '-'];
@@ -72,9 +72,9 @@ class PaymentsController extends BaseController {
 
 		}
 
-		View::share('order_series_list', $order_series_list);
+		view()->share('order_series_list', $order_series_list);
 
-		return View::make('admin.payments.focus');
+		return view()->make('admin.payments.focus');
 
 	}
 

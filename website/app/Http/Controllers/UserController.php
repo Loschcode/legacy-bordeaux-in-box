@@ -34,7 +34,7 @@ class UserController extends BaseController {
      */
     public function getSubscribe()
     {
-		$this->layout->content = View::make('user.subscribe');
+		$this->layout->content = view()->make('user.subscribe');
     }
 
 	/**
@@ -108,7 +108,7 @@ class UserController extends BaseController {
 	 */
 	public function getLogin()
 	{
-		$this->layout->content = View::make('user.login');
+		$this->layout->content = view()->make('user.login');
 	}
 
 	/**

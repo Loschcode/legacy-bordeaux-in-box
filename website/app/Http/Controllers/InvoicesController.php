@@ -395,15 +395,15 @@ class InvoicesController extends BaseController {
 
 					$billing = $orders->first()->billing()->first();
 
-					View::share('user', $user);
-					View::share('user_order_preference', $user_order_preference);
-					View::share('box', $box);
-					View::share('orders', $orders);
-					View::share('billing', $billing);
-					View::share('payment', $payment);
-					View::share('profile', $profile);
+					view()->share('user', $user);
+					view()->share('user_order_preference', $user_order_preference);
+					view()->share('box', $box);
+					view()->share('orders', $orders);
+					view()->share('billing', $billing);
+					view()->share('payment', $payment);
+					view()->share('profile', $profile);
 
-					$html = View::make('pdf.bill');
+					$html = view()->make('pdf.bill');
 
 					$destinationPath = 'public/uploads/bills/';
 					$outputName = $payment->bill_id;

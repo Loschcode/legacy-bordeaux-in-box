@@ -38,21 +38,21 @@ class LogsController extends BaseController {
 	{
 
 		$contacts = Contact::orderBy('created_at', 'DESC')->get();
-		View::share('contacts', $contacts);
+		view()->share('contacts', $contacts);
 
     $all_orders = Order::orderBy('created_at', 'DESC')->get();
-    View::share('all_orders', $all_orders);
+    view()->share('all_orders', $all_orders);
 
     $email_traces = EmailTrace::orderBy('created_at', 'DESC')->get();
-    View::share('email_traces', $email_traces);
+    view()->share('email_traces', $email_traces);
 
 		$contact_setting = ContactSetting::first();
-		View::share('contact_setting', $contact_setting);
+		view()->share('contact_setting', $contact_setting);
 
     $profile_notes = UserProfileNote::orderBy('created_at', 'DESC')->get();
-    View::share('profile_notes', $profile_notes);
+    view()->share('profile_notes', $profile_notes);
 
-		$this->layout->content = View::make('admin.logs.index');
+		$this->layout->content = view()->make('admin.logs.index');
 
 	}
 
@@ -61,7 +61,7 @@ class LogsController extends BaseController {
 
     $email_trace = EmailTrace::find($id);
 
-    return View::make('admin.logs.more')->with(compact('email_trace'));
+    return view()->make('admin.logs.more')->with(compact('email_trace'));
   }
 
 	/**

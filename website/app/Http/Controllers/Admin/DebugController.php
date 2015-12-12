@@ -41,12 +41,12 @@ class DebugController extends BaseController {
     $series_refunded_payments = Payment::whereNotNull('order_id')->orderBy('created_at', 'desc')->where('amount', '<', 0)->get();
     $payments = Payment::whereNull('order_id')->where('amount', '>=', 0)->orderBy('created_at', 'desc')->get();
 
-    View::share('payments', $payments);
-    View::share('all_transactions', $all_transactions);
-    View::share('series_refunded_payments', $series_refunded_payments);
-    View::share('refunded_payments', $refunded_payments);
+    view()->share('payments', $payments);
+    view()->share('all_transactions', $all_transactions);
+    view()->share('series_refunded_payments', $series_refunded_payments);
+    view()->share('refunded_payments', $refunded_payments);
 
-    $this->layout->content = View::make('admin.debug.index');
+    $this->layout->content = view()->make('admin.debug.index');
 
   }
 

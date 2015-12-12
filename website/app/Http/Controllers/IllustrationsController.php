@@ -52,11 +52,11 @@ class IllustrationsController extends BaseController {
 
 		}
 
-		View::share('next_article', $next_article);
-		View::share('image_article', $image_article);
-		View::share('previous_article', $previous_article);
+		view()->share('next_article', $next_article);
+		view()->share('image_article', $image_article);
+		view()->share('previous_article', $previous_article);
 
-		$this->layout->content = View::make('illustrations.index');
+		$this->layout->content = view()->make('illustrations.index');
 
 	}
 

@@ -35,9 +35,9 @@ class UsersController extends BaseController {
 	{
 
 		$users = User::orderBy('created_at', 'desc')->get();
-		View::share('users', $users);
+		view()->share('users', $users);
 
-		$this->layout->content = View::make('admin.users.index');
+		$this->layout->content = view()->make('admin.users.index');
 
 	}
 
@@ -49,7 +49,7 @@ class UsersController extends BaseController {
 	{
 
 		$user = User::find($id);
-		View::share('user', $user);
+		view()->share('user', $user);
 
 		$roles_list = [
 
@@ -58,9 +58,9 @@ class UsersController extends BaseController {
 
 		];
 
-		View::share('roles_list', $roles_list);
+		view()->share('roles_list', $roles_list);
 
-		$this->layout->content = View::make('admin.users.focus');
+		$this->layout->content = view()->make('admin.users.focus');
 
 	}
 

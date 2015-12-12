@@ -38,30 +38,30 @@ class ProductsController extends BaseController {
   {
 
     $partners = Partner::orderBy('created_at', 'desc')->get();
-    View::share('partners', $partners);
+    view()->share('partners', $partners);
 
     $products = PartnerProduct::orderBy('created_at', 'desc')->get();
-    View::share('products', $products);
+    view()->share('products', $products);
 
     $series = DeliverySerie::orderBy('delivery', 'asc')->get();
-    View::share('series', $series);
+    view()->share('series', $series);
 
     $categories_list = ['0' => '-'] + Config::get('bdxnbx.product_categories');
-    View::share('categories_list', $categories_list);
+    view()->share('categories_list', $categories_list);
 
     $product_sizes_list = Config::get('bdxnbx.product_sizes');
-    View::share('product_sizes_list', $product_sizes_list);
+    view()->share('product_sizes_list', $product_sizes_list);
 
     $partners_list = $this->generate_partners_list();
-    View::share('partners_list', $partners_list);
+    view()->share('partners_list', $partners_list);
 
     $products_list = $this->generate_products_list();
-    View::share('products_list', $products_list);
+    view()->share('products_list', $products_list);
 
     $blog_articles_list = $this->generate_blog_articles_list();
-    View::share('blog_articles_list', $blog_articles_list);
+    view()->share('blog_articles_list', $blog_articles_list);
 
-    $this->layout->content = View::make('admin.products.index');
+    $this->layout->content = view()->make('admin.products.index');
 
   }
 
@@ -81,12 +81,12 @@ class ProductsController extends BaseController {
   {
 
     $order = Order::find($order_id);
-    View::share('order', $order);
+    view()->share('order', $order);
 
     $possible_serie_products = ['Nothing' => '-'];
-    View::share('possible_serie_products', $possible_serie_products);
+    view()->share('possible_serie_products', $possible_serie_products);
 
-    $this->layout->content = View::make('admin.products.edit_profile_products');
+    $this->layout->content = view()->make('admin.products.edit_profile_products');
 
   }
 
@@ -584,10 +584,10 @@ class ProductsController extends BaseController {
        */
 
       $devlogs = Devlog::result();
-      View::share('devlogs', $devlogs);
-      View::share('serie', $serie);
+      view()->share('devlogs', $devlogs);
+      view()->share('serie', $serie);
 
-      $this->layout->content = View::make('admin.products.generate_products_selection');
+      $this->layout->content = view()->make('admin.products.generate_products_selection');
 
     }
 
@@ -1078,12 +1078,12 @@ class ProductsController extends BaseController {
   {
 
     $product_filter_setting = ProductFilterSetting::find($product_filter_setting_id);
-    View::share('product_filter_setting', $product_filter_setting);
+    view()->share('product_filter_setting', $product_filter_setting);
 
     $serie = $product_filter_setting->delivery_serie()->first();
-    View::share('serie', $serie);
+    view()->share('serie', $serie);
 
-    $this->layout->content = View::make('admin.products.setup_selection.customize');
+    $this->layout->content = view()->make('admin.products.setup_selection.customize');
 
   }
 
@@ -1152,15 +1152,15 @@ class ProductsController extends BaseController {
   {
 
     $product_filter_setting = ProductFilterSetting::find($product_filter_setting_id);
-    View::share('product_filter_setting', $product_filter_setting);
+    view()->share('product_filter_setting', $product_filter_setting);
 
     $serie = $product_filter_setting->delivery_serie()->first();
-    View::share('serie', $serie);
+    view()->share('serie', $serie);
 
     $products = PartnerProduct::orderBy('slug', 'asc')->get();
-    View::share('products', $products);
+    view()->share('products', $products);
 
-    $this->layout->content = View::make('admin.products.setup_selection.edit');
+    $this->layout->content = view()->make('admin.products.setup_selection.edit');
 
   }
 
@@ -1168,12 +1168,12 @@ class ProductsController extends BaseController {
   {
 
     $serie = DeliverySerie::find($id);
-    View::share('serie', $serie);
+    view()->share('serie', $serie);
 
     $products = PartnerProduct::orderBy('slug', 'asc')->get();
-    View::share('products', $products);
+    view()->share('products', $products);
 
-    $this->layout->content = View::make('admin.products.setup_selection.new');
+    $this->layout->content = view()->make('admin.products.setup_selection.new');
 
   }
 
@@ -1302,13 +1302,13 @@ class ProductsController extends BaseController {
 
     }
 
-    View::share('autofill_checkboxes', $autofill_checkboxes);
-    View::share('autofill_texts', $autofill_texts);
+    view()->share('autofill_checkboxes', $autofill_checkboxes);
+    view()->share('autofill_texts', $autofill_texts);
 
-    View::share('product', $product);
-    View::share('filter_boxes', $filter_boxes);
+    view()->share('product', $product);
+    view()->share('filter_boxes', $filter_boxes);
 
-    $this->layout->content = View::make('admin.products.advanced_filters');
+    $this->layout->content = view()->make('admin.products.advanced_filters');
 
   }
 
@@ -1651,22 +1651,22 @@ class ProductsController extends BaseController {
     $product = PartnerProduct::find($id);
 
     $products_list = $this->generate_products_list();
-    View::share('products_list', $products_list);
+    view()->share('products_list', $products_list);
 
     $categories_list = ['0' => '-'] + Config::get('bdxnbx.product_categories');
-    View::share('categories_list', $categories_list);
+    view()->share('categories_list', $categories_list);
 
     $product_sizes_list = Config::get('bdxnbx.product_sizes');
-    View::share('product_sizes_list', $product_sizes_list);
+    view()->share('product_sizes_list', $product_sizes_list);
 
     $partners_list = $this->generate_partners_list();
-    View::share('partners_list', $partners_list);
+    view()->share('partners_list', $partners_list);
 
     if ($product !== NULL)
     {
 
-      View::share('product', $product);
-      $this->layout->content = View::make('admin.products.edit');
+      view()->share('product', $product);
+      $this->layout->content = view()->make('admin.products.edit');
 
     }
 
@@ -1686,10 +1686,10 @@ class ProductsController extends BaseController {
     {
 
       $blog_articles_list = $this->generate_blog_articles_list();
-      View::share('blog_articles_list', $blog_articles_list);
+      view()->share('blog_articles_list', $blog_articles_list);
 
-      View::share('partner', $partner);
-      $this->layout->content = View::make('admin.products.partners.edit');
+      view()->share('partner', $partner);
+      $this->layout->content = view()->make('admin.products.partners.edit');
 
     }
 

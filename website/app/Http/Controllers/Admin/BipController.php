@@ -26,7 +26,7 @@ class BipController extends BaseController {
 
   public function getIndex()
   {
-    $this->layout->content = View::make('admin.bip.index');
+    $this->layout->content = view()->make('admin.bip.index');
   }
 
 }

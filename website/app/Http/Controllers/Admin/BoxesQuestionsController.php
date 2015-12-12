@@ -42,10 +42,10 @@ class BoxesQuestionsController extends BaseController {
 
 			$questions = $box->questions()->orderBy('position', 'asc')->get();
 
-			View::share('questions', $questions);
-			View::share('box', $box);
+			view()->share('questions', $questions);
+			view()->share('box', $box);
 
-		$this->layout->content = View::make('admin.boxes.questions.index');
+		$this->layout->content = view()->make('admin.boxes.questions.index');
 
 		}
 
@@ -62,13 +62,13 @@ class BoxesQuestionsController extends BaseController {
 		if ($question !== NULL)
 		{
 
-			View::share('question', $question);
+			view()->share('question', $question);
 
 			$box = $question->box()->first();
 			$position_listing = $this->_generate_position_listing($box, 1); // No incrementation
-			View::share('position_listing', $position_listing);
+			view()->share('position_listing', $position_listing);
 
-			$this->layout->content = View::make('admin.boxes.questions.edit');
+			$this->layout->content = view()->make('admin.boxes.questions.edit');
 
 		}
 
@@ -148,12 +148,12 @@ class BoxesQuestionsController extends BaseController {
 		$box = Box::find($id);
 		if ($box === NULL) return Response::error(404);
 
-		View::share('box', $box);
+		view()->share('box', $box);
 
 		$position_listing = $this->_generate_position_listing($box, 2); // Incrementation +1
-		View::share('position_listing', $position_listing);
+		view()->share('position_listing', $position_listing);
 
-		$this->layout->content = View::make('admin.boxes.questions.new');
+		$this->layout->content = view()->make('admin.boxes.questions.new');
 
 	}
 

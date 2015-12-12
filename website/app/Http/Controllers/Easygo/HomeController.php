@@ -129,7 +129,7 @@ class HomeController extends BaseController {
     $spots = $this->_fetch_spots($orders);
 
     // Render view
-    $this->layout->content = View::make('easygo.locked')->with(compact(
+    $this->layout->content = view()->make('easygo.locked')->with(compact(
 
       'serie',
       'orders',
@@ -152,7 +152,7 @@ class HomeController extends BaseController {
     // Fetch unpaid orders
     $unpaid = Order::with('user_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('already_paid', 0)->get();
 
-    $this->layout->content = View::make('easygo.unpaid')->with(compact(
+    $this->layout->content = view()->make('easygo.unpaid')->with(compact(
 
       'unpaid'
 
@@ -196,7 +196,7 @@ class HomeController extends BaseController {
 
     $current_query = Input::query();
 
-    $this->layout->content = View::make('easygo.index')->with(compact(
+    $this->layout->content = view()->make('easygo.index')->with(compact(
 
       'raw_orders',
       'orders_completed',

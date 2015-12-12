@@ -26,7 +26,7 @@ class LightboxController extends BaseController {
 
   public function getIndex()
   {
-    $this->layout->content = View::make('admin.lightbox.index');
+    $this->layout->content = view()->make('admin.lightbox.index');
   }
 
   public function getSuperheroes()
@@ -41,7 +41,7 @@ class LightboxController extends BaseController {
       'spiderman'
 
     ];
-    return View::make('admin.lightbox.superheroes')->with(compact('heroes'));
+    return view()->make('admin.lightbox.superheroes')->with(compact('heroes'));
   }
 
   public function getMoreSuperheroes()
@@ -59,7 +59,7 @@ class LightboxController extends BaseController {
      'catwoman'
 
    ];
-   return View::make('admin.lightbox.more_superheroes')->with(compact('heroes')); 
+   return view()->make('admin.lightbox.more_superheroes')->with(compact('heroes')); 
   }
   
 

@@ -39,10 +39,10 @@ class BoxesController extends BaseController {
 		$active_boxes = Box::where('active', TRUE)->orderBy('created_at', 'desc')->get();
 		$unactive_boxes = Box::where('active', FALSE)->orderBy('created_at', 'desc')->get();
 
-		View::share('active_boxes', $active_boxes);
-		View::share('unactive_boxes', $unactive_boxes);
+		view()->share('active_boxes', $active_boxes);
+		view()->share('unactive_boxes', $unactive_boxes);
 
-		$this->layout->content = View::make('admin.boxes.index');
+		$this->layout->content = view()->make('admin.boxes.index');
 
 	}
 
@@ -57,8 +57,8 @@ class BoxesController extends BaseController {
 		if ($box !== NULL)
 		{
 
-			View::share('box', $box);
-			$this->layout->content = View::make('admin.boxes.edit');
+			view()->share('box', $box);
+			$this->layout->content = view()->make('admin.boxes.edit');
 
 		}
 
@@ -127,7 +127,7 @@ class BoxesController extends BaseController {
 	public function getNew()
 	{
 
-		$this->layout->content = View::make('admin.boxes.new');
+		$this->layout->content = view()->make('admin.boxes.new');
 
 	}
 

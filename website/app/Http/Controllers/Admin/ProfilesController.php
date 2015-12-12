@@ -39,12 +39,12 @@ class ProfilesController extends BaseController {
 	{
 		
 		$profiles = UserProfile::orderBy('created_at', 'desc')->get();
-		View::share('profiles', $profiles);
+		view()->share('profiles', $profiles);
 
 		$config_graph_user_profile_status_progress = $this->user_profile_status_progress_graph_config();
-		View::share('config_graph_user_profile_status_progress', $config_graph_user_profile_status_progress);
+		view()->share('config_graph_user_profile_status_progress', $config_graph_user_profile_status_progress);
 
-		$this->layout->content = View::make('admin.profiles.index');
+		$this->layout->content = view()->make('admin.profiles.index');
 
 	}
 
@@ -171,20 +171,20 @@ class ProfilesController extends BaseController {
 			}
 
       $delivery_spots = DeliverySpot::where('active', TRUE)->orderBy('created_at', 'desc')->get();
-      View::share('delivery_spots', $delivery_spots);
+      view()->share('delivery_spots', $delivery_spots);
 
-			View::share('next_delivery_order', $next_delivery_order);
-			View::share('order_destination', $order_destination);
-      View::share('order_delivery_spot', $order_delivery_spot);
-			View::share('order_billing', $order_billing);
+			view()->share('next_delivery_order', $next_delivery_order);
+			view()->share('order_destination', $order_destination);
+      view()->share('order_delivery_spot', $order_delivery_spot);
+			view()->share('order_billing', $order_billing);
 
-			View::share('box', $box);
-			View::share('user', $user);
-			View::share('questions', $questions);
-			View::share('order_preference', $order_preference);
+			view()->share('box', $box);
+			view()->share('user', $user);
+			view()->share('questions', $questions);
+			view()->share('order_preference', $order_preference);
 
-			View::share('profile', $profile);
-			$this->layout->content = View::make('admin.profiles.edit');
+			view()->share('profile', $profile);
+			$this->layout->content = view()->make('admin.profiles.edit');
 
 		}
 

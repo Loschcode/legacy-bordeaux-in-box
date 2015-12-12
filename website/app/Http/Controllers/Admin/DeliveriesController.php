@@ -41,27 +41,27 @@ class DeliveriesController extends BaseController {
     $payments = Payment::orderBy('created_at', 'desc')->get();
     $boxes = Box::orderBy('created_at', 'desc')->get();
 
-    View::share('payments', $payments);
-    View::share('boxes', $boxes);
+    view()->share('payments', $payments);
+    view()->share('boxes', $boxes);
 
     $series = DeliverySerie::orderBy('delivery', 'asc')->get();
     $prices = DeliveryPrice::orderBy('unity_price')->get();
     $settings = DeliverySetting::first();
 
-    View::share('series', $series);
-    View::share('prices', $prices);
-    View::share('settings', $settings);
+    view()->share('series', $series);
+    view()->share('prices', $prices);
+    view()->share('settings', $settings);
 
     $config_graph_all_orders = $this->all_orders_graph_config($series);
-    View::share('config_graph_all_orders', $config_graph_all_orders);
+    view()->share('config_graph_all_orders', $config_graph_all_orders);
 
     $config_graph_all_payments = $this->all_payments_graph_config($series);
-    View::share('config_graph_all_payments', $config_graph_all_payments);
+    view()->share('config_graph_all_payments', $config_graph_all_payments);
 
     $config_graph_box_orders = $this->box_orders_graph_config();
-    View::share('config_graph_box_orders', $config_graph_box_orders);
+    view()->share('config_graph_box_orders', $config_graph_box_orders);
 
-    $this->layout->content = View::make('admin.deliveries.index');
+    $this->layout->content = view()->make('admin.deliveries.index');
 
   }
 
@@ -69,27 +69,27 @@ class DeliveriesController extends BaseController {
   {
 
     $series = DeliverySerie::find($id);
-    View::share('series', $series);
+    view()->share('series', $series);
 
     $spots = DeliverySpot::get();
-    View::share('spots', $spots);
+    view()->share('spots', $spots);
 
     $form_stats = $series->getFormStats();
-    View::share('form_stats', $form_stats);
+    view()->share('form_stats', $form_stats);
 
     $boxes = Box::get();
-    View::share('boxes', $boxes);
+    view()->share('boxes', $boxes);
 
     $config_graph_series_orders = $this->series_orders_graph_config($series);
-    View::share('config_graph_series_orders', $config_graph_series_orders);
+    view()->share('config_graph_series_orders', $config_graph_series_orders);
 
     $series_email_listing = get_email_listing_from_orders($series->orders()->notCanceledOrders()->get());
-    View::share('series_email_listing', $series_email_listing);
+    view()->share('series_email_listing', $series_email_listing);
 
     $series_unfinished_email_listing = get_email_listing_from_unfinished_profiles($series);
-    View::share('series_unfinished_email_listing', $series_unfinished_email_listing);
+    view()->share('series_unfinished_email_listing', $series_unfinished_email_listing);
 
-    $this->layout->content = View::make('admin.deliveries.focus');
+    $this->layout->content = view()->make('admin.deliveries.focus');
 
   }
 
@@ -97,15 +97,15 @@ class DeliveriesController extends BaseController {
   {
 
     $box = Box::find($id);
-    View::share('box', $box);
+    view()->share('box', $box);
 
     $config_graph_box_orders = $this->box_orders_graph_config($box);
-    View::share('config_graph_box_orders', $config_graph_box_orders);
+    view()->share('config_graph_box_orders', $config_graph_box_orders);
 
     $box_email_listing = get_email_listing_from_orders($box->orders()->notCanceledOrders()->get());
-    View::share('box_email_listing', $box_email_listing);
+    view()->share('box_email_listing', $box_email_listing);
 
-    $this->layout->content = View::make('admin.deliveries.focus_box');
+    $this->layout->content = view()->make('admin.deliveries.focus_box');
 
   }
 
@@ -117,9 +117,9 @@ class DeliveriesController extends BaseController {
   {
 
     $series = DeliverySerie::find($id);
-    View::share('series', $series);
+    view()->share('series', $series);
 
-    $this->layout->content = View::make('admin.deliveries.edit');
+    $this->layout->content = view()->make('admin.deliveries.edit');
 
   }
 

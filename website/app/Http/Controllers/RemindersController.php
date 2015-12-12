@@ -25,7 +25,7 @@ class RemindersController extends BaseController {
 	 */
 	public function getRemind()
 	{
-		$this->layout->content = View::make('user.password.remind');
+		$this->layout->content = view()->make('user.password.remind');
 	}
 
 	/**
@@ -59,7 +59,7 @@ class RemindersController extends BaseController {
 	{
 		if (is_null($token)) App::abort(404);
 
-		$this->layout->content = View::make('user.password.reset')->with('token', $token);
+		$this->layout->content = view()->make('user.password.reset')->with('token', $token);
 	}
 
 	/**

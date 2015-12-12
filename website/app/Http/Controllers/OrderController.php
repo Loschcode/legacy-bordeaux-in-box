@@ -97,10 +97,10 @@ class OrderController extends BaseController {
 		$order_building = $user->order_building()->first();
 		$order_preference = $order_building->order_preference()->first();
 
-		View::share(compact('boxes', 'order_preference'));
+		view()->share(compact('boxes', 'order_preference'));
 
 
-		$this->layout->content = View::make('order.choose_box');
+		$this->layout->content = view()->make('order.choose_box');
 
 	}
 
@@ -174,11 +174,11 @@ class OrderController extends BaseController {
 
 		// Back case
 		//$answers = $profile->answers();
-		//View::share('answers', $answers);
+		//view()->share('answers', $answers);
 
-		View::share(compact('profile', 'box', 'questions', 'order_preference'));
+		view()->share(compact('profile', 'box', 'questions', 'order_preference'));
 
-		$this->layout->content = View::make('order.box_form');
+		$this->layout->content = view()->make('order.box_form');
 
 	}
 
@@ -293,11 +293,11 @@ class OrderController extends BaseController {
 
 		$delivery_prices = DeliveryPrice::where('gift', $order_preference->gift)->orderBy('unity_price', 'asc')->get();
 
-		View::share('next_series', $next_series);
-		View::share('delivery_prices', $delivery_prices);
-		View::share('order_preference', $order_preference);
+		view()->share('next_series', $next_series);
+		view()->share('delivery_prices', $delivery_prices);
+		view()->share('order_preference', $order_preference);
 
-		$this->layout->content = View::make('order.choose_frequency');
+		$this->layout->content = view()->make('order.choose_frequency');
 
 	}
 
@@ -361,11 +361,11 @@ class OrderController extends BaseController {
 
 		$order_building = $user->order_building()->first();
 
-		View::share('user', $user);
-		View::share('order_building', $order_building);
-		View::share('order_preference', $order_building->order_preference()->first());
+		view()->share('user', $user);
+		view()->share('order_building', $order_building);
+		view()->share('order_preference', $order_building->order_preference()->first());
 
-		$this->layout->content = View::make('order.billing_address');
+		$this->layout->content = view()->make('order.billing_address');
 
 	}
 
@@ -450,7 +450,7 @@ class OrderController extends BaseController {
 		$order_preference = $order_building->order_preference()->first();
 
 		// Back
-		View::share('order_preference', $order_preference);
+		view()->share('order_preference', $order_preference);
 
 		if (!$order_building->isRegionalAddress()) {
 
@@ -482,7 +482,7 @@ class OrderController extends BaseController {
 
 		}
 
-		$this->layout->content = View::make('order.delivery_mode');
+		$this->layout->content = view()->make('order.delivery_mode');
 
 	}
 
@@ -563,13 +563,13 @@ class OrderController extends BaseController {
 		if ($chosen_delivery_spot === NULL) $chosen_delivery_spot = 0;
 		else $chosen_delivery_spot = $chosen_delivery_spot->id;
 
-		View::share('chosen_delivery_spot', $chosen_delivery_spot);
+		view()->share('chosen_delivery_spot', $chosen_delivery_spot);
 
 		$delivery_spots = DeliverySpot::where('active', TRUE)->get();
 
-		View::share('delivery_spots', $delivery_spots);
+		view()->share('delivery_spots', $delivery_spots);
 
-		$this->layout->content = View::make('order.choose_spot');
+		$this->layout->content = view()->make('order.choose_spot');
 
 	}
 
@@ -628,14 +628,14 @@ class OrderController extends BaseController {
 		$order_preference = $order_building->order_preference()->first();
 		$delivery_spot = $order_preference->delivery_spot()->first(); // May be NULL
 
-		View::share('user', $user);
-		View::share('order_building', $order_building);
-		View::share('profile', $profile);
-		View::share('order_preference', $order_preference);
-		View::share('delivery_spot', $delivery_spot);
+		view()->share('user', $user);
+		view()->share('order_building', $order_building);
+		view()->share('profile', $profile);
+		view()->share('order_preference', $order_preference);
+		view()->share('delivery_spot', $delivery_spot);
 
 
-		$this->layout->content = View::make('order.payment');
+		$this->layout->content = view()->make('order.payment');
 
 	}
 
@@ -882,7 +882,7 @@ class OrderController extends BaseController {
 		// We will delete the user building system because we don't need it anymore
 		Auth::user()->order_building()->first()->delete();
 
-		$this->layout->content = View::make('order.confirmed');
+		$this->layout->content = view()->make('order.confirmed');
 
 	}
 

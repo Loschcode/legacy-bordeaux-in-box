@@ -37,15 +37,15 @@ class ContentController extends BaseController {
 	{
 
 		$blog_articles = BlogArticle::orderBy('created_at', 'desc')->get();
-		View::share('blog_articles', $blog_articles);
+		view()->share('blog_articles', $blog_articles);
 
 		$image_articles = ImageArticle::orderBy('created_at', 'desc')->get();
-		View::share('image_articles', $image_articles);
+		view()->share('image_articles', $image_articles);
 
 		$pages = Page::get();
-		View::share('pages', $pages);
+		view()->share('pages', $pages);
 
-		$this->layout->content = View::make('admin.content.index');
+		$this->layout->content = view()->make('admin.content.index');
 
 	}
 
@@ -81,8 +81,8 @@ class ContentController extends BaseController {
 		if ($blog_article !== NULL)
 		{
 
-			View::share('blog_article', $blog_article);
-			$this->layout->content = View::make('admin.content.blog.edit');
+			view()->share('blog_article', $blog_article);
+			$this->layout->content = view()->make('admin.content.blog.edit');
 
 		}
 
@@ -173,7 +173,7 @@ class ContentController extends BaseController {
 	public function getNewBlog()
 	{
 
-		$this->layout->content = View::make('admin.content.blog.new');
+		$this->layout->content = view()->make('admin.content.blog.new');
 
 	}
 
@@ -331,8 +331,8 @@ class ContentController extends BaseController {
 		if ($image_article !== NULL)
 		{
 
-			View::share('image_article', $image_article);
-			$this->layout->content = View::make('admin.content.illustrations.edit');
+			view()->share('image_article', $image_article);
+			$this->layout->content = view()->make('admin.content.illustrations.edit');
 
 		}
 
@@ -405,7 +405,7 @@ class ContentController extends BaseController {
 	public function getNewIllustration()
 	{
 
-		$this->layout->content = View::make('admin.content.illustrations.new');
+		$this->layout->content = view()->make('admin.content.illustrations.new');
 
 	}
 
