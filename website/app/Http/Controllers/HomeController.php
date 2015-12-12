@@ -3,6 +3,9 @@
 use App\Http\Controllers\BaseController;
 
 use App\Models\DeliverySerie;
+use App\Models\BlogArticle;
+use App\Models\DeliverySpot;
+use App\Models\Page;
 
 class HomeController extends BaseController {
 
@@ -27,13 +30,11 @@ class HomeController extends BaseController {
 	{
 
 		$next_series = DeliverySerie::nextOpenSeries();
-		view()->share('next_series', $next_series);
 
 		// Blog articles
 		$articles = BlogArticle::orderBy('id', 'DESC')->limit(12)->get();
-		view()->share('articles', $articles);
 
-		$this->layout->content = view()->make('home.index');
+		return view('home.index')->with(compact('next_series', 'articles'));
 	}
 
 	public function getLegals()

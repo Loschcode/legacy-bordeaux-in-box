@@ -1,8 +1,9 @@
+@extends('layouts.master')
 @section('content')
 
 	<div class="center">
 
-		<img class="img --artwork" src="{{ url('public/images/artwork.png') }}" />
+		<img class="img --artwork" src="{{ url('images/artwork.png') }}" />
 
 		<p class="heading --md --xlight">
 			Des surprises tous les mois dans une petite boîte rien que pour toi !
@@ -70,7 +71,7 @@
 			<div class="col-md-4 center">
 				<h2 class="heading --amatic --lg">Etape 1</h2>
         <div class="img --step1">
-				  <img src="{{ url('public/images/step1.png') }}" />
+				  <img src="{{ url('images/step1.png') }}" />
         </div>
 				<p class="text">
 					Mamoune, poulette ou bichette ? Tu as le choix entre 3 thèmes ! Et pour que ta box te ressemble au mieux, nous te posons en plus  quelques petites questions !
@@ -80,7 +81,7 @@
 				<h2 class="heading --amatic --lg">Etape 2</h2>
 				<div class="block-step">
           <div class="img --step2">
-					 <img src="{{ url('public/images/step2.png') }}" />
+					 <img src="{{ url('images/step2.png') }}" />
           </div>
 				</div>
 				<p class="text">
@@ -90,7 +91,7 @@
 			<div class="col-md-4 center">
 				<h2 class="heading --amatic --lg">Etape 3</h2>
         <div class="img --step3">
-				  <img src="{{ url('public/images/step3.png') }}" />
+				  <img src="{{ url('images/step3.png') }}" />
         </div>
 				<p class="text">
 					Et voilà ! Tu n'as plus qu'à attendre le début du mois suivant pour la recevoir chez toi ou la récupérer dans une de nos boutiques complices.
@@ -110,7 +111,7 @@
 				<div class="spacer100"></div>
 
 					<div id="candies" class="w33 block block-green">
-							<img class="icon icon-cake" src="{{ url('public/assets/img/icons/cake.png') }}" />
+							<img class="icon icon-cake" src="{{ url('assets/img/icons/cake.png') }}" />
 							<h1 class="title-step">Des produits prêts à manger</h1>
 							<p>
 								Du vin, forcément on est à Bordeaux, des macarons, du thé, des chocolats
@@ -118,14 +119,14 @@
 							</p>
 					</div>
 					<div class="w33-middle block block-yellow">
-							<img class="icon icon-underwear" src="{{ url('public/assets/img/icons/underwear.png') }}" />
+							<img class="icon icon-underwear" src="{{ url('assets/img/icons/underwear.png') }}" />
 							<h1 class="title-step">Des objets prêts à utiliser</h1>
 							<p>
 							  Des produits de beauté, des jolis bijoux, des accessoires originaux pour les enfants ou pour les grands,
 							</p>
 					</div>
 					<div class="w33 block block-pink">
-						<img class="icon icon-glasses" src="{{ url('public/assets/img/icons/glasses.png') }}" />
+						<img class="icon icon-glasses" src="{{ url('assets/img/icons/glasses.png') }}" />
 						<h1 class="title-step">Des offres prêtes à tester</h1>
 						<p>
 							 Places de concert, séances de bien-être, repas pour 2, visites culturelles, en plus des événements organisés par Bordeaux in Box.
