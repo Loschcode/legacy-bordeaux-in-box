@@ -1,6 +1,14 @@
+# Composer
 /vendor
+composer.lock
+
+# Npm folder
 /node_modules
+
+# Local Configuration
 .env
+
+# Uploads
 /uploads/bill
 /uploads/blog
 /uploads/boxes
@@ -9,3 +17,4 @@
 /uploads/packs
 /uploads/partners
 /uploads/products
+
