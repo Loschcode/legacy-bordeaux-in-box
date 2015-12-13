@@ -60,6 +60,7 @@ function generate_percent_form() {
     ];
 
 }
+
 function generate_month_form() {
 
   return [
@@ -79,3 +80,4 @@ function generate_month_form() {
     "12" => 'en Décembre'
 
     ];
+}
