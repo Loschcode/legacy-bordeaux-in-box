@@ -29,7 +29,11 @@ class HomeController extends BaseController {
     // Blog articles
     $articles = BlogArticle::orderBy('id', 'DESC')->limit(12)->get();
 
-    return view('home.index')->with(compact('next_series', 'articles'));
+    return view('home.index')->with(compact(
+      'next_series', 
+      'articles'
+    ));
+
   }
 
   /**
@@ -38,7 +42,9 @@ class HomeController extends BaseController {
   public function getLegals()
   {  
     $legal = Page::where('slug', 'legals')->first();
-    return view('home.legal')->with(compact('legal'));
+    return view('home.legal')->with(compact(
+      'legal'
+    ));
   }
 
   /**
@@ -47,7 +53,9 @@ class HomeController extends BaseController {
   public function getCgv()
   {  
     $cgv = Page::where('slug', 'cgv')->first();
-    return view('home.cgv')->with(compact('cgv'));
+    return view('home.cgv')->with(compact(
+      'cgv'
+    ));
   }
 
   /**
@@ -56,7 +64,9 @@ class HomeController extends BaseController {
   public function getHelp()
   {  
     $help = Page::where('slug', 'help')->first();
-    return view('home.help')->with(compact('help'));
+    return view('home.help')->with(compact(
+      'help'
+    ));
   }
 
   /**
@@ -65,7 +75,9 @@ class HomeController extends BaseController {
   public function getSpots()
   {
     $delivery_spots = DeliverySpot::get();
-    return view('home.spots')->with(compact('delivery_spots'));
+    return view('home.spots')->with(compact(
+      'delivery_spots'
+    ));
   }
 
 }
