@@ -146,6 +146,7 @@ return [
 		'App\Providers\EventServiceProvider',
 		'App\Providers\RouteServiceProvider',
     'App\Providers\HelperServiceProvider',
+    'App\Providers\MacroServiceProvider',
 
 		/* 
 		 * App
