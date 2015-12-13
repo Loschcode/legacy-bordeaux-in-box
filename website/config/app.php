@@ -149,7 +149,9 @@ return [
 		/* 
 		 * App
 		 */
-    'Illuminate\Html\HtmlServiceProvider',
+    'Collective\Html\HtmlServiceProvider',
+
+    //'Illuminate\Html\HtmlServiceProvider',
 		//'Thujohn\Pdf\PdfServiceProvider',
 		//'Jenssegers\Date\DateServiceProvider',
 		//'Fadion\Maneuver\ManeuverServiceProvider',
@@ -204,12 +206,14 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
+    'Form' => 'Collective\Html\FormFacade',
+    'HTML' => 'Collective\Html\HtmlFacade'
 
 		/*
 		 * App
 		 */
-    'Form' => 'Illuminate\Html\FormFacade', 
-    'HTML' => 'Illuminate\Html\HtmlFacade'
+    //'Form' => 'Illuminate\Html\FormFacade', 
+    //'HTML' => 'Illuminate\Html\HtmlFacade'
     
 		//'PDF' => 'Thujohn\Pdf\PdfFacade',
 		//'Date' => 'Jenssegers\Date\Date',
