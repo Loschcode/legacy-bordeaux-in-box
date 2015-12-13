@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\BoxQuestion;
+use App\Models\BoxAnswer;
+
 class BoxesQuestionsAnswersController extends BaseController {
 
 	/*

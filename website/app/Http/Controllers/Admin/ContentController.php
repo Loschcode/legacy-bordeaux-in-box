@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\BlogArticle;
+use App\Models\ImageArticle;
+
+
 class ContentController extends BaseController {
 
 	/*

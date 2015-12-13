@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\User;
+
 class UsersController extends BaseController {
 
 	/*

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\Box;
+
 class BoxesController extends BaseController {
 
 	/*

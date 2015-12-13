@@ -4,6 +4,10 @@ use App\Http\Controllers\BaseController;
 
 use Carbon\Carbon;
 
+use App\Models\UserProfile;
+use App\Models\DeliverySpot;
+use App\Models\OrderDestination;
+
 class ProfilesController extends BaseController {
 
 	/*

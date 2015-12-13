@@ -2,6 +2,17 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\Order;
+use App\Models\UserProfile;
+use App\Models\User;
+use App\Models\UserAnswer;
+use App\Models\UserOrderBuilding;
+use App\Models\Payment;
+use App\Models\PaymentProfile;
+use App\Models\UserOrderPreference;
+use App\Models\DeliverySerie;
+
+
 class DebugController extends BaseController {
 
   /*

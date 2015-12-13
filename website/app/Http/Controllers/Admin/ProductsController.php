@@ -3,6 +3,19 @@
 use App\Http\Controllers\BaseController;
 use Carbon\Carbon; 
 
+use App\Models\Partner;
+use App\Models\PartnerProduct;
+use App\Models\DeliverySerie;
+use App\Models\Order;
+use App\Models\UserProfileProduct;
+use App\Models\ProductFilterSetting;
+use App\Models\SerieProduct;
+use App\Models\BlogArticle;
+
+
+
+
+
 class ProductsController extends BaseController {
 
   /*

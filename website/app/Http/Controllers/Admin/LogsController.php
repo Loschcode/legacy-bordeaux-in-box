@@ -2,6 +2,12 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\Contact;
+use App\Models\Order;
+use App\Models\EmailTrace;
+use App\Models\ContactSetting;
+use App\Models\UserProfileNote;
+
 class LogsController extends BaseController {
 
 	/*

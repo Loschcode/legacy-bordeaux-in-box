@@ -3,6 +3,14 @@
 use App\Http\Controllers\BaseController;
 use Carbon\Carbon; 
 
+use App\Models\Payment;
+use App\Models\Box;
+use App\Models\DeliverySerie;
+use App\Models\DeliverySetting;
+use App\Models\DeliveryPrice;
+use App\Models\DeliverySpot;
+use App\Models\Order;
+
 class DeliveriesController extends BaseController {
 
   /*

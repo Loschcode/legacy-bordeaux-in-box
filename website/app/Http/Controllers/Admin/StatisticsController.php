@@ -4,6 +4,9 @@ use App\Http\Controllers\BaseController;
 
 use Carbon\Carbon;
 
+use App\Models\DeliverySerie;
+use App\Models\UserOrderBuilding;
+
 class StatisticsController extends BaseController {
 
   /*
