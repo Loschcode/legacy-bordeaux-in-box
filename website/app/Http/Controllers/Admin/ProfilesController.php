@@ -68,17 +68,12 @@ class ProfilesController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $profile = UserProfile::find($fields['profile_id']);
+      $profile = UserProfile::findOrFail($fields['profile_id']);
+      $profile->priority = $fields['priority'];
+      $profile->save();
 
-      if ($profile !== NULL)
-      {
-        $profile->priority = $fields['priority'];
-        $profile->save();
-
-        Session::flash('message', "La priorité de l'abonnement a été mise à jour");
-        return Redirect::back();
-      }
-
+      Session::flash('message', "La priorité de l'abonnement a été mise à jour");
+      return Redirect::back();
 
     } else {
 
@@ -114,18 +109,11 @@ class ProfilesController extends BaseController {
 	public function getDelete($id)
 	{
 
-		$profile = UserProfile::find($id);
+    $profile = UserProfile::findOrFail($id);
+    $profile->delete();
 
-		if ($profile !== NULL)
-		{
-
-			$profile->delete();
-
-			Session::flash('message', "L'abonnement a bien été supprimé");
-			return Redirect::back();
-
-
-		}
+    Session::flash('message', "L'abonnement a bien été supprimé");
+    return Redirect::back();
 
 	}
 
@@ -135,55 +123,49 @@ class ProfilesController extends BaseController {
 	public function getEdit($id)
 	{
 
-		$profile = UserProfile::find($id);
+		$profile = UserProfile::findOrFail($id);
 
-		if ($profile !== NULL)
-		{
+    $box = $profile->box()->first();
 
-			$box = $profile->box()->first();
+    if ($box != NULL) {
+      $questions = $box->questions()->get();
+    } else {
+      $questions = [];
+    }
 
-			if ($box != NULL)
-			{
-				$questions = $box->questions()->get();
-			} else {
-				$questions = [];
-			}
+    $order_preference = $profile->order_preference()->first();
+    $user = $profile->user()->first();
 
-			$order_preference = $profile->order_preference()->first();
-			$user = $profile->user()->first();
+    $next_delivery_order = $profile->orders()->where('locked', FALSE)->whereNull('date_completed')->first();
 
-			$next_delivery_order = $profile->orders()->where('locked', FALSE)->whereNull('date_completed')->first();
+    if ($next_delivery_order != NULL) {
 
-			if ($next_delivery_order != NULL) {
+      $order_destination = $next_delivery_order->destination()->first();
+      $order_billing = $next_delivery_order->billing()->first();
+      $order_delivery_spot = $next_delivery_order->delivery_spot()->first();
 
-				$order_destination = $next_delivery_order->destination()->first();
-				$order_billing = $next_delivery_order->billing()->first();
-        $order_delivery_spot = $next_delivery_order->delivery_spot()->first();
+    } else {
 
-			} else {
+      $order_destination = NULL;
+      $order_billing = NULL;
+      $order_delivery_spot = NULL;
 
-				$order_destination = NULL;
-				$order_billing = NULL;
-        $order_delivery_spot = NULL;
+    }
 
-			}
+    $delivery_spots = DeliverySpot::where('active', TRUE)->orderBy('created_at', 'desc')->get();
 
-      $delivery_spots = DeliverySpot::where('active', TRUE)->orderBy('created_at', 'desc')->get();
-
-			return view('admin.profiles.edit')->with(compact(
-        'delivery_spots',
-        'next_delivery_order',
-        'order_destination',
-        'order_delivery_spot',
-        'order_billing',
-        'box',
-        'user',
-        'questions',
-        'order_preference',
-        'profile'
+    return view('admin.profiles.edit')->with(compact(
+      'delivery_spots',
+      'next_delivery_order',
+      'order_destination',
+      'order_delivery_spot',
+      'order_billing',
+      'box',
+      'user',
+      'questions',
+      'order_preference',
+      'profile'
       ));
-
-		}
 
 	}
 
@@ -195,7 +177,7 @@ class ProfilesController extends BaseController {
 	public function getCancelSubscription($profile_id)
 	{
 
-		$profile = UserProfile::find($profile_id);
+		$profile = UserProfile::findOrFail($profile_id);
 		$user = $profile->user()->first();
 
 		$payment_profile = $profile->payment_profile()->first();
@@ -257,10 +239,8 @@ class ProfilesController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$profile = UserProfile::find($fields['user_profile_id']);
+			$profile = UserProfile::findOrFail($fields['user_profile_id']);
 			
-			if ($profile == NULL) return Redirect::to('/');
-
 			$note = new UserProfileNote;
 			$note->user_profile_id = $profile->id;
 			$note->user_id = Auth::user()->id;

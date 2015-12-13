@@ -59,14 +59,8 @@ class IllustrationsController extends BaseController {
 
   public function checkSeoIllustrations($id, $slug)
   {
-    $image_article = ImageArticle::find($id);
-
-    // If NULL
-    if ($image_article === NULL)
-    {
-      return abot(404);
-    }
-
+    $image_article = ImageArticle::findOrFail($id);
+    
     // If not correct slug
     if ($slug !== $image_article->slug)
     {

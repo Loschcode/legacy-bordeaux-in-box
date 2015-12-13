@@ -94,7 +94,7 @@ class DeliveriesController extends BaseController {
   public function getFocusBox($id)
   {
 
-    $box = Box::find($id);
+    $box = Box::findOrFail($id);
 
     $config_graph_box_orders = $this->box_orders_graph_config($box);
 
@@ -114,7 +114,7 @@ class DeliveriesController extends BaseController {
    */
   public function getEdit($id)
   {
-    $series = DeliverySerie::find($id);
+    $series = DeliverySerie::findOrFail($id);
 
     return view('admin.deliveries.edit')->with(compact(
       'series'
@@ -146,21 +146,18 @@ class DeliveriesController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $serie = DeliverySerie::find($fields['delivery_series_id']);
+      $serie = DeliverySerie::findOrFail($fields['delivery_series_id']);
 
-      if ($serie !== NULL) {
+      $serie->delivery = $fields['delivery'];
 
-        $serie->delivery = $fields['delivery'];
+      if ($fields['goal']) $serie->goal = $fields['goal'];
+      else $serie->goal = NULL;
 
-        if ($fields['goal']) $serie->goal = $fields['goal'];
-        else $serie->goal = NULL;
+      $serie->save();
 
-        $serie->save();
+      Session::flash('message', "La série a bien été mise à jour");
+      return Redirect::to('/admin/deliveries');
 
-        Session::flash('message', "La série a bien été mise à jour");
-        return Redirect::to('/admin/deliveries');
-
-    }
 
     } else {
 
@@ -181,18 +178,12 @@ class DeliveriesController extends BaseController {
   public function getDelete($id)
   {
 
-    $profile = DeliverySerie::find($id);
+    $profile = DeliverySerie::findOrFail($id);
+    
+    $profile->delete();
 
-    if ($profile !== NULL)
-    {
-
-      $profile->delete();
-
-      Session::flash('message', "La série a bien été supprimé");
-      return Redirect::back();
-
-
-    }
+    Session::flash('message', "La série a bien été supprimé");
+    return Redirect::back();
 
   }
 
@@ -233,10 +224,10 @@ class DeliveriesController extends BaseController {
       Session::flash('message', "Cette offre a bien été ajoutée");
       return Redirect::back();
 
-      }
+    }
 
-      // We return the same page with the error and saving the input datas
-      return Redirect::back()
+    // We return the same page with the error and saving the input datas
+    return Redirect::back()
       ->withInput()
       ->withErrors($validator);
 
@@ -264,9 +255,7 @@ class DeliveriesController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $delivery_price = DeliveryPrice::find($fields['delivery_price_id']);
-
-      if ($delivery_price != NULL) {
+      $delivery_price = DeliveryPrice::findOrFail($fields['delivery_price_id']);
 
       $delivery_price->frequency = $fields['frequency'];
       $delivery_price->unity_price = $fields['unity_price'];
@@ -274,8 +263,6 @@ class DeliveriesController extends BaseController {
       $delivery_price->save();
 
       Session::flash('message', "Cette offre a bien été modifiée");
-
-      }
 
       return Redirect::back();
 
@@ -388,29 +375,24 @@ class DeliveriesController extends BaseController {
   public function getLock($id)
   {
 
-    $serie = DeliverySerie::find($id);
+    $serie = DeliverySerie::findOrFail($id);
 
-    if ($serie !== NULL)
-    {
+    $serie->closed = date('Y-m-d');
 
-      $serie->closed = date('Y-m-d');
+    $orders = $serie->orders()->notCanceledOrders()->get();
 
-      $orders = $serie->orders()->notCanceledOrders()->get();
+    foreach ($orders as $order) {
 
-      foreach ($orders as $order) {
-
-      	$order->status = 'packing';
-        $order->locked = TRUE;
-        $order->save();
-
-      }
-
-      $serie->save();
-
-      Session::flash('message', "La série a bien été bloquée");
-      return Redirect::back();
+     $order->status = 'packing';
+     $order->locked = TRUE;
+     $order->save();
 
     }
+
+   $serie->save();
+
+   Session::flash('message', "La série a bien été bloquée");
+   return Redirect::back();
 
   }
 

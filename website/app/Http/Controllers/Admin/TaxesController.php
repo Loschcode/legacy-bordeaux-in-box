@@ -52,8 +52,7 @@ class TaxesController extends BaseController {
   public function getBills($serie_id)
   {
 
-    $series = DeliverySerie::find($serie_id);
-    if ($series === NULL) return Redirect::to('/');
+    $series = DeliverySerie::findOrFail($serie_id);
 
     // We will list all the payments as bills
     $payments = $series->payments()->get();
@@ -75,8 +74,7 @@ class TaxesController extends BaseController {
   public function getPayments($serie_id)
   {
 
-    $series = DeliverySerie::find($serie_id);
-    if ($series === NULL) return Redirect::to('/');
+    $series = DeliverySerie::findOrFail($serie_id);
 
     // We will list all the payments as bills
     $payments = $series->payments()->get();
