@@ -5,7 +5,7 @@
 		<div class="container">
 			<h1 class="page-title">Questions souvent posées</h1>
       <div class="col-md-10 col-md-offset-1">
-				<div class="description">{{ nl2br($help->content) }}</div>
+				<div class="description">{!! nl2br($help->content) !!}</div>
       </div>
 		</div>
 	</div>
