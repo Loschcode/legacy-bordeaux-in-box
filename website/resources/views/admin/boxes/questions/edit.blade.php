@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
   <h1 class="page">Edition question #{{ $question->id }} {{$question->box()->first()->title}}</h1>
 @stop

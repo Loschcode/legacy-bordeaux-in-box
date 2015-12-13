@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('content')
   {!! HTML::info("N'oubliez pas de mettre à jour la section de filtrage des produits, la question ne sera pas auto-validée par défaut lors des sélections automatiques de produit") !!}
 

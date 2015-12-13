@@ -1,3 +1,4 @@
+@extends('layouts.admin')
 @section('page')
   <i class="fa fa-music"></i> Bip
 @stop

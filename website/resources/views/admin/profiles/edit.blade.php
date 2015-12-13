@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
   <i class="fa fa-suitcase"></i> abonnement #{{$profile->id}} ({{HTML::getReadableProfileStatus($profile->status)}})
 @stop

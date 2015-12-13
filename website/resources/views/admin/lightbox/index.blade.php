@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
   Demo Lightbox
 @stop

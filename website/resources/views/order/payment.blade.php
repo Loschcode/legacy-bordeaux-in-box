@@ -1,3 +1,5 @@
+@extends('layouts.master')
+
 @section('content')
   
   <!-- Flag to run controller js -->

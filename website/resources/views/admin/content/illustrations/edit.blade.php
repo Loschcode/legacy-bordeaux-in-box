@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
   <i class="fa fa-picture-o"></i> Edition de l'illustration #{{ $image_article->id }}
 @stop

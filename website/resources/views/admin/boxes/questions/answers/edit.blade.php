@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('content')
 
   {!! HTML::info("Un changement dans la sélection de réponses d'une question affectera la génération automatique de produits. Veuillez mettre à jour les filtres dans la section correspondante après avoir édité une question.") !!}

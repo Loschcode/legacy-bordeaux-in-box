@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
 	<i class="fa fa-user"></i> Utilisateurs ({{$users->count()}})
 @stop
