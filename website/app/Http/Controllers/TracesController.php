@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\User;
+use App\Models\EmailTrace;
+
 class TracesController extends BaseController {
 
   /*

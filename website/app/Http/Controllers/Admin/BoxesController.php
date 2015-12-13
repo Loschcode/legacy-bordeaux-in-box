@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\Box;
+
 class BoxesController extends BaseController {
 
 	/*
@@ -46,18 +48,11 @@ class BoxesController extends BaseController {
 	 */
 	public function getEdit($id)
 	{
+		$box = Box::findOrFail($id);
 
-		$box = Box::find($id);
-
-		if ($box !== NULL) {
-
-			return view('admin.boxes.edit')->with(compact(
-        'box'
-      ));
-
-		}
-
-
+		return view('admin.boxes.edit')->with(compact(
+      'box'
+    ));
 	}
 
 	public function postEdit()
@@ -80,23 +75,18 @@ class BoxesController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$box = Box::find($fields['box_id']);
+			$box = Box::findOrFail($fields['box_id']);
 
-			if ($box !== NULL)
+			$box->title = $fields['title'];
+			$box->description = $fields['description'];
+			$box->active = FALSE;
+
+			if (!empty($fields['image']))
 			{
+			 $box->image = $this->_prepare_image($fields, $box);
+		  }
 
-				$box->title = $fields['title'];
-				$box->description = $fields['description'];
-				$box->active = FALSE;
-
-				if (!empty($fields['image']))
-				{
-					$box->image = $this->_prepare_image($fields, $box);
-				}
-
-				$box->save();
-
-			}
+			$box->save();
 
 			return Redirect::to('/admin/boxes#offline')
 			->with('message', 'La box à été édité avec succès')
@@ -203,20 +193,12 @@ class BoxesController extends BaseController {
 	 */
 	public function getDelete($id)
 	{
+		$box = Box::findOrFail($id);
 
-		$box = Box::find($id);
+		$box->delete();
 
-		if ($box !== NULL)
-		{
-
-			$box->delete();
-
-			Session::flash('message', "Cette box a été archivée");
-			return Redirect::back();
-
-
-		}
-
+		Session::flash('message', "Cette box a été archivée");
+		return Redirect::back();
 	}
 
 	/**
@@ -225,17 +207,13 @@ class BoxesController extends BaseController {
 	public function getActivate($id)
 	{
 
-		$box = Box::find($id);
+		$box = Box::findOrFail($id);
 
-		if ($box !== NULL)
-		{
-			$box->active = TRUE;
-			$box->save();
+		$box->active = TRUE;
+		$box->save();
 
-			Session::flash('message', "Cette box a été activé");
-			return Redirect::back();
-		}
-
+		Session::flash('message', "Cette box a été activé");
+		return Redirect::back();
 	}
 
 	/**
@@ -243,20 +221,13 @@ class BoxesController extends BaseController {
 	 */
 	public function getDesactivate($id)
 	{
+		$box = Box::findOrFail($id);
 
-		$box = Box::find($id);
+    $box->active = FALSE;
+		$box->save();
 
-		if ($box !== NULL)
-		{
-
-			$box->active = FALSE;
-			$box->save();
-
-			Session::flash('message', "Cette box a été désactivé");
-			return Redirect::back();
-
-		}
-
+		Session::flash('message', "Cette box a été désactivé");
+		return Redirect::back();
 	}
 
 }

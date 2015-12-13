@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\DeliverySpot;
+use App\Models\UserProfile;
+
 class SpotsController extends BaseController {
 
 	/*

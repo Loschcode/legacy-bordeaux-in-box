@@ -4,6 +4,8 @@ use App\Http\Controllers\BaseController;
 
 use Carbon\Carbon; 
 
+use App\Models\DeliverySerie;
+
 class TaxesController extends BaseController {
 
   /*

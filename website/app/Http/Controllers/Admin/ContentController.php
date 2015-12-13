@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\BlogArticle;
+use App\Models\ImageArticle;
+
+
 class ContentController extends BaseController {
 
 	/*
@@ -50,17 +54,12 @@ class ContentController extends BaseController {
 	 */
 	public function getDeleteBlog($id)
 	{
+		$blog_article = BlogArticle::findOrFail($id);
 
-		$blog_article = BlogArticle::find($id);
+		$blog_article->delete();
 
-		if ($blog_article !== NULL) {
-
-			$blog_article->delete();
-
-			Session::flash('message', "L'article de blog a été correctement supprimé");
-			return Redirect::back();
-		}
-
+		Session::flash('message', "L'article de blog a été correctement supprimé");
+		return Redirect::back();
 	}
 
 	/**

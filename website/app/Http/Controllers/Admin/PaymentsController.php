@@ -2,6 +2,12 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\Payment;
+use App\Models\DeliverySerie;
+use App\Models\Box;
+
+
+
 class PaymentsController extends BaseController {
 
 	/*

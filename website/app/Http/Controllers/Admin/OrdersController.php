@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\DeliverySerie;
+use App\Models\Order;
+use App\Models\DeliverySpot;
+
 class OrdersController extends BaseController {
 
 	/*
