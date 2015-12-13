@@ -34,18 +34,14 @@ class BoxesQuestionsController extends BaseController {
 	public function getFocus($id)
 	{
 
-		$box = Box::find($id);
+		$box = Box::findOrFail($id);
 
-		if ($box !== NULL) {
+		$questions = $box->questions()->orderBy('position', 'asc')->get();
 
-			$questions = $box->questions()->orderBy('position', 'asc')->get();
-
-		  return view('admin.boxes.questions.index')->with(compact(
-        'questions',
-        'box'
-      ));
-
-		}
+		return view('admin.boxes.questions.index')->with(compact(
+      'questions',
+      'box'
+    ));
 
 	}
 
@@ -55,21 +51,15 @@ class BoxesQuestionsController extends BaseController {
 	public function getEdit($id)
 	{
 
-		$question = BoxQuestion::find($id);
+		$question = BoxQuestion::findOrFail($id);
 
-		if ($question !== NULL) {
+		$box = $question->box()->first();
+		$position_listing = $this->_generate_position_listing($box, 1); // No incrementation
 
-			$box = $question->box()->first();
-			$position_listing = $this->_generate_position_listing($box, 1); // No incrementation
-
-			return view('admin.boxes.questions.edit')->with(compact(
-        'question',
-        'position_listing'
-      ));
-
-		}
-
-
+		return view('admin.boxes.questions.edit')->with(compact(
+      'question',
+      'position_listing'
+    ));
 	}
 
 	public function postEdit()
@@ -95,8 +85,7 @@ class BoxesQuestionsController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-	 		$box_question = BoxQuestion::find($fields['question_id']);
-			if ($box_question === NULL) return Response::error(404);
+	 		$box_question = BoxQuestion::findOrFail($fields['question_id']);
 
 			$box_question->question = $fields['question'];
 			$box_question->short_question = $fields['short_question'];
@@ -142,8 +131,7 @@ class BoxesQuestionsController extends BaseController {
 	public function getNew($id)
 	{
 
-		$box = Box::find($id);
-		if ($box === NULL) return Response::error(404);
+		$box = Box::findOrFail($id);
 
 		$position_listing = $this->_generate_position_listing($box, 2); // Incrementation +1
 
@@ -184,8 +172,7 @@ class BoxesQuestionsController extends BaseController {
 
 			$box_question = new BoxQuestion;
 
-	 		$box = Box::find($fields['box_id']);
-			if ($box === NULL) return Response::error(404);
+	 		$box = Box::findOrFail($fields['box_id']);
 
 			$box_question->question = $fields['question'];
 			$box_question->short_question = $fields['short_question'];
@@ -221,18 +208,12 @@ class BoxesQuestionsController extends BaseController {
 	 */
 	public function getDelete($id)
 	{
+		$question = BoxQuestion::findOrFail($id);
 
-		$question = BoxQuestion::find($id);
+    $question->delete();
 
-		if ($question !== NULL) {
-
-			$question->delete();
-
-			Session::flash('message', "Cette question a été archivée");
-			return Redirect::back();
-
-		}
-
+		Session::flash('message', "Cette question a été archivée");
+		return Redirect::back();
 	}
 
 	private function _generate_position_listing($box, $inc=0)

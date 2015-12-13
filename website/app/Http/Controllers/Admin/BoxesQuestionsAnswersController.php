@@ -35,20 +35,16 @@ class BoxesQuestionsAnswersController extends BaseController {
 	public function getFocus($id)
 	{
 
-		$question = BoxQuestion::find($id);
+		$question = BoxQuestion::findOrFail($id);
 		$box = $question->box()->first();
 
-		if ($question !== NULL) {
+		$answers = $question->answers()->orderBy('created_at', 'desc')->get();
 
-			$answers = $question->answers()->orderBy('created_at', 'desc')->get();
-
-  		return view('admin.boxes.questions.answers.index')->with(compact(
-        'answers',
-        'question',
-        'box'
-      ));
-
-		}
+  	return view('admin.boxes.questions.answers.index')->with(compact(
+      'answers',
+      'question',
+      'box'
+    ));
 
 	}
 
@@ -58,19 +54,13 @@ class BoxesQuestionsAnswersController extends BaseController {
 	public function getEdit($id)
 	{
 
-		$answer = BoxAnswer::find($id);
+		$answer = BoxAnswer::findOrFail($id);
 		$question = $answer->question()->first();
 
-		if ($answer !== NULL) {
-
-			return view('admin.boxes.questions.answers.edit')->with(compact(
-        'answer',
-        'question'
-      ));
-
-		}
-
-
+    return view('admin.boxes.questions.answers.edit')->with(compact(
+      'answer',
+      'question'
+    ));
 	}
 
 	public function postEdit()
@@ -90,8 +80,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-	 		$question_answer = BoxAnswer::find($fields['answer_id']);
-			if ($question_answer === NULL) return Response::error(404);
+	 		$question_answer = BoxAnswer::findOrFail($fields['answer_id']);
 
 			$question_answer->content = $fields['content'];
 
@@ -121,8 +110,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 	public function getNew($id)
 	{
 
-		$question = BoxQuestion::find($id);
-		if ($question === NULL) return Response::error(404);
+		$question = BoxQuestion::findOrFail($id);
 
 		return view('admin.boxes.questions.answers.new')->with(compact(
       'question'
@@ -154,8 +142,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 			$question_answer = new BoxAnswer;
 
-	 		$question = BoxQuestion::find($fields['question_id']);
-			if ($question === NULL) return Response::error(404);
+	 		$question = BoxQuestion::findOrFail($fields['question_id']);
 
 			$question_answer->content = $fields['content'];
 			$question_answer->question()->associate($question);
@@ -184,16 +171,11 @@ class BoxesQuestionsAnswersController extends BaseController {
 	public function getDelete($id)
 	{
 
-		$answer = BoxAnswer::find($id);
+		$answer = BoxAnswer::findOrFail($id);
+    $answer->delete();
 
-		if ($answer !== NULL) {
-
-			$answer->delete();
-
-			Session::flash('message', "Cette réponse a été archivée");
-			return Redirect::back();
-
-		}
+		Session::flash('message', "Cette réponse a été archivée");
+		return Redirect::back();
 
 	}
 

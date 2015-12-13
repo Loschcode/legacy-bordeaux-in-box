@@ -221,7 +221,6 @@ class BoxesController extends BaseController {
 	 */
 	public function getDesactivate($id)
 	{
-
 		$box = Box::findOrFail($id);
 
     $box->active = FALSE;
@@ -229,7 +228,6 @@ class BoxesController extends BaseController {
 
 		Session::flash('message', "Cette box a été désactivé");
 		return Redirect::back();
-
 	}
 
 }
