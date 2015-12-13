@@ -74,33 +74,28 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 			];
 
-		$fields = Input::all();
+		$fields = Request::all();
 		$validator = Validator::make($fields, $rules);
 
-		// The form validation was good
-		if ($validator->passes()) {
-
-	 		$question_answer = BoxAnswer::findOrFail($fields['answer_id']);
-
-			$question_answer->content = $fields['content'];
-
-			$question_answer->save();
-
-			Session::flash('message', "La réponse a bien été mise à jour");
-			return Redirect::to('/admin/boxes/questions/answers/focus/'.$question_answer->question()->first()->id)
-			->withInput();
-
-		} else {
-
-			// We return the same page with the error and saving the input datas
-			return Redirect::back()
-			->withInput()
-			->withErrors($validator);
-
-		}
+    if ($validator->fails())
+    {
+      // We return the same page with the error and saving the input datas
+      return Redirect::back()
+        ->withInput()
+        ->withErrors($validator);
+    }
 
 
+	 	$question_answer = BoxAnswer::findOrFail($fields['answer_id']);
 
+		$question_answer->content = $fields['content'];
+
+		$question_answer->save();
+
+		Session::flash('message', "La réponse a bien été mise à jour");
+
+		return Redirect::to('/admin/boxes/questions/answers/focus/'.$question_answer->question()->first()->id)
+		  ->withInput();
 	}
 
     /**
@@ -124,6 +119,7 @@ class BoxesQuestionsAnswersController extends BaseController {
      */
 	public function postNew()
 	{
+    
 		// New article rules
 		$rules = [
 
@@ -133,36 +129,32 @@ class BoxesQuestionsAnswersController extends BaseController {
 			];
 
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
-		// The form validation was good
-		if ($validator->passes()) {
-
-			$question_answer = new BoxAnswer;
-
-	 		$question = BoxQuestion::findOrFail($fields['question_id']);
-
-			$question_answer->content = $fields['content'];
-			$question_answer->question()->associate($question);
-
-			$question_answer->save();
-
-			Session::flash('message', "La réponse a bien été ajoutée à la question");
-			return Redirect::to('/admin/boxes/questions/answers/focus/'.$question->id)
-			->withInput();
-
-		} else {
-
-			// We return the same page with the error and saving the input datas
-			return Redirect::back()
-			->withInput()
-			->withErrors($validator);
-
-		}
+    if ($validator->fails())
+    {
+      // We return the same page with the error and saving the input datas
+      return Redirect::back()
+        ->withInput()
+        ->withErrors($validator);
+    }
 
 
+		$question_answer = new BoxAnswer;
+
+	 	$question = BoxQuestion::findOrFail($fields['question_id']);
+
+		$question_answer->content = $fields['content'];
+		$question_answer->question()->associate($question);
+
+		$question_answer->save();
+
+		Session::flash('message', "La réponse a bien été ajoutée à la question");
+		
+    return Redirect::to('/admin/boxes/questions/answers/focus/'.$question->id)
+      ->withInput();
 	}
 
 	/**

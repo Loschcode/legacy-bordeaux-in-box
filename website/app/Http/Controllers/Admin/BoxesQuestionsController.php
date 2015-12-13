@@ -78,49 +78,43 @@ class BoxesQuestionsController extends BaseController {
 
 			];
 
-		$fields = Input::all();
-
+		$fields = Request::all();
 		$validator = Validator::make($fields, $rules);
 
-		// The form validation was good
-		if ($validator->passes()) {
+    if ($validator->fails()) {
 
-	 		$box_question = BoxQuestion::findOrFail($fields['question_id']);
+      // We return the same page with the error and saving the input datas
+      return Redirect::back()
+        ->withInput()
+        ->withErrors($validator);
+    }
 
-			$box_question->question = $fields['question'];
-			$box_question->short_question = $fields['short_question'];
-			$box_question->slug = $fields['slug'];
+    $box_question = BoxQuestion::findOrFail($fields['question_id']);
 
-			if ($fields['filter_must_match'] === '0') $box_question->filter_must_match = FALSE;
-			else $box_question->filter_must_match = TRUE;
+		$box_question->question = $fields['question'];
+		$box_question->short_question = $fields['short_question'];
+		$box_question->slug = $fields['slug'];
 
-			$box_question->type = $fields['type'];
-			$box_question->position = $fields['position'];
+		if ($fields['filter_must_match'] === '0') $box_question->filter_must_match = FALSE;
+		else $box_question->filter_must_match = TRUE;
 
-			// If this question type can't have any answer we remove
-			// The old answer (archive it) just in case there are some
-			if (has_no_answer_possible($box_question->type)) {
+		$box_question->type = $fields['type'];
+		$box_question->position = $fields['position'];
 
-				BoxAnswer::where('box_question_id', $box_question->id)->delete();
-
-			}
-
-			$box_question->save();
-
-			Session::flash('message', "La question a bien été mise à jour");
-			return Redirect::to('/admin/boxes/questions/focus/'.$box_question->box()->first()->id)
-			->withInput();
-
-		} else {
-
-			// We return the same page with the error and saving the input datas
-			return Redirect::back()
-			->withInput()
-			->withErrors($validator);
+		// If this question type can't have any answer we remove
+		// The old answer (archive it) just in case there are some
+		if (has_no_answer_possible($box_question->type)) {
+      
+      BoxAnswer::where('box_question_id', $box_question->id)->delete();
 
 		}
 
+		$box_question->save();
 
+		Session::flash('message', "La question a bien été mise à jour");
+		
+    return Redirect::to('/admin/boxes/questions/focus/'.$box_question->box()->first()->id)
+      ->withInput();
 
 	}
 
@@ -163,43 +157,39 @@ class BoxesQuestionsController extends BaseController {
 			];
 
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
-		// The form validation was good
-		if ($validator->passes()) {
+    if ($validator->fails()) {
 
-			$box_question = new BoxQuestion;
+      // We return the same page with the error and saving the input datas
+      return Redirect::back()
+        ->withInput()
+        ->withErrors($validator);
+    }
 
-	 		$box = Box::findOrFail($fields['box_id']);
+    $box_question = new BoxQuestion;
 
-			$box_question->question = $fields['question'];
-			$box_question->short_question = $fields['short_question'];
-			$box_question->slug = $fields['slug'];
+	 	$box = Box::findOrFail($fields['box_id']);
 
-			if ($fields['filter_must_match'] === '0') $box_question->filter_must_match = FALSE;
-			else $box_question->filter_must_match = TRUE;
+		$box_question->question = $fields['question'];
+		$box_question->short_question = $fields['short_question'];
+		$box_question->slug = $fields['slug'];
+
+		if ($fields['filter_must_match'] === '0') $box_question->filter_must_match = FALSE;
+		else $box_question->filter_must_match = TRUE;
 			
-			$box_question->type = $fields['type'];
-			$box_question->position = $fields['position'];
-			$box_question->box()->associate($box);
+		$box_question->type = $fields['type'];
+		$box_question->position = $fields['position'];
+		$box_question->box()->associate($box);
+    
+    $box_question->save();
 
-			$box_question->save();
-
-			Session::flash('message', "La question a bien été ajoutée à la box");
-			return Redirect::to('/admin/boxes/questions/focus/'.$box->id)
-			->withInput();
-
-		} else {
-
-			// We return the same page with the error and saving the input datas
-			return Redirect::back()
-			->withInput()
-			->withErrors($validator);
-
-		}
-
+		Session::flash('message', "La question a bien été ajoutée à la box");
+		
+    return Redirect::to('/admin/boxes/questions/focus/'.$box->id)
+		  ->withInput();
 
 	}
 
