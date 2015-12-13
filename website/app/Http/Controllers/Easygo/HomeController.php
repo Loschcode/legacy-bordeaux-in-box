@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\DeliverySerie;
+use App\Models\Order;
+
 class HomeController extends BaseController {
 
   public function __construct()
