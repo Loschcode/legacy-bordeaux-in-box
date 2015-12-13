@@ -1,3 +1,4 @@
+@extends('layouts.master')
 @section('content')
   
   <div class="spacer50"></div>

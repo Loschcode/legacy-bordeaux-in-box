@@ -38,8 +38,8 @@ class InvoicesController extends BaseController {
      */
     $stripe_type = $datas->type; // charge.succeeded
 
-    if (in_array($stripe_type, $managed_events)) 
-    {
+    if (in_array($stripe_type, $managed_events)) {
+
       $stripe_raw = $datas->data->object; // the object itself
 
       // All the strips id
@@ -72,8 +72,8 @@ class InvoicesController extends BaseController {
       Log::info("1D. metadata : " . $this->inject_var_dump($metadata));
       Log::info('---');
 
-      if ( ! isset($metadata->user_profile_id)) 
-      {
+      if ( ! isset($metadata->user_profile_id)) {
+
         Log::info("2. `user_profile_id` doesn't exist in received metadata, processing another way ...");
 
         // If the metadata is empty it means there's a problem transfering it or it's an indirect invoice (from months or something)
@@ -86,8 +86,7 @@ class InvoicesController extends BaseController {
         Log::info('3. We tried to look from the user profile and check the customer ID from his own profile ...');
 
         // If the user payment profile has been retrieved
-        if ($user_payment_profile !== NULL) 
-        {
+        if ($user_payment_profile !== NULL) {
           Log::info("4. It worked, let's process the payment ...");
 
           $user_profile_id = $user_payment_profile->profile()->first()->id;
@@ -98,18 +97,14 @@ class InvoicesController extends BaseController {
           $user_id = $user_profile->user()->first()->id;
           $payment_type = 'plan';
 
-        } 
-        else 
-        {
+        } else {
           Log::info('5. Customer ID doesn\'t match, process aborted');
           Log::info('6. Stripe event trace : ' . $stripe_event_id);
 
           return 'The customer ID doesn\'t match';
         }
 
-      } 
-      else 
-      {
+      } else {
         $user_profile_id = $metadata->user_profile_id;
         $user_id = $metadata->user_id;
         $payment_type = $metadata->payment_type;
@@ -121,8 +116,8 @@ class InvoicesController extends BaseController {
       $transaction_already_done = Payment::where('stripe_event', '=', $stripe_event_id)->first();
 
       // Profile / User has to be found
-      if (($profile !== NULL) && ($user !== NULL) && ($transaction_already_done == NULL)) 
-      {
+      if (($profile !== NULL) && ($user !== NULL) && ($transaction_already_done == NULL)) {
+
         /**
          * Alright, let's process all the payment system
          */
@@ -163,12 +158,9 @@ class InvoicesController extends BaseController {
          */
         
         // If he didn't really pay, he has no money left
-        if ($payment->paid) 
-        { 
+        if ($payment->paid) { 
           $money_left = $payment->amount;
-        } 
-        else 
-        {
+        } else {
           $money_left = 0;
         }
 
@@ -179,23 +171,23 @@ class InvoicesController extends BaseController {
         else $orders = $payment->profile()->first()->orders()->where('status', '!=', 'paid')->where('status', '!=', 'delivered')->where('status', '!=', 'canceled')->get();
         // WARNING : If you change this, don't forget to change the $orders count variable at the bottom of this file, it cancels the plans
 
-        if ($stripe_refund) 
-        {
+        if ($stripe_refund) {
+
           Log::info('10. It is a refund, we will skip some processes ...');
-        } 
-        else 
-        {
+
+        } else {
+
           $orders_num = $orders->count();
 
           Log::info("11. $orders_num orders able to be filled right now");
 
           // If it failed
-          if ($money_left === 0) 
-          {
+          if ($money_left === 0) {
+
             $order = $orders->first();
 
-            if ($order != NULL) 
-            {
+            if ($order != NULL) {
+
               //$order->payment()->associate($payment);
       
               $order->status = 'failed';
@@ -212,20 +204,20 @@ class InvoicesController extends BaseController {
           }
         
           // We will calculate for each order until there's no money left
-          foreach ($orders as $order) 
-          {
+          foreach ($orders as $order) {
+
             /**
              * If we are in a special case of packing status
              * If the guy already paid it, we ignore this order and pass to the next one for the user
              */
-            if ($order->status == 'packing') 
-            {
+            if ($order->status == 'packing') {
+
               Log::info('13. The order has a `packing` status, we will check if it has already been paid ...');
 
               $paid = intval($order->already_paid);
 
-              if ($paid > 0) 
-              {
+              if ($paid > 0) {
+
                 Log::info('14. It has been paid : we will skip the order ...');
 
                 continue;
@@ -235,8 +227,7 @@ class InvoicesController extends BaseController {
 
             }
 
-            if ($money_left <= 0) 
-            {
+            if ($money_left <= 0) {
               break;
             }
 
@@ -249,13 +240,12 @@ class InvoicesController extends BaseController {
 
             //Log::info("There will be $money_left (-".$order->unity_and_fees_price.") after this order");
 
-            if ($money_left >= 0) 
-            {
+            if ($money_left >= 0) {
+
               $payment->order()->associate($order);
               $payment->save();
 
-              if ($order->status != 'packing') 
-              {
+              if ($order->status != 'packing') {
                 $order->status = 'paid';
               }
 
@@ -282,9 +272,7 @@ class InvoicesController extends BaseController {
                * End of infinite plan system
                */
 
-            } 
-            else 
-            {
+            } else {
 
               // If the money left is negative, there's a big problem here
               Log::info("19. The order was half-paid, there's $money_left EUR left");
@@ -309,22 +297,20 @@ class InvoicesController extends BaseController {
           $orders_unpaid_plans_fetch = $payment->profile()->first()->orders()->where('status', '!=', 'paid')->where('status', '!=', 'delivered')->where('status', '!=', 'canceled')->get();
           $orders_unpaid_plans = 0;
 
-          foreach ($orders_unpaid_plans_fetch as $order) 
-          {
+          foreach ($orders_unpaid_plans_fetch as $order) {
 
             /**
              * If we are in a special case of packing status
              * If the guy didn't pay, we add it to the orders unpaid plans
              */
-            if ($order->status == 'packing') 
-            {
+            if ($order->status == 'packing') {
 
               Log::info("21. Packing special case : we will check if it is paid or not and take it out from our selection ...");
 
               $paid = intval($order->already_paid);
 
-              if ($paid <= 0) 
-              {
+              if ($paid <= 0) {
+
                 $orders_unpaid_plans++;
 
                 Log::info("22. It is effectively unpaid, while packing, we might not cancel the plan if there is one.");
@@ -340,8 +326,7 @@ class InvoicesController extends BaseController {
 
           Log::info('23. There is ' . $orders_unpaid_plans . ' orders left at the end of this transaction.');
 
-          if ($orders_unpaid_plans <= 0) 
-          {
+          if ($orders_unpaid_plans <= 0) {
 
             Log::info('24. We will cancel the plan ...');
 
@@ -352,8 +337,8 @@ class InvoicesController extends BaseController {
             // (means he invoiced only once and doesn't have any plan)
             // or if it's not a gift (which means he also paid in once)
         
-            if (($plan) && ($order_preference->frequency > 1) && (!$order_preference->gift)) 
-            {
+            if (($plan) && ($order_preference->frequency > 1) && (!$order_preference->gift)) {
+
               // Update 24/07/2015 -> We need it to cancel subscriptions
               $payment_profile = $profile->payment_profile()->orderBy('created_at', 'desc')->first(); // Just in case of bug
               $stripe_subscription_id = $payment_profile->stripe_subscription;
@@ -361,12 +346,10 @@ class InvoicesController extends BaseController {
               Log::info('25. Cancelling the subscription : ' . $stripe_subscription_id . ' for the stripe customer : '. $stripe_customer_id);
               $feedback = Payments::cancelSubscription($stripe_customer_id, $stripe_subscription_id);
 
-              if ($feedback !== FALSE) 
-              {
+              if ($feedback !== FALSE) {
+
                 Log::info('26. The plan has been canceled for this user.');
-              } 
-              else 
-              {
+              } else {
                 Log::info('26B. The plan has not been canceled, there is a stripe problem');
               }
 

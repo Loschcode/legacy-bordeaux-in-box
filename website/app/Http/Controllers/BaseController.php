@@ -20,9 +20,10 @@ class BaseController extends Controller {
 	 */
 	protected function setupLayout()
 	{
-		if ( ! is_null($this->layout))
-		{
+		if ( ! is_null($this->layout)) {
+
 			$this->layout = view()->make($this->layout);
+      
 		}
 	}
 

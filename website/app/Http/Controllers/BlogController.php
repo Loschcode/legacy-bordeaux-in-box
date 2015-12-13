@@ -30,8 +30,7 @@ class BlogController extends BaseController {
 
     $blog_article = BlogArticle::find($id);
 
-    if ($blog_article === NULL)
-    {
+    if ($blog_article === NULL) {
       return abort(404);
     }
 
@@ -53,15 +52,17 @@ class BlogController extends BaseController {
     $blog_article = BlogArticle::find($id);
 
     // If NULL
-    if ($blog_article === NULL)
-    {
+    if ($blog_article === NULL) {
+
       return redirect('/');
+
     }
 
     // If not correct slug
-    if ($slug !== $blog_article->slug)
-    {
-    return redirect('blog/'.$id.'-'.$blog_article->slug); // SEO Optimized
+    if ($slug !== $blog_article->slug) {
+
+      return redirect('blog/'.$id.'-'.$blog_article->slug); // SEO Optimized
+      
     }
 
     return $this->getArticle($id);

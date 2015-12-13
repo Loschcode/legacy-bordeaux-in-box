@@ -435,20 +435,16 @@ class OrderController extends BaseController {
     // Back
     view()->share('order_preference', $order_preference);
 
-    if ( ! $order_building->isRegionalAddress()) 
-    {
+    if ( ! $order_building->isRegionalAddress()) {
       // He's not from Gironde, then he has imposed fees and no other choice
       $delivery_fees_per_delivery = DeliverySetting::first()->national_delivery_fees;
 
       /**
        * If it's a gift, we calculate the number of deliveries and add it directly to the price
        */
-      if ($order_preference->gift) 
-      {
+      if ($order_preference->gift) {
         $order_preference->delivery_fees = $delivery_fees_per_delivery * $order_preference->frequency;
-      } 
-      else 
-      {
+      } else {
         $order_preference->delivery_fees = $delivery_fees_per_delivery;
       }
 
@@ -482,28 +478,23 @@ class OrderController extends BaseController {
     $validator = Validator::make($fields, $rules);
 
     // The form validation was good
-    if ($validator->passes()) 
-    {
+    if ($validator->passes()) {
+
       $user = Auth::user();
       $order_building = $user->order_building()->first();
       $order_preference = $order_building->order_preference()->first();
 
       $order_preference->take_away = $fields['take_away'];
-      if ($order_preference->take_away) 
-      {
+      if ($order_preference->take_away) {
         $order_preference->delivery_fees = 0;
-      } 
-      else 
-      {
+      } else {
         $delivery_fees_per_delivery = DeliverySetting::first()->regional_delivery_fees;
 
         // If it's a gift we calculate the fees for all the months directly now
-        if ($order_preference->gift) 
-        {
+        if ($order_preference->gift) {
+
           $order_preference->delivery_fees = $delivery_fees_per_delivery * $order_preference->frequency;
-        } 
-        else 
-        {  
+        } else {  
           $order_preference->delivery_fees = $delivery_fees_per_delivery;
         }
       
@@ -567,8 +558,8 @@ class OrderController extends BaseController {
     $validator = Validator::make($fields, $rules);
 
     // The form validation was good
-    if ($validator->passes()) 
-    {
+    if ($validator->passes()) {
+
       $user = Auth::user();
       $order_building = $user->order_building()->first();
       $order_preference = $order_building->order_preference()->first();
@@ -588,9 +579,8 @@ class OrderController extends BaseController {
       $redirect = $this->guessStepFromUser();
       return redirect($redirect);
 
-    } 
-    else 
-    {
+    } else {
+
       // We return the same page with the error and saving the input datas
       return Redirect::back()
       ->withInput()
@@ -631,8 +621,8 @@ class OrderController extends BaseController {
     $validator = Validator::make($fields, $rules);
 
     // The form validation was good
-    if ($validator->passes()) 
-    {
+    if ($validator->passes()) {
+
       $stripe_token = $fields['stripeToken'];
 
       $user = Auth::user();
@@ -662,8 +652,8 @@ class OrderController extends BaseController {
 
         $stripe_customer = Payments::makeCustomer($stripe_token, $user, $profile);
 
-        if (is_array($stripe_customer)) 
-        {
+        if (is_array($stripe_customer)) {
+
           return Redirect::back()->withErrors([
             "stripeToken" => $stripe_customer
           ]);
@@ -706,22 +696,17 @@ class OrderController extends BaseController {
        * So each order as a unity price like the casual delivery
        * (it will done in cascade with the stripe callback)
        */
-      if ($order_preference->gift) 
-      {
+      if ($order_preference->gift) {
         $unity_and_fees_price = $order_preference->totalPricePerMonth() / $order_preference->frequency;
-      } 
-      else 
-      {  
+      } else {  
         $unity_and_fees_price = $order_preference->totalPricePerMonth();
       }
 
       $num = 0;
 
-      while ($num < $num_orders) 
-      {
+      while ($num < $num_orders) {
         // Matching series
-        if (!isset($delivery_series[$num])) 
-        {
+        if (!isset($delivery_series[$num]))  {
           Log::info("ERROR : no enough delivery series to order (checkout OrderController line ~700");
 
           $profile->orders()->delete();
@@ -743,8 +728,7 @@ class OrderController extends BaseController {
          */
         $order_already_exists = Order::where('user_profile_id', '=', $profile->id)->where('delivery_serie_id', '=', $delivery_serie->id)->first();
 
-        if ($order_already_exists === NULL) 
-        {
+        if ($order_already_exists === NULL) {
           // We make the order
           $order = new Order;
           $order->user()->associate($user);
@@ -793,13 +777,11 @@ class OrderController extends BaseController {
       /**
        * We finally invoice the user (no feedback here, we have InvoicesController to handle it)
        */
-      if (($order_preference->gift) || ($order_preference->frequency == 1)) 
-      {
+      if (($order_preference->gift) || ($order_preference->frequency == 1)) {
         // If it's a gift it's a direct invoice
         $feedback = Payments::invoice($stripe_customer, $user, $profile, $order_preference->totalPricePerMonth());
 
-        if ($feedback !== TRUE) 
-        {
+        if ($feedback !== TRUE) {
           // Not sure about it, but to be clean we might delete the orders we just built
           $profile->orders()->delete();
 
@@ -809,9 +791,7 @@ class OrderController extends BaseController {
 
         }
 
-      } 
-      else 
-      {
+      } else {
 
         // If it's not a gift, even for 1 month subscription we will subscribe and directly cancel after the payment
         
@@ -822,17 +802,17 @@ class OrderController extends BaseController {
 
         $feedback = Payments::makeSubscription($stripe_customer, $user, $profile, $plan_name, $plan_price);
 
-        if (is_array($feedback)) 
-        {
+        if (is_array($feedback)) {
+
           // Not sure about it, but to be clean we might delete the orders we just built
           $profile->orders()->delete();
 
           return Redirect::back()->withErrors([
           "stripeToken" => $feedback
           ]);
-        } 
-        else 
-        {
+
+        } else {
+
           $payment_profile->stripe_subscription = $feedback;
           $payment_profile->stripe_plan = $plan_name;
 
@@ -843,9 +823,8 @@ class OrderController extends BaseController {
 
       return redirect('/order/confirmed');
 
-    } 
-    else 
-    {
+    } else {
+
       // We return the same page with the error and saving the input datas
       return Redirect::back()
       ->withInput()
@@ -888,8 +867,8 @@ class OrderController extends BaseController {
     $order_building = $user->order_building()->first();
 
     // Means there's no step yet, let's go to the first one
-    if ($order_building === NULL) 
-    {
+    if ($order_building === NULL) {
+
       $order_building = new UserOrderBuilding;
       $order_building->user()->associate($user);
       $order_building->delivery_serie()->associate($next_series);
@@ -920,9 +899,9 @@ class OrderController extends BaseController {
       // Finally we set the current step
       $order_building->step = 'choose-box';
       $order_building->save();
-    } 
-    else 
-    {
+
+    } else {
+
       $order_preference = $order_building->order_preference()->first();
 
       // We refresh the series in case it doesn't match anymore (only use this for statistics)
@@ -931,8 +910,7 @@ class OrderController extends BaseController {
 
       // If the guy switches from a gift to a classic or anything like that
       // He will redo everything
-      if ((is_bool(Session::get('isGift'))) && (Session::get('isGift') != $order_preference->gift)) 
-      {
+      if ((is_bool(Session::get('isGift'))) && (Session::get('isGift') != $order_preference->gift)) {
         $order_preference->gift = Session::get('isGift');
         $order_preference->save();
 

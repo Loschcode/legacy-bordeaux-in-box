@@ -28,13 +28,14 @@ class ApiController extends BaseController {
   {
     $partner_product = PartnerProduct::find($id);
 
-    if ($partner_product == NULL) 
-    {
+    if ($partner_product == NULL) {
+
       return response()->json(['success' => FALSE, 'error' => 'Impossible to find this product']);
-    } 
-    else 
-    {
+
+    } else {
+
       return response()->json(['success' => TRUE, 'datas' => $partner_product]);
+      
     }
   }
 

@@ -1,3 +1,4 @@
+@extends('layouts.master')
 @section('content')
 
   @if ($orders->count() > 0)
