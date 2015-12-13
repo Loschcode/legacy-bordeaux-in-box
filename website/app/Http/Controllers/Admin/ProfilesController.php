@@ -39,12 +39,13 @@ class ProfilesController extends BaseController {
 	{
 		
 		$profiles = UserProfile::orderBy('created_at', 'desc')->get();
-		view()->share('profiles', $profiles);
 
 		$config_graph_user_profile_status_progress = $this->user_profile_status_progress_graph_config();
-		view()->share('config_graph_user_profile_status_progress', $config_graph_user_profile_status_progress);
 
-		$this->layout->content = view()->make('admin.profiles.index');
+	  return view('admin.profiles.index')->with(compact(
+      'profiles',
+      'config_graph_user_profile_status_progress'
+    ));
 
 	}
 
@@ -71,14 +72,11 @@ class ProfilesController extends BaseController {
 
       if ($profile !== NULL)
       {
-
         $profile->priority = $fields['priority'];
         $profile->save();
 
         Session::flash('message', "La priorité de l'abonnement a été mise à jour");
         return Redirect::back();
-
-
       }
 
 
@@ -171,20 +169,19 @@ class ProfilesController extends BaseController {
 			}
 
       $delivery_spots = DeliverySpot::where('active', TRUE)->orderBy('created_at', 'desc')->get();
-      view()->share('delivery_spots', $delivery_spots);
 
-			view()->share('next_delivery_order', $next_delivery_order);
-			view()->share('order_destination', $order_destination);
-      view()->share('order_delivery_spot', $order_delivery_spot);
-			view()->share('order_billing', $order_billing);
-
-			view()->share('box', $box);
-			view()->share('user', $user);
-			view()->share('questions', $questions);
-			view()->share('order_preference', $order_preference);
-
-			view()->share('profile', $profile);
-			$this->layout->content = view()->make('admin.profiles.edit');
+			return view('admin.profiles.edit')->with(compact(
+        'delivery_spots',
+        'next_delivery_order',
+        'order_destination',
+        'order_delivery_spot',
+        'order_billing',
+        'box',
+        'user',
+        'questions',
+        'order_preference',
+        'profile'
+      ));
 
 		}
 

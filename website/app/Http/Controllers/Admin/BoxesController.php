@@ -39,10 +39,10 @@ class BoxesController extends BaseController {
 		$active_boxes = Box::where('active', TRUE)->orderBy('created_at', 'desc')->get();
 		$unactive_boxes = Box::where('active', FALSE)->orderBy('created_at', 'desc')->get();
 
-		view()->share('active_boxes', $active_boxes);
-		view()->share('unactive_boxes', $unactive_boxes);
-
-		$this->layout->content = view()->make('admin.boxes.index');
+		return view('admin.boxes.index')->with(compact(
+      'active_boxes',
+      'unactive_boxes'
+    ));
 
 	}
 
@@ -54,11 +54,11 @@ class BoxesController extends BaseController {
 
 		$box = Box::find($id);
 
-		if ($box !== NULL)
-		{
+		if ($box !== NULL) {
 
-			view()->share('box', $box);
-			$this->layout->content = view()->make('admin.boxes.edit');
+			return view('admin.boxes.edit')->with(compact(
+        'box'
+      ));
 
 		}
 
@@ -116,8 +116,6 @@ class BoxesController extends BaseController {
 
 		}
 
-
-
 	}
 
     /**
@@ -126,9 +124,7 @@ class BoxesController extends BaseController {
      */
 	public function getNew()
 	{
-
-		$this->layout->content = view()->make('admin.boxes.new');
-
+		return view('admin.boxes.new');
 	}
 
     /**
@@ -238,14 +234,11 @@ class BoxesController extends BaseController {
 
 		if ($box !== NULL)
 		{
-
 			$box->active = TRUE;
 			$box->save();
 
 			Session::flash('message', "Cette box a été activé");
 			return Redirect::back();
-
-
 		}
 
 	}

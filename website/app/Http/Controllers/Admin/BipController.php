@@ -13,8 +13,6 @@ class BipController extends BaseController {
   |
   */
 
-  protected $layout = 'layouts.admin';
-
   /**
    * Filters
    */
@@ -26,7 +24,7 @@ class BipController extends BaseController {
 
   public function getIndex()
   {
-    $this->layout->content = view()->make('admin.bip.index');
+    return view('admin.bip.index');
   }
 
 }

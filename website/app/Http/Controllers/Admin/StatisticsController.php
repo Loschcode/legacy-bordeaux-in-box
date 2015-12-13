@@ -37,15 +37,16 @@ class StatisticsController extends BaseController {
   {
 
     $series = DeliverySerie::orderBy('delivery', 'desc')->get();
-    view()->share('series', $series);
 
     $config_graph_unfinished_profiles_steps = $this->unfinished_profiles_graph_config();
-    view()->share('config_graph_unfinished_profiles_steps', $config_graph_unfinished_profiles_steps);
 
     $config_graph_subscriptions_versus_unfinished = $this->subscriptions_versus_unfinished_graph_config();
-    view()->share('config_graph_subscriptions_versus_unfinished', $config_graph_subscriptions_versus_unfinished);
 
-    $this->layout->content = view()->make('admin.statistics.index');
+    return view('admin.statistics.index')->with(compact(
+      'series',
+      'config_graph_unfinished_profiles_steps',
+      'config_graph_subscriptions_versus_unfinished'
+    ));
 
   }
 
@@ -53,15 +54,16 @@ class StatisticsController extends BaseController {
   {
 
     $user_order_buildings = UserOrderBuilding::where('delivery_serie_id', '=', $id)->orderBy('updated_at', 'desc')->get();
-    view()->share('user_order_buildings', $user_order_buildings);
 
     $series = DeliverySerie::find($id);
-    view()->share('series', $series);
 
     $config_graph_unfinished_profiles_focus = $this->unfinished_profiles_focus_graph_config($series);
-    view()->share('config_graph_unfinished_profiles_focus', $config_graph_unfinished_profiles_focus);
 
-    $this->layout->content = view()->make('admin.statistics.unfinished_profiles');
+    return view('admin.statistics.unfinished_profiles')->with(compact(
+      'user_order_buildings',
+      'series',
+      'config_graph_unfinished_profiles_focus'
+    ));
 
 
 

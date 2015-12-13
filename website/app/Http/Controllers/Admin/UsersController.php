@@ -35,9 +35,10 @@ class UsersController extends BaseController {
 	{
 
 		$users = User::orderBy('created_at', 'desc')->get();
-		view()->share('users', $users);
 
-		$this->layout->content = view()->make('admin.users.index');
+		return view('admin.users.index')->with(compact(
+      'users'
+    ));
 
 	}
 
@@ -49,7 +50,6 @@ class UsersController extends BaseController {
 	{
 
 		$user = User::find($id);
-		view()->share('user', $user);
 
 		$roles_list = [
 
@@ -58,9 +58,10 @@ class UsersController extends BaseController {
 
 		];
 
-		view()->share('roles_list', $roles_list);
-
-		$this->layout->content = view()->make('admin.users.focus');
+		return view('admin.users.focus')->with(compact(
+      'roles_list',
+      'user'
+    ));
 
 	}
 

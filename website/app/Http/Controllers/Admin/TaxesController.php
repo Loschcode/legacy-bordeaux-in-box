@@ -39,9 +39,10 @@ class TaxesController extends BaseController {
   {
 
     $series = DeliverySerie::orderBy('delivery', 'asc')->get();
-    view()->share('series', $series);
 
-    $this->layout->content = view()->make('admin.taxes.index');
+    return view('admin.taxes.index')->with(compact(
+      'series'
+    ));
 
   }
 

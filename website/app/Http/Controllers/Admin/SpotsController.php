@@ -38,12 +38,12 @@ class SpotsController extends BaseController {
 		$unactive_spots = DeliverySpot::where('active', FALSE)->orderBy('created_at', 'desc')->get();
 		
 		$spots_list = $this->generate_active_spots_list();
-		view()->share('spots_list', $spots_list);
 
-		view()->share('active_spots', $active_spots);
-		view()->share('unactive_spots', $unactive_spots);
-
-		$this->layout->content = view()->make('admin.spots.index');
+		return view('admin.spots.index')->with(compact(
+      'spots_list',
+      'active_spots',
+      'unactive_spots'
+    ));
 
 	}
 
@@ -245,8 +245,9 @@ class SpotsController extends BaseController {
 		if ($spot !== NULL)
 		{
 
-			view()->share('spot', $spot);
-			$this->layout->content = view()->make('admin.spots.edit');
+			return view('admin.spots.edit')->with(compact(
+        'spot'
+      ));
 
 		}
 
@@ -314,7 +315,7 @@ class SpotsController extends BaseController {
 	public function getNew()
 	{
 
-		$this->layout->content = view()->make('admin.spots.new');
+		return view('admin.spots.new');
 
 	}
 
@@ -324,7 +325,6 @@ class SpotsController extends BaseController {
      */
 	public function postNew()
 	{
-
 
 		// New article rules
 		$rules = [

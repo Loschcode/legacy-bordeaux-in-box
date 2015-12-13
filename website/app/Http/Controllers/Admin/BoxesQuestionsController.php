@@ -42,10 +42,10 @@ class BoxesQuestionsController extends BaseController {
 
 			$questions = $box->questions()->orderBy('position', 'asc')->get();
 
-			view()->share('questions', $questions);
-			view()->share('box', $box);
-
-		$this->layout->content = view()->make('admin.boxes.questions.index');
+		  return view('admin.boxes.questions.index')->with(compact(
+        'questions',
+        'box'
+      ));
 
 		}
 
@@ -59,16 +59,15 @@ class BoxesQuestionsController extends BaseController {
 
 		$question = BoxQuestion::find($id);
 
-		if ($question !== NULL)
-		{
-
-			view()->share('question', $question);
+		if ($question !== NULL) {
 
 			$box = $question->box()->first();
 			$position_listing = $this->_generate_position_listing($box, 1); // No incrementation
-			view()->share('position_listing', $position_listing);
 
-			$this->layout->content = view()->make('admin.boxes.questions.edit');
+			return view('admin.boxes.questions.edit')->with(compact(
+        'question',
+        'position_listing'
+      ));
 
 		}
 
@@ -148,12 +147,12 @@ class BoxesQuestionsController extends BaseController {
 		$box = Box::find($id);
 		if ($box === NULL) return Response::error(404);
 
-		view()->share('box', $box);
-
 		$position_listing = $this->_generate_position_listing($box, 2); // Incrementation +1
-		view()->share('position_listing', $position_listing);
 
-		$this->layout->content = view()->make('admin.boxes.questions.new');
+		return view('admin.boxes.questions.new')->with(compact(
+      'box',
+      'position_listing'
+    ));
 
 	}
 
@@ -163,7 +162,6 @@ class BoxesQuestionsController extends BaseController {
      */
 	public function postNew()
 	{
-
 
 		// New article rules
 		$rules = [
@@ -228,15 +226,13 @@ class BoxesQuestionsController extends BaseController {
 
 		$question = BoxQuestion::find($id);
 
-		if ($question !== NULL)
-		{
+		if ($question !== NULL) {
 
 			$question->delete();
 
 			Session::flash('message', "Cette question a été archivée");
 			return Redirect::back();
-
-
+      
 		}
 
 	}

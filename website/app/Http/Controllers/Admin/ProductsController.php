@@ -38,30 +38,33 @@ class ProductsController extends BaseController {
   {
 
     $partners = Partner::orderBy('created_at', 'desc')->get();
-    view()->share('partners', $partners);
 
     $products = PartnerProduct::orderBy('created_at', 'desc')->get();
-    view()->share('products', $products);
 
     $series = DeliverySerie::orderBy('delivery', 'asc')->get();
-    view()->share('series', $series);
 
     $categories_list = ['0' => '-'] + Config::get('bdxnbx.product_categories');
-    view()->share('categories_list', $categories_list);
 
     $product_sizes_list = Config::get('bdxnbx.product_sizes');
-    view()->share('product_sizes_list', $product_sizes_list);
 
     $partners_list = $this->generate_partners_list();
-    view()->share('partners_list', $partners_list);
 
     $products_list = $this->generate_products_list();
-    view()->share('products_list', $products_list);
 
     $blog_articles_list = $this->generate_blog_articles_list();
-    view()->share('blog_articles_list', $blog_articles_list);
 
-    $this->layout->content = view()->make('admin.products.index');
+    return view('admin.products.index')->with(compact(
+
+      'partners',
+      'products',
+      'series',
+      'categories_list',
+      'product_sizes_list',
+      'partners_list',
+      'products_list',
+      'blog_articles_list'
+
+    ));
 
   }
 
@@ -81,12 +84,13 @@ class ProductsController extends BaseController {
   {
 
     $order = Order::find($order_id);
-    view()->share('order', $order);
 
     $possible_serie_products = ['Nothing' => '-'];
-    view()->share('possible_serie_products', $possible_serie_products);
 
-    $this->layout->content = view()->make('admin.products.edit_profile_products');
+    return view('admin.products.edit_profile_products')->with(compact(
+      'order',
+      'possible_serie_products'
+    ));
 
   }
 
@@ -1078,12 +1082,13 @@ class ProductsController extends BaseController {
   {
 
     $product_filter_setting = ProductFilterSetting::find($product_filter_setting_id);
-    view()->share('product_filter_setting', $product_filter_setting);
 
     $serie = $product_filter_setting->delivery_serie()->first();
-    view()->share('serie', $serie);
 
-    $this->layout->content = view()->make('admin.products.setup_selection.customize');
+    return view('admin.products.setup_selection.customize')->with(compact(
+      'product_filter_setting',
+      'serie'
+    ));
 
   }
 
@@ -1152,15 +1157,16 @@ class ProductsController extends BaseController {
   {
 
     $product_filter_setting = ProductFilterSetting::find($product_filter_setting_id);
-    view()->share('product_filter_setting', $product_filter_setting);
 
     $serie = $product_filter_setting->delivery_serie()->first();
-    view()->share('serie', $serie);
 
     $products = PartnerProduct::orderBy('slug', 'asc')->get();
-    view()->share('products', $products);
 
-    $this->layout->content = view()->make('admin.products.setup_selection.edit');
+    return view('admin.products.setup_selection.edit')->with(compact(
+      'product_filter_setting',
+      'serie',
+      'products'
+    ));
 
   }
 
@@ -1168,12 +1174,13 @@ class ProductsController extends BaseController {
   {
 
     $serie = DeliverySerie::find($id);
-    view()->share('serie', $serie);
 
     $products = PartnerProduct::orderBy('slug', 'asc')->get();
-    view()->share('products', $products);
 
-    $this->layout->content = view()->make('admin.products.setup_selection.new');
+    return view('admin.products.setup_selection.new')->with(compact(
+      'serie',
+      'products'
+    ));
 
   }
 
@@ -1302,13 +1309,12 @@ class ProductsController extends BaseController {
 
     }
 
-    view()->share('autofill_checkboxes', $autofill_checkboxes);
-    view()->share('autofill_texts', $autofill_texts);
-
-    view()->share('product', $product);
-    view()->share('filter_boxes', $filter_boxes);
-
-    $this->layout->content = view()->make('admin.products.advanced_filters');
+    return view('admin.products.advanced_filters')->with(compact(
+      'autofill_checkboxes',
+      'autofill_texts',
+      'product',
+      'filter_boxes'
+    ));
 
   }
 
@@ -1651,22 +1657,23 @@ class ProductsController extends BaseController {
     $product = PartnerProduct::find($id);
 
     $products_list = $this->generate_products_list();
-    view()->share('products_list', $products_list);
 
     $categories_list = ['0' => '-'] + Config::get('bdxnbx.product_categories');
-    view()->share('categories_list', $categories_list);
 
     $product_sizes_list = Config::get('bdxnbx.product_sizes');
-    view()->share('product_sizes_list', $product_sizes_list);
 
     $partners_list = $this->generate_partners_list();
-    view()->share('partners_list', $partners_list);
 
     if ($product !== NULL)
     {
 
-      view()->share('product', $product);
-      $this->layout->content = view()->make('admin.products.edit');
+      return view('admin.products.edit')->with(compact(
+        'products_list',
+        'categories_list',
+        'product_sizes_list',
+        'partners_list',
+        'product'
+      ));
 
     }
 
@@ -1679,21 +1686,18 @@ class ProductsController extends BaseController {
    */
   public function getEditPartner($id)
   {
-
     $partner = Partner::find($id);
 
-    if ($partner !== NULL)
-    {
+    if ($partner !== NULL) {
 
       $blog_articles_list = $this->generate_blog_articles_list();
-      view()->share('blog_articles_list', $blog_articles_list);
 
-      view()->share('partner', $partner);
-      $this->layout->content = view()->make('admin.products.partners.edit');
+      return view('admin.products.partners.edit')->with(compact(
+        'blog_articles_list',
+        'partner'
+      ));
 
     }
-
-
   }
 
   public function postEditPartner()
@@ -1956,14 +1960,12 @@ class ProductsController extends BaseController {
 
     $product = PartnerProduct::find($id);
 
-    if ($product !== NULL)
-    {
+    if ($product !== NULL) {
 
       $product->delete();
 
       Session::flash('message', "Le produit a été correctement archivé");
       return Redirect::to('/admin/products#products');
-
 
     }
 

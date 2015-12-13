@@ -41,27 +41,24 @@ class DeliveriesController extends BaseController {
     $payments = Payment::orderBy('created_at', 'desc')->get();
     $boxes = Box::orderBy('created_at', 'desc')->get();
 
-    view()->share('payments', $payments);
-    view()->share('boxes', $boxes);
-
     $series = DeliverySerie::orderBy('delivery', 'asc')->get();
     $prices = DeliveryPrice::orderBy('unity_price')->get();
     $settings = DeliverySetting::first();
 
-    view()->share('series', $series);
-    view()->share('prices', $prices);
-    view()->share('settings', $settings);
-
     $config_graph_all_orders = $this->all_orders_graph_config($series);
-    view()->share('config_graph_all_orders', $config_graph_all_orders);
-
     $config_graph_all_payments = $this->all_payments_graph_config($series);
-    view()->share('config_graph_all_payments', $config_graph_all_payments);
-
     $config_graph_box_orders = $this->box_orders_graph_config();
-    view()->share('config_graph_box_orders', $config_graph_box_orders);
 
-    $this->layout->content = view()->make('admin.deliveries.index');
+    return view('admin.deliveries.index')->with(compact(
+      'payments',
+      'boxes',
+      'series',
+      'prices',
+      'settings',
+      'config_graph_all_orders',
+      'config_graph_all_payments',
+      'config_graph_box_orders'
+    ));
 
   }
 
@@ -69,27 +66,25 @@ class DeliveriesController extends BaseController {
   {
 
     $series = DeliverySerie::find($id);
-    view()->share('series', $series);
-
     $spots = DeliverySpot::get();
-    view()->share('spots', $spots);
+    $boxes = Box::get();
 
     $form_stats = $series->getFormStats();
-    view()->share('form_stats', $form_stats);
-
-    $boxes = Box::get();
-    view()->share('boxes', $boxes);
 
     $config_graph_series_orders = $this->series_orders_graph_config($series);
-    view()->share('config_graph_series_orders', $config_graph_series_orders);
 
     $series_email_listing = get_email_listing_from_orders($series->orders()->notCanceledOrders()->get());
-    view()->share('series_email_listing', $series_email_listing);
-
     $series_unfinished_email_listing = get_email_listing_from_unfinished_profiles($series);
-    view()->share('series_unfinished_email_listing', $series_unfinished_email_listing);
 
-    $this->layout->content = view()->make('admin.deliveries.focus');
+    return view('admin.deliveries.focus')->with(compact(
+      'series',
+      'spots',
+      'form_stats',
+      'boxes',
+      'config_graph_series_orders',
+      'series_email_listing',
+      'series_unfinished_email_listing'
+    ));
 
   }
 
@@ -97,15 +92,16 @@ class DeliveriesController extends BaseController {
   {
 
     $box = Box::find($id);
-    view()->share('box', $box);
 
     $config_graph_box_orders = $this->box_orders_graph_config($box);
-    view()->share('config_graph_box_orders', $config_graph_box_orders);
 
     $box_email_listing = get_email_listing_from_orders($box->orders()->notCanceledOrders()->get());
-    view()->share('box_email_listing', $box_email_listing);
 
-    $this->layout->content = view()->make('admin.deliveries.focus_box');
+    return view('admin.deliveries.focus_box')->with(compact(
+      'box',
+      'config_graph_box_orders',
+      'box_email_listing'
+    ));
 
   }
 
@@ -115,12 +111,11 @@ class DeliveriesController extends BaseController {
    */
   public function getEdit($id)
   {
-
     $series = DeliverySerie::find($id);
-    view()->share('series', $series);
 
-    $this->layout->content = view()->make('admin.deliveries.edit');
-
+    return view('admin.deliveries.edit')->with(compact(
+      'series'
+    ));
   }
 
 
@@ -710,14 +705,14 @@ class DeliveriesController extends BaseController {
 
         array_push($graph_data, [
 
-        'date' => $payments[0]->created_at->format('Y-m-d'), 
-        'payments' => $payments_counter,
-        'refund' => $refund_counter,
-        'amount' => $total_amount,
-        'failures' => $failures,
-        'total_failures' => $total_failures
+          'date' => $payments[0]->created_at->format('Y-m-d'), 
+          'payments' => $payments_counter,
+          'refund' => $refund_counter,
+          'amount' => $total_amount,
+          'failures' => $failures,
+          'total_failures' => $total_failures
 
-          ]);
+        ]);
 
     }
 
