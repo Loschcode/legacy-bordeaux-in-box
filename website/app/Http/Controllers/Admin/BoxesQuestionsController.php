@@ -24,11 +24,6 @@ class BoxesQuestionsController extends BaseController {
 
     }
     
-	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.admin';
-
     /**
      * Get the listing page of the blog
      * @return void
@@ -232,7 +227,7 @@ class BoxesQuestionsController extends BaseController {
 
 			Session::flash('message', "Cette question a été archivée");
 			return Redirect::back();
-      
+
 		}
 
 	}

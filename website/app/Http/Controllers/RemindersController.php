@@ -14,11 +14,6 @@ class RemindersController extends BaseController {
 	*/
 
 	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.master';
-
-	/**
 	 * Display the password reminder view.
 	 *
 	 * @return Response

@@ -26,10 +26,6 @@ class ProfilesController extends BaseController {
 
     }
     
-	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.admin';
 
     /**
      * Get the listing page of the spots

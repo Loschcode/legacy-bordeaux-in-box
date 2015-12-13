@@ -24,11 +24,6 @@ class DashboardController extends BaseController {
 
     }
 
-	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.admin';
-
     /**
      * Index dashboard
      * @return void

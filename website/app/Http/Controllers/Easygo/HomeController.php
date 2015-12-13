@@ -4,9 +4,6 @@ use App\Http\Controllers\BaseController;
 
 class HomeController extends BaseController {
 
-  protected $layout = 'layouts.easygo';
-
-
   public function __construct()
   {
 
