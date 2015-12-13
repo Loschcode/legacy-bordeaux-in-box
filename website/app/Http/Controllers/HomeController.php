@@ -9,58 +9,63 @@ use App\Models\Page;
 
 class HomeController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| Home page system
-	|
-	*/
+  /*
+  |--------------------------------------------------------------------------
+  | Default Home Controller
+  |--------------------------------------------------------------------------
+  |
+  | Home page system
+  |
+  */
 
-	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.master';
+  /**
+   * Home page
+   */
+  public function getIndex()
+  {
 
-    /**
-     * Home page
-     */
-	public function getIndex()
-	{
+    $next_series = DeliverySerie::nextOpenSeries();
 
-		$next_series = DeliverySerie::nextOpenSeries();
+    // Blog articles
+    $articles = BlogArticle::orderBy('id', 'DESC')->limit(12)->get();
 
-		// Blog articles
-		$articles = BlogArticle::orderBy('id', 'DESC')->limit(12)->get();
+    return view('home.index')->with(compact('next_series', 'articles'));
+  }
 
-		return view('home.index')->with(compact('next_series', 'articles'));
-	}
+  /**
+   * Legals Page
+   */
+  public function getLegals()
+  {  
+    $legal = Page::where('slug', 'legals')->first();
+    return view('home.legal')->with(compact('legal'));
+  }
 
-	public function getLegals()
-	{	
-		$legal = Page::where('slug', 'legals')->first();
-		$this->layout->content = view()->make('home.legal')->with('legal', $legal);
-	}
+  /**
+   * Cgv Page
+   */
+  public function getCgv()
+  {  
+    $cgv = Page::where('slug', 'cgv')->first();
+    return view('home.cgv')->with(compact('cgv'));
+  }
 
-	public function getCgv()
-	{	
-		$cgv = Page::where('slug', 'cgv')->first();
-		$this->layout->content = view()->make('home.cgv')->with('cgv', $cgv);
-	}
+  /**
+   * Help page
+   */
+  public function getHelp()
+  {  
+    $help = Page::where('slug', 'help')->first();
+    return view('home.help')->with(compact('help'));
+  }
 
-	public function getHelp()
-	{	
-		$help = Page::where('slug', 'help')->first();
-		$this->layout->content = view()->make('home.help')->with('help', $help);
-	}
-
-	public function getSpots()
-	{
-
-		$delivery_spots = DeliverySpot::get();
-		$this->layout->content = view()->make('home.spots')->with('delivery_spots', $delivery_spots);
-
-	}
+  /**
+   * Spots page
+   */
+  public function getSpots()
+  {
+    $delivery_spots = DeliverySpot::get();
+    return view('home.spots')->with(compact('delivery_spots'));
+  }
 
 }

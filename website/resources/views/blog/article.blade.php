@@ -1,3 +1,4 @@
+@extends('layouts.master')
 @section('content')
 	
 	<div class="container blog">
@@ -62,6 +63,6 @@
 
 	</div>
 
-	{{ View::make('_includes.footer') }}
+	@include('_includes.footer')
 
 @stop

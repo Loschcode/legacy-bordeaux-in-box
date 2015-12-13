@@ -2,100 +2,99 @@
 
 use App\Http\Controllers\BaseController;
 
+use Request, Validator, Mail, Redirect, Session;
+
+use App\Models\Contact;
+use App\Models\ContactSetting;
+
 class ContactController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| Home page system
-	|
-	*/
+  /*
+  |--------------------------------------------------------------------------
+  | Default Home Controller
+  |--------------------------------------------------------------------------
+  |
+  | Home page system
+  |
+  */
 
-	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.master';
+  /**
+   * Home page
+   */
+  public function getIndex()
+  {
+    return view('contact.index');
+  }
 
-    /**
-     * Home page
-     */
-	public function getIndex()
-	{
+  /**
+   * Send the contact form
+   */
+  public function postIndex()
+  {
 
-		$this->layout->content = View::make('contact.index');
-	}
+    $rules = [
 
-	/**
-	 * Send the contact form
-	 */
-	public function postIndex()
-	{
+      'email' => 'required|email',
+      'service' => 'required|not_in:0',
+      'message' => 'required|min:5',
 
-		$rules = [
+      ];
 
-			'email' => 'required|email',
-			'service' => 'required|not_in:0',
-			'message' => 'required|min:5',
+    $fields = Request::all();
+    $validator = Validator::make($fields, $rules);
 
-			];
+    // The form validation was good
+    if ($validator->passes()) {
 
-		$fields = Input::all();
-		$validator = Validator::make($fields, $rules);
+      $contact = new Contact;
 
-		// The form validation was good
-		if ($validator->passes()) {
+      $contact->email = $fields['email'];
+      $contact->service = $fields['service'];
+      $contact->message = $fields['message'];
 
-			$contact = new Contact;
+      // We finally send an email to confirm the account
+        $data = array(
 
-			$contact->email = $fields['email'];
-			$contact->service = $fields['service'];
-			$contact->message = $fields['message'];
+          'contact_email' => $fields['email'],
+          'contact_service' => readable_contact_service($fields['service']),
+          'contact_message' => $fields['message']
 
-			// We finally send an email to confirm the account
-    		$data = array(
+          );
 
-    			'contact_email' => $fields['email'],
-    			'contact_service' => readable_contact_service($fields['service']),
-    			'contact_message' => $fields['message']
+        // Commercial stuff
+        if (strpos($contact->service, 'com-') !== FALSE) {
 
-    			);
+          $email = ContactSetting::first()->com_support;
 
-    		// Commercial stuff
-    		if (strpos($contact->service, 'com-') !== FALSE) {
+        // Technical stuff
+        } elseif (strpos($contact->service, 'tech-') !== FALSE) {
 
-    			$email = ContactSetting::first()->com_support;
+          $email = ContactSetting::first()->tech_support;
 
-    		// Technical stuff
-    		} elseif (strpos($contact->service, 'tech-') !== FALSE) {
+        }
 
-    			$email = ContactSetting::first()->tech_support;
-
-    		}
-
-    		$contact->recipient = $email;
-    		$contact->save();
+        $contact->recipient = $email;
+        $contact->save();
 
       // Specific to the admisn, so we don't log it
-			Mail::queue('emails.contact', $data, function($message) use ($email, $fields)
-			{
-			    $message->from($fields['email'])->to($email)->subject('Prise de contact');
-			});
+      Mail::queue('emails.contact', $data, function($message) use ($email, $fields)
+      {
+          $message->from($fields['email'])->to($email)->subject('Prise de contact');
+      });
 
-			Session::flash('message', "Ton message a bien été envoyé à notre équipe, nous te ferons un retour dans les plus brefs délais.");
+      Session::flash('message', "Ton message a bien été envoyé à notre équipe, nous te ferons un retour dans les plus brefs délais.");
 
-			return Redirect::back();
+      return Redirect::back();
 
-		} else {
+    } else {
 
-			// We return the same page with the error and saving the input datas
-			return Redirect::back()
-			->withInput()
-			->withErrors($validator);
+      // We return the same page with the error and saving the input datas
+      return Redirect::back()
+      ->withInput()
+      ->withErrors($validator);
 
-		}
+    }
 
-	}
+  }
 
 }

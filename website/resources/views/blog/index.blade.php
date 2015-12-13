@@ -1,3 +1,4 @@
+@extends('layouts.master')
 @section('content')
 
 	<div class="container blog">
@@ -27,7 +28,7 @@
 			@endforeach
 
 			<div class="text-center">
-				{!! $blog_articles->links() !!}
+				{!! $blog_articles->render() !!}
 			</div>
 
 		@endif

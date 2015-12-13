@@ -2,6 +2,10 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\Contact;
+use App\Models\PartnerProduct;
+use App\Models\DeliverySerie;
+
 class ApiController extends BaseController {
 
   /*
@@ -22,20 +26,16 @@ class ApiController extends BaseController {
    */
   public function postGetPartnerProduct($id)
   {
-    
     $partner_product = PartnerProduct::find($id);
 
-    if ($partner_product == NULL) {
-
-      return Response::json(['success' => FALSE, 'error' => 'Impossible to find this product']);
-
-    } else {
-
-      return Response::json(['success' => TRUE, 'datas' => $partner_product]);
-
+    if ($partner_product == NULL) 
+    {
+      return response()->json(['success' => FALSE, 'error' => 'Impossible to find this product']);
+    } 
+    else 
+    {
+      return response()->json(['success' => TRUE, 'datas' => $partner_product]);
     }
-
-
   }
 
   /**
@@ -44,7 +44,7 @@ class ApiController extends BaseController {
   public function getContacts()
   {
     $contacts = Contact::orderBy('created_at', 'asc')->get();
-    return Response::Json($contacts->toJson());
+    return response()->json($contacts->toJson());
   }
 
   /**
@@ -55,7 +55,7 @@ class ApiController extends BaseController {
     $current_serie = DeliverySerie::nextOpenSeries()->first();
 
     $count = $current_serie->orders()->notCanceledOrders()->count();
-    return Response::Json(['count' => $count]);
+    return response()->json(['count' => $count]);
   }
 
 }
