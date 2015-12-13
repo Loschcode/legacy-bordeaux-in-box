@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
   <i class="fa fa-bullhorn"></i> Edition article #{{$blog_article->id}}
 @stop

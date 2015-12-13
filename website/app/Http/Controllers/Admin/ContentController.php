@@ -24,10 +24,6 @@ class ContentController extends BaseController {
 
     }
     
-	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.admin';
 
     /**
      * Get the listing page of the blog
@@ -37,15 +33,15 @@ class ContentController extends BaseController {
 	{
 
 		$blog_articles = BlogArticle::orderBy('created_at', 'desc')->get();
-		view()->share('blog_articles', $blog_articles);
-
 		$image_articles = ImageArticle::orderBy('created_at', 'desc')->get();
-		view()->share('image_articles', $image_articles);
 
 		$pages = Page::get();
-		view()->share('pages', $pages);
 
-		$this->layout->content = view()->make('admin.content.index');
+		return view('admin.content.index')->with(compact(
+      'pages',
+      'image_articles',
+      'blog_articles'
+    ));
 
 	}
 
@@ -57,15 +53,12 @@ class ContentController extends BaseController {
 
 		$blog_article = BlogArticle::find($id);
 
-		if ($blog_article !== NULL)
-		{
+		if ($blog_article !== NULL) {
 
 			$blog_article->delete();
 
 			Session::flash('message', "L'article de blog a été correctement supprimé");
 			return Redirect::back();
-
-
 		}
 
 	}
@@ -75,17 +68,15 @@ class ContentController extends BaseController {
 	 */
 	public function getEditBlog($id)
 	{
-
 		$blog_article = BlogArticle::find($id);
 
-		if ($blog_article !== NULL)
-		{
+		if ($blog_article !== NULL) {
 
-			view()->share('blog_article', $blog_article);
-			$this->layout->content = view()->make('admin.content.blog.edit');
+			return view('admin.content.blog.edit')->with(compact(
+        'blog_article'
+      ));
 
 		}
-
 
 	}
 
@@ -115,8 +106,7 @@ class ContentController extends BaseController {
 
 			$blog_article = BlogArticle::find($fields['blog_article_id']);
 
-			if ($blog_article !== NULL)
-			{
+			if ($blog_article !== NULL) {
 
 			$blog_article->title = $fields['title'];
 			$blog_article->slug = $fields['slug'];
@@ -124,7 +114,7 @@ class ContentController extends BaseController {
 			$blog_article->content = $fields['content'];
 			$blog_article->user()->associate(Auth::user());
 			
-			if (!empty($fields['thumbnail']))
+			if ( ! empty($fields['thumbnail']))
 			{
 
 				// We manage the thumbnail
@@ -173,7 +163,7 @@ class ContentController extends BaseController {
 	public function getNewBlog()
 	{
 
-		$this->layout->content = view()->make('admin.content.blog.new');
+    return view('admin.content.blog.new');
 
 	}
 
@@ -328,11 +318,11 @@ class ContentController extends BaseController {
 
 		$image_article = ImageArticle::find($id);
 
-		if ($image_article !== NULL)
-		{
-
-			view()->share('image_article', $image_article);
-			$this->layout->content = view()->make('admin.content.illustrations.edit');
+		if ($image_article !== NULL) {
+			
+      return view('admin.content.illustrations.edit')->with(compact(
+        'image_article'
+      ));
 
 		}
 
@@ -405,7 +395,7 @@ class ContentController extends BaseController {
 	public function getNewIllustration()
 	{
 
-		$this->layout->content = view()->make('admin.content.illustrations.new');
+		return view('admin.content.illustrations.new');
 
 	}
 

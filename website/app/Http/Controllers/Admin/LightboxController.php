@@ -13,7 +13,6 @@ class LightboxController extends BaseController {
   |
   */
 
-  protected $layout = 'layouts.admin';
 
   /**
     * Filters
@@ -59,7 +58,11 @@ class LightboxController extends BaseController {
      'catwoman'
 
    ];
-   return view()->make('admin.lightbox.more_superheroes')->with(compact('heroes')); 
+
+   return view('admin.lightbox.more_superheroes')->with(compact(
+    'heroes'
+    )); 
+
   }
   
 

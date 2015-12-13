@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
   <i class="fa fa-user"></i> Utilisateur {{$user->getFullName()}} (#{{$user->id}})
 @stop

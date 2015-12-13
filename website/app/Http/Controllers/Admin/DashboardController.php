@@ -24,18 +24,13 @@ class DashboardController extends BaseController {
 
     }
 
-	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.admin';
-
     /**
      * Index dashboard
      * @return void
      */
 	public function getIndex()
 	{
-		$this->layout->content = view()->make('admin.dashboard.index');
+    return view('admin.dashboard.index');
 	}
 
 }

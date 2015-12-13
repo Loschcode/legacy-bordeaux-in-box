@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
 	<i class="fa fa-home"></i> Tableau de bord
 @stop

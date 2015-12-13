@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
   <i class="fa fa-gear"></i> Paramètrage produits série {{$serie->delivery}} (#{{$serie->id}})
 @stop

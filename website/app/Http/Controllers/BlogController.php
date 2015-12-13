@@ -22,7 +22,9 @@ class BlogController extends BaseController {
   {
     $blog_articles = BlogArticle::orderBy('created_at', 'desc')->paginate(5);
     
-    return view('blog.index')->with(compact('blog_articles'));
+    return view('blog.index')->with(compact(
+      'blog_articles'
+    ));
   }
 
   public function getArticle($id)

@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
 	<i class="fa fa-list-alt"></i> Suivi des commandes
 @stop

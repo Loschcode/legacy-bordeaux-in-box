@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
 	<h1 class="page">Questions {{$box->title}}</h1>
 @stop

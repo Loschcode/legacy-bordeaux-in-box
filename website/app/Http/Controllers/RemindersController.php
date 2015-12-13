@@ -14,11 +14,6 @@ class RemindersController extends BaseController {
 	*/
 
 	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.master';
-
-	/**
 	 * Display the password reminder view.
 	 *
 	 * @return Response
@@ -59,7 +54,9 @@ class RemindersController extends BaseController {
 	{
 		if (is_null($token)) App::abort(404);
 
-		$this->layout->content = view()->make('user.password.reset')->with('token', $token);
+		return view('user.password.reset')->with(compact(
+      'token'
+    ));
 	}
 
 	/**

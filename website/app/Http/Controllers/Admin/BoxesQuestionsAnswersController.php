@@ -24,10 +24,6 @@ class BoxesQuestionsAnswersController extends BaseController {
 
     }
     
-	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.admin';
 
     /**
      * Get the listing page of the blog
@@ -43,11 +39,11 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 			$answers = $question->answers()->orderBy('created_at', 'desc')->get();
 
-			view()->share('answers', $answers);
-			view()->share('question', $question);
-			view()->share('box', $box);
-
-		$this->layout->content = view()->make('admin.boxes.questions.answers.index');
+  		return view('admin.boxes.questions.answers.index')->with(compact(
+        'answers',
+        'question',
+        'box'
+      ));
 
 		}
 
@@ -62,13 +58,12 @@ class BoxesQuestionsAnswersController extends BaseController {
 		$answer = BoxAnswer::find($id);
 		$question = $answer->question()->first();
 
-		if ($answer !== NULL)
-		{
+		if ($answer !== NULL) {
 
-			view()->share('answer', $answer);
-			view()->share('question', $question);
-
-			$this->layout->content = view()->make('admin.boxes.questions.answers.edit');
+			return view('admin.boxes.questions.answers.edit')->with(compact(
+        'answer',
+        'question'
+      ));
 
 		}
 
@@ -126,9 +121,9 @@ class BoxesQuestionsAnswersController extends BaseController {
 		$question = BoxQuestion::find($id);
 		if ($question === NULL) return Response::error(404);
 
-		view()->share('question', $question);
-
-		$this->layout->content = view()->make('admin.boxes.questions.answers.new');
+		return view('admin.boxes.questions.answers.new')->with(compact(
+      'question'
+    ));
 
 	}
 
@@ -138,8 +133,6 @@ class BoxesQuestionsAnswersController extends BaseController {
      */
 	public function postNew()
 	{
-
-
 		// New article rules
 		$rules = [
 
@@ -190,14 +183,12 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 		$answer = BoxAnswer::find($id);
 
-		if ($answer !== NULL)
-		{
+		if ($answer !== NULL) {
 
 			$answer->delete();
 
 			Session::flash('message', "Cette réponse a été archivée");
 			return Redirect::back();
-
 
 		}
 

@@ -172,7 +172,12 @@ class OrderController extends BaseController {
     //$answers = $profile->answers();
     //view()->share('answers', $answers);
 
-    return view('order.box_form')->with(compact('profile', 'box', 'questions', 'order_preference'));
+    return view('order.box_form')->with(compact(
+      'profile', 
+      'box', 
+      'questions', 
+      'order_preference'
+    ));
 
   }
 

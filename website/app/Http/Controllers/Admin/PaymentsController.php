@@ -22,11 +22,6 @@ class PaymentsController extends BaseController {
       $this->middleware('isAdmin');
     }
     
-	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.admin';
-
     /**
      * Get the listing page of the spots
      * @return void
@@ -38,11 +33,13 @@ class PaymentsController extends BaseController {
 		$series = DeliverySerie::orderBy('delivery', 'desc')->get();
 		$boxes = Box::orderBy('created_at', 'desc')->get();
 
-		view()->share('payments', $payments);
-		view()->share('series', $series);
-		view()->share('boxes', $boxes);
+		return view('admin.payments.index')->with(compact(
 
-		$this->layout->content = view()->make('admin.payments.index');
+      'payments',
+      'series',
+      'boxes'
+
+    ));
 
 	}
 
@@ -50,15 +47,12 @@ class PaymentsController extends BaseController {
 	{
 
 		$payment = Payment::find($id);
-		view()->share('payment', $payment);
 
 		$profile = $payment->profile()->first();
-		view()->share('profile', $profile);
 
 		if ($payment->order()->first() == NULL) $payment_order_id = 0;
 		else $payment_order_id = $payment->order()->first()->id;
 
-		view()->share('payment_order_id', $payment_order_id);
 
 		// We generate the order depending on what the user got
 		$order_series_list = [0 => '-'];
@@ -72,9 +66,13 @@ class PaymentsController extends BaseController {
 
 		}
 
-		view()->share('order_series_list', $order_series_list);
 
-		return view()->make('admin.payments.focus');
+		return view('admin.payments.focus')->with(compact(
+      'payment',
+      'profile',
+      'payment_order_id',
+      'order_series_list'
+    ));
 
 	}
 

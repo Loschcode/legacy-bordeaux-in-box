@@ -53,13 +53,13 @@ class ProfileController extends BaseController {
     	if ($spot == NULL) $delivery_spots = [];
     	else $delivery_spots = DeliverySpot::where('active', TRUE)->orWhere('id', $spot->id)->get();
 		  
-      view()->share('delivery_spots', $delivery_spots);
-    	view()->share('user', $user);
-    	view()->share('profiles', $profiles);
-    	view()->share('destination', $destination);
-    	view()->share('spot', $spot);
-
-		$this->layout->content = view()->make('profile.index');
+  		view()->make('profile.index')->with(compact(
+        'delivery_spots',
+        'user',
+        'profiles',
+        'destination',
+        'spot'
+      ));
     }
 
     // Check a bill
@@ -133,14 +133,13 @@ class ProfileController extends BaseController {
     		return Redirect::to('/profile');
     	}
     	
-    	view()->share('user', $user);
-    	view()->share('profile', $profile);
-      view()->share('payment_profile', $payment_profile);
-
-    	view()->share('orders', $orders);
-    	view()->share('payments', $payments);
-
-		$this->layout->content = view()->make('profile.orders');
+		  view('profile.orders')->with(compact(
+        'user',
+        'profile',
+        'payment_profile',
+        'orders',
+        'payments'
+      ));
 
 
     }

@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
   <i class="fa fa-folder-open"></i> Produits {{$order->user_profile()->first()->user()->first()->getFullName()}} du {{$order->delivery_serie()->first()->delivery}}
 @stop

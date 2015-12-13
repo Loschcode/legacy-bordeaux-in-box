@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
   <i class="fa fa-map-marker"></i> Edition point relais #{{$spot->id}}
 @stop

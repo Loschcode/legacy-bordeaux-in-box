@@ -24,10 +24,6 @@ class OrdersController extends BaseController {
 
     }
 
-	/**
-     * The layout that should be used for responses.
-     */
-    protected $layout = 'layouts.admin';
 
     /**
      * Get the listing page of the spots
@@ -46,11 +42,11 @@ class OrdersController extends BaseController {
 
 		$problem_orders = Order::where('status', 'problem')->orderBy('updated_at', 'asc')->get();
 
-		view()->share('locked_orders', $locked_orders);
-		view()->share('packed_orders', $packed_orders);
-		view()->share('problem_orders', $problem_orders);
-
-		$this->layout->content = view()->make('admin.orders.index');
+		return view('admin.orders.index')->with(compact(
+      'locked_orders',
+      'packed_orders',
+      'problem_orders'
+    ));
 
 	}
 
@@ -215,11 +211,11 @@ class OrdersController extends BaseController {
 
 		$spot = DeliverySpot::find($id);
 
-		if ($spot !== NULL)
-		{
+		if ($spot !== NULL) {
 
-			view()->share('spot', $spot);
-			$this->layout->content = view()->make('admin.spots.edit');
+			return view('admin.spots.edit')->with(compact(
+        'spot'
+      ));
 
 		}
 
@@ -250,8 +246,7 @@ class OrdersController extends BaseController {
 
 			$delivery_spot = DeliverySpot::find($fields['delivery_spot_id']);
 
-			if ($delivery_spot !== NULL)
-			{
+			if ($delivery_spot !== NULL) {
 
 				$delivery_spot->name = $fields['name'];
 				$delivery_spot->zip = $fields['zip'];
@@ -413,9 +408,9 @@ class OrdersController extends BaseController {
 
 		$locked_orders = Order::LockedOrders()->notCanceledOrders()->get();
 
-		view()->share('locked_orders', $locked_orders);
-
-		$this->layout->content = view()->make('admin.orders.email_locked_orders');
+		return view('admin.orders.email_locked_orders')->with(compact(
+      'locked_orders'
+    ));
 
 	}
 

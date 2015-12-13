@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
   <i class="fa fa-filter"></i> Filtres avancés {{$product->name}}  (#{{$product->id}})
 @stop

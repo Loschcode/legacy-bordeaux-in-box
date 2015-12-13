@@ -1,3 +1,5 @@
+@extends('layouts.master')
+
 @section('content')
 
   {!! View::make('_includes.pipeline')->with('step', 4) !!}

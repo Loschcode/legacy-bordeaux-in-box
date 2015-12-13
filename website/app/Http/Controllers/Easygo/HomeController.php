@@ -4,9 +4,6 @@ use App\Http\Controllers\BaseController;
 
 class HomeController extends BaseController {
 
-  protected $layout = 'layouts.easygo';
-
-
   public function __construct()
   {
 
@@ -129,7 +126,7 @@ class HomeController extends BaseController {
     $spots = $this->_fetch_spots($orders);
 
     // Render view
-    $this->layout->content = view()->make('easygo.locked')->with(compact(
+    return view('easygo.locked')->with(compact(
 
       'serie',
       'orders',
@@ -196,7 +193,7 @@ class HomeController extends BaseController {
 
     $current_query = Input::query();
 
-    $this->layout->content = view()->make('easygo.index')->with(compact(
+    return view('easygo.index')->with(compact(
 
       'raw_orders',
       'orders_completed',

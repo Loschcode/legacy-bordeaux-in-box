@@ -1,3 +1,5 @@
+@extends('layouts.admin')
+
 @section('page')
   <i class="fa fa-filter"></i> Séléction de produits pour la série {{$serie->delivery}}  (#{{$serie->id}})
 @stop
