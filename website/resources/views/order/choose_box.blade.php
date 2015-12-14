@@ -4,7 +4,7 @@
 
 	<div id="js-page-box"></div>
 
-	{!! View::make('_includes.pipeline')->with('step', 1) !!}
+	@include('_includes.pipeline', ['step' => 1])
 	  
 	<div id="after-pipeline" class="block-description text-center">
 		<div class="container">
