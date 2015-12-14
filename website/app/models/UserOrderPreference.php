@@ -18,7 +18,7 @@ class UserOrderPreference extends Model {
 	public function user_profile()
 	{
 
-		return $this->belongsTo('UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
 
 	}
 
@@ -26,7 +26,7 @@ class UserOrderPreference extends Model {
 	public function delivery_spot()
 	{
 
-		return $this->belongsTo('DeliverySpot', 'delivery_spot_id');
+		return $this->belongsTo('App\Models\DeliverySpot', 'delivery_spot_id');
 
 	}
 

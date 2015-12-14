@@ -32,7 +32,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function order_building()
 	{
 
-		return $this->hasOne('UserOrderBuilding');
+		return $this->hasOne('App\Models\UserOrderBuilding');
 		
 	}
 	
@@ -43,42 +43,42 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function profiles()
 	{
 
-		return $this->hasMany('UserProfile');
+		return $this->hasMany('App\Models\UserProfile');
 		
 	}
 
 	public function notes()
 	{
 
-		return $this->hasMany('UserProfileNote');
+		return $this->hasMany('App\Models\UserProfileNote');
 
 	}
 	
 	public function image_articles()
 	{
 
-		return $this->hasMany('ImageArticle');
+		return $this->hasMany('App\Models\ImageArticle');
 		
 	}
 
 	public function blog_articles()
 	{
 
-		return $this->hasMany('BlogArticle');
+		return $this->hasMany('App\Models\BlogArticle');
 		
 	}
 
 	public function orders()
 	{
 
-		return $this->hasMany('Order');
+		return $this->hasMany('App\Models\Order');
 		
 	}
 
 	public function payments()
 	{
 
-		return $this->hasMany('Payment');
+		return $this->hasMany('App\Models\Payment');
 		
 	}
 

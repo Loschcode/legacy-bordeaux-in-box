@@ -47,7 +47,7 @@ class DeliverySpot extends Model {
 	public function orders()
 	{
 
-		return $this->hasMany('Order');
+		return $this->hasMany('App\Models\Order');
 
 	}
 

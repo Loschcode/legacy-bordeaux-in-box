@@ -23,7 +23,7 @@ class UserPaymentProfile extends Model {
 	public function profile()
 	{
 
-		return $this->belongsTo('UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
 
 	}
 

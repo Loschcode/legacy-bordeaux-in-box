@@ -18,7 +18,7 @@ class BoxAnswer extends Model {
 	public function question()
 	{
 
-		return $this->belongsTo('BoxQuestion', 'box_question_id');
+		return $this->belongsTo('App\Models\BoxQuestion', 'box_question_id');
 
 	}
 

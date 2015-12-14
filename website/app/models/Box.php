@@ -54,21 +54,21 @@ class Box extends Model {
 	public function user_profiles()
 	{
 
-		return $this->hasMany('UserProfile');
+		return $this->hasMany('\App\Models\UserProfile');
 
 	}
 
 	public function orders()
 	{
 
-		return $this->hasMany('Order');
+		return $this->hasMany('App\Models\Order');
 
 	}
 
 	public function questions()
 	{
 
-		return $this->hasMany('BoxQuestion');
+		return $this->hasMany('App\Models\BoxQuestion');
 
 	}
 

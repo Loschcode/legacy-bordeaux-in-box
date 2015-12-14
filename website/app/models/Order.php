@@ -23,28 +23,28 @@ class Order extends Model {
 	public function user()
 	{
 
-		return $this->belongsTo('User', 'user_id');
+		return $this->belongsTo('App\Models\User', 'user_id');
 
 	}
 
 	public function user_profile()
 	{
 
-		return $this->belongsTo('UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
 
 	}
 
 	public function box()
 	{
 
-		return $this->belongsTo('Box', 'box_id');
+		return $this->belongsTo('App\Models\Box', 'box_id');
 
 	}
 
 	public function delivery_serie()
 	{
 
-		return $this->belongsTo('DeliverySerie', 'delivery_serie_id');
+		return $this->belongsTo('App\Models\DeliverySerie', 'delivery_serie_id');
 
 	}
 
@@ -52,7 +52,7 @@ class Order extends Model {
 	public function delivery_spot()
 	{
 
-		return $this->belongsTo('DeliverySpot', 'delivery_spot_id');
+		return $this->belongsTo('App\Models\DeliverySpot', 'delivery_spot_id');
 
 	}
 
@@ -71,28 +71,28 @@ class Order extends Model {
 	public function user_profile_products()
 	{
 
-		return $this->hasMany('UserProfileProduct');
+		return $this->hasMany('App\Models\UserProfileProduct');
 
 	}
 
 	public function payments()
 	{
 
-		return $this->hasMany('Payment');
+		return $this->hasMany('App\Models\Payment');
 
 	}
 	
 	public function destination()
 	{
 
-		return $this->hasOne('OrderDestination');
+		return $this->hasOne('App\Models\OrderDestination');
 
 	}
 
 	public function billing()
 	{
 
-		return $this->hasOne('OrderBilling');
+		return $this->hasOne('App\Models\OrderBilling');
 
 	}
 

@@ -18,7 +18,7 @@ class EmailTrace extends Model {
   public function user()
   {
 
-    return $this->belongsTo('User', 'user_id');
+    return $this->belongsTo('App\Models\User', 'user_id');
 
   }
 
@@ -26,7 +26,7 @@ class EmailTrace extends Model {
   public function user_profile()
   {
 
-    return $this->belongsTo('UserProfile', 'user_profile_id');
+    return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
 
   }
 

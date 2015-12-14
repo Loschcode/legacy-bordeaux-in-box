@@ -67,7 +67,7 @@ class Partner extends Model {
 	public function blog_article()
 	{
 
-		return $this->belongsTo('BlogArticle', 'blog_article_id');
+		return $this->belongsTo('App\Models\BlogArticle', 'blog_article_id');
 
 	}
 
@@ -78,14 +78,14 @@ class Partner extends Model {
 	public function products()
 	{
 
-		return $this->hasMany('PartnerProduct');
+		return $this->hasMany('App\Models\PartnerProduct');
 
 	}
 	
 	public function images()
 	{
 
-		return $this->hasMany('PartnerImage');
+		return $this->hasMany('App\Models\PartnerImage');
 
 	}
 

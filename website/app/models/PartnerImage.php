@@ -18,7 +18,7 @@ class PartnerImage extends Model {
 	public function partner()
 	{
 
-		return $this->belongsTo('Partner', 'partner_id');
+		return $this->belongsTo('App\Models\Partner', 'partner_id');
 
 	}
 
