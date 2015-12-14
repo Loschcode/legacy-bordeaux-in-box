@@ -151,7 +151,9 @@ return [
 		/* 
 		 * App
 		 */
-    Collective\Html\HtmlServiceProvider::class,
+    Illuminate\Html\HtmlServiceProvider::class,
+
+    //Collective\Html\HtmlServiceProvider::class,
 
     //'Illuminate\Html\HtmlServiceProvider',
 		//'Thujohn\Pdf\PdfServiceProvider',
@@ -209,8 +211,11 @@ return [
 		'Validator' => Illuminate\Support\Facades\Validator::class,
 		'View'      => Illuminate\Support\Facades\View::class,
 
-    'Form' => Collective\Html\FormFacade::class,
-    'Html' => Collective\Html\HtmlFacade::class,
+    'Form'      => Illuminate\Html\FormFacade::class,
+    'Html'      => Illuminate\Html\HtmlFacade::class,
+    
+    //'Form' => Collective\Html\FormFacade::class,
+    //'Html' => Collective\Html\HtmlFacade::class,
 
 		/*
 		 * App

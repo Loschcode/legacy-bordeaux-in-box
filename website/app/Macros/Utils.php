@@ -3,7 +3,7 @@
 /**
  * We take the matching page from the pages table (with the `slug`)
  */
-Form::macro('page', function($slug)
+Html::macro('page', function($slug)
 {
   $page = Page::where('slug', $slug)->first();
 

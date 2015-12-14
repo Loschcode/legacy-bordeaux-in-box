@@ -13,13 +13,18 @@ class MacroServiceProvider extends ServiceProvider {
    *
    * @return void
    */
-  public function register()
+  public function boot()
   {
       foreach (glob(app_path().'/Macros/*.php') as $filename){
           
           require_once($filename);
 
       }
+  }
+
+  public function register()
+  {
+    
   }
 
 }

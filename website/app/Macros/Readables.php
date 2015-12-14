@@ -3,7 +3,7 @@
 /**
  * We output the questions and answers in HTML (for the admin dashboard orders reading)
  */
-Form::macro('getReadableProductSize', function($size)
+Html::macro('getReadableProductSize', function($size)
 {
 
   $product_sizes_list = Config::get('bdxnbx.product_sizes');
@@ -11,7 +11,7 @@ Form::macro('getReadableProductSize', function($size)
 
 });
 
-Form::macro('getReadableProfilePriority', function($priority)
+Html::macro('getReadableProfilePriority', function($priority)
 {
 
   return readable_profile_priority($priority);
@@ -21,7 +21,7 @@ Form::macro('getReadableProfilePriority', function($priority)
 /**
  * If the value is empty we return N/A
  */
-Form::macro('getReadableEmpty', function($value, $empty='N/A')
+Html::macro('getReadableEmpty', function($value, $empty='N/A')
 {
   if (empty($value))
   {
@@ -38,7 +38,7 @@ Form::macro('getReadableEmpty', function($value, $empty='N/A')
 /**
  * We get readable boolean status (active = true / false)
  */
-Form::macro('getReadableActive', function($active)
+Html::macro('getReadableActive', function($active)
 {
 
   if ($active) return 'Activé';
@@ -49,7 +49,7 @@ Form::macro('getReadableActive', function($active)
 /**
  * Get a readable version of the service involved
  */
-Form::macro('getReadableContactService', function($slug)
+Html::macro('getReadableContactService', function($slug)
 {
 
   return readable_contact_service($slug);
@@ -59,7 +59,7 @@ Form::macro('getReadableContactService', function($slug)
 /**
  * Get a readable order status
  */
-Form::macro('getReadableOrderStatus', function($status)
+Html::macro('getReadableOrderStatus', function($status)
 {
 
   return readable_order_status($status);
@@ -69,7 +69,7 @@ Form::macro('getReadableOrderStatus', function($status)
 /**
  * Get a readable payment type
  */
-Form::macro('getReadablePaymentType', function($type)
+Html::macro('getReadablePaymentType', function($type)
 {
 
   return readable_payment_type($type);
@@ -79,7 +79,7 @@ Form::macro('getReadablePaymentType', function($type)
 /**
  * Get a readable payment status
  */
-Form::macro('getReadablePaymentStatus', function($status)
+Html::macro('getReadablePaymentStatus', function($status)
 {
 
   return readable_payment_status($status);
@@ -89,7 +89,7 @@ Form::macro('getReadablePaymentStatus', function($status)
 /**
  * Get a readable take away (yes or not)
  */
-Form::macro('getReadableTakeAway', function($take_away)
+Html::macro('getReadableTakeAway', function($take_away)
 {
 
   if ($take_away) return 'A emporter';
@@ -100,7 +100,7 @@ Form::macro('getReadableTakeAway', function($take_away)
 /**
  * Say yes or no (true / false)
  */
-Form::macro('boolYesOrNo', function($bool)
+Html::macro('boolYesOrNo', function($bool)
 {
 
   if ($bool) return 'Oui';
@@ -111,7 +111,7 @@ Form::macro('boolYesOrNo', function($bool)
 /**
  * We get readable locked for orders
  */
-Form::macro('getReadableOrderLocked', function($bool)
+Html::macro('getReadableOrderLocked', function($bool)
 {
 
   if ($bool) return 'Bloqué';
@@ -122,7 +122,7 @@ Form::macro('getReadableOrderLocked', function($bool)
 /**
  * Get a readable question type involved
  */
-Form::macro('getReadableQuestionType', function($slug)
+Html::macro('getReadableQuestionType', function($slug)
 {
 
   return readable_question_type($slug);
@@ -132,7 +132,7 @@ Form::macro('getReadableQuestionType', function($slug)
 /**
  * Get a readable role for the users
  */
-Form::macro('getReadableRole', function($role)
+Html::macro('getReadableRole', function($role)
 {
 
   return readable_role($role);
@@ -142,7 +142,7 @@ Form::macro('getReadableRole', function($role)
 /**
  * Get a readable month from a date
  */
-Form::macro('convertMonth', function($date)
+Html::macro('convertMonth', function($date)
 {
 
   $timestamp = strtotime($date);
@@ -166,7 +166,7 @@ Form::macro('convertMonth', function($date)
 /**
  * Get html class color from profile status
  */
-Form::macro('getColorFromProfileStatus', function($status)
+Html::macro('getColorFromProfileStatus', function($status)
 {
 
   if ($status === 'subscribed') return 'spyro-btn-primary';
@@ -180,7 +180,7 @@ Form::macro('getColorFromProfileStatus', function($status)
 /**
  * Get a readable profile status
  */
-Form::macro('getReadableProfileStatus', function($status)
+Html::macro('getReadableProfileStatus', function($status)
 {
 
   if ($status === 'subscribed') return 'Abonné';
