@@ -9,16 +9,16 @@
 
 	<title>Bordeaux In Box</title>
 
-	<link rel="icon" href="{{ url('public/assets/img/admin-favicon.ico') }}" />
+	<link rel="icon" href="{{ url('assets/img/admin-favicon.ico') }}" />
 
 	<!-- Font Awesome -->
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
 
   <!-- Vendor.css -->
-  <link href="{{ url('public/stylesheets/vendor.css') }}" rel="stylesheet">
+  <link href="{{ url('stylesheets/vendor.css') }}" rel="stylesheet">
 
 	<!-- App -->
-	<link href="{{ url('public/assets/css/admin.css') }}" rel="stylesheet">
+	<link href="{{ url('assets/css/admin.css') }}" rel="stylesheet">
 
 </head>
 
@@ -116,17 +116,17 @@
 </body>
 
 <!-- Vendor.js -->
-<script src="{{ url('public/javascripts/vendor.js') }}"></script>
+<script src="{{ url('javascripts/vendor.js') }}"></script>
 
 <!-- Controllers -->
-<script src="{{ url('public/assets/js/admin/global.js') }}"></script>
-<script src="{{ url('public/assets/js/admin/contact.js') }}"></script>
-<script src="{{ url('public/assets/js/admin/logs.js') }}"></script>
-<script src="{{ url('public/assets/js/admin/profile.js') }}"></script>
-<script src="{{ url('public/assets/js/admin/bip.js') }}"></script>
+<script src="{{ url('assets/js/admin/global.js') }}"></script>
+<script src="{{ url('assets/js/admin/contact.js') }}"></script>
+<script src="{{ url('assets/js/admin/logs.js') }}"></script>
+<script src="{{ url('assets/js/admin/profile.js') }}"></script>
+<script src="{{ url('assets/js/admin/bip.js') }}"></script>
 
 <!-- App -->
-<script src="{{ url('public/assets/js/admin/main.js') }}"></script>
+<script src="{{ url('assets/js/admin/main.js') }}"></script>
 
 
 </html>
