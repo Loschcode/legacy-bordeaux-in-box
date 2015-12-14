@@ -4,7 +4,7 @@
 
   <div id="js-page-box-form"></div>
 
-  {!! View::make('_includes.pipeline')->with('step', 2) !!}
+  @include('_includes.pipeline', ['step' => 2])
 
   <div class="block-description text-center">
     <div class="container">
@@ -54,8 +54,8 @@
   
               <h3 class="answer">{{$question->question}}</h3>
 
-              <? $answers = $profile->answers(); ?>
-              <? $old_reply = $answers->where('box_question_id', $question->id); ?>
+              <?php $answers = $profile->answers(); ?>
+              <?php $old_reply = $answers->where('box_question_id', $question->id); ?>
               
               <!-- Errors -->
               @if (session()->has('flag-box-form'))
@@ -253,6 +253,6 @@
   </div>
 
   <div class="spacer50"></div>
-  {!! View::make('_includes.footer') !!}
+  @include('_includes.footer')
 
 @stop

@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Http\Controllers\BaseController;
-use Session, Auth, Request, Redirect, URL;
+use Session, Auth, Request, Redirect, URL, Validator;
 
 use App\Models\Box;
 use App\Models\DeliverySerie;
