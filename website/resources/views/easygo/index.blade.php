@@ -46,28 +46,28 @@
 
             <h1 class="title">Dépôts</h1>
 
-            <?php ( ! Input::has('spot') && ! Input::has('to_send')) ? $class = '--primary' : $class = '' ?>
+            <?php ( ! Request::has('spot') && ! Request::has('to_send')) ? $class = '--primary' : $class = '' ?>
             <a class="button --default --lg --block center {{ $class }}" href="{{ URL::route('easygo', array_merge($current_query, ['spot' => '', 'to_send' => ''])) }}">Tout</a>
 
             <div class="spacer --xs"></div>
 
 
             @foreach ($spots as $spot)
-              <?php (Input::has('spot') && Input::get('spot') == $spot) ? $class = '--primary' : $class = '' ?>
+              <?php (Request::has('spot') && Request::get('spot') == $spot) ? $class = '--primary' : $class = '' ?>
               <a class="button --default --lg --block center {{ $class }}" href="{{ URL::route('easygo', array_merge($current_query, ['spot' => $spot, 'to_send' => ''])) }}">{{ DeliverySpot::find($spot)->name }}</a>
               <div class="spacer --xs"></div>
             @endforeach
 
-            <?php (Input::has('to_send')) ? $class = '--primary' : $class = '' ?>
+            <?php (Request::has('to_send')) ? $class = '--primary' : $class = '' ?>
             <a class="button --default --lg --block center {{ $class }}" href="{{ URL::route('easygo', array_merge($current_query, ['to_send' => 'true', 'spot' => ''])) }}">La Poste</a><br/>
 
           </div>
           <div class="col-md-9">
 
-            <?php ( ! Input::has('show') || (Input::has('show') && Input::get('show') == 'list')) ? $class = '--primary' : $class = '' ?>
+            <?php ( ! Request::has('show') || (Request::has('show') && Request::get('show') == 'list')) ? $class = '--primary' : $class = '' ?>
             <a href="{{ URL::route('easygo', array_merge($current_query, ['show' => 'list'])) }}" class="button --default --xl {{ $class }}"><i class="fa fa-list"></i> Résumé</a>
 
-            <?php (Input::has('show') && Input::get('show') == 'grid') ? $class = '--primary' : $class = '' ?>
+            <?php (Request::has('show') && Request::get('show') == 'grid') ? $class = '--primary' : $class = '' ?>
             <a href="{{ URL::route('easygo', array_merge($current_query, ['show' => 'grid'])) }}" class="button --default --xl {{ $class }}"><i class="fa fa-th-large"></i> Détails</a>
 
             <div class="spacer --sm"></div>
@@ -94,15 +94,15 @@
               <div>
                 <div class="spacer"></div>
 
-                @if (Input::has('spot'))
-                  <a href="{{ url('admin/orders/ready-spot/' . Input::get('spot')) }}" class="button --success --xl">Tout est prêt pour {{ DeliverySpot::find(Input::get('spot'))->name }}</a>
+                @if (Request::has('spot'))
+                  <a href="{{ url('admin/orders/ready-spot/' . Request::get('spot')) }}" class="button --success --xl">Tout est prêt pour {{ DeliverySpot::find(Request::get('spot'))->name }}</a>
                 @endif
 
-                @if (Input::has('to_send'))
+                @if (Request::has('to_send'))
                   <a href="{{ url('admin/orders/ready-no-take-away') }}" class="button --success --xl">Tout est prêt pour La Poste</a>
                 @endif
 
-                @if ( ! Input::has('to_send') && ! Input::has('spot'))
+                @if ( ! Request::has('to_send') && ! Request::has('spot'))
                   <a href="{{ url('admin/orders/everything-is-ready') }}" class="button --success --xl">Tout est prêt (les dépôts et la poste)</a>
 
                 @endif
@@ -110,7 +110,7 @@
               </div>
             @endif
 
-            @if (Input::has('show') && Input::get('show') == 'list')
+            @if (Request::has('show') && Request::get('show') == 'list')
               @include('easygo.partials.list', array('orders_filtered' => $orders_filtered))
             @else
               @include('easygo.partials.grid', array('orders_filtered' => $orders_filtered))

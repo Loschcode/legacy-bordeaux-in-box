@@ -16,8 +16,8 @@
 
 @section('content')
 
-  @if (Session::has('message'))
-    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
 
   @if ($errors->has())
@@ -33,7 +33,7 @@
     <!-- Title -->
     <div class="form-group @if ($errors->first('title')) has-error has-feedback @endif">
       {!! Form::label("title", "Titre", ['class' => 'control-label']) !!}
-      {!! Form::text("title", Input::old("title") ? Input::old("title") : $blog_article->title, ['class' => 'form-control']) !!}
+      {!! Form::text("title", Request::old("title") ? Request::old("title") : $blog_article->title, ['class' => 'form-control']) !!}
 
       @if ($errors->first('title'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -45,7 +45,7 @@
     <!-- Slug -->
     <div class="form-group @if ($errors->first('slug')) has-error has-feedback @endif">
       {!! Form::label("slug", "Référencement", ['class' => 'control-label']) !!}
-      {!! Form::text("slug", Input::old("slug") ? Input::old("slug") : $blog_article->slug, ['class' => 'form-control']) !!}
+      {!! Form::text("slug", Request::old("slug") ? Request::old("slug") : $blog_article->slug, ['class' => 'form-control']) !!}
 
       @if ($errors->first('slug'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -56,7 +56,7 @@
     <!-- Url -->
     <div class="form-group @if ($errors->first('url')) has-error has-feedback @endif">
       {!! Form::label("url", "Url", ['class' => 'control-label']) !!}
-      {!! Form::text("url", Input::old("url") ? Input::old("url") : $blog_article->url, ['class' => 'form-control']) !!}
+      {!! Form::text("url", Request::old("url") ? Request::old("url") : $blog_article->url, ['class' => 'form-control']) !!}
 
       @if ($errors->first('url'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -67,7 +67,7 @@
     <!-- Content -->
     <div class="form-group @if ($errors->first('content')) has-error has-feedback @endif">
       {!! Form::label("content", "Contenu", ['class' => 'control-label']) !!}
-      {!! Form::textarea("content", Input::old("content") ? Input::old("content") : $blog_article->content, ['class' => 'form-control js-summernote']) !!}
+      {!! Form::textarea("content", Request::old("content") ? Request::old("content") : $blog_article->content, ['class' => 'form-control js-summernote']) !!}
 
       @if ($errors->first('content'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>

@@ -12,10 +12,6 @@ use App\Models\ProductFilterSetting;
 use App\Models\SerieProduct;
 use App\Models\BlogArticle;
 
-
-
-
-
 class ProductsController extends BaseController {
 
   /*
@@ -112,7 +108,7 @@ class ProductsController extends BaseController {
     $profile_product = UserProfileProduct::findOrFail($profile_product_id);
     $profile_product->delete();
 
-    Session::flash('message', "Le produit a été correctement supprimé");
+    session()->flash('message', "Le produit a été correctement supprimé");
     return Redirect::back();
 
   }
@@ -132,7 +128,7 @@ class ProductsController extends BaseController {
 
     }
 
-    Session::flash('message', "Les produits assignés ont été supprimé");
+    session()->flash('message', "Les produits assignés ont été supprimé");
     return Redirect::back();
 
   }
@@ -1111,7 +1107,7 @@ class ProductsController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
 
     $validator = Validator::make($fields, $rules);
 
@@ -1216,7 +1212,7 @@ class ProductsController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
 
     $validator = Validator::make($fields, $rules);
 
@@ -1337,7 +1333,7 @@ class ProductsController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
 
     $validator = Validator::make($fields, $rules);
 
@@ -1490,7 +1486,7 @@ class ProductsController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
 
     $validator = Validator::make($fields, $rules);
 
@@ -1556,7 +1552,7 @@ class ProductsController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
 
     $validator = Validator::make($fields, $rules);
 
@@ -1727,7 +1723,7 @@ class ProductsController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
     if (!isset($fields['edit_images'])) $fields['edit_images'] = []; // Laravel isn't so smart at the end
 
     $validator = Validator::make($fields, $rules);
@@ -1811,7 +1807,7 @@ class ProductsController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
     if (!isset($fields['edit_images'])) $fields['edit_images'] = []; // Laravel isn't so smart at the end
 
     $validator = Validator::make($fields, $rules);
@@ -1956,7 +1952,7 @@ class ProductsController extends BaseController {
 
       $partner->delete();
 
-      Session::flash('message', "Le partenaire a été correctement archivé");
+      session()->flash('message', "Le partenaire a été correctement archivé");
       return Redirect::to('/admin/products#partners');
 
 
@@ -1973,7 +1969,7 @@ class ProductsController extends BaseController {
 
       $product->delete();
 
-      Session::flash('message', "Le produit a été correctement archivé");
+      session()->flash('message', "Le produit a été correctement archivé");
       return Redirect::to('/admin/products#products');
 
     }

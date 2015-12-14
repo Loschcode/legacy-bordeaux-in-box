@@ -60,7 +60,7 @@ class SpotsController extends BaseController {
 
 			];
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
@@ -148,7 +148,7 @@ class SpotsController extends BaseController {
 
 			}
 
-			Session::flash('message', "Les commandes du point relais ont correctement été transférés");
+			session()->flash('message', "Les commandes du point relais ont correctement été transférés");
 			return Redirect::back();
 
 		} else {
@@ -175,7 +175,7 @@ class SpotsController extends BaseController {
 
 		$spot->delete();
 
-		Session::flash('message', "Le point relais a été correctement supprimé");
+		session()->flash('message', "Le point relais a été correctement supprimé");
 		return Redirect::back();
 
 	}
@@ -190,7 +190,7 @@ class SpotsController extends BaseController {
 		$spot->active = FALSE;
 		$spot->save();
 
-		Session::flash('message', "Le point relais a été désactivé");
+		session()->flash('message', "Le point relais a été désactivé");
 		return Redirect::to('admin/spots#offline');
 	}
 
@@ -206,7 +206,7 @@ class SpotsController extends BaseController {
 		$spot->active = TRUE;
 		$spot->save();
 
-		Session::flash('message', "Le point relais a été activé");
+		session()->flash('message', "Le point relais a été activé");
 		return Redirect::back();
 
 	}
@@ -241,7 +241,7 @@ class SpotsController extends BaseController {
 			];
 
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
@@ -305,7 +305,7 @@ class SpotsController extends BaseController {
 			];
 
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 

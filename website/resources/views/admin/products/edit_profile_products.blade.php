@@ -14,12 +14,12 @@
 
 @section('content')
 
-  @if (Session::has('message'))
-    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
   
-  @if (Session::has('error'))
-    <div class="js-alert-remove spyro-alert spyro-alert-danger">{{ Session::get('error') }}</div>
+  @if (session()->has('error'))
+    <div class="js-alert-remove spyro-alert spyro-alert-danger">{{ session()->get('error') }}</div>
   @endif
         <table class="js-datas">
 

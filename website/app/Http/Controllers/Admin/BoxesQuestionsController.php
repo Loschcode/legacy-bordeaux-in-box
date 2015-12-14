@@ -111,7 +111,7 @@ class BoxesQuestionsController extends BaseController {
 
 		$box_question->save();
 
-		Session::flash('message', "La question a bien été mise à jour");
+		session()->flash('message', "La question a bien été mise à jour");
 		
     return Redirect::to('/admin/boxes/questions/focus/'.$box_question->box()->first()->id)
       ->withInput();
@@ -186,7 +186,7 @@ class BoxesQuestionsController extends BaseController {
     
     $box_question->save();
 
-		Session::flash('message', "La question a bien été ajoutée à la box");
+		session()->flash('message', "La question a bien été ajoutée à la box");
 		
     return Redirect::to('/admin/boxes/questions/focus/'.$box->id)
 		  ->withInput();
@@ -202,7 +202,7 @@ class BoxesQuestionsController extends BaseController {
 
     $question->delete();
 
-		Session::flash('message', "Cette question a été archivée");
+		session()->flash('message', "Cette question a été archivée");
 		return Redirect::back();
 	}
 

@@ -10,12 +10,12 @@
 
 @section('content')
 
-  @if (Session::has('message'))
-    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
 
-  @if (Session::has('error'))
-    <div class="js-alert-remove spyro-alert spyro-alert-error">{{ Session::get('error') }}</div>
+  @if (session()->has('error'))
+    <div class="js-alert-remove spyro-alert spyro-alert-error">{{ session()->get('error') }}</div>
   @endif
 
   {!! Form::info("Section permettant de repèrer les bugs liés au site (paiement n'étant pas relié à une commande par exemple") !!}

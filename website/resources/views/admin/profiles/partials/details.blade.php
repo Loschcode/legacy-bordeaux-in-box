@@ -95,7 +95,7 @@
           {{{ $errors->first('note') }}}<br />
           @endif
 
-          {!! Form::textarea("note", Input::old('note'), ['class' => 'form-control']) !!}
+          {!! Form::textarea("note", Request::old('note'), ['class' => 'form-control']) !!}
 
           <div class="spacer10"></div>
 

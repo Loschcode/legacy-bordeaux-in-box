@@ -96,7 +96,7 @@ class EmailManagerController extends BaseController {
 
 		}
 			
-		Session::flash('message', "La série d'emails a bien été distribuée ($email_counter emails envoyés)");
+		session()->flash('message', "La série d'emails a bien été distribuée ($email_counter emails envoyés)");
 		return Redirect::back();
 
 	}
@@ -155,7 +155,7 @@ class EmailManagerController extends BaseController {
 
 		}
 			
-		Session::flash('message', "La série d'emails a bien été distribuée ($email_counter emails envoyés).");
+		session()->flash('message', "La série d'emails a bien été distribuée ($email_counter emails envoyés).");
 		return Redirect::back();
 
 	}

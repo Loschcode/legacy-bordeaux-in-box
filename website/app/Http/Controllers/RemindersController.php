@@ -30,7 +30,7 @@ class RemindersController extends BaseController {
 	 */
 	public function postRemind()
 	{
-		switch ($response = Password::remind(Input::only('email'), function($message) {
+		switch ($response = Password::remind(Request::only('email'), function($message) {
 			$message
 			->from('lolipop@bordeauxinbox.fr', 'Bordeaux in Box')
             ->subject('Réinitialisation de ton mot de passe');
@@ -66,7 +66,7 @@ class RemindersController extends BaseController {
 	 */
 	public function postReset()
 	{
-		$credentials = Input::only(
+		$credentials = Request::only(
 			'email', 'password', 'password_confirmation', 'token'
 		);
 

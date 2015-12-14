@@ -9,8 +9,8 @@
 
   <h2>Ajouter une réponse à la question `{{$question->question}}` ({!! Form::getReadableQuestionType($question->type) !!})</h2>
 
-  @if (Session::has('message'))
-    <div>{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div>{{ session()->get('message') }}</div>
   @endif
 
   @if ($errors->first('content'))
@@ -18,7 +18,7 @@
   @endif
 
   {!! Form::label("content", "Contenu") !!}
-  {!! Form::text("content", Input::old("content")) !!}
+  {!! Form::text("content", Request::old("content")) !!}
   <br />
 
   {!! Form::submit("Ajouter cette réponse") !!}

@@ -6,8 +6,8 @@
 
 @section('content')
 
-	  @if (Session::has('message'))
-	    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+	  @if (session()->has('message'))
+	    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
 	  @endif
 
 	  @if ($errors->has())

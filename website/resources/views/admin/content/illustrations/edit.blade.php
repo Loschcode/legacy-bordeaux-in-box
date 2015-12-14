@@ -14,8 +14,8 @@
 
 @section('content')
 
-  @if (Session::has('message'))
-    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
 
   @if ($errors->has())
@@ -31,7 +31,7 @@
     <!-- Title -->
     <div class="form-group @if ($errors->first('title')) has-error has-feedback @endif">
       {!! Form::label("title", "Titre", ['class' => 'control-label']) !!}
-      {!! Form::text("title", Input::old("title") ? Input::old("title") : $image_article->title, ['class' => 'form-control']) !!}
+      {!! Form::text("title", Request::old("title") ? Request::old("title") : $image_article->title, ['class' => 'form-control']) !!}
 
       @if ($errors->first('title'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -42,7 +42,7 @@
     <!-- Slug -->
     <div class="form-group @if ($errors->first('slug')) has-error has-feedback @endif">
       {!! Form::label("slug", "Slug", ['class' => 'control-label']) !!}
-      {!! Form::text("slug", Input::old("slug") ? Input::old("slug") : $image_article->slug, ['class' => 'form-control']) !!}
+      {!! Form::text("slug", Request::old("slug") ? Request::old("slug") : $image_article->slug, ['class' => 'form-control']) !!}
 
       @if ($errors->first('slug'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -53,7 +53,7 @@
     <!-- Description -->
     <div class="form-group @if ($errors->first('description')) has-error has-feedback @endif">
       {!! Form::label("description", "Description", ['class' => 'control-label']) !!}
-      {!! Form::text("description", Input::old("description") ? Input::old("description") : $image_article->description, ['class' => 'form-control']) !!}
+      {!! Form::text("description", Request::old("description") ? Request::old("description") : $image_article->description, ['class' => 'form-control']) !!}
 
       @if ($errors->first('description'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>

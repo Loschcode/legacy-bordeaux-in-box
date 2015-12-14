@@ -24,11 +24,11 @@
 
              @if (($question->type === "text") || ($question->type === 'date') || ($question->type === 'member_email'))
 
-               {!! Form::text($question->id.'-0', ($old_reply->first() != NULL) ? $old_reply->first()->answer : Input::old($question->id), ['class' => 'form-control']) !!}
+               {!! Form::text($question->id.'-0', ($old_reply->first() != NULL) ? $old_reply->first()->answer : Request::old($question->id), ['class' => 'form-control']) !!}
 
              @elseif ($question->type === "textarea")
 
-               {!! Form::textarea($question->id.'-0', ($old_reply->first() != NULL) ? $old_reply->first()->answer : Input::old($question->id), ['class' => 'form-control']) !!}
+               {!! Form::textarea($question->id.'-0', ($old_reply->first() != NULL) ? $old_reply->first()->answer : Request::old($question->id), ['class' => 'form-control']) !!}
 
 
               @elseif ($question->type == "children_details")
@@ -59,7 +59,7 @@
                         {!! Form::text($question->id.'-0['.$i.'][child_name]',
 
                         (isset($old_replies_names[$i])) ? $old_replies_names[$i]->answer :
-                        Input::old($question->id), ['placeholder' => 'Prénom', 'class' => 'form-control'])
+                        Request::old($question->id), ['placeholder' => 'Prénom', 'class' => 'form-control'])
 
                         !!}
                       </div>
@@ -75,7 +75,7 @@
                         {!! Form::select($question->id.'-0['.$i.'][child_sex]', generate_children_sex(),
 
                         ($old_replies_sex !== NULL) ? $old_replies_sex->answer :
-                        Input::old($question->id), ['class' => 'form-control'])
+                        Request::old($question->id), ['class' => 'form-control'])
 
                         !!}
                       </div>
@@ -91,7 +91,7 @@
                         {!! Form::select($question->id.'-0['.$i.'][child_year]', generate_children_birth_form(),
 
                         ($old_replies_year !== NULL) ? $old_replies_year->answer :
-                        Input::old($question->id), ['class' => 'form-control'])
+                        Request::old($question->id), ['class' => 'form-control'])
 
                         !!}
                       </div>
@@ -107,7 +107,7 @@
                         {!! Form::select($question->id.'-0['.$i.'][child_month]', generate_month_form(),
 
                         ($old_replies_month !== NULL) ? $old_replies_month->answer :
-                        Input::old($question->id), ['class' => 'form-control'])
+                        Request::old($question->id), ['class' => 'form-control'])
 
                         !!}
                       </div>
@@ -150,7 +150,7 @@
 
 
                    @if ($old_reply->first() != NULL)
-                   {!! Form::radio($question->id.'-0', $answer->content, ($old_reply->first()->answer == $answer->content) ? true : Input::old($question->id.'-0'), array('id' => $answer->id)) !!}
+                   {!! Form::radio($question->id.'-0', $answer->content, ($old_reply->first()->answer == $answer->content) ? true : Request::old($question->id.'-0'), array('id' => $answer->id)) !!}
                    @else
                      {!! Form::radio($question->id.'-0', $answer->content, '', array('id' => $answer->id)) !!}
                    @endif
@@ -162,11 +162,11 @@
 
                    @if ($old_reply === NULL)
 
-                     {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, Input::old($question->id.'-'.$answer->id), array('id' => $answer->id)) !!}
+                     {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, Request::old($question->id.'-'.$answer->id), array('id' => $answer->id)) !!}
 
                    @else
 
-                     {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, ($old_reply->where('answer', $answer->content)->first()) ? true : Input::old($question->id.'-'.$answer->id), array('id' => $answer->id)) !!}
+                     {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, ($old_reply->where('answer', $answer->content)->first()) ? true : Request::old($question->id.'-'.$answer->id), array('id' => $answer->id)) !!}
 
                    @endif
                    {!! Form::label($answer->id, $answer->content) !!}

@@ -58,7 +58,7 @@ class ContentController extends BaseController {
 
 		$blog_article->delete();
 
-		Session::flash('message', "L'article de blog a été correctement supprimé");
+		session()->flash('message', "L'article de blog a été correctement supprimé");
 		return Redirect::back();
 	}
 
@@ -91,7 +91,7 @@ class ContentController extends BaseController {
 			];
 
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
@@ -111,7 +111,7 @@ class ContentController extends BaseController {
 			{
 
 				// We manage the thumbnail
-				$file = Input::file('thumbnail');
+				$file = Request::file('thumbnail');
 				$destinationPath = 'public/uploads/blog/';
 
 				$filename = value(function() use ($file, $blog_article) {
@@ -121,7 +121,7 @@ class ContentController extends BaseController {
 
 				});
 
-				Input::file('thumbnail')->move($destinationPath, $filename);
+				Request::file('thumbnail')->move($destinationPath, $filename);
 
 				$thumbnail = ['folder' => 'blog', 'filename' => $filename];
 				$blog_article->thumbnail = json_encode($thumbnail);
@@ -176,7 +176,7 @@ class ContentController extends BaseController {
 
 			];
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
@@ -191,7 +191,7 @@ class ContentController extends BaseController {
 			$blog_article->user()->associate(Auth::user());
 
 			// We manage the thumbnail
-			$file = Input::file('thumbnail');
+			$file = Request::file('thumbnail');
 			$destinationPath = 'public/uploads/blog/';
 
 			$filename = value(function() use ($file, $blog_article) {
@@ -201,7 +201,7 @@ class ContentController extends BaseController {
 
 			});
 
-			Input::file('thumbnail')->move($destinationPath, $filename);
+			Request::file('thumbnail')->move($destinationPath, $filename);
 
 			// We remove public for the array
 			//$destinationPath = str_replace('public/', '', $destinationPath);
@@ -235,7 +235,7 @@ class ContentController extends BaseController {
 	public function postEditPage()
 	{
 
-		$fields = Input::all();
+		$fields = Request::all();
 		$rules = []; // Dynamic rule
 
 		foreach ($fields as $label => $value) {
@@ -264,7 +264,7 @@ class ContentController extends BaseController {
 
 			}
 
-			Session::flash('message', "Vos pages ont correctement été mises à jour");
+			session()->flash('message', "Vos pages ont correctement été mises à jour");
 			return Redirect::back();
 
 		} else {
@@ -293,7 +293,7 @@ class ContentController extends BaseController {
 
 			$image_article->delete();
 
-			Session::flash('message', "L'illustration a été correctement supprimée");
+			session()->flash('message', "L'illustration a été correctement supprimée");
 			return Redirect::back();
 
 
@@ -331,7 +331,7 @@ class ContentController extends BaseController {
 			];
 
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
@@ -400,7 +400,7 @@ class ContentController extends BaseController {
 			];
 
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
@@ -437,7 +437,7 @@ class ContentController extends BaseController {
 
 
 		// We manage the image
-		$file = Input::file('image');
+		$file = Request::file('image');
 		$destinationPath = 'public/uploads/illustrations/';
 
 		$filename = value(function() use ($file, $image_article) {
@@ -447,7 +447,7 @@ class ContentController extends BaseController {
 
 		});
 
-		Input::file('image')->move($destinationPath, $filename);
+		Request::file('image')->move($destinationPath, $filename);
 
 		// We remove public for the array
 		//$destinationPath = str_replace('public/', '', $destinationPath);

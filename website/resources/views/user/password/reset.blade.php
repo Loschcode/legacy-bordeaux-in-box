@@ -9,7 +9,7 @@
     @endif
 
     {!! Form::label("email", "Email") !!}
-    {!! Form::text("email", Input::old("email")) !!}<br />
+    {!! Form::text("email", Request::old("email")) !!}<br />
 
 
     @if ($errors->first('password'))

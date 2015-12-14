@@ -5,8 +5,8 @@
 @stop
 
 @section('content')
-  @if (Session::has('message'))
-    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
 
   @include('_includes.errors', ['errors' => $errors])
@@ -213,7 +213,7 @@
 
           <div id="checkbox-similar" class="form-group">
             <label for="past_advanced_filters">Copier les filtres avancés de l'article similaire</label>
-            {!! Form::checkbox('past_advanced_filters', null, Input::old('past_advanced_filters')) !!}
+            {!! Form::checkbox('past_advanced_filters', null, Request::old('past_advanced_filters')) !!}
 
           </div>
 
@@ -231,12 +231,12 @@
 
           <div class="form-group @if ($errors->first('name')) has-error has-feedback @endif">
             {!! Form::label("name", "e.g. Tanga noir taille XS)", ['class' => 'sr-only']) !!}
-            {!! Form::text("name", Input::old("name"), ['class' => 'form-control', 'placeholder' => 'Nom (e.g. Tanga noir taille XS)']) !!}
+            {!! Form::text("name", Request::old("name"), ['class' => 'form-control', 'placeholder' => 'Nom (e.g. Tanga noir taille XS)']) !!}
           </div>
 
           <div class="form-group @if ($errors->first('description')) has-error has-feedback @endif">
             {!! Form::label("description", "Description", ['class' => 'sr-only']) !!}
-            {!! Form::textarea("description", Input::old("description"), ['class' => 'form-control', 'placeholder' => 'Description']) !!}
+            {!! Form::textarea("description", Request::old("description"), ['class' => 'form-control', 'placeholder' => 'Description']) !!}
           </div>
 
 
@@ -258,7 +258,7 @@
 
           <div class="form-group @if ($errors->first('weight')) has-error has-feedback @endif">
             {!! Form::label("weight", "Poids", ['class' => 'sr-only']) !!}
-            {!! Form::text("weight", Input::old("weight"), ['class' => 'form-control', 'placeholder' => 'Poids en grammes (e.g. 75.80)']) !!}
+            {!! Form::text("weight", Request::old("weight"), ['class' => 'form-control', 'placeholder' => 'Poids en grammes (e.g. 75.80)']) !!}
           </div>
 
           <div class="form-group @if ($errors->first('birthday_ready')) has-error has-feedback @endif">
@@ -382,23 +382,23 @@
 
           <div class="form-group @if ($errors->first('name')) has-error has-feedback @endif">
             {!! Form::label("name", "Nom", ['class' => 'sr-only']) !!}
-            {!! Form::text("name", Input::old("name"), ['class' => 'form-control', 'placeholder' => 'Nom']) !!}
+            {!! Form::text("name", Request::old("name"), ['class' => 'form-control', 'placeholder' => 'Nom']) !!}
           </div>
 
 
           <div class="form-group @if ($errors->first('description')) has-error has-feedback @endif">
             {!! Form::label("description", "Description", ['class' => 'sr-only']) !!}
-            {!! Form::textarea("description", Input::old("description"), ['class' => 'form-control', 'placeholder' => 'Description']) !!}
+            {!! Form::textarea("description", Request::old("description"), ['class' => 'form-control', 'placeholder' => 'Description']) !!}
           </div>
 
           <div class="form-group @if ($errors->first('website')) has-error has-feedback @endif">
             {!! Form::label("website", "Site web", ['class' => 'sr-only']) !!}
-            {!! Form::text("website", Input::old("website"), ['class' => 'form-control', 'placeholder' => 'Site web (http://www.monsite.fr)']) !!}
+            {!! Form::text("website", Request::old("website"), ['class' => 'form-control', 'placeholder' => 'Site web (http://www.monsite.fr)']) !!}
           </div>
 
           <div class="form-group @if ($errors->first('facebook')) has-error has-feedback @endif">
             {!! Form::label("facebook", "Facebook", ['class' => 'sr-only']) !!}
-            {!! Form::text("facebook", Input::old("facebook"), ['class' => 'form-control', 'placeholder' => 'Facebook (http://www.facebook.com)']) !!}
+            {!! Form::text("facebook", Request::old("facebook"), ['class' => 'form-control', 'placeholder' => 'Facebook (http://www.facebook.com)']) !!}
           </div>
 
           <div class="form-group @if ($errors->first('blog_article_id')) has-error has-feedback @endif">

@@ -18,7 +18,7 @@
   <!-- Name -->
   <div class="form-group @if ($errors->first('name')) has-error has-feedback @endif">
     {!! Form::label("name", "Nom", ['class' => 'control-label']) !!}
-    {!! Form::text("name", Input::old("name"), ['class' => 'form-control']) !!}
+    {!! Form::text("name", Request::old("name"), ['class' => 'form-control']) !!}
 
     @if ($errors->first('name'))
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -29,7 +29,7 @@
   <!-- City -->
   <div class="form-group @if ($errors->first('city')) has-error has-feedback @endif">
     {!! Form::label("city", "Ville", ['class' => 'control-label']) !!}
-    {!! Form::text("city", Input::old("city"), ['class' => 'form-control']) !!}
+    {!! Form::text("city", Request::old("city"), ['class' => 'form-control']) !!}
 
     @if ($errors->first('city'))
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -40,7 +40,7 @@
   <!-- Zip -->
   <div class="form-group @if ($errors->first('zip')) has-error has-feedback @endif">
     {!! Form::label("zip", "Code postal", ['class' => 'control-label']) !!}
-    {!! Form::text("zip", Input::old("zip"), ['class' => 'form-control']) !!}
+    {!! Form::text("zip", Request::old("zip"), ['class' => 'form-control']) !!}
 
     @if ($errors->first('zip'))
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -51,7 +51,7 @@
   <!-- Address -->
   <div class="form-group @if ($errors->first('address')) has-error has-feedback @endif">
     {!! Form::label("address", "Adresse", ['class' => 'control-label']) !!}
-    {!! Form::textarea("address", Input::old("address"), ['class' => 'form-control']) !!}
+    {!! Form::textarea("address", Request::old("address"), ['class' => 'form-control']) !!}
 
     @if ($errors->first('address'))
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -62,7 +62,7 @@
     <!-- Schedule -->
   <div class="form-group @if ($errors->first('schedule')) has-error has-feedback @endif">
     {!! Form::label("schedule", "Horaires", ['class' => 'control-label']) !!}
-    {!! Form::textarea("schedule", Input::old("schedule"), ['class' => 'form-control']) !!}
+    {!! Form::textarea("schedule", Request::old("schedule"), ['class' => 'form-control']) !!}
 
     @if ($errors->first('schedule'))
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>

@@ -16,8 +16,8 @@
 
 @section('content')
 
-  @if (Session::has('message'))
-    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
 
   @if ($errors->has())
@@ -30,22 +30,22 @@
 
   <div class="form-group @if ($errors->first('name')) has-error has-feedback @endif">
     {!! Form::label("name", "Nom", ['class' => 'sr-only']) !!}
-    {!! Form::text("name", (Input::old("name")) ? Input::old("name") : $partner->name, ['class' => 'form-control', 'placeholder' => 'Nom']) !!}
+    {!! Form::text("name", (Request::old("name")) ? Request::old("name") : $partner->name, ['class' => 'form-control', 'placeholder' => 'Nom']) !!}
   </div>
 
   <div class="form-group @if ($errors->first('description')) has-error has-feedback @endif">
     {!! Form::label("description", "Description", ['class' => 'sr-only']) !!}
-    {!! Form::textarea("description", (Input::old("description")) ? Input::old("descriptionr") : $partner->description, ['class' => 'form-control', 'placeholder' => 'Description']) !!}
+    {!! Form::textarea("description", (Request::old("description")) ? Request::old("descriptionr") : $partner->description, ['class' => 'form-control', 'placeholder' => 'Description']) !!}
   </div>
 
   <div class="form-group @if ($errors->first('website')) has-error has-feedback @endif">
     {!! Form::label("website", "Site web", ['class' => 'sr-only']) !!}
-    {!! Form::text("website", (Input::old("website")) ? Input::old("websiter") : $partner->website, ['class' => 'form-control', 'placeholder' => 'Site web (http://www.monsite.fr)']) !!}
+    {!! Form::text("website", (Request::old("website")) ? Request::old("websiter") : $partner->website, ['class' => 'form-control', 'placeholder' => 'Site web (http://www.monsite.fr)']) !!}
   </div>
 
   <div class="form-group @if ($errors->first('facebook')) has-error has-feedback @endif">
     {!! Form::label("facebook", "Facebook", ['class' => 'sr-only']) !!}
-    {!! Form::text("facebook", (Input::old("facebook")) ? Input::old("facebookr") : $partner->facebook, ['class' => 'form-control', 'placeholder' => 'Facebook (http://www.facebook.com)']) !!}
+    {!! Form::text("facebook", (Request::old("facebook")) ? Request::old("facebookr") : $partner->facebook, ['class' => 'form-control', 'placeholder' => 'Facebook (http://www.facebook.com)']) !!}
   </div>
 
   <div class="form-group @if ($errors->first('blog_article_id')) has-error has-feedback @endif">

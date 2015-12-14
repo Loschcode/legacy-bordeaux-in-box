@@ -18,8 +18,8 @@
 @section('content')
 
 
-  @if (Session::has('message'))
-    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
   
   {!! Form::info("Remplissez le champs `slug` uniquement s'il va être utilisé ailleurs que dans le formulaire dans le système (demander à un développeur compétent si vous ne comprenez pas ce que cela signifie).") !!}
@@ -33,7 +33,7 @@
     <!-- Question -->
     <div class="form-group @if ($errors->first('question')) has-error has-feedback @endif">
       {!! Form::label("question", "Question", ['class' => 'control-label']) !!}
-      {!! Form::text("question", Input::old("question"), ['class' => 'form-control']) !!}
+      {!! Form::text("question", Request::old("question"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('question'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -44,7 +44,7 @@
     <!-- Short question -->
     <div class="form-group @if ($errors->first('short_question')) has-error has-feedback @endif">
       {!! Form::label("short_question", "Résumé", ['class' => 'control-label']) !!}
-      {!! Form::text("short_question", Input::old("short_question"), ['class' => 'form-control']) !!}
+      {!! Form::text("short_question", Request::old("short_question"), ['class' => 'form-control']) !!}
       @if ($errors->first('short_question'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         <span class="help-block">{{ $errors->first('short_question') }}</span>
@@ -54,7 +54,7 @@
     <!-- Filter -->
     <div class="form-group @if ($errors->first('filter_must_match')) has-error has-feedback @endif">
       {!! Form::label("filter_must_match", "Le filtre doit correspondre", ['class' => 'control-label']) !!}
-      {!! Form::select('filter_must_match', ['0' => 'Non', '1' => 'Oui'], Input::old('filter_must_match'), ['class' => 'form-control'])!!}
+      {!! Form::select('filter_must_match', ['0' => 'Non', '1' => 'Oui'], Request::old('filter_must_match'), ['class' => 'form-control'])!!}
       @if ($errors->first('filter_must_match'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         <span class="help-block">{{ $errors->first('filter_must_match') }}</span>
@@ -64,7 +64,7 @@
     <!-- Slug -->
     <div class="form-group @if ($errors->first('slug')) has-error has-feedback @endif">
       {!! Form::label("slug", "Slug (facultatif)", ['class' => 'control-label']) !!}
-      {!! Form::text("slug", Input::old("slug"), ['class' => 'form-control']) !!}
+      {!! Form::text("slug", Request::old("slug"), ['class' => 'form-control']) !!}
       @if ($errors->first('slug'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         <span class="help-block">{{ $errors->first('slug') }}</span>
@@ -74,7 +74,7 @@
     <!-- Type -->
     <div class="form-group @if ($errors->first('type')) has-error has-feedback @endif">
       {!! Form::label("type", "Type", ['class' => 'control-label']) !!}
-      {!! Form::select('type', Form::getPossibleQuestionTypes(), Input::old('type'), ['class' => 'form-control']) !!}
+      {!! Form::select('type', Form::getPossibleQuestionTypes(), Request::old('type'), ['class' => 'form-control']) !!}
       @if ($errors->first('type'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         <span class="help-block">{{ $errors->first('type') }}</span>
@@ -84,7 +84,7 @@
     <!-- Position -->
     <div class="form-group @if ($errors->first('position')) has-error has-feedback @endif">
       {!! Form::label("position", "Position", ['class' => 'control-label']) !!}
-      {!! Form::select('position', $position_listing, Input::old('position'), ['class' => 'form-control']) !!}
+      {!! Form::select('position', $position_listing, Request::old('position'), ['class' => 'form-control']) !!}
       @if ($errors->first('position'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         <span class="help-block">{{ $errors->first('position') }}</span>

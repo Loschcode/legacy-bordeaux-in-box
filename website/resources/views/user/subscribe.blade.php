@@ -13,25 +13,25 @@
 
     {!! Form::open() !!}
 
-    {!! Form::text("first_name", Input::old("first_name"), ['placeholder' => 'Prénom']) !!}
+    {!! Form::text("first_name", Request::old("first_name"), ['placeholder' => 'Prénom']) !!}
 
     @if ($errors->first('first_name'))
       <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('first_name') }}}</span>
     @endif
 
 
-    {!! Form::text("last_name", Input::old("last_name"), ['placeholder' => 'Nom de famille']) !!}
+    {!! Form::text("last_name", Request::old("last_name"), ['placeholder' => 'Nom de famille']) !!}
     @if ($errors->first('last_name'))
       <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('last_name') }}}</span>
     @endif
 
-    {!! Form::text("email", Input::old("email"), ['placeholder' => 'Email']) !!}
+    {!! Form::text("email", Request::old("email"), ['placeholder' => 'Email']) !!}
     @if ($errors->first('email'))
       <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('email') }}}</span>
     @endif
 
 
-    {!! Form::text("phone", Input::old("phone"), ['placeholder' => 'Téléphone']) !!}
+    {!! Form::text("phone", Request::old("phone"), ['placeholder' => 'Téléphone']) !!}
     @if ($errors->first('phone'))
       <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('phone') }}}</span>
     @endif

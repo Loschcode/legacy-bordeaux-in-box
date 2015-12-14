@@ -16,7 +16,7 @@ class IsConnectedMiddleware {
     if (Auth::guest()) {
 
       // We register the URL where the user tried to go before
-      Session::put('after-login-redirection', Request::url());
+      session()->put('after-login-redirection', Request::url());
       return Redirect::to('user/login');
 
     }

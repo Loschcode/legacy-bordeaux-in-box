@@ -150,7 +150,7 @@
           <!-- Firstname -->
           <div class="form-group">
             {!! Form::label("destination_first_name", "Prénom") !!}
-            {!! Form::text("destination_first_name", ($order_destination->first_name) ? $order_destination->first_name : Input::old("destination_first_name"), ['class' => 'form-control']) !!}<br/>
+            {!! Form::text("destination_first_name", ($order_destination->first_name) ? $order_destination->first_name : Request::old("destination_first_name"), ['class' => 'form-control']) !!}<br/>
             @if ($errors->delivery->first('destination_first_name'))
               <span class="spyro-text-danger"><i class="fa fa-times"></i> {{ $errors->delivery->first('destination_first_name') }}</span>
             @endif
@@ -159,7 +159,7 @@
           <!-- Lastname -->
           <div class="form-group">
             {!! Form::label("destination_last_name", "Nom") !!}
-            {!! Form::text("destination_last_name", ($order_destination->last_name) ? $order_destination->last_name : Input::old("destination_last_name"), ['class' => 'form-control']) !!}<br />
+            {!! Form::text("destination_last_name", ($order_destination->last_name) ? $order_destination->last_name : Request::old("destination_last_name"), ['class' => 'form-control']) !!}<br />
 
             @if ($errors->delivery->first('destination_last_name'))
               <span class="spyro-text-danger"><i class="fa fa-times"></i> {{ $errors->delivery->first('destination_last_name') }}</span>
@@ -170,7 +170,7 @@
           <!-- City -->
           <div class="form-group">        
             {!! Form::label("destination_city", "Ville") !!}
-            {!! Form::text("destination_city", ($order_destination->city) ? $order_destination->city : Input::old("destination_city"), ['class' => 'form-control']) !!}<br/>
+            {!! Form::text("destination_city", ($order_destination->city) ? $order_destination->city : Request::old("destination_city"), ['class' => 'form-control']) !!}<br/>
 
             @if ($errors->delivery->first('destination_city'))
               <span class="spyro-text-danger"><i class="fa fa-times"></i> {{ $errors->delivery->first('destination_city') }}</span>
@@ -181,7 +181,7 @@
           <!-- Zip -->
           <div class="form-group">
             {!! Form::label("destination_zip", "Code postal") !!}
-            {!! Form::text("destination_zip", ($order_destination->zip) ? $order_destination->zip : Input::old("destination_zip"), ['class' => 'form-control']) !!}<br />
+            {!! Form::text("destination_zip", ($order_destination->zip) ? $order_destination->zip : Request::old("destination_zip"), ['class' => 'form-control']) !!}<br />
 
             @if ($errors->delivery->first('destination_zip'))
               <span class="spyro-text-danger"><i class="fa fa-times"></i> {{ $errors->delivery->first('destination_zip') }}</span>
@@ -191,7 +191,7 @@
           <!-- Address -->
           <div class="form-group">
             {!! Form::label("destination_address", "Adresse") !!}<br />
-            {!! Form::textarea("destination_address", ($order_destination->address) ? $order_destination->address : Input::old("destination_address"), ['class' => 'form-control']) !!}<br />
+            {!! Form::textarea("destination_address", ($order_destination->address) ? $order_destination->address : Request::old("destination_address"), ['class' => 'form-control']) !!}<br />
 
             @if ($errors->delivery->first('destination_address'))
               <span class="spyro-text-danger"><i class="fa fa-times"></i> {{ $errors->delivery->first('destination_address') }}</span>

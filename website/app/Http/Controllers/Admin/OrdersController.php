@@ -68,7 +68,7 @@ class OrdersController extends BaseController {
 			$order->status = 'problem';
 			$order->save();
 
-			Session::flash('message', "La commande est listée dans les commandes à problème");
+			session()->flash('message', "La commande est listée dans les commandes à problème");
 			return Redirect::back();
 
 		}
@@ -91,7 +91,7 @@ class OrdersController extends BaseController {
 			$order->status = 'ready';
 			$order->save();
 
-			Session::flash('message', "La commande est prête à l'envoi");
+			session()->flash('message', "La commande est prête à l'envoi");
 			return Redirect::back();
 
 		}
@@ -111,7 +111,7 @@ class OrdersController extends BaseController {
 
 			$this->orderWasSent($order);
 
-			Session::flash('message', "La commande a été envoyée");
+			session()->flash('message', "La commande a été envoyée");
 			return Redirect::back();
 
 		}
@@ -133,7 +133,7 @@ class OrdersController extends BaseController {
 			$order->status = 'canceled';
 			$order->save();
 
-			Session::flash('message', "La commande a été annulée");
+			session()->flash('message', "La commande a été annulée");
 			return Redirect::back();
 
 		}
@@ -153,7 +153,7 @@ class OrdersController extends BaseController {
 
 			$order->delete();
 
-			Session::flash('message', "La commande a bien été archivée");
+			session()->flash('message', "La commande a bien été archivée");
 			return Redirect::back();
 
 
@@ -175,7 +175,7 @@ class OrdersController extends BaseController {
 			$spot->active = FALSE;
 			$spot->save();
 
-			Session::flash('message', "Le point relais a été désactivé");
+			session()->flash('message', "Le point relais a été désactivé");
 			return Redirect::back();
 
 
@@ -198,7 +198,7 @@ class OrdersController extends BaseController {
 			$spot->active = TRUE;
 			$spot->save();
 
-			Session::flash('message', "Le point relais a été activé");
+			session()->flash('message', "Le point relais a été activé");
 			return Redirect::back();
 
 
@@ -241,7 +241,7 @@ class OrdersController extends BaseController {
 			];
 
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
@@ -307,7 +307,7 @@ class OrdersController extends BaseController {
 			];
 
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 

@@ -34,14 +34,14 @@
 
       <div class="col-md-6 col-md-offset-3">
         {!! Form::label('1', 'A emporter depuis un point relais (Gratuit)', ['class' => 'hidden']) !!}
-        {!! Form::radio('take_away', 1, ($order_preference->take_away) ? true : Input::old(1), array('id' => 1, 'class' => 'big')) !!}
+        {!! Form::radio('take_away', 1, ($order_preference->take_away) ? true : Request::old(1), array('id' => 1, 'class' => 'big')) !!}
       </div>
 
       <div class="clearfix"></div>
 
    		<div class="col-md-6 col-md-offset-3">
 	   		{!! Form::label('0', $text . ' (+'.DeliverySetting::first()->regional_delivery_fees.'€ *)', ['class' => 'hidden']) !!}
-	   		{!! Form::radio('take_away', 0, (!$order_preference->take_away) ? true : Input::old(0), array('id' => 0, 'class' => 'big')) !!}
+	   		{!! Form::radio('take_away', 0, (!$order_preference->take_away) ? true : Request::old(0), array('id' => 0, 'class' => 'big')) !!}
 	   	</div>
 
    	

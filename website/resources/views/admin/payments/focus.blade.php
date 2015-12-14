@@ -51,7 +51,7 @@
       {!! Form::hidden("payment_id", $payment->id) !!}
 
       {!! Form::label("order_id", "Série ") !!}
-      {!! Form::select('order_id', $order_series_list, (Input::old("order_id")) ? Input::old("order_id") : $payment_order_id) !!}
+      {!! Form::select('order_id', $order_series_list, (Request::old("order_id")) ? Request::old("order_id") : $payment_order_id) !!}
 
       {!! Form::submit("Mettre à jour", ['class' => 'spyro-btn spyro-btn-success spyr-btn-sm']) !!}
 

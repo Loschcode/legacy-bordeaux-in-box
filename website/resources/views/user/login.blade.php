@@ -11,15 +11,15 @@
 
     <div class="col-md-4 col-md-offset-4">
 
-      @if (Session::has('message'))
-        <div class="spyro-alert spyro-alert-green">{{ Session::get('message') }}</div>
+      @if (session()->has('message'))
+        <div class="spyro-alert spyro-alert-green">{{ session()->get('message') }}</div>
       @endif
 
       {!! Form::open() !!}
 
 
 
-      {!! Form::text("email", Input::old("email"), ['placeholder' => 'Email']) !!}
+      {!! Form::text("email", Request::old("email"), ['placeholder' => 'Email']) !!}
       @if ($errors->first('email'))
         <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('email') }}}</span>
       @endif

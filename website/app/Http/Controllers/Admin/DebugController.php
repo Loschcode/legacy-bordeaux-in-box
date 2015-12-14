@@ -71,7 +71,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Les livraisons ont été définies comme complétées, merci de ne jamais réutiliser cette commande. ($affected_rows entrées affectées)");
+    session()->flash('message', "Les livraisons ont été définies comme complétées, merci de ne jamais réutiliser cette commande. ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -98,7 +98,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Les livraisons ont été modifiées, merci de ne jamais réutiliser cette commande. ($affected_rows entrées affectées)");
+    session()->flash('message', "Les livraisons ont été modifiées, merci de ne jamais réutiliser cette commande. ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -125,7 +125,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Les livraisons ont été modifiées, merci de ne jamais réutiliser cette commande. ($affected_rows entrées affectées)");
+    session()->flash('message', "Les livraisons ont été modifiées, merci de ne jamais réutiliser cette commande. ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -147,7 +147,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Les livraisons effectivement envoyées ont une date complétée (`date_completed`) ($affected_rows entrées affectées)");
+    session()->flash('message', "Les livraisons effectivement envoyées ont une date complétée (`date_completed`) ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -199,7 +199,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Les marraines liées aux questionnaires ont été mises à jour ($affected_rows entrées affectées)");
+    session()->flash('message', "Les marraines liées aux questionnaires ont été mises à jour ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -221,7 +221,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Les livraisons effectivement envoyées ont un statut `delivered` ($affected_rows entrées affectées)");
+    session()->flash('message', "Les livraisons effectivement envoyées ont un statut `delivered` ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -295,7 +295,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Le `status_updated_at` des abonnements on été mis à jour ($affected_rows entrées affectées)");
+    session()->flash('message', "Le `status_updated_at` des abonnements on été mis à jour ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -366,7 +366,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Le `status` des abonnements on été mis à jour ($affected_rows entrées affectées)");
+    session()->flash('message', "Le `status` des abonnements on été mis à jour ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -398,7 +398,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Les profils non terminés ne possédant pas de `user_profile` ont été reliés ($affected_rows entrées affectées)");
+    session()->flash('message', "Les profils non terminés ne possédant pas de `user_profile` ont été reliés ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -436,7 +436,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Les liaisons ont été créées dans le système de paiement ($affected_rows entrées affectées)");
+    session()->flash('message', "Les liaisons ont été créées dans le système de paiement ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -468,7 +468,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Le `stripe_plan` dans `payment_profile_payments` a été peuplé via Stripe ($affected_rows entrées affectées)");
+    session()->flash('message', "Le `stripe_plan` dans `payment_profile_payments` a été peuplé via Stripe ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -500,7 +500,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Le `stripe_plan` dans `payment_profile_payments` a été peuplé via Stripe ($affected_rows entrées affectées)");
+    session()->flash('message', "Le `stripe_plan` dans `payment_profile_payments` a été peuplé via Stripe ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -528,7 +528,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Le `slug` des `user_answers` a été généré si nécessaire ($affected_rows entrées affectées)");
+    session()->flash('message', "Le `slug` des `user_answers` a été généré si nécessaire ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -554,7 +554,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Les profils non terminés ne possédant pas de série dédiée ont été reliées ($affected_rows entrées affectées)");
+    session()->flash('message', "Les profils non terminés ne possédant pas de série dédiée ont été reliées ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }
@@ -587,7 +587,7 @@ class DebugController extends BaseController {
 
     }
 
-    Session::flash('message', "Les profils non terminés ne possédant pas de série dédiée ont été reliées ($affected_rows entrées affectées)");
+    session()->flash('message', "Les profils non terminés ne possédant pas de série dédiée ont été reliées ($affected_rows entrées affectées)");
     return Redirect::back();
 
   }

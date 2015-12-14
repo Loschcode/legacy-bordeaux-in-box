@@ -6,8 +6,8 @@
 
 @section('content')
 
-	@if (Session::has('message'))
-		<div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+	@if (session()->has('message'))
+		<div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
 	@endif
 	
 	{!! Form::info('Les utilisateurs correspondent aux comptes d\'inscription, ils ne sont pas représentatifs des `profils` reliés aux commandes et encore moins des utilisateurs actifs et/ou ayant commandé.') !!}

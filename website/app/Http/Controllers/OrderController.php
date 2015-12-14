@@ -43,12 +43,12 @@ class OrderController extends BaseController {
   public function getClassic()
   {
 
-    Session::put('isOrdering', TRUE);
-    Session::put('isGift', FALSE);
+    session()->put('isOrdering', TRUE);
+    session()->put('isGift', FALSE);
     
     if (Auth::guest()) 
     {
-      Session::put('after-login-redirection', Request::url());
+      session()->put('after-login-redirection', Request::url());
       return redirect('user/subscribe');
     }
 
@@ -62,12 +62,12 @@ class OrderController extends BaseController {
    */
   public function getGift()
   {
-    Session::put('isOrdering', TRUE);
-    Session::put('isGift', TRUE);
+    session()->put('isOrdering', TRUE);
+    session()->put('isGift', TRUE);
 
     if (Auth::guest()) 
     {
-      Session::put('after-login-redirection', Request::url());
+      session()->put('after-login-redirection', Request::url());
       return redirect('user/subscribe');
     }
 
@@ -188,7 +188,7 @@ class OrderController extends BaseController {
   {
 
     // Set a flag to know if we already passed by the validation
-    Session::flash('flag-box-form', true);
+    session()->flash('flag-box-form', true);
 
     $user = Auth::user();
 
@@ -196,7 +196,7 @@ class OrderController extends BaseController {
     $profile = $order_building->profile()->first();
 
     // We auto trim everything
-    //Input::merge(array_map('trim', Input::all()));
+    //Request::merge(array_map('trim', Request::all()));
 
     $fields = Request::all();
     $rules = [];
@@ -306,7 +306,7 @@ class OrderController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
     $validator = Validator::make($fields, $rules);
 
     // The form validation was good
@@ -362,7 +362,7 @@ class OrderController extends BaseController {
   public function postBillingAddress()
   {
 
-    Session::put('flag-billing-address', true);
+    session()->put('flag-billing-address', true);
 
     $rules = [
 
@@ -381,9 +381,9 @@ class OrderController extends BaseController {
       ];
 
     // We auto trim everything
-    Input::merge(array_map('trim', Input::all()));
+    Request::merge(array_map('trim', Request::all()));
 
-    $fields = Input::all();
+    $fields = Request::all();
     $validator = Validator::make($fields, $rules);
 
     // The form validation was good
@@ -896,7 +896,7 @@ class OrderController extends BaseController {
 
       $order_preference = new UserOrderPreference;
       $order_preference->user_profile()->associate($user_profile);
-      $order_preference->gift = Session::get('isGift');
+      $order_preference->gift = session()->get('isGift');
       $order_preference->save();
 
       $order_building->order_preference()->associate($order_preference);
@@ -915,8 +915,8 @@ class OrderController extends BaseController {
 
       // If the guy switches from a gift to a classic or anything like that
       // He will redo everything
-      if ((is_bool(Session::get('isGift'))) && (Session::get('isGift') != $order_preference->gift)) {
-        $order_preference->gift = Session::get('isGift');
+      if ((is_bool(session()->get('isGift'))) && (session()->get('isGift') != $order_preference->gift)) {
+        $order_preference->gift = session()->get('isGift');
         $order_preference->save();
 
         // Finally we set the current step

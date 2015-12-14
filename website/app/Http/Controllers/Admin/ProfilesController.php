@@ -62,7 +62,7 @@ class ProfilesController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
     $validator = Validator::make($fields, $rules);
 
     // The form validation was good
@@ -72,7 +72,7 @@ class ProfilesController extends BaseController {
       $profile->priority = $fields['priority'];
       $profile->save();
 
-      Session::flash('message', "La priorité de l'abonnement a été mise à jour");
+      session()->flash('message', "La priorité de l'abonnement a été mise à jour");
       return Redirect::back();
 
     } else {
@@ -98,7 +98,7 @@ class ProfilesController extends BaseController {
 
     }
 
-    Session::flash('message', "Les prioritiés des abonnements ont été réinitialisées");
+    session()->flash('message', "Les prioritiés des abonnements ont été réinitialisées");
     return Redirect::back();
 
   }
@@ -112,7 +112,7 @@ class ProfilesController extends BaseController {
     $profile = UserProfile::findOrFail($id);
     $profile->delete();
 
-    Session::flash('message', "L'abonnement a bien été supprimé");
+    session()->flash('message', "L'abonnement a bien été supprimé");
     return Redirect::back();
 
 	}
@@ -208,12 +208,12 @@ class ProfilesController extends BaseController {
 
 		if ($feedback == FALSE) {
 
-			Session::flash('error', "Aucun abonnement n'a été trouvé sur les serveurs Stripe. L'annulation est locale uniquement.");
-			Session::flash('message', "L'abonnement de l'utilisateur a été correctement annulé");
+			session()->flash('error', "Aucun abonnement n'a été trouvé sur les serveurs Stripe. L'annulation est locale uniquement.");
+			session()->flash('message', "L'abonnement de l'utilisateur a été correctement annulé");
 
 		} else {
 
-			Session::flash('message', "L'abonnement de l'utilisateur a été correctement annulé");
+			session()->flash('message', "L'abonnement de l'utilisateur a été correctement annulé");
 
 		}
 
@@ -233,7 +233,7 @@ class ProfilesController extends BaseController {
 
 			];
 
-		$fields = Input::all();
+		$fields = Request::all();
 		$validator = Validator::make($fields, $rules);
 
 		// The form validation was good
@@ -249,7 +249,7 @@ class ProfilesController extends BaseController {
 			$note->save();
 
 			// Then we redirect
-			Session::flash('message', "Votre note a été ajoutée");
+			session()->flash('message', "Votre note a été ajoutée");
 			return Redirect::back();
 
 		} else {
@@ -275,7 +275,7 @@ class ProfilesController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
     $validator = Validator::make($fields, $rules);
 
     // The form validation was good
@@ -295,7 +295,7 @@ class ProfilesController extends BaseController {
       }
 
       // Then we redirect
-      Session::flash('message', "Le point relais de l'utilisateur a été correctement mise à jour");
+      session()->flash('message', "Le point relais de l'utilisateur a été correctement mise à jour");
       return Redirect::to(URL::previous() . '#deliveries');
 
     } else {
@@ -343,7 +343,7 @@ class ProfilesController extends BaseController {
     }
 
     // Then we redirect
-    Session::flash('message', "L'adresse de livraison de l'utilisateur a été correctement générée");
+    session()->flash('message', "L'adresse de livraison de l'utilisateur a été correctement générée");
     return Redirect::to(URL::previous() . '#deliveries');
 
   }
@@ -364,7 +364,7 @@ class ProfilesController extends BaseController {
 
 			];
 
-		$fields = Input::all();
+		$fields = Request::all();
 		$validator = Validator::make($fields, $rules);
 
 		// The form validation was good
@@ -389,7 +389,7 @@ class ProfilesController extends BaseController {
 			}
 
 			// Then we redirect
-			Session::flash('message', "L'adresse de livraison de l'utilisateur a été correctement mise à jour");
+			session()->flash('message', "L'adresse de livraison de l'utilisateur a été correctement mise à jour");
 			return Redirect::to(URL::previous() . '#deliveries');
 
 		} else {
@@ -422,12 +422,12 @@ class ProfilesController extends BaseController {
 
     if (is_array($callback)) {
 
-      Session::flash('error', "Impossible de faire payer ce profil");
+      session()->flash('error', "Impossible de faire payer ce profil");
       return Redirect::to(URL::previous() . '#paiements');
 
     }
 
-    Session::flash('message', "Le profile vient d'être chargé de $raw_amount euro");
+    session()->flash('message', "Le profile vient d'être chargé de $raw_amount euro");
     return Redirect::to(URL::previous() . '#paiements');
 
   }
@@ -458,7 +458,7 @@ class ProfilesController extends BaseController {
      * We cancel the subscription first
      */
     $callback = Payments::cancelSubscription($stripe_customer, $stripe_subscription);
-    if ($callback === FALSE) Session::flash('error', "Aucun abonnement n'a pu être annulé via Stripe");
+    if ($callback === FALSE) session()->flash('error', "Aucun abonnement n'a pu être annulé via Stripe");
 
     /**
      * We artificially create a new subscription with the same data
@@ -467,7 +467,7 @@ class ProfilesController extends BaseController {
     
     if (is_array($callback)) {
 
-      Session::flash('error', "Impossible de créer le nouvel abonnement");
+      session()->flash('error', "Impossible de créer le nouvel abonnement");
       return Redirect::to(URL::previous() . '#paiements');
 
     }
@@ -478,7 +478,7 @@ class ProfilesController extends BaseController {
     $payment_profile->stripe_subscription = $callback;
     $payment_profile->save();
 
-    Session::flash('message', "L'abonnement a bien été réinitialisé");
+    session()->flash('message', "L'abonnement a bien été réinitialisé");
     return Redirect::to(URL::previous() . '#paiements');
 
   }
@@ -491,7 +491,7 @@ class ProfilesController extends BaseController {
 
 		generate_new_order($user, $profile);
 
-		Session::flash('message', "Une livraison a été ajoutée pour cet utilisateur");
+		session()->flash('message', "Une livraison a été ajoutée pour cet utilisateur");
 		return Redirect::to(URL::previous() . '#deliveries');
 
 	}
@@ -500,7 +500,7 @@ class ProfilesController extends BaseController {
 	public function postEditQuestions()
 	{
 
-		$fields = Input::all();
+		$fields = Request::all();
 		$rules = array();
 
 		// If there's no box_id it means it's certainly a hack
@@ -533,7 +533,7 @@ class ProfilesController extends BaseController {
 
       refresh_answers_from_dynamic_questions_form($fields, $profile);
 
-			Session::flash('message', "Les réponses de l'utilisateur ont été correctement mises à jour");
+			session()->flash('message', "Les réponses de l'utilisateur ont été correctement mises à jour");
 			return Redirect::to(URL::previous() . '#questions');
 
 		} else {

@@ -82,7 +82,7 @@ class LogsController extends BaseController {
 
 			$contact->delete();
 
-			Session::flash('message', "Cette prise de contact a été archivée");
+			session()->flash('message', "Cette prise de contact a été archivée");
 			return Redirect::back();
 
 
@@ -103,7 +103,7 @@ class LogsController extends BaseController {
 
       $email_trace->delete();
 
-      Session::flash('message', "Cette trace a été définitivement supprimée");
+      session()->flash('message', "Cette trace a été définitivement supprimée");
       return Redirect::to(URL::previous().'#emails-traces');
 
 
@@ -123,7 +123,7 @@ class LogsController extends BaseController {
 			];
 
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
@@ -137,7 +137,7 @@ class LogsController extends BaseController {
 		
 			$contact_setting->save();
 
-			Session::flash('message', "La configuration a bien été mise à jour");
+			session()->flash('message', "La configuration a bien été mise à jour");
 			return Redirect::to('admin/logs#config')
 			->withInput();
 

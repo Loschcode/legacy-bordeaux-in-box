@@ -80,11 +80,11 @@ class UserController extends BaseController {
       // Specific to user, we don't use the classical system
       mailing_send_user_only($user, 'Bienvenue sur Bordeaux in Box !', 'emails.user.welcome', $data, NULL);
 
-      Session::flash('message', "Ton inscription a bien été confirmée !");
+      session()->flash('message', "Ton inscription a bien été confirmée !");
 
       // Auto-connection : on
       Auth::login($user);
-      return redirect(Session::get('after-login-redirection'));
+      return redirect(session()->get('after-login-redirection'));
 
     } else {
 
@@ -113,7 +113,7 @@ class UserController extends BaseController {
   public function getLogout()
   {
     Auth::logout();
-    Session::flush();
+    session()->flush();
     
     return redirect('user/login');
   }
@@ -132,7 +132,7 @@ class UserController extends BaseController {
 
       ];
 
-    $validator = Validator::make(Input::all(), $rules);
+    $validator = Validator::make(Request::all(), $rules);
 
     // The form validation was good
     if ($validator->passes()) 
@@ -143,9 +143,9 @@ class UserController extends BaseController {
       if (Auth::attempt($authAttempt)) 
       {
         // If there's an after login redirection
-        if (Session::get('after-login-redirection')) 
+        if (session()->get('after-login-redirection')) 
         {
-          return redirect(Session::get('after-login-redirection'));
+          return redirect(session()->get('after-login-redirection'));
         }
 
         // Otherwise, if the user is admin
@@ -161,9 +161,9 @@ class UserController extends BaseController {
         }
 
         // If the user has clicked on the correct button
-        if (Session::get('isOrdering')) 
+        if (session()->get('isOrdering')) 
         {
-          if (Session::get('isGift')) 
+          if (session()->get('isGift')) 
           {
             return Redirect::to('/order/gift');
           } 
@@ -198,8 +198,8 @@ class UserController extends BaseController {
   protected function getLoginCredentials()
   {
     return [
-      "email" => Input::get("email"),
-      "password" => Input::get("password"),
+      "email" => Request::get("email"),
+      "password" => Request::get("password"),
     ];
   }
 

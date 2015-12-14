@@ -6,8 +6,8 @@
 
 @section('content')
 
-  @if (Session::has('message'))
-    <div>{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div>{{ session()->get('message') }}</div>
   @endif
   
 <h2>Réponses pour la question `{{$question->question}}` ({!! Form::getReadableQuestionType($question->type) !!})</h2>

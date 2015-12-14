@@ -5,8 +5,8 @@
   <div class="spacer20"></div>
   <div class="container profile-section">
 
-    @if (Session::has('message'))
-      <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+    @if (session()->has('message'))
+      <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
     @endif
 
     <ul class="nav-tabs tabs col-md-2">
@@ -118,7 +118,7 @@
             <h3>Contact</h3>
 
             {!! Form::label("email", "Email") !!}
-            {!! Form::email("email", ($user->email) ? $user->email : Input::old("email")) !!}
+            {!! Form::email("email", ($user->email) ? $user->email : Request::old("email")) !!}
 
 
             @if ($errors->first('email'))
@@ -150,7 +150,7 @@
 
           <div class="col-md-6">
             {!! Form::label("first_name", "Prénom") !!}
-            {!! Form::text("first_name", ($user->first_name) ? $user->first_name : Input::old("first_name")) !!}
+            {!! Form::text("first_name", ($user->first_name) ? $user->first_name : Request::old("first_name")) !!}
 
 
             @if ($errors->first('first_name'))
@@ -160,7 +160,7 @@
 
           <div class="col-md-6">
             {!! Form::label("last_name", "Nom") !!}
-            {!! Form::text("last_name", ($user->last_name) ? $user->last_name : Input::old("last_name")) !!}
+            {!! Form::text("last_name", ($user->last_name) ? $user->last_name : Request::old("last_name")) !!}
 
 
             @if ($errors->first('last_name'))
@@ -171,7 +171,7 @@
 
 
         {!! Form::label("phone", "Téléphone") !!}
-        {!! Form::text("phone", ($user->phone) ? $user->phone : Input::old("phone")) !!}
+        {!! Form::text("phone", ($user->phone) ? $user->phone : Request::old("phone")) !!}
 
 
         @if ($errors->first('phone'))
@@ -183,7 +183,7 @@
 
           <div class="col-md-6">
             {!! Form::label("city", "Ville") !!}
-            {!! Form::text("city", ($user->city) ? $user->city : Input::old("city")) !!}
+            {!! Form::text("city", ($user->city) ? $user->city : Request::old("city")) !!}
 
 
             @if ($errors->first('city'))
@@ -193,7 +193,7 @@
 
           <div class="col-md-6">
             {!! Form::label("zip", "Code postal") !!}
-            {!! Form::text("zip", ($user->zip) ? $user->zip : Input::old("zip")) !!}
+            {!! Form::text("zip", ($user->zip) ? $user->zip : Request::old("zip")) !!}
 
             @if ($errors->first('zip'))
               <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('zip') }}}</span>
@@ -204,7 +204,7 @@
 
 
         {!! Form::label("address", "Adresse") !!}<br />
-        {!! Form::textarea("address", ($user->address) ? $user->address : Input::old("address")) !!}
+        {!! Form::textarea("address", ($user->address) ? $user->address : Request::old("address")) !!}
 
         @if ($errors->first('address'))
           <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('address') }}}</span>
@@ -220,7 +220,7 @@
           @foreach ($delivery_spots as $delivery_spot)
 
             {!! Form::label($delivery_spot->id, $delivery_spot->readableSpot(), ['class' => 'hidden']) !!}
-            {!! Form::radio('chosen_spot', $delivery_spot->id, ($spot->id == $delivery_spot->id) ? true : Input::old($delivery_spot->id), array('id' => $delivery_spot->id, 'class' => 'big')) !!}<br />
+            {!! Form::radio('chosen_spot', $delivery_spot->id, ($spot->id == $delivery_spot->id) ? true : Request::old($delivery_spot->id), array('id' => $delivery_spot->id, 'class' => 'big')) !!}<br />
 
           @endforeach
 
@@ -238,7 +238,7 @@
           <div class="row">
             <div class="col-md-6">
               {!! Form::label("destination_first_name", "Prénom") !!}
-              {!! Form::text("destination_first_name", ($destination->first_name) ? $destination->first_name : Input::old("destination_first_name")) !!}
+              {!! Form::text("destination_first_name", ($destination->first_name) ? $destination->first_name : Request::old("destination_first_name")) !!}
 
               @if ($errors->first('destination_first_name'))
                 <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('destination_first_name') }}}</span>
@@ -247,7 +247,7 @@
 
             <div class="col-md-6">
               {!! Form::label("destination_last_name", "Nom") !!}
-              {!! Form::text("destination_last_name", ($destination->last_name) ? $destination->last_name : Input::old("destination_last_name")) !!}
+              {!! Form::text("destination_last_name", ($destination->last_name) ? $destination->last_name : Request::old("destination_last_name")) !!}
 
               @if ($errors->first('destination_last_name'))
                 <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('destination_last_name') }}}</span>
@@ -258,7 +258,7 @@
           <div class="row">
             <div class="col-md-6">
               {!! Form::label("destination_city", "Ville") !!}
-              {!! Form::text("destination_city", ($destination->city) ? $destination->city : Input::old("destination_city")) !!}
+              {!! Form::text("destination_city", ($destination->city) ? $destination->city : Request::old("destination_city")) !!}
 
               @if ($errors->first('destination_city'))
                 <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('destination_city') }}}</span>
@@ -267,7 +267,7 @@
 
             <div class="col-md-6">
               {!! Form::label("destination_zip", "Code postal") !!}
-              {!! Form::text("destination_zip", ($destination->zip) ? $destination->zip : Input::old("destination_zip")) !!}
+              {!! Form::text("destination_zip", ($destination->zip) ? $destination->zip : Request::old("destination_zip")) !!}
 
               @if ($errors->first('destination_zip'))
                 <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('destination_zip') }}}</span>
@@ -277,7 +277,7 @@
 
 
           {!! Form::label("destination_address", "Adresse") !!}<br />
-          {!! Form::textarea("destination_address", ($destination->address) ? $destination->address : Input::old("destination_address")) !!}
+          {!! Form::textarea("destination_address", ($destination->address) ? $destination->address : Request::old("destination_address")) !!}
           @if ($errors->first('destination_address'))
             <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('destination_address') }}}</span>
           @endif

@@ -22,8 +22,8 @@
 
 	<div class="tab-content">
 
-		@if (Session::has('message'))
-			<div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+		@if (session()->has('message'))
+			<div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
 		@endif
 
 
@@ -283,7 +283,7 @@
 						<!-- Support tech -->
 						<div class="form-group @if ($errors->first('tech_support')) has-error has-feedback @endif">
 							{!! Form::label("tech_support", "Support technique", ['class' => 'control-label']) !!}
-							{!! Form::text("tech_support", (Input::old('tech_support')) ? Input::old('tech_support') : $contact_setting->tech_support, ['class' => 'form-control']) !!}
+							{!! Form::text("tech_support", (Request::old('tech_support')) ? Request::old('tech_support') : $contact_setting->tech_support, ['class' => 'form-control']) !!}
 							@if ($errors->first('tech_support'))
 			  					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 			  					<span class="help-block">{!! $errors->first('tech_support') !!}</span>
@@ -293,7 +293,7 @@
 						<!-- Support comm -->
 						<div class="form-group @if ($errors->first('com_support')) has-error has-feedback @endif">
 							{!! Form::label("com_support", "Support commercial", ['class' => 'control-label']) !!}
-							{!! Form::text("com_support", (Input::old('com_support')) ? Input::old('com_support') : $contact_setting->com_support, ['class' => 'form-control']) !!}
+							{!! Form::text("com_support", (Request::old('com_support')) ? Request::old('com_support') : $contact_setting->com_support, ['class' => 'form-control']) !!}
 
 							@if ($errors->first('com_support'))
 			  					<span class="glyphicon glyphicon-remove form-control-feedback"></span>

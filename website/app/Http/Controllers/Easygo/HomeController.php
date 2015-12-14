@@ -176,12 +176,12 @@ class HomeController extends BaseController {
     // Fetch all spots based on the orders (Return an array with all the spots id)
     $spots = $this->_fetch_spots($orders_not_completed);
 
-    if (Input::has('spot'))
+    if (Request::has('spot'))
     {
       // Fetch orders based on the filter spot
-      $orders_filtered = Order::with('user_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('take_away', true)->where('delivery_spot_id', Input::get('spot'))->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
+      $orders_filtered = Order::with('user_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('take_away', true)->where('delivery_spot_id', Request::get('spot'))->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
     }
-    elseif (Input::has('to_send'))
+    elseif (Request::has('to_send'))
     {
       $orders_filtered = Order::with('user_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('take_away', false)->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
     }
@@ -194,7 +194,7 @@ class HomeController extends BaseController {
     // Fetch only unpaid orders (at that step we already filtered the problems with a fail card)
     $unpaid = Order::LockedOrdersWithoutOrder()->notCanceledOrders()->where('already_paid', 0)->get();
 
-    $current_query = Input::query();
+    $current_query = Request::query();
 
     return view('easygo.index')->with(compact(
 

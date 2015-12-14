@@ -8,15 +8,15 @@
 
       {!! Form::open(['class' => 'form-component']) !!}
 
-      @if (Session::has('message'))
-        <div class="spyro-alert spyro-alert-green">{{ Session::get('message') }}</div>
+      @if (session()->has('message'))
+        <div class="spyro-alert spyro-alert-green">{{ session()->get('message') }}</div>
         <div class="spacer10"></div>
       @endif
 
 
 
       {!! Form::label("service", "Service") !!}<br/>
-      {!! Form::select('service', Form::getContactServices(), Input::old('service'), ['class' => 'select']) !!}
+      {!! Form::select('service', Form::getContactServices(), Request::old('service'), ['class' => 'select']) !!}
 
       @if ($errors->first('service'))
         <div class="error"><i class="fa fa-times"></i> {{ $errors->first('service') }}</div>
@@ -27,7 +27,7 @@
 
 
       {!! Form::label("email", "Email") !!}
-      {!! Form::text("email", (Auth::check()) ? Auth::user()->email : Input::old("email"), ['placeholder' => 'Votre adresse email']) !!}
+      {!! Form::text("email", (Auth::check()) ? Auth::user()->email : Request::old("email"), ['placeholder' => 'Votre adresse email']) !!}
 
 
       @if ($errors->first('email'))
@@ -38,7 +38,7 @@
 
 
       {!! Form::label('message', 'Message') !!}<br/>
-      {!! Form::textarea("message", Input::old("message")) !!}
+      {!! Form::textarea("message", Request::old("message")) !!}
 
       @if ($errors->first('message'))
         <div class="error"><i class="fa fa-times"></i> {{{ $errors->first('message') }}}</div>

@@ -23,13 +23,13 @@
 
   <div class="form-group @if ($errors->first('delivery')) has-error has-feedback @endif">
       {{ Form::label("delivery", "Date de livraison", ['class' => 'sr-only']) }}
-      {{ Form::text("delivery", Input::old("delivery") ? Input::old("delivery") : $series->delivery, ['class' => 'form-control', 'placeholder' => 'Date de livraison']) }}
+      {{ Form::text("delivery", Request::old("delivery") ? Request::old("delivery") : $series->delivery, ['class' => 'form-control', 'placeholder' => 'Date de livraison']) }}
   </div>
 
   <!-- Counter -->
   <div class="form-group @if ($errors->first('goal')) has-error has-feedback @endif">
     {!! Form::label("goal", "Objectif", ['class' => 'sr-only']) !!}
-    {!! Form::text("goal", Input::old("goal") ? Input::old("goal") : $series->goal, ['class' => 'form-control', 'placeholder' => 'Objectif']) !!}
+    {!! Form::text("goal", Request::old("goal") ? Request::old("goal") : $series->goal, ['class' => 'form-control', 'placeholder' => 'Objectif']) !!}
   </div>
 
   {!! Form::submit("Editer cette série", ['class' => 'spyro-btn spyro-btn-lg spyro-btn-success']) !!}

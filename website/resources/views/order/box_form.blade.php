@@ -36,12 +36,12 @@
 
       {!! Form::hidden('box_id', $box->id) !!}
 
-      @if (Session::has('message'))
-        <div>{{ Session::get('message') }}</div>
+      @if (session()->has('message'))
+        <div>{{ session()->get('message') }}</div>
       @endif
 
       <!-- Flag -->
-      @if (Session::has('flag-box-form'))
+      @if (session()->has('flag-box-form'))
         <div id="already-answered"></div>
       @endif
 
@@ -58,7 +58,7 @@
               <? $old_reply = $answers->where('box_question_id', $question->id); ?>
               
               <!-- Errors -->
-              @if (Session::has('flag-box-form'))
+              @if (session()->has('flag-box-form'))
 
                 @if ($errors->has($question->id . '-0'))
                   <i class="fa fa-times error"></i>
@@ -69,19 +69,19 @@
 
               @if ($question->type === 'date')              
                 
-                {!! Form::text($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer :  Input::old($question->id), ['data-type' => 'date', 'placeholder' => 'JJ/MM/AA']) !!}
+                {!! Form::text($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer :  Request::old($question->id), ['data-type' => 'date', 'placeholder' => 'JJ/MM/AA']) !!}
 
               @elseif ($question->type === "member_email")
 
-                {!! Form::text($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer :  Input::old($question->id), ['data-type' => 'email', 'placeholder' => 'son@email.com']) !!}
+                {!! Form::text($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer :  Request::old($question->id), ['data-type' => 'email', 'placeholder' => 'son@email.com']) !!}
 
               @elseif ($question->type === "text")
 
-                {!! Form::text($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer :  Input::old($question->id)) !!}
+                {!! Form::text($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer :  Request::old($question->id)) !!}
 
               @elseif ($question->type === "textarea")
 
-                {!! Form::textarea($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer : Input::old($question->id)) !!}
+                {!! Form::textarea($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer : Request::old($question->id)) !!}
 
               @elseif ($question->type == "children_details")
 
@@ -113,7 +113,7 @@
                     {!! Form::text($question->id.'-0['.$i.'][child_name]', 
 
                     (isset($old_replies_names[$i])) ? $old_replies_names[$i]->answer :  
-                    Input::old($question->id), ['placeholder' => 'Prénom']) 
+                    Request::old($question->id), ['placeholder' => 'Prénom']) 
 
                     !!}
 
@@ -130,7 +130,7 @@
                           {{ Form::select($question->id.'-0['.$i.'][child_sex]', generate_children_sex(), 
 
                           ($old_replies_sex !== NULL) ? $old_replies_sex->answer : 
-                          Input::old($question->id), ['data-toggle' => 'fancyselect'])
+                          Request::old($question->id), ['data-toggle' => 'fancyselect'])
 
                           }}
                         </div>
@@ -146,7 +146,7 @@
                           {!! Form::select($question->id.'-0['.$i.'][child_year]', generate_children_birth_form(), 
 
                           ($old_replies_year !== NULL) ? $old_replies_year->answer : 
-                          Input::old($question->id), ['data-toggle' => 'fancyselect'])
+                          Request::old($question->id), ['data-toggle' => 'fancyselect'])
 
                           !!}
                         </div>
@@ -162,7 +162,7 @@
                           {!! Form::select($question->id.'-0['.$i.'][child_month]', generate_month_form(),
 
                           ($old_replies_month !== NULL) ? $old_replies_month->answer : 
-                          Input::old($question->id), ['data-toggle' => 'fancyselect'])
+                          Request::old($question->id), ['data-toggle' => 'fancyselect'])
 
                           !!}
                         </div>
@@ -199,10 +199,10 @@
                         @if ($old_reply->first() != NULL)
                           
               
-                        {!! Form::radio($question->id.'-0', $answer->content, ($old_reply->first()->answer == $answer->content) ? true : Input::old($question->id.'-0'), array('id' => $answer->id)) !!}
+                        {!! Form::radio($question->id.'-0', $answer->content, ($old_reply->first()->answer == $answer->content) ? true : Request::old($question->id.'-0'), array('id' => $answer->id)) !!}
                         @else
                         
-                          {!! Form::radio($question->id.'-0', $answer->content, Input::old($question->id.'-0'), array('id' => $answer->id)) !!}
+                          {!! Form::radio($question->id.'-0', $answer->content, Request::old($question->id.'-0'), array('id' => $answer->id)) !!}
                         @endif
 
                         {!! Form::label($answer->id, $answer->content) !!}
@@ -213,12 +213,12 @@
 
                         @if ($old_reply === NULL)
 
-                          {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, Input::old($question->id.'-'.$answer->id), array('id' => $answer->id)) !!}
+                          {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, Request::old($question->id.'-'.$answer->id), array('id' => $answer->id)) !!}
 
                         @else
 
     
-                          {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, ($old_reply->where('answer', $answer->content)->first()) ? true : Input::old($question->id.'-'.$answer->id), array('id' => $answer->id)) !!}
+                          {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, ($old_reply->where('answer', $answer->content)->first()) ? true : Request::old($question->id.'-'.$answer->id), array('id' => $answer->id)) !!}
 
                         @endif
 

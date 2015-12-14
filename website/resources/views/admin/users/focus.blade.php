@@ -14,12 +14,12 @@
 
 @section("content")
 
-  @if (Session::has('message'))
-    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
   
-  @if (Session::has('error'))
-    <div class="js-alert-remove spyro-alert spyro-alert-danger">{{ Session::get('error') }}</div>
+  @if (session()->has('error'))
+    <div class="js-alert-remove spyro-alert spyro-alert-danger">{{ session()->get('error') }}</div>
   @endif
 
   @if ($errors->delivery->has())
@@ -102,7 +102,7 @@
         <!-- Email -->
         <div class="form-group @if ($errors->first('email')) has-error has-feedback @endif">
           {!! Form::label("email", "Email", ['class' => 'control-label']) !!}
-          {!! Form::text("email", ($user->email) ? $user->email : Input::old("email"), ['class' => 'form-control']) !!}
+          {!! Form::text("email", ($user->email) ? $user->email : Request::old("email"), ['class' => 'form-control']) !!}
 
           @if ($errors->first('email'))
             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -114,7 +114,7 @@
         <!-- Phone -->
         <div class="form-group @if ($errors->first('phone')) has-error has-feedback @endif">
           {!! Form::label("phone", "Téléphone", ['class' => 'control-label']) !!}
-          {!! Form::text("phone", ($user->phone) ? $user->phone : Input::old("phone"), ['class' => 'form-control']) !!}
+          {!! Form::text("phone", ($user->phone) ? $user->phone : Request::old("phone"), ['class' => 'form-control']) !!}
 
           @if ($errors->first('phone'))
             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -150,7 +150,7 @@
         <!-- Firstname -->
         <div class="form-group @if ($errors->first('first_name')) has-error has-feedback @endif">
           {!! Form::label("first_name", "Prénom", ['class' => 'control-label']) !!}
-          {!! Form::text("first_name", ($user->first_name) ? $user->first_name : Input::old("first_name"), ['class' => 'form-control']) !!}
+          {!! Form::text("first_name", ($user->first_name) ? $user->first_name : Request::old("first_name"), ['class' => 'form-control']) !!}
 
           @if ($errors->first('first_name'))
           <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -161,7 +161,7 @@
         <!-- Name -->
         <div class="form-group @if ($errors->first('last_name')) has-error has-feedback @endif">
           {!! Form::label("last_name", "Nom", ['class' => 'control-label']) !!}
-          {!! Form::text("last_name", ($user->last_name) ? $user->last_name : Input::old("last_name"), ['class' => 'form-control']) !!}
+          {!! Form::text("last_name", ($user->last_name) ? $user->last_name : Request::old("last_name"), ['class' => 'form-control']) !!}
 
           @if ($errors->first('last_name'))
             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -172,7 +172,7 @@
         <!-- City -->
         <div class="form-group @if ($errors->first('city')) has-error has-feedback @endif">
           {!! Form::label("city", "Ville", ['class' => 'control-label']) !!}
-          {!! Form::text("city", ($user->city) ? $user->city : Input::old("city"), ['class' => 'form-control']) !!}
+          {!! Form::text("city", ($user->city) ? $user->city : Request::old("city"), ['class' => 'form-control']) !!}
 
           @if ($errors->first('city'))
             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -183,7 +183,7 @@
         <!-- Zip -->
         <div class="form-group @if ($errors->first('zip')) has-error has-feedback @endif">
           {!! Form::label("zip", "Code postal", ['class' => 'control-label']) !!}
-          {!! Form::text("zip", ($user->zip) ? $user->zip : Input::old("zip"), ['class' => 'form-control']) !!}
+          {!! Form::text("zip", ($user->zip) ? $user->zip : Request::old("zip"), ['class' => 'form-control']) !!}
 
           @if ($errors->first('zip'))
             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -194,7 +194,7 @@
         <!-- Address -->
         <div class="form-group @if ($errors->first('address')) has-error has-feedback @endif">
           {!! Form::label("address", "Adresse", ['class' => 'control-label']) !!}
-          {!! Form::textarea("address", ($user->address) ? $user->address : Input::old("address"), ['class' => 'form-control']) !!}
+          {!! Form::textarea("address", ($user->address) ? $user->address : Request::old("address"), ['class' => 'form-control']) !!}
 
           @if ($errors->first('address'))
             <span class="glyphicon glyphicon-remove form-control-feedback"></span>

@@ -92,7 +92,7 @@ class PaymentsController extends BaseController {
 
 			];
 
-		$fields = Input::all();
+		$fields = Request::all();
 		$validator = Validator::make($fields, $rules);
 
 		// The form validation was good
@@ -183,7 +183,7 @@ class PaymentsController extends BaseController {
 			$payment->save();
 
 			// Then we redirect
-			Session::flash('message', "Le paiement vient d'être relié");
+			session()->flash('message', "Le paiement vient d'être relié");
 			return Redirect::back();
 
 		} else {
@@ -214,11 +214,11 @@ class PaymentsController extends BaseController {
 			$order_to_link->status = 'paid';
 			$order_to_link->save();
 
-			Session::flash('message', "Le paiement a été relié à cette série");
+			session()->flash('message', "Le paiement a été relié à cette série");
 
 		} else {
 
-			Session::flash('error', "Ce paiement ne peut être relié à aucune série");
+			session()->flash('error', "Ce paiement ne peut être relié à aucune série");
 
 		}
 
@@ -239,7 +239,7 @@ class PaymentsController extends BaseController {
 
 			$payment->delete();
 
-			Session::flash('message', "Le paiement a été archivé");
+			session()->flash('message', "Le paiement a été archivé");
 			return Redirect::back();
 
 		}
@@ -288,7 +288,7 @@ class PaymentsController extends BaseController {
 
 			}
 
-			Session::flash('message', "Le statut du paiement a bien été changé");
+			session()->flash('message', "Le statut du paiement a bien été changé");
 			return Redirect::back();
 
 		}
@@ -342,7 +342,7 @@ class PaymentsController extends BaseController {
 
 			}
 
-			Session::flash('message', "Le statut du paiement a bien été changé");
+			session()->flash('message', "Le statut du paiement a bien été changé");
 			return Redirect::back();
 
 		}

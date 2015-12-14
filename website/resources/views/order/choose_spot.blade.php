@@ -28,7 +28,7 @@
   		<div class="col-md-6 col-md-offset-3" id="spot-{{ $delivery_spot->id }}">
 
   			{!! Form::label($delivery_spot->id, $delivery_spot->readableSpot(), ['class' => 'hidden']) !!}
-  			{!! Form::radio('chosen_spot', $delivery_spot->id, ($chosen_delivery_spot == $delivery_spot->id) ? true : Input::old($delivery_spot->id), array('id' => $delivery_spot->id, 'class' => 'choose-spot')) !!}
+  			{!! Form::radio('chosen_spot', $delivery_spot->id, ($chosen_delivery_spot == $delivery_spot->id) ? true : Request::old($delivery_spot->id), array('id' => $delivery_spot->id, 'class' => 'choose-spot')) !!}
 
         <div id="{{ 'gm-' . $delivery_spot->id }}" class="google-maps hidden">
           <a target="_blank" href="http://maps.google.com/?q={{ $delivery_spot->googleMaps() }}" class="spyro-btn spyro-btn-inverse spyro-btn-lg spyro-btn-block"><i class="fa fa-google"></i> Voir sur Google Maps</a>

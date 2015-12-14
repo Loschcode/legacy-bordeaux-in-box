@@ -19,7 +19,7 @@
     <!-- Title -->
     <div class="form-group @if ($errors->first('title')) has-error has-feedback @endif">
       {!! Form::label("title", "Titre", ['class' => 'control-label']) !!}
-      {{ Form::text("title", Input::old("title"), ['class' => 'form-control']) }}
+      {{ Form::text("title", Request::old("title"), ['class' => 'form-control']) }}
 
       @if ($errors->first('title'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -30,7 +30,7 @@
     <!-- Slug -->
     <div class="form-group @if ($errors->first('slug')) has-error has-feedback @endif">
       {!! Form::label("slug", "Référencement", ['class' => 'control-label']) !!}
-      {!! Form::text("slug", Input::old("slug"), ['class' => 'form-control']) !!}
+      {!! Form::text("slug", Request::old("slug"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('slug'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -41,7 +41,7 @@
     <!-- Url -->
     <div class="form-group @if ($errors->first('url')) has-error has-feedback @endif">
       {!! Form::label("url", "Url", ['class' => 'control-label']) !!}
-      {!! Form::text("url", Input::old("url"), ['class' => 'form-control']) !!}
+      {!! Form::text("url", Request::old("url"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('url'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -52,7 +52,7 @@
     <!-- Content -->
     <div class="form-group @if ($errors->first('content')) has-error has-feedback @endif">
       {!! Form::label("content", "Contenu", ['class' => 'control-label']) !!}
-      {!! Form::textarea("content", Input::old("content"), ['class' => 'form-control js-summernote']) !!}
+      {!! Form::textarea("content", Request::old("content"), ['class' => 'form-control js-summernote']) !!}
 
       @if ($errors->first('content'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>

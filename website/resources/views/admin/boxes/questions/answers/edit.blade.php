@@ -10,8 +10,8 @@
 
   <h2>Editer une réponse de la question `{{$question->question}}` ({!! Form::getReadableQuestionType($question->type) !!}})</h2>
 
-  @if (Session::has('message'))
-    <div>{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div>{{ session()->get('message') }}</div>
   @endif
 
   @if ($errors->first('content'))
@@ -19,7 +19,7 @@
   @endif
 
   {!! Form::label("content", "Réponse") !!}
-  {!! Form::text("content", (Input::old("content")) ? Input::old("content") : $answer->content) !!}
+  {!! Form::text("content", (Request::old("content")) ? Request::old("content") : $answer->content) !!}
 
   <br />
 

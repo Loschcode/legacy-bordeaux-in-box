@@ -157,7 +157,7 @@ class BoxesController extends BaseController {
 
 
 		// We manage the image
-		$file = Input::file('image');
+		$file = Request::file('image');
 		$destinationPath = 'public/uploads/boxes/';
 
 		$filename = value(function() use ($file, $box) {
@@ -167,7 +167,7 @@ class BoxesController extends BaseController {
 
 		});
 
-		Input::file('image')->move($destinationPath, $filename);
+		Request::file('image')->move($destinationPath, $filename);
 
 		// We remove public for the array
 		//$destinationPath = str_replace('public/', '', $destinationPath);
@@ -187,7 +187,7 @@ class BoxesController extends BaseController {
 
 		$box->delete();
 
-		Session::flash('message', "Cette box a été archivée");
+		session()->flash('message', "Cette box a été archivée");
 		return Redirect::back();
 	}
 
@@ -202,7 +202,7 @@ class BoxesController extends BaseController {
 		$box->active = TRUE;
 		$box->save();
 
-		Session::flash('message', "Cette box a été activé");
+		session()->flash('message', "Cette box a été activé");
 		return Redirect::back();
 	}
 
@@ -216,7 +216,7 @@ class BoxesController extends BaseController {
     $box->active = FALSE;
 		$box->save();
 
-		Session::flash('message', "Cette box a été désactivé");
+		session()->flash('message', "Cette box a été désactivé");
 		return Redirect::back();
 	}
 

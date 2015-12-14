@@ -14,8 +14,8 @@
 
 @section('content')
 
-  @if (Session::has('message'))
-    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
 
   @if ($errors->has())
@@ -29,7 +29,7 @@
       <!-- Title -->
       <div class="form-group @if ($errors->first('title')) has-error has-feedback @endif">
         {!! Form::label("title", "Titre", ['class' => 'control-label']) !!}
-        {!! Form::text("title", Input::old("title"), ['class' => 'form-control']) !!}
+        {!! Form::text("title", Request::old("title"), ['class' => 'form-control']) !!}
 
         @if ($errors->first('title'))
           <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -40,7 +40,7 @@
       <!-- Description -->
       <div class="form-group @if ($errors->first('description')) has-error has-feedback @endif">
         {!! Form::label("description", "Description", ['class' => 'control-label']) !!}
-        {!! Form::text("description", Input::old("description"), ['class' => 'form-control']) !!}
+        {!! Form::text("description", Request::old("description"), ['class' => 'form-control']) !!}
 
         @if ($errors->first('description'))
           <span class="glyphicon glyphicon-remove form-control-feedback"></span>

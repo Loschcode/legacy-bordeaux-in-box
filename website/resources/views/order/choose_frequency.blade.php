@@ -45,7 +45,7 @@
 
   			<div class="col-md-6 col-md-offset-3">
           {!! Form::label($delivery_price->id, $delivery_price->title . '<br/><span class="offer-details">' . $delivery_price->readableFrequency() . ' ('. $delivery_price->unity_price.' €)</span>', ['class' => 'hidden']) !!}
-	  			{!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Input::old($delivery_price->id), array('id' => $delivery_price->id, 'class' => $class)) !!}
+	  			{!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), array('id' => $delivery_price->id, 'class' => $class)) !!}
 	  		</div>
 	  		<div class="clearfix"></div>
 
@@ -73,7 +73,7 @@
 	  			{!! Form::label($delivery_price->id, '<span class="readable-price">'. $delivery_price->unity_price.'€ par mois</span>' . '<span class="readable-frequency">' . $delivery_price->readableFrequency() . '</span>', ['class' => 'hidden']) !!}
 	  			@endif
 
-	  			{!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Input::old($delivery_price->id), array('id' => $delivery_price->id, 'class' => $class)) !!}
+	  			{!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), array('id' => $delivery_price->id, 'class' => $class)) !!}
 
 
   		@endforeach

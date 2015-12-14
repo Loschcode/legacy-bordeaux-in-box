@@ -168,7 +168,7 @@ class ProfileController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
 
     $validator = Validator::make($fields, $rules);
 
@@ -201,7 +201,7 @@ class ProfileController extends BaseController {
         // If something bad happened
         if (is_array($new_stripe_card)) {
 
-          Session::flash('error', $new_stripe_card[0]);
+          session()->flash('error', $new_stripe_card[0]);
           return Redirect::back();
 
         }
@@ -218,7 +218,7 @@ class ProfileController extends BaseController {
 
         $payment_profile->save();
 
-        Session::flash('message', "Votre carte a bien été mise à jour");
+        session()->flash('message', "Votre carte a bien été mise à jour");
         return Redirect::back();
 
       }
@@ -270,7 +270,7 @@ class ProfileController extends BaseController {
 
 			];
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
@@ -364,7 +364,7 @@ class ProfileController extends BaseController {
 
 			}
 
-      Session::put('message', 'Vos informations ont bien été mises à jour');
+      session()->put('message', 'Vos informations ont bien été mises à jour');
       
 			return Redirect::back()
 			->withInput();

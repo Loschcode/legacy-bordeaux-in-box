@@ -92,7 +92,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 		$question_answer->save();
 
-		Session::flash('message', "La réponse a bien été mise à jour");
+		session()->flash('message', "La réponse a bien été mise à jour");
 
 		return Redirect::to('/admin/boxes/questions/answers/focus/'.$question_answer->question()->first()->id)
 		  ->withInput();
@@ -151,7 +151,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 		$question_answer->save();
 
-		Session::flash('message', "La réponse a bien été ajoutée à la question");
+		session()->flash('message', "La réponse a bien été ajoutée à la question");
 		
     return Redirect::to('/admin/boxes/questions/answers/focus/'.$question->id)
       ->withInput();
@@ -166,7 +166,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 		$answer = BoxAnswer::findOrFail($id);
     $answer->delete();
 
-		Session::flash('message', "Cette réponse a été archivée");
+		session()->flash('message', "Cette réponse a été archivée");
 		return Redirect::back();
 
 	}

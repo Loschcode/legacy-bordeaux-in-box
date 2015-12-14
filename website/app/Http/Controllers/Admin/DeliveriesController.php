@@ -139,7 +139,7 @@ class DeliveriesController extends BaseController {
       ];
 
 
-    $fields = Input::all();
+    $fields = Request::all();
 
     $validator = Validator::make($fields, $rules);
 
@@ -155,7 +155,7 @@ class DeliveriesController extends BaseController {
 
       $serie->save();
 
-      Session::flash('message', "La série a bien été mise à jour");
+      session()->flash('message', "La série a bien été mise à jour");
       return Redirect::to('/admin/deliveries');
 
 
@@ -182,7 +182,7 @@ class DeliveriesController extends BaseController {
     
     $profile->delete();
 
-    Session::flash('message', "La série a bien été supprimé");
+    session()->flash('message', "La série a bien été supprimé");
     return Redirect::back();
 
   }
@@ -202,7 +202,7 @@ class DeliveriesController extends BaseController {
       ];
 
 
-    $fields = Input::all();
+    $fields = Request::all();
 
     $validator = Validator::make($fields, $rules);
 
@@ -221,7 +221,7 @@ class DeliveriesController extends BaseController {
 
       $delivery_price->save();
 
-      Session::flash('message', "Cette offre a bien été ajoutée");
+      session()->flash('message', "Cette offre a bien été ajoutée");
       return Redirect::back();
 
     }
@@ -248,7 +248,7 @@ class DeliveriesController extends BaseController {
       ];
 
 
-    $fields = Input::all();
+    $fields = Request::all();
 
     $validator = Validator::make($fields, $rules);
 
@@ -262,7 +262,7 @@ class DeliveriesController extends BaseController {
       $delivery_price->title = $fields['title'];
       $delivery_price->save();
 
-      Session::flash('message', "Cette offre a bien été modifiée");
+      session()->flash('message', "Cette offre a bien été modifiée");
 
       return Redirect::back();
 
@@ -291,7 +291,7 @@ class DeliveriesController extends BaseController {
 
       ];
 
-    $fields = Input::all();
+    $fields = Request::all();
 
     $validator = Validator::make($fields, $rules);
 
@@ -304,7 +304,7 @@ class DeliveriesController extends BaseController {
       $settings->national_delivery_fees = $fields['national_delivery_fees'];
       $settings->save();
 
-      Session::flash('message', "Les coûts de livraison ont bien été mis à jour");
+      session()->flash('message', "Les coûts de livraison ont bien été mis à jour");
 
       return Redirect::back();
 
@@ -338,7 +338,7 @@ class DeliveriesController extends BaseController {
       ];
 
 
-    $fields = Input::all();
+    $fields = Request::all();
 
     $validator = Validator::make($fields, $rules);
 
@@ -354,7 +354,7 @@ class DeliveriesController extends BaseController {
 
       $serie->save();
 
-      Session::flash('message', "La série a bien été ajoutée");
+      session()->flash('message', "La série a bien été ajoutée");
       return Redirect::back();
 
     } else {
@@ -391,7 +391,7 @@ class DeliveriesController extends BaseController {
 
    $serie->save();
 
-   Session::flash('message', "La série a bien été bloquée");
+   session()->flash('message', "La série a bien été bloquée");
    return Redirect::back();
 
   }
@@ -428,7 +428,7 @@ class DeliveriesController extends BaseController {
 
       $serie->save();
 
-      Session::flash('message', "La série a bien été débloquée");
+      session()->flash('message', "La série a bien été débloquée");
       return Redirect::back();
 
     }
@@ -448,7 +448,7 @@ class DeliveriesController extends BaseController {
 
       $delivery_price->delete();
 
-      Session::flash('message', "L'offre a été correctement supprimée");
+      session()->flash('message', "L'offre a été correctement supprimée");
       return Redirect::to('admin/deliveries#offers');
 
 

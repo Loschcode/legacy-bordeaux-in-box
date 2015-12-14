@@ -5,8 +5,8 @@
 @stop
 
 @section('content')
-  @if (Session::has('message'))
-    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
 
   @if ($errors->has())
@@ -45,13 +45,13 @@
 
           <div class="form-group @if ($errors->first('delivery')) has-error has-feedback @endif">
             {!! Form::label("delivery", "Date de livraison", ['class' => 'sr-only']) !!}
-            {!! Form::text("delivery", Input::old("delivery"), ['class' => 'form-control', 'placeholder' => 'Date de livraison']) !!}
+            {!! Form::text("delivery", Request::old("delivery"), ['class' => 'form-control', 'placeholder' => 'Date de livraison']) !!}
           </div>
 
           <!-- Counter -->
           <div class="form-group @if ($errors->first('goal')) has-error has-feedback @endif">
             {!! Form::label("goal", "Objectif", ['class' => 'sr-only']) !!}
-            {!! Form::text("goal", Input::old("goal"), ['class' => 'form-control', 'placeholder' => 'Objectif']) !!}
+            {!! Form::text("goal", Request::old("goal"), ['class' => 'form-control', 'placeholder' => 'Objectif']) !!}
           </div>
 
           {!! Form::submit("Ajouter la série", ['class' => 'spyro-btn spyro-btn-success']) !!}
@@ -174,12 +174,12 @@
             {{{ $errors->first('title') }}}<br />
           @endif
 
-          {!! Form::text("title", Input::old('title'), ['class' => 'form-control', 'placeholder' => 'Titre (optionnel)']) !!} à 
+          {!! Form::text("title", Request::old('title'), ['class' => 'form-control', 'placeholder' => 'Titre (optionnel)']) !!} à 
 
-          {!! Form::text("unity_price", Input::old('unity_price'), ['class' => 'form-control']) !!} <i class="fa fa-euro"></i> 
+          {!! Form::text("unity_price", Request::old('unity_price'), ['class' => 'form-control']) !!} <i class="fa fa-euro"></i> 
 
               <span class="for">pour</span> 
-          {!! Form::text("frequency", Input::old('frequency'), ['class' => 'form-control']) !!} <span class="duration">mois</span> 
+          {!! Form::text("frequency", Request::old('frequency'), ['class' => 'form-control']) !!} <span class="duration">mois</span> 
 
           {!! Form::select("gift", ['1' => 'A offrir', '0' => 'Pas à offrir'], null, ['class' => 'form-control']) !!}
 

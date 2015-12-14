@@ -86,7 +86,7 @@ class UsersController extends BaseController {
 			];
 
 
-		$fields = Input::all();
+		$fields = Request::all();
 
 		$validator = Validator::make($fields, $rules);
 
@@ -159,7 +159,7 @@ class UsersController extends BaseController {
 
 		} else {
 
-			Session::flash('error', 'Il y a des erreurs dans le formulaire');
+			session()->flash('error', 'Il y a des erreurs dans le formulaire');
 
 			// We return the same page with the error and saving the input datas
 			return Redirect::back()

@@ -4,7 +4,7 @@
 
   <div id="js-page-billing-address"></div>
 
-  @if (Session::has('flag-billing-address'))
+  @if (session()->has('flag-billing-address'))
     <div id="js-flag-billing-address"></div>
   @endif
 
@@ -33,8 +33,8 @@
   <div class="container billing">
       {!! Form::open(['class' => 'form-component', 'id' => 'form-billing']) !!}
 
-      @if (Session::has('message'))
-      <div>{{ Session::get('message') }}</div>
+      @if (session()->has('message'))
+      <div>{{ session()->get('message') }}</div>
       @endif
 
 
@@ -147,7 +147,7 @@
                         <h3 class="panel-title">Ville</h3><br/>
                       </div>
                       <div class="panel-body">
-                        {!! Form::text("billing_city", (Input::old("billing_city")) ? Input::old("billing_city") : $user->city, ['id' => 'billing_city']) !!}
+                        {!! Form::text("billing_city", (Request::old("billing_city")) ? Request::old("billing_city") : $user->city, ['id' => 'billing_city']) !!}
                       </div>
                     </div>
                   </div>
@@ -158,7 +158,7 @@
                         <h3 class="panel-title">Code postal</h3><br/>
                       </div>
                       <div class="panel-body">
-                        {!! Form::text("billing_zip", (Input::old("billing_zip")) ? Input::old("billing_zip") : $user->zip, ['id' => 'billing_zip']) !!}
+                        {!! Form::text("billing_zip", (Request::old("billing_zip")) ? Request::old("billing_zip") : $user->zip, ['id' => 'billing_zip']) !!}
                       </div>
                     </div>
                   </div>
@@ -169,7 +169,7 @@
                     <h3 class="panel-title">Adresse</h3><br/>
                   </div>
                   <div class="panel-body">
-                    {!! Form::textarea("billing_address", (Input::old("billing_address")) ? Input::old("billing_address") : $user->address, ['id' => 'billing_address']) !!}
+                    {!! Form::textarea("billing_address", (Request::old("billing_address")) ? Request::old("billing_address") : $user->address, ['id' => 'billing_address']) !!}
                   </div>
                 </div>
 
@@ -198,7 +198,7 @@
               </div>
               <div class="panel-body">
 
-                {!! Form::text("destination_first_name", ($order_building->destination_first_name) ? $order_building->destination_first_name : Input::old("destination_first_name"), ['id' => 'destination_first_name']) !!}
+                {!! Form::text("destination_first_name", ($order_building->destination_first_name) ? $order_building->destination_first_name : Request::old("destination_first_name"), ['id' => 'destination_first_name']) !!}
               </div>
             </div>
           </div>
@@ -208,7 +208,7 @@
                 <h3 class="panel-title">Nom de famille</h3><br/>
               </div>
               <div class="panel-body">
-                {!! Form::text("destination_last_name", ($order_building->destination_last_name) ? $order_building->destination_last_name : Input::old("destination_last_name"), ['id' => 'destination_last_name']) !!}
+                {!! Form::text("destination_last_name", ($order_building->destination_last_name) ? $order_building->destination_last_name : Request::old("destination_last_name"), ['id' => 'destination_last_name']) !!}
               </div>
             </div>
           </div>
@@ -222,7 +222,7 @@
                 <h3 class="panel-title">Ville</h3><br/>
               </div>
               <div class="panel-body">
-                {!! Form::text("destination_city", ($order_building->destination_city) ? $order_building->destination_city : Input::old("destination_city"), ['id' => 'destination_city']) !!}
+                {!! Form::text("destination_city", ($order_building->destination_city) ? $order_building->destination_city : Request::old("destination_city"), ['id' => 'destination_city']) !!}
               </div>
             </div>
           </div>
@@ -233,7 +233,7 @@
                 <h3 class="panel-title">Code Postal</h3><br/>
               </div>
               <div class="panel-body">
-                {!! Form::text("destination_zip", ($order_building->destination_zip) ? $order_building->destination_zip : Input::old("destination_zip"), ['id' => 'destination_zip']) !!}
+                {!! Form::text("destination_zip", ($order_building->destination_zip) ? $order_building->destination_zip : Request::old("destination_zip"), ['id' => 'destination_zip']) !!}
               </div>
             </div>
           </div>
@@ -245,7 +245,7 @@
           </div>
           <div class="panel-body">
 
-            {!! Form::textarea("destination_address", ($order_building->destination_address) ? $order_building->destination_address : Input::old("destination_address"), ['id' => 'destination_address']) !!}
+            {!! Form::textarea("destination_address", ($order_building->destination_address) ? $order_building->destination_address : Request::old("destination_address"), ['id' => 'destination_address']) !!}
           </div>
         </div>
       </div>

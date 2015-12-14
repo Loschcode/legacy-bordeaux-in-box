@@ -14,8 +14,8 @@
 
 @section('content')
 
-  @if (Session::has('message'))
-    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
+  @if (session()->has('message'))
+    <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
 
   @include('_includes.errors', ['errors' => $errors])
@@ -36,7 +36,7 @@
 
   <div id="checkbox-similar" class="form-group">
     <label for="past_advanced_filters">Copier les filtres avancés de l'article similaire</label>
-    {!! Form::checkbox('past_advanced_filters', null, Input::old('past_advanced_filters')) !!}
+    {!! Form::checkbox('past_advanced_filters', null, Request::old('past_advanced_filters')) !!}
   </div>
 
 
@@ -53,12 +53,12 @@
 
   <div class="form-group @if ($errors->first('name')) has-error has-feedback @endif">
     {!! Form::label("name", "Nom", ['class' => 'sr-only']) !!}
-    {!! Form::text("name", (Input::old("name")) ? Input::old("name") : $product->name, ['class' => 'form-control', 'placeholder' => 'Nom']) !!}
+    {!! Form::text("name", (Request::old("name")) ? Request::old("name") : $product->name, ['class' => 'form-control', 'placeholder' => 'Nom']) !!}
   </div>
 
   <div class="form-group @if ($errors->first('description')) has-error has-feedback @endif">
     {!! Form::label("description", "Description", ['class' => 'sr-only']) !!}
-    {!! Form::textarea("description", (Input::old("description")) ? Input::old("description") : $product->description, ['class' => 'form-control', 'placeholder' => 'Description']) !!}
+    {!! Form::textarea("description", (Request::old("description")) ? Request::old("description") : $product->description, ['class' => 'form-control', 'placeholder' => 'Description']) !!}
   </div>
 
   <!-- Image -->
@@ -85,7 +85,7 @@
 
   <div class="form-group @if ($errors->first('weight')) has-error has-feedback @endif">
     {!! Form::label("weight", "Site web", ['class' => 'sr-only']) !!}
-    {!! Form::text("weight", (Input::old("weight")) ? Input::old("weight") : $product->weight, ['class' => 'form-control', 'placeholder' => 'Site web (http://www.monsite.fr)']) !!}
+    {!! Form::text("weight", (Request::old("weight")) ? Request::old("weight") : $product->weight, ['class' => 'form-control', 'placeholder' => 'Site web (http://www.monsite.fr)']) !!}
   </div>
 
 
@@ -112,19 +112,19 @@
     <h4>Filtre : options</h4>
 
     + {!! Form::label("birthday_ready", "Anniversaire") !!}
-    {!! Form::checkbox("birthday_ready", true, (Input::old("birthday_ready")) ? Input::old("birthday_ready") : $product->birthday_ready) !!}
+    {!! Form::checkbox("birthday_ready", true, (Request::old("birthday_ready")) ? Request::old("birthday_ready") : $product->birthday_ready) !!}
 
     <br />
 
     + {!! Form::label("sponsor_ready", "Marraine") !!}
-    {!! Form::checkbox("sponsor_ready", true, (Input::old("sponsor_ready")) ? Input::old("sponsor_ready") : $product->sponsor_ready) !!}
+    {!! Form::checkbox("sponsor_ready", true, (Request::old("sponsor_ready")) ? Request::old("sponsor_ready") : $product->sponsor_ready) !!}
 
     <br />
 
     <h4>Filtre : restrictions</h4>
 
     - {!! Form::label("regional_only", "Régional (uniquement)") !!}
-    {!! Form::checkbox("regional_only", true, (Input::old("regional_only")) ? Input::old("regional_only") : $product->regional_only) !!}
+    {!! Form::checkbox("regional_only", true, (Request::old("regional_only")) ? Request::old("regional_only") : $product->regional_only) !!}
 
     <br />
 

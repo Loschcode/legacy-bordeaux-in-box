@@ -82,7 +82,7 @@ class ContactController extends BaseController {
           $message->from($fields['email'])->to($email)->subject('Prise de contact');
       });
 
-      Session::flash('message', "Ton message a bien été envoyé à notre équipe, nous te ferons un retour dans les plus brefs délais.");
+      session()->flash('message', "Ton message a bien été envoyé à notre équipe, nous te ferons un retour dans les plus brefs délais.");
 
       return Redirect::back();
 
