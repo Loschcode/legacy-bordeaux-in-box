@@ -10,6 +10,8 @@ use App\Models\UserProfile;
 use App\Models\UserOrderBuilding;
 use App\Models\UserOrderPreference;
 
+use App\Models\DeliverySetting;
+
 class OrderController extends BaseController {
 
   /*
@@ -608,7 +610,7 @@ class OrderController extends BaseController {
     $order_preference = $order_building->order_preference()->first();
     $delivery_spot = $order_preference->delivery_spot()->first(); // May be NULL
 
-    view('order.payment')->with(compact(
+    return view('order.payment')->with(compact(
       'user',
       'order_building',
       'profile',
