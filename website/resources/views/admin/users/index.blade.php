@@ -10,7 +10,7 @@
 		<div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
 	@endif
 	
-	{!! HTML::info('Les utilisateurs correspondent aux comptes d\'inscription, ils ne sont pas représentatifs des `profils` reliés aux commandes et encore moins des utilisateurs actifs et/ou ayant commandé.') !!}
+	{!! Form::info('Les utilisateurs correspondent aux comptes d\'inscription, ils ne sont pas représentatifs des `profils` reliés aux commandes et encore moins des utilisateurs actifs et/ou ayant commandé.') !!}
 
 	<table class="js-datas">
 
@@ -43,17 +43,17 @@
 					<th>{{$user->email}}</th>
 					<th>{{$user->phone}}</th>
 					<th>{{$user->getFullName()}}</th>
-					<th>{!! HTML::getReadableRole($user->role) !!}</th>
+					<th>{!! Form::getReadableRole($user->role) !!}</th>
 					<th>
 						@if ($user->profiles()->count() > 0)
 							@foreach ($user->profiles()->get() as $profile)
 
 							@if ($profile->box()->first() != NULL)
 
-								<a class="spyro-btn {{HTML::getColorFromBoxSlug($profile->box()->first()->slug)}}" href="/admin/profiles/edit/{{$profile->id}}">
+								<a class="spyro-btn {{Form::getColorFromBoxSlug($profile->box()->first()->slug)}}" href="/admin/profiles/edit/{{$profile->id}}">
 								
 
-								{!! HTML::getReadableProfileStatus($profile->status) !!}
+								{!! Form::getReadableProfileStatus($profile->status) !!}
 
 								</a><br/>
 
@@ -66,9 +66,9 @@
 
 					</th>
 					<th>{{ $user->getTurnover() }} €</th>
-					<th>{!! HTML::getReadableEmpty($user->city) !!}</th>
-					<th>{!! HTML::getReadableEmpty($user->zip) !!}</th>
-					<th>{!! HTML::getReadableEmpty($user->address) !!}</th>
+					<th>{!! Form::getReadableEmpty($user->city) !!}</th>
+					<th>{!! Form::getReadableEmpty($user->zip) !!}</th>
+					<th>{!! Form::getReadableEmpty($user->address) !!}</th>
 					<th>
 
     

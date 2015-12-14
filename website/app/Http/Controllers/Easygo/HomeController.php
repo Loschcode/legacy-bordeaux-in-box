@@ -60,7 +60,7 @@ class HomeController extends BaseController {
 
     foreach ($orders as $order)
     {
-      if (HTML::isBirthday($order->user_profile()->first()->getAnswer('birthday')))
+      if (Form::isBirthday($order->user_profile()->first()->getAnswer('birthday')))
       {
         $birthdays++;
       }

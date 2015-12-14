@@ -65,9 +65,9 @@
               Non disponible
               @endif
                 </th>
-              <th>{!! HTML::getReadablePaymentType($payment->type) !!}</th>
+              <th>{!! Form::getReadablePaymentType($payment->type) !!}</th>
               <th>{{$payment->amount}}€</th>
-              <th>{!! HTML::getReadablePaymentStatus($payment->paid) !!}</th>
+              <th>{!! Form::getReadablePaymentStatus($payment->paid) !!}</th>
               <th>{{$payment->last4}}</th>
               <th>{{$payment->created_at}}</th>
               <th><a href="{{url('/admin/payments/download-bill/'.$payment->bill_id)}}">{{$payment->bill_id}}</a></th>

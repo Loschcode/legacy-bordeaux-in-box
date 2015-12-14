@@ -13,7 +13,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
   @endif
 
-  {!! HTML::info('Rapport des factures et différents chiffres clés.') !!}
+  {!! Form::info('Rapport des factures et différents chiffres clés.') !!}
 
 
   <ul class="nav nav-tabs" role="tablist">

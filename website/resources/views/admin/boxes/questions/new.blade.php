@@ -22,13 +22,13 @@
     <div class="js-alert-remove spyro-alert spyro-alert-success">{{ Session::get('message') }}</div>
   @endif
   
-  {!! HTML::info("Remplissez le champs `slug` uniquement s'il va être utilisé ailleurs que dans le formulaire dans le système (demander à un développeur compétent si vous ne comprenez pas ce que cela signifie).") !!}
+  {!! Form::info("Remplissez le champs `slug` uniquement s'il va être utilisé ailleurs que dans le formulaire dans le système (demander à un développeur compétent si vous ne comprenez pas ce que cela signifie).") !!}
 
   {!! Form::open(array('action' => 'AdminBoxesQuestionsController@postNew')) !!}
 
   {!! Form::hidden('box_id', $box->id) !!}
 
-    {!! HTML::info("Le résumé ne sera visible que depuis le panel administrateur. Veuillez rester pragmatique dans sa composition (1 ou 2 mots).") !!}
+    {!! Form::info("Le résumé ne sera visible que depuis le panel administrateur. Veuillez rester pragmatique dans sa composition (1 ou 2 mots).") !!}
   
     <!-- Question -->
     <div class="form-group @if ($errors->first('question')) has-error has-feedback @endif">
@@ -74,7 +74,7 @@
     <!-- Type -->
     <div class="form-group @if ($errors->first('type')) has-error has-feedback @endif">
       {!! Form::label("type", "Type", ['class' => 'control-label']) !!}
-      {!! Form::select('type', HTML::getPossibleQuestionTypes(), Input::old('type'), ['class' => 'form-control']) !!}
+      {!! Form::select('type', Form::getPossibleQuestionTypes(), Input::old('type'), ['class' => 'form-control']) !!}
       @if ($errors->first('type'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         <span class="help-block">{{ $errors->first('type') }}</span>

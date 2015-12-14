@@ -24,7 +24,7 @@
           @endif
         </td>
         <td>
-          @if (HTML::isBirthday($order->user_profile()->first()->getAnswer('birthday')))
+          @if (Form::isBirthday($order->user_profile()->first()->getAnswer('birthday')))
             <i class="fa fa-check" style="color: green"></i>
           @else
             <i class="fa fa-times" style="color: grey"></i>

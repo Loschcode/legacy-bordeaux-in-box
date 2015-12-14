@@ -13,7 +13,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
   @endif
 
-  {!! HTML::info("Ne pas toucher à ces chiffres si vous n'êtes pas pleinement apte à faire les modifications sur Stripe. Si vous supprimez une offre qu'un utilisateur utilise déjà, l'offre persistera chez l'utilisateur.") !!}
+  {!! Form::info("Ne pas toucher à ces chiffres si vous n'êtes pas pleinement apte à faire les modifications sur Stripe. Si vous supprimez une offre qu'un utilisateur utilise déjà, l'offre persistera chez l'utilisateur.") !!}
 
   <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a href="#series" role="tab" data-toggle="tab"><i class="fa fa-cube"></i> Séries &amp; chiffres clés ({{ DeliverySerie::getTotalPaid() }} €)</a></li>

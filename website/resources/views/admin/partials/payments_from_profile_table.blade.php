@@ -46,9 +46,9 @@
                 
               @endif
               </th>
-              <th>{!! HTML::getReadablePaymentType($payment->type) !!}</th>
+              <th>{!! Form::getReadablePaymentType($payment->type) !!}</th>
               <th>{{$payment->amount}}€</th>
-              <th>{!! HTML::getReadablePaymentStatus($payment->paid) !!}</th>
+              <th>{!! Form::getReadablePaymentStatus($payment->paid) !!}</th>
               <th>{{$payment->last4}}</th>
               <th>{{$payment->created_at}}</th>
               <th>

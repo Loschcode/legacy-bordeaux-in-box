@@ -3,7 +3,7 @@
 /**
  * We take the contact possible services
  */
-HTML::macro('hasNoAnswerPossible', function($type)
+Form::macro('hasNoAnswerPossible', function($type)
 {
 
   $arr_check = Config::get('bdxnbx.no_answer_question_type');

@@ -16,7 +16,7 @@
 
 @section('content')
 
-  {!! HTML::info("Faites très attention au `slug` certains (tels `sponsor` ou `birthday`) sont utilisés pour le développement, leur disparition entraîne l'impossibilité d'utiliser les données sur le système.") !!}
+  {!! Form::info("Faites très attention au `slug` certains (tels `sponsor` ou `birthday`) sont utilisés pour le développement, leur disparition entraîne l'impossibilité d'utiliser les données sur le système.") !!}
 
   {!! Form::open(array('action' => 'AdminBoxesQuestionsController@postEdit')) !!}
 
@@ -72,7 +72,7 @@
   <!-- Type -->
   <div class="form-group @if ($errors->first('type')) has-error has-feedback @endif">
     {!! Form::label("type", "Type", ['class' => 'control-label']) !!}
-    {!! Form::select('type', HTML::getPossibleQuestionTypes(), (Input::old("type")) ? Input::old("type") : $question->type, ['class' => 'form-control']) !!}<br />
+    {!! Form::select('type', Form::getPossibleQuestionTypes(), (Input::old("type")) ? Input::old("type") : $question->type, ['class' => 'form-control']) !!}<br />
     @if ($errors->first('type'))
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
       <span class="help-block">{{ $errors->first('type') }}</span>

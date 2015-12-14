@@ -24,7 +24,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
   @endif
 
-  {!! HTML::info("Lors de l'ajout d'une nouvelle boxe elle sera désactivé par défaut") !!}
+  {!! Form::info("Lors de l'ajout d'une nouvelle boxe elle sera désactivé par défaut") !!}
 
   <div class="w80">
     {!! Form::open(array('action' => 'AdminBoxesController@postNew', 'files' => true)) !!}

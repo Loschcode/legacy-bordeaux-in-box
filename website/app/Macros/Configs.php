@@ -3,7 +3,7 @@
 /**
  * We take the contact possible services
  */
-HTML::macro('getContactServices', function()
+Form::macro('getContactServices', function()
 {
 
   return Config::get('bdxnbx.contact_service');
@@ -13,7 +13,7 @@ HTML::macro('getContactServices', function()
 /**
  * We take the possible questions type while creating questions box
  */
-HTML::macro('getPossibleQuestionTypes', function()
+Form::macro('getPossibleQuestionTypes', function()
 {
 
   return Config::get('bdxnbx.question_types');

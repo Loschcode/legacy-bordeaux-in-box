@@ -81,7 +81,7 @@
                 @endif
                 </th>
                 <th>
-                  {!! HTML::getReadableProfileStatus($profile->status) !!}
+                  {!! Form::getReadableProfileStatus($profile->status) !!}
                 </th>
                 <th>
                   <a class="spyro spyro-btn spyro-btn-primary spyro-btn-sm upper" href="{{url('/profile/orders/'.$profile->id)}}"><i class="fa fa-list-alt"></i> Détails</a>
@@ -232,7 +232,7 @@
         @if ($destination != NULL)
 
           <h3>Livraison</h3>
-          <div class="spyro-well spyro-well-sm">Les différents changement effectués sur cette partie seront effectifs  {{ strtolower(HTML::diffHumans(DeliverySerie::nextOpenSeries()->first()->delivery)) }}</div>
+          <div class="spyro-well spyro-well-sm">Les différents changement effectués sur cette partie seront effectifs  {{ strtolower(Form::diffHumans(DeliverySerie::nextOpenSeries()->first()->delivery)) }}</div>
 
           <div class="spacer20"></div>
           <div class="row">

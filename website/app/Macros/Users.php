@@ -3,7 +3,7 @@
 /**
  * Macro to display simple info designed
  */
-HTML::macro('getAge', function($dateBirthday) {
+Form::macro('getAge', function($dateBirthday) {
 
   // It's an european date
   $dateBirthday = str_replace('/', '-', $dateBirthday);
@@ -15,7 +15,7 @@ HTML::macro('getAge', function($dateBirthday) {
 
 });
 
-HTML::macro('isBirthday', function($dateBirthday) {
+Form::macro('isBirthday', function($dateBirthday) {
 
   return is_birthday($dateBirthday);
 

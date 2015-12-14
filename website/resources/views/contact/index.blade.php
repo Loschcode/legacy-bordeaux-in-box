@@ -16,7 +16,7 @@
 
 
       {!! Form::label("service", "Service") !!}<br/>
-      {!! Form::select('service', HTML::getContactServices(), Input::old('service'), ['class' => 'select']) !!}
+      {!! Form::select('service', Form::getContactServices(), Input::old('service'), ['class' => 'select']) !!}
 
       @if ($errors->first('service'))
         <div class="error"><i class="fa fa-times"></i> {{ $errors->first('service') }}</div>

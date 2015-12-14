@@ -26,7 +26,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
   @endif
 
-  {!! HTML::info('Voici le détail des commandes avec statistiques pour la box '.$box->title) !!}
+  {!! Form::info('Voici le détail des commandes avec statistiques pour la box '.$box->title) !!}
 
 
   <ul class="nav nav-tabs" role="tablist">

@@ -198,7 +198,7 @@ FRANCE
 
 <br />
 
-{!! HTML::page('bill') !!}
+{!! Form::page('bill') !!}
 
 <br />
 

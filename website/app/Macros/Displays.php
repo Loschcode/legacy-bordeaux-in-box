@@ -3,7 +3,7 @@
 /**
  * We will generate a link for the admin to access the user profile, from the email
  */
-HTML::macro('generateAdminLinkFromUserEmail', function($email)
+Form::macro('generateAdminLinkFromUserEmail', function($email)
 {
 
   $user = User::where('email', '=', $email)->first();
@@ -16,7 +16,7 @@ HTML::macro('generateAdminLinkFromUserEmail', function($email)
 /**
  * Get html class color from the box slug
  */
-HTML::macro('getColorFromBoxSlug', function($slug)
+Form::macro('getColorFromBoxSlug', function($slug)
 {
 
   $arr_check = Config::get('bdxnbx.box_spyro_color');
@@ -29,7 +29,7 @@ HTML::macro('getColorFromBoxSlug', function($slug)
 /**
  * Macro to display simple info designed
  */
-HTML::macro('info', function($info) {
+Form::macro('info', function($info) {
 
   return '<div class="spyro-alert spyro-alert-inverse"><p class="left"><i class="fa fa-info"></i></p><p class="right">' . $info . '</p><div class="clearfix"></div></div>';
 
@@ -38,7 +38,7 @@ HTML::macro('info', function($info) {
 /**
  * We get the order spot / destination
  */
-HTML::macro('getOrderSpotOrDestination', function($order)
+Form::macro('getOrderSpotOrDestination', function($order)
 {
 
   return order_spot_or_destination($order);
@@ -48,7 +48,7 @@ HTML::macro('getOrderSpotOrDestination', function($order)
 /**
  * We get the order spot / destination
  */
-HTML::macro('getOrderSpotOrDestinationZip', function($order)
+Form::macro('getOrderSpotOrDestinationZip', function($order)
 {
 
   return order_spot_or_destination_zip($order);
@@ -58,7 +58,7 @@ HTML::macro('getOrderSpotOrDestinationZip', function($order)
 /**
  * We output the questions and answers in HTML (for the admin dashboard orders reading)
  */
-HTML::macro('getOrderQuestionsAndAnswers', function($box, $profile)
+Form::macro('getOrderQuestionsAndAnswers', function($box, $profile)
 {
 
   return order_questions_and_answers($box, $profile);
@@ -68,7 +68,7 @@ HTML::macro('getOrderQuestionsAndAnswers', function($box, $profile)
 /**
  * Macro to display in the dashboard answers of the "quizz"
  */
-HTML::macro('displayQuizz', function ($box, $profile, $spacer=" ", $long=false) {
+Form::macro('displayQuizz', function ($box, $profile, $spacer=" ", $long=false) {
 
   $questions = $box->questions()->get();
   $output = '<div class="well">';

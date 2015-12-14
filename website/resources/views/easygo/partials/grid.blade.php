@@ -24,8 +24,8 @@
       <div class="center">
         <span class="button --lg --disabled --inverse">
           Anniversaire:
-          @if (HTML::getAge($order->user_profile()->first()->getAnswer('birthday')) != 0)
-            @if (HTML::isBirthday($order->user_profile()->first()->getAnswer('birthday')))
+          @if (Form::getAge($order->user_profile()->first()->getAnswer('birthday')) != 0)
+            @if (Form::isBirthday($order->user_profile()->first()->getAnswer('birthday')))
               <i class="fa fa-check" style="color: green"></i>
             @else
               <i class="fa fa-times"></i>
@@ -53,9 +53,9 @@
           @endif
         </span>
 
-        @if (HTML::getAge($order->user_profile()->first()->getAnswer('birthday')) != 0)
+        @if (Form::getAge($order->user_profile()->first()->getAnswer('birthday')) != 0)
           <span class="button --lg --disabled --default">
-            {{ HTML::getAge($order->user_profile()->first()->getAnswer('birthday')) }} ans
+            {{ Form::getAge($order->user_profile()->first()->getAnswer('birthday')) }} ans
           </span>
         @else
           <span class="button --lg --disabled --default">
@@ -69,7 +69,7 @@
 
       <div class="spacer"></div>
 
-      {!! HTML::displayQuizz($order->box()->first(), $order->user_profile()->first()) !!}
+      {!! Form::displayQuizz($order->box()->first(), $order->user_profile()->first()) !!}
 
       <div class="spacer"></div>
 

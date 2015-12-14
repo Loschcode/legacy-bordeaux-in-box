@@ -3,7 +3,7 @@
 /**
  * Shortcut for diffHumans() from Date plugin (translation integrated)
  */
-HTML::macro('diffHumans', function($date, $diff=0) {
+Form::macro('diffHumans', function($date, $diff=0) {
 
   if ($diff != 0) {
 

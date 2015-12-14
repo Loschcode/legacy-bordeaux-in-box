@@ -98,12 +98,12 @@
 
 							</th>
 							<th>
-							{!! HTML::getReadableOrderStatus($order->status) !!}
+							{!! Form::getReadableOrderStatus($order->status) !!}
 							</th>
-							<th>{!! HTML::boolYesOrNo($order->gift) !!}</th>
-							<th>{!! HTML::getReadableOrderLocked($order->locked) !!}</th>
-							<th>{!! HTML::getReadableTakeAway($order->take_away) !!}</th>
-							<th>{!! HTML::getOrderSpotOrDestination($order) !!}</th>
+							<th>{!! Form::boolYesOrNo($order->gift) !!}</th>
+							<th>{!! Form::getReadableOrderLocked($order->locked) !!}</th>
+							<th>{!! Form::getReadableTakeAway($order->take_away) !!}</th>
+							<th>{!! Form::getOrderSpotOrDestination($order) !!}</th>
 							<th>
 							@if ($order->isRegionalOrder())
 								Régional
@@ -113,7 +113,7 @@
 							</th>
 							<th>{{$order->created_at}}</th>
 							<th>{{$order->date_completed}}</th>
-							<th>{!! HTML::getReadableOrderStatus($order->status) !!}</th>
+							<th>{!! Form::getReadableOrderStatus($order->status) !!}</th>
 
 							<th>
 

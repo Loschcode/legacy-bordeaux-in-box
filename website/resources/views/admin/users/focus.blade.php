@@ -52,12 +52,12 @@
       Email : {{$user->email}}<br />
       Téléphone : {{$user->phone}}<br />
       <br />
-      Rôle : {!! HTML::getReadableRole($user->role) !!}<br />
+      Rôle : {!! Form::getReadableRole($user->role) !!}<br />
       <br />
 
-      Ville : {!! HTML::getReadableEmpty($user->city) !!}<br />
-      Code postal : {!! HTML::getReadableEmpty($user->zip) !!}<br />
-      Adresse : {!! HTML::getReadableEmpty($user->address) !!}<br />
+      Ville : {!! Form::getReadableEmpty($user->city) !!}<br />
+      Code postal : {!! Form::getReadableEmpty($user->zip) !!}<br />
+      Adresse : {!! Form::getReadableEmpty($user->address) !!}<br />
       <br />
 
       Abonnements :<br />
@@ -67,9 +67,9 @@
 
               @if ($profile->box()->first() != NULL)
 
-                <a class="spyro-btn {{HTML::getColorFromBoxSlug($profile->box()->first()->slug)}}" href="/admin/profiles/edit/{{$profile->id}}">
+                <a class="spyro-btn {{Form::getColorFromBoxSlug($profile->box()->first()->slug)}}" href="/admin/profiles/edit/{{$profile->id}}">
                 
-                {{$profile->box()->first()->title}} ({!! HTML::getReadableProfileStatus($profile->status) !!})
+                {{$profile->box()->first()->title}} ({!! Form::getReadableProfileStatus($profile->status) !!})
 
                 </a><br/>
 
@@ -92,7 +92,7 @@
       <div class="spacer20"></div>
 
 
-      {!! HTML::info("Si l'utilisateur possède des abonnements, l'adresse de facturation des abonnements éditables sera également modifiée") !!}
+      {!! Form::info("Si l'utilisateur possède des abonnements, l'adresse de facturation des abonnements éditables sera également modifiée") !!}
 
       {!! Form::open(array('action' => 'AdminUsersController@postEdit')) !!}
 

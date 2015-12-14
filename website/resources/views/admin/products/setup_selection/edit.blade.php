@@ -25,7 +25,7 @@
   @endif
 
 
-  {!! HTML::info('Les données statistiques (e.g. coût maximum, avantage haute priorité) sont des approximations, le résultat pourra être légèrement différent selon les produits sélectionnés.') !!}
+  {!! Form::info('Les données statistiques (e.g. coût maximum, avantage haute priorité) sont des approximations, le résultat pourra être légèrement différent selon les produits sélectionnés.') !!}
 
 
   {!! Form::open(['action' => 'AdminProductsController@postSetupProductsSelection']) !!}

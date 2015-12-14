@@ -58,7 +58,7 @@
 
               <th>N°{{$order->id}}</th>
               <th>
-              {!! HTML::getReadableOrderStatus($order->status) !!}
+              {!! Form::getReadableOrderStatus($order->status) !!}
 
               @if ($order->status == 'delivered')
                 ({{$order->date_sent}})
@@ -66,7 +66,7 @@
 
               </th>
               <th>{{$order->delivery_serie()->first()->delivery}}</th>
-              <th>{!! HTML::getOrderSpotOrDestination($order) !!}</th>
+              <th>{!! Form::getOrderSpotOrDestination($order) !!}</th>
               
 
             </tr>

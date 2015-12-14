@@ -66,7 +66,7 @@
 								
 								<span class="hidden">{{$order_building->updated_at}}</span>
 
-								{{ str_replace('dans', '', strtolower(HTML::diffHumans($order_building->updated_at))) }}
+								{{ str_replace('dans', '', strtolower(Form::diffHumans($order_building->updated_at))) }}
 
 							</th>
 

@@ -18,7 +18,7 @@
 	  <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
 	@endif
 
-	{!! HTML::info("Lorsqu'un point relais est désactivé, il n'est plus visible dans la liste des points relais des nouvelles commandes utilisateur mais reste en place pour les commandes en cours. On ne peut pas supprimer un point relais reliés à des commandes en cours.") !!}
+	{!! Form::info("Lorsqu'un point relais est désactivé, il n'est plus visible dans la liste des points relais des nouvelles commandes utilisateur mais reste en place pour les commandes en cours. On ne peut pas supprimer un point relais reliés à des commandes en cours.") !!}
 
 	<ul class="nav nav-tabs" role="tablist">
 	  <li class="active"><a href="#online" role="tab" data-toggle="tab"><i class="fa fa-check"></i>Actifs ({{$active_spots->count()}})</a></li>
@@ -56,7 +56,7 @@
 	  				<tr>
 	  					<th>{{$spot->id}}</th>
 	  					<th>{{$spot->name}}</th>
-	  					<th>{!! HTML::getReadableActive($spot->active) !!}</th>
+	  					<th>{!! Form::getReadableActive($spot->active) !!}</th>
 	  					<th>{{$spot->orders()->where('take_away', '=', true)->activeOrders()->count()}}</th>
 	  					<th>{{$spot->city}}</th>
 	  					<th>{{$spot->zip}}</th>
@@ -91,7 +91,7 @@
         <div class="panel-heading">Transférer les abonnements vers un point relais</div>
         <div class="panel-body">
 
-				{!! HTML::info("Un email sera envoyé aux abonnés leur indiquant le changement de point relais lié à leur abonnement") !!}
+				{!! Form::info("Un email sera envoyé aux abonnés leur indiquant le changement de point relais lié à leur abonnement") !!}
 
           {!! Form::open(['class' => 'form-inline', 'action' => 'AdminSpotsController@postTransferSpotSubscriptions']) !!}
 
@@ -141,7 +141,7 @@
 
 	  				<tr>
 	  					<th>{{$spot->name}}</th>
-	  					<th>{!! HTML::getReadableActive($spot->active) !!}</th>
+	  					<th>{!! Form::getReadableActive($spot->active) !!}</th>
 	  					<th>{{$spot->orders()->where('take_away', '=', true)->activeOrders()->count()}}</th>
 	  					<th>{{$spot->city}}</th>
 	  					<th>{{$spot->zip}}</th>

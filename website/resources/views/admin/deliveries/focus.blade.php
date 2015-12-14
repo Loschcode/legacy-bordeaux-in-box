@@ -28,7 +28,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
   @endif
 
-  {!! HTML::info('Voici le détail des commandes avec statistiques pour la box du '.$series->delivery) !!}
+  {!! Form::info('Voici le détail des commandes avec statistiques pour la box du '.$series->delivery) !!}
 
 
   <ul class="nav nav-tabs" role="tablist">
@@ -65,7 +65,7 @@
 		<!-- Tab List -->
 		<div class="tab-pane" id="orders-spots">
 
-  		{!! HTML::info("Veuillez vérifier que les commandes actives reliées sont le même nombre que celles déjà livrées sur le point relais avant d'envoyer un email de confirmation. Le système se base sur les commandes effectivement reliées pour envoyer cette confirmation.") !!}
+  		{!! Form::info("Veuillez vérifier que les commandes actives reliées sont le même nombre que celles déjà livrées sur le point relais avant d'envoyer un email de confirmation. Le système se base sur les commandes effectivement reliées pour envoyer cette confirmation.") !!}
 
 	  	<table class="js-datas">
 
@@ -112,7 +112,7 @@
 		<!-- Tab List -->
 		<div class="tab-pane" id="questions">
 
-  		{!! HTML::info("Statistiques détaillées des préférences pour la série via le questionnaire") !!}
+  		{!! Form::info("Statistiques détaillées des préférences pour la série via le questionnaire") !!}
 
 	  	<table class="js-datas">
 	  		<thead>
