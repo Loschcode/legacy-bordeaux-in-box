@@ -22,7 +22,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
   @endif
 
-  {!! Form::info('Voici le tracking de la génération de la sélection pour la série. Le tracking est utile pour analyser une anomalie quelconque lors du processus de création') !!}
+  {!! Html::info('Voici le tracking de la génération de la sélection pour la série. Le tracking est utile pour analyser une anomalie quelconque lors du processus de création') !!}
 
   @foreach ($devlogs as $devlog)
 

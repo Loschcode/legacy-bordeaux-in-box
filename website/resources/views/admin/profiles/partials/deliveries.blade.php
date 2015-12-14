@@ -41,7 +41,7 @@
                   @endif
                 </th>
                 <th>
-                  {!! Form::getReadableOrderStatus($order->status) !!}
+                  {!! Html::getReadableOrderStatus($order->status) !!}
                 </th>
                 <th>{{$order->already_paid}}€ 
                 @if ($order->payment_way != NULL)
@@ -51,10 +51,10 @@
                 </th>
                 <th>{{$order->unity_and_fees_price}}€</th>
                 <th>
-                  {!! Form::boolYesOrNo($order->gift) !!}
+                  {!! Html::boolYesOrNo($order->gift) !!}
                 </th>
                 <th>
-                  {!! Form::getReadableOrderLocked($order->locked) !!}
+                  {!! Html::getReadableOrderLocked($order->locked) !!}
                 </th>
                 <th>{{$order->date_completed}}</th>
                 <th>{{$order->created_at}}</th>
@@ -119,7 +119,7 @@
 
       <h3>Adresse de facturation (actuelle)</h3>
 
-      {!! Form::info("Note : l'utilisateur peut lui-même changer son adresse de facturation, le changement côté administrateur est prévu en cas de bug quelconque.") !!}
+      {!! Html::info("Note : l'utilisateur peut lui-même changer son adresse de facturation, le changement côté administrateur est prévu en cas de bug quelconque.") !!}
 
       <div class="spyro-well">
 
@@ -136,7 +136,7 @@
 
       <div class="spacer40"></div>
 
-      {!! Form::info("Note : un changement de région implique un changement de prix de livraison, le formulaire côté administrateur a été laissé libre (celui côté utilisateur est bloqué) ; il faudra manuellement donner ou récupérer la différence avec l'utilisateur via Stripe.") !!}
+      {!! Html::info("Note : un changement de région implique un changement de prix de livraison, le formulaire côté administrateur a été laissé libre (celui côté utilisateur est bloqué) ; il faudra manuellement donner ou récupérer la différence avec l'utilisateur via Stripe.") !!}
 
       <h3>Adresse de livraison (actuelle)</h3>
       

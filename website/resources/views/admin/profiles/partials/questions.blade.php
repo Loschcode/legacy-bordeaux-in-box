@@ -129,7 +129,7 @@
                 @if ($profile->getAnswer('children_old_names', TRUE))
 
                   <br /><br />
-                  {!! Form::info("Anciennes entrées enfants : ".$profile->getAnswer('children_old_names', TRUE)." / ".$profile->getAnswer('children_old_ages', TRUE)) !}
+                  {!! Html::info("Anciennes entrées enfants : ".$profile->getAnswer('children_old_names', TRUE)." / ".$profile->getAnswer('children_old_ages', TRUE)) !}
 
                 @endif
 

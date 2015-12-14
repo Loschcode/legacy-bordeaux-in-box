@@ -25,7 +25,7 @@
   {!! Form::hidden("product_id", $product->id) !!}
 
 
-  {!! Form::info("Attention : si vous changez le produit similaire rattaché, les filtres avancés reliés resterons INCHANGÉS, veuillez à les vérifier par la suite.") !!}
+  {!! Html::info("Attention : si vous changez le produit similaire rattaché, les filtres avancés reliés resterons INCHANGÉS, veuillez à les vérifier par la suite.") !!}
 
   <h4>Clonage</h4>
 
@@ -93,7 +93,7 @@
 
     <h4>Filtre : boxes</h4>
 
-    {!! Form::info("La suppression d'une box entraîne automatiquement la suppression de son filtre avancé attaché") !!}
+    {!! Html::info("La suppression d'une box entraîne automatiquement la suppression de son filtre avancé attaché") !!}
 
     @foreach (Box::get() as $box)
 

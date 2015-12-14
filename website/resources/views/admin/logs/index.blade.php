@@ -36,7 +36,7 @@
 		<!-- Tab List -->
 		<div class="tab-pane active" id="contact">
 
-			{!! Form::info('Toutes les demandes faites par le formulaire de contact sont enregistrées ci-dessous') !!}
+			{!! Html::info('Toutes les demandes faites par le formulaire de contact sont enregistrées ci-dessous') !!}
 
 			<!-- Datas for modal bootstrap -->
 			<div id="contacts-json" class="hidden">{{ $contacts->toJson() }}</div>
@@ -85,10 +85,10 @@
 					@foreach ($contacts as $contact)
 
 						<tr>
-							<th>{!! Form::getReadableContactService($contact->service) !!}</th>
+							<th>{!! Html::getReadableContactService($contact->service) !!}</th>
 							<th>{!! $contact->email !!}</th>
 							<th>{!! $contact->recipient !!}</th>
-							<th>{!! Form::diffHumans($contact->created_at) !!}</th>
+							<th>{!! Html::diffHumans($contact->created_at) !!}</th>
 							<th>			
 							<a data-contact="{{$contact->id}}" data-toggle="tooltip" title="Voir le message" class="spyro-btn spyro-btn-primary spyro-btn-sm"><i class="fa fa-search"></i></a>
 								<a data-toggle="tooltip" title="Archiver" class="spyro-btn spyro-btn-inverse spyro-btn-sm" href="{{url('admin/logs/delete/'.$contact->id)}}"><i class="fa fa-archive"></i> </a>
@@ -142,7 +142,7 @@
 
 									@if ($profile_note->user_profile()->first()->box()->first() != NULL)
 
-										<a class="spyro-btn {{Form::getColorFromBoxSlug($profile_note->user_profile()->first()->box()->first()->slug)}}" href="/admin/profiles/edit/{{$profile_note->user_profile()->first()->id}}">
+										<a class="spyro-btn {{Html::getColorFromBoxSlug($profile_note->user_profile()->first()->box()->first()->slug)}}" href="/admin/profiles/edit/{{$profile_note->user_profile()->first()->id}}">
 										
 										{{$profile_note->user_profile()->first()->box()->first()->title}}
 
@@ -226,7 +226,7 @@
 
 									@if ($email_trace->user_profile()->first()->box()->first() != NULL)
 
-										<a class="spyro-btn {{Form::getColorFromBoxSlug($email_trace->user_profile()->first()->box()->first()->slug)}}" href="/admin/profiles/edit/{{$email_trace->user_profile()->first()->id}}">
+										<a class="spyro-btn {{Html::getColorFromBoxSlug($email_trace->user_profile()->first()->box()->first()->slug)}}" href="/admin/profiles/edit/{{$email_trace->user_profile()->first()->id}}">
 										
 										{{$email_trace->user_profile()->first()->box()->first()->title}}
 
@@ -271,7 +271,7 @@
 		<!-- Tab Config -->
 		<div class="tab-pane" id="config">
 
-			{!! Form::info('Ci-dessous vous pouvez configurer les adresses emails destinataires pour les différents services') !!}
+			{!! Html::info('Ci-dessous vous pouvez configurer les adresses emails destinataires pour les différents services') !!}
 			{!! Form::open(array('action' => 'AdminLogsController@postEditSettings')) !!}
 
 				<div class="panel panel-default">

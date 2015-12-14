@@ -30,7 +30,7 @@
   <div class="container">
   	{!! Form::open(['class' => 'form-component']) !!}
 
-  	<!-- Prochaine série : {{Form::diffHumans($next_series->first()->delivery)}} -->
+  	<!-- Prochaine série : {{Html::diffHumans($next_series->first()->delivery)}} -->
 
   	@if ($order_preference->gift == TRUE)
 

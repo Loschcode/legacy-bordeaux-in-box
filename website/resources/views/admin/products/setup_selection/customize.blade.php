@@ -24,7 +24,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
   @endif
 
-  {!! Form::info('Les données déjà présentes ci-dessous sont générées à travers les produits des dernières séries. Le système retournera une erreur si vous ne remplissez pas tous les champs (0 n\'est pas une valeur acceptable') !!}
+  {!! Html::info('Les données déjà présentes ci-dessous sont générées à travers les produits des dernières séries. Le système retournera une erreur si vous ne remplissez pas tous les champs (0 n\'est pas une valeur acceptable') !!}
 
   {!! Form::open(['action' => 'AdminProductsController@postCustomizeProductsSelection']) !!}
 

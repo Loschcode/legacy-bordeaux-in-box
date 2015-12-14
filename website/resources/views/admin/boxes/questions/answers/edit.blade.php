@@ -2,13 +2,13 @@
 
 @section('content')
 
-  {!! Form::info("Un changement dans la sélection de réponses d'une question affectera la génération automatique de produits. Veuillez mettre à jour les filtres dans la section correspondante après avoir édité une question.") !!}
+  {!! Html::info("Un changement dans la sélection de réponses d'une question affectera la génération automatique de produits. Veuillez mettre à jour les filtres dans la section correspondante après avoir édité une question.") !!}
 
   {!! Form::open(array('action' => 'AdminBoxesQuestionsAnswersController@postEdit')) !!}
 
   {!! Form::hidden('answer_id', $answer->id) !!}
 
-  <h2>Editer une réponse de la question `{{$question->question}}` ({!! Form::getReadableQuestionType($question->type) !!}})</h2>
+  <h2>Editer une réponse de la question `{{$question->question}}` ({!! Html::getReadableQuestionType($question->type) !!}})</h2>
 
   @if (session()->has('message'))
     <div>{{ session()->get('message') }}</div>

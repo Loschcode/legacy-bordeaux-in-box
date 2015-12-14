@@ -41,11 +41,11 @@
 				<th>{{$question->position}}</th>
 				<th>{{$question->question}}</th>
 				<th>{{$question->short_question}}</th>
-				<th>{!! Form::boolYesOrNo($question->filter_must_match) !!}</th>
+				<th>{!! Html::boolYesOrNo($question->filter_must_match) !!}</th>
 				<th>{{$question->slug}}</th>
-				<th>{!! Form::getReadableQuestionType($question->type) !!}</th>
+				<th>{!! Html::getReadableQuestionType($question->type) !!}</th>
 				<th>
-				@if (Form::hasNoAnswerPossible($question->type))
+				@if (Html::hasNoAnswerPossible($question->type))
 					Cette question ne nécessite pas de réponse prédéfinie
 				@else
 					<a class="spyro-btn spyro-btn-primary spyro-btn-sm" href="{{url('admin/boxes/questions/answers/focus/'.$question->id)}}">
