@@ -367,7 +367,7 @@ class ProfileController extends BaseController {
 
 			}
 
-      session()->put('message', 'Vos informations ont bien été mises à jour');
+      session()->flash('message', 'Vos informations ont bien été mises à jour');
       
 			return redirect()->back()
 			->withInput();
