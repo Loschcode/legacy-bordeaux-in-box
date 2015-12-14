@@ -4,7 +4,7 @@
 	<div class="page">
 		<div class="container">
 			<h1 class="page-title">Mention légales</h1>
-			<div class="description">{{ nl2br($legal->content) }}</div>
+			<div class="description">{!! nl2br($legal->content) !!}</div>
 		</div>
 	</div>
 
