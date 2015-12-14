@@ -17,7 +17,7 @@ class IsNotSerieReadyMiddleware {
 
     if (count($orders) == 0)
     {
-      return Redirect::to('/easygo/locked');
+      return redirect()->to('/easygo/locked');
     }
     
     return $next($request);

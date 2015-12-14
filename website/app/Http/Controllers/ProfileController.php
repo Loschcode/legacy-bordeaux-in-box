@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BaseController;
 
+use Auth, Request, Validator;
+
 use App\Models\Order;
 use App\Models\DeliverySpot;
 use App\Models\Payment;
@@ -60,13 +62,14 @@ class ProfileController extends BaseController {
     	if ($spot == NULL) $delivery_spots = [];
     	else $delivery_spots = DeliverySpot::where('active', TRUE)->orWhere('id', $spot->id)->get();
 		  
-  		view()->make('profile.index')->with(compact(
+  		return view('profile.index')->with(compact(
         'delivery_spots',
         'user',
         'profiles',
         'destination',
         'spot'
       ));
+
     }
 
     // Check a bill
@@ -81,7 +84,7 @@ class ProfileController extends BaseController {
     		// If it's not the user bill, we redirect him
     		if ($payment->user()->first()->id != $user->id) {
 
-    			return Redirect::to('/profile');
+    			return redirect()->to('/profile');
 
     		}
 
@@ -89,7 +92,7 @@ class ProfileController extends BaseController {
 
     	}
 
-		return Redirect::to('/profile');
+		return redirect()->to('/profile');
 
     }
 
@@ -106,7 +109,7 @@ class ProfileController extends BaseController {
     		// If it's not the user bill, we redirect him
     		if ($payment->user()->first()->id != $user->id) {
 
-    			return Redirect::to('/profile');
+    			return redirect()->to('/profile');
 
     		}
 
@@ -114,7 +117,7 @@ class ProfileController extends BaseController {
 
     	}
 
-		return Redirect::to('/profile');
+		return redirect()->to('/profile');
 
     }
 
@@ -126,7 +129,7 @@ class ProfileController extends BaseController {
 
     	// Small protection to be sure it's the correct user
     	if ($user->profiles()->where('id', '=', $id)->first() == NULL) {
-    		return Redirect::to('/profile');
+    		return redirect()->to('/profile');
     	}
 
     	$profile = UserProfile::find($id);
@@ -137,7 +140,7 @@ class ProfileController extends BaseController {
 
     	// Protection if there's no box (normaly it shouldn't happend but we never know)
     	if ($profile->box()->first() == NULL) {
-    		return Redirect::to('/profile');
+    		return redirect()->to('/profile');
     	}
     	
 		  view('profile.orders')->with(compact(
@@ -202,7 +205,7 @@ class ProfileController extends BaseController {
         if (is_array($new_stripe_card)) {
 
           session()->flash('error', $new_stripe_card[0]);
-          return Redirect::back();
+          return redirect()->back();
 
         }
 
@@ -219,14 +222,14 @@ class ProfileController extends BaseController {
         $payment_profile->save();
 
         session()->flash('message', "Votre carte a bien été mise à jour");
-        return Redirect::back();
+        return redirect()->back();
 
       }
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -366,13 +369,13 @@ class ProfileController extends BaseController {
 
       session()->put('message', 'Vos informations ont bien été mises à jour');
       
-			return Redirect::back()
+			return redirect()->back()
 			->withInput();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 

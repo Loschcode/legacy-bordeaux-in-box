@@ -23,7 +23,7 @@ class BelowSerieCounterMiddleware {
     {
       if ($next_serie->getCounter() <= 0) 
       {
-        return Redirect::to('/');
+        return redirect()->to('/');
       }
     }
 

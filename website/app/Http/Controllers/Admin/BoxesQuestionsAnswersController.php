@@ -80,7 +80,7 @@ class BoxesQuestionsAnswersController extends BaseController {
     if ($validator->fails())
     {
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
         ->withInput()
         ->withErrors($validator);
     }
@@ -94,7 +94,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 		session()->flash('message', "La réponse a bien été mise à jour");
 
-		return Redirect::to('/admin/boxes/questions/answers/focus/'.$question_answer->question()->first()->id)
+		return redirect()->to('/admin/boxes/questions/answers/focus/'.$question_answer->question()->first()->id)
 		  ->withInput();
 	}
 
@@ -136,7 +136,7 @@ class BoxesQuestionsAnswersController extends BaseController {
     if ($validator->fails())
     {
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
         ->withInput()
         ->withErrors($validator);
     }
@@ -153,7 +153,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 		session()->flash('message', "La réponse a bien été ajoutée à la question");
 		
-    return Redirect::to('/admin/boxes/questions/answers/focus/'.$question->id)
+    return redirect()->to('/admin/boxes/questions/answers/focus/'.$question->id)
       ->withInput();
 	}
 
@@ -167,7 +167,7 @@ class BoxesQuestionsAnswersController extends BaseController {
     $answer->delete();
 
 		session()->flash('message', "Cette réponse a été archivée");
-		return Redirect::back();
+		return redirect()->back();
 
 	}
 

@@ -80,14 +80,14 @@ Route::controller('order', 'OrderController');
 /**
  * Blog
  */
-Route::get('blog/article/{id}', function($id) { return Redirect::to('blog/'.$id.'-redirect'); });
+Route::get('blog/article/{id}', function($id) { return redirect()->to('blog/'.$id.'-redirect'); });
 Route::get('blog/{id}-{slug}', array('uses' => 'BlogController@checkSeoBlog'));
 Route::controller('blog', 'BlogController');
 
 /**
  * Illustrations
  */
-Route::get('illustrations/index/{id}', function($id) { return Redirect::to('illustration/'.$id.'-redirect'); });
+Route::get('illustrations/index/{id}', function($id) { return redirect()->to('illustration/'.$id.'-redirect'); });
 Route::get('illustration/{id}-{slug}', array('uses' => 'IllustrationsController@checkSeoIllustrations'));
 Route::controller('illustrations', 'IllustrationsController');
 
@@ -125,7 +125,7 @@ Route::get('easygo/index', array('as' => 'easygo'));
  */
 Route::get('viesauvage', array(function() {
 
-  return Redirect::to('public/uploads/others/playlist-collection-vie-sauvage.zip');
+  return redirect()->to('public/uploads/others/playlist-collection-vie-sauvage.zip');
 
 }));
 

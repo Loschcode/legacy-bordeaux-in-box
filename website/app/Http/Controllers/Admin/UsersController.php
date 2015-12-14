@@ -153,7 +153,7 @@ class UsersController extends BaseController {
         }
       }
 
-			return Redirect::to('/admin/users')
+			return redirect()->to('/admin/users')
 			->withInput()
 			->with('message', 'L\'utilisateur à bien été modifié');
 
@@ -162,7 +162,7 @@ class UsersController extends BaseController {
 			session()->flash('error', 'Il y a des erreurs dans le formulaire');
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 

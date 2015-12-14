@@ -119,7 +119,7 @@ class OrderController extends BaseController {
     if ($validator->passes()) 
     {
       $box = Box::find($fields['box_choice']);
-      if ($box === NULL) return Redirect::back();
+      if ($box === NULL) return redirect()->back();
 
       $user = Auth::user();
 
@@ -142,7 +142,7 @@ class OrderController extends BaseController {
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -165,7 +165,7 @@ class OrderController extends BaseController {
     $box = $profile->box()->first();
     if ($box === NULL) 
     {
-      return Redirect::back();
+      return redirect()->back();
     }
 
     $questions = $box->questions()->orderBy('position', 'asc')->get();
@@ -205,11 +205,11 @@ class OrderController extends BaseController {
     $rules = [];
 
     // If there's no box_id it means it's certainly a hack
-    if (!isset($fields['box_id'])) return Redirect::to('/');
+    if (!isset($fields['box_id'])) return redirect()->to('/');
 
     // If we don't find the box, there's a bug somewhere (or a hack)
     $box = Box::find($fields['box_id']);
-    if ($box === NULL) return Redirect::back();
+    if ($box === NULL) return redirect()->back();
 
     // Let's generate the rules
     foreach ($box->questions()->orderBy('position', 'asc')->get() as $question) 
@@ -317,7 +317,7 @@ class OrderController extends BaseController {
 
       $delivery_price = DeliveryPrice::find($fields['delivery_price']);
 
-      if ($delivery_price === NULL) return Redirect::back();
+      if ($delivery_price === NULL) return redirect()->back();
 
       $user = Auth::user();
       $order_building = $user->order_building()->first();
@@ -335,14 +335,14 @@ class OrderController extends BaseController {
 
       // Then we redirect
       $redirect = $this->guessStepFromUser();
-      return Redirect::to($redirect);
+      return redirect()->to($redirect);
 
-      //return Redirect::back();
+      //return redirect()->back();
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -425,7 +425,7 @@ class OrderController extends BaseController {
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -523,7 +523,7 @@ class OrderController extends BaseController {
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -573,7 +573,7 @@ class OrderController extends BaseController {
       $order_preference = $order_building->order_preference()->first();
 
       $delivery_spot = DeliverySpot::find($fields['chosen_spot']);
-      if ($delivery_spot === NULL) return Redirect::back();
+      if ($delivery_spot === NULL) return redirect()->back();
 
       // We link the user preference to the delivery spot
       $order_preference->delivery_spot()->associate($delivery_spot);
@@ -590,7 +590,7 @@ class OrderController extends BaseController {
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
     }
@@ -662,7 +662,7 @@ class OrderController extends BaseController {
 
         if (is_array($stripe_customer)) {
 
-          return Redirect::back()->withErrors([
+          return redirect()->back()->withErrors([
             "stripeToken" => $stripe_customer
           ]);
         }
@@ -719,7 +719,7 @@ class OrderController extends BaseController {
 
           $profile->orders()->delete();
 
-          return Redirect::back()->withErrors([
+          return redirect()->back()->withErrors([
             "stripeToken" => ["Une erreur liée aux séries de boxes s'est produite, veuillez réessayer ultérieurement ou contacter notre support si le problème persiste."]
           ]);
 
@@ -793,7 +793,7 @@ class OrderController extends BaseController {
           // Not sure about it, but to be clean we might delete the orders we just built
           $profile->orders()->delete();
 
-          return Redirect::back()->withErrors([
+          return redirect()->back()->withErrors([
             "stripeToken" => $feedback
           ]);
 
@@ -815,7 +815,7 @@ class OrderController extends BaseController {
           // Not sure about it, but to be clean we might delete the orders we just built
           $profile->orders()->delete();
 
-          return Redirect::back()->withErrors([
+          return redirect()->back()->withErrors([
           "stripeToken" => $feedback
           ]);
 
@@ -834,7 +834,7 @@ class OrderController extends BaseController {
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
     }

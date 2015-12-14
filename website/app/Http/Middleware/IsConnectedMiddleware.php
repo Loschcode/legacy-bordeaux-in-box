@@ -1,7 +1,6 @@
 <?php namespace App\Http\Middleware;
 
-use Auth;
-use Closure;
+use Closure, Auth;
 
 class IsConnectedMiddleware {
 
@@ -18,7 +17,7 @@ class IsConnectedMiddleware {
 
       // We register the URL where the user tried to go before
       session()->put('after-login-redirection', Request::url());
-      return Redirect::to('user/login');
+      return redirect()->to('user/login');
 
     }
     

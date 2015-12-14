@@ -69,7 +69,7 @@ class OrdersController extends BaseController {
 			$order->save();
 
 			session()->flash('message', "La commande est listée dans les commandes à problème");
-			return Redirect::back();
+			return redirect()->back();
 
 		}
 
@@ -92,7 +92,7 @@ class OrdersController extends BaseController {
 			$order->save();
 
 			session()->flash('message', "La commande est prête à l'envoi");
-			return Redirect::back();
+			return redirect()->back();
 
 		}
 
@@ -112,7 +112,7 @@ class OrdersController extends BaseController {
 			$this->orderWasSent($order);
 
 			session()->flash('message', "La commande a été envoyée");
-			return Redirect::back();
+			return redirect()->back();
 
 		}
 
@@ -134,7 +134,7 @@ class OrdersController extends BaseController {
 			$order->save();
 
 			session()->flash('message', "La commande a été annulée");
-			return Redirect::back();
+			return redirect()->back();
 
 		}
 
@@ -154,7 +154,7 @@ class OrdersController extends BaseController {
 			$order->delete();
 
 			session()->flash('message', "La commande a bien été archivée");
-			return Redirect::back();
+			return redirect()->back();
 
 
 		}
@@ -176,7 +176,7 @@ class OrdersController extends BaseController {
 			$spot->save();
 
 			session()->flash('message', "Le point relais a été désactivé");
-			return Redirect::back();
+			return redirect()->back();
 
 
 		}
@@ -199,7 +199,7 @@ class OrdersController extends BaseController {
 			$spot->save();
 
 			session()->flash('message', "Le point relais a été activé");
-			return Redirect::back();
+			return redirect()->back();
 
 
 		}
@@ -261,13 +261,13 @@ class OrdersController extends BaseController {
 
 			}
 
-			return Redirect::to('/admin/spots')
+			return redirect()->to('/admin/spots')
 			->withInput();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
@@ -324,13 +324,13 @@ class OrdersController extends BaseController {
 
 			$delivery_spot->save();
 
-			return Redirect::to('/admin/spots')
+			return redirect()->to('/admin/spots')
 			->withInput();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
@@ -353,7 +353,7 @@ class OrdersController extends BaseController {
 
     }
 
-    return Redirect::to('/easygo/index');
+    return redirect()->to('/easygo/index');
   }
 
   public function getReadyNoTakeAway()
@@ -370,7 +370,7 @@ class OrdersController extends BaseController {
 
     }
 
-    return Redirect::to('/easygo/index');
+    return redirect()->to('/easygo/index');
   }
 
 
@@ -388,7 +388,7 @@ class OrdersController extends BaseController {
 
 		}
 
-		return Redirect::back();
+		return redirect()->back();
 
 	}
 
@@ -403,7 +403,7 @@ class OrdersController extends BaseController {
 
 		}
 
-		return Redirect::back();
+		return redirect()->back();
 
 	}
 

@@ -4,7 +4,7 @@
   <div class="page">
     <div class="container">
       <h1 class="page-title">Conditions Générales de Vente</h1>
-      <div class="description">{{ nl2br($cgv->content) }}</div>
+      <div class="description">{!! nl2br($cgv->content) !!}</div>
     </div>
   </div>
 

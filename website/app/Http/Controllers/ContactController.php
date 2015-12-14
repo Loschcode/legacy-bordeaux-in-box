@@ -84,12 +84,12 @@ class ContactController extends BaseController {
 
       session()->flash('message', "Ton message a bien été envoyé à notre équipe, nous te ferons un retour dans les plus brefs délais.");
 
-      return Redirect::back();
+      return redirect()->back();
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 

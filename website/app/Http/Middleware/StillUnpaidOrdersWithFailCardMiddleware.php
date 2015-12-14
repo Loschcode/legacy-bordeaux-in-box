@@ -29,7 +29,7 @@ class StillUnpaidOrdersWithFailCardMiddleware {
 
     if ($counter > 0)
     {
-      return Redirect::to('/easygo/unpaid-orders');
+      return redirect()->to('/easygo/unpaid-orders');
     }
     
     return $next($request);

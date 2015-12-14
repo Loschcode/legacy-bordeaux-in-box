@@ -84,7 +84,7 @@ class BoxesQuestionsController extends BaseController {
     if ($validator->fails()) {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
         ->withInput()
         ->withErrors($validator);
     }
@@ -113,7 +113,7 @@ class BoxesQuestionsController extends BaseController {
 
 		session()->flash('message', "La question a bien été mise à jour");
 		
-    return Redirect::to('/admin/boxes/questions/focus/'.$box_question->box()->first()->id)
+    return redirect()->to('/admin/boxes/questions/focus/'.$box_question->box()->first()->id)
       ->withInput();
 
 	}
@@ -164,7 +164,7 @@ class BoxesQuestionsController extends BaseController {
     if ($validator->fails()) {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
         ->withInput()
         ->withErrors($validator);
     }
@@ -188,7 +188,7 @@ class BoxesQuestionsController extends BaseController {
 
 		session()->flash('message', "La question a bien été ajoutée à la box");
 		
-    return Redirect::to('/admin/boxes/questions/focus/'.$box->id)
+    return redirect()->to('/admin/boxes/questions/focus/'.$box->id)
 		  ->withInput();
 
 	}
@@ -203,7 +203,7 @@ class BoxesQuestionsController extends BaseController {
     $question->delete();
 
 		session()->flash('message', "Cette question a été archivée");
-		return Redirect::back();
+		return redirect()->back();
 	}
 
 	private function _generate_position_listing($box, $inc=0)

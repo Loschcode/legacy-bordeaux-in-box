@@ -47,7 +47,7 @@ class EmailManagerController extends BaseController {
 	{
 
 		$series = DeliverySerie::find($series_id);
-		if ($series == NULL) return Redirect::to('/');
+		if ($series == NULL) return redirect()->to('/');
 
 		$delivered_orders = $series->orders()->DeliveredOrders()->where('take_away', '=', false)->get();
 
@@ -97,7 +97,7 @@ class EmailManagerController extends BaseController {
 		}
 			
 		session()->flash('message', "La série d'emails a bien été distribuée ($email_counter emails envoyés)");
-		return Redirect::back();
+		return redirect()->back();
 
 	}
 
@@ -112,10 +112,10 @@ class EmailManagerController extends BaseController {
 	{
 
 		$series = DeliverySerie::find($series_id);
-		if ($series == NULL) return Redirect::to('/');
+		if ($series == NULL) return redirect()->to('/');
 
 		$spot = DeliverySpot::find($spot_id);
-		if ($spot == NULL) return Redirect::to('/');
+		if ($spot == NULL) return redirect()->to('/');
 
 		$delivered_orders = $spot->getDeliveredSeriesOrders($series)->get();
 
@@ -156,7 +156,7 @@ class EmailManagerController extends BaseController {
 		}
 			
 		session()->flash('message', "La série d'emails a bien été distribuée ($email_counter emails envoyés).");
-		return Redirect::back();
+		return redirect()->back();
 
 	}
 

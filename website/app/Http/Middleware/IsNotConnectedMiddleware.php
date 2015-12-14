@@ -17,7 +17,7 @@ class IsNotConnectedMiddleware {
     
     if (Auth::check() && Request::segment(2) !== 'logout') {
 
-      return Redirect::to('/');
+      return redirect()->to('/');
 
     }
 

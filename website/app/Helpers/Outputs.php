@@ -8,7 +8,7 @@ function generate_zip($name, $folder) {
   $files = glob('public/uploads/' . $folder);
   Zipper::make($zip_file)->add($files);
 
-  return Redirect::to($zip_file);
+  return redirect()->to($zip_file);
 
 }
 

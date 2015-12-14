@@ -5,7 +5,7 @@
  */
 Validator::extend('match_password', function($attribute, $value, $parameters)
 {
-	if (Hash::check($value, Auth::user()->password))
+  if (Hash::check($value, Auth::user()->password))
   {
     return true;
   }

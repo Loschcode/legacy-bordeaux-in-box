@@ -17,7 +17,7 @@ class IsSerieReadyMiddleware {
 
     if (count($orders) > 0)
     {
-      return Redirect::to('/easygo/index');
+      return redirect()->to('/easygo/index');
     }
     
     return $next($request);

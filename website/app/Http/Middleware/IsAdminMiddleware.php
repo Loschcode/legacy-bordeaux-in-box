@@ -15,13 +15,13 @@ class IsAdminMiddleware {
   {
     if (Auth::guest()) {
 
-      return Redirect::to('/');
+      return redirect()->to('/');
 
     } else {
 
       if (Auth::user()->role !== 'admin') 
       {
-        return Redirect::to('/');
+        return redirect()->to('/');
       }
 
       return $next($request);

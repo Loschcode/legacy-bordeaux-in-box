@@ -156,13 +156,13 @@ class DeliveriesController extends BaseController {
       $serie->save();
 
       session()->flash('message', "La série a bien été mise à jour");
-      return Redirect::to('/admin/deliveries');
+      return redirect()->to('/admin/deliveries');
 
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -183,7 +183,7 @@ class DeliveriesController extends BaseController {
     $profile->delete();
 
     session()->flash('message', "La série a bien été supprimé");
-    return Redirect::back();
+    return redirect()->back();
 
   }
 
@@ -222,12 +222,12 @@ class DeliveriesController extends BaseController {
       $delivery_price->save();
 
       session()->flash('message', "Cette offre a bien été ajoutée");
-      return Redirect::back();
+      return redirect()->back();
 
     }
 
     // We return the same page with the error and saving the input datas
-    return Redirect::back()
+    return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -264,12 +264,12 @@ class DeliveriesController extends BaseController {
 
       session()->flash('message', "Cette offre a bien été modifiée");
 
-      return Redirect::back();
+      return redirect()->back();
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -306,12 +306,12 @@ class DeliveriesController extends BaseController {
 
       session()->flash('message', "Les coûts de livraison ont bien été mis à jour");
 
-      return Redirect::back();
+      return redirect()->back();
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -355,12 +355,12 @@ class DeliveriesController extends BaseController {
       $serie->save();
 
       session()->flash('message', "La série a bien été ajoutée");
-      return Redirect::back();
+      return redirect()->back();
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -392,7 +392,7 @@ class DeliveriesController extends BaseController {
    $serie->save();
 
    session()->flash('message', "La série a bien été bloquée");
-   return Redirect::back();
+   return redirect()->back();
 
   }
 
@@ -429,7 +429,7 @@ class DeliveriesController extends BaseController {
       $serie->save();
 
       session()->flash('message', "La série a bien été débloquée");
-      return Redirect::back();
+      return redirect()->back();
 
     }
 
@@ -449,7 +449,7 @@ class DeliveriesController extends BaseController {
       $delivery_price->delete();
 
       session()->flash('message', "L'offre a été correctement supprimée");
-      return Redirect::to('admin/deliveries#offers');
+      return redirect()->to('admin/deliveries#offers');
 
 
     }
