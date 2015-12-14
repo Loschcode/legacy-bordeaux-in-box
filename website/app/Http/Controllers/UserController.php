@@ -84,7 +84,16 @@ class UserController extends BaseController {
 
       // Auto-connection : on
       Auth::login($user);
-      return redirect(session()->get('after-login-redirection'));
+      
+      if (session()->get('after-login-redirection')) {
+
+        return redirect(session()->get('after-login-redirection'));
+
+      } else {
+
+        return redirect('/order');
+
+      }
 
     } else {
 
