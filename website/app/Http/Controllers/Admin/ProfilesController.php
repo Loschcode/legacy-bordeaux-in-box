@@ -73,12 +73,12 @@ class ProfilesController extends BaseController {
       $profile->save();
 
       session()->flash('message', "La priorité de l'abonnement a été mise à jour");
-      return Redirect::back();
+      return redirect()->back();
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::to(URL::previous())
+      return redirect()->to(URL::previous())
       ->withInput()
       ->withErrors($validator);
 
@@ -99,7 +99,7 @@ class ProfilesController extends BaseController {
     }
 
     session()->flash('message', "Les prioritiés des abonnements ont été réinitialisées");
-    return Redirect::back();
+    return redirect()->back();
 
   }
 
@@ -113,7 +113,7 @@ class ProfilesController extends BaseController {
     $profile->delete();
 
     session()->flash('message', "L'abonnement a bien été supprimé");
-    return Redirect::back();
+    return redirect()->back();
 
 	}
 
@@ -217,7 +217,7 @@ class ProfilesController extends BaseController {
 
 		}
 
-		return Redirect::to(URL::previous() . '#deliveries');
+		return redirect()->to(URL::previous() . '#deliveries');
 
 	}
 
@@ -250,12 +250,12 @@ class ProfilesController extends BaseController {
 
 			// Then we redirect
 			session()->flash('message', "Votre note a été ajoutée");
-			return Redirect::back();
+			return redirect()->back();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::to(URL::previous())
+			return redirect()->to(URL::previous())
 			->withInput()
 			->withErrors($validator);
 
@@ -285,7 +285,7 @@ class ProfilesController extends BaseController {
       $next_orders = $profile->orders()->where('locked', FALSE)->get();
 
       $delivery_spot = DeliverySpot::find($fields['selected_spot']);
-      if ($delivery_spot === NULL) return Redirect::to(URL::previous() . '#deliveries');
+      if ($delivery_spot === NULL) return redirect()->to(URL::previous() . '#deliveries');
 
       foreach ($next_orders as $order) {
 
@@ -296,12 +296,12 @@ class ProfilesController extends BaseController {
 
       // Then we redirect
       session()->flash('message', "Le point relais de l'utilisateur a été correctement mise à jour");
-      return Redirect::to(URL::previous() . '#deliveries');
+      return redirect()->to(URL::previous() . '#deliveries');
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::to(URL::previous() . '#deliveries')
+      return redirect()->to(URL::previous() . '#deliveries')
       ->withInput()
       ->withErrors($validator, 'delivery');
 
@@ -344,7 +344,7 @@ class ProfilesController extends BaseController {
 
     // Then we redirect
     session()->flash('message', "L'adresse de livraison de l'utilisateur a été correctement générée");
-    return Redirect::to(URL::previous() . '#deliveries');
+    return redirect()->to(URL::previous() . '#deliveries');
 
   }
 
@@ -390,12 +390,12 @@ class ProfilesController extends BaseController {
 
 			// Then we redirect
 			session()->flash('message', "L'adresse de livraison de l'utilisateur a été correctement mise à jour");
-			return Redirect::to(URL::previous() . '#deliveries');
+			return redirect()->to(URL::previous() . '#deliveries');
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::to(URL::previous() . '#deliveries')
+			return redirect()->to(URL::previous() . '#deliveries')
 			->withInput()
 			->withErrors($validator, 'delivery');
 
@@ -423,12 +423,12 @@ class ProfilesController extends BaseController {
     if (is_array($callback)) {
 
       session()->flash('error', "Impossible de faire payer ce profil");
-      return Redirect::to(URL::previous() . '#paiements');
+      return redirect()->to(URL::previous() . '#paiements');
 
     }
 
     session()->flash('message', "Le profile vient d'être chargé de $raw_amount euro");
-    return Redirect::to(URL::previous() . '#paiements');
+    return redirect()->to(URL::previous() . '#paiements');
 
   }
 
@@ -468,7 +468,7 @@ class ProfilesController extends BaseController {
     if (is_array($callback)) {
 
       session()->flash('error', "Impossible de créer le nouvel abonnement");
-      return Redirect::to(URL::previous() . '#paiements');
+      return redirect()->to(URL::previous() . '#paiements');
 
     }
     
@@ -479,7 +479,7 @@ class ProfilesController extends BaseController {
     $payment_profile->save();
 
     session()->flash('message', "L'abonnement a bien été réinitialisé");
-    return Redirect::to(URL::previous() . '#paiements');
+    return redirect()->to(URL::previous() . '#paiements');
 
   }
 
@@ -492,7 +492,7 @@ class ProfilesController extends BaseController {
 		generate_new_order($user, $profile);
 
 		session()->flash('message', "Une livraison a été ajoutée pour cet utilisateur");
-		return Redirect::to(URL::previous() . '#deliveries');
+		return redirect()->to(URL::previous() . '#deliveries');
 
 	}
 
@@ -504,14 +504,14 @@ class ProfilesController extends BaseController {
 		$rules = array();
 
 		// If there's no box_id it means it's certainly a hack
-		if (!isset($fields['box_id'])) return Redirect::to('/');
+		if (!isset($fields['box_id'])) return redirect()->to('/');
 
 		// If we don't find the box, there's a bug somewhere (or a hack)
 		$box = Box::find($fields['box_id']);
-		if ($box === NULL) return Redirect::back();
+		if ($box === NULL) return redirect()->back();
 
 		$profile = UserProfile::find($fields['user_profile_id']);
-		if ($profile === NULL) return Redirect::back();
+		if ($profile === NULL) return redirect()->back();
 
 		// Let's generate the rules
 		foreach ($box->questions()->get() as $question) {
@@ -534,12 +534,12 @@ class ProfilesController extends BaseController {
       refresh_answers_from_dynamic_questions_form($fields, $profile);
 
 			session()->flash('message', "Les réponses de l'utilisateur ont été correctement mises à jour");
-			return Redirect::to(URL::previous() . '#questions');
+			return redirect()->to(URL::previous() . '#questions');
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::to(URL::previous() . '#questions')
+			return redirect()->to(URL::previous() . '#questions')
 			->withInput()
 			->withErrors($validator);
 

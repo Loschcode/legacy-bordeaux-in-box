@@ -109,7 +109,7 @@ class ProductsController extends BaseController {
     $profile_product->delete();
 
     session()->flash('message', "Le produit a été correctement supprimé");
-    return Redirect::back();
+    return redirect()->back();
 
   }
 
@@ -129,7 +129,7 @@ class ProductsController extends BaseController {
     }
 
     session()->flash('message', "Les produits assignés ont été supprimé");
-    return Redirect::back();
+    return redirect()->back();
 
   }
 
@@ -139,7 +139,7 @@ class ProductsController extends BaseController {
     Devlog::info("Le système se prépare à générer une sélection ...");
 
     $serie = DeliverySerie::find($serie_id);
-    if ($serie == NULL) return Redirect::back();
+    if ($serie == NULL) return redirect()->back();
 
     /**
      * We prepare the models
@@ -1123,7 +1123,7 @@ class ProductsController extends BaseController {
           if (!$datas['quantity']) {
 
             // Something isn't filled
-            return Redirect::back()
+            return redirect()->back()
             ->withInput()
             ->withErrors(['Certaines valeurs n\'ont pas été remplies correctement']);
 
@@ -1142,13 +1142,13 @@ class ProductsController extends BaseController {
 
       }
 
-      return Redirect::to('/admin/products#filters')
+      return redirect()->to('/admin/products#filters')
       ->with('message', 'Personnalisation des produits terminée');
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -1220,7 +1220,7 @@ class ProductsController extends BaseController {
     if ($validator->passes()) {
 
       $serie = DeliverySerie::find($fields['serie_id']);
-      if ($serie == NULL) return Redirect::back();
+      if ($serie == NULL) return redirect()->back();
 
       if (isset($fields['product_filter_setting_id'])) $edit = TRUE;
       else $edit = FALSE;
@@ -1267,13 +1267,13 @@ class ProductsController extends BaseController {
 
       }
 
-      return Redirect::to('/admin/products#filters')
+      return redirect()->to('/admin/products#filters')
       ->with('message', 'Sélection de produits paramétrée');
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -1341,7 +1341,7 @@ class ProductsController extends BaseController {
     if ($validator->passes()) {
 
       $product = PartnerProduct::find($fields['product_id']);
-      if ($product == NULL) return Redirect::back();
+      if ($product == NULL) return redirect()->back();
 
       // We delete every old filter to stay clean
       $old_filter_box_answers = ProductFilterBoxAnswer::where('partner_product_id', '=', $product->id)->get();
@@ -1457,13 +1457,13 @@ class ProductsController extends BaseController {
 
       }
 
-      return Redirect::to('/admin/products#products')
+      return redirect()->to('/admin/products#products')
       ->with('message', 'Filtres avancés mis à jour pour le produit');
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::to('/admin/products#products')
+      return redirect()->to('/admin/products#products')
       ->withInput()
       ->withErrors($validator);
 
@@ -1514,13 +1514,13 @@ class ProductsController extends BaseController {
 
       }
 
-      return Redirect::to('/admin/products#partners')
+      return redirect()->to('/admin/products#partners')
       ->with('message', 'Nouveau partenaire ajouté');
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::to('/admin/products#partners')
+      return redirect()->to('/admin/products#partners')
       ->withInput()
       ->withErrors($validator);
 
@@ -1639,13 +1639,13 @@ class ProductsController extends BaseController {
 
       }
 
-      return Redirect::to('/admin/products#products')
+      return redirect()->to('/admin/products#products')
       ->with('message', 'Nouveau produit ajouté');
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -1765,7 +1765,7 @@ class ProductsController extends BaseController {
 
       }
 
-      return Redirect::to('/admin/products#partners')
+      return redirect()->to('/admin/products#partners')
       ->with('message', 'Partenaire edité');
 
       }
@@ -1773,7 +1773,7 @@ class ProductsController extends BaseController {
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::to('/admin/products#partners')
+      return redirect()->to('/admin/products#partners')
       ->withInput()
       ->withErrors($validator);
 
@@ -1926,7 +1926,7 @@ class ProductsController extends BaseController {
 
         }
 
-        return Redirect::to('/admin/products#products')
+        return redirect()->to('/admin/products#products')
         ->with('message', 'Produit edité');
 
       }
@@ -1934,7 +1934,7 @@ class ProductsController extends BaseController {
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::to('/admin/products#products')
+      return redirect()->to('/admin/products#products')
       ->withInput()
       ->withErrors($validator);
 
@@ -1953,7 +1953,7 @@ class ProductsController extends BaseController {
       $partner->delete();
 
       session()->flash('message', "Le partenaire a été correctement archivé");
-      return Redirect::to('/admin/products#partners');
+      return redirect()->to('/admin/products#partners');
 
 
     }
@@ -1970,7 +1970,7 @@ class ProductsController extends BaseController {
       $product->delete();
 
       session()->flash('message', "Le produit a été correctement archivé");
-      return Redirect::to('/admin/products#products');
+      return redirect()->to('/admin/products#products');
 
     }
 

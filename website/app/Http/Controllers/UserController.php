@@ -98,7 +98,7 @@ class UserController extends BaseController {
     } else {
 
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -174,19 +174,19 @@ class UserController extends BaseController {
         {
           if (session()->get('isGift')) 
           {
-            return Redirect::to('/order/gift');
+            return redirect()->to('/order/gift');
           } 
           else 
           {
-            return Redirect::to('/order/classic');
+            return redirect()->to('/order/classic');
           }
         }
 
-        return Redirect::back();
+        return redirect()->back();
 
       }
 
-      return Redirect::back()->withErrors([
+      return redirect()->back()->withErrors([
         "email" => ["Identifiants invalides."]
         ]);
 
@@ -194,7 +194,7 @@ class UserController extends BaseController {
     else 
     {
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
     }

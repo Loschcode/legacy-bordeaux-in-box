@@ -101,7 +101,7 @@ class PaymentsController extends BaseController {
 			$payment = Payment::find($fields['payment_id']);
 			$order = Order::find($fields['order_id']);
 
-			if ($payment == NULL) return Redirect::to('/');
+			if ($payment == NULL) return redirect()->to('/');
 
 			if ($order == NULL) $payment->order_id = NULL;
 			else {
@@ -184,12 +184,12 @@ class PaymentsController extends BaseController {
 
 			// Then we redirect
 			session()->flash('message', "Le paiement vient d'être relié");
-			return Redirect::back();
+			return redirect()->back();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::to(URL::previous())
+			return redirect()->to(URL::previous())
 			->withInput()
 			->withErrors($validator);
 
@@ -222,7 +222,7 @@ class PaymentsController extends BaseController {
 
 		}
 
-		return Redirect::back();
+		return redirect()->back();
 
 	}
 
@@ -240,7 +240,7 @@ class PaymentsController extends BaseController {
 			$payment->delete();
 
 			session()->flash('message', "Le paiement a été archivé");
-			return Redirect::back();
+			return redirect()->back();
 
 		}
 
@@ -260,7 +260,7 @@ class PaymentsController extends BaseController {
 
     	}
 
-		return Redirect::to('/');
+		return redirect()->to('/');
 
     }
 
@@ -289,7 +289,7 @@ class PaymentsController extends BaseController {
 			}
 
 			session()->flash('message', "Le statut du paiement a bien été changé");
-			return Redirect::back();
+			return redirect()->back();
 
 		}
 
@@ -343,7 +343,7 @@ class PaymentsController extends BaseController {
 			}
 
 			session()->flash('message', "Le statut du paiement a bien été changé");
-			return Redirect::back();
+			return redirect()->back();
 
 		}
 

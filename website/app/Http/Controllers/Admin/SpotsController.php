@@ -72,7 +72,7 @@ class SpotsController extends BaseController {
 
 			if (($old_spot === NULL) || ($new_spot === NULL)) {
 
-				return Redirect::back()
+				return redirect()->back()
 				->withInput()
 				->withErrors(['Les points relais ne sont pas valide']);
 
@@ -149,12 +149,12 @@ class SpotsController extends BaseController {
 			}
 
 			session()->flash('message', "Les commandes du point relais ont correctement été transférés");
-			return Redirect::back();
+			return redirect()->back();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
@@ -176,7 +176,7 @@ class SpotsController extends BaseController {
 		$spot->delete();
 
 		session()->flash('message', "Le point relais a été correctement supprimé");
-		return Redirect::back();
+		return redirect()->back();
 
 	}
 
@@ -191,7 +191,7 @@ class SpotsController extends BaseController {
 		$spot->save();
 
 		session()->flash('message', "Le point relais a été désactivé");
-		return Redirect::to('admin/spots#offline');
+		return redirect()->to('admin/spots#offline');
 	}
 
 
@@ -207,7 +207,7 @@ class SpotsController extends BaseController {
 		$spot->save();
 
 		session()->flash('message', "Le point relais a été activé");
-		return Redirect::back();
+		return redirect()->back();
 
 	}
 
@@ -259,13 +259,13 @@ class SpotsController extends BaseController {
 
 			$delivery_spot->save();
 
-			return Redirect::to('/admin/spots')
+			return redirect()->to('/admin/spots')
 			->withInput();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
@@ -323,14 +323,14 @@ class SpotsController extends BaseController {
 
 			$delivery_spot->save();
 
-			return Redirect::to('/admin/spots')
+			return redirect()->to('/admin/spots')
 			->with('message', 'Le point relais à été ajouté avec succès')
 			->withInput();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 

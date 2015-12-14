@@ -74,7 +74,7 @@ class BoxesController extends BaseController {
     if ($validator->fails())
     {
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
     }
@@ -92,7 +92,7 @@ class BoxesController extends BaseController {
 
 		$box->save();
 
-		return Redirect::to('/admin/boxes#offline')
+		return redirect()->to('/admin/boxes#offline')
 		  ->with('message', 'La box à été édité avec succès')
 			->withInput();
 
@@ -132,7 +132,7 @@ class BoxesController extends BaseController {
     if ($validator->fails())
     {
       // We return the same page with the error and saving the input datas
-      return Redirect::back()
+      return redirect()->back()
         ->withInput()
         ->withErrors($validator);
     }
@@ -146,7 +146,7 @@ class BoxesController extends BaseController {
 
 		$box->save();
 
-		return Redirect::to('/admin/boxes#offline')
+		return redirect()->to('/admin/boxes#offline')
       ->with('message', 'La boxe a été ajouté avec succès et a été placé dans la catégorie hors line')
       ->withInput();
 
@@ -188,7 +188,7 @@ class BoxesController extends BaseController {
 		$box->delete();
 
 		session()->flash('message', "Cette box a été archivée");
-		return Redirect::back();
+		return redirect()->back();
 	}
 
 	/**
@@ -203,7 +203,7 @@ class BoxesController extends BaseController {
 		$box->save();
 
 		session()->flash('message', "Cette box a été activé");
-		return Redirect::back();
+		return redirect()->back();
 	}
 
 	/**
@@ -217,7 +217,7 @@ class BoxesController extends BaseController {
 		$box->save();
 
 		session()->flash('message', "Cette box a été désactivé");
-		return Redirect::back();
+		return redirect()->back();
 	}
 
 }

@@ -59,7 +59,7 @@ class ContentController extends BaseController {
 		$blog_article->delete();
 
 		session()->flash('message', "L'article de blog a été correctement supprimé");
-		return Redirect::back();
+		return redirect()->back();
 	}
 
 	/**
@@ -130,14 +130,14 @@ class ContentController extends BaseController {
 
 			$blog_article->save();
 
-			return Redirect::to('/admin/content#blog')
+			return redirect()->to('/admin/content#blog')
 			->with('message', 'Modifications effectuées')
 			->withInput();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
@@ -211,14 +211,14 @@ class ContentController extends BaseController {
 
 			$blog_article->save();
 
-			return Redirect::to('/admin/content#blog')
+			return redirect()->to('/admin/content#blog')
 			->with('message', 'Nouveau article ajouté')
 			->withInput();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
@@ -265,12 +265,12 @@ class ContentController extends BaseController {
 			}
 
 			session()->flash('message', "Vos pages ont correctement été mises à jour");
-			return Redirect::back();
+			return redirect()->back();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
@@ -294,7 +294,7 @@ class ContentController extends BaseController {
 			$image_article->delete();
 
 			session()->flash('message', "L'illustration a été correctement supprimée");
-			return Redirect::back();
+			return redirect()->back();
 
 
 		}
@@ -353,14 +353,14 @@ class ContentController extends BaseController {
 			$image_article->save();
 
 
-			return Redirect::to('/admin/content#illustrations')
+			return redirect()->to('/admin/content#illustrations')
 			->with('message', 'L\'illustration à été ajouté avec succès')
 			->withInput();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
@@ -417,13 +417,13 @@ class ContentController extends BaseController {
 
 			$image_article->save();
 
-			return Redirect::to('/admin/content#illustrations')
+			return redirect()->to('/admin/content#illustrations')
 			->withInput();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return Redirect::back()
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
