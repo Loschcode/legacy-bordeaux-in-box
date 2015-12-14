@@ -148,11 +148,13 @@ return [
     App\Providers\HelperServiceProvider::class,
     App\Providers\MacroServiceProvider::class,
     App\Providers\ValidationServiceProvider::class,
+    App\Providers\ComposerServiceProvider::class,
 
 		/* 
 		 * App
 		 */
     Illuminate\Html\HtmlServiceProvider::class,
+
 
     //Collective\Html\HtmlServiceProvider::class,
 
