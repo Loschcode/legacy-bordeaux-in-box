@@ -31,7 +31,7 @@ class Kernel extends HttpKernel {
     // App
     'belowSerieCounter' => 'App\Http\Middleware\BelowSerieCounterMiddleware',
     'hasOrderBuilding' => 'App\Http\Middleware\HasOrderBuildingMiddleware',
-    'isAdmin' => 'App\Http\Middleware\RedirectIfAuthenticated\IsAdminMiddleware',
+    'isAdmin' => 'App\Http\Middleware\IsAdminMiddleware',
     'isConnected' => 'App\Http\Middleware\IsConnectedMiddleware',
     'isNotConnected' => 'App\Http\Middleware\IsNotConnectedMiddleware',
     'isNotRegional' => 'App\Http\Middleware\IsNotRegionalMiddleware',
