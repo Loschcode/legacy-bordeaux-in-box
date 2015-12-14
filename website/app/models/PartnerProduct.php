@@ -1,11 +1,11 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PartnerProduct extends Model {
 
-  use SoftDeletingTrait;
+  use SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
@@ -112,7 +112,7 @@ class PartnerProduct extends Model {
   public function partner()
   {
 
-    return $this->belongsTo('Partner');
+    return $this->belongsTo('App\Models\Partner');
 
   }
 
@@ -123,42 +123,42 @@ class PartnerProduct extends Model {
   public function images()
   {
 
-    return $this->hasMany('ProductImage');
+    return $this->hasMany('App\Models\ProductImage');
 
   }
 
   public function filter_boxes()
   {
 
-    return $this->hasMany('ProductFilterBox');
+    return $this->hasMany('App\Models\ProductFilterBox');
 
   }
 
   public function filter_box_answers()
   {
 
-    return $this->hasMany('ProductFilterBoxAnswer');
+    return $this->hasMany('App\Models\ProductFilterBoxAnswer');
 
   }
 
   public function serie_products()
   {
 
-    return $this->hasMany('SerieProduct');
+    return $this->hasMany('App\Models\SerieProduct');
 
   }
 
   public function user_profile_products()
   {
 
-    return $this->hasMany('UserProfileProduct');
+    return $this->hasMany('App\Models\UserProfileProduct');
 
   }
 
   public function master_product_childrens()
   {
 
-    return $this->hasMany('PartnerProduct', 'master_partner_product_id');
+    return $this->hasMany('App\Models\PartnerProduct', 'master_partner_product_id');
 
   }
 

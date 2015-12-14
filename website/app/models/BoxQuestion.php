@@ -1,11 +1,11 @@
 <?php namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class BoxQuestion extends Model {
 
-  use SoftDeletingTrait;
+  use SoftDeletes;
 
 	/**
 	 * The database table used by the model.
@@ -58,7 +58,7 @@ class BoxQuestion extends Model {
 	public function box()
 	{
 
-		return $this->belongsTo('Box', 'box_id');
+		return $this->belongsTo('App\Models\Box', 'box_id');
 
 	}
 
@@ -69,14 +69,14 @@ class BoxQuestion extends Model {
 	public function user_answers()
 	{
 
-		return $this->hasMany('UserAnswer');
+		return $this->hasMany('App\Models\UserAnswer');
 
 	}
 
 	public function answers()
 	{
 
-		return $this->hasMany('BoxAnswer');
+		return $this->hasMany('App\Models\BoxAnswer');
 
 	}
 

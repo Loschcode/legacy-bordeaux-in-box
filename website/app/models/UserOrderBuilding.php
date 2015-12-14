@@ -18,28 +18,28 @@ class UserOrderBuilding extends Model {
 	public function user()
 	{
 
-		return $this->belongsTo('User', 'user_id');
+		return $this->belongsTo('App\Models\User', 'user_id');
 
 	}
 
 	public function order_preference()
 	{
 
-		return $this->belongsTo('UserOrderPreference', 'user_order_preference_id');
+		return $this->belongsTo('App\Models\UserOrderPreference', 'user_order_preference_id');
 
 	}
 
 	public function profile()
 	{
 
-		return $this->belongsTo('UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
 
 	}
 
 	public function delivery_serie()
 	{
 
-		return $this->belongsTo('DeliverySerie', 'delivery_serie_id');
+		return $this->belongsTo('App\Models\DeliverySerie', 'delivery_serie_id');
 
 	}
 

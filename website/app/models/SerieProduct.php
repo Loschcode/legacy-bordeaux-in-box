@@ -18,14 +18,14 @@ class SerieProduct extends Model {
   public function product()
   {
 
-    return $this->belongsTo('PartnerProduct', 'partner_product_id');
+    return $this->belongsTo('App\Models\PartnerProduct', 'partner_product_id');
 
   }
 
   public function delivery_serie()
   {
 
-    return $this->belongsTo('DeliverySerie', 'delivery_serie_id');
+    return $this->belongsTo('App\Models\DeliverySerie', 'delivery_serie_id');
 
   }
 
@@ -36,7 +36,7 @@ class SerieProduct extends Model {
   public function user_profile_products()
   {
 
-    return $this->hasMany('UserProfileProduct');
+    return $this->hasMany('App\Models\UserProfileProduct');
 
   }
 

@@ -1,11 +1,11 @@
 <?php namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class UserProfile extends Model {
 
-	use SoftDeletingTrait;
+	use SoftDeletes;
 
     protected $dates = ['deleted_at', 'status_updated_at'];
 
@@ -61,14 +61,14 @@ class UserProfile extends Model {
 	public function user()
 	{
 
-		return $this->belongsTo('User', 'user_id');
+		return $this->belongsTo('App\Models\User', 'user_id');
 
 	}
 
 	public function box()
 	{
 
-		return $this->belongsTo('Box', 'box_id');
+		return $this->belongsTo('App\Models\Box', 'box_id');
 
 	}
 
@@ -80,21 +80,21 @@ class UserProfile extends Model {
 	public function order_preference()
 	{
 
-		return $this->hasOne('UserOrderPreference');
+		return $this->hasOne('App\Models\UserOrderPreference');
 
 	}
 
 	public function payment_profile()
 	{
 
-		return $this->hasOne('UserPaymentProfile');
+		return $this->hasOne('App\Models\UserPaymentProfile');
 
 	}
 
 	public function order_building()
 	{
 
-		return $this->hasOne('UserOrderBuilding');
+		return $this->hasOne('App\Models\UserOrderBuilding');
 
 	}
 
@@ -105,35 +105,35 @@ class UserProfile extends Model {
 	public function answers()
 	{
 
-		return $this->hasMany('UserAnswer');
+		return $this->hasMany('App\Models\UserAnswer');
 
 	}
 
 	public function user_profile_products()
 	{
 
-		return $this->hasMany('UserProfileProduct');
+		return $this->hasMany('App\Models\UserProfileProduct');
 
 	}
 
 	public function orders()
 	{
 
-		return $this->hasMany('Order');
+		return $this->hasMany('App\Models\Order');
 
 	}
 
 	public function notes()
 	{
 
-		return $this->hasMany('UserProfileNote');
+		return $this->hasMany('App\Models\UserProfileNote');
 
 	}
 
 	public function payments()
 	{
 
-		return $this->hasMany('Payment');
+		return $this->hasMany('App\Models\Payment');
 
 	}
 

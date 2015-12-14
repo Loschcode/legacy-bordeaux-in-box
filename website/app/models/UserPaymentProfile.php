@@ -1,11 +1,11 @@
 <?php namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class UserPaymentProfile extends Model {
 
-	use SoftDeletingTrait;
+  use SoftDeletes;
 
     protected $dates = ['deleted_at'];
 
@@ -23,7 +23,7 @@ class UserPaymentProfile extends Model {
 	public function profile()
 	{
 
-		return $this->belongsTo('UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
 
 	}
 

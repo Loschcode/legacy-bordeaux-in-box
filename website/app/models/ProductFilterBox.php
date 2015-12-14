@@ -20,14 +20,14 @@ class ProductFilterBox extends Model {
   public function product()
   {
 
-    return $this->belongsTo('PartnerProduct', 'partner_product_id');
+    return $this->belongsTo('App\Models\PartnerProduct', 'partner_product_id');
 
   }
 
   public function box()
   {
 
-    return $this->belongsTo('Box', 'box_id');
+    return $this->belongsTo('App\Models\Box', 'box_id');
 
   }
 

@@ -1,11 +1,11 @@
 <?php namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletingTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Payment extends Model {
 
-	use SoftDeletingTrait;
+  use SoftDeletes;
 
 	/**
 	 * The database table used by the model.
@@ -21,21 +21,21 @@ class Payment extends Model {
 	public function user()
 	{
 
-		return $this->belongsTo('User', 'user_id');
+		return $this->belongsTo('App\Models\User', 'user_id');
 
 	}
 
 	public function order()
 	{
 
-		return $this->belongsTo('Order', 'order_id');
+		return $this->belongsTo('App\Models\Order', 'order_id');
 
 	}
 	
 	public function profile()
 	{
 
-		return $this->belongsTo('UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
 
 	}
 

@@ -52,7 +52,7 @@ class UserAnswer extends Model {
   public function referent()
   {
 
-    return $this->belongsTo('UserAnswer', 'referent_id');
+    return $this->belongsTo('App\Models\UserAnswer', 'referent_id');
 
   }
 
@@ -60,14 +60,14 @@ class UserAnswer extends Model {
 	public function profile()
 	{
 
-		return $this->belongsTo('UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
 
 	}
 
 	public function box_question()
 	{
 
-		return $this->belongsTo('BoxQuestion', 'box_question_id');
+		return $this->belongsTo('App\Models\BoxQuestion', 'box_question_id');
 
 	}
 
@@ -78,7 +78,7 @@ class UserAnswer extends Model {
   public function children()
   {
 
-    return $this->hasMany('UserAnswer', 'referent_id');
+    return $this->hasMany('App\Models\UserAnswer', 'referent_id');
 
   }
   

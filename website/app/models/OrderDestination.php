@@ -18,7 +18,7 @@ class OrderDestination extends Model {
 	public function order()
 	{
 
-		return $this->belongsTo('Order', 'order_id');
+		return $this->belongsTo('App\Models\Order', 'order_id');
 
 	}
 

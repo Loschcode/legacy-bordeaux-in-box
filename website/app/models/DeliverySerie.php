@@ -38,21 +38,21 @@ class DeliverySerie extends Model {
 	public function orders()
 	{
 
-		return $this->hasMany('Order');
+		return $this->hasMany('App\Models\Order');
 
 	}
 
 	public function user_order_buildings()
 	{
 
-		return $this->hasMany('UserOrderBuilding');
+		return $this->hasMany('App\Models\UserOrderBuilding');
 
 	}
 
   public function serie_products()
   {
 
-    return $this->hasMany('SerieProduct');
+    return $this->hasMany('App\Models\SerieProduct');
 
   }
 
@@ -69,7 +69,7 @@ class DeliverySerie extends Model {
   public function product_filter_setting()
   {
 
-    return $this->hasOne('ProductFilterSetting');
+    return $this->hasOne('App\Models\ProductFilterSetting');
 
   }
 

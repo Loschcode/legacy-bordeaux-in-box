@@ -28,7 +28,7 @@ return array(
 	| is often just the "User" model but you may use whatever you like.
 	|
 	*/
-	'model' => 'App\User',
+	'model' => 'App\Models\User',
 
 
 	/*

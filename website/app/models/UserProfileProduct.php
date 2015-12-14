@@ -18,21 +18,21 @@ class UserProfileProduct extends Model {
   public function user_profile()
   {
 
-    return $this->belongsTo('UserProfile', 'user_profile_id');
+    return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
 
   }
 
   public function serie_product()
   {
 
-    return $this->belongsTo('SerieProduct', 'serie_product_id');
+    return $this->belongsTo('App\Models\SerieProduct', 'serie_product_id');
 
   }
 
   public function partner_product()
   {
 
-    return $this->belongsTo('PartnerProduct', 'partner_product_id');
+    return $this->belongsTo('App\Models\PartnerProduct', 'partner_product_id');
 
   }
 
