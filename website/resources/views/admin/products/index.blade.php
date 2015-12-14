@@ -11,7 +11,7 @@
 
   @include('_includes.errors', ['errors' => $errors])
 
-  {!! Form::info('Gestion des produits et partenaires du site.') !!}
+  {!! Html::info('Gestion des produits et partenaires du site.') !!}
 
 
   <ul class="nav nav-tabs" role="tablist">
@@ -133,7 +133,7 @@
               <th>{{$product->partner()->first()->name}}</th>
               <th>{{Config::get('bdxnbx.product_categories.'.$product->category)}}</th>
               <th>{{$product->description}}</th>
-              <th>{!! Form::getReadableProductSize($product->size) !!}</th>
+              <th>{!! Html::getReadableProductSize($product->size) !!}</th>
               <th>{{$product->weight}}</th>
               <th>
               @if ($product->images()->count() > 0)

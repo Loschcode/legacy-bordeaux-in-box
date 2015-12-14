@@ -98,17 +98,6 @@ Html::macro('getReadableTakeAway', function($take_away)
 });
 
 /**
- * Say yes or no (true / false)
- */
-Html::macro('boolYesOrNo', function($bool)
-{
-
-  if ($bool) return 'Oui';
-  else return 'Non';
-
-});
-
-/**
  * We get readable locked for orders
  */
 Html::macro('getReadableOrderLocked', function($bool)
@@ -136,6 +125,31 @@ Html::macro('getReadableRole', function($role)
 {
 
   return readable_role($role);
+
+});
+
+/**
+ * Get a readable profile status
+ */
+Html::macro('getReadableProfileStatus', function($status)
+{
+
+  if ($status === 'subscribed') return 'Abonné';
+  elseif ($status === 'not-subscribed') return 'Non abonné';
+  elseif ($status === 'in-progress') return 'En création';
+  elseif ($status == 'expired') return 'Expiré';
+  else return $status;
+
+});
+
+/**
+ * Say yes or no (true / false)
+ */
+Html::macro('boolYesOrNo', function($bool)
+{
+
+  if ($bool) return 'Oui';
+  else return 'Non';
 
 });
 
@@ -174,19 +188,5 @@ Html::macro('getColorFromProfileStatus', function($status)
   elseif ($status === 'in-progress') return 'spyro-btn-success';
   elseif ($status == 'expired') return 'spyro-btn-danger';
   else return '';
-
-});
-
-/**
- * Get a readable profile status
- */
-Html::macro('getReadableProfileStatus', function($status)
-{
-
-  if ($status === 'subscribed') return 'Abonné';
-  elseif ($status === 'not-subscribed') return 'Non abonné';
-  elseif ($status === 'in-progress') return 'En création';
-  elseif ($status == 'expired') return 'Expiré';
-  else return $status;
 
 });

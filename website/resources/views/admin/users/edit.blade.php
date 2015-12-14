@@ -24,7 +24,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
   @endif
 
-  {!! Form::info('Si l\'utilisateur possède des abonnements, l\'adresse de facturation des abonnements éditables sera également modifiée') !!}
+  {!! Html::info('Si l\'utilisateur possède des abonnements, l\'adresse de facturation des abonnements éditables sera également modifiée') !!}
 
   {!! Form::open(array('action' => 'AdminUsersController@postEdit', 'class' => 'form-inline')) !!}
 

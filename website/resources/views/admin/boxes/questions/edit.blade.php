@@ -16,7 +16,7 @@
 
 @section('content')
 
-  {!! Form::info("Faites très attention au `slug` certains (tels `sponsor` ou `birthday`) sont utilisés pour le développement, leur disparition entraîne l'impossibilité d'utiliser les données sur le système.") !!}
+  {!! Html::info("Faites très attention au `slug` certains (tels `sponsor` ou `birthday`) sont utilisés pour le développement, leur disparition entraîne l'impossibilité d'utiliser les données sur le système.") !!}
 
   {!! Form::open(array('action' => 'AdminBoxesQuestionsController@postEdit')) !!}
 

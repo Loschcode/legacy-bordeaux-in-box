@@ -33,9 +33,9 @@
 
     <div class="panel-body">
 
-      Type de paiement : {!! Form::getReadablePaymentType($payment->type) !!}<br />
+      Type de paiement : {!! Html::getReadablePaymentType($payment->type) !!}<br />
       Quantité : {{$payment->amount}} €</br>
-      Statut : {!! Form::getReadablePaymentStatus($payment->paid) !!}</br>
+      Statut : {!! Html::getReadablePaymentStatus($payment->paid) !!}</br>
       Derniers chiffres de carte : {{$payment->last4}}</br>
 
     </div>

@@ -120,7 +120,7 @@
                 <strong><span class="badge badge-default">Box {{$box->title}}</span></strong>
               @endif
 
-              <span class="badge badge-default"><i class="fa fa-gift"></i> {{Form::boolYesOrNo($order->gift)}}</span>
+              <span class="badge badge-default"><i class="fa fa-gift"></i> {{Html::boolYesOrNo($order->gift)}}</span>
               <br/><br/>
             </div>
 
@@ -158,7 +158,7 @@
 
                   @else
 
-                    {{Form::displayQuizz($box, $profile)}}
+                    {{Html::displayQuizz($box, $profile)}}
 
                   @endif
               </div>
@@ -167,9 +167,9 @@
                   <h4>Détails</h4>
                   <div class="well">
                     <strong>Anniversaire :</strong> {{ $order->user_profile()->first()->getAnswer('birthday') }} <br/>
-                    <strong>Age :</strong> {{ Form::getAge($order->user_profile()->first()->getAnswer('birthday')) }} <br/>
+                    <strong>Age :</strong> {{ Html::getAge($order->user_profile()->first()->getAnswer('birthday')) }} <br/>
                     <strong>Est ce que c'est son anniversaire ? :</strong> 
-                    @if (Form::isBirthday($order->user_profile()->first()->getAnswer('birthday')))
+                    @if (Html::isBirthday($order->user_profile()->first()->getAnswer('birthday')))
                       Oui
                     @else
                       Non
@@ -188,11 +188,11 @@
                   <h4>Lieu de livraison</h4>
                   
                   <div class="well">
-                    @if (strpos(Form::getOrderSpotOrDestinationZip($order), '33') !== 0)
+                    @if (strpos(Html::getOrderSpotOrDestinationZip($order), '33') !== 0)
                     <font color="red"><strong>ATTENTION CLIENTE NON REGIONALE</strong></font>
                     <br />
                     @endif
-                    {!! Form::getOrderSpotOrDestination($order) !!}
+                    {!! Html::getOrderSpotOrDestination($order) !!}
                   </div>
                 </div>
               </div>

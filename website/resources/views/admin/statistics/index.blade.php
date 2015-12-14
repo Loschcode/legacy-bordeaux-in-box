@@ -26,7 +26,7 @@
 
     <div class="tab-pane active" id="unfinished-profiles">
 
-      {!! Form::info("Cette section permet de connaître en détail à quel niveau se sont arrêtés les inscrits lors de leur achat. Les éléments sont classés par `Série` qui correspond à la série sur laquelle les utilisateurs se sont ajoutée pour composer la donnée. Si l'utilisateur reprend son inscription plus tard et la termine, cette donnée peut être théoriquement altérée (mais peu probable).") !!}
+      {!! Html::info("Cette section permet de connaître en détail à quel niveau se sont arrêtés les inscrits lors de leur achat. Les éléments sont classés par `Série` qui correspond à la série sur laquelle les utilisateurs se sont ajoutée pour composer la donnée. Si l'utilisateur reprend son inscription plus tard et la termine, cette donnée peut être théoriquement altérée (mais peu probable).") !!}
 
       <div class="panel panel-default">
         <div class="panel-heading"><i class="fa fa-area-chart"></i> Inscriptions / abandons à travers les différentes séries</div>
@@ -131,7 +131,7 @@
     <div class="tab-pane" id="distribution-profiles">
 
 
-      {!! Form::info("Cette section permet de connaître en détail la répartition des livraisons selon la fréquency et le type d'offre. Ceci ne correspond pas aux nombres de commandes créées lors de la série en cours mais l'accumulation / la diminution des livraisons prévues pour chaque type.") !!}
+      {!! Html::info("Cette section permet de connaître en détail la répartition des livraisons selon la fréquency et le type d'offre. Ceci ne correspond pas aux nombres de commandes créées lors de la série en cours mais l'accumulation / la diminution des livraisons prévues pour chaque type.") !!}
 
       <table class="js-datas">
 

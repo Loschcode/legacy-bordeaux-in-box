@@ -9,7 +9,7 @@
 
 @section('content')
 
-  {!! Form::info("Laissez cette page ouverte, lors d'une nouvelle commande une petite musique sera joué") !!}
+  {!! Html::info("Laissez cette page ouverte, lors d'une nouvelle commande une petite musique sera joué") !!}
   
   <div id="js-page-bip"></div>
   <div id="counter" class="spyro-well text-center"><h1>0</h1></div>

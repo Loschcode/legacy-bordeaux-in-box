@@ -6,13 +6,13 @@
 
         <strong>Utilisateur :</strong> <a href="/admin/users/focus/{{$profile->user()->first()->id}}">{{ ucfirst(mb_strtolower($profile->user()->first()->getFullName())) }}</a><br />
 
-        <strong>Marraine :</strong> {!! Form::generateAdminLinkFromUserEmail($profile->getAnswer('sponsor')) !!}<br />
+        <strong>Marraine :</strong> {!! Html::generateAdminLinkFromUserEmail($profile->getAnswer('sponsor')) !!}<br />
         <strong>Naissance :</strong> {{$profile->getAnswer('birthday')}} ({{$profile->getAge()}} ans)<br />
 
         <br />
 
          <strong>Abonnement</strong> {{$profile->contract_id}}<br />
-        <strong>Status :</strong> {!! Form::getReadableProfileStatus($profile->status) !!}<br/> 
+        <strong>Status :</strong> {!! Html::getReadableProfileStatus($profile->status) !!}<br/> 
 
         {!! Form::open(array('action' => 'AdminProfilesController@postUpdatePriority')) !!}
         {!! Form::hidden('profile_id', $profile->id) !!}

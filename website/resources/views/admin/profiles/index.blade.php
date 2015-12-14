@@ -81,7 +81,7 @@
 			</div>
 		</div>
 
-	{!! Form::info('Ci dessous sont listées les différents abonnements des utilisateurs du site. Les utilisateurs peuvent avoir plusieurs abonnements') !!}
+	{!! Html::info('Ci dessous sont listées les différents abonnements des utilisateurs du site. Les utilisateurs peuvent avoir plusieurs abonnements') !!}
 
 	<div class="filters-profiles">
 		<a data-filter="Abonné" data-toggle="tooltip" title="Filtrer par abonnés" class="spyro-btn spyro-btn-primary spyro-btn-sm no-loader"> <i class="fa fa-check hidden"></i> {{UserProfile::getSubscribedProfiles()->count()}} abonnés</a>
@@ -128,7 +128,7 @@
 
 						@if ($profile->box()->first() != NULL)
 
-							<a class="spyro-btn {{Form::getColorFromBoxSlug($profile->box()->first()->slug)}} spyro-btn-sm" href="/admin/profiles/edit/{{$profile->id}}">
+							<a class="spyro-btn {{Html::getColorFromBoxSlug($profile->box()->first()->slug)}} spyro-btn-sm" href="/admin/profiles/edit/{{$profile->id}}">
 							
 							{{$profile->box()->first()->title}}
 
@@ -150,7 +150,7 @@
 
 						@else
 					
-							{!! Form::getReadableProfileStatus($profile->status) !!}
+							{!! Html::getReadableProfileStatus($profile->status) !!}
 
 						@endif
 
@@ -159,13 +159,13 @@
 
 					<th>
 
-						{!! Form::getReadableProfilePriority($profile->priority) !!}
+						{!! Html::getReadableProfilePriority($profile->priority) !!}
 
 					</th>
 
 					<th>
 					<span class="hidden">{{$profile->created_at}}</span>
-					{!! Form::diffHumans($profile->created_at) !!}
+					{!! Html::diffHumans($profile->created_at) !!}
 					</th>
 
 					<th>

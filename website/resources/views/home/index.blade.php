@@ -34,8 +34,8 @@
 
 					@if ($next_series->first()->getCounter() !== FALSE)
 
-						Il ne reste que {{$next_series->first()->getCounter()}} box(s) et {{ str_replace('dans', '', strtolower(Form::diffHumans($next_series->first()->delivery, 5
-						))) }} pour commander la box de {!! Form::convertMonth($next_series->first()->delivery) !!}
+						Il ne reste que {{$next_series->first()->getCounter()}} box(s) et {{ str_replace('dans', '', strtolower(Html::diffHumans($next_series->first()->delivery, 5
+						))) }} pour commander la box de {!! Html::convertMonth($next_series->first()->delivery) !!}
 
 					@endif
 

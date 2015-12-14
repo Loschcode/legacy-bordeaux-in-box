@@ -89,7 +89,7 @@
           <td>{{$image_article->title}}</td>
           <td>{{$image_article->slug}}</td>
           <td>{{$image_article->description}}</td>
-          <td>{!! Form::diffHumans($image_article->created_at) !!}</td>
+          <td>{!! Html::diffHumans($image_article->created_at) !!}</td>
           <td>
             <a data-toggle="tooltip" title="Editer" class="spyro-btn spyro-btn-warning spyro-btn-sm" href="{{url('/admin/content/edit-illustration/'.$image_article->id)}}"><i class="fa fa-pencil"></i></a>
             <a data-toggle="tooltip" title="Supprimer" class="spyro-btn spyro-btn-danger spyro-btn-sm" href="{{url('/admin/content/delete-illustration/'.$image_article->id)}}"><i class="fa fa-times"></i></a>

@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page')
-  <i class="fa fa-suitcase"></i> abonnement #{{$profile->id}} ({{Form::getReadableProfileStatus($profile->status)}})
+  <i class="fa fa-suitcase"></i> abonnement #{{$profile->id}} ({{Html::getReadableProfileStatus($profile->status)}})
 @stop
 
 @section('buttons')

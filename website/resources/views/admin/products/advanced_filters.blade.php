@@ -22,7 +22,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
   @endif
 
-  {!! Form::info('Les filtres avancés permettent de filtrer précisément certains produits via le formulaire personnalisé que les utilisateurs remplissent. Pour accepter uniquement certaines réponses, cochez les cases, pour exiger certains réponses précises, remplissez les champs. <br /><br />NOTE : réfléchissez en terme de conditions, pour un produit qui correspond à quelqu\'un qui a la peau sèche ET qui aime le bleu, il suffit de cocher les deux cases. Si le produit correspond à quelqu\'un qui aime le bleu OU le vert, il suffit de cocher les deux cases de la même section.') !!}
+  {!! Html::info('Les filtres avancés permettent de filtrer précisément certains produits via le formulaire personnalisé que les utilisateurs remplissent. Pour accepter uniquement certaines réponses, cochez les cases, pour exiger certains réponses précises, remplissez les champs. <br /><br />NOTE : réfléchissez en terme de conditions, pour un produit qui correspond à quelqu\'un qui a la peau sèche ET qui aime le bleu, il suffit de cocher les deux cases. Si le produit correspond à quelqu\'un qui aime le bleu OU le vert, il suffit de cocher les deux cases de la même section.') !!}
 
   {!! Form::open(['action' => 'AdminProductsController@postAdvancedProductFilters']) !!}
 

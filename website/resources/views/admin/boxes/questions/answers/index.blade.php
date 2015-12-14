@@ -10,7 +10,7 @@
     <div>{{ session()->get('message') }}</div>
   @endif
   
-<h2>Réponses pour la question `{{$question->question}}` ({!! Form::getReadableQuestionType($question->type) !!})</h2>
+<h2>Réponses pour la question `{{$question->question}}` ({!! Html::getReadableQuestionType($question->type) !!})</h2>
 
 Fil : <a href="{{ url('/admin/boxes') }}">{{$box->title}}</a> - <a href="{{ url('/admin/boxes/questions/focus/'.$box->id) }}">{{$question->question}}</a><br /><br />
 

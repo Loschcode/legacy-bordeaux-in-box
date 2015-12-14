@@ -22,13 +22,13 @@
     <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
   
-  {!! Form::info("Remplissez le champs `slug` uniquement s'il va être utilisé ailleurs que dans le formulaire dans le système (demander à un développeur compétent si vous ne comprenez pas ce que cela signifie).") !!}
+  {!! Html::info("Remplissez le champs `slug` uniquement s'il va être utilisé ailleurs que dans le formulaire dans le système (demander à un développeur compétent si vous ne comprenez pas ce que cela signifie).") !!}
 
   {!! Form::open(array('action' => 'AdminBoxesQuestionsController@postNew')) !!}
 
   {!! Form::hidden('box_id', $box->id) !!}
 
-    {!! Form::info("Le résumé ne sera visible que depuis le panel administrateur. Veuillez rester pragmatique dans sa composition (1 ou 2 mots).") !!}
+    {!! Html::info("Le résumé ne sera visible que depuis le panel administrateur. Veuillez rester pragmatique dans sa composition (1 ou 2 mots).") !!}
   
     <!-- Question -->
     <div class="form-group @if ($errors->first('question')) has-error has-feedback @endif">
