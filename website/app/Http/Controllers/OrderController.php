@@ -5,6 +5,7 @@ use Session, Auth, Request, Redirect, URL, Validator;
 
 use App\Models\Box;
 use App\Models\DeliverySerie;
+use App\Models\DeliveryPrice;
 use App\Models\UserProfile;
 use App\Models\UserOrderBuilding;
 use App\Models\UserOrderPreference;
@@ -244,6 +245,7 @@ class OrderController extends BaseController {
     // The form validation was good
     if ($validator->passes()) 
     {
+
       refresh_answers_from_dynamic_questions_form($fields, $profile);
 
       // Let's go to the next step

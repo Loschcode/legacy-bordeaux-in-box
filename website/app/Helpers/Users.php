@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\BoxQuestion;
+use App\Models\UserAnswer;
+
 function is_birthday($dateBirthday) {
 
   // It's an european date

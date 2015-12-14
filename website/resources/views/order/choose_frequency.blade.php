@@ -4,8 +4,8 @@
 
   <div id="js-page-box-frequency"></div>
 
-  {!! View::make('_includes.pipeline')->with('step', 3) !!}
-
+  @include('_includes.pipeline', ['step' => 3])
+  
   <div id="after-pipeline" class="block-description text-center">
     <div class="container">
       <div class="col-md-8 col-md-offset-2">
