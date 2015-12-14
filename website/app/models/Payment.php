@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Payment extends Model {
 
-	use SoftDeletingTrait;
+  use SoftDeletes;
 
 	/**
 	 * The database table used by the model.

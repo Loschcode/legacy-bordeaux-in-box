@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserProfile extends Model {
 
-	use SoftDeletingTrait;
+	use SoftDeletes;
 
     protected $dates = ['deleted_at', 'status_updated_at'];
 

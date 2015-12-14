@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserProfileNote extends Model {
 
-	use SoftDeletingTrait;
+	use SoftDeletes;
 
     protected $dates = ['deleted_at'];
 

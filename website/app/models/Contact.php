@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Contact extends Model {
 
-	use SoftDeletingTrait;
+  use SoftDeletes;
 
     protected $dates = ['deleted_at'];
 	protected $appends = ['clean_message'];

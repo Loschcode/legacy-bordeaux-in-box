@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class BoxQuestion extends Model {
 
-  use SoftDeletingTrait;
+  use SoftDeletes;
 
 	/**
 	 * The database table used by the model.
