@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BaseController;
 
+use Auth, Request, Validator;
+
 use App\Models\Order;
 use App\Models\DeliverySpot;
 use App\Models\Payment;
@@ -60,13 +62,14 @@ class ProfileController extends BaseController {
     	if ($spot == NULL) $delivery_spots = [];
     	else $delivery_spots = DeliverySpot::where('active', TRUE)->orWhere('id', $spot->id)->get();
 		  
-  		view()->make('profile.index')->with(compact(
+  		return view('profile.index')->with(compact(
         'delivery_spots',
         'user',
         'profiles',
         'destination',
         'spot'
       ));
+
     }
 
     // Check a bill

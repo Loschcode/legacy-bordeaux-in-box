@@ -147,6 +147,7 @@ return [
 		App\Providers\RouteServiceProvider::class,
     App\Providers\HelperServiceProvider::class,
     App\Providers\MacroServiceProvider::class,
+    App\Providers\ValidationServiceProvider::class,
 
 		/* 
 		 * App
