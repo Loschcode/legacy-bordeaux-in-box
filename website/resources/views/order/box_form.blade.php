@@ -189,8 +189,8 @@
                 <ul class="list-checkboxes">
                   @foreach ($question->answers()->get() as $answer)
 
-                  <? $answers = $profile->answers(); ?>
-                  <? $old_reply = $answers->where('box_question_id', $question->id); ?>
+                  <?php $answers = $profile->answers(); ?>
+                  <?php $old_reply = $answers->where('box_question_id', $question->id); ?>
 
                     <li>
 
