@@ -2,6 +2,8 @@
 
 use Closure;
 
+use App\Models\Order;
+
 class IsNotSerieReadyMiddleware {
 
   /**
@@ -17,7 +19,7 @@ class IsNotSerieReadyMiddleware {
 
     if (count($orders) == 0)
     {
-      return redirect()->to('/easygo/locked');
+      return redirect('/easygo/locked');
     }
     
     return $next($request);

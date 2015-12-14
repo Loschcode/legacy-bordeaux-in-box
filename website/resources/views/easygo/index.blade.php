@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.easygo')
 
 @section('content')
 
@@ -54,7 +54,7 @@
 
             @foreach ($spots as $spot)
               <?php (Request::has('spot') && Request::get('spot') == $spot) ? $class = '--primary' : $class = '' ?>
-              <a class="button --default --lg --block center {{ $class }}" href="{{ URL::route('easygo', array_merge($current_query, ['spot' => $spot, 'to_send' => ''])) }}">{{ DeliverySpot::find($spot)->name }}</a>
+              <a class="button --default --lg --block center {{ $class }}" href="{{ URL::route('easygo', array_merge($current_query, ['spot' => $spot, 'to_send' => ''])) }}">{{ App\Models\DeliverySpot::find($spot)->name }}</a>
               <div class="spacer --xs"></div>
             @endforeach
 
@@ -78,7 +78,7 @@
               @foreach ($kind_boxes as $box)
 
                 <a class="button --disabled --default --sm" style="margin-right: 5px">
-                  {{ Box::find($box)->title }}:
+                  {{ App\Models\Box::find($box)->title }}:
 
                   {{ $orders_filtered->filter(function($item) use($box) {
                     return $item->box_id == $box;
@@ -95,7 +95,7 @@
                 <div class="spacer"></div>
 
                 @if (Request::has('spot'))
-                  <a href="{{ url('admin/orders/ready-spot/' . Request::get('spot')) }}" class="button --success --xl">Tout est prêt pour {{ DeliverySpot::find(Request::get('spot'))->name }}</a>
+                  <a href="{{ url('admin/orders/ready-spot/' . Request::get('spot')) }}" class="button --success --xl">Tout est prêt pour {{ App\Models\DeliverySpot::find(Request::get('spot'))->name }}</a>
                 @endif
 
                 @if (Request::has('to_send'))

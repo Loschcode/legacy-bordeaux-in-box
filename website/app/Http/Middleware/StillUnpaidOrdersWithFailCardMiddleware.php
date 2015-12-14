@@ -2,6 +2,8 @@
 
 use Closure;
 
+use App\Models\Order;
+
 class StillUnpaidOrdersWithFailCardMiddleware {
 
   /**
@@ -29,7 +31,7 @@ class StillUnpaidOrdersWithFailCardMiddleware {
 
     if ($counter > 0)
     {
-      return redirect()->to('/easygo/unpaid-orders');
+      return redirect('/easygo/unpaid-orders');
     }
     
     return $next($request);

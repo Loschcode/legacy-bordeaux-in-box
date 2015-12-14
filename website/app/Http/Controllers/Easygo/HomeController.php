@@ -1,8 +1,11 @@
 <?php namespace App\Http\Controllers\Easygo;
 
+use Request;
+
 use App\Http\Controllers\BaseController;
 
 use App\Models\DeliverySerie;
+use App\Models\DeliverySpot;
 use App\Models\Order;
 
 class HomeController extends BaseController {

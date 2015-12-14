@@ -6,7 +6,7 @@
     <div class="container">
 
       <div class="text-center">
-        <h1>Easy Go - Série {{ date('d F Y', strtotime(Order::LockedOrders()->first()->delivery_serie()->first()->delivery)) }}</h1>
+        <h1>Easy Go - Série {{ date('d F Y', strtotime(App\Models\Order::LockedOrders()->first()->delivery_serie()->first()->delivery)) }}</h1>
         <a href="{{ url('admin') }}" class="btn btn-primary">Revenir à l'administration</a>
         <a id="hide" href="#" class="btn btn-inverse">Afficher les résumés</a>
       </div>
@@ -25,7 +25,7 @@
 
                 @foreach ($boxes as $box)
 
-                  <li class="list-group-item"><span class="badge">{{ Order::LockedOrders()->where('box_id', $box->id)->notCanceledOrders()->count() }}</span>{{ $box->title }}</li>
+                  <li class="list-group-item"><span class="badge">{{ App\Models\Order::LockedOrders()->where('box_id', $box->id)->notCanceledOrders()->count() }}</span>{{ $box->title }}</li>
 
                 @endforeach
 
@@ -48,7 +48,7 @@
 
                 @foreach ($spots as $spot)
 
-                  <li class="list-group-item"><span class="badge">{{ Order::LockedOrders()->where('delivery_spot_id', $spot->id)->notCanceledOrders()->count() }}</span>{{ $spot->name }}</li>
+                  <li class="list-group-item"><span class="badge">{{ App\Models\Order::LockedOrders()->where('delivery_spot_id', $spot->id)->notCanceledOrders()->count() }}</span>{{ $spot->name }}</li>
 
                 @endforeach
 
