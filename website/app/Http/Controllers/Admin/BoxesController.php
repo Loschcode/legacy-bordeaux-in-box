@@ -68,38 +68,34 @@ class BoxesController extends BaseController {
 
 			];
 
-		$fields = Input::all();
-
+		$fields = Request::all();
 		$validator = Validator::make($fields, $rules);
 
-		// The form validation was good
-		if ($validator->passes()) {
+    if ($validator->fails())
+    {
+      // We return the same page with the error and saving the input datas
+      return Redirect::back()
+      ->withInput()
+      ->withErrors($validator);
+    }
 
-			$box = Box::findOrFail($fields['box_id']);
 
-			$box->title = $fields['title'];
-			$box->description = $fields['description'];
-			$box->active = FALSE;
+		$box = Box::findOrFail($fields['box_id']);
 
-			if (!empty($fields['image']))
-			{
-			 $box->image = $this->_prepare_image($fields, $box);
-		  }
+		$box->title = $fields['title'];
+		$box->description = $fields['description'];
+		$box->active = FALSE;
 
-			$box->save();
+		if ( ! empty($fields['image'])) {
+		  $box->image = $this->_prepare_image($fields, $box);
+		}
 
-			return Redirect::to('/admin/boxes#offline')
-			->with('message', 'La box à été édité avec succès')
+		$box->save();
+
+		return Redirect::to('/admin/boxes#offline')
+		  ->with('message', 'La box à été édité avec succès')
 			->withInput();
 
-		} else {
-
-			// We return the same page with the error and saving the input datas
-			return Redirect::back()
-			->withInput()
-			->withErrors($validator);
-
-		}
 
 	}
 
@@ -130,35 +126,29 @@ class BoxesController extends BaseController {
 			];
 
 
-		$fields = Input::all();
-
+		$fields = Request::all();
 		$validator = Validator::make($fields, $rules);
 
-		// The form validation was good
-		if ($validator->passes()) {
+    if ($validator->fails())
+    {
+      // We return the same page with the error and saving the input datas
+      return Redirect::back()
+        ->withInput()
+        ->withErrors($validator);
+    }
 
-			$box = new Box;
+		$box = new Box;
 
-			$box->title = $fields['title'];
-			$box->description = $fields['description'];
-			$box->image = $this->_prepare_image($fields, $box);
-			$box->active = FALSE; // Every new box isn't enabled by default
+		$box->title = $fields['title'];
+		$box->description = $fields['description'];
+		$box->image = $this->_prepare_image($fields, $box);
+		$box->active = FALSE; // Every new box isn't enabled by default
 
-			$box->save();
+		$box->save();
 
-			return Redirect::to('/admin/boxes#offline')
-			->with('message', 'La boxe a été ajouté avec succès et a été placé dans la catégorie hors line')
-			->withInput();
-
-		} else {
-
-			// We return the same page with the error and saving the input datas
-			return Redirect::back()
-			->withInput()
-			->withErrors($validator);
-
-		}
-
+		return Redirect::to('/admin/boxes#offline')
+      ->with('message', 'La boxe a été ajouté avec succès et a été placé dans la catégorie hors line')
+      ->withInput();
 
 	}
 

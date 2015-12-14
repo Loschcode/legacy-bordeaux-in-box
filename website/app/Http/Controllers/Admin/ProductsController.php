@@ -92,7 +92,7 @@ class ProductsController extends BaseController {
   public function getEditProfileProducts($order_id)
   {
 
-    $order = Order::find($order_id);
+    $order = Order::findOrFail($order_id);
 
     $possible_serie_products = ['Nothing' => '-'];
 
@@ -109,7 +109,7 @@ class ProductsController extends BaseController {
   public function getDeleteProfileProduct($profile_product_id)
   {
 
-    $profile_product = UserProfileProduct::find($profile_product_id);
+    $profile_product = UserProfileProduct::findOrFail($profile_product_id);
     $profile_product->delete();
 
     Session::flash('message', "Le produit a été correctement supprimé");

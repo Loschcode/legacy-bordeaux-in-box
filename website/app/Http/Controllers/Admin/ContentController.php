@@ -67,16 +67,11 @@ class ContentController extends BaseController {
 	 */
 	public function getEditBlog($id)
 	{
-		$blog_article = BlogArticle::find($id);
+		$blog_article = BlogArticle::findOrFail($id);
 
-		if ($blog_article !== NULL) {
-
-			return view('admin.content.blog.edit')->with(compact(
-        'blog_article'
-      ));
-
-		}
-
+		return view('admin.content.blog.edit')->with(compact(
+      'blog_article'
+    ));
 	}
 
 	public function postEditBlog()
@@ -103,9 +98,8 @@ class ContentController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$blog_article = BlogArticle::find($fields['blog_article_id']);
+			$blog_article = BlogArticle::findOrFail($fields['blog_article_id']);
 
-			if ($blog_article !== NULL) {
 
 			$blog_article->title = $fields['title'];
 			$blog_article->slug = $fields['slug'];
@@ -135,8 +129,6 @@ class ContentController extends BaseController {
 			}
 
 			$blog_article->save();
-
-			}
 
 			return Redirect::to('/admin/content#blog')
 			->with('message', 'Modifications effectuées')
@@ -315,16 +307,11 @@ class ContentController extends BaseController {
 	public function getEditIllustration($id)
 	{
 
-		$image_article = ImageArticle::find($id);
-
-		if ($image_article !== NULL) {
+		$image_article = ImageArticle::findOrFail($id);
 			
-      return view('admin.content.illustrations.edit')->with(compact(
-        'image_article'
-      ));
-
-		}
-
+    return view('admin.content.illustrations.edit')->with(compact(
+      'image_article'
+    ));
 
 	}
 
@@ -351,24 +338,20 @@ class ContentController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$image_article = ImageArticle::find($fields['image_article_id']);
+		  $image_article = ImageArticle::findOrFail($fields['image_article_id']);
+			
 
-			if ($image_article !== NULL)
-			{
+			$image_article->title = $fields['title'];
+			$image_article->slug = $fields['slug'];
+			$image_article->description = $fields['description'];
+			$image_article->user()->associate(Auth::user());
 
-				$image_article->title = $fields['title'];
-				$image_article->slug = $fields['slug'];
-				$image_article->description = $fields['description'];
-				$image_article->user()->associate(Auth::user());
-
-				if (!empty($fields['image']))
-				{
-					$image_article->image = $this->_prepare_image($fields, $image_article);
-				}
-
-				$image_article->save();
-
+			if ( ! empty($fields['image'])) {
+			 $image_article->image = $this->_prepare_image($fields, $image_article);
 			}
+
+			$image_article->save();
+
 
 			return Redirect::to('/admin/content#illustrations')
 			->with('message', 'L\'illustration à été ajouté avec succès')

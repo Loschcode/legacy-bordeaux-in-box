@@ -30,11 +30,7 @@ class BlogController extends BaseController {
   public function getArticle($id)
   {
 
-    $blog_article = BlogArticle::find($id);
-
-    if ($blog_article === NULL) {
-      return abort(404);
-    }
+    $blog_article = BlogArticle::findOrFail($id);
 
     $previous_article = $blog_article->get_previous();
     $next_article = $blog_article->get_next();
@@ -51,14 +47,7 @@ class BlogController extends BaseController {
   public function checkSeoBlog($id, $slug)
   {
 
-    $blog_article = BlogArticle::find($id);
-
-    // If NULL
-    if ($blog_article === NULL) {
-
-      return redirect('/');
-
-    }
+    $blog_article = BlogArticle::findOrFail($id);
 
     // If not correct slug
     if ($slug !== $blog_article->slug) {

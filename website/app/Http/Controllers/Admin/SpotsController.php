@@ -171,18 +171,12 @@ class SpotsController extends BaseController {
 	public function getDelete($id)
 	{
 
-		$spot = DeliverySpot::find($id);
+		$spot = DeliverySpot::findOrFail($id);
 
-		if ($spot !== NULL)
-		{
+		$spot->delete();
 
-			$spot->delete();
-
-			Session::flash('message', "Le point relais a été correctement supprimé");
-			return Redirect::back();
-
-
-		}
+		Session::flash('message', "Le point relais a été correctement supprimé");
+		return Redirect::back();
 
 	}
 
@@ -191,21 +185,13 @@ class SpotsController extends BaseController {
 	 */
 	public function getDesactivate($id)
 	{
+		$spot = DeliverySpot::findOrFail($id);
 
-		$spot = DeliverySpot::find($id);
+		$spot->active = FALSE;
+		$spot->save();
 
-		if ($spot !== NULL)
-		{
-
-			$spot->active = FALSE;
-			$spot->save();
-
-			Session::flash('message', "Le point relais a été désactivé");
-			return Redirect::to('admin/spots#offline');
-
-
-		}
-
+		Session::flash('message', "Le point relais a été désactivé");
+		return Redirect::to('admin/spots#offline');
 	}
 
 
@@ -215,19 +201,13 @@ class SpotsController extends BaseController {
 	public function getActivate($id)
 	{
 
-		$spot = DeliverySpot::find($id);
+		$spot = DeliverySpot::findOrFail($id);
 
-		if ($spot !== NULL)
-		{
+		$spot->active = TRUE;
+		$spot->save();
 
-			$spot->active = TRUE;
-			$spot->save();
-
-			Session::flash('message', "Le point relais a été activé");
-			return Redirect::back();
-
-
-		}
+		Session::flash('message', "Le point relais a été activé");
+		return Redirect::back();
 
 	}
 
@@ -238,18 +218,11 @@ class SpotsController extends BaseController {
 	public function getEdit($id)
 	{
 
-		$spot = DeliverySpot::find($id);
+		$spot = DeliverySpot::findOrFail($id);
 
-		if ($spot !== NULL)
-		{
-
-			return view('admin.spots.edit')->with(compact(
-        'spot'
-      ));
-
-		}
-
-
+		return view('admin.spots.edit')->with(compact(
+      'spot'
+    ));
 	}
 
 	public function postEdit()
@@ -275,20 +248,16 @@ class SpotsController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$delivery_spot = DeliverySpot::find($fields['delivery_spot_id']);
+			$delivery_spot = DeliverySpot::findOrFail($fields['delivery_spot_id']);
 
-			if ($delivery_spot !== NULL)
-			{
 
-				$delivery_spot->name = $fields['name'];
-				$delivery_spot->zip = $fields['zip'];
-				$delivery_spot->city = $fields['city'];
-				$delivery_spot->address = $fields['address'];
-				$delivery_spot->schedule = $fields['schedule'];
+			$delivery_spot->name = $fields['name'];
+			$delivery_spot->zip = $fields['zip'];
+			$delivery_spot->city = $fields['city'];
+			$delivery_spot->address = $fields['address'];
+			$delivery_spot->schedule = $fields['schedule'];
 
-				$delivery_spot->save();
-
-			}
+			$delivery_spot->save();
 
 			return Redirect::to('/admin/spots')
 			->withInput();

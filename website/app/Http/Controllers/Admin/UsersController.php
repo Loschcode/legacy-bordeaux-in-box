@@ -47,7 +47,7 @@ class UsersController extends BaseController {
 	public function getFocus($id)
 	{
 
-		$user = User::find($id);
+		$user = User::findOrFail($id);
 
 		$roles_list = [
 
@@ -93,69 +93,65 @@ class UsersController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$user = User::find($fields['user_id']);
+			$user = User::findOrFail($fields['user_id']);
 
-			if ($user !== NULL)
-			{
 
-				$user->email = $fields['email'];
+      $user->email = $fields['email'];
 
-				if (!empty($fields['password'])) {
+      if ( ! empty($fields['password'])) {
 
-					$user->password = Hash::make($fields['password']);
-				}
+       $user->password = Hash::make($fields['password']);
 
-				$user->role = $fields['role'];
+      }
 
-				$user->phone = $fields['phone'];
+      $user->role = $fields['role'];
 
-				$user->first_name = $fields['first_name'];
-				$user->last_name = $fields['last_name'];
+      $user->phone = $fields['phone'];
 
-				$user->zip = $fields['zip'];
-				$user->city = $fields['city'];
-				$user->address = $fields['address'];
+      $user->first_name = $fields['first_name'];
+      $user->last_name = $fields['last_name'];
 
-				$user->save();
+      $user->zip = $fields['zip'];
+      $user->city = $fields['city'];
+      $user->address = $fields['address'];
 
-				// If the user got profiles we will edit the next deliveries
-				if ($user->profiles()->first() != NULL) {
+      $user->save();
 
-					$profiles = $user->profiles()->get();
+			// If the user got profiles we will edit the next deliveries
+      if ($user->profiles()->first() != NULL) {
 
-					foreach ($profiles as $profile) {
+        $profiles = $user->profiles()->get();
 
-						if ($profile->orders()->first() != NULL) {
+        foreach ($profiles as $profile) {
 
-							// Only for editable orders
-							$profile_orders = $profile->orders()->where('locked', FALSE)->get();
+          if ($profile->orders()->first() != NULL) {
 
-							foreach ($profile_orders as $profile_order) {
+				    // Only for editable orders
+            $profile_orders = $profile->orders()->where('locked', FALSE)->get();
 
-								if ($profile_order->billing()->first() != NULL) {
+            foreach ($profile_orders as $profile_order) {
 
-									$billing = $profile_order->billing()->first();
+              if ($profile_order->billing()->first() != NULL) {
 
-									$billing->first_name = $user->first_name;
-									$billing->last_name = $user->last_name;
-									$billing->zip = $user->zip;
-									$billing->city = $user->city;
-									$billing->address = $user->address;
+                $billing = $profile_order->billing()->first();
 
-									// We save everything
-									$billing->save();
+                $billing->first_name = $user->first_name;
+                $billing->last_name = $user->last_name;
+                $billing->zip = $user->zip;
+                $billing->city = $user->city;
+                $billing->address = $user->address;
 
-								}
+								// We save everything
+                $billing->save();
 
-							}
+              }
 
-						}
+            }
 
-					}
+          }
 
-				}
-
-			}
+        }
+      }
 
 			return Redirect::to('/admin/users')
 			->withInput()
