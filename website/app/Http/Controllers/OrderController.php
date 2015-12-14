@@ -5,6 +5,7 @@ use Session, Auth, Request, Redirect, URL;
 
 use App\Models\Box;
 use App\Models\DeliverySerie;
+use App\Models\UserProfile;
 use App\Models\UserOrderBuilding;
 use App\Models\UserOrderPreference;
 
