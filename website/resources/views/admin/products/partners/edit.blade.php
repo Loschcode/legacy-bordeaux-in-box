@@ -24,7 +24,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
   @endif
 
-  {!! Form::open(['action' => 'AdminProductsController@postEditPartner', 'files' => true]) !!}
+  {!! Form::open(['action' => 'Admin\ProductsController@postEditPartner', 'files' => true]) !!}
 
     {!! Form::hidden("partner_id", $partner->id) !!}
 

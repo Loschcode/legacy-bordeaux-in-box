@@ -202,7 +202,7 @@
         <div class="panel-heading">Ajouter un produit</div>
         <div class="panel-body">
 
-          {!! Form::open(['action' => 'AdminProductsController@postAddProduct', 'files' => true]) !!}
+          {!! Form::open(['action' => 'Admin\ProductsController@postAddProduct', 'files' => true]) !!}
 
           <h4>Clonage</h4>
 
@@ -378,7 +378,7 @@
         <div class="panel-heading">Ajouter un partenaire</div>
         <div class="panel-body">
           
-          {!! Form::open(['action' => 'AdminProductsController@postAddPartner', 'files' => true]) !!}
+          {!! Form::open(['action' => 'Admin\ProductsController@postAddPartner', 'files' => true]) !!}
 
           <div class="form-group @if ($errors->first('name')) has-error has-feedback @endif">
             {!! Form::label("name", "Nom", ['class' => 'sr-only']) !!}

@@ -4,7 +4,7 @@ use App\Http\Controllers\BaseController;
 
 use App\Models\BlogArticle;
 use App\Models\ImageArticle;
-
+use App\Models\Page;
 
 class ContentController extends BaseController {
 

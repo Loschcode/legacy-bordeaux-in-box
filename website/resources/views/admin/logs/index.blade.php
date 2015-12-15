@@ -272,7 +272,7 @@
 		<div class="tab-pane" id="config">
 
 			{!! Html::info('Ci-dessous vous pouvez configurer les adresses emails destinataires pour les différents services') !!}
-			{!! Form::open(array('action' => 'AdminLogsController@postEditSettings')) !!}
+			{!! Form::open(array('action' => 'Admin\LogsController@postEditSettings')) !!}
 
 				<div class="panel panel-default">
 					<div class="panel-heading">

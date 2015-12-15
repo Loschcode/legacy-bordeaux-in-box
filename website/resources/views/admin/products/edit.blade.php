@@ -20,7 +20,7 @@
 
   @include('_includes.errors', ['errors' => $errors])
 
-  {!! Form::open(['action' => 'AdminProductsController@postEditProduct', 'files' => true]) !!}
+  {!! Form::open(['action' => 'Admin\ProductsController@postEditProduct', 'files' => true]) !!}
 
   {!! Form::hidden("product_id", $product->id) !!}
 

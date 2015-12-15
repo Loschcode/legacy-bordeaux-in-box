@@ -160,7 +160,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Ajouter une offre</div>
         <div class="panel-body add-offer">
-          {{ Form::open(array('action' => 'AdminDeliveriesController@postAddPrice', 'class' => 'form-inline')) }}
+          {{ Form::open(array('action' => 'Admin\DeliveriesController@postAddPrice', 'class' => 'form-inline')) }}
 
           @if ($errors->first('unity_price'))
             {{{ $errors->first('unity_price') }}}<br />
@@ -199,7 +199,7 @@
           <ul class="forms">
           @foreach ($prices as $price)
             <li>
-            {!! Form::open(array('action' => 'AdminDeliveriesController@postEditPrice', 'class' => 'form-inline')) !!}
+            {!! Form::open(array('action' => 'Admin\DeliveriesController@postEditPrice', 'class' => 'form-inline')) !!}
 
             {!! Form::hidden('delivery_price_id', $price->id) !!}
 
@@ -252,7 +252,7 @@
 
       <div class="panel-body">
 
-      {!! Form::open(array('action' => 'AdminDeliveriesController@postEditSettings')) !!}
+      {!! Form::open(array('action' => 'Admin\DeliveriesController@postEditSettings')) !!}
 
       @if ($errors->first('regional_delivery_fees'))
         {{{ $errors->first('regional_delivery_fees') }}}<br />

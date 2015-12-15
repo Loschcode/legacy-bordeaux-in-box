@@ -63,7 +63,7 @@
         <div class="panel-heading">Assigner un nouveau produit</div>
         <div class="panel-body">
 
-          {!! Form::open(['action' => 'AdminProductsController@postAddProductToUserProfile']) !!}
+          {!! Form::open(['action' => 'Admin\ProductsController@postAddProductToUserProfile']) !!}
 
           {!! Form::hidden('order_id', $order->id) !!}
           {!! Form::select("product_id", $possible_serie_products) !!}

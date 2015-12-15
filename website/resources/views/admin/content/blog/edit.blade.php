@@ -25,7 +25,7 @@
   @endif
 
 
-  {!! Form::open(array('action' => 'AdminContentController@postEditBlog', 'files' => true)) !!}
+  {!! Form::open(array('action' => 'Admin\ContentController@postEditBlog', 'files' => true)) !!}
 
     {!! Form::hidden("blog_article_id", $blog_article->id) !!}
 

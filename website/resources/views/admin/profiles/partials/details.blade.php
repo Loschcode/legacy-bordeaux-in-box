@@ -14,7 +14,7 @@
          <strong>Abonnement</strong> {{$profile->contract_id}}<br />
         <strong>Status :</strong> {!! Html::getReadableProfileStatus($profile->status) !!}<br/> 
 
-        {!! Form::open(array('action' => 'AdminProfilesController@postUpdatePriority')) !!}
+        {!! Form::open(array('action' => 'Admin\ProfilesController@postUpdatePriority')) !!}
         {!! Form::hidden('profile_id', $profile->id) !!}
         <strong>Priorité :</strong> {{ Form::select('priority', generate_priority_form(), $profile->priority) }} {{ Form::submit('Valider') }} <br/>
         {!! Form::close() !!}
@@ -87,7 +87,7 @@
 
       <div class="spacer10"></div>
 
-      {!! Form::open(array('action' => 'AdminProfilesController@postAddNote', 'class' => 'form-inline')) !!}
+      {!! Form::open(array('action' => 'Admin\ProfilesController@postAddNote', 'class' => 'form-inline')) !!}
 
         {!! Form::hidden('user_profile_id', $profile->id) !!}
 
