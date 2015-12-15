@@ -31,7 +31,7 @@ class DeliverySerie extends Model {
 	public function payments()
 	{
 
-		return $this->hasManyThrough('Payment', 'Order');
+		return $this->hasManyThrough('App\Models\Payment', 'App\Models\Order');
 
 	}
 
