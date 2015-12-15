@@ -156,7 +156,7 @@ return [
     Illuminate\Html\HtmlServiceProvider::class,
     Jenssegers\Date\DateServiceProvider::class,
     Barryvdh\DomPDF\ServiceProvider::class,
-
+    Chumper\Zipper\ZipperServiceProvider::class
 
 
 
@@ -218,9 +218,6 @@ return [
 		'Validator' => Illuminate\Support\Facades\Validator::class,
 		'View'      => Illuminate\Support\Facades\View::class,
 
-    //'Form' => Collective\Html\FormFacade::class,
-    //'Html' => Collective\Html\HtmlFacade::class,
-
 		/*
 		 * App
 		 */
@@ -228,17 +225,10 @@ return [
     'Form' => Illuminate\Html\FormFacade::class,
     'Html' => Illuminate\Html\HtmlFacade::class,
     'PDF' => Barryvdh\DomPDF\Facade::class,
+    'Formatter' => SoapBox\Formatter\Formatter::class,
+    'Zipper' => Chumper\Zipper\Zipper::class,
+    'Dumper' => Symfony\Component\VarDumper\VarDumper::class,
 
-    //'Form' => 'Illuminate\Html\FormFacade::class, 
-    //'HTML' => 'Illuminate\Html\HtmlFacade'
-    
-		//'PDF' => 'Thujohn\Pdf\PdfFacade',
-		//'Date' => 'Jenssegers\Date\Date',
-		//'Formatter' => 'SoapBox\Formatter\Formatter',
-		//'Dumper' => 'Symfony\Component\VarDumper\VarDumper',
-		//'Zipper' => 'Chumper\Zipper\Zipper',
-		//'Form' => 'Illuminate\Html\FormFacade',
-		//'HTML' => 'Illuminate\Html\HtmlFacade',
 	],
 
 ];

@@ -9,7 +9,13 @@
 		"caouecs/laravel4-lang": "~2.0",
     "illuminate/html": "5.*",
 		"jenssegers/date": "^3.1",
-    "barryvdh/laravel-dompdf": "0.6.*"
+    "barryvdh/laravel-dompdf": "0.6.*",
+		"stripe/stripe-php": "^3.5",
+    "guzzlehttp/guzzle": "~4.0",
+    "soapbox/laravel-formatter": "2.x",
+    "doctrine/dbal": "*",
+    "chumper/zipper": "0.6.x",
+    "symfony/var-dumper" : "*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",
