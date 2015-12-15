@@ -155,6 +155,8 @@ return [
 		 */
     Illuminate\Html\HtmlServiceProvider::class,
     Jenssegers\Date\DateServiceProvider::class,
+    Barryvdh\DomPDF\ServiceProvider::class,
+
 
 
 
@@ -225,7 +227,8 @@ return [
     'Date' => Jenssegers\Date\Date::class,
     'Form' => Illuminate\Html\FormFacade::class,
     'Html' => Illuminate\Html\HtmlFacade::class,
-    
+    'PDF' => Barryvdh\DomPDF\Facade::class,
+
     //'Form' => 'Illuminate\Html\FormFacade::class, 
     //'HTML' => 'Illuminate\Html\HtmlFacade'
     
