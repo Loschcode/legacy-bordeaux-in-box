@@ -9,7 +9,6 @@ use App\Models\DeliveryPrice;
 use App\Models\UserProfile;
 use App\Models\UserOrderBuilding;
 use App\Models\UserOrderPreference;
-
 use App\Models\DeliverySetting;
 
 class OrderController extends BaseController {

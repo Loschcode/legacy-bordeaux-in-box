@@ -2,7 +2,7 @@
 
 @section('content')
 
-  {!! View::make('_includes.pipeline')->with('step', 4) !!}
+  @include('_includes.pipeline', ['step' => 4])
     
   <div id="js-page-delivery-mode"></div>
   
@@ -40,7 +40,7 @@
       <div class="clearfix"></div>
 
    		<div class="col-md-6 col-md-offset-3">
-	   		{!! Form::label('0', $text . ' (+'.DeliverySetting::first()->regional_delivery_fees.'€ *)', ['class' => 'hidden']) !!}
+	   		{!! Form::label('0', $text . ' (+'.App\Models\DeliverySetting::first()->regional_delivery_fees.'€ *)', ['class' => 'hidden']) !!}
 	   		{!! Form::radio('take_away', 0, (!$order_preference->take_away) ? true : Request::old(0), array('id' => 0, 'class' => 'big')) !!}
 	   	</div>
 
@@ -69,6 +69,6 @@
 
 
    <div class="spacer50"></div>
-   {!! View::make('_includes.footer') !!}
+   @include('_includes.footer')
 
 @stop
