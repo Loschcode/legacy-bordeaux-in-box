@@ -10,6 +10,7 @@ use App\Models\UserProfile;
 use App\Models\UserOrderBuilding;
 use App\Models\UserOrderPreference;
 use App\Models\DeliverySetting;
+use App\Models\DeliverySpot;
 
 class OrderController extends BaseController {
 
@@ -551,7 +552,7 @@ class OrderController extends BaseController {
 
     return view('order.choose_spot')->with(compact(
       'chosen_delivery_spot',
-      'delivery_spot'
+      'delivery_spots'
     ));
 
   }

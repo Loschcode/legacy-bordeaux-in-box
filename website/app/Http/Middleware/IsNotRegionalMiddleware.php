@@ -1,6 +1,6 @@
 <?php namespace App\Http\Middleware;
 
-use Closure;
+use Closure, Auth;
 
 class IsNotRegionalMiddleware {
 
