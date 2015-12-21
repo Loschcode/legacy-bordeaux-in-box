@@ -11,7 +11,7 @@
       Les abonnements reliés au point relais {{$old_spot_name}} viennent d'être transférés vers le point relais {{$new_spot_name}}. Ton abonnement à la box {{$box_title}} en fait partie.<br /><br />
 
       Nouveau point relais : {{$new_spot_name_and_infos}}<br />
-      Horaires : {{$new_spot_schedule}}<br /><br />
+      Horaires : {!! $new_spot_schedule !!}<br /><br />
 
       Si tu souhaites sélectionner un autre point relais, n'hésite pas à le modifier directement depuis ton compte.<br /><br />
 
