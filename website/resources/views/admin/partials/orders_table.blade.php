@@ -70,7 +70,7 @@
 
 							@else
 
-								{{order_questions($box, $profile, " / ")}}
+								{!! order_questions($box, $profile, " / ") !!}
 
 						    @endif
 
@@ -82,7 +82,7 @@
 
 							@else
 
-								{{order_answers($box, $profile, " / ")}}
+								{!! order_answers($box, $profile, " / ") !!}
 
 							@endif
 
