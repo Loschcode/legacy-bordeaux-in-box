@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BaseController;
 
+use App\Models\Box;
 use App\Models\BoxQuestion;
 use App\Models\BoxAnswer;
 
