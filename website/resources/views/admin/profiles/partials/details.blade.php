@@ -16,7 +16,7 @@
 
         {!! Form::open(array('action' => 'Admin\ProfilesController@postUpdatePriority')) !!}
         {!! Form::hidden('profile_id', $profile->id) !!}
-        <strong>Priorité :</strong> {{ Form::select('priority', generate_priority_form(), $profile->priority) }} {{ Form::submit('Valider') }} <br/>
+        <strong>Priorité :</strong> {!! Form::select('priority', generate_priority_form(), $profile->priority) !!} {!! Form::submit('Valider') !!} <br/>
         {!! Form::close() !!}
 
         <br />

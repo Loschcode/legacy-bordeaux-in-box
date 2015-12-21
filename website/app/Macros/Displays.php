@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\User;
+
 /**
  * We will generate a link for the admin to access the user profile, from the email
  */

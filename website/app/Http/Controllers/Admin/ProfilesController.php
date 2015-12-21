@@ -4,7 +4,11 @@ use App\Http\Controllers\BaseController;
 
 use Carbon\Carbon;
 
+use Request, Validator, Auth;
+
+use App\Models\User;
 use App\Models\UserProfile;
+use App\Models\UserProfileNote;
 use App\Models\DeliverySpot;
 use App\Models\OrderDestination;
 
