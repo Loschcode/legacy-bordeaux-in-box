@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\BaseController;
 
+use Request, Validator;
 use App\Models\User;
+
 
 class UsersController extends BaseController {
 
