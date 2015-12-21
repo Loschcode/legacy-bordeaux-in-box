@@ -74,7 +74,7 @@
     <!-- Type -->
     <div class="form-group @if ($errors->first('type')) has-error has-feedback @endif">
       {!! Form::label("type", "Type", ['class' => 'control-label']) !!}
-      {!! Form::select('type', Form::getPossibleQuestionTypes(), Request::old('type'), ['class' => 'form-control']) !!}
+      {!! Form::select('type', Html::getPossibleQuestionTypes(), Request::old('type'), ['class' => 'form-control']) !!}
       @if ($errors->first('type'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         <span class="help-block">{{ $errors->first('type') }}</span>
