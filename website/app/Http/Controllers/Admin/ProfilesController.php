@@ -4,8 +4,9 @@ use App\Http\Controllers\BaseController;
 
 use Carbon\Carbon;
 
-use Request, Validator, Auth;
+use Request, Validator, Auth, URL;
 
+use App\Models\Box;
 use App\Models\User;
 use App\Models\UserProfile;
 use App\Models\UserProfileNote;
