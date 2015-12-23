@@ -258,7 +258,7 @@
 
     <h2>DEV TOOLS</h2>
 
-    {{ Html::info("Ne touchez à rien si vous n'êtes pas un développeur et ne connaissez pas les fonctionnalités ci-dessous, la plupart sont des moulinettes permettant de mettre à jour la base de données et sont très sensibles") }}
+    {!! Html::info("Ne touchez à rien si vous n'êtes pas un développeur et ne connaissez pas les fonctionnalités ci-dessous, la plupart sont des moulinettes permettant de mettre à jour la base de données et sont très sensibles") !!}
 
     <h3>Correction base de données</h3>
 
