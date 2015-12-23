@@ -1,113 +1,93 @@
-<?php namespace App\Http\Controllers;
+<?php
 
-use App\Http\Controllers\BaseController;
+namespace App\Http\Controllers;
 
-class RemindersController extends BaseController {
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
-	/*
-	|--------------------------------------------------------------------------
-	| Reminders Controller
-	|--------------------------------------------------------------------------
-	|
-	| Forgot password stuff (from Laravel, but modified)
-	|
-	*/
+use Illuminate\Http\Request;
+use Illuminate\Mail\Message;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-	/**
-	 * Display the password reminder view.
-	 *
-	 * @return Response
-	 */
-	public function getRemind()
-	{
-		$this->layout->content = view()->make('user.password.remind');
-	}
 
-	/**
-	 * Handle a POST request to remind a user of their password.
-	 *
-	 * @return Response
-	 */
-	public function postRemind()
-	{
-		switch ($response = Password::remind(Request::only('email'), function($message) {
-			$message
-			->from('lolipop@bordeauxinbox.fr', 'Bordeaux in Box')
-            ->subject('Réinitialisation de ton mot de passe');
-		}))
-		{
-			case Password::INVALID_USER:
-				return redirect()->back()->with('error', Lang::get($response));
+class RemindersController extends Controller
+{
+    /**
+     * Subject of the reminder's email
+     * @var string
+     */
+    public $subject = 'Réinitialisation de votre mot de passe';
 
-			case Password::REMINDER_SENT:
-				return redirect()->back()->with('status', Lang::get($response));
-		}
-	}
+    /*
+    |--------------------------------------------------------------------------
+    | Password Reset Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller is responsible for handling password reset requests
+    | and uses a simple trait to include this behavior. You're free to
+    | explore this trait and override any methods you wish to tweak.
+    |
+    */
+    use ResetsPasswords;
 
-	/**
-	 * Display the password reset view for the given token.
-	 *
-	 * @param  string  $token
-	 * @return Response
-	 */
-	public function getReset($token = null)
-	{
-		if (is_null($token)) App::abort(404);
+    /**
+     * Create a new password controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+      $this->middleware('guest');
+    }
 
-		return view('user.password.reset')->with(compact(
-      'token'
-    ));
-	}
+    /**
+     * Display the form to request a password reset link.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getRemind()
+    {
+      return view('user.password.remind');
+    }
 
-	/**
-	 * Handle a POST request to reset a user's password.
-	 *
-	 * @return Response
-	 */
-	public function postReset()
-	{
-		$credentials = Request::only(
-			'email', 'password', 'password_confirmation', 'token'
-		);
+    /**
+     * Send a reset link to the given user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function postRemind(Request $request)
+    {
+        $this->validate($request, ['email' => 'required|email']);
 
-		$rules = [
+        $response = Password::sendResetLink($request->only('email'), function (Message $message) {
+            $message->subject($this->getEmailSubject());
+        });
 
-			'email' => 'required',
-			'password' => 'required|min:5|confirmed',
+        switch ($response) {
+            case Password::RESET_LINK_SENT:
+                return redirect()->back()->with('status', trans($response));
 
-			];
+            case Password::INVALID_USER:
+                return redirect()->back()->withErrors(['email' => trans($response)]);
+        }
+    }
 
-		$validator = Validator::make($credentials, $rules);
+    /**
+     * Display the password reset view for the given token.
+     *
+     * @param  string  $token
+     * @return \Illuminate\Http\Response
+     */
+    public function getReset($token = null)
+    {
+        if (is_null($token)) {
+            throw new NotFoundHttpException;
+        }
 
-		if ($validator->passes()) {
-
-		$response = Password::reset($credentials, function($user, $password)
-		{
-			$user->password = Hash::make($password);
-			$user->save();
-		});
-
-		switch ($response)
-		{
-			case Password::INVALID_PASSWORD:
-			case Password::INVALID_TOKEN:
-			case Password::INVALID_USER:
-				return redirect()->back()
-				->with('error', Lang::get($response));
-
-			case Password::PASSWORD_RESET:
-
-				return redirect()->to('/user/login');
-
-			}
-
-		} else {
-
-			return redirect()->back()
-					->withInput()
-					->withErrors($validator);
-
-		}
-	}
+        return view('user.password.reset')->with('token', $token);
+    }
 
 }

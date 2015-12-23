@@ -28,7 +28,7 @@ return array(
 	| is often just the "User" model but you may use whatever you like.
 	|
 	*/
-	'model' => 'App\Models\User',
+	'model' => App\Models\User::class,
 
 
 	/*
@@ -59,7 +59,7 @@ return array(
 	|
 	*/
 
-	'reminder' => array(
+	'password' => array(
 		'email' => 'emails.user.reminder',
 		'table' => 'password_reminders',
 		'expire' => 60,
