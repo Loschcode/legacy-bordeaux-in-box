@@ -144,7 +144,7 @@ class ProfileController extends BaseController {
     		return redirect()->to('/profile');
     	}
     	
-		  view('profile.orders')->with(compact(
+		  return view('profile.orders')->with(compact(
         'user',
         'profile',
         'payment_profile',
