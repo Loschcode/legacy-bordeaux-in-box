@@ -41,7 +41,6 @@ Route::controller('home', 'HomeController');
 /**
  * Admin
  */
-Route::controller('admin/bip', 'Admin\BipController');
 Route::controller('admin/lightbox', 'Admin\LightboxController');
 Route::controller('admin/orders', 'Admin\OrdersController');
 Route::controller('admin/deliveries', 'Admin\DeliveriesController');

@@ -76,9 +76,6 @@
 	            <li>
 	            <a href="{{ url('admin/debug') }}"><i class="fa fa-bug"></i> Debug</a>
 	            </li>
-	            <li>
-	            <a href="{{ url('admin/bip') }}"><i class="fa fa-music"></i> Bip</a>
-	            </li>
 	        </ul>
 	    </div>
 	    <!-- /#sidebar-wrapper -->
