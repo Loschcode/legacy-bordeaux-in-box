@@ -6,6 +6,7 @@ use Auth, Request, Validator;
 
 use App\Models\Order;
 use App\Models\DeliverySpot;
+use App\Models\DeliverySerie;
 use App\Models\Payment;
 use App\Models\UserProfile;
 

@@ -232,7 +232,7 @@
         @if ($destination != NULL)
 
           <h3>Livraison</h3>
-          <div class="spyro-well spyro-well-sm">Les différents changement effectués sur cette partie seront effectifs  {{ strtolower(Html::diffHumans(DeliverySerie::nextOpenSeries()->first()->delivery)) }}</div>
+          <div class="spyro-well spyro-well-sm">Les différents changement effectués sur cette partie seront effectifs  {{ strtolower(Html::diffHumans(App\Models\DeliverySerie::nextOpenSeries()->first()->delivery)) }}</div>
 
           <div class="spacer20"></div>
           <div class="row">
