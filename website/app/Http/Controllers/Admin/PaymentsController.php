@@ -5,7 +5,9 @@ use App\Http\Controllers\BaseController;
 use App\Models\Payment;
 use App\Models\DeliverySerie;
 use App\Models\Box;
+use App\Models\Order;
 
+use Request, Validator;
 
 
 class PaymentsController extends BaseController {

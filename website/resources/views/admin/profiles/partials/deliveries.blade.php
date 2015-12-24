@@ -45,7 +45,7 @@
                 </th>
                 <th>{{$order->already_paid}}€ 
                 @if ($order->payment_way != NULL)
-                  <? $ways = Config::get('bdxnbx.payment_ways'); ?>
+                  <?php $ways = Config::get('bdxnbx.payment_ways'); ?>
                   ({{$ways[$order->payment_way]}})
                 @endif
                 </th>
