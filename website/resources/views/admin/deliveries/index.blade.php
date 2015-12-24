@@ -160,7 +160,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Ajouter une offre</div>
         <div class="panel-body add-offer">
-          {{ Form::open(array('action' => 'Admin\DeliveriesController@postAddPrice', 'class' => 'form-inline')) }}
+          {!! Form::open(['action' => 'Admin\DeliveriesController@postAddPrice', 'class' => 'form-inline']) !!}
 
           @if ($errors->first('unity_price'))
             {{{ $errors->first('unity_price') }}}<br />
