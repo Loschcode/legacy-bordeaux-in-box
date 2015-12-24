@@ -37,16 +37,17 @@ function generate_pdf_bill($payment, $download=FALSE, $destination_folder=FALSE)
 
   }
 
-  View::share('user', $user);
-  View::share('user_order_preference', $user_order_preference);
-  View::share('box', $box);
-  View::share('order', $order);
-  View::share('billing', $billing);
-  View::share('payment', $payment);
-  View::share('profile', $profile);
+  $html = view('pdf.bill')->with(compact(
+    'user',
+    'user_order_preference',
+    'box',
+    'order',
+    'billing',
+    'payment',
+    'profile'
+  ));
 
-  $html = View::make('pdf.bill');
-  $pdf_name = $payment->bill_id;
+  $pdf_name = $payment->bill_id . '.pdf';
 
   return generate_pdf($html, $pdf_name, $download, $destination_folder);
 
@@ -62,7 +63,7 @@ function generate_pdf_bill($payment, $download=FALSE, $destination_folder=FALSE)
  */
 function generate_pdf($html, $pdf_name, $download, $destination_folder) {
 
-  $pdf = new \Thujohn\Pdf\Pdf();
+  $pdf = App::make('dompdf.wrapper');
 
   if ($destination_folder) {
 
@@ -72,12 +73,19 @@ function generate_pdf($html, $pdf_name, $download, $destination_folder) {
     $outputName = $pdf_name;
     $pdfPath = $destinationPath . '/' . $outputName . '.pdf';
 
-    File::put($pdfPath, $pdf->load($html, 'A4', 'portrait')->output());
+    File::put($pdfPath, $pdf->loadHTML($html)->setPaper('a4')->setOrientation('portrait')->output());
 
   } else {
 
-    if ($download) $pdf->load($html, 'A4', 'portrait')->download($pdf_name);
-    else return $pdf->load($html, 'A4', 'portrait')->show();
+    if ($download) {
+
+      return $pdf->loadHTML($html)->setPaper('a4')->setOrientation('portrait')->download($pdf_name);
+
+    } else {
+      
+      return $pdf->loadHTML($html)->setPaper('a4')->setOrientation('portrait')->stream();
+
+    } 
 
   }
 

@@ -1,4 +1,5 @@
 <?php
+use App\Models\Page;
 
 /**
  * We take the matching page from the pages table (with the `slug`)

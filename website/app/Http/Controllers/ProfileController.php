@@ -114,6 +114,7 @@ class ProfileController extends BaseController {
 
     		}
 
+
     		return generate_pdf_bill($payment, TRUE);
 
     	}
