@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Libraries;
+
 /**
  * Downloaders
  * by Laurent Schaffner

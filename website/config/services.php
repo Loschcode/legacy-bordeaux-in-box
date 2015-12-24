@@ -25,8 +25,7 @@ return array(
 
 	'stripe' => array(
 		'model'  => 'UserPaymentProfile',
-		'key' => '', // New entry Laravel 5.0
-		'secret' => 'sk_test_3t1faNpmJVWM1ZWehtPZbLFn',
+		'secret' => env('STRIPE_API_SECRET')
 	),
 
 );

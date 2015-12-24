@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Libraries;
+
 /**
  * Devlog
  * by Laurent Schaffner
