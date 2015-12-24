@@ -16,10 +16,10 @@
   {!! Html::info("Ne pas toucher à ces chiffres si vous n'êtes pas pleinement apte à faire les modifications sur Stripe. Si vous supprimez une offre qu'un utilisateur utilise déjà, l'offre persistera chez l'utilisateur.") !!}
 
   <ul class="nav nav-tabs" role="tablist">
-    <li class="active"><a href="#series" role="tab" data-toggle="tab"><i class="fa fa-cube"></i> Séries &amp; chiffres clés ({{ DeliverySerie::getTotalPaid() }} €)</a></li>
+    <li class="active"><a href="#series" role="tab" data-toggle="tab"><i class="fa fa-cube"></i> Séries &amp; chiffres clés ({{ App\Models\DeliverySerie::getTotalPaid() }} €)</a></li>
     <li><a href="#offers" role="tab" data-toggle="tab"><i class="fa fa-star"></i> Offres &amp; frais divers ({{$prices->count()}})</a></li>
     <li><a href="#list-boxes" role="tab" data-toggle="tab"><i class="fa fa-gift"></i> Boxes ({{$boxes->count()}})</a></li>
-    <li><a href="#history" role="tab" data-toggle="tab"><i class="fa fa-history"></i> Historique des paiements ({{Payment::getTotal()}} € / {{$payments->count()}})</a></li>
+    <li><a href="#history" role="tab" data-toggle="tab"><i class="fa fa-history"></i> Historique des paiements ({{App\Models\Payment::getTotal()}} € / {{$payments->count()}})</a></li>
   </ul>
 
   <div class="tab-content">
@@ -334,7 +334,7 @@
 
               <th>{{$box->id}}</th>
               <th>{{$box->title}}</th>
-              <th>{{round($box->orders()->sum('already_paid') / Order::sum('already_paid')*100,2)}}%</th>
+              <th>{{round($box->orders()->sum('already_paid') / App\Models\Order::sum('already_paid')*100,2)}}%</th>
               <th>{{$box->orders()->sum('already_paid')}} €</th>
               <th>
 

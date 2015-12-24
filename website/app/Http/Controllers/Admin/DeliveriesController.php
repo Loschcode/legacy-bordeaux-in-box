@@ -11,6 +11,8 @@ use App\Models\DeliveryPrice;
 use App\Models\DeliverySpot;
 use App\Models\Order;
 
+use Illuminate\Support\Str, Config;
+
 class DeliveriesController extends BaseController {
 
   /*
