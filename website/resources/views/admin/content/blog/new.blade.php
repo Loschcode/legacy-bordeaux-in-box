@@ -19,7 +19,7 @@
     <!-- Title -->
     <div class="form-group @if ($errors->first('title')) has-error has-feedback @endif">
       {!! Form::label("title", "Titre", ['class' => 'control-label']) !!}
-      {{ Form::text("title", Request::old("title"), ['class' => 'form-control']) }}
+      {!! Form::text("title", Request::old("title"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('title'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>

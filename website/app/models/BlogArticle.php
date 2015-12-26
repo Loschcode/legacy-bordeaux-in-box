@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use Str;
+
 class BlogArticle extends Model {
 
 	/**
