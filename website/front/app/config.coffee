@@ -1,10 +1,17 @@
-##
+#--------------------------------------------------------------------------
 # Config
-# 
-# Just a simple config file which you can require in your controllers
-# to fetch the datas you want.
+#--------------------------------------------------------------------------
+#
+# Sometimes you need to put some configuration variables for your project,
+# here it's the right place for that !
+#
+# Config = require 'config'
+# console.log Config.app.name  
 ##
-module.exports = 
-  app_name: "Your app name"
-  app_version: "0.0.1"
-  app_author: "Your name"
+
+module.exports =
+
+  # Example
+  app:
+    name: 'My Gotham Application'
+    version: 0.1

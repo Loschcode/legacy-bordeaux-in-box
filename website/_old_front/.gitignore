@@ -22,11 +22,11 @@ Thumbs.db
 # NPM packages folder.
 node_modules/
 
+# Bower components folder.
+bower_components/
+
 # Brunch folder for temporary files.
 tmp/
 
 # Brunch output folder.
 public/
-
-# Bower stuff.
-bower_components/

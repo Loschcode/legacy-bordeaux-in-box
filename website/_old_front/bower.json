@@ -1,0 +1,46 @@
+{
+  "name": "Gotham Application",
+  "version": "0.0.1",
+  "main": "",
+  "dependencies": {
+    "underscore": "~1.7.0",
+    "console-polyfill": "~0.1.2",
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.3.4",
+    "spyro": "~0.0.3",
+    "datatables": "~1.10.7",
+    "summernote": "~0.6.6",
+    "iCheck": "~1.0.2",
+    "fancyselect": "~1.1.0",
+    "appear": "~0.3.4",
+    "jquery-alphanum": "~1.0.17",
+    "csstyle": "~1.4.0",
+    "csstyle-button": "~1.0.0",
+    "tooltipster": "~3.3.0",
+    "chosen": "~1.4.2",
+    "morrisjs": "~0.5.1",
+    "bootstrap-confirmation2": "~2.1.2"
+  },
+  "overrides": {
+    "fancyselect": {
+      "main": [
+        "fancySelect.css",
+        "fancySelect.js"
+      ]
+    },
+    "iCheck": {
+      "main": [
+        "icheck.js",
+        "skins/flat/orange.css",
+        "skins/line/orange.css",
+        "skins/line/yellow.css"
+      ]
+    },
+    "chosen": {
+      "main": [
+        "chosen.min.css",
+        "chosen.jquery.min.js"
+      ]
+    }
+  }
+}

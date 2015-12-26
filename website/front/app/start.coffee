@@ -1,17 +1,26 @@
-##
+#--------------------------------------------------------------------------
 # Start
-# 
-# Gotham execute that file just before to run the router and the controller. 
-# It's the right place to execute some "global" code, activate some jquery Plugins
-# etc ...
+#--------------------------------------------------------------------------
+#
+# Gotham will run after that file the router system. It's the right place
+# to put some code to execute globally like the init of jQuery plugins, etc.
 ##
 
-
+#--------------------------------------------------------------------------
+# Example
+#--------------------------------------------------------------------------
+#
+# We want to say hello to the developer :)
 ##
-# Tooltipster
-# 
-# We activate the plugin tooltipster.
-##
-if $('[data-gotham=tooltipster]').length > 0
 
-  $('[data-gotham=tooltipster').tooltipster()
+# Load library View of Gotham
+View = require 'core/view'
+
+# Invoke View
+view = new View()
+
+# Load view
+hello = view.render 'hello', {framework: 'Gotham'}
+
+# Inject in the html
+$('body').html hello

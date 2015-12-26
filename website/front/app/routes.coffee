@@ -1,38 +1,68 @@
-##
+#--------------------------------------------------------------------------
 # Routes
-# 
-# Below add all routes of your application
+#--------------------------------------------------------------------------
+#
+# All routes of your application.
+#
+# @see http://gothamjs.io/documentation/1.0.0/routing
 ##
+
 module.exports = (route) ->
 
-  ##
-  # Example of a simple route
-  # 
-  # route.match '/users', 'users#index'
-  # 
-  # If the url is like www.domain.com/users, gotham will require
-  # the file controllers/users/index.coffee
-  ##
-  
-  ##
-  # Example of a route with a variable
-  # 
-  # route.match '/users/:id', 'users#show'
-  # 
-  # If the url is like www.domain.com/users/22 or www.domain.com/users/peter, etc ..
-  # gotham will require the file controllers/users/show.coffee
+  #--------------------------------------------------------------------------
+  # Basic routing
+  #--------------------------------------------------------------------------
+  #
+  # route.match '/welcome', ->
+  #
+  #   console.log "Hello"
+  #
+  # If the url is like www.domain.com/welcome, gotham will
+  # display "Hello" in the console log.
+  #
+  # @see http://gothamjs.io/documentation/1.0.0/routing#basic-routing
   ##
 
+
+  #--------------------------------------------------------------------------
+  # Route parameters
+  #--------------------------------------------------------------------------
+  #
+  # route.match '/users/show/:id', (params) ->
+  #
+  #   console.log 'User #' + params.id
+  #
+  # If the url is like www.domain.com/users/show/3, gotham will
+  # display "User #3" in the console log.
+  #
+  # @see http://gothamjs.io/documentation/1.0.0/routing#route-parameters
   ##
-  # Example of a route with a constraint
-  # 
-  # route.match '/users/:id/edit', 'users#edit', (params) ->
-  #   if params.id is 22
-  #     return false
-  #   else
+
+  #--------------------------------------------------------------------------
+  # Routing to controllers
+  #--------------------------------------------------------------------------
+  #
+  # route.match '/kill-batman', 'batman.kill'
+  #
+  # If the url is like www.domain.com/kill-batman, gotham will
+  # execute the controller app/controllers/batman/kill.coffee
+  #
+  # @see http://gothamjs.io/documentation/1-0-0/controllers#route
+  ##
+
+  #--------------------------------------------------------------------------
+  # Route constraints
+  #--------------------------------------------------------------------------
+  #
+  # route.match '/kill/:name', 'batman.kill', (params) ->
+  #
+  #  if params.name is 'Batman'
   #     return true
-  # 
-  # If the url is like www.domain.com/users/22/edit
-  # gotham will not run the controller controllers/users/edit.coffee
+  #
+  #  return false
+  #
+  # If the url is like www.domain.com/kill/joker, gotham will not
+  # execute the controller app/controllers/batman/kill.coffee
+  #
+  # @see http://gothamjs.io/documentation/1.0.0/routing#route-constraints
   ##
-  route.match '/', 'front/home'
