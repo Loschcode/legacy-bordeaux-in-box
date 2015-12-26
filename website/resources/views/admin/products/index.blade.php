@@ -55,9 +55,9 @@
               <th>{{$serie->id}}</th>
               <th>{{$serie->delivery}}</th>
               <th>{{$serie->serie_products()->count()}}</th>
-              <th>{{UserProfileProduct::getAverageCost($serie->id)}} €</th>
-              <th>{{UserProfileProduct::getAverageValue($serie->id)}} €</th>
-              <th>{{UserProfileProduct::getAverageWeight($serie->id)}}</th>
+              <th>{{App\Models\UserProfileProduct::getAverageCost($serie->id)}} €</th>
+              <th>{{App\Models\UserProfileProduct::getAverageValue($serie->id)}} €</th>
+              <th>{{App\Models\UserProfileProduct::getAverageWeight($serie->id)}}</th>
               <th>
                 
                 @if ($serie->product_filter_setting()->first() !== NULL)
@@ -124,13 +124,12 @@
         </thead>
 
         <tbody>
-
           @foreach ($products as $product)
 
             <tr>
               <th>{{$product->id}}</th>
               <th>{{$product->name}}</th>
-              <th>{{$product->partner()->first()->name}}</th>
+              <th>{{ $product->partner()->first()->name or 'N/A'}}</th>
               <th>{{Config::get('bdxnbx.product_categories.'.$product->category)}}</th>
               <th>{{$product->description}}</th>
               <th>{!! Html::getReadableProductSize($product->size) !!}</th>
@@ -265,7 +264,7 @@
 
           <h4>Filtre : boxes</h4>
 
-            @foreach (Box::get() as $box)
+            @foreach (App\Models\Box::get() as $box)
               
               {!! Form::label("boxes[".$box->id."]", $box->title) !!}
               {!! Form::checkbox("boxes[".$box->id."]", $box->id, true) !!}

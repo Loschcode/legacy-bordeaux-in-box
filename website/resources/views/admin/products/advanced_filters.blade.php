@@ -123,7 +123,7 @@
           {!! Form::checkbox($question->id."[]", $answer->content, false, array('id' => $answer->id)) !!}
         @endif
 
-        {{ Form::label($answer->id, $answer->content)}}
+        {!! Form::label($answer->id, $answer->content) !!}
 
       @endif
 

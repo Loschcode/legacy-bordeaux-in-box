@@ -95,7 +95,7 @@
 
     {!! Html::info("La suppression d'une box entraîne automatiquement la suppression de son filtre avancé attaché") !!}
 
-    @foreach (Box::get() as $box)
+    @foreach (App\Models\Box::get() as $box)
 
     {!! Form::label("boxes[".$box->id."]", $box->title) !!}
 

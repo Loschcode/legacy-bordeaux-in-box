@@ -3,6 +3,8 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use DB;
+
 class PartnerProduct extends Model {
 
   use SoftDeletes;
@@ -166,7 +168,7 @@ class PartnerProduct extends Model {
   {
 
     // Will make a pivot table
-    return $this->belongsToMany('Box', 'product_filter_boxes', 'partner_product_id', 'box_id');
+    return $this->belongsToMany('App\Models\Box', 'product_filter_boxes', 'partner_product_id', 'box_id');
 
   }
 

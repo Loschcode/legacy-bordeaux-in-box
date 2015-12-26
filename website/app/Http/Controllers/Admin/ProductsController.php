@@ -11,6 +11,9 @@ use App\Models\UserProfileProduct;
 use App\Models\ProductFilterSetting;
 use App\Models\SerieProduct;
 use App\Models\BlogArticle;
+use App\Models\ProductFilterBoxAnswer;
+
+use Request, Validator, Config;
 
 class ProductsController extends BaseController {
 

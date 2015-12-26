@@ -55,13 +55,13 @@
 
     <li class="active"><a href="#details" role="tab" data-toggle="tab"><i class="fa fa-list"></i> Résumé ({{$profiles->count()}})</a></li>
 
-    <li><a href="#subscribed" role="tab" data-toggle="tab"><i class="fa fa-thumbs-up"></i> Abonnés ({{UserProfile::getSubscribedProfiles()->count()}})</a></li>
+    <li><a href="#subscribed" role="tab" data-toggle="tab"><i class="fa fa-thumbs-up"></i> Abonnés ({{App\Models\UserProfile::getSubscribedProfiles()->count()}})</a></li>
 
-    <li><a href="#in-progress" role="tab" data-toggle="tab"><i class="fa fa-question"></i> En création ({{UserProfile::getInProgressProfiles()->count()}})</a></li>
+    <li><a href="#in-progress" role="tab" data-toggle="tab"><i class="fa fa-question"></i> En création ({{App\Models\UserProfile::getInProgressProfiles()->count()}})</a></li>
 
-    <li><a href="#not-subscribed" role="tab" data-toggle="tab"><i class="fa fa-minus-circle"></i> Non abonnés ({{UserProfile::getNotSubscribedProfiles()->count()}})</a></li>
+    <li><a href="#not-subscribed" role="tab" data-toggle="tab"><i class="fa fa-minus-circle"></i> Non abonnés ({{App\Models\UserProfile::getNotSubscribedProfiles()->count()}})</a></li>
 
-    <li><a href="#expired" role="tab" data-toggle="tab"><i class="fa fa-thumbs-down"></i> Expirés ({{UserProfile::getExpiredProfiles()->count()}})</a></li>
+    <li><a href="#expired" role="tab" data-toggle="tab"><i class="fa fa-thumbs-down"></i> Expirés ({{App\Models\UserProfile::getExpiredProfiles()->count()}})</a></li>
 
 
   </ul>
@@ -84,10 +84,10 @@
 	{!! Html::info('Ci dessous sont listées les différents abonnements des utilisateurs du site. Les utilisateurs peuvent avoir plusieurs abonnements') !!}
 
 	<div class="filters-profiles">
-		<a data-filter="Abonné" data-toggle="tooltip" title="Filtrer par abonnés" class="spyro-btn spyro-btn-primary spyro-btn-sm no-loader"> <i class="fa fa-check hidden"></i> {{UserProfile::getSubscribedProfiles()->count()}} abonnés</a>
-		<a data-filter="En création" data-toggle="tooltip" title="Filtrer ceux en cours de création" class="spyro-btn spyro-btn-success spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{UserProfile::getInProgressProfiles()->count()}} en création</a>
-		<a data-filter="Non abonné" data-toggle="tooltip" title="Filtrer par non abonnées" class="spyro-btn spyro-btn-default spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{UserProfile::getNotSubscribedProfiles()->count()}} non abonnés</a>
-		<a data-filter="Expiré" data-toggle="tooltip" title="Filtrer ceux expirés" class="spyro-btn spyro-btn-danger spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{UserProfile::getExpiredProfiles()->count()}} expirés</a>
+		<a data-filter="Abonné" data-toggle="tooltip" title="Filtrer par abonnés" class="spyro-btn spyro-btn-primary spyro-btn-sm no-loader"> <i class="fa fa-check hidden"></i> {{App\Models\UserProfile::getSubscribedProfiles()->count()}} abonnés</a>
+		<a data-filter="En création" data-toggle="tooltip" title="Filtrer ceux en cours de création" class="spyro-btn spyro-btn-success spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{App\Models\UserProfile::getInProgressProfiles()->count()}} en création</a>
+		<a data-filter="Non abonné" data-toggle="tooltip" title="Filtrer par non abonnées" class="spyro-btn spyro-btn-default spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{App\Models\UserProfile::getNotSubscribedProfiles()->count()}} non abonnés</a>
+		<a data-filter="Expiré" data-toggle="tooltip" title="Filtrer ceux expirés" class="spyro-btn spyro-btn-danger spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{App\Models\UserProfile::getExpiredProfiles()->count()}} expirés</a>
 	</div>
 
 	<table id="table-profiles">
