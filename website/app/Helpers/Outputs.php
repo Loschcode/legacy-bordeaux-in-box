@@ -2,10 +2,11 @@
 
 function generate_zip($name, $folder) {
 
-  $zip_file = 'public/uploads/' . $name . '.zip';
+  $zip_file = 'uploads/' . $name . '.zip';
 
   // We zip the folder itself
-  $files = glob('public/uploads/' . $folder);
+  $files = glob(public_path('uploads/' . $folder));
+
   Zipper::make($zip_file)->add($files);
 
   return redirect()->to($zip_file);
@@ -67,11 +68,11 @@ function generate_pdf($html, $pdf_name, $download, $destination_folder) {
 
   if ($destination_folder) {
 
-    $destinationPath = 'public/uploads/' . $destination_folder;
+    $destinationPath = public_path('uploads/' . $destination_folder);
     make_folder($destinationPath);
 
     $outputName = $pdf_name;
-    $pdfPath = $destinationPath . '/' . $outputName . '.pdf';
+    $pdfPath = $destinationPath . '/' . $outputName;
 
     File::put($pdfPath, $pdf->loadHTML($html)->setPaper('a4')->setOrientation('portrait')->output());
 
