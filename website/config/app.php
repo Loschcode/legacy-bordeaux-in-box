@@ -228,6 +228,7 @@ return [
     'Formatter' => SoapBox\Formatter\Formatter::class,
     'Zipper' => Chumper\Zipper\Zipper::class,
     'Dumper' => Symfony\Component\VarDumper\VarDumper::class,
+    'Str' => Illuminate\Support\Str::class,
 
 	],
 

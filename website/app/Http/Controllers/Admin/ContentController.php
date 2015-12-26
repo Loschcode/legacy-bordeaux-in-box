@@ -6,6 +6,8 @@ use App\Models\BlogArticle;
 use App\Models\ImageArticle;
 use App\Models\Page;
 
+use Request, Validator, Auth, Str;
+
 class ContentController extends BaseController {
 
 	/*
