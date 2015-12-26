@@ -2,6 +2,8 @@
 
 namespace App\Libraries;
 
+use Formatter, Response;
+
 /**
  * Downloaders
  * by Laurent Schaffner

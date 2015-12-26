@@ -1,5 +1,7 @@
 <?php
 
+use App\Libraries\Downloaders;
+
 function generate_zip($name, $folder) {
 
   $zip_file = 'uploads/' . $name . '.zip';
