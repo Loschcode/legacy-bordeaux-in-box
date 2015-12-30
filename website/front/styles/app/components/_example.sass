@@ -1,0 +1,67 @@
+@include component(example)
+
+  @include part(grid)
+    height: 4em
+    line-height: 4em
+    background-color: $color-shade-6
+    text-align: center
+    color: $color-shade-2
+    font-weight: 300
+
+  @include part(section)
+    margin-top: 3em
+    margin-bottom: 3em
+
+    h2
+      margin-top: 1em
+      margin-bottom: 1em
+
+    h3
+      margin-top: 1em
+      margin-bottom: 1em
+
+    p
+      margin-bottom: 2em
+
+    .gist
+      margin-top: 3em
+      margin-bottom: 3em
+
+  @include part(spacer)
+    clear: both
+    height: 1em
+    content: " "
+
+    @include option(md)
+      height: 4em
+
+  @include part(home)
+    text-align: center
+    margin-top: 10em
+
+    h1
+      +font-montserrat(700)
+      font-size: 90px
+
+    h3
+      font-style: normal
+
+    p
+      text-align: center
+      margin-bottom: 2em
+      font-weight: 300
+      margin-top: 1em
+      font-size: 23px
+
+  @include part(logo)
+    border-bottom: 1px solid $color-shade-5
+    margin-top: 30px
+    margin-bottom: 30px
+    h3
+      +font-montserrat(700)
+      font-size: 40px
+      font-style: normal
+      padding-bottom: 20px
+
+
+

@@ -1,0 +1,65 @@
+// ===========================================================
+// Mixins.sass
+// ===========================================================
+//
+// @see http://sass-lang.com/guide#topic-6
+//
+// In this file you can add some mixins to use in the entire
+// project.
+
+
+// ===========================================================
+// Vendor prefix
+// ===========================================================
+//
+// Render a property with the vendor prefixes
+//
+@mixin vendor-prefix($property, $value)
+  -webkit-#{$property}: #{$value}
+  -khtml-#{$property}: #{$value}
+  -moz-#{$property}: #{$value}
+  -ms-#{$property}: #{$value}
+  -o-#{$property}: #{$value}
+  #{$property}: #{$value}
+
+// ===========================================================
+// Border Radius
+// ===========================================================
+//
+// Create a border radius with the vendor prefixes
+//
+@mixin border-radius($radius: 5px)
+  @include vendor-prefix('border-radius', $radius)
+
+// ===========================================================
+// Opacity
+// ===========================================================
+//
+// Opacity cross-browsers
+//
+@mixin opacity($opacity: 0.5)
+  $opacityMultiplied: ($opacity * 100)
+  filter: alpha(opacity=$opacityMultiplied)
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=" + $opacityMultiplied + ")"
+  @include vendor-prefix('opacity', $opacity)
+
+// ===========================================================
+// Font Montserrat
+// ===========================================================
+//
+// Render the font family Montserrat
+//
+@mixin font-montserrat($weight: 700)
+  font-family: 'Montserrat', sans-serif
+  font-weight: $weight
+
+// ===========================================================
+// Font Lato
+// ===========================================================
+//
+// Render the font family Lato
+//
+@mixin font-lato($weight: 400)
+  font-family: 'Lato', sans-serif
+  font-weight: $weight
+

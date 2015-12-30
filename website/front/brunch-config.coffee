@@ -23,7 +23,7 @@ exports.config =
     public: 'public'
 
     # List of all watched paths by brunch.
-    watched: ['app', 'vendor', 'core']
+    watched: ['app', 'core']
 
   #--------------------------------------------------------------------------
   # Files
