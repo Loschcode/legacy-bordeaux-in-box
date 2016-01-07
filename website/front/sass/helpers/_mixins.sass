@@ -1,25 +1,39 @@
 // Mixins to do:
-// - Responsive state (xs, etc ..) de griddle (http://www.sitepoint.com/sass-mixins-kickstart-project/)
 // - Global fonts
 // - vendor prefix
 // - border-radius
 // - opacity
 
+// ===========================================================
+// Breakpoint
+// ===========================================================
+// 
+// Useful mixin to manage the responsive of your styles.
+// 
+// @param {String} $class - xs, sm, md, lg
+// 
+// @example sass - Basic usage
+//  
+//  .something
+//    width: 70%
+//    +breakpoint(xs)
+//      width: 100%
+//
 =breakpoint($class)
   @if $class == xs
-    @media (max-width: 767px)
+    @media (max-width: 750px)
       @content
  
   @else if $class == sm
-    @media (min-width: 768px)
+    @media (min-width: 750px)
       @content
  
   @else if $class == md
-    @media (min-width: 992px)
+    @media (min-width: 970px)
       @content
  
   @else if $class == lg
-    @media (min-width: 1200px)
+    @media (min-width: 1170px)
       @content
  
   @else
