@@ -1,0 +1,33 @@
+// ===========================================================
+// Grid
+// ===========================================================
+// 
+// Setup the grid system with gridle.
+// 
+// @see http://gridle.org/
+//
+
+// Import Gridle
+@import '../../node_modules/gridle/sass/gridle/gridle-flex'
+
+// Setting up the grid
++gridle_setup((context: 12, gutter-width: 10px, direction: ltr, debug: true))
+
+// Change classes name (.gr-1 becomes .grid-1)
++gridle_set_classname_map('grid', ('grid','-','%column','@','%state'))
+
+// Register the states for the responsive
++gridle_register_default_mobile_first_states()
+
+// Generate CSS classes to use in the HTML
++gridle_generate_classes()
+
+// Setup the container
+.container
+  max-width : 960px
+  margin : 0 auto
+
+// Shortcut responsive
+[class*="gr-"]
+  +gridle_state(xs)
+    +gridle_grid(12)

@@ -51,7 +51,7 @@ exports.config =
     stylesheets:
 
       joinTo:
-        'stylesheets/vendor.css': /^(vendor|bower_components)/
+        'stylesheets/vendor.css': /^(vendor|bower_components|sass\/vendor\/gridle)/
         'stylesheets/main-boxes.css': /^sass\/main-boxes/
 
 
