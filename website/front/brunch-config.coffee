@@ -86,3 +86,19 @@ exports.config =
   # @see https://github.com/brunch/brunch/blob/stable/docs/config.md#notificationstitle
   ##
   notificationsTitle: 'Gotham'
+
+  plugins:
+
+    #--------------------------------------------------------------------------
+    # Postcss
+    #--------------------------------------------------------------------------
+    #
+    # Processors to execute.
+    #
+    # @see https://github.com/postcss/postcss
+    # @see https://github.com/iamvdo/postcss-brunch
+    ##
+    postcss:
+      processors: [
+        require('autoprefixer')(['last 8 versions'])
+      ]

@@ -43,7 +43,7 @@
   </div>
 
   <!-- Navigation -->
-  @include('_includes.front.nav')
+  @include('master-box.partials.front.nav')
 
   @yield('content')
 
@@ -74,10 +74,10 @@
 <script src="{{ url('assets/js/app/main.js') }}"></script>
 
 <!-- Facebook Conversion Code for Impressions -->
-@include('_includes.front.facebook_conversions')
+@include('master-box.partials.front.facebook_conversions')
 
 <!-- Google Analytics -->
-@include('_includes.front.google_analytics')
+@include('master-box.partials.front.google_analytics')
 
 
 </html>

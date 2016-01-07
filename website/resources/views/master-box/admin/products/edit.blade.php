@@ -18,7 +18,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
   @endif
 
-  @include('_includes.errors', ['errors' => $errors])
+  @include('master-box.partials.errors', ['errors' => $errors])
 
   {!! Form::open(['action' => 'Admin\ProductsController@postEditProduct', 'files' => true]) !!}
 
