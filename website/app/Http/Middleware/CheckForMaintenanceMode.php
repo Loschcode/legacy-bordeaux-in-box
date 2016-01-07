@@ -5,7 +5,7 @@ use Illuminate\Contracts\Routing\Middleware;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 
-class CheckMaintenance implements Middleware {
+class CheckForMaintenanceMode implements Middleware {
     
     protected $request;
     protected $app;
@@ -21,7 +21,7 @@ class CheckMaintenance implements Middleware {
 
         if ($this->app->isDownForMaintenance()) {
 
-            Response::view('standalone.maintenance', [], 503);
+            return response()->view('standalone.maintenance', [], 503);
 
         }
 
