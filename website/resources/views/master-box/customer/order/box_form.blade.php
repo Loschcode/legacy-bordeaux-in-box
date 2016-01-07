@@ -4,7 +4,7 @@
 
   <div id="js-page-box-form"></div>
 
-  @include('_includes.pipeline', ['step' => 2])
+  @include('master-box.partials.pipeline', ['step' => 2])
 
   <div class="block-description text-center">
     <div class="container">
@@ -253,6 +253,6 @@
   </div>
 
   <div class="spacer50"></div>
-  @include('_includes.footer')
+  @include('master-box.partials.footer')
 
 @stop

@@ -12,6 +12,6 @@
   </div>
 
   <div class="footer-container">
-    @include('_includes.footer', ['stick' => true])
+    @include('master-box.partials.footer', ['stick' => true])
   </div>
 @stop

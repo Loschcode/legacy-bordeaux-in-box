@@ -63,6 +63,6 @@
 
 	</div>
 
-	@include('_includes.footer')
+	@include('master-box.partials.footer')
 
 @stop

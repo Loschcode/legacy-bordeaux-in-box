@@ -4,7 +4,7 @@
 
   <div id="js-page-box-frequency"></div>
 
-  @include('_includes.pipeline', ['step' => 3])
+  @include('master-box.partials.pipeline', ['step' => 3])
   
   <div id="after-pipeline" class="block-description text-center">
     <div class="container">

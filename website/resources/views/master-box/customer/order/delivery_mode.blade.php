@@ -2,7 +2,7 @@
 
 @section('content')
 
-  @include('_includes.pipeline', ['step' => 4])
+  @include('master-box.partials.pipeline', ['step' => 4])
     
   <div id="js-page-delivery-mode"></div>
   
@@ -69,6 +69,6 @@
 
 
    <div class="spacer50"></div>
-   @include('_includes.footer')
+   @include('master-box.partials.footer')
 
 @stop

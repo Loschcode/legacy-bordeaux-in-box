@@ -11,5 +11,5 @@
   <div class="spacer150"></div>
   </div>
 
-  @include('_includes.footer')
+  @include('master-box.partials.footer')
 @stop

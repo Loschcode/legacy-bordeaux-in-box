@@ -59,6 +59,6 @@
 
   <div class="spacer250"></div>
   <div class="footer-container">
-    @include('_includes.footer')
+    @include('master-box.partials.footer')
   </div>
 @stop

@@ -171,6 +171,6 @@
     <div class="clearfix"></div>
     <div class="spacer100"></div> 
   </div>
-    @include('_includes.footer')
+    @include('master-box.partials.footer')
   </div>
 @stop
