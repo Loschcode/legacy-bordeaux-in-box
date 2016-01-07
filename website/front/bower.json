@@ -1,25 +1,16 @@
 {
-  "name": "Your Gotham's application",
+  "name": "BordeauxInBox",
   "version": "0.0.1",
   "main": "",
   "dependencies": {
-    "animate.css": "~3.4.0",
     "console-polyfill": "~0.1.2",
     "gotham-router": "~1.0.0",
     "gotham-syphon": "~1.0.0",
     "gotham-validator": "~1.0.0",
     "gotham-validator-rules": "~1.0.0",
     "jquery": "2.1.3",
-    "jquery-labelauty": "labelauty#~1.1.0",
     "lodash": "~3.9.0",
-    "normalize-css": "normalize.css#~3.0.3",
-    "tooltipster": "~3.3.0"
+    "normalize-css": "normalize.css#~3.0.3"
   },
-  "overrides": {
-    "jquery-labelauty": {
-      "main": [
-        "source/jquery-labelauty.js"
-      ]
-    }
-  }
+  "overrides": {}
 }

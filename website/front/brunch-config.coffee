@@ -22,8 +22,8 @@ exports.config =
     # Path to build directory that would contain output.
     public: 'sandbox'
 
-    # List of all watched paths by brunch.
-    watched: ['app', 'core']
+    # List of all paths watched by brunch.
+    watched: ['sass']
 
   #--------------------------------------------------------------------------
   # Files
@@ -42,9 +42,7 @@ exports.config =
 
     javascripts:
 
-      joinTo:
-        'javascripts/app.js': /^(core|app)/
-        'javascripts/vendor.js': /^(vendor|bower_components)/
+      joinTo: {}
 
       order:
         before: []
@@ -53,14 +51,16 @@ exports.config =
     stylesheets:
 
       joinTo:
-        'stylesheets/vendor.css': /^(vendor|bower_components)/
+        'stylesheets/vendor.css': /^(vendor|bower_components|sass\/vendor\/gridle)/
+        'stylesheets/main-boxes.css': /^sass\/main-boxes/
+
 
       order:
         before: []
         after: []
 
     templates:
-      joinTo: 'javascripts/app.js'
+      joinTo: {}
 
   #--------------------------------------------------------------------------
   # Notifications

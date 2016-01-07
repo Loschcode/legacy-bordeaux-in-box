@@ -1,5 +1,5 @@
 {
-  "name": "Hammer",
+  "name": "Bordeaux in Box Front",
   "description": "Kick-ass my front-end",
   "author": "Ges Jeremie",
   "version": "0.0.1",
@@ -11,12 +11,14 @@
     "test": "brunch test"
   },
   "dependencies": {
+    "assetsmanager-brunch": "^1.8.1",
     "auto-reload-brunch": ">= 1.0 < 1.8",
     "clean-css-brunch": ">= 1.0 < 1.8",
     "coffee-script-brunch": "^1.8.1",
     "css-brunch": ">= 1.0 < 1.8",
     "csstyle": "^1.5.0",
     "eco-brunch": "^1.7.5",
+    "gridle": "^2.0.44",
     "javascript-brunch": ">= 1.0 < 1.8",
     "sass-brunch": "^1.8.8",
     "uglify-js-brunch": ">= 1.0 < 1.8"

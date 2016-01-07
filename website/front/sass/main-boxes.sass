@@ -1,0 +1,26 @@
+// ===========================================================
+// Main Boxes
+// ===========================================================
+// 
+// This is the main file of the section Main Boxes. The file
+// boots the core, and afterwars boots the right folder in the 
+// "apps" folder.
+// 
+// Note: If you want to create a new section, let's say 
+// `events.bordeauxinbox.fr`?
+// 
+// 1. Create a new main file called events.sass
+// 2. Copy / Paste the `example` folder in `apps`
+// 3. Rename the folder pasted `events`
+// 4. Add in brunch-config.coffee 
+//    'stylesheets/events.css': /^sass\/events/
+// 5. Start again `$ brunch watch` in your terminal
+//
+
+// Boot the core, it imports some UI components, the helpers, etc.
+@import 'core/boot'
+
+// Boot the app
+@import 'apps/main-boxes/boot'
+
+// Import the hooks wanted
