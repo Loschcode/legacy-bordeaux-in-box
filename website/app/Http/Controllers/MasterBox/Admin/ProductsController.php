@@ -62,7 +62,7 @@ class ProductsController extends BaseController {
 
     $blog_articles_list = $this->generate_blog_articles_list();
 
-    return view('admin.products.index')->with(compact(
+    return view('masterbox.admin.products.index')->with(compact(
 
       'partners',
       'products',
@@ -96,7 +96,7 @@ class ProductsController extends BaseController {
 
     $possible_serie_products = ['Nothing' => '-'];
 
-    return view('admin.products.edit_profile_products')->with(compact(
+    return view('masterbox.admin.products.edit_profile_products')->with(compact(
       'order',
       'possible_serie_products'
     ));
@@ -1094,7 +1094,7 @@ class ProductsController extends BaseController {
 
     $serie = $product_filter_setting->delivery_serie()->first();
 
-    return view('admin.products.setup_selection.customize')->with(compact(
+    return view('masterbox.admin.products.setup_selection.customize')->with(compact(
       'product_filter_setting',
       'serie'
     ));
@@ -1171,7 +1171,7 @@ class ProductsController extends BaseController {
 
     $products = PartnerProduct::orderBy('slug', 'asc')->get();
 
-    return view('admin.products.setup_selection.edit')->with(compact(
+    return view('masterbox.admin.products.setup_selection.edit')->with(compact(
       'product_filter_setting',
       'serie',
       'products'
@@ -1186,7 +1186,7 @@ class ProductsController extends BaseController {
 
     $products = PartnerProduct::orderBy('slug', 'asc')->get();
 
-    return view('admin.products.setup_selection.new')->with(compact(
+    return view('masterbox.admin.products.setup_selection.new')->with(compact(
       'serie',
       'products'
     ));
@@ -1318,7 +1318,7 @@ class ProductsController extends BaseController {
 
     }
 
-    return view('admin.products.advanced_filters')->with(compact(
+    return view('masterbox.admin.products.advanced_filters')->with(compact(
       'autofill_checkboxes',
       'autofill_texts',
       'product',
@@ -1676,7 +1676,7 @@ class ProductsController extends BaseController {
     if ($product !== NULL)
     {
 
-      return view('admin.products.edit')->with(compact(
+      return view('masterbox.admin.products.edit')->with(compact(
         'products_list',
         'categories_list',
         'product_sizes_list',
@@ -1701,7 +1701,7 @@ class ProductsController extends BaseController {
 
       $blog_articles_list = $this->generate_blog_articles_list();
 
-      return view('admin.products.partners.edit')->with(compact(
+      return view('masterbox.admin.products.partners.edit')->with(compact(
         'blog_articles_list',
         'partner'
       ));

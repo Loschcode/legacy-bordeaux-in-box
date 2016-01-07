@@ -40,7 +40,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 		$answers = $question->answers()->orderBy('created_at', 'desc')->get();
 
-  	return view('admin.boxes.questions.answers.index')->with(compact(
+  	return view('masterbox.admin.boxes.questions.answers.index')->with(compact(
       'answers',
       'question',
       'box'
@@ -57,7 +57,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 		$answer = BoxAnswer::findOrFail($id);
 		$question = $answer->question()->first();
 
-    return view('admin.boxes.questions.answers.edit')->with(compact(
+    return view('masterbox.admin.boxes.questions.answers.edit')->with(compact(
       'answer',
       'question'
     ));
@@ -107,7 +107,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 		$question = BoxQuestion::findOrFail($id);
 
-		return view('admin.boxes.questions.answers.new')->with(compact(
+		return view('masterbox.admin.boxes.questions.answers.new')->with(compact(
       'question'
     ));
 

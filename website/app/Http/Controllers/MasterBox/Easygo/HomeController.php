@@ -131,7 +131,7 @@ class HomeController extends BaseController {
     $spots = $this->_fetch_spots($orders);
 
     // Render view
-    return view('easygo.locked')->with(compact(
+    return view('masterbox.easygo.locked')->with(compact(
 
       'serie',
       'orders',
@@ -198,7 +198,7 @@ class HomeController extends BaseController {
 
     $current_query = Request::query();
 
-    return view('easygo.index')->with(compact(
+    return view('masterbox.easygo.index')->with(compact(
 
       'raw_orders',
       'orders_completed',

@@ -49,7 +49,7 @@ class LogsController extends BaseController {
 
     $profile_notes = UserProfileNote::orderBy('created_at', 'DESC')->get();
 
-		return view('admin.logs.index')->with(compact(
+		return view('masterbox.admin.logs.index')->with(compact(
       'contacts',
       'all_orders',
       'email_traces',
@@ -64,7 +64,7 @@ class LogsController extends BaseController {
 
     $email_trace = EmailTrace::find($id);
 
-    return view('admin.logs.more')->with(compact(
+    return view('masterbox.admin.logs.more')->with(compact(
       'email_trace'
     ));
   }

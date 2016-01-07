@@ -30,7 +30,7 @@ class DashboardController extends BaseController {
      */
 	public function getIndex()
 	{
-    return view('admin.dashboard.index');
+    return view('masterbox.admin.dashboard.index');
 	}
 
 }

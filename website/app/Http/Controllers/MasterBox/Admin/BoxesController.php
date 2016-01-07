@@ -36,7 +36,7 @@ class BoxesController extends BaseController {
 		$active_boxes = Box::where('active', TRUE)->orderBy('created_at', 'desc')->get();
 		$unactive_boxes = Box::where('active', FALSE)->orderBy('created_at', 'desc')->get();
 
-		return view('admin.boxes.index')->with(compact(
+		return view('masterbox.admin.boxes.index')->with(compact(
       'active_boxes',
       'unactive_boxes'
     ));
@@ -50,7 +50,7 @@ class BoxesController extends BaseController {
 	{
 		$box = Box::findOrFail($id);
 
-		return view('admin.boxes.edit')->with(compact(
+		return view('masterbox.admin.boxes.edit')->with(compact(
       'box'
     ));
 	}
@@ -105,7 +105,7 @@ class BoxesController extends BaseController {
      */
 	public function getNew()
 	{
-		return view('admin.boxes.new');
+		return view('masterbox.admin.boxes.new');
 	}
 
     /**

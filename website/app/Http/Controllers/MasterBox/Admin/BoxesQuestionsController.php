@@ -41,7 +41,7 @@ class BoxesQuestionsController extends BaseController {
 
 		$questions = $box->questions()->orderBy('position', 'asc')->get();
 
-		return view('admin.boxes.questions.index')->with(compact(
+		return view('masterbox.admin.boxes.questions.index')->with(compact(
       'questions',
       'box'
     ));
@@ -59,7 +59,7 @@ class BoxesQuestionsController extends BaseController {
 		$box = $question->box()->first();
 		$position_listing = $this->_generate_position_listing($box, 1); // No incrementation
 
-		return view('admin.boxes.questions.edit')->with(compact(
+		return view('masterbox.admin.boxes.questions.edit')->with(compact(
       'question',
       'position_listing'
     ));
@@ -132,7 +132,7 @@ class BoxesQuestionsController extends BaseController {
 
 		$position_listing = $this->_generate_position_listing($box, 2); // Incrementation +1
 
-		return view('admin.boxes.questions.new')->with(compact(
+		return view('masterbox.admin.boxes.questions.new')->with(compact(
       'box',
       'position_listing'
     ));
