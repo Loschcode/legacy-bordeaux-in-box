@@ -47,7 +47,7 @@ class ProfilesController extends BaseController {
 
 		$config_graph_user_profile_status_progress = $this->user_profile_status_progress_graph_config();
 
-	  return view('masterbox.admin.profiles.index')->with(compact(
+	  return view('master-box.admin.profiles.index')->with(compact(
       'profiles',
       'config_graph_user_profile_status_progress'
     ));
@@ -159,7 +159,7 @@ class ProfilesController extends BaseController {
 
     $delivery_spots = DeliverySpot::where('active', TRUE)->orderBy('created_at', 'desc')->get();
 
-    return view('masterbox.admin.profiles.edit')->with(compact(
+    return view('master-box.admin.profiles.edit')->with(compact(
       'delivery_spots',
       'next_delivery_order',
       'order_destination',

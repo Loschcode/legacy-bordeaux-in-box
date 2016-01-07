@@ -29,7 +29,7 @@ class HomeController extends BaseController {
     // Blog articles
     $articles = BlogArticle::orderBy('id', 'DESC')->limit(12)->get();
 
-    return view('masterbox.guest.home.index')->with(compact(
+    return view('master-box.guest.home.index')->with(compact(
       'next_series', 
       'articles'
     ));
@@ -42,7 +42,7 @@ class HomeController extends BaseController {
   public function getLegals()
   {  
     $legal = Page::where('slug', 'legals')->first();
-    return view('masterbox.guest.home.legal')->with(compact(
+    return view('master-box.guest.home.legal')->with(compact(
       'legal'
     ));
   }
@@ -53,7 +53,7 @@ class HomeController extends BaseController {
   public function getCgv()
   {  
     $cgv = Page::where('slug', 'cgv')->first();
-    return view('masterbox.guest.home.cgv')->with(compact(
+    return view('master-box.guest.home.cgv')->with(compact(
       'cgv'
     ));
   }
@@ -64,7 +64,7 @@ class HomeController extends BaseController {
   public function getHelp()
   {  
     $help = Page::where('slug', 'help')->first();
-    return view('masterbox.guest.home.help')->with(compact(
+    return view('master-box.guest.home.help')->with(compact(
       'help'
     ));
   }
@@ -75,7 +75,7 @@ class HomeController extends BaseController {
   public function getSpots()
   {
     $delivery_spots = DeliverySpot::get();
-    return view('masterbox.guest.home.spots')->with(compact(
+    return view('master-box.guest.home.spots')->with(compact(
       'delivery_spots'
     ));
   }

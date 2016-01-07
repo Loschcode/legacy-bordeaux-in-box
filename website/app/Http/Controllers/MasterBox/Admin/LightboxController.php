@@ -59,7 +59,7 @@ class LightboxController extends BaseController {
 
    ];
 
-   return view('masterbox.admin.lightbox.more_superheroes')->with(compact(
+   return view('master-box.admin.lightbox.more_superheroes')->with(compact(
     'heroes'
     )); 
 
