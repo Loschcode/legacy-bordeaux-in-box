@@ -1,6 +1,6 @@
 {
-  "name": "Bordeaux in Box Front",
-  "description": "Kick-ass my front-end",
+  "name": "bordeaux-in-box-front",
+  "description": "The front end part of bordeauxinbox",
   "author": "Ges Jeremie",
   "version": "0.0.1",
   "repository": {
@@ -20,6 +20,8 @@
     "eco-brunch": "^1.7.5",
     "gridle": "^2.0.44",
     "javascript-brunch": ">= 1.0 < 1.8",
+    "postcss-brunch": "^0.5.0",
+    "autoprefixer": "^5.1.0",
     "sass-brunch": "^1.8.8",
     "uglify-js-brunch": ">= 1.0 < 1.8"
   }
