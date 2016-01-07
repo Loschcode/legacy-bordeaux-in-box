@@ -1,1 +1,1 @@
-{"version":3,"sources":["sass/main-boxes.sass"],"names":[],"mappings":"AAAA;AACA;AACA","file":"sandbox/stylesheets/main-boxes.css","sourcesContent":[".button {\n  color: red; }\n"]}
+{"version":3,"sources":["sass/main-boxes.sass"],"names":[],"mappings":"AAAA","file":"sandbox/stylesheets/main-boxes.css","sourcesContent":[""]}
