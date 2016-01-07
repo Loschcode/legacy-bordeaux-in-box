@@ -41,7 +41,7 @@ class PaymentsController extends BaseController {
 		$series = DeliverySerie::orderBy('delivery', 'desc')->get();
 		$boxes = Box::orderBy('created_at', 'desc')->get();
 
-		return view('admin.payments.index')->with(compact(
+		return view('master-box.admin.payments.index')->with(compact(
 
       'payments',
       'series',
@@ -75,7 +75,7 @@ class PaymentsController extends BaseController {
 		}
 
 
-		return view('admin.payments.focus')->with(compact(
+		return view('master-box.admin.payments.focus')->with(compact(
       'payment',
       'profile',
       'payment_order_id',

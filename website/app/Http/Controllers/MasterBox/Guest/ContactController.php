@@ -23,7 +23,7 @@ class ContactController extends BaseController {
    */
   public function getIndex()
   {
-    return view('contact.index');
+    return view('master-box.guest.contact.index');
   }
 
   /**

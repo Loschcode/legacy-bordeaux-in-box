@@ -49,7 +49,7 @@ class IllustrationsController extends BaseController {
 
     }
 
-    return view('illustrations.index')->with(compact(
+    return view('master-box.guest.illustrations.index')->with(compact(
       'next_article',
       'image_article',
       'previous_article'

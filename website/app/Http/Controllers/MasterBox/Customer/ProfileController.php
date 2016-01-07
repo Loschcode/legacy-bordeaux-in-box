@@ -65,7 +65,7 @@ class ProfileController extends BaseController {
     	if ($spot == NULL) $delivery_spots = [];
     	else $delivery_spots = DeliverySpot::where('active', TRUE)->orWhere('id', $spot->id)->get();
 		  
-  		return view('profile.index')->with(compact(
+  		return view('master-box.customer.profile.index')->with(compact(
         'delivery_spots',
         'user',
         'profiles',
@@ -147,7 +147,7 @@ class ProfileController extends BaseController {
     		return redirect()->to('/profile');
     	}
     	
-		  return view('profile.orders')->with(compact(
+		  return view('master-box.customer.profile.orders')->with(compact(
         'user',
         'profile',
         'payment_profile',

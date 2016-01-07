@@ -55,7 +55,7 @@ class DeliveriesController extends BaseController {
     $config_graph_all_payments = $this->all_payments_graph_config($series);
     $config_graph_box_orders = $this->box_orders_graph_config();
 
-    return view('admin.deliveries.index')->with(compact(
+    return view('master-box.admin.deliveries.index')->with(compact(
       'payments',
       'boxes',
       'series',
@@ -82,7 +82,7 @@ class DeliveriesController extends BaseController {
     $series_email_listing = get_email_listing_from_orders($series->orders()->notCanceledOrders()->get());
     $series_unfinished_email_listing = get_email_listing_from_unfinished_profiles($series);
 
-    return view('admin.deliveries.focus')->with(compact(
+    return view('master-box.admin.deliveries.focus')->with(compact(
       'series',
       'spots',
       'form_stats',
@@ -103,7 +103,7 @@ class DeliveriesController extends BaseController {
 
     $box_email_listing = get_email_listing_from_orders($box->orders()->notCanceledOrders()->get());
 
-    return view('admin.deliveries.focus_box')->with(compact(
+    return view('master-box.admin.deliveries.focus_box')->with(compact(
       'box',
       'config_graph_box_orders',
       'box_email_listing'
@@ -119,7 +119,7 @@ class DeliveriesController extends BaseController {
   {
     $series = DeliverySerie::findOrFail($id);
 
-    return view('admin.deliveries.edit')->with(compact(
+    return view('master-box.admin.deliveries.edit')->with(compact(
       'series'
     ));
   }
