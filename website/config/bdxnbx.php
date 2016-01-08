@@ -2,8 +2,8 @@
 
 return [
 
-	/**
-	 * PAYMENTS
+  /*
+ 	 * PAYMENTS
 	 */
 	'payment_ways' => [
 

@@ -23,7 +23,8 @@ Route::pattern('slug', '[0-9A-Za-z\-]+');
  * Company Section *
  * *****************
  */
-Route::group(['namespace' => 'Company', 'domain' => "company.{domain}.{tld}"], function() {
+
+Route::group(['namespace' => 'Company', 'domain' => "company.".config('app.domain')], function() {
 
   /**
    * Company Admin Area
@@ -49,7 +50,7 @@ Route::group(['namespace' => 'Company', 'domain' => "company.{domain}.{tld}"], f
  * MasterBox Section *
  * *******************
  */
-Route::group(['namespace' => 'MasterBox', 'domain' => "www.{domain}.{tld}"], function() {
+Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain')], function() {
 
   /**
    *  MasterBox Service Area
