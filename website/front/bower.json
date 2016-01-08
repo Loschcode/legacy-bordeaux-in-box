@@ -10,7 +10,13 @@
     "gotham-validator-rules": "~1.0.0",
     "jquery": "2.1.3",
     "lodash": "~3.9.0",
-    "normalize-css": "normalize.css#~3.0.3"
+    "reset-css": "~2.0.2011012602"
   },
-  "overrides": {}
+  "overrides": {
+    "reset-css": {
+      "main": [
+        "reset.css"
+      ]
+    }
+  }
 }

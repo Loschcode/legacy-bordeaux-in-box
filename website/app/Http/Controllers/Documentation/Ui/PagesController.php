@@ -6,7 +6,7 @@ class PagesController extends BaseController {
 
   public function getHome()
   {
-    return 'lol';
+    return view('documentation.ui.pages.home');
   }
 
 }

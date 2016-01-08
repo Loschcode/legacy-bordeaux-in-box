@@ -20,7 +20,7 @@ exports.config =
   paths:
 
     # Path to build directory that would contain output.
-    public: 'sandbox'
+    public: '../public'
 
     # List of all paths watched by brunch.
     watched: ['sass']
@@ -51,8 +51,9 @@ exports.config =
     stylesheets:
 
       joinTo:
-        'stylesheets/vendor.css': /^(vendor|bower_components|sass\/vendor\/gridle)/
-        'stylesheets/main-boxes.css': /^sass\/main-boxes/
+        'demo/stylesheets/vendor.css': /^(vendor|bower_components|sass\/vendor\/gridle)/
+        'demo/stylesheets/main-boxes.css': /^sass\/main-boxes/
+        'demo/stylesheets/documentation.css': /^sass\/documentation/
 
 
       order:
