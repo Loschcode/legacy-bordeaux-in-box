@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\MasterBox\BaseController;
 
-class HelloController extends BaseController {
+class PagesController extends BaseController {
 
   /*
   |--------------------------------------------------------------------------
@@ -18,9 +18,6 @@ class HelloController extends BaseController {
    */
   public function getIndex()
   {
-
-    dd('fuck off');
-
   }
 
 }
