@@ -3,6 +3,10 @@
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
+use Mail;
+use Log;
+use Response;
+
 class Handler extends ExceptionHandler {
 
   /**
@@ -36,6 +40,28 @@ class Handler extends ExceptionHandler {
    */
   public function render($request, Exception $e)
   {
+
+      /**
+       * Send an email to the current website administrator
+       */
+      //if (app()->environment('production')) {
+      
+        $email = 'laurent@bordeauxinbox.com';
+        $data = array('exception' => $e);
+
+        Mail::send('emails.errors', $data, function($message) use ($email)
+        {
+            $message->to($email)->subject('Bordeaux in Box Error');
+        });
+
+        //Log::info('Error Email sent to ' . $email);
+        return Response::view('standalone.error', [], 500);
+
+      //}
+      /**
+       * End email send
+       */
+      
     if ($this->isHttpException($e))
     {
       return $this->renderHttpException($e);
