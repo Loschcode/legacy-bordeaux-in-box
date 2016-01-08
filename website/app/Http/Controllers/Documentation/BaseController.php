@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\Sandbox;
+<?php namespace App\Http\Controllers\Documentation;
 
 use App\Http\Controllers as Controllers;
 

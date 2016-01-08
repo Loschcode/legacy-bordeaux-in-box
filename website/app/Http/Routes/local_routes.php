@@ -16,15 +16,17 @@
  * Sandbox Section *
  * *****************
  */
-Route::group(['namespace' => 'Sandbox', 'domain' => "sandbox.{domain}.{tld}"], function() {
+Route::group(['namespace' => 'Documentation', 'domain' => "documentation.{domain}.{tld}"], function() {
 
   /**
-   * Sandbox Guest Area
+   * Ui Area
    */
-  Route::controller('hello', 'HelloController');
+  Route::group(['namespace' => 'Ui', 'prefix' => 'ui'], function() {
 
-  /*Route::group(['namespace' => 'Guest', 'prefix' => ''], function() {
+    Route::get('/', 'PagesController@getHome');
+    Route::controller('pages', 'PagesController');
 
-  });*/
+  });
+
 
 });
