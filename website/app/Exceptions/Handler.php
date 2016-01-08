@@ -44,12 +44,12 @@ class Handler extends ExceptionHandler {
       /**
        * Send an email to the current website administrator
        */
-      //if (app()->environment('production')) {
+      if (app()->environment('production')) {
       
         $email = 'laurent@bordeauxinbox.com';
         $data = array('exception' => $e);
 
-        Mail::send('emails.errors', $data, function($message) use ($email)
+        Mail::send('shared.emails.errors', $data, function($message) use ($email)
         {
             $message->to($email)->subject('Bordeaux in Box Error');
         });
@@ -57,7 +57,7 @@ class Handler extends ExceptionHandler {
         //Log::info('Error Email sent to ' . $email);
         return Response::view('standalone.error', [], 500);
 
-      //}
+      }
       /**
        * End email send
        */
