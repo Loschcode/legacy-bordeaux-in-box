@@ -8,6 +8,9 @@ composer.lock
 # Local Configuration
 .env
 
+# Ds Store
+.DS_Store
+
 # Uploads
 /uploads/bill
 /uploads/blog
