@@ -15,7 +15,7 @@
         <a href="{{ action('MasterBox\Customer\OrderController@getGift') }}"><i class="fa fa-gift"></i> L'offrir</a>
         <a href="{{ action('MasterBox\Customer\OrderController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
       </div>
-
+      
 		@endif
 
 		<div class="next-series">
