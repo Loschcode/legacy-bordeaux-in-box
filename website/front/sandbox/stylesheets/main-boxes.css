@@ -1,9 +1,23 @@
-.button {
-  display: block;
-  border-radius: 5px;
-  opacity: 1; }
-  .button.\--red {
-    background-color: red; }
+#csstyle .\+text-center {
+  text-align: center; }
+
+#csstyle .\+text-left {
+  text-align: left; }
+
+#csstyle .\+text-right {
+  text-align: right; }
+
+#csstyle .\+text-justify {
+  text-align: justify; }
+
+#csstyle .\+lowercase {
+  text-transform: lowercase; }
+
+#csstyle .\+uppercase {
+  text-transform: uppercase; }
+
+#csstyle .\+capitalize {
+  text-transform: capitalize; }
 
 
 /*# sourceMappingURL=main-boxes.css.map*/
