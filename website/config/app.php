@@ -28,6 +28,12 @@ return [
 
 	'url' => 'http://localhost',
 
+  /**
+   * Other variables about the URL
+   */
+  'domain' => env('APP_DOMAIN', 'localhost'),
+  'port' => env('APP_PORT', '8000'),
+
 	/*
 	|--------------------------------------------------------------------------
 	| Application Timezone

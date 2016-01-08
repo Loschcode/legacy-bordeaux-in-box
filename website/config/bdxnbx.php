@@ -2,8 +2,13 @@
 
 return [
 
-	/**
-	 * PAYMENTS
+  /**
+   * Other
+   */
+  'facebook' => 'https://www.facebook.com/BordeauxinBox?fref=ts',
+
+  /*
+ 	 * PAYMENTS
 	 */
 	'payment_ways' => [
 

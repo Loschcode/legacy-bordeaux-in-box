@@ -12,10 +12,10 @@
 		@if ($next_series->first()->getCounter() !== 0 || $next_series->first()->getCounter() === FALSE)
 
       <div class="buttons-punchline text-center">
-        <a href="{{ url('order/gift') }}"><i class="fa fa-gift"></i> L'offrir</a>
-        <a href="{{ url('order/classic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+        <a href="{{ action('MasterBox\Customer\OrderController@getGift') }}"><i class="fa fa-gift"></i> L'offrir</a>
+        <a href="{{ action('MasterBox\Customer\OrderController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
       </div>
-
+      
 		@endif
 
 		<div class="next-series">
@@ -25,7 +25,7 @@
 					<div class="text-center">
 						Il ne reste plus aucune box pour ce mois-ci !<br/>
 						<div class="community community-small">
-							<a target="_blank" href="https://www.facebook.com/BordeauxinBox?fref=ts"><i class="fa fa-facebook"></i> En savoir plus</a>
+							<a target="_blank" href="{{ config('bdxnbx.facebook') }}"><i class="fa fa-facebook"></i> En savoir plus</a>
 						</div>
 
 					</div>
@@ -168,7 +168,7 @@
 
 
             <div class="col-md-3">
-              <a href="{{ url('blog/article/' . $article->id) }}">
+              <a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['id' => $article->id]) }}">
                 <div class="img --thumbnail" title="{{ $article->title }}" data-gotham="tooltipster">
                   <img src="{{ $article->thumbnail->full }}" />
                 </div>
@@ -183,7 +183,7 @@
 
 			<div class="text-center">
 				<div class="spacer"></div>
-				<a href="{{ url('blog') }}" class="button --xl">Voir les autres boutiques complices ...</a>
+				<a href="{{ action('MasterBox\Guest\BlogController@getIndex') }}" class="button --xl">Voir les autres boutiques complices ...</a>
 			</div>
 		</div>
 
@@ -211,15 +211,14 @@
 			</div>
 
 			<p class="others">
-				Pour savoir si tout ça est bien légal <a href="/legals">tu peux cliquer là</a> ... et si tu veux nous contacter pour parler de la pluie et du beau temps, <a href="{{ url('contact') }}">on est toujours présent !</a>
+				Pour savoir si tout ça est bien légal <a href="{{ action('MasterBox\Guest\HomeController@getLegals') }}">tu peux cliquer là</a> ... et si tu veux nous contacter pour parler de la pluie et du beau temps, <a href="{{ action('MasterBox\Guest\ContactController@getIndex') }}">on est toujours présent !</a>
 			</p>
-
 
 		</div>
 
 		<div class="spacer20"></div>
 		<div class="center">
-			<a target="_blank" href="https://www.facebook.com/BordeauxinBox?fref=ts" class="button --icon --xxl --facebook"><i class="fa fa-facebook"></i> Rejoins-nous sur Facebook !</a>
+			<a target="_blank" href="{{ config('bdxnbx.facebook') }}" class="button --icon --xxl --facebook"><i class="fa fa-facebook"></i> Rejoins-nous sur Facebook !</a>
 		</div>
 
 </div>
