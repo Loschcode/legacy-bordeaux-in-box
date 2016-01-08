@@ -30,7 +30,7 @@ class ProfileController extends BaseController {
      */
     public function __construct()
     {
-        $this->middleware('isConnected');
+        $this->middleware('is.connected');
     }
 
 	/**

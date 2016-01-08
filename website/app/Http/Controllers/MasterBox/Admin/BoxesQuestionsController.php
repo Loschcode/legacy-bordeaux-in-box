@@ -26,7 +26,7 @@ class BoxesQuestionsController extends BaseController {
     {
     	
     	$this->beforeMethod();
-      $this->middleware('isAdmin');
+      $this->middleware('is.admin');
 
     }
     

@@ -1,8 +1,8 @@
 <?php namespace App\Http\Middleware;
 
-use Closure;
+use Closure, Auth;
 
-class IsSerieReadyMiddleware {
+class IsNotRegional {
 
   /**
    * Handle an incoming request.
@@ -13,13 +13,9 @@ class IsSerieReadyMiddleware {
    */
   public function handle($request, Closure $next)
   {
-    $orders = Order::LockedOrdersWithoutOrder()->notCanceledOrders()->get();
+    // If it's not regional, we can't access this part
+    if (!Auth::user()->order_building()->first()->isRegionalAddress()) return redirect()->to('/order');
 
-    if (count($orders) > 0)
-    {
-      return redirect()->to('/easygo/index');
-    }
-    
     return $next($request);
   }
 

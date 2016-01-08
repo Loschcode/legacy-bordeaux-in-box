@@ -13,11 +13,11 @@ class HomeController extends BaseController {
   {
 
     $this->beforeMethod();
-    $this->middleware('isAdmin');
-    $this->middleware('isNotSerieReady', ['except' => 'getLocked']);
-    $this->middleware('isSerieReady', ['only' => 'getLocked']);
-    $this->middleware('stillUnpaidOrdersWithFailCard', ['except' => array('getLocked', 'getUnpaidOrders')]);
-    $this->middleware('skipUnpaidOrdersWithFailCard', ['only' => 'getUnpaidOrders']);
+    $this->middleware('is.admin');
+    $this->middleware('is.not.serie.ready', ['except' => 'getLocked']);
+    $this->middleware('is.serie.ready', ['only' => 'getLocked']);
+    $this->middleware('still.unpaid.orders.with.fail.card', ['except' => array('getLocked', 'getUnpaidOrders')]);
+    $this->middleware('skip.unpaid.orders.with.fail.card', ['only' => 'getUnpaidOrders']);
   }
 
   private function _fetch_boxes_ordered($orders)

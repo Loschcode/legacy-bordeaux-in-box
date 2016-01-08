@@ -1,8 +1,9 @@
 <?php namespace App\Http\Middleware;
 
-use Closure, Auth;
+use Closure;
+use Auth;
 
-class IsNotRegionalMiddleware {
+class HasOrderBuilding {
 
   /**
    * Handle an incoming request.
@@ -13,9 +14,10 @@ class IsNotRegionalMiddleware {
    */
   public function handle($request, Closure $next)
   {
-    // If it's not regional, we can't access this part
-    if (!Auth::user()->order_building()->first()->isRegionalAddress()) return redirect()->to('/order');
+    if (Auth::guest()) return redirect()->to('user/login');
 
+    if (Auth::user()->order_building()->first() === NULL) return redirect()->to('/');
+    
     return $next($request);
   }
 

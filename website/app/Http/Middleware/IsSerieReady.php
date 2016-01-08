@@ -1,8 +1,8 @@
 <?php namespace App\Http\Middleware;
 
-use Closure, Auth;
+use Closure;
 
-class IsConnectedMiddleware {
+class IsSerieReady {
 
   /**
    * Handle an incoming request.
@@ -13,12 +13,11 @@ class IsConnectedMiddleware {
    */
   public function handle($request, Closure $next)
   {
-    if (Auth::guest()) {
+    $orders = Order::LockedOrdersWithoutOrder()->notCanceledOrders()->get();
 
-      // We register the URL where the user tried to go before
-      session()->put('after-login-redirection', Request::url());
-      return redirect()->to('user/login');
-
+    if (count($orders) > 0)
+    {
+      return redirect()->to('/easygo/index');
     }
     
     return $next($request);

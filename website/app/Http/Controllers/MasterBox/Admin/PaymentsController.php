@@ -27,7 +27,7 @@ class PaymentsController extends BaseController {
     public function __construct()
     {
     	$this->beforeMethod();
-      $this->middleware('isAdmin');
+      $this->middleware('is.admin');
     }
     
     /**

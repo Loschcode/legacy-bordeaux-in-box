@@ -18,7 +18,7 @@ class ApiController extends BaseController {
   */
   public function __construct()
   {
-    $this->middleware('isAdmin', ['only' => ['getContacts', 'getOrdersCount']]);
+    $this->middleware('is.admin', ['only' => ['getContacts', 'getOrdersCount']]);
   }
 
   /**

@@ -1,9 +1,10 @@
 <?php namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
 
-class HasOrderBuildingMiddleware {
+use App\Models\Order;
+
+class IsNotSerieReady {
 
   /**
    * Handle an incoming request.
@@ -14,9 +15,12 @@ class HasOrderBuildingMiddleware {
    */
   public function handle($request, Closure $next)
   {
-    if (Auth::guest()) return redirect()->to('user/login');
+    $orders = Order::LockedOrdersWithoutOrder()->notCanceledOrders()->get();
 
-    if (Auth::user()->order_building()->first() === NULL) return redirect()->to('/');
+    if (count($orders) == 0)
+    {
+      return redirect('/easygo/locked');
+    }
     
     return $next($request);
   }

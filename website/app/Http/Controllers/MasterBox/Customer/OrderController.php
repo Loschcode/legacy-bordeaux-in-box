@@ -28,10 +28,10 @@ class OrderController extends BaseController {
    */
   public function __construct()
   {
-    $this->middleware('isConnected', array('except' => ['getClassic', 'getGift']));
-    $this->middleware('hasOrderBuilding', array('except' => ['getClassic', 'getGift']));
-    $this->middleware('belowSerieCounter', array('except' => ['postPayment']));
-    $this->middleware('isNotRegionalOrTakeAway', array('only' => ['getChooseSpot', 'postChooseSpot']));
+    $this->middleware('is.connected', array('except' => ['getClassic', 'getGift']));
+    $this->middleware('has.order.building', array('except' => ['getClassic', 'getGift']));
+    $this->middleware('below.serie.counter', array('except' => ['postPayment']));
+    $this->middleware('is.not.regional.or.take.away', array('only' => ['getChooseSpot', 'postChooseSpot']));
   }
 
   /**

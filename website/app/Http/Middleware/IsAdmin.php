@@ -1,8 +1,8 @@
 <?php namespace App\Http\Middleware;
 
-use Closure, Auth, Request;
+use Closure, Auth;
 
-class IsNotConnectedMiddleware {
+class IsAdmin {
 
   /**
    * Handle an incoming request.
@@ -13,14 +13,20 @@ class IsNotConnectedMiddleware {
    */
   public function handle($request, Closure $next)
   {
-    
-    if (Auth::check() && Request::segment(2) !== 'logout') {
+    if (Auth::guest()) {
 
       return redirect()->to('/');
 
-    }
+    } else {
 
-    return $next($request);
+      if (Auth::user()->role !== 'admin') 
+      {
+        return redirect()->to('/');
+      }
+
+      return $next($request);
+
+    }
   }
 
 }

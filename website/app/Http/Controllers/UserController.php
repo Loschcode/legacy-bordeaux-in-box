@@ -22,7 +22,7 @@ class UserController extends BaseController {
    */
   public function __construct()
   {
-    $this->middleware('isNotConnected', array('except' => 'getLogout'));
+    $this->middleware('is.not.connected', array('except' => 'getLogout'));
   }
 
   /**

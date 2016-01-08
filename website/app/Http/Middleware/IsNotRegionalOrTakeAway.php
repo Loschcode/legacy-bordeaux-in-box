@@ -2,7 +2,7 @@
 
 use Closure;
 
-class IsNotRegionalOrTakeAwayMiddleware {
+class IsNotRegionalOrTakeAway {
 
   /**
    * Handle an incoming request.

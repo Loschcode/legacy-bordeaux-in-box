@@ -1,10 +1,8 @@
 <?php namespace App\Http\Middleware;
 
-use Closure;
+use Closure, Auth, Request;
 
-use App\Models\Order;
-
-class IsNotSerieReadyMiddleware {
+class IsNotConnected {
 
   /**
    * Handle an incoming request.
@@ -15,13 +13,13 @@ class IsNotSerieReadyMiddleware {
    */
   public function handle($request, Closure $next)
   {
-    $orders = Order::LockedOrdersWithoutOrder()->notCanceledOrders()->get();
-
-    if (count($orders) == 0)
-    {
-      return redirect('/easygo/locked');
-    }
     
+    if (Auth::check() && Request::segment(2) !== 'logout') {
+
+      return redirect()->to('/');
+
+    }
+
     return $next($request);
   }
 

@@ -2,7 +2,7 @@
 
 use Closure, Auth;
 
-class IsAdminMiddleware {
+class IsConnected {
 
   /**
    * Handle an incoming request.
@@ -15,18 +15,13 @@ class IsAdminMiddleware {
   {
     if (Auth::guest()) {
 
-      return redirect()->to('/');
-
-    } else {
-
-      if (Auth::user()->role !== 'admin') 
-      {
-        return redirect()->to('/');
-      }
-
-      return $next($request);
+      // We register the URL where the user tried to go before
+      session()->put('after-login-redirection', Request::url());
+      return redirect()->to('user/login');
 
     }
+    
+    return $next($request);
   }
 
 }

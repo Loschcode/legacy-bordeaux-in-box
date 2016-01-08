@@ -33,17 +33,17 @@ class Kernel extends HttpKernel {
     'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
 
     // App
-    'belowSerieCounter' => 'App\Http\Middleware\BelowSerieCounterMiddleware',
-    'hasOrderBuilding' => 'App\Http\Middleware\HasOrderBuildingMiddleware',
-    'isAdmin' => 'App\Http\Middleware\IsAdminMiddleware',
-    'isConnected' => 'App\Http\Middleware\IsConnectedMiddleware',
-    'isNotConnected' => 'App\Http\Middleware\IsNotConnectedMiddleware',
-    'isNotRegional' => 'App\Http\Middleware\IsNotRegionalMiddleware',
-    'isNotRegionalOrTakeAway' => 'App\Http\Middleware\IsNotRegionalMiddleware',
-    'isNotSerieReady' => 'App\Http\Middleware\IsNotSerieReadyMiddleware',
-    'isSerieReady' => 'App\Http\Middleware\IsSerieReadyMiddleware',
-    'skipUnpaidOrdersWithFailCard' => 'App\Http\Middleware\SkipUnpaidOrdersWithFailCardMiddleware',
-    'stillUnpaidOrdersWithFailCard' => 'App\Http\Middleware\StillUnpaidOrdersWithFailCardMiddleware',
+    'below.serie.counter' => 'App\Http\Middleware\BelowSerieCounter',
+    'has.order.building' => 'App\Http\Middleware\HasOrderBuilding',
+    'is.admin' => 'App\Http\Middleware\IsAdmin',
+    'is.connected' => 'App\Http\Middleware\IsConnected',
+    'is.not.connected' => 'App\Http\Middleware\IsNotConnected',
+    'is.not.regional' => 'App\Http\Middleware\IsNotRegional',
+    'is.not.regional.or.take.away' => 'App\Http\Middleware\IsNotRegional',
+    'is.not.serie.ready' => 'App\Http\Middleware\IsNotSerieReady',
+    'is.serie.ready' => 'App\Http\Middleware\IsSerieReady',
+    'skip.unpaid.orders.with.fail.card' => 'App\Http\Middleware\SkipUnpaidOrdersWithFailCard',
+    'still.unpaid.orders.with.fail.card' => 'App\Http\Middleware\StillUnpaidOrdersWithFailCard',
   ];
 
 }
