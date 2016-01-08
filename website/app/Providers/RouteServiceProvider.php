@@ -38,7 +38,18 @@ class RouteServiceProvider extends ServiceProvider {
 
 		$router->group(['namespace' => $this->namespace], function($router)
 		{
-			require app_path('Http/Routes/routes.php');
+
+      /**
+       * Environment dedependants routing
+       */
+      $env = app()->environment();
+      if (file_exists(app_path("Http/Routes/".$env."_routes.php"))) require app_path("Http/Routes/".$env."_routes.php");
+		
+      /**
+       * Universal routing
+       */
+      require app_path('Http/Routes/global_routes.php');
+
 		});
 
 	}

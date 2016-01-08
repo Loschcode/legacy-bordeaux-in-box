@@ -36,7 +36,7 @@ class ProfileController extends BaseController {
 	/**
      * The layout that should be used for responses.
      */
-    protected $layout = 'layouts.master';
+    protected $layout = 'master-box.layouts.master';
 
     /**
      * Index page
