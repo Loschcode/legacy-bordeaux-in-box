@@ -214,7 +214,7 @@
 
   <div class="clearfix"></div>
   <div class="spacer100"></div>
-  {!! View::make('_includes.footer') !!}
+  {!! View::make('master-box.partials.front.footer') !!}
 
 
   <!-- Facebook Conversion Code for Paiements -->

@@ -66,7 +66,6 @@
 <script src="{{ url('assets/js/app/spot.js') }}"></script>
 <script src="{{ url('assets/js/app/card.js') }}"></script>
 
-
 <!-- The required Stripe lib -->
 <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 

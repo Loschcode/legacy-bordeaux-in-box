@@ -1,21 +1,23 @@
 <!-- Navigation -->
 <div id="subnav" class="navigation">
   <ul>
-    <li><a href="{{ url('/#how-to') }}">Comment ça marche ?</a></li>
-    <li><a href="{{ url('/#inside') }}">Ce qu'il y a dans la boîte</a></li>
+
+    <li><a href="{{ action('MasterBox\Guest\HomeController@getIndex') }}#how-to">Comment ça marche ?</a></li>
+    <li><a href="{{ action('MasterBox\Guest\HomeController@getIndex') }}#inside">Ce qu'il y a dans la boîte</a></li>
 
     @if (Auth::check())
-      <li><a href="{{ url('profile') }}"><i class="fa fa-user"></i> Mon compte</a></li>
+
+      <li><a href="{{ action('MasterBox\Customer\ProfileController@getIndex') }}"><i class="fa fa-user"></i> Mon compte</a></li>
 
       @if (Auth::user()->role == 'admin')
       
-        <li><a href="{{ url('/admin') }}"><i class="fa fa-gear"></i> Administration</a></li>
+        <li><a href="{{ action('MasterBox\Admin\DashboardController@getIndex') }}"><i class="fa fa-gear"></i> Administration</a></li>
           
       @endif
 
-    @else 
+    @else
 
-      <li><a href="{{ url('user/logout') }}"><i class="fa fa-lock"></i> Connexion</a></li>
+      <li><a href="{{ url('user/login') }}"><i class="fa fa-lock"></i> Connexion</a></li>
 
     @endif
 

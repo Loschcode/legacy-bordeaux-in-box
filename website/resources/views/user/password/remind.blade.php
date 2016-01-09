@@ -36,6 +36,6 @@
 
 	<div class="spacer200"></div>
 
-	@include('_includes.footer', ['stick' => true])
+	@include('master-box.partials.front.footer', ['stick' => true])
 
 @stop

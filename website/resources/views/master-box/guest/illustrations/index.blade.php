@@ -44,8 +44,8 @@
 	<div class="spacer100"></div>
 
 	@if ($image_article === NULL)
-		{!! View::make('_includes.footer')->with('stick', true) !!}
+		{!! View::make('master-box.partials.front.footer')->with('stick', true) !!}
 	@else
-		{!! View::make('_includes.footer') !!}
+		{!! View::make('master-box.partials.front.footer') !!}
 	@endif
 @stop

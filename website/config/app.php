@@ -120,8 +120,11 @@ return [
 		 * Laravel Framework Service Providers...
 		 */
 		Illuminate\Foundation\Providers\ArtisanServiceProvider::class,
-		Illuminate\Auth\AuthServiceProvider::class,
-		Illuminate\Bus\BusServiceProvider::class,
+
+		//Illuminate\Auth\AuthServiceProvider::class,
+    Ollieread\Multiauth\MultiauthServiceProvider::class,
+	
+    Illuminate\Bus\BusServiceProvider::class,
 		Illuminate\Cache\CacheServiceProvider::class,
 		Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
 		Illuminate\Routing\ControllerServiceProvider::class,
@@ -136,7 +139,10 @@ return [
 		Illuminate\Pipeline\PipelineServiceProvider::class,
 		Illuminate\Queue\QueueServiceProvider::class,
 		Illuminate\Redis\RedisServiceProvider::class,
-		Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+
+		//Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+    Ollieread\Multiauth\Passwords\PasswordResetServiceProvider::class,
+
 		Illuminate\Session\SessionServiceProvider::class,
 		Illuminate\Translation\TranslationServiceProvider::class,
 		Illuminate\Validation\ValidationServiceProvider::class,
@@ -162,8 +168,7 @@ return [
     Illuminate\Html\HtmlServiceProvider::class,
     Jenssegers\Date\DateServiceProvider::class,
     Barryvdh\DomPDF\ServiceProvider::class,
-    Chumper\Zipper\ZipperServiceProvider::class
-
+    Chumper\Zipper\ZipperServiceProvider::class,
 
 
     //Collective\Html\HtmlServiceProvider::class,
@@ -205,7 +210,9 @@ return [
 		'Event'     => Illuminate\Support\Facades\Event::class,
 		'File'      => Illuminate\Support\Facades\File::class,
 		'Hash'      => Illuminate\Support\Facades\Hash::class,
+
 		//'Input'     => Illuminate\Support\Facades\Input::class,
+
 		'Inspiring' => Illuminate\Foundation\Inspiring::class,
 		'Lang'      => Illuminate\Support\Facades\Lang::class,
 		'Log'       => Illuminate\Support\Facades\Log::class,

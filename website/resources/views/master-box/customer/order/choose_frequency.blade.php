@@ -103,6 +103,6 @@
 
 
   <div class="spacer50"></div>
-  {!! View::make('_includes.footer') !!}
+  {!! View::make('master-box.partials.front.footer') !!}
 
 @stop

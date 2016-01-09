@@ -54,6 +54,6 @@
   </div>
 
   <div class="spacer200"></div>
-  {!! View::make('_includes.footer') !!}
+  {!! View::make('master-box.partials.front.footer') !!}
 
 @stop

@@ -17,5 +17,5 @@
 		</div>
 	</div>
 	
-	{!! View::make('_includes.footer')->with('stick', true) !!}
+	{!! View::make('master-box.partials.front.footer')->with('stick', true) !!}
 @stop
