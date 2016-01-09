@@ -24,7 +24,6 @@ class SpotsController extends BaseController {
     public function __construct()
     {
     	$this->beforeMethod();
-      $this->middleware('is.admin');
     }
     
     /**

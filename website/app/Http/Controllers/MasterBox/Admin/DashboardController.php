@@ -20,7 +20,6 @@ class DashboardController extends BaseController {
     {
     	
         $this->beforeMethod();
-        $this->middleware('is.admin');
 
     }
 

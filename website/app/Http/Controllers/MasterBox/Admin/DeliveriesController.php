@@ -32,7 +32,6 @@ class DeliveriesController extends BaseController {
   {
 
       $this->beforeMethod();
-      $this->middleware('is.admin');
 
   }
     

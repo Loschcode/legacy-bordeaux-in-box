@@ -23,7 +23,6 @@ class EmailManagerController extends BaseController {
     {
     	
     	$this->beforeMethod();
-      $this->middleware('is.admin');
 
     }
     

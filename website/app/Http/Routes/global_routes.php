@@ -78,7 +78,7 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
   /**
    * MasterBox Admin Area
    */
-  Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
+  Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => 'is.admin'], function() {
 
     Route::controller('lightbox', 'LightboxController');
     Route::controller('orders', 'OrdersController');

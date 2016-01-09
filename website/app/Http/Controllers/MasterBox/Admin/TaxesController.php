@@ -24,7 +24,6 @@ class TaxesController extends BaseController {
   {
 
       $this->beforeMethod();
-      $this->middleware('is.admin');
 
   }
     

@@ -24,7 +24,6 @@ class OrdersController extends BaseController {
     {
 
     	$this->beforeMethod();
-      $this->middleware('is.admin');
 
     }
 
