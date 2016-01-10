@@ -12,7 +12,8 @@ class AddProductFilterSettingsTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('product_filter_settings', function($table)
+		
+    Schema::create('product_filter_settings', function($table)
 		{
 
 			// Keys
@@ -49,7 +50,7 @@ class AddProductFilterSettingsTable extends Migration {
 	public function down()
 	{
 
-		Schema::dropIfExists('product_filter_box_settings');
+		Schema::dropIfExists('product_filter_settings');
 
 	}
 

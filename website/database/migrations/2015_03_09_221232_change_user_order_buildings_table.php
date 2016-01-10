@@ -17,10 +17,10 @@ class ChangeUserOrderBuildingsTable extends Migration {
 		{
 
 			// Keys
-			$table->integer('delivery_serie_id')->unsigned()->nullable();
+			//$table->integer('delivery_serie_id')->unsigned()->nullable();
 
 			// Indexes
-			$table->foreign('delivery_serie_id')->references('id')->on('delivery_series')->onDelete('cascade');
+			//$table->index('delivery_serie_id');
 
 		});
 
@@ -37,11 +37,8 @@ class ChangeUserOrderBuildingsTable extends Migration {
 		Schema::table('user_order_buildings', function(Blueprint $table)
 		{
 
-			// Foreign keys
-			$table->dropForeign('user_order_buildings_delivery_serie_id_foreign');
-
 			// Columns to remove
-			$table->dropColumn('delivery_serie_id');
+			//$table->dropColumn('delivery_serie_id');
 
 		});
 

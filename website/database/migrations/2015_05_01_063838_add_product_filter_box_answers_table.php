@@ -12,7 +12,9 @@ class AddProductFilterBoxAnswersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('product_filter_box_answers', function($table)
+		
+    
+    Schema::create('product_filter_box_answers', function($table)
 		{
 
 			// Keys
@@ -34,6 +36,7 @@ class AddProductFilterBoxAnswersTable extends Migration {
 			$table->timestamps();
 
 		});
+
 
 	}
 

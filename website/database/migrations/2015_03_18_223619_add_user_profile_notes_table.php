@@ -26,8 +26,8 @@ class AddUserProfileNotesTable extends Migration {
 			$table->text('note');
 
 			// Indexes
-			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-			$table->foreign('user_profile_id')->references('id')->on('user_profiles')->onDelete('cascade');
+			$table->index('user_id');
+			$table->index('user_profile_id');
 
 			// Timestamps
 			$table->timestamps();
@@ -47,9 +47,6 @@ class AddUserProfileNotesTable extends Migration {
 
 		Schema::table('user_profile_notes', function(Blueprint $table)
 		{
-
-			$table->dropForeign('user_profile_notes_user_id_foreign');
-			$table->dropForeign('user_profiles_notes_user_profile_id_foreign');
 
 		});
 
