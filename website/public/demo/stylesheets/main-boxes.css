@@ -35,9 +35,36 @@ body {
   font-weight: 400; }
 
 .alert {
+  font-family: inherit;
   width: 100%;
-  padding: 18px;
-  background-color: #D6E1E5; }
+  padding: 15.48px;
+  border-radius: 5px;
+  margin-top: 10.799999999999999px;
+  margin-bottom: 10.799999999999999px; }
+  .alert.\--blue {
+    background-color: #02baf2;
+    color: white; }
+  .alert.\--orange {
+    background-color: #f58410;
+    color: white; }
+  .alert.\--red {
+    background-color: #f84545;
+    color: white; }
+  .alert.\--pink {
+    background-color: #d25280;
+    color: white; }
+  .alert.\--yellow {
+    background-color: #fad46b;
+    color: white; }
+  .alert.\--purple {
+    background-color: #a88cd5;
+    color: white; }
+  .alert.\--green {
+    background-color: #3eb5ac;
+    color: white; }
+  .alert.\--grey {
+    background-color: #bdc3c7;
+    color: white; }
 
 
 /*# sourceMappingURL=main-boxes.css.map*/

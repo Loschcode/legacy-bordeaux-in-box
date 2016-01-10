@@ -24,10 +24,10 @@
 //
 // color-light(orange)
 //
-@function color-light($color)
+@function color-light($color, $level: 1)
   $color: color($color)
 
-  @return lighten($color, 5%)
+  @return lighten($color, 5% * $level)
 
 // ===========================================================
 // Color Dark
@@ -39,7 +39,7 @@
 //
 // color(orange)
 //
-@function color-dark($color)
+@function color-dark($color, $level: 1)
   $color: color($color)
 
-  @return darken($color, 5%)
+  @return darken($color, 5% * $level)
