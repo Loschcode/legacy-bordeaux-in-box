@@ -1,0 +1,24 @@
++component(badge)
+  display: inline-block
+  text-align: center
+  padding: 0 0.2vr
+  background: color(grey)
+  color: white
+  font-size: 0.3vr
+  border-radius: 2px
+
+  // Colors
+  @each $name-color, $color in $colors-palette
+    
+    +option(#{$name-color})
+      background-color: color($name-color)
+      color: white
+
+  +option(number)
+    box-sizing: border-box
+    min-width: 0.5vr
+    border-radius: 500px
+    font-size: 12px
+    line-height: 18px
+
+  
