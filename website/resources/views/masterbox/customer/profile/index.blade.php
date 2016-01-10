@@ -99,7 +99,7 @@
 
       <div class="tab-pane active" id="account">
         
-        {!! Form::open(array('action' => 'ProfileController@postEdit', 'class' => 'form-component')) !!}
+        {!! Form::open(array('action' => 'MasterBox\Customer\ProfileController@postEdit', 'class' => 'form-component')) !!}
 
 
         {!! Form::label("old_password", "Mot de passe actuel") !!}
