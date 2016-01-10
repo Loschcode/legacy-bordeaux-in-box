@@ -106,7 +106,7 @@ class ContentController extends BaseController {
 			$blog_article->slug = $fields['slug'];
 			$blog_article->url = $fields['url'];
 			$blog_article->content = $fields['content'];
-			$blog_article->user()->associate(Auth::customer()->get());
+			$blog_article->customer()->associate(Auth::customer()->get());
 			
 			if ( ! empty($fields['thumbnail']))
 			{
@@ -189,7 +189,7 @@ class ContentController extends BaseController {
 			$blog_article->title = $fields['title'];
 			$blog_article->content = $fields['content'];
 			$blog_article->url = $fields['url'];
-			$blog_article->user()->associate(Auth::customer()->get());
+			$blog_article->customer()->associate(Auth::customer()->get());
 
 			// We manage the thumbnail
 			$file = Request::file('thumbnail');
@@ -345,7 +345,7 @@ class ContentController extends BaseController {
 			$image_article->title = $fields['title'];
 			$image_article->slug = $fields['slug'];
 			$image_article->description = $fields['description'];
-			$image_article->user()->associate(Auth::customer()->get());
+			$image_article->customer()->associate(Auth::customer()->get());
 
 			if ( ! empty($fields['image'])) {
 			 $image_article->image = $this->_prepare_image($fields, $image_article);
@@ -410,7 +410,7 @@ class ContentController extends BaseController {
 
 			$image_article = new ImageArticle;
 
-			$image_article->user()->associate(Auth::customer()->get());
+			$image_article->customer()->associate(Auth::customer()->get());
 
 			$image_article->title = $fields['title'];
 			$image_article->description = $fields['description'];

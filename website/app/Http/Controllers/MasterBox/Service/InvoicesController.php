@@ -95,7 +95,7 @@ class InvoicesController extends BaseController {
           // We reset in case there's an unknown problem
           if ($customer_profile === NULL) $customer_profile = CustomerProfile::find($customer_profile_id);
 
-          $customer_id = $customer_profile->user()->first()->id;
+          $customer_id = $customer_profile->customer()->first()->id;
           $payment_type = 'plan';
 
         } else {
@@ -107,7 +107,7 @@ class InvoicesController extends BaseController {
 
       } else {
         $customer_profile_id = $metadata->customer_profile_id;
-        $customer_id = $metadata->user_id;
+        $customer_id = $metadata->customer_id;
         $payment_type = $metadata->payment_type;
       }
       
@@ -124,7 +124,7 @@ class InvoicesController extends BaseController {
          */
         $payment = new Payment;
         $payment->profile()->associate($profile);
-        $payment->user()->associate($customer);
+        $payment->customer()->associate($customer);
 
         $payment->stripe_event = $stripe_event_id;
         $payment->stripe_customer = $stripe_customer_id;
@@ -365,7 +365,7 @@ class InvoicesController extends BaseController {
         /*if (!$stripe_refund) {
 
           // For the PDF Output
-          $customer = $payment->user()->first();
+          $customer = $payment->customer()->first();
           $profile = $payment->profile()->first();
           $customer_order_preference = $profile->order_preference()->first();
 

@@ -15,7 +15,7 @@ class CustomerOrderPreference extends Model {
 	 * Belongs To
 	 */
 	
-	public function user_profile()
+	public function customer_profile()
 	{
 
 		return $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id');

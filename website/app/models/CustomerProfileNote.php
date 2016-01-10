@@ -20,10 +20,10 @@ class CustomerProfileNote extends Model {
 	 * Belongs To
 	 */
 	
-	public function user()
+	public function customer()
 	{
 
-		return $this->belongsTo('App\Models\Customer', 'user_id');
+		return $this->belongsTo('App\Models\Customer', 'customer_id');
 
 	}
 

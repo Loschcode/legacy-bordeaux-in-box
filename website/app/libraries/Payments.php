@@ -34,7 +34,7 @@ class Payments {
 
             "metadata" => [
 
-                'user_id' => $customer->id,
+                'customer_id' => $customer->id,
                 'customer_profile_id' => $profile->id,
                 'payment_type' => FALSE
 
@@ -260,7 +260,7 @@ class Payments {
 
                 "metadata" => [
 
-                    'user_id' => $customer->id,
+                    'customer_id' => $customer->id,
                     'customer_profile_id' => $profile->id,
                     'payment_type' => 'plan'
 
@@ -486,7 +486,7 @@ class Payments {
 
               "metadata" => [
 
-                'user_id' => $customer->id,
+                'customer_id' => $customer->id,
                 'customer_profile_id' => $profile->id,
                 'payment_type' => 'direct_invoice'
 

@@ -17,7 +17,7 @@ function generate_new_order($customer, $profile) {
 
   // We make the order
   $order = new Order;
-  $order->user()->associate($customer);
+  $order->customer()->associate($customer);
   $order->customer_profile()->associate($profile);
   $order->delivery_serie()->associate($delivery_serie);
   $order->box()->associate($last_order->box()->first());

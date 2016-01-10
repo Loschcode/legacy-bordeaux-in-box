@@ -113,7 +113,7 @@ class SpotsController extends BaseController {
 		      }
 
 		      $box = $profile->box()->first();
-		      $customer = $profile->user()->first();
+		      $customer = $profile->customer()->first();
 
 			    /**
 			     * Then we send an email

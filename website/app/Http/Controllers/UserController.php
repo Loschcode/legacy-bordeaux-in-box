@@ -149,7 +149,7 @@ class UserController extends BaseController {
       $authAttempt = $this->getLoginCredentials();
 
       // We try our credentials
-      if (Auth::attempt($authAttempt)) 
+      if (Auth::customer()->attempt($authAttempt)) 
       {
         // If there's an after login redirection
         if (session()->get('after-login-redirection')) 

@@ -49,7 +49,7 @@ class TracesController extends BaseController {
       if ($email_trace_id !== NULL) {
 
         // We have some secured variables (useless normally)
-        $customer_id = $datas['user_id'];
+        $customer_id = $datas['customer_id'];
         $profile_id = $datas['profile_id'];
 
         $email_trace = EmailTrace::find($email_trace_id);
@@ -74,7 +74,7 @@ class TracesController extends BaseController {
 
           $email_trace->first_opened_at = date('Y-m-d H:i:s');
 
-          $customer = $email_trace->user()->first();
+          $customer = $email_trace->customer()->first();
 
           if ($customer !== NULL) {
 

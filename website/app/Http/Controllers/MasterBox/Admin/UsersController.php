@@ -70,7 +70,7 @@ class UsersController extends BaseController {
 		// New article rules
 		$rules = [
 
-			'user_id' => 'required|integer',
+			'customer_id' => 'required|integer',
 			'email' => 'required',
 			'password' => '',
 			'role' => 'required',
@@ -94,7 +94,7 @@ class UsersController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$customer = Customer::findOrFail($fields['user_id']);
+			$customer = Customer::findOrFail($fields['customer_id']);
 
 
       $customer->email = $fields['email'];

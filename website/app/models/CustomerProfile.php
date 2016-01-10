@@ -58,10 +58,10 @@ class CustomerProfile extends Model {
 	 * Belongs To
 	 */
 
-	public function user()
+	public function customer()
 	{
 
-		return $this->belongsTo('App\Models\Customer', 'user_id');
+		return $this->belongsTo('App\Models\Customer', 'customer_id');
 
 	}
 
@@ -235,7 +235,7 @@ class CustomerProfile extends Model {
 	 */
 	public function isSponsorOf() {
 
-		$email = $this->user()->first()->email;
+		$email = $this->customer()->first()->email;
 
 		$box_question = BoxQuestion::where('slug', '=', 'sponsor')->first();
 
@@ -327,7 +327,7 @@ class CustomerProfile extends Model {
 	public function sendExpirationEmail($last_box_was_sent=FALSE)
 	{
 
-		$customer = $this->user()->first();
+		$customer = $this->customer()->first();
 		$box = $this->box()->first();
 
 		$data = [

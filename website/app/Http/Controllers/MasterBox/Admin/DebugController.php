@@ -384,7 +384,7 @@ class DebugController extends BaseController {
 
         // We take the first we don't have any other solution
         
-        $customer = $customer_order_building->user()->first();
+        $customer = $customer_order_building->customer()->first();
 
         if ($customer != NULL) {
 

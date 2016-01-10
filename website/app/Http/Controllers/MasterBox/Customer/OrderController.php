@@ -134,7 +134,7 @@ class OrderController extends BaseController {
       // We update the profile
       $customer_profile = $order_building->profile()->first();
 
-      $customer_profile->user()->associate($customer);
+      $customer_profile->customer()->associate($customer);
       $customer_profile->box()->associate($box);
       $customer_profile->save();
 
@@ -743,7 +743,7 @@ class OrderController extends BaseController {
         if ($order_already_exists === NULL) {
           // We make the order
           $order = new Order;
-          $order->user()->associate($customer);
+          $order->customer()->associate($customer);
           $order->customer_profile()->associate($profile);
           $order->delivery_serie()->associate($delivery_serie);
           $order->box()->associate($box);
@@ -874,7 +874,7 @@ class OrderController extends BaseController {
      * - Resumee
      */
     
-    $customer = Auth::customer()->get()->get();
+    $customer = Auth::customer()->get();
     $next_series = DeliverySerie::nextOpenSeries()->first();
     $order_building = $customer->order_building()->first();
 
@@ -882,14 +882,14 @@ class OrderController extends BaseController {
     if ($order_building === NULL) {
 
       $order_building = new CustomerOrderBuilding;
-      $order_building->user()->associate($customer);
+      $order_building->customer()->associate($customer);
       $order_building->delivery_serie()->associate($next_series);
 
       // We will build the entire profile
       // All the other steps will only be updating (like that the user can go backward)
       
       $customer_profile = new CustomerProfile;
-      $customer_profile->user()->associate($customer);
+      $customer_profile->customer()->associate($customer);
       $customer_profile->status = 'not-subscribed';
       $customer_profile->priority = 'medium';
 
@@ -922,6 +922,7 @@ class OrderController extends BaseController {
 
       // If the guy switches from a gift to a classic or anything like that
       // He will redo everything
+      // 
       if ((is_bool(session()->get('isGift'))) && (session()->get('isGift') != $order_preference->gift)) {
         $order_preference->gift = session()->get('isGift');
         $order_preference->save();
@@ -932,8 +933,23 @@ class OrderController extends BaseController {
       }
     }
 
+    /**
+     * Dynamic URL from step
+     */
+    $methods_from_step = [
+
+      'choose-box' => 'getChooseBox',
+      'box-form' => 'getBoxForm',
+      'choose-frequency' => 'getChooseFrequency',
+      'delivery-mode' => 'getDeliveryMode',
+      'choose-spot' => 'getChooseSpot',
+      'billing-address' => 'getBillingAddress',
+      'payment' => 'getPayment',
+
+    ];
+    
     // Let's redirect depending on the step
-    return '/order/' . $order_building->step;
+    return action("MasterBox\Customer\OrderController@".$methods_from_step[$order_building->step]);
 
   }
 

@@ -48,7 +48,7 @@ class ProfileController extends BaseController {
     	$profiles = $customer->profiles()->orderBy('created_at', 'desc')->get();
 
     	// We get the destination (the last editable order destination)
-    	$unlocked_orders = Order::where('user_id', $customer->id)->where('locked', FALSE)->get();
+    	$unlocked_orders = Order::where('customer_id', $customer->id)->where('locked', FALSE)->get();
 
     	$destination = NULL;
     	$spot = NULL;
@@ -85,7 +85,7 @@ class ProfileController extends BaseController {
     	if ($payment != NULL) {
 
     		// If it's not the user bill, we redirect him
-    		if ($payment->user()->first()->id != $customer->id) {
+    		if ($payment->customer()->first()->id != $customer->id) {
 
     			return redirect()->to('/profile');
 
@@ -110,7 +110,7 @@ class ProfileController extends BaseController {
     	if ($payment != NULL) {
 
     		// If it's not the user bill, we redirect him
-    		if ($payment->user()->first()->id != $customer->id) {
+    		if ($payment->customer()->first()->id != $customer->id) {
 
     			return redirect()->to('/profile');
 

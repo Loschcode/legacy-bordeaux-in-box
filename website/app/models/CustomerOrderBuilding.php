@@ -15,17 +15,17 @@ class CustomerOrderBuilding extends Model {
 	 * Belongs To
 	 */
 	
-	public function user()
+	public function customer()
 	{
 
-		return $this->belongsTo('App\Models\Customer', 'user_id');
+		return $this->belongsTo('App\Models\Customer', 'customer_id');
 
 	}
 
 	public function order_preference()
 	{
 
-		return $this->belongsTo('App\Models\CustomerOrderPreference', 'user_order_preference_id');
+		return $this->belongsTo('App\Models\CustomerOrderPreference', 'customer_order_preference_id');
 
 	}
 

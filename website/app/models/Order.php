@@ -20,10 +20,10 @@ class Order extends Model {
 	 * Belongs To
 	 */
 	
-	public function user()
+	public function customer()
 	{
 
-		return $this->belongsTo('App\Models\Customer', 'user_id');
+		return $this->belongsTo('App\Models\Customer', 'customer_id');
 
 	}
 
@@ -129,7 +129,7 @@ class Order extends Model {
 
 			if ($billing === NULL) {
 
-				$destination_zip = $this->customer_profile()->first()->user()->first()->zip;
+				$destination_zip = $this->customer_profile()->first()->customer()->first()->zip;
 
 			} else {
 

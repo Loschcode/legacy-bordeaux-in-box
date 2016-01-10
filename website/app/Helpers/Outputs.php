@@ -20,7 +20,7 @@ function generate_zip($name, $folder) {
  */
 function generate_pdf_bill($payment, $download=FALSE, $destination_folder=FALSE) {
 
-  $customer = $payment->user()->first();
+  $customer = $payment->customer()->first();
   $profile = $payment->profile()->first();
   $customer_order_preference = $profile->order_preference()->first();
 
@@ -126,7 +126,7 @@ function generate_csv_payments($file_name, $payments)
 
     // We prepare some stuff
     $profile = $payment->profile()->first();
-    $customer = $profile->user()->first();
+    $customer = $profile->customer()->first();
     $box = $profile->box()->first();
 
     $email = $customer->email;
@@ -225,7 +225,7 @@ function generate_csv_order($file_name, $orders, $short=false)
 
     // We prepare some stuff
     $profile = $order->customer_profile()->first();
-    $customer = $profile->user()->first();
+    $customer = $profile->customer()->first();
     $box = $profile->box()->first();
 
     $email = $customer->email;

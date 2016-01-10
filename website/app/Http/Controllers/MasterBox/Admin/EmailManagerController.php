@@ -67,7 +67,7 @@ class EmailManagerController extends BaseController {
 			$gift = $order->gift;
 
 			// Details about the user
-			$customer = $order->user()->first();
+			$customer = $order->customer()->first();
 			$profile = $order->customer_profile()->first();
 
 			// Now we get the important informations we don't have yet
@@ -123,7 +123,7 @@ class EmailManagerController extends BaseController {
 		foreach ($delivered_orders as $order) {
 
 			// Details about the user
-			$customer = $order->user()->first();
+			$customer = $order->customer()->first();
 			$profile = $order->customer_profile()->first();
 
 			// Now we get the important informations we don't have yet

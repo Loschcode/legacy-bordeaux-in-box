@@ -183,7 +183,7 @@ class ProductsController extends BaseController {
       $profile = $order->customer_profile()->first();
       $box = $order->box()->first();
       $is_regional_order = $order->isRegionalOrder();
-      $customer = $profile->user()->first();
+      $customer = $profile->customer()->first();
       $customer_fullname = $customer->getFullName();
 
       // This variable will be used to avoid multiple product of the same kind for the user

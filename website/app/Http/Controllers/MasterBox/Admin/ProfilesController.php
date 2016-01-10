@@ -138,7 +138,7 @@ class ProfilesController extends BaseController {
     }
 
     $order_preference = $profile->order_preference()->first();
-    $customer = $profile->user()->first();
+    $customer = $profile->customer()->first();
 
     $next_delivery_order = $profile->orders()->where('locked', FALSE)->whereNull('date_completed')->first();
 
@@ -182,7 +182,7 @@ class ProfilesController extends BaseController {
 	{
 
 		$profile = CustomerProfile::findOrFail($profile_id);
-		$customer = $profile->user()->first();
+		$customer = $profile->customer()->first();
 
 		$payment_profile = $profile->payment_profile()->first();
 
@@ -247,7 +247,7 @@ class ProfilesController extends BaseController {
 			
 			$note = new CustomerProfileNote;
 			$note->customer_profile_id = $profile->id;
-			$note->user_id = Auth::customer()->get()->id;
+			$note->customer_id = Auth::customer()->get()->id;
 			$note->note = $fields['note'];
 
 			$note->save();
@@ -416,7 +416,7 @@ class ProfilesController extends BaseController {
   {
 
     $profile = CustomerProfile::find($profile_id);
-    $customer = $profile->user()->first();
+    $customer = $profile->customer()->first();
     $stripe_customer = $profile->stripe_customer;
 
     $order_preference = $profile->order_preference()->first();
@@ -446,7 +446,7 @@ class ProfilesController extends BaseController {
   {
 
     $profile = CustomerProfile::find($profile_id);
-    $customer = $profile->user()->first();
+    $customer = $profile->customer()->first();
 
     $stripe_customer = $profile->stripe_customer;
 
@@ -491,7 +491,7 @@ class ProfilesController extends BaseController {
 	{
 
 		$profile = CustomerProfile::find($profile_id);
-		$customer = $profile->user()->first();
+		$customer = $profile->customer()->first();
 
 		generate_new_order($customer, $profile);
 
