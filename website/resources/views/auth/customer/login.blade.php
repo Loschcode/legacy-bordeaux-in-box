@@ -34,7 +34,7 @@
       <div class="spacer20"></div>
 
       <div class="text-center">
-        <a href="{{ url('user/subscribe') }}" class="spyro-btn spyro-btn-green spyro-btn-block upper">S'inscrire</a>
+        <a href="{{ action('Auth\CustomerController@getSubscribe') }}" class="spyro-btn spyro-btn-green spyro-btn-block upper">S'inscrire</a>
       </div>
     </div>
 
@@ -42,7 +42,7 @@
 
     <div class="col-md-8 col-md-offset-2">
       <div class="description">
-        Hey choupette ... si tu as oublié ton mot de passe <a href="{{ url('user-password/remind') }}">on peut t'aider</a> et si tu n'as toujours pas de compte tu peux <a href="{{ url('user/subscribe') }}">t'inscrire</a> !
+        Hey choupette ... si tu as oublié ton mot de passe <a href="{{ action('Auth\CustomerRemindersController@getRemind') }}">on peut t'aider</a> et si tu n'as toujours pas de compte tu peux <a href="{{ action('Auth\CustomerController@getSubscribe') }}">t'inscrire</a> !
       </div>
 
     </div>

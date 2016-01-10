@@ -12,13 +12,13 @@ use Illuminate\Support\Facades\Password;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
-class CustomerRemindersController extends Controller
+class CustomerRemindersController extends BaseController
 {
     /**
      * Subject of the reminder's email
      * @var string
      */
-    public $subject = 'Réinitialisation de votre mot de passe';
+    public $subject = 'Réinitialisation de ton mot de passe';
 
     /*
     |--------------------------------------------------------------------------
@@ -49,7 +49,11 @@ class CustomerRemindersController extends Controller
      */
     public function getRemind()
     {
+
+      dd('fuck');
+
       return view('auth.customer.password.remind');
+
     }
 
     /**
