@@ -270,7 +270,7 @@
 
     <h3>Abonnements incomplets / complets</h3>
 
-    <a class="spyro-btn spyro-btn-danger" href="{{ url('admin/debug/generate-user-answers-slugs') }}">Générer le `slug` des `user_answers` si vide</a>
+    <a class="spyro-btn spyro-btn-danger" href="{{ url('admin/debug/generate-user-answers-slugs') }}">Générer le `slug` des `customer_answers` si vide</a>
 
     <a class="spyro-btn spyro-btn-danger" href="{{ url('admin/debug/convert-sponsor-answer-into-email') }}">Convertir les réponses liés aux parrains en email</a>
 

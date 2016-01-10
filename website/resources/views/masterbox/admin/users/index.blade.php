@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page')
-	<i class="fa fa-user"></i> Utilisateurs ({{$users->count()}})
+	<i class="fa fa-user"></i> Utilisateurs ({{$customers->count()}})
 @stop
 
 @section('content')
@@ -35,18 +35,18 @@
 
 		<tbody>
 
-			@foreach ($users as $user)
+			@foreach ($customers as $customer)
 
 				<tr>
 
-					<th>{{$user->id}}</th>
-					<th>{{$user->email}}</th>
-					<th>{{$user->phone}}</th>
-					<th>{{$user->getFullName()}}</th>
-					<th>{!! Html::getReadableRole($user->role) !!}</th>
+					<th>{{$customer->id}}</th>
+					<th>{{$customer->email}}</th>
+					<th>{{$customer->phone}}</th>
+					<th>{{$customer->getFullName()}}</th>
+					<th>{!! Html::getReadableRole($customer->role) !!}</th>
 					<th>
-						@if ($user->profiles()->count() > 0)
-							@foreach ($user->profiles()->get() as $profile)
+						@if ($customer->profiles()->count() > 0)
+							@foreach ($customer->profiles()->get() as $profile)
 
 							@if ($profile->box()->first() != NULL)
 
@@ -65,16 +65,16 @@
 						@endif
 
 					</th>
-					<th>{{ $user->getTurnover() }} €</th>
-					<th>{!! Html::getReadableEmpty($user->city) !!}</th>
-					<th>{!! Html::getReadableEmpty($user->zip) !!}</th>
-					<th>{!! Html::getReadableEmpty($user->address) !!}</th>
+					<th>{{ $customer->getTurnover() }} €</th>
+					<th>{!! Html::getReadableEmpty($customer->city) !!}</th>
+					<th>{!! Html::getReadableEmpty($customer->zip) !!}</th>
+					<th>{!! Html::getReadableEmpty($customer->address) !!}</th>
 					<th>
 
     
-					<a data-toggle="tooltip" title="En savoir plus" class="spyro-btn-sm spyro-btn spyro-btn-primary" href="{{ url('/admin/users/focus/'.$user->id) }}"><i class="fa fa-search"></i></a>
+					<a data-toggle="tooltip" title="En savoir plus" class="spyro-btn-sm spyro-btn spyro-btn-primary" href="{{ url('/admin/users/focus/'.$customer->id) }}"><i class="fa fa-search"></i></a>
 
-					<a data-toggle="tooltip" title="Editer" class="spyro-btn-sm spyro-btn spyro-btn-warning" href="{{ url('/admin/users/focus/'.$user->id) }}#edit"><i class="fa fa-pencil"></i></a>
+					<a data-toggle="tooltip" title="Editer" class="spyro-btn-sm spyro-btn spyro-btn-warning" href="{{ url('/admin/users/focus/'.$customer->id) }}#edit"><i class="fa fa-pencil"></i></a>
 
 					</th>
 

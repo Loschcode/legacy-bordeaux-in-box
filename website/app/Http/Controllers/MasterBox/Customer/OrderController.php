@@ -362,7 +362,7 @@ class OrderController extends BaseController {
     $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
 
-    return view('masterbox.customer.order.billing_address')->with(compact('user', 'order_building', 'order_preference'));
+    return view('masterbox.customer.order.billing_address')->with(compact('customer', 'order_building', 'order_preference'));
 
   }
 
@@ -611,7 +611,7 @@ class OrderController extends BaseController {
     $delivery_spot = $order_preference->delivery_spot()->first(); // May be NULL
 
     return view('masterbox.customer.order.payment')->with(compact(
-      'user',
+      'customer',
       'order_building',
       'profile',
       'order_preference',

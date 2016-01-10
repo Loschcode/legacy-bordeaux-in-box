@@ -4,7 +4,7 @@
   
   <div id="js-page-spot"></div>
 
-  {!! View::make('_includes.pipeline')->with('step', 4) !!}
+  {!! View::make('masterbox.partials.pipeline')->with('step', 4) !!}
 
   <div class="block-description text-center">
     <div class="container">
@@ -45,7 +45,7 @@
     	<button type="submit"><i class="fa fa-check"></i> Valider</button>
       <nav>
         <ul class="pager">
-          <li><a href="{{url('/order/delivery-mode')}}">&larr; Retour au mode de livraison</a></li>
+          <li><a href="{{ action('MasterBox\Customer\OrderController@getDeliveryMode') }}">&larr; Retour au mode de livraison</a></li>
         </ul>
       </nav>
     </div>

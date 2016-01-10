@@ -8,7 +8,7 @@
 function readable_role($role) {
 
   if ($role === 'admin') return 'Administrateur';
-  elseif ($role === 'user') return 'Utilisateur';
+  elseif ($role === 'customer') return 'Utilisateur';
   else return $role;
 
 }

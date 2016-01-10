@@ -9,7 +9,7 @@
 
          {!! Form::open(array('url' => '/admin/profiles/edit-questions')) !!}
 
-         {!! Form::hidden('user_profile_id', $profile->id) !!}
+         {!! Form::hidden('customer_profile_id', $profile->id) !!}
          {!! Form::hidden('box_id', $box->id) !!}
 
          @foreach ($questions as $question)
@@ -34,7 +34,7 @@
               @elseif ($question->type == "children_details")
 
                 <!-- We will use it through all the inputs -->
-                <?php $old_replies_names = $question->user_answers()->where('to_referent_slug', '=', 'child_name')->where('user_profile_id', '=', $profile->id)->get() ?>
+                <?php $old_replies_names = $question->customer_answers()->where('to_referent_slug', '=', 'child_name')->where('customer_profile_id', '=', $profile->id)->get() ?>
 
                 @if (count($old_replies_names) == 0)
 
@@ -66,7 +66,7 @@
 
                       <?php
 
-                      if ($old_replies_name !== NULL) $old_replies_sex = $question->user_answers()->where('to_referent_slug', '=', 'child_sex')->where('referent_id', '=', $old_replies_name->id)->first();
+                      if ($old_replies_name !== NULL) $old_replies_sex = $question->customer_answers()->where('to_referent_slug', '=', 'child_sex')->where('referent_id', '=', $old_replies_name->id)->first();
                       else $old_replies_sex = NULL;
 
                       ?>
@@ -82,7 +82,7 @@
 
                       <?php
 
-                      if ($old_replies_name !== NULL) $old_replies_year = $question->user_answers()->where('to_referent_slug', '=', 'child_year')->where('referent_id', '=', $old_replies_name->id)->first();
+                      if ($old_replies_name !== NULL) $old_replies_year = $question->customer_answers()->where('to_referent_slug', '=', 'child_year')->where('referent_id', '=', $old_replies_name->id)->first();
                       else $old_replies_year = NULL;
 
                       ?>
@@ -98,7 +98,7 @@
 
                       <?php
 
-                      if ($old_replies_name !== NULL) $old_replies_month = $question->user_answers()->where('to_referent_slug', '=', 'child_month')->where('referent_id', '=', $old_replies_name->id)->first();
+                      if ($old_replies_name !== NULL) $old_replies_month = $question->customer_answers()->where('to_referent_slug', '=', 'child_month')->where('referent_id', '=', $old_replies_name->id)->first();
                       else $old_replies_month = NULL;
 
                       ?>

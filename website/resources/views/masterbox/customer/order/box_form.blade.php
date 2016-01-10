@@ -19,7 +19,7 @@
         @endif
         <div class="spacer20"></div>
         <p>
-        	<a href="{{ url('order/choose-frequency?skip_box_form=true') }}" class="spyro-btn spyro-btn-warning spyro-btn-lg icon-space">Je ne veux pas personnaliser la box <i class="fa fa-angle-right"></i></a>
+        	<a href="{{ action('MasterBox\Customer\OrderController@getChooseFrequency') }}" class="spyro-btn spyro-btn-warning spyro-btn-lg icon-space">Je ne veux pas personnaliser la box <i class="fa fa-angle-right"></i></a>
         </p>
       </div>
     </div>
@@ -91,7 +91,7 @@
                 <?php $num_old_replies = count($old_reply->get()) ?>
 
                 <!-- We will use it through all the inputs -->
-                <?php $old_replies_names = $question->user_answers()->where('user_profile_id', '=', $profile->id)->where('to_referent_slug', '=', 'child_name')->get() ?>
+                <?php $old_replies_names = $question->customer_answers()->where('customer_profile_id', '=', $profile->id)->where('to_referent_slug', '=', 'child_name')->get() ?>
 
                 @if (count($old_replies_names) == 0)
 
@@ -121,7 +121,7 @@
                       <div class="row">
                         <?php
 
-                        if ($old_replies_name !== NULL) $old_replies_sex = $question->user_answers()->where('to_referent_slug', '=', 'child_sex')->where('referent_id', '=', $old_replies_name->id)->first();
+                        if ($old_replies_name !== NULL) $old_replies_sex = $question->customer_answers()->where('to_referent_slug', '=', 'child_sex')->where('referent_id', '=', $old_replies_name->id)->first();
                         else $old_replies_sex = NULL;
 
                         ?>
@@ -137,7 +137,7 @@
 
                         <?php
 
-                        if ($old_replies_name !== NULL) $old_replies_year = $question->user_answers()->where('to_referent_slug', '=', 'child_year')->where('referent_id', '=', $old_replies_name->id)->first();
+                        if ($old_replies_name !== NULL) $old_replies_year = $question->customer_answers()->where('to_referent_slug', '=', 'child_year')->where('referent_id', '=', $old_replies_name->id)->first();
                         else $old_replies_year = NULL;
 
                         ?>
@@ -153,7 +153,7 @@
                       
                         <?php
 
-                        if ($old_replies_name !== NULL) $old_replies_month = $question->user_answers()->where('to_referent_slug', '=', 'child_month')->where('referent_id', '=', $old_replies_name->id)->first();
+                        if ($old_replies_name !== NULL) $old_replies_month = $question->customer_answers()->where('to_referent_slug', '=', 'child_month')->where('referent_id', '=', $old_replies_name->id)->first();
                         else $old_replies_month = NULL;
 
                         ?>
@@ -243,7 +243,7 @@
       <button type="submit"><i class="fa fa-check"></i> Valider</button>
       <nav>
         <ul class="pager">
-          <li><a href="{{url('/order/choose-box')}}">&larr; Revenir au choix de la box</a></li>
+          <li><a href="{{action('MasterBox\Customer\OrderController@getChooseBox')}}">&larr; Revenir au choix de la box</a></li>
         </ul>
       </nav>
 

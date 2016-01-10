@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('page')
-  <i class="fa fa-user"></i> Edition Utilisateur #{{ $user->id }}
+  <i class="fa fa-user"></i> Edition Utilisateur #{{ $customer->id }}
 @stop
 
 @section('buttons')
@@ -28,13 +28,13 @@
 
   {!! Form::open(array('action' => 'Admin\UsersController@postEdit', 'class' => 'form-inline')) !!}
 
-  {!! Form::hidden('user_id', $user->id) !!}
+  {!! Form::hidden('user_id', $customer->id) !!}
 
   <div class="w80">
     <!-- Email -->
     <div class="form-group @if ($errors->first('email')) has-error has-feedback @endif">
       {!! Form::label("email", "Email", ['class' => 'control-label']) !!}
-      {!! Form::text("email", ($user->email) ? $user->email : Request::old("email"), ['class' => 'form-control']) !!}
+      {!! Form::text("email", ($customer->email) ? $customer->email : Request::old("email"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('email'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -46,7 +46,7 @@
     <!-- Phone -->
     <div class="form-group @if ($errors->first('phone')) has-error has-feedback @endif">
       {!! Form::label("phone", "Téléphone", ['class' => 'control-label']) !!}
-      {!! Form::text("phone", ($user->phone) ? $user->phone : Request::old("phone"), ['class' => 'form-control']) !!}
+      {!! Form::text("phone", ($customer->phone) ? $customer->phone : Request::old("phone"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('phone'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -71,7 +71,7 @@
     <!-- Role -->
     <div class="form-group @if ($errors->first('role')) has-error has-feedback @endif">
       {!! Form::label("role", "Rôle", ['class' => 'control-label']) !!}
-      {!! Form::select('role', $roles_list, $user->role, ['class' => 'form-control']) !!}
+      {!! Form::select('role', $roles_list, $customer->role, ['class' => 'form-control']) !!}
 
       @if ($errors->first('role'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -82,7 +82,7 @@
     <!-- Firstname -->
     <div class="form-group @if ($errors->first('first_name')) has-error has-feedback @endif">
       {!! Form::label("first_name", "Prénom", ['class' => 'control-label']) !!}
-    {!! Form::text("first_name", ($user->first_name) ? $user->first_name : Request::old("first_name"), ['class' => 'form-control']) !!}
+    {!! Form::text("first_name", ($customer->first_name) ? $customer->first_name : Request::old("first_name"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('first_name'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -93,7 +93,7 @@
     <!-- Name -->
     <div class="form-group @if ($errors->first('last_name')) has-error has-feedback @endif">
       {!! Form::label("last_name", "Nom", ['class' => 'control-label']) !!}
-      {!! Form::text("last_name", ($user->last_name) ? $user->last_name : Request::old("last_name"), ['class' => 'form-control']) !!}
+      {!! Form::text("last_name", ($customer->last_name) ? $customer->last_name : Request::old("last_name"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('last_name'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -104,7 +104,7 @@
     <!-- City -->
     <div class="form-group @if ($errors->first('city')) has-error has-feedback @endif">
       {!! Form::label("city", "Ville", ['class' => 'control-label']) !!}
-      {!! Form::text("city", ($user->city) ? $user->city : Request::old("city"), ['class' => 'form-control']) !!}
+      {!! Form::text("city", ($customer->city) ? $customer->city : Request::old("city"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('city'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -115,7 +115,7 @@
     <!-- Zip -->
     <div class="form-group @if ($errors->first('zip')) has-error has-feedback @endif">
       {!! Form::label("zip", "Code postal", ['class' => 'control-label']) !!}
-      {!! Form::text("zip", ($user->zip) ? $user->zip : Request::old("zip"), ['class' => 'form-control']) !!}
+      {!! Form::text("zip", ($customer->zip) ? $customer->zip : Request::old("zip"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('zip'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
@@ -126,7 +126,7 @@
     <!-- Address -->
     <div class="form-group @if ($errors->first('address')) has-error has-feedback @endif">
       {!! Form::label("address", "Adresse", ['class' => 'control-label']) !!}
-      {!! Form::textarea("address", ($user->address) ? $user->address : Request::old("address"), ['class' => 'form-control']) !!}
+      {!! Form::textarea("address", ($customer->address) ? $customer->address : Request::old("address"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('address'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>

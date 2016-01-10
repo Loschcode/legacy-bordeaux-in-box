@@ -53,13 +53,13 @@ class UsersController extends BaseController {
 		$roles_list = [
 
 			'admin' => 'Administrateur',
-			'user' => 'Utilisateur'
+			'customer' => 'Utilisateur'
 
 		];
 
 		return view('masterbox.admin.users.focus')->with(compact(
       'roles_list',
-      'user'
+      'customer'
     ));
 
 	}

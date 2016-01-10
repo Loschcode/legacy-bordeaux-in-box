@@ -165,7 +165,7 @@ class ProfilesController extends BaseController {
       'order_delivery_spot',
       'order_billing',
       'box',
-      'user',
+      'customer',
       'questions',
       'order_preference',
       'profile'

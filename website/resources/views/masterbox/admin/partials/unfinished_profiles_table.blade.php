@@ -15,7 +15,7 @@
 
 				<tbody>
 
-					@foreach ($user_order_buildings as $order_building)
+					@foreach ($customer_order_buildings as $order_building)
 
 						<? $profile = $order_building->profile()->first(); ?>
 						<? $order_preference = $order_building->order_preference()->first(); ?>

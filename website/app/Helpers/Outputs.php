@@ -41,7 +41,7 @@ function generate_pdf_bill($payment, $download=FALSE, $destination_folder=FALSE)
   }
 
   $html = view('pdf.bill')->with(compact(
-    'user',
+    'customer',
     'customer_order_preference',
     'box',
     'order',

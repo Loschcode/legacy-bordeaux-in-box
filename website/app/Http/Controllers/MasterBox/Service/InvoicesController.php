@@ -375,7 +375,7 @@ class InvoicesController extends BaseController {
 
           $billing = $orders->first()->billing()->first();
 
-          view()->share('user', $customer);
+          view()->share('customer', $customer);
           view()->share('customer_order_preference', $customer_order_preference);
           view()->share('box', $box);
           view()->share('orders', $orders);

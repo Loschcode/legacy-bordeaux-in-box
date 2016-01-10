@@ -123,14 +123,14 @@
 
       <div class="spyro-well">
 
-        <strong>{{$user->last_name}} {{$user->first_name}}</strong><br />
-        @if ($user->city == NULL && $user->zip == NULL && $user->address == NULL)
+        <strong>{{$customer->last_name}} {{$customer->first_name}}</strong><br />
+        @if ($customer->city == NULL && $customer->zip == NULL && $customer->address == NULL)
           Aucun détails sur l'adresse de facturation.<br/>
         @else
-          {{$user->city}}, {{$user->zip}}<br />
-          {{$user->address}}<br />
+          {{$customer->city}}, {{$customer->zip}}<br />
+          {{$customer->address}}<br />
         @endif
-        <a class="spyro-btn spyro-btn-warning spyro-btn-sm" href="{{url('/admin/users/focus/'.$user->id)}}">Editer</a><br />
+        <a class="spyro-btn spyro-btn-warning spyro-btn-sm" href="{{url('/admin/users/focus/'.$customer->id)}}">Editer</a><br />
 
       </div>
 
@@ -145,7 +145,7 @@
 
         {!! Form::open(array('url' => '/admin/profiles/edit-delivery')) !!}
       
-          {!! Form::hidden('user_profile_id', $profile->id) !!}
+          {!! Form::hidden('customer_profile_id', $profile->id) !!}
           
           <!-- Firstname -->
           <div class="form-group">
@@ -220,7 +220,7 @@
 
         {!! Form::open(array('url' => '/admin/profiles/edit-spot')) !!}
       
-          {!! Form::hidden('user_profile_id', $profile->id) !!}
+          {!! Form::hidden('customer_profile_id', $profile->id) !!}
 
           @foreach ($delivery_spots as $delivery_spot)
 

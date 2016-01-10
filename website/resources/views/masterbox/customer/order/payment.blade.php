@@ -5,7 +5,7 @@
   <!-- Flag to run controller js -->
   <div id="js-page-payment"></div>
 
-  {!! View::make('_includes.pipeline')->with('step', 5) !!}
+  {!! View::make('masterbox.partials.pipeline')->with('step', 5) !!}
 
   <div class="block-description text-center">
     <div class="container">
@@ -86,15 +86,15 @@
           </h2>
 
           <div class="resume-line">
-            <p>Nom / Prénom : {{$user->last_name}} {{$user->first_name}}</p>
+            <p>Nom / Prénom : {{$customer->last_name}} {{$customer->first_name}}</p>
           </div>
 
           <div class="resume-line">
-            <p>Ville : {{$user->city}}, {{$user->zip}}</p>
+            <p>Ville : {{$customer->city}}, {{$customer->zip}}</p>
           </div>
 
           <div class="resume-line">
-            <p>Adresse : {{$user->address}}</p>
+            <p>Adresse : {{$customer->address}}</p>
           </div>
 
           <div class="spacer10"></div>
@@ -158,7 +158,7 @@
     <div class="spacer50"></div>
     <nav>
       <ul class="pager">
-        <li><a href="{{url('/order/billing-address')}}">&larr; Retour aux détails de livraison</a></li>
+        <li><a href="{{ action('MasterBox\Customer\OrderController@getBillingAddress') }}">&larr; Retour aux détails de livraison</a></li>
       </ul>
     </nav>
   </div>
@@ -169,7 +169,7 @@
 
       {!! Form::open(['id' => 'payment-form']) !!}
       {!! Form::hidden('stripeToken', null, ['id' => 'stripe-token']) !!}
-      {!! Form::hidden('email', $user->email) !!}
+      {!! Form::hidden('email', $customer->email) !!}
       
       <div class="modal-dialog">
         <div class="modal-content">
@@ -214,6 +214,7 @@
 
   <div class="clearfix"></div>
   <div class="spacer100"></div>
+
   {!! View::make('masterbox.partials.front.footer') !!}
 
 
