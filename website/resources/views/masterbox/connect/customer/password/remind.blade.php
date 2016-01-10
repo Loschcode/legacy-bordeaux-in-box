@@ -20,7 +20,7 @@
 			<div class="spyro-alert spyro-alert-green">{{ session()->get('status') }}</div>
 		@endif
 
-    {!! Form::open(['action' => 'RemindersController@postRemind']) !!}
+    {!! Form::open(['action' => 'MasterBox\Connect\CustomerRemindersController@postRemind']) !!}
 		  <input type="text" name="email" placeholder="Email">
 
 		  @if (session()->has('error'))

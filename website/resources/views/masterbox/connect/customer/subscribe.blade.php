@@ -5,7 +5,7 @@
 
     <div class="description text-center">
       C’est le moment de créer ton compte, le formulaire juste en dessous va te poser quelques questions histoire de savoir qui tu es ... Ne prends pas peur tu connais déjà les réponses !<br/>
-      Si tu as déjà un compte, tu peux <a href="{{ url('user/login') }}">te connecter</a> !
+      Si tu as déjà un compte, tu peux <a href="{{ action('MasterBox\Connect\CustomerController@getLogin') }}">te connecter</a> !
     </div>
 
     <div class="spacer20"></div>

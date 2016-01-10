@@ -1,6 +1,6 @@
 <?php namespace App\Http\Middleware;
 
-use Closure, Auth;
+use Closure, Auth, Request;
 
 class IsConnected {
 
@@ -17,7 +17,7 @@ class IsConnected {
 
       // We register the URL where the user tried to go before
       session()->put('after-login-redirection', Request::url());
-      return redirect()->to('user/login');
+      return redirect()->action('MasterBox\Connect\CustomerController@getLogin');
 
     }
     

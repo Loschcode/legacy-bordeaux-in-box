@@ -2,7 +2,7 @@
 
 @section('content')
   
-  {!! Form::open(['action' => 'RemindersController@postReset']) !!}
+  {!! Form::open(['action' => 'MasterBox\Connect\CustomerRemindersController@postReset']) !!}
       
       <input type="hidden" name="token" value="{{ $token }}">
       

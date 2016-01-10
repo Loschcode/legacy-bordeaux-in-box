@@ -157,14 +157,18 @@ return [
 		App\Providers\ConfigServiceProvider::class,
 		App\Providers\EventServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
+
+    /* 
+     * App
+     */
     App\Providers\HelperServiceProvider::class,
     App\Providers\MacroServiceProvider::class,
     App\Providers\ValidationServiceProvider::class,
     App\Providers\ComposerServiceProvider::class,
 
-		/* 
-		 * App
-		 */
+    /*
+     * Third parties
+     */
     Illuminate\Html\HtmlServiceProvider::class,
     Jenssegers\Date\DateServiceProvider::class,
     Barryvdh\DomPDF\ServiceProvider::class,

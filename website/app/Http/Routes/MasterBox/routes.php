@@ -2,65 +2,10 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| MasterBox Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
 */
 
-/**
- * Some patterns before to start
- */
-Route::pattern('id', '[0-9]+');
-Route::pattern('name', '[a-Z]+');
-Route::pattern('slug', '[0-9A-Za-z\-]+');
-
-/**
- * *****************
- * Shared Section *
- * *****************
- */
-
-/*Route::group(['namespace' => 'Auth', 'domain' => "auth.".config('app.domain')], function() {
-
-
-});*/
-
-/**
- * *****************
- * Company Section *
- * *****************
- */
-
-Route::group(['namespace' => 'Company', 'domain' => "company.".config('app.domain')], function() {
-
-  /**
-   * Company Admin Area
-   */
-  Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
-
-    // , 'middleware' => 'isAdminMiddleware'
-    Route::controller('finances', 'FinancesController');
-
-  });
-
-  /**
-   * Company Guest Area
-   */
-  Route::group(['namespace' => 'Guest', 'prefix' => ''], function() {
-
-  });
-
-});
-
-/**
- * *******************
- * MasterBox Section *
- * *******************
- */
 Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain')], function() {
 
   /**
@@ -190,12 +135,3 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
   Route::get('easygo/index', array('as' => 'easygo'));
 
 });
-
-/**
- * Manual files
- */
-Route::get('viesauvage', array(function() {
-
-  return redirect()->to('public/uploads/others/playlist-collection-vie-sauvage.zip');
-
-}));

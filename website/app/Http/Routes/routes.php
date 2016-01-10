@@ -12,21 +12,17 @@
 */
 
 /**
- * *****************
- * Sandbox Section *
- * *****************
+ * Some patterns before to start
  */
-Route::group(['namespace' => 'Sandbox', 'domain' => "sandbox.{domain}.{tld}"], function() {
+Route::pattern('id', '[0-9]+');
+Route::pattern('name', '[a-Z]+');
+Route::pattern('slug', '[0-9A-Za-z\-]+');
 
-  /**
-   * Ui Area
-   */
-  Route::group(['namespace' => 'Ui', 'prefix' => 'ui'], function() {
+/**
+ * Manual files
+ */
+Route::get('viesauvage', array(function() {
 
-    Route::get('/', 'PagesController@getHome');
-    Route::controller('pages', 'PagesController');
+  return redirect()->to('public/uploads/others/playlist-collection-vie-sauvage.zip');
 
-  });
-
-
-});
+}));

@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers\MasterBox\Connect;
 
+use App\Http\Controllers\MasterBox\BaseController;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
@@ -10,8 +12,8 @@ use Illuminate\Support\Facades\Password;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
-class CustomerRemindersController
-{
+class CustomerRemindersController extends BaseController {
+
     /**
      * Subject of the reminder's email
      * @var string
@@ -37,7 +39,7 @@ class CustomerRemindersController
      */
     public function __construct()
     {
-      $this->middleware('guest');
+      $this->middleware('is.not.connected');
     }
 
     /**
@@ -48,7 +50,7 @@ class CustomerRemindersController
     public function getRemind()
     {
 
-      return view('auth.customer.password.remind');
+      return view('masterbox.connect.customer.password.remind');
 
     }
 
@@ -63,7 +65,9 @@ class CustomerRemindersController
         $this->validate($request, ['email' => 'required|email']);
 
         $response = Password::sendResetLink($request->only('email'), function (Message $message) {
+          
             $message->subject($this->getEmailSubject());
+
         });
 
         switch ($response) {
@@ -87,7 +91,7 @@ class CustomerRemindersController
             throw new NotFoundHttpException;
         }
 
-        return view('auth.customer.password.reset')->with('token', $token);
+        return view('masterbox.connect.customer.password.reset')->with('token', $token);
     }
 
 }
