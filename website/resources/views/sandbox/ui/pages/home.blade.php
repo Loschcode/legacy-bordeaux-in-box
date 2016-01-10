@@ -3,7 +3,8 @@
 
   <div class="container">
     <div class="grid-8 grid-centered">
-
+      
+      <?php /*
       <!-- Alert component -->
       <h2>Alert Component</h2>
       <div class="alert">Default alert</div>
@@ -36,6 +37,15 @@
         <li><a href="#">Category</a></li>
         <li><span>Post</span></li>
       </ul>
+
+      */ ?>
+      
+      <h2>Button Component</h2>
+      <a class="button">Ajouter à ma liste</a>
+      <a class="button --red">Supprimer de ma liste</a>
+      <a class="button --green">Ajouter l'utilisateur</a>
+      <a class="button --yellow">Modifier</a>
+
     </div>
   </div>
 
