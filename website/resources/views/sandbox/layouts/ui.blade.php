@@ -8,7 +8,7 @@
 
   {{-- Stylesheets --}}
   <link rel="stylesheet" type="text/css" href="{{ url('demo/stylesheets/vendor.css') }}">
-  <link rel="stylesheet" type="text/css" href="{{ url('demo/stylesheets/documentation.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url('demo/stylesheets/sandbox.css') }}">
 
 </head>
 <body id="csstyle">

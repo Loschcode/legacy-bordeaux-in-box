@@ -53,7 +53,7 @@ exports.config =
       joinTo:
         'demo/stylesheets/vendor.css': /^(vendor|bower_components|sass\/vendor\/gridle)/
         'demo/stylesheets/main-boxes.css': /^sass\/main-boxes/
-        'demo/stylesheets/documentation.css': /^sass\/documentation/
+        'demo/stylesheets/sandbox.css': /^sass\/sandbox/
 
 
       order:
