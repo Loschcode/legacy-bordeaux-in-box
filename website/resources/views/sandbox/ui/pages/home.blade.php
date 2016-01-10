@@ -1,18 +1,5 @@
 @extends('sandbox.layouts.ui')
 @section('content')
-  <div class="alert --grey-light"></div>
-  <div class="alert --grey"></div>
-  <div class="alert --grey-dark"></div>
-
-  <div class="alert --orange-light"></div>
-  <div class="alert --orange"></div>
-  <div class="alert --orange-dark"></div>
-
-  <div class="alert --green-light"></div>
-  <div class="alert --green"></div>
-  <div class="alert --green-dark"></div>
-
-  <div class="alert --purple-light"></div>
-  <div class="alert --purple"></div>
-  <div class="alert --purple-dark"></div>
+  <div class="test">So what's the solution ?</div>
+  <p>In my recent redesign of my website, I wanted to come up with a really simple system of establishing vertical (and horizontal) rhythms that would work responsively. It turns out the answer is really simple, if you’re using Sass. Here it is in all its glory</p>
 @stop

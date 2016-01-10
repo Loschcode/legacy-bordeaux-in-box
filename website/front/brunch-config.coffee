@@ -101,5 +101,6 @@ exports.config =
     ##
     postcss:
       processors: [
-        require('autoprefixer')(['last 8 versions'])
+        require('autoprefixer')(['last 8 versions']),
+        require('postcss-vertical-rhythm')
       ]
