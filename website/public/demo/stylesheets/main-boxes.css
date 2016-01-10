@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Rancho);
+@import url(https://fonts.googleapis.com/css?family=Gudea:400,400italic,700&subset=latin,latin-ext);
 #csstyle .\+text-center {
   text-align: center; }
 
@@ -28,17 +30,103 @@ html {
           box-sizing: inherit; }
 
 body {
-  font: 16px/2 serif; }
+  font: 18px/2 serif;
+  font-family: "Gudea", sans-serif;
+  font-weight: 400;
+  color: #364347; }
+
+a {
+  text-decoration: none;
+  color: #364347; }
 
 .alert {
+  display: block;
+  font-family: inherit;
   width: 100%;
-  height: 3em; }
-  .alert.\--grey-light {
-    background-color: #e6ecef; }
+  padding: 15.48px;
+  border-radius: 5px;
+  margin-top: 10.799999999999999px;
+  margin-bottom: 10.799999999999999px;
+  color: white;
+  background-color: #bdc3c7; }
+  .alert.\--blue {
+    background-color: #02baf2;
+    color: white; }
+  .alert.\--orange {
+    background-color: #f58410;
+    color: white; }
+  .alert.\--red {
+    background-color: #f84545;
+    color: white; }
+  .alert.\--pink {
+    background-color: #d25280;
+    color: white; }
+  .alert.\--yellow {
+    background-color: #fad46b;
+    color: white; }
+  .alert.\--purple {
+    background-color: #a88cd5;
+    color: white; }
+  .alert.\--green {
+    background-color: #3eb5ac;
+    color: white; }
   .alert.\--grey {
-    background-color: #D6E1E5; }
-  .alert.\--grey-dark {
-    background-color: #c6d6db; }
+    background-color: #bdc3c7;
+    color: white; }
+
+.badge {
+  display: inline-block;
+  text-align: center;
+  padding: 0 7.2px;
+  background: #bdc3c7;
+  color: white;
+  font-size: 10.799999999999999px;
+  border-radius: 2px; }
+  .badge.\--blue {
+    background-color: #02baf2;
+    color: white; }
+  .badge.\--orange {
+    background-color: #f58410;
+    color: white; }
+  .badge.\--red {
+    background-color: #f84545;
+    color: white; }
+  .badge.\--pink {
+    background-color: #d25280;
+    color: white; }
+  .badge.\--yellow {
+    background-color: #fad46b;
+    color: white; }
+  .badge.\--purple {
+    background-color: #a88cd5;
+    color: white; }
+  .badge.\--green {
+    background-color: #3eb5ac;
+    color: white; }
+  .badge.\--grey {
+    background-color: #bdc3c7;
+    color: white; }
+  .badge.\--number {
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+    min-width: 18px;
+    border-radius: 500px;
+    font-size: 12px;
+    line-height: 18px; }
+
+.breadcrumb {
+  display: block; }
+  .breadcrumb li {
+    float: left;
+    color: #bdc3c7; }
+    .breadcrumb li:after {
+      content: "/";
+      margin-right: 3.6px;
+      margin-left: 3.6px; }
+    .breadcrumb li a {
+      color: #02baf2; }
+  .breadcrumb li:last-child:after {
+    content: ""; }
 
 
 /*# sourceMappingURL=main-boxes.css.map*/

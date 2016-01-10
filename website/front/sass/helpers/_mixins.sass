@@ -32,3 +32,37 @@
 
   @else
     @warn "Breakpoint mixin supports: xs, sm, md, lg"
+
+// ===========================================================
+// Font gudea
+// ===========================================================
+// 
+// Write for you the minimal boilerplate to set the font gudea
+// 
+// @param {Int} $size - 400, 700
+// 
+// @example sass - Basic usage
+//  
+//  .something
+//    +font-gudea(700)
+//
+=font-gudea($size: 400)
+  @if not index($font-sizes-gudea, $size)
+    @warn "`#{inspect($font-sizes-gudea)}` doesn't seem to have a key named `#{inspect($size)}`."
+  @else
+    font-family: 'Gudea', sans-serif
+    font-weight: $size
+
+// ===========================================================
+// Font rancho
+// ===========================================================
+// 
+// Write for you the minimal boilerplate to set the font rancho
+// 
+// @example sass - Basic usage
+//  
+//  .something
+//    +font-rancho
+//
+=font-rancho
+  font-family: 'Rancho', cursive
