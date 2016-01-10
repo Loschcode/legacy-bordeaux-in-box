@@ -109,7 +109,7 @@ th {
     </tr>
     <tr class="customer-number">
       <td>N° client</td>
-      <td>{{$user->id}}</td>
+      <td>{{$customer->id}}</td>
     </tr>
   </table>
 </div>
@@ -130,9 +130,9 @@ Madame, Monsieur<br />
 
 @else
 
-{{$user->first_name}} {{$user->last_name}}<br />
-{{$user->address}}<br/>
-{{$user->zip}} {{$user->city}}<br />
+{{$customer->first_name}} {{$customer->last_name}}<br />
+{{$customer->address}}<br/>
+{{$customer->zip}} {{$customer->city}}<br />
 
 
 @endif

@@ -58,7 +58,7 @@
 
         <nav>
           <ul class="pager">
-            <li><a href="{{url('/order/billing-address')}}">&larr; Retour aux informations de facturation</a></li>
+            <li><a href="{{ action('MasterBox\Customer\PurchaseController@getBillingAddress') }}">&larr; Retour aux informations de facturation</a></li>
           </ul>
         </nav>
      	</div>

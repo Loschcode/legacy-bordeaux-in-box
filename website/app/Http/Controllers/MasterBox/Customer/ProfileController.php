@@ -67,7 +67,7 @@ class ProfileController extends BaseController {
 		  
   		return view('masterbox.customer.profile.index')->with(compact(
         'delivery_spots',
-        'user',
+        'customer',
         'profiles',
         'destination',
         'spot'
@@ -148,7 +148,7 @@ class ProfileController extends BaseController {
     	}
     	
 		  return view('masterbox.customer.profile.orders')->with(compact(
-        'user',
+        'customer',
         'profile',
         'payment_profile',
         'orders',

@@ -650,7 +650,7 @@ class ProductsController extends BaseController {
     } else {
 
       // Is the product advanced filters matching with the user form answers ?
-      $matching_system = $this->get_accuracy_product_filters_matching_user_answer($product_filter_box_answers, $customer_profile_answers);
+      $matching_system = $this->get_accuracy_product_filters_matching_customer_answer($product_filter_box_answers, $customer_profile_answers);
 
       if ($matching_system == FALSE) {
 
@@ -1068,7 +1068,7 @@ class ProductsController extends BaseController {
    * @param  object  $customer_answers              
    * @return integer if it returns FALSE, the product isn't acceptable for this user
    */
-  private function get_accuracy_product_filters_matching_user_answer($product_filter_box_answers, $customer_profile_answers)
+  private function get_accuracy_product_filters_matching_customer_answer($product_filter_box_answers, $customer_profile_answers)
   {
 
     /**

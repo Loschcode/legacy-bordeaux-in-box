@@ -90,7 +90,7 @@
     	<button type="submit"><i class="fa fa-check"></i> Valider</button>
       <nav>
         <ul class="pager">
-          <li><a href="{{url('/order/box-form')}}">&larr; Retour à la personnalisation</a></li>
+          <li><a href="{{ action('MasterBox\Customer\PurchaseController@getBoxForm') }}">&larr; Retour à la personnalisation</a></li>
         </ul>
       </nav>
     </div>

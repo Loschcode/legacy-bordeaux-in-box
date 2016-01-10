@@ -89,7 +89,7 @@
 
       {!! Form::open(array('action' => 'Admin\ProfilesController@postAddNote', 'class' => 'form-inline')) !!}
 
-        {!! Form::hidden('user_profile_id', $profile->id) !!}
+        {!! Form::hidden('customer_profile_id', $profile->id) !!}
 
           @if ($errors->first('note'))
           {{{ $errors->first('note') }}}<br />

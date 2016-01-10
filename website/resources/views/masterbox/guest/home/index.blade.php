@@ -12,8 +12,8 @@
 		@if ($next_series->first()->getCounter() !== 0 || $next_series->first()->getCounter() === FALSE)
 
       <div class="buttons-punchline text-center">
-        <a href="{{ action('MasterBox\Customer\OrderController@getGift') }}"><i class="fa fa-gift"></i> L'offrir</a>
-        <a href="{{ action('MasterBox\Customer\OrderController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+        <a href="{{ action('MasterBox\Customer\PurchaseController@getGift') }}"><i class="fa fa-gift"></i> L'offrir</a>
+        <a href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
       </div>
       
 		@endif

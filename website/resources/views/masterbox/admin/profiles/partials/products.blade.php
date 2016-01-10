@@ -22,9 +22,9 @@
                 <th>{{$order->delivery_serie()->first()->delivery}}</th>
                 <th>
 
-                @foreach ($profile->getSeriesProfileProduct($order->delivery_serie_id) as $user_profile_product)
+                @foreach ($profile->getSeriesProfileProduct($order->delivery_serie_id) as $customer_profile_product)
 
-                {{$user_profile_product->partner_product()->first()->name}} ({{$user_profile_product->accuracy}}%), 
+                {{$customer_profile_product->partner_product()->first()->name}} ({{$customer_profile_product->accuracy}}%), 
 
                 @endforeach
 

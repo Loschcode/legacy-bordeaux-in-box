@@ -8,7 +8,7 @@
     <div id="js-flag-billing-address"></div>
   @endif
 
-  {!! View::make('_includes.pipeline')->with('step', 4) !!}
+  {!! View::make('masterbox.partials.pipeline')->with('step', 4) !!}
 
   <div class="block-description text-center">
     <div class="container">
@@ -45,15 +45,15 @@
 
               <h2 class="title-info-billing">Informations de facturation</h3><br/>
 
-              {!! Form::hidden("billing_first_name", $user->first_name, ['id' => 'billing_first_name']) !!}
-              {!! Form::hidden("billing_last_name", $user->last_name, ['id' => 'billing_last_name']) !!}
+              {!! Form::hidden("billing_first_name", $customer->first_name, ['id' => 'billing_first_name']) !!}
+              {!! Form::hidden("billing_last_name", $customer->last_name, ['id' => 'billing_last_name']) !!}
 
               <!-- If the user already filled an address and it's not his first order -->
-              @if ($user->hasBillingAddress() && ($user->profiles()->count() > 1))
+              @if ($customer->hasBillingAddress() && ($customer->profiles()->count() > 1))
 
-                {!! Form::hidden("billing_city", $user->city, ['id' => 'billing_city']) !!}
-                {!! Form::hidden("billing_zip", $user->zip, ['id' => 'billing_zip']) !!}
-                {!! Form::hidden("billing_address", $user->address, ['id' => 'billing_address']) !!}
+                {!! Form::hidden("billing_city", $customer->city, ['id' => 'billing_city']) !!}
+                {!! Form::hidden("billing_zip", $customer->zip, ['id' => 'billing_zip']) !!}
+                {!! Form::hidden("billing_address", $customer->address, ['id' => 'billing_address']) !!}
 
                 <div class="row">
 
@@ -64,7 +64,7 @@
                       </div>
                       <div class="panel-body">
 
-                        {!! Form::text("fake_firstname", $user->first_name, ['disabled' => 'disabled']) !!}
+                        {!! Form::text("fake_firstname", $customer->first_name, ['disabled' => 'disabled']) !!}
 
                       </div>
                     </div>
@@ -76,7 +76,7 @@
                         <h3 class="panel-title">Nom de famille</h3><br/>
                       </div>
                       <div class="panel-body">
-                        {!! Form::text("fake_lastname", $user->last_name, ['disabled' => 'disabled']) !!}
+                        {!! Form::text("fake_lastname", $customer->last_name, ['disabled' => 'disabled']) !!}
                       </div>
                     </div>
                   </div>
@@ -87,7 +87,7 @@
                         <h3 class="panel-title">Ville</h3><br/>
                       </div>
                       <div class="panel-body">
-                        {!! Form::text("fake_city", $user->city, ['disabled' => 'disabled']) !!}
+                        {!! Form::text("fake_city", $customer->city, ['disabled' => 'disabled']) !!}
                       </div>
                     </div>
                   </div>
@@ -98,7 +98,7 @@
                         <h3 class="panel-title">Code postal</h3><br/>
                       </div>
                       <div class="panel-body">
-                        {!! Form::text("fake_zip", $user->zip, ['disabled' => 'disabled']) !!}
+                        {!! Form::text("fake_zip", $customer->zip, ['disabled' => 'disabled']) !!}
                       </div>
                     </div>
                   </div>
@@ -110,7 +110,7 @@
                     <h3 class="panel-title">Adresse</h3><br/>
                   </div>
                   <div class="panel-body">
-                    {!! Form::textarea("fake_address",  $user->address, ['disabled' => 'disabled']) !!}
+                    {!! Form::textarea("fake_address",  $customer->address, ['disabled' => 'disabled']) !!}
                   </div>
                 </div>
          
@@ -125,7 +125,7 @@
                         <h3 class="panel-title">Prénom</h3><br/>
                       </div>
                       <div class="panel-body">
-                        {!! Form::text("fake_firstname", $user->first_name, ['disabled' => 'disabled']) !!}
+                        {!! Form::text("fake_firstname", $customer->first_name, ['disabled' => 'disabled']) !!}
                       </div>
                     </div>
                   </div>
@@ -136,7 +136,7 @@
                         <h3 class="panel-title">Nom de famille</h3><br/>
                       </div>
                       <div class="panel-body">
-                        {!! Form::text("fake_lastname", $user->last_name, ['disabled' => 'disabled']) !!}
+                        {!! Form::text("fake_lastname", $customer->last_name, ['disabled' => 'disabled']) !!}
                       </div>
                     </div>
                   </div>
@@ -147,7 +147,7 @@
                         <h3 class="panel-title">Ville</h3><br/>
                       </div>
                       <div class="panel-body">
-                        {!! Form::text("billing_city", (Request::old("billing_city")) ? Request::old("billing_city") : $user->city, ['id' => 'billing_city']) !!}
+                        {!! Form::text("billing_city", (Request::old("billing_city")) ? Request::old("billing_city") : $customer->city, ['id' => 'billing_city']) !!}
                       </div>
                     </div>
                   </div>
@@ -158,7 +158,7 @@
                         <h3 class="panel-title">Code postal</h3><br/>
                       </div>
                       <div class="panel-body">
-                        {!! Form::text("billing_zip", (Request::old("billing_zip")) ? Request::old("billing_zip") : $user->zip, ['id' => 'billing_zip']) !!}
+                        {!! Form::text("billing_zip", (Request::old("billing_zip")) ? Request::old("billing_zip") : $customer->zip, ['id' => 'billing_zip']) !!}
                       </div>
                     </div>
                   </div>
@@ -169,7 +169,7 @@
                     <h3 class="panel-title">Adresse</h3><br/>
                   </div>
                   <div class="panel-body">
-                    {!! Form::textarea("billing_address", (Request::old("billing_address")) ? Request::old("billing_address") : $user->address, ['id' => 'billing_address']) !!}
+                    {!! Form::textarea("billing_address", (Request::old("billing_address")) ? Request::old("billing_address") : $customer->address, ['id' => 'billing_address']) !!}
                   </div>
                 </div>
 
@@ -258,7 +258,7 @@
     </div>
           <nav>
         <ul class="pager">
-          <li><a href="{{url('/order/choose-frequency')}}">&larr; Retour au choix de la fréquence</a></li>
+          <li><a href="{{ action('MasterBox\Customer\PurchaseController@getChooseFrequency') }}">&larr; Retour au choix de la fréquence</a></li>
         </ul>
       </nav>
 </div>

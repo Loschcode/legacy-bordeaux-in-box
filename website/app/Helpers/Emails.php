@@ -61,7 +61,7 @@ function mailing_send($profile, $subject, $template, $template_data, $additional
   $datas = [
 
     'email' => $email,
-    'user' => $customer,
+    'customer' => $customer,
     'profile' => $profile,
     'subject' => $subject,
     'template' => $template,
@@ -81,7 +81,7 @@ function mailing_send_user_only($customer, $subject, $template, $template_data, 
   $datas = [
 
     'email' => $email,
-    'user' => $customer,
+    'customer' => $customer,
     'subject' => $subject,
     'template' => $template,
     'template_data' => $template_data,
@@ -96,7 +96,7 @@ function mailing_send_user_only($customer, $subject, $template, $template_data, 
 function send_email_with_trace($datas) {
 
   if (isset($datas['email'])) $email = $datas['email']; else $email = NULL;
-  if (isset($datas['user'])) $customer = $datas['user']; else $customer = NULL;
+  if (isset($datas['customer'])) $customer = $datas['customer']; else $customer = NULL;
   if (isset($datas['profile'])) $profile = $datas['profile']; else $profile = NULL;
   if (isset($datas['subject'])) $subject = $datas['subject']; else $subject = NULL;
   if (isset($datas['template'])) $template = $datas['template']; else $template = NULL;
