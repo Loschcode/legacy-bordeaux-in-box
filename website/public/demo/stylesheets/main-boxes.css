@@ -128,5 +128,95 @@ a {
   .breadcrumb li:last-child:after {
     content: ""; }
 
+.button {
+  display: inline-block;
+  cursor: pointer;
+  padding: 0 10.799999999999999px;
+  padding-bottom: 2.16px;
+  font-size: 18px;
+  text-align: center;
+  border-radius: 5px;
+  background: #bdc3c7;
+  color: white;
+  -webkit-box-shadow: inset 0 -4px #a1aab0;
+          box-shadow: inset 0 -4px #a1aab0;
+  position: relative; }
+  .button:active {
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    top: 1px; }
+  .button.\--blue {
+    background-color: #02baf2;
+    color: white;
+    -webkit-box-shadow: inset 0 -4px #0293bf;
+            box-shadow: inset 0 -4px #0293bf; }
+    .button.\--blue:active {
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      top: 1px; }
+  .button.\--orange {
+    background-color: #f58410;
+    color: white;
+    -webkit-box-shadow: inset 0 -4px #ca6a08;
+            box-shadow: inset 0 -4px #ca6a08; }
+    .button.\--orange:active {
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      top: 1px; }
+  .button.\--red {
+    background-color: #f84545;
+    color: white;
+    -webkit-box-shadow: inset 0 -4px #f61414;
+            box-shadow: inset 0 -4px #f61414; }
+    .button.\--red:active {
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      top: 1px; }
+  .button.\--pink {
+    background-color: #d25280;
+    color: white;
+    -webkit-box-shadow: inset 0 -4px #bf3265;
+            box-shadow: inset 0 -4px #bf3265; }
+    .button.\--pink:active {
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      top: 1px; }
+  .button.\--yellow {
+    background-color: #fad46b;
+    color: white;
+    -webkit-box-shadow: inset 0 -4px #f8c63a;
+            box-shadow: inset 0 -4px #f8c63a; }
+    .button.\--yellow:active {
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      top: 1px; }
+  .button.\--purple {
+    background-color: #a88cd5;
+    color: white;
+    -webkit-box-shadow: inset 0 -4px #8c67c7;
+            box-shadow: inset 0 -4px #8c67c7; }
+    .button.\--purple:active {
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      top: 1px; }
+  .button.\--green {
+    background-color: #3eb5ac;
+    color: white;
+    -webkit-box-shadow: inset 0 -4px #318f88;
+            box-shadow: inset 0 -4px #318f88; }
+    .button.\--green:active {
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      top: 1px; }
+  .button.\--grey {
+    background-color: #bdc3c7;
+    color: white;
+    -webkit-box-shadow: inset 0 -4px #a1aab0;
+            box-shadow: inset 0 -4px #a1aab0; }
+    .button.\--grey:active {
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      top: 1px; }
+
 
 /*# sourceMappingURL=main-boxes.css.map*/
