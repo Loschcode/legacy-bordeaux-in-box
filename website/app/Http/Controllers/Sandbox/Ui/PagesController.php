@@ -6,7 +6,9 @@ class PagesController extends BaseController {
 
   public function getHome()
   {
-    return view('sandbox.ui.pages.home');
+
+    $colors = ['blue', 'orange', 'red', 'pink', 'yellow', 'purple', 'green', 'grey'];
+    return view('sandbox.ui.pages.home')->with(compact('colors'));
   }
 
 }

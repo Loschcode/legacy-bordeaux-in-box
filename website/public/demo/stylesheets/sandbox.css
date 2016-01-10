@@ -32,7 +32,12 @@ html {
 body {
   font: 18px/2 serif;
   font-family: "Gudea", sans-serif;
-  font-weight: 400; }
+  font-weight: 400;
+  color: #364347; }
+
+a {
+  text-decoration: none;
+  color: #364347; }
 
 .alert {
   display: block;
@@ -108,6 +113,20 @@ body {
     border-radius: 500px;
     font-size: 12px;
     line-height: 18px; }
+
+.breadcrumb {
+  display: block; }
+  .breadcrumb li {
+    float: left;
+    color: #bdc3c7; }
+    .breadcrumb li:after {
+      content: "/";
+      margin-right: 3.6px;
+      margin-left: 3.6px; }
+    .breadcrumb li a {
+      color: #02baf2; }
+  .breadcrumb li:last-child:after {
+    content: ""; }
 
 
 /*# sourceMappingURL=sandbox.css.map*/
