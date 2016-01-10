@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\MasterBox\BaseController;
 
-use App\Models\User;
+use App\Models\Customer;
 use App\Models\EmailTrace;
 
 class TracesController extends BaseController {
@@ -49,7 +49,7 @@ class TracesController extends BaseController {
       if ($email_trace_id !== NULL) {
 
         // We have some secured variables (useless normally)
-        $user_id = $datas['user_id'];
+        $customer_id = $datas['user_id'];
         $profile_id = $datas['profile_id'];
 
         $email_trace = EmailTrace::find($email_trace_id);
@@ -74,15 +74,15 @@ class TracesController extends BaseController {
 
           $email_trace->first_opened_at = date('Y-m-d H:i:s');
 
-          $user = $email_trace->user()->first();
+          $customer = $email_trace->user()->first();
 
-          if ($user !== NULL) {
+          if ($customer !== NULL) {
 
             // Authorization update
-            if ($user->emails_fully_authorized === NULL) {
+            if ($customer->emails_fully_authorized === NULL) {
 
-              $user->emails_fully_authorized =  date('Y-m-d H:i:s');
-              $user->save();
+              $customer->emails_fully_authorized =  date('Y-m-d H:i:s');
+              $customer->save();
 
             }
 
@@ -105,8 +105,8 @@ class TracesController extends BaseController {
   public function getTestEmail()
   {
 
-    $user = User::where('email', '=', 'bonjour@laurentschaffner.com')->first();
-    $profile = $user->profiles()->first();
+    $customer = Customer::where('email', '=', 'bonjour@laurentschaffner.com')->first();
+    $profile = $customer->profiles()->first();
 
     $data = [
 

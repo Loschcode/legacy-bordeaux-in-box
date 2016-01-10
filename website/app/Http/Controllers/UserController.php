@@ -4,7 +4,7 @@ use App\Http\Controllers\BaseController;
 
 use Request, Validator, Redirect, Hash, Auth;
 
-use App\Models\User;
+use App\Models\Customer;
 
 class UserController extends BaseController {
 
@@ -59,31 +59,31 @@ class UserController extends BaseController {
     // The form validation was good
     if ($validator->passes()) 
     {
-      $user = new User;
-      $user->email = $fields['email'];
-      $user->password = $fields['password'];
-      $user->first_name = $fields['first_name'];
-      $user->last_name = $fields['last_name'];
-      $user->phone = $fields['phone'];
+      $customer = new User;
+      $customer->email = $fields['email'];
+      $customer->password = $fields['password'];
+      $customer->first_name = $fields['first_name'];
+      $customer->last_name = $fields['last_name'];
+      $customer->phone = $fields['phone'];
 
       // We add/change some specific fields
-      $user->role = 'user';
-      $user->password = Hash::make($user->password);
+      $customer->role = 'user';
+      $customer->password = Hash::make($customer->password);
 
-      $user->save();
+      $customer->save();
 
       // We finally send an email to confirm the account
       $data = [
-        'first_name' => $user->first_name,
+        'first_name' => $customer->first_name,
       ];
 
       // Specific to user, we don't use the classical system
-      mailing_send_user_only($user, 'Bienvenue sur Bordeaux in Box !', 'emails.user.welcome', $data, NULL);
+      mailing_send_user_only($customer, 'Bienvenue sur Bordeaux in Box !', 'emails.user.welcome', $data, NULL);
 
       session()->flash('message', "Ton inscription a bien été confirmée !");
 
       // Auto-connection : on
-      Auth::login($user);
+      Auth::login($customer);
       
       if (session()->get('after-login-redirection')) {
 
@@ -158,13 +158,13 @@ class UserController extends BaseController {
         }
 
         // Otherwise, if the user is admin
-        if (Auth::user()->role === 'admin') 
+        if (Auth::customer()->get()->role === 'admin') 
         {
           return redirect('/admin');
         }
 
         // In case the user is already building an order
-        if (Auth::user()->order_building()->first() != NULL) 
+        if (Auth::customer()->get()->order_building()->first() != NULL) 
         {
           return redirect('/order');
         }

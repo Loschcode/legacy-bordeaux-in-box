@@ -14,7 +14,7 @@ class IsNotConnected {
   public function handle($request, Closure $next)
   {
     
-    if (Auth::check() && Request::segment(2) !== 'logout') {
+    if (Auth::customer()->check() && Request::segment(2) !== 'logout') {
 
       return redirect()->to('/');
 

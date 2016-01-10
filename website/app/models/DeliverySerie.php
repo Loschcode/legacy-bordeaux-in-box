@@ -42,10 +42,10 @@ class DeliverySerie extends Model {
 
 	}
 
-	public function user_order_buildings()
+	public function customer_order_buildings()
 	{
 
-		return $this->hasMany('App\Models\UserOrderBuilding');
+		return $this->hasMany('App\Models\CustomerOrderBuilding');
 
 	}
 
@@ -56,10 +56,10 @@ class DeliverySerie extends Model {
 
   }
 
-  public function user_profile_products()
+  public function customer_profile_products()
   {
 
-  	return $this->hasManyThrough('UserProfileProduct', 'SerieProduct', 'delivery_serie_id', 'serie_product_id');
+  	return $this->hasManyThrough('CustomerProfileProduct', 'SerieProduct', 'delivery_serie_id', 'serie_product_id');
 
   }
 
@@ -132,20 +132,20 @@ class DeliverySerie extends Model {
 		$form_stats = [];
 
   	$answers = $this->orders()
-  	->join('user_profiles', 'orders.user_profile_id', '=', 'user_profiles.id')
-  	->join('user_answers', 'user_profiles.id', '=', 'user_answers.user_profile_id')
-  	->select('user_answers.*')
-  	->groupBy('user_answers.id')->get();
+  	->join('customer_profiles', 'orders.customer_profile_id', '=', 'customer_profiles.id')
+  	->join('customer_answers', 'customer_profiles.id', '=', 'customer_answers.customer_profile_id')
+  	->select('customer_answers.*')
+  	->groupBy('customer_answers.id')->get();
 
-		foreach ($answers as $user_answer) {
+		foreach ($answers as $customer_answer) {
 
-				$box_question_id = $user_answer->box_question_id;
+				$box_question_id = $customer_answer->box_question_id;
 				$box_question = BoxQuestion::find($box_question_id);
 
 				if ($box_question !== NULL) {
 
 					$box_id = $box_question->box_id;
-					$real_answer = $user_answer->answer;
+					$real_answer = $customer_answer->answer;
 
 					if ($box_question->type === 'date') {
 

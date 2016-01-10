@@ -4,8 +4,8 @@ use App\Http\Controllers\MasterBox\BaseController;
 
 use Config, Stripe, Log, Response;
 
-use App\Models\User;
-use App\Models\UserProfile;
+use App\Models\Customer;
+use App\Models\CustomerProfile;
 use App\Models\Payments;
 
 class InvoicesController extends BaseController {
@@ -73,29 +73,29 @@ class InvoicesController extends BaseController {
       Log::info("1D. metadata : " . $this->inject_var_dump($metadata));
       Log::info('---');
 
-      if ( ! isset($metadata->user_profile_id)) {
+      if ( ! isset($metadata->customer_profile_id)) {
 
-        Log::info("2. `user_profile_id` doesn't exist in received metadata, processing another way ...");
+        Log::info("2. `customer_profile_id` doesn't exist in received metadata, processing another way ...");
 
         // If the metadata is empty it means there's a problem transfering it or it's an indirect invoice (from months or something)
         // Let's retrieve the data from the user stored datas
-        $user_profile = UserProfile::where('stripe_customer', $stripe_customer_id)->first();
+        $customer_profile = CustomerProfile::where('stripe_customer', $stripe_customer_id)->first();
 
         // We retrieve the user profile from its card
-        $user_payment_profile = UserPaymentProfile::where('stripe_card', $stripe_card_id)->where('stripe_customer', $stripe_customer_id)->first();
+        $customer_payment_profile = CustomerPaymentProfile::where('stripe_card', $stripe_card_id)->where('stripe_customer', $stripe_customer_id)->first();
 
         Log::info('3. We tried to look from the user profile and check the customer ID from his own profile ...');
 
         // If the user payment profile has been retrieved
-        if ($user_payment_profile !== NULL) {
+        if ($customer_payment_profile !== NULL) {
           Log::info("4. It worked, let's process the payment ...");
 
-          $user_profile_id = $user_payment_profile->profile()->first()->id;
+          $customer_profile_id = $customer_payment_profile->profile()->first()->id;
 
           // We reset in case there's an unknown problem
-          if ($user_profile === NULL) $user_profile = UserProfile::find($user_profile_id);
+          if ($customer_profile === NULL) $customer_profile = CustomerProfile::find($customer_profile_id);
 
-          $user_id = $user_profile->user()->first()->id;
+          $customer_id = $customer_profile->user()->first()->id;
           $payment_type = 'plan';
 
         } else {
@@ -106,25 +106,25 @@ class InvoicesController extends BaseController {
         }
 
       } else {
-        $user_profile_id = $metadata->user_profile_id;
-        $user_id = $metadata->user_id;
+        $customer_profile_id = $metadata->customer_profile_id;
+        $customer_id = $metadata->user_id;
         $payment_type = $metadata->payment_type;
       }
       
-      $profile = UserProfile::find($user_profile_id);
-      $user = User::find($user_id);
+      $profile = CustomerProfile::find($customer_profile_id);
+      $customer = Customer::find($customer_id);
 
       $transaction_already_done = Payment::where('stripe_event', '=', $stripe_event_id)->first();
 
       // Profile / User has to be found
-      if (($profile !== NULL) && ($user !== NULL) && ($transaction_already_done == NULL)) {
+      if (($profile !== NULL) && ($customer !== NULL) && ($transaction_already_done == NULL)) {
 
         /**
          * Alright, let's process all the payment system
          */
         $payment = new Payment;
         $payment->profile()->associate($profile);
-        $payment->user()->associate($user);
+        $payment->user()->associate($customer);
 
         $payment->stripe_event = $stripe_event_id;
         $payment->stripe_customer = $stripe_customer_id;
@@ -145,7 +145,7 @@ class InvoicesController extends BaseController {
         
         $payment->save();
 
-        $payment->bill_id = strtoupper(str_random(1)) . rand(100,999) . $user->id . $payment->id;
+        $payment->bill_id = strtoupper(str_random(1)) . rand(100,999) . $customer->id . $payment->id;
         $payment->save();
 
         Log::info("8. We will now fetch the orders ...");
@@ -265,7 +265,7 @@ class InvoicesController extends BaseController {
 
                 Log::info("18. It's an infinite plan, we will generate a new order for it ...");
 
-                generate_new_order($user, $profile);
+                generate_new_order($customer, $profile);
 
               }
 
@@ -331,7 +331,7 @@ class InvoicesController extends BaseController {
 
             Log::info('24. We will cancel the plan ...');
 
-            $order_preference = UserOrderPreference::where('user_profile_id', $profile->id)->first();
+            $order_preference = CustomerOrderPreference::where('customer_profile_id', $profile->id)->first();
             $plan = $order_preference->stripe_plan;
 
             // We will cancel the plan if it's not a frequency 1
@@ -365,9 +365,9 @@ class InvoicesController extends BaseController {
         /*if (!$stripe_refund) {
 
           // For the PDF Output
-          $user = $payment->user()->first();
+          $customer = $payment->user()->first();
           $profile = $payment->profile()->first();
-          $user_order_preference = $profile->order_preference()->first();
+          $customer_order_preference = $profile->order_preference()->first();
 
           $orders = $payment->orders()->get();
 
@@ -375,8 +375,8 @@ class InvoicesController extends BaseController {
 
           $billing = $orders->first()->billing()->first();
 
-          view()->share('user', $user);
-          view()->share('user_order_preference', $user_order_preference);
+          view()->share('user', $customer);
+          view()->share('customer_order_preference', $customer_order_preference);
           view()->share('box', $box);
           view()->share('orders', $orders);
           view()->share('billing', $billing);
@@ -404,12 +404,12 @@ class InvoicesController extends BaseController {
         
         $data = [
 
-          'first_name' => $user->first_name,
+          'first_name' => $customer->first_name,
           'amount' => $email_amount,
 
         ];
 
-        $email = $user->email;
+        $email = $customer->email;
 
         mailing_send($profile, "Bordeaux in Box - Confirmation de transaction", 'emails.transaction', $data, NULL);
 

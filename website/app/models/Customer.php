@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model implements AuthenticatableContract, CanResetPasswordContract 
+class Customer extends Model implements AuthenticatableContract, CanResetPasswordContract 
 {
 
  	use Authenticatable, CanResetPassword;
@@ -16,7 +16,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var string
 	 */
-	protected $table = 'users';
+	protected $table = 'customers';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -32,7 +32,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function order_building()
 	{
 
-		return $this->hasOne('App\Models\UserOrderBuilding');
+		return $this->hasOne('App\Models\CustomerOrderBuilding');
 		
 	}
 	
@@ -43,14 +43,14 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function profiles()
 	{
 
-		return $this->hasMany('App\Models\UserProfile');
+		return $this->hasMany('App\Models\CustomerProfile');
 		
 	}
 
 	public function notes()
 	{
 
-		return $this->hasMany('App\Models\UserProfileNote');
+		return $this->hasMany('App\Models\CustomerProfileNote');
 
 	}
 	

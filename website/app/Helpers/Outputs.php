@@ -20,9 +20,9 @@ function generate_zip($name, $folder) {
  */
 function generate_pdf_bill($payment, $download=FALSE, $destination_folder=FALSE) {
 
-  $user = $payment->user()->first();
+  $customer = $payment->user()->first();
   $profile = $payment->profile()->first();
-  $user_order_preference = $profile->order_preference()->first();
+  $customer_order_preference = $profile->order_preference()->first();
 
   $order = $payment->order()->first();
 
@@ -42,7 +42,7 @@ function generate_pdf_bill($payment, $download=FALSE, $destination_folder=FALSE)
 
   $html = view('pdf.bill')->with(compact(
     'user',
-    'user_order_preference',
+    'customer_order_preference',
     'box',
     'order',
     'billing',
@@ -126,10 +126,10 @@ function generate_csv_payments($file_name, $payments)
 
     // We prepare some stuff
     $profile = $payment->profile()->first();
-    $user = $profile->user()->first();
+    $customer = $profile->user()->first();
     $box = $profile->box()->first();
 
-    $email = $user->email;
+    $email = $customer->email;
 
     if ($box == NULL) $box_title = 'Non renseigné';
     else $box_title = $box->title;
@@ -154,7 +154,7 @@ function generate_csv_payments($file_name, $payments)
       $payment->stripe_charge,
       $payment->stripe_card,
 
-      Downloaders::prepareForCsv($user->getFullName()),
+      Downloaders::prepareForCsv($customer->getFullName()),
       $profile->id,
       Downloaders::prepareForCsv($box_title),
       $serie,
@@ -224,11 +224,11 @@ function generate_csv_order($file_name, $orders, $short=false)
   foreach ($orders as $order) {
 
     // We prepare some stuff
-    $profile = $order->user_profile()->first();
-    $user = $profile->user()->first();
+    $profile = $order->customer_profile()->first();
+    $customer = $profile->user()->first();
     $box = $profile->box()->first();
 
-    $email = $user->email;
+    $email = $customer->email;
 
     if ($box == NULL) $box_title = 'Non renseigné';
     else $box_title = $box->title;
@@ -257,8 +257,8 @@ function generate_csv_order($file_name, $orders, $short=false)
 
     $output[] = [
 
-      Downloaders::prepareForCsv($user->getFullName()),
-      Downloaders::prepareForCsv($user->phone),
+      Downloaders::prepareForCsv($customer->getFullName()),
+      Downloaders::prepareForCsv($customer->phone),
       Downloaders::prepareForCsv($email),
       $box_title,
       $order_spot_or_destination,
@@ -272,9 +272,9 @@ function generate_csv_order($file_name, $orders, $short=false)
 
       $order->id, 
       $order->delivery_serie()->first()->delivery,
-      Downloaders::prepareForCsv($user->getFullName()),
-      Downloaders::prepareForCsv($user->getFullAddress()),
-      Downloaders::prepareForCsv($user->phone),
+      Downloaders::prepareForCsv($customer->getFullName()),
+      Downloaders::prepareForCsv($customer->getFullAddress()),
+      Downloaders::prepareForCsv($customer->phone),
       Downloaders::prepareForCsv($email),
       $box_title,
       $box_questions,

@@ -42,12 +42,12 @@ class HomeController extends BaseController {
 
     foreach ($orders as $order)
     {
-      if ($order->user_profile()->first()->isSponsor())
+      if ($order->customer_profile()->first()->isSponsor())
       {
         $sponsors['sponsors']++;
       }
 
-      if ($order->user_profile()->first()->hasSponsor())
+      if ($order->customer_profile()->first()->hasSponsor())
       {
         $sponsors['has_sponsors']++;
       }
@@ -62,7 +62,7 @@ class HomeController extends BaseController {
 
     foreach ($orders as $order)
     {
-      if (Html::isBirthday($order->user_profile()->first()->getAnswer('birthday')))
+      if (Html::isBirthday($order->customer_profile()->first()->getAnswer('birthday')))
       {
         $birthdays++;
       }
@@ -152,7 +152,7 @@ class HomeController extends BaseController {
   public function getUnpaidOrders()
   {
     // Fetch unpaid orders
-    $unpaid = Order::with('user_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('already_paid', 0)->get();
+    $unpaid = Order::with('customer_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('already_paid', 0)->get();
 
     $this->layout->content = view()->make('easygo.unpaid')->with(compact(
 
@@ -166,14 +166,14 @@ class HomeController extends BaseController {
   {
 
     // Fetch all orders (with no constraints)
-    $raw_orders =  Order::with('user_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->orderBy('box_id', 'ASC')->get();
+    $raw_orders =  Order::with('customer_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->orderBy('box_id', 'ASC')->get();
 
     // Fetch all kind of boxes from raw
     $kind_boxes = $this->_fetch_boxes_ordered($raw_orders);
 
-    $orders_completed = Order::with('user_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->whereNotNull('date_completed')->orderBy('box_id', 'ASC')->get();
+    $orders_completed = Order::with('customer_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->whereNotNull('date_completed')->orderBy('box_id', 'ASC')->get();
 
-    $orders_not_completed = Order::with('user_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
+    $orders_not_completed = Order::with('customer_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
 
     // Fetch all spots based on the orders (Return an array with all the spots id)
     $spots = $this->_fetch_spots($orders_not_completed);
@@ -181,11 +181,11 @@ class HomeController extends BaseController {
     if (Request::has('spot'))
     {
       // Fetch orders based on the filter spot
-      $orders_filtered = Order::with('user_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('take_away', true)->where('delivery_spot_id', Request::get('spot'))->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
+      $orders_filtered = Order::with('customer_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('take_away', true)->where('delivery_spot_id', Request::get('spot'))->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
     }
     elseif (Request::has('to_send'))
     {
-      $orders_filtered = Order::with('user_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('take_away', false)->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
+      $orders_filtered = Order::with('customer_profile', 'user', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('take_away', false)->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
     }
     else
     {

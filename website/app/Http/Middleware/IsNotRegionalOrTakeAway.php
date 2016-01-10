@@ -14,10 +14,10 @@ class IsNotRegionalOrTakeAway {
   public function handle($request, Closure $next)
   {
     // If it's not regional, we can't access this part
-    if (!Auth::user()->order_building()->first()->isRegionalAddress()) return redirect()->to('/order');
+    if (!Auth::customer()->get()->order_building()->first()->isRegionalAddress()) return redirect()->to('/order');
 
     // If we didn't choose take away, it's the same we redirect
-    if (!Auth::user()->order_building()->first()->order_preference()->first()->take_away) return redirect()->to('/order');
+    if (!Auth::customer()->get()->order_building()->first()->order_preference()->first()->take_away) return redirect()->to('/order');
 
     return $next($request);
   }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class UserProfileNote extends Model {
+class CustomerProfileNote extends Model {
 
 	use SoftDeletes;
 
@@ -14,7 +14,7 @@ class UserProfileNote extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'user_profile_notes';
+	protected $table = 'customer_profile_notes';
 
 	/**
 	 * Belongs To
@@ -23,14 +23,14 @@ class UserProfileNote extends Model {
 	public function user()
 	{
 
-		return $this->belongsTo('App\Models\User', 'user_id');
+		return $this->belongsTo('App\Models\Customer', 'user_id');
 
 	}
 
-	public function user_profile()
+	public function customer_profile()
 	{
 
-		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id');
 
 	}
 

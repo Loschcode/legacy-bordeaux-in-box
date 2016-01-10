@@ -6,7 +6,7 @@
  * @param  object $delivery_serie
  * @return void
  */
-function generate_new_order($user, $profile) {
+function generate_new_order($customer, $profile) {
 
   $last_order = $profile->orders()->orderBy('created_at', 'desc')->orderBy('orders.id', 'desc')->first();
   $last_delivery_serie = $last_order->delivery_serie()->first();
@@ -17,8 +17,8 @@ function generate_new_order($user, $profile) {
 
   // We make the order
   $order = new Order;
-  $order->user()->associate($user);
-  $order->user_profile()->associate($profile);
+  $order->user()->associate($customer);
+  $order->customer_profile()->associate($profile);
   $order->delivery_serie()->associate($delivery_serie);
   $order->box()->associate($last_order->box()->first());
 
@@ -37,11 +37,11 @@ function generate_new_order($user, $profile) {
   // We make the order billing
   $order_billing = new OrderBilling;
   $order_billing->order()->associate($order);
-  $order_billing->first_name = $user->first_name;
-  $order_billing->last_name = $user->last_name;
-  $order_billing->city = $user->city;
-  $order_billing->address = $user->address;
-  $order_billing->zip = $user->zip;
+  $order_billing->first_name = $customer->first_name;
+  $order_billing->last_name = $customer->last_name;
+  $order_billing->city = $customer->city;
+  $order_billing->address = $customer->address;
+  $order_billing->zip = $customer->zip;
   $order_billing->save();
 
   $last_order_destination = $last_order->destination()->first();

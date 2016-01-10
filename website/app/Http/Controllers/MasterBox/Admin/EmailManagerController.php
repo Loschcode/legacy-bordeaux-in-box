@@ -67,16 +67,16 @@ class EmailManagerController extends BaseController {
 			$gift = $order->gift;
 
 			// Details about the user
-			$user = $order->user()->first();
-			$profile = $order->user_profile()->first();
+			$customer = $order->user()->first();
+			$profile = $order->customer_profile()->first();
 
 			// Now we get the important informations we don't have yet
-			$email = $user->email;
+			$email = $customer->email;
 			$box = $order->box()->first();
 
 			$data = [
 
-				'first_name' => $user->first_name,
+				'first_name' => $customer->first_name,
 
 				'series_date' => $series->delivery,
 
@@ -123,18 +123,18 @@ class EmailManagerController extends BaseController {
 		foreach ($delivered_orders as $order) {
 
 			// Details about the user
-			$user = $order->user()->first();
-			$profile = $order->user_profile()->first();
+			$customer = $order->user()->first();
+			$profile = $order->customer_profile()->first();
 
 			// Now we get the important informations we don't have yet
-			$email = $user->email;
+			$email = $customer->email;
 			$box = $order->box()->first();
 
 			$gift = $order->gift;
 
 			$data = [
 
-				'first_name' => $user->first_name,
+				'first_name' => $customer->first_name,
 
 				'series_date' => $series->delivery,
 

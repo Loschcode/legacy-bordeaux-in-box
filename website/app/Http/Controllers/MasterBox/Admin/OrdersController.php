@@ -457,7 +457,7 @@ class OrdersController extends BaseController {
 		 * And if there's no other order to send.
 		 * We didn't do it to the invoice because this action is made when it's sent for real.
 		 */
-		$profile = $order->user_profile()->first();
+		$profile = $order->customer_profile()->first();
 
 		if ($profile != NULL) {
 

@@ -2,14 +2,14 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserOrderBuilding extends Model {
+class CustomerOrderBuilding extends Model {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'user_order_buildings';
+	protected $table = 'customer_order_buildings';
 
 	/**
 	 * Belongs To
@@ -18,21 +18,21 @@ class UserOrderBuilding extends Model {
 	public function user()
 	{
 
-		return $this->belongsTo('App\Models\User', 'user_id');
+		return $this->belongsTo('App\Models\Customer', 'user_id');
 
 	}
 
 	public function order_preference()
 	{
 
-		return $this->belongsTo('App\Models\UserOrderPreference', 'user_order_preference_id');
+		return $this->belongsTo('App\Models\CustomerOrderPreference', 'user_order_preference_id');
 
 	}
 
 	public function profile()
 	{
 
-		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id');
 
 	}
 

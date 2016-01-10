@@ -8,7 +8,7 @@ use App\Models\Order;
 use App\Models\DeliverySpot;
 use App\Models\DeliverySerie;
 use App\Models\Payment;
-use App\Models\UserProfile;
+use App\Models\CustomerProfile;
 
 use App\Libraries\Payments;
 
@@ -44,11 +44,11 @@ class ProfileController extends BaseController {
     public function getIndex()
     {
 
-    	$user = Auth::user();
-    	$profiles = $user->profiles()->orderBy('created_at', 'desc')->get();
+    	$customer = Auth::customer()->get();
+    	$profiles = $customer->profiles()->orderBy('created_at', 'desc')->get();
 
     	// We get the destination (the last editable order destination)
-    	$unlocked_orders = Order::where('user_id', $user->id)->where('locked', FALSE)->get();
+    	$unlocked_orders = Order::where('user_id', $customer->id)->where('locked', FALSE)->get();
 
     	$destination = NULL;
     	$spot = NULL;
@@ -79,13 +79,13 @@ class ProfileController extends BaseController {
     public function getBill($bill_id)
     {
 
-    	$user = Auth::user();
+    	$customer = Auth::customer()->get();
     	$payment = Payment::where('bill_id', $bill_id)->first();
 
     	if ($payment != NULL) {
 
     		// If it's not the user bill, we redirect him
-    		if ($payment->user()->first()->id != $user->id) {
+    		if ($payment->user()->first()->id != $customer->id) {
 
     			return redirect()->to('/profile');
 
@@ -104,13 +104,13 @@ class ProfileController extends BaseController {
     public function getDownloadBill($bill_id)
     {
 
-    	$user = Auth::user();
+    	$customer = Auth::customer()->get();
     	$payment = Payment::where('bill_id', $bill_id)->first();
 
     	if ($payment != NULL) {
 
     		// If it's not the user bill, we redirect him
-    		if ($payment->user()->first()->id != $user->id) {
+    		if ($payment->user()->first()->id != $customer->id) {
 
     			return redirect()->to('/profile');
 
@@ -129,14 +129,14 @@ class ProfileController extends BaseController {
     public function getOrders($id)
     {
 
-    	$user = Auth::user();
+    	$customer = Auth::customer()->get();
 
     	// Small protection to be sure it's the correct user
-    	if ($user->profiles()->where('id', '=', $id)->first() == NULL) {
+    	if ($customer->profiles()->where('id', '=', $id)->first() == NULL) {
     		return redirect()->to('/profile');
     	}
 
-    	$profile = UserProfile::find($id);
+    	$profile = CustomerProfile::find($id);
     	$orders = $profile->orders()->get();
     	$payments = $profile->payments()->get();
       $payment_profile = $profile->payment_profile()->first();
@@ -182,8 +182,8 @@ class ProfileController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $user = Auth::user();
-      $profile = UserProfile::find($fields['profile_id']);
+      $customer = Auth::customer()->get();
+      $profile = CustomerProfile::find($fields['profile_id']);
 
       if ($profile !== NULL) {
 
@@ -256,7 +256,7 @@ class ProfileController extends BaseController {
 
 			'phone' => 'required',
 
-			'email' => 'required|email|unique:users,email,'. Auth::user()->id,
+			'email' => 'required|email|unique:users,email,'. Auth::customer()->get()->id,
 
 			'first_name' => 'required',
 			'last_name' => 'required', 
@@ -284,28 +284,28 @@ class ProfileController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$user = Auth::user();
+			$customer = Auth::customer()->get();
 
-			if ($user !== NULL)
+			if ($customer !== NULL)
 			{
 
-				$user->email = $fields['email'];
+				$customer->email = $fields['email'];
 
-				$user->first_name = $fields['first_name'];
-				$user->last_name = $fields['last_name'];
+				$customer->first_name = $fields['first_name'];
+				$customer->last_name = $fields['last_name'];
 
-				$user->phone = $fields['phone'];
+				$customer->phone = $fields['phone'];
 
-				$user->zip = $fields['zip'];
-				$user->city = $fields['city'];
-				$user->address = $fields['address'];
+				$customer->zip = $fields['zip'];
+				$customer->city = $fields['city'];
+				$customer->address = $fields['address'];
 
-				$user->save();
+				$customer->save();
 
 				// If the user got profiles we will edit the next deliveries
-				if ($user->profiles()->first() != NULL) {
+				if ($customer->profiles()->first() != NULL) {
 
-					$profiles = $user->profiles()->get();
+					$profiles = $customer->profiles()->get();
 
 					foreach ($profiles as $profile) {
 
@@ -320,11 +320,11 @@ class ProfileController extends BaseController {
 
 									$billing = $profile_order->billing()->first();
 
-									$billing->first_name = $user->first_name;
-									$billing->last_name = $user->last_name;
-									$billing->zip = $user->zip;
-									$billing->city = $user->city;
-									$billing->address = $user->address;
+									$billing->first_name = $customer->first_name;
+									$billing->last_name = $customer->last_name;
+									$billing->zip = $customer->zip;
+									$billing->city = $customer->city;
+									$billing->address = $customer->address;
 
 									// We save everything
 									$billing->save();

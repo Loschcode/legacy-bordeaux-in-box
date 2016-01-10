@@ -13,11 +13,11 @@ class Payments {
     /**
      * Make a new customer and return its id
      * @param  string $stripe_card   card stripe
-     * @param  object $user    user object
+     * @param  object $customer    user object
      * @param  object $profile profile object
      * @return mixed          stripe customer id
      */
-    public static function makeCustomer($stripe_card, $user, $profile)
+    public static function makeCustomer($stripe_card, $customer, $profile)
     {
 
         $api_key = Config::get('services.stripe.secret');
@@ -27,15 +27,15 @@ class Payments {
 
         $callback = \Stripe\Customer::create(array(
 
-            "description" => "Utilisateur ID `" . $user->id . '`',
+            "description" => "Utilisateur ID `" . $customer->id . '`',
             "card" => $stripe_card,
 
-            "email" => $user->email,
+            "email" => $customer->email,
 
             "metadata" => [
 
-                'user_id' => $user->id,
-                'user_profile_id' => $profile->id,
+                'user_id' => $customer->id,
+                'customer_profile_id' => $profile->id,
                 'payment_type' => FALSE
 
             ]
@@ -238,12 +238,12 @@ class Payments {
     /**
      * Make a subscription with a defined plan
      * @param  string $stripe_customer stripe customer id
-     * @param  object $user            user db object
+     * @param  object $customer            user db object
      * @param  object $profile         user profile db object
      * @param  string $plan            named plan
      * @return mixed                  bool / id
      */
-    public static function makeSubscription($stripe_customer, $user, $profile, $plan_name, $plan_price)
+    public static function makeSubscription($stripe_customer, $customer, $profile, $plan_name, $plan_price)
     {
         
         $api_key = Config::get('services.stripe.secret');
@@ -260,8 +260,8 @@ class Payments {
 
                 "metadata" => [
 
-                    'user_id' => $user->id,
-                    'user_profile_id' => $profile->id,
+                    'user_id' => $customer->id,
+                    'customer_profile_id' => $profile->id,
                     'payment_type' => 'plan'
 
                 ]
@@ -461,12 +461,12 @@ class Payments {
     /**
      * We invoice a customer once
      * @param  string $stripe_customer customer stripe
-     * @param  object $user            db user
+     * @param  object $customer            db user
      * @param  object $profile         db user profile
      * @param  float $raw_amount      amount (e.g. 50.00)
      * @return mixed                  error string / true
      */
-    public static function invoice($stripe_customer, $user, $profile, $raw_amount)
+    public static function invoice($stripe_customer, $customer, $profile, $raw_amount)
     {
 
         $api_key = Config::get('services.stripe.secret');
@@ -480,14 +480,14 @@ class Payments {
 
               "amount" => $amount, 
               "currency" => "eur",
-              "description" => 'Paiement utilisateur ID `' . $user->id . '` (PROFILE ID `'.$profile->id.'` / ABONNEMENT `'.$profile->contract_id.'`)',
+              "description" => 'Paiement utilisateur ID `' . $customer->id . '` (PROFILE ID `'.$profile->id.'` / ABONNEMENT `'.$profile->contract_id.'`)',
 
               "customer" => $stripe_customer,
 
               "metadata" => [
 
-                'user_id' => $user->id,
-                'user_profile_id' => $profile->id,
+                'user_id' => $customer->id,
+                'customer_profile_id' => $profile->id,
                 'payment_type' => 'direct_invoice'
 
               ]

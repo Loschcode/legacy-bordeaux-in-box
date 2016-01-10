@@ -21,7 +21,7 @@ class Payment extends Model {
 	public function user()
 	{
 
-		return $this->belongsTo('App\Models\User', 'user_id');
+		return $this->belongsTo('App\Models\Customer', 'user_id');
 
 	}
 
@@ -35,7 +35,7 @@ class Payment extends Model {
 	public function profile()
 	{
 
-		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id');
 
 	}
 

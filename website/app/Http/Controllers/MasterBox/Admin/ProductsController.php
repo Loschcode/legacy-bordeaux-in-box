@@ -8,7 +8,7 @@ use App\Models\Partner;
 use App\Models\PartnerProduct;
 use App\Models\DeliverySerie;
 use App\Models\Order;
-use App\Models\UserProfileProduct;
+use App\Models\CustomerProfileProduct;
 use App\Models\ProductFilterSetting;
 use App\Models\SerieProduct;
 use App\Models\BlogArticle;
@@ -79,7 +79,7 @@ class ProductsController extends BaseController {
   /**
    * Assign a new product to a specific profile for a serie
    */
-  public function postAddProductToUserProfile()
+  public function postAddProductToCustomerProfile()
   {
 
     
@@ -108,7 +108,7 @@ class ProductsController extends BaseController {
   public function getDeleteProfileProduct($profile_product_id)
   {
 
-    $profile_product = UserProfileProduct::findOrFail($profile_product_id);
+    $profile_product = CustomerProfileProduct::findOrFail($profile_product_id);
     $profile_product->delete();
 
     session()->flash('message', "Le produit a été correctement supprimé");
@@ -123,11 +123,11 @@ class ProductsController extends BaseController {
   public function getDeleteProfileProducts($order_id)
   {
 
-    $user_profile_products = UserProfileProduct::where('order_id', '=', $order_id)->get();
+    $customer_profile_products = CustomerProfileProduct::where('order_id', '=', $order_id)->get();
 
-    foreach ($user_profile_products as $user_profile_product) {
+    foreach ($customer_profile_products as $customer_profile_product) {
 
-      $user_profile_product->delete();
+      $customer_profile_product->delete();
 
     }
 
@@ -152,12 +152,12 @@ class ProductsController extends BaseController {
 
     Devlog::info("Réinitialisation des quantités de produits pour la série");
 
-    // We remove the old UserProfileProducts linked with this serie
+    // We remove the old CustomerProfileProducts linked with this serie
     $serie_products = $serie->serie_products()->get();
     foreach ($serie_products as $serie_product) {
-      $user_profile_products = UserProfileProduct::where('serie_product_id', '=', $serie_product->id)->get();
-      foreach ($user_profile_products as $user_profile_product) {
-        $user_profile_product->delete();
+      $customer_profile_products = CustomerProfileProduct::where('serie_product_id', '=', $serie_product->id)->get();
+      foreach ($customer_profile_products as $customer_profile_product) {
+        $customer_profile_product->delete();
       }
     }
 
@@ -180,16 +180,16 @@ class ProductsController extends BaseController {
        */
       
       // Preparation of the important datas from the profile, the order, etc.
-      $profile = $order->user_profile()->first();
+      $profile = $order->customer_profile()->first();
       $box = $order->box()->first();
       $is_regional_order = $order->isRegionalOrder();
-      $user = $profile->user()->first();
-      $user_fullname = $user->getFullName();
+      $customer = $profile->user()->first();
+      $customer_fullname = $customer->getFullName();
 
       // This variable will be used to avoid multiple product of the same kind for the user
       $anti_master_id_duplicated = [];
 
-      Devlog::strong("Gestion de la commande #$order->id pour <a href='/admin/profiles/edit/$profile->id' target='_blank'>$user_fullname</a>");
+      Devlog::strong("Gestion de la commande #$order->id pour <a href='/admin/profiles/edit/$profile->id' target='_blank'>$customer_fullname</a>");
       Devlog::light("Box : $box->title");
 
       if ($is_regional_order) Devlog::light("Régional : Oui");
@@ -307,25 +307,25 @@ class ProductsController extends BaseController {
             or (($partner_product->size === 'minimum') && ($small_products_left > 0))) {
 
               // We check how many times we got this one
-              $already_got = UserProfileProduct::where('user_profile_id', '=', $profile->id)
+              $already_got = CustomerProfileProduct::where('customer_profile_id', '=', $profile->id)
                             ->where('partner_product_id', '=', $partner_product->id)
                             ->count();
 
-              $user_profile_product = new UserProfileProduct;
+              $customer_profile_product = new CustomerProfileProduct;
 
               // TODO : Here at some point we should order by value etc. depending on the user profile
               
               // We will add this product
-              $user_profile_product->user_profile_id = $profile->id;
-              $user_profile_product->order_id = $order->id;
-              $user_profile_product->serie_product_id = $serie_product->id;
-              $user_profile_product->partner_product_id = $partner_product->id;
-              $user_profile_product->already_got = $already_got;
-              $user_profile_product->accuracy = $accuracy;
-              $user_profile_product->birthday = FALSE;
-              $user_profile_product->sponsor = FALSE;
+              $customer_profile_product->customer_profile_id = $profile->id;
+              $customer_profile_product->order_id = $order->id;
+              $customer_profile_product->serie_product_id = $serie_product->id;
+              $customer_profile_product->partner_product_id = $partner_product->id;
+              $customer_profile_product->already_got = $already_got;
+              $customer_profile_product->accuracy = $accuracy;
+              $customer_profile_product->birthday = FALSE;
+              $customer_profile_product->sponsor = FALSE;
 
-              $user_profile_product->save();
+              $customer_profile_product->save();
 
               $serie_product->quantity_left--;
               if ($serie_product->quantity_left <= 0) unset($acceptable_serie_products_ids_array[$serie_product->id]);
@@ -349,16 +349,16 @@ class ProductsController extends BaseController {
               Devlog::info("Détection des produits ayant déjà été sélectionnés pour cet utilisateur par le passé ...");
 
               // We filled everything, let's try to replace the product already got
-              $already_got_user_profile_products = UserProfileProduct::where('user_profile_id', '=', $profile->id)
+              $already_got_customer_profile_products = CustomerProfileProduct::where('customer_profile_id', '=', $profile->id)
                                                   ->where('serie_product_id', '=', $serie_product->id)
                                                   ->where('already_got', '>', 0)
                                                   ->get();
 
-              foreach ($already_got_user_profile_products as $already_got_user_profile_product) {
+              foreach ($already_got_customer_profile_products as $already_got_customer_profile_product) {
 
-                $partner_product = $already_got_user_profile_product->product()->first();
+                $partner_product = $already_got_customer_profile_product->product()->first();
 
-                Devlog::success("Produit ayant déjà sélectionné détecté $partner_product->name ($already_got_user_profile_product->already_got fois)");
+                Devlog::success("Produit ayant déjà sélectionné détecté $partner_product->name ($already_got_customer_profile_product->already_got fois)");
                 
                 // We just have to avoid the products we already put in the list
                 // The products that are already_got too
@@ -383,7 +383,7 @@ class ProductsController extends BaseController {
 
                   if (!isset($anti_master_id_duplicated[$partner_product->master_partner_product_id])) {
 
-                    $already_got = UserProfileProduct::where('user_profile_id', '=', $profile->id)
+                    $already_got = CustomerProfileProduct::where('customer_profile_id', '=', $profile->id)
                                   ->where('partner_product_id', '=', $partner_product->id)
                                   ->count();
 
@@ -391,12 +391,12 @@ class ProductsController extends BaseController {
                     $accuracy = $products_accuracy[$possible_serie_product->id];
 
                     // We will replace the product
-                    $already_got_user_profile_product->serie_product_id = $possible_serie_product->id;
-                    $already_got_user_profile_product->partner_product_id = $partner_product->id;
-                    $already_got_user_profile_product->already_got = $already_got;
-                    $already_got_user_profile_product->accuracy = $accuracy;
+                    $already_got_customer_profile_product->serie_product_id = $possible_serie_product->id;
+                    $already_got_customer_profile_product->partner_product_id = $partner_product->id;
+                    $already_got_customer_profile_product->already_got = $already_got;
+                    $already_got_customer_profile_product->accuracy = $accuracy;
 
-                    $already_got_user_profile_product->save();
+                    $already_got_customer_profile_product->save();
 
                     Devlog::success("Remplacement par produit $partner_product->name");
                     Devlog::light("Pertinence : $accuracy");
@@ -469,24 +469,24 @@ class ProductsController extends BaseController {
             $partner_product = $serie_product->product()->first();
 
             // We check how many times we got this one
-            $already_got = UserProfileProduct::where('user_profile_id', '=', $profile->id)
+            $already_got = CustomerProfileProduct::where('customer_profile_id', '=', $profile->id)
             ->where('partner_product_id', '=', $partner_product->id)
             ->count();
 
             // We will replace the product
-            $user_profile_product = new UserProfileProduct;
+            $customer_profile_product = new CustomerProfileProduct;
 
             // We will add this product
-            $user_profile_product->user_profile_id = $profile->id;
-            $user_profile_product->order_id = $order->id;
-            $user_profile_product->serie_product_id = $serie_product->id;
-            $user_profile_product->partner_product_id = $partner_product->id;
-            $user_profile_product->already_got = $already_got;
-            $user_profile_product->accuracy = $accuracy;
-            $user_profile_product->birthday = TRUE;
-            $user_profile_product->sponsor = FALSE;
+            $customer_profile_product->customer_profile_id = $profile->id;
+            $customer_profile_product->order_id = $order->id;
+            $customer_profile_product->serie_product_id = $serie_product->id;
+            $customer_profile_product->partner_product_id = $partner_product->id;
+            $customer_profile_product->already_got = $already_got;
+            $customer_profile_product->accuracy = $accuracy;
+            $customer_profile_product->birthday = TRUE;
+            $customer_profile_product->sponsor = FALSE;
 
-            $user_profile_product->save();
+            $customer_profile_product->save();
             $serie_product->quantity_left--;
             if ($serie_product->quantity_left <= 0) unset($acceptable_serie_products_ids_array[$serie_product->id]);
             $serie_product->save();
@@ -539,24 +539,24 @@ class ProductsController extends BaseController {
             $partner_product = $serie_product->product()->first();
 
               // We check how many times we got this one
-            $already_got = UserProfileProduct::where('user_profile_id', '=', $profile->id)
+            $already_got = CustomerProfileProduct::where('customer_profile_id', '=', $profile->id)
             ->where('partner_product_id', '=', $partner_product->id)
             ->count();
 
               // We will replace the product
-            $user_profile_product = new UserProfileProduct;
+            $customer_profile_product = new CustomerProfileProduct;
 
               // We will add this product
-            $user_profile_product->user_profile_id = $profile->id;
-            $user_profile_product->order_id = $order->id;
-            $user_profile_product->serie_product_id = $serie_product->id;
-            $user_profile_product->partner_product_id = $partner_product->id;
-            $user_profile_product->already_got = $already_got;
-            $user_profile_product->accuracy = $accuracy;
-            $user_profile_product->birthday = FALSE;
-            $user_profile_product->sponsor = TRUE;
+            $customer_profile_product->customer_profile_id = $profile->id;
+            $customer_profile_product->order_id = $order->id;
+            $customer_profile_product->serie_product_id = $serie_product->id;
+            $customer_profile_product->partner_product_id = $partner_product->id;
+            $customer_profile_product->already_got = $already_got;
+            $customer_profile_product->accuracy = $accuracy;
+            $customer_profile_product->birthday = FALSE;
+            $customer_profile_product->sponsor = TRUE;
 
-            $user_profile_product->save();
+            $customer_profile_product->save();
 
             $anti_master_id_duplicated[$partner_product->master_partner_product_id] = TRUE;
 
@@ -638,11 +638,11 @@ class ProductsController extends BaseController {
   private function get_global_accuracy($serie_product, $profile) {
 
     // We prepare the datas
-    $user_profile_answers = $profile->answers()->get();
+    $customer_profile_answers = $profile->answers()->get();
     $partner_product = $serie_product->product()->first();
     $product_filter_box_answers = $partner_product->filter_box_answers()->get();
 
-    if (($product_filter_box_answers->first() === NULL) || ($user_profile_answers->first() === NULL)) {
+    if (($product_filter_box_answers->first() === NULL) || ($customer_profile_answers->first() === NULL)) {
 
       // The product doesn't have any advanced filter, therefore it's not matching by default (it's the lowest priority)
       $accuracy = 0;
@@ -650,7 +650,7 @@ class ProductsController extends BaseController {
     } else {
 
       // Is the product advanced filters matching with the user form answers ?
-      $matching_system = $this->get_accuracy_product_filters_matching_user_answer($product_filter_box_answers, $user_profile_answers);
+      $matching_system = $this->get_accuracy_product_filters_matching_user_answer($product_filter_box_answers, $customer_profile_answers);
 
       if ($matching_system == FALSE) {
 
@@ -731,16 +731,16 @@ class ProductsController extends BaseController {
   }
 
   /**
-   * From the object UserProfileAnswers we serialize every answers in an array to make it possible to compare with the filters
-   * @param  object $user_profile_answers
+   * From the object CustomerProfileAnswers we serialize every answers in an array to make it possible to compare with the filters
+   * @param  object $customer_profile_answers
    * @return array   
    */
-  private function serialize_user_profile_answers($user_profile_answers) {
+  private function serialize_customer_profile_answers($customer_profile_answers) {
 
     /**
      * We convert the data of the user answers to compare it to the product filters
      */
-    foreach ($user_profile_answers as $answer) {
+    foreach ($customer_profile_answers as $answer) {
 
       $slug = $answer->slug;
       $answer_string = $answer->answer;
@@ -752,7 +752,7 @@ class ProductsController extends BaseController {
 
       if (empty($to_referent_slug)) {
 
-        $user_ordered_answers[$box_question_id][] = [
+        $customer_ordered_answers[$box_question_id][] = [
 
           'slug' => $slug,
           'answer' => $answer_string,
@@ -779,7 +779,7 @@ class ProductsController extends BaseController {
 
           if ($referent_id === NULL) {
 
-            $user_ordered_answers[$box_question_id][][$to_referent_slug] = [
+            $customer_ordered_answers[$box_question_id][][$to_referent_slug] = [
 
               'slug' => $category_slug,
               'answer' => $category,
@@ -788,7 +788,7 @@ class ProductsController extends BaseController {
 
           } else {
 
-            $user_ordered_answers[$box_question_id][$referent_id][$to_referent_slug] = [
+            $customer_ordered_answers[$box_question_id][$referent_id][$to_referent_slug] = [
 
               'slug' => $category_slug,
               'answer' => $category,
@@ -805,7 +805,7 @@ class ProductsController extends BaseController {
 
           if ($referent_id === NULL) {
 
-            $user_ordered_answers[$box_question_id][]['child_sex'] = [
+            $customer_ordered_answers[$box_question_id][]['child_sex'] = [
 
               'slug' => Str::slug($child_sex),
               'answer' => $child_sex,
@@ -814,7 +814,7 @@ class ProductsController extends BaseController {
 
           } else {
 
-            $user_ordered_answers[$box_question_id][$referent_id]['child_sex'] = [
+            $customer_ordered_answers[$box_question_id][$referent_id]['child_sex'] = [
 
               'slug' => Str::slug($child_sex),
               'answer' => $child_sex,
@@ -837,7 +837,7 @@ class ProductsController extends BaseController {
 
           if ($referent_id === NULL) {
 
-            $user_ordered_answers[$box_question_id][]['child_age'] = [
+            $customer_ordered_answers[$box_question_id][]['child_age'] = [
 
               'slug' => $category_slug,
               'answer' => $category,
@@ -846,7 +846,7 @@ class ProductsController extends BaseController {
 
           } else {
 
-            $user_ordered_answers[$box_question_id][$referent_id]['child_age'] = [
+            $customer_ordered_answers[$box_question_id][$referent_id]['child_age'] = [
 
                 'slug' => $category_slug,
                 'answer' => $category,
@@ -871,7 +871,7 @@ class ProductsController extends BaseController {
 
             if ($referent_id === NULL) {
 
-              $user_ordered_answers[$box_question_id][]['child_age'] = [
+              $customer_ordered_answers[$box_question_id][]['child_age'] = [
 
                 'slug' => $category_slug,
                 'answer' => $category,
@@ -880,7 +880,7 @@ class ProductsController extends BaseController {
 
             } else {
 
-              $user_ordered_answers[$box_question_id][$referent_id]['child_age'] = [
+              $customer_ordered_answers[$box_question_id][$referent_id]['child_age'] = [
 
                   'slug' => $category_slug,
                   'answer' => $category,
@@ -896,7 +896,7 @@ class ProductsController extends BaseController {
 
           if ($referent_id === NULL) {
 
-            $user_ordered_answers[$box_question_id][][$to_referent_slug] = [
+            $customer_ordered_answers[$box_question_id][][$to_referent_slug] = [
 
               'slug' => $slug,
               'answer' => $answer_string,
@@ -905,7 +905,7 @@ class ProductsController extends BaseController {
 
           } else {
 
-            $user_ordered_answers[$box_question_id][$referent_id]['child_age'] = [
+            $customer_ordered_answers[$box_question_id][$referent_id]['child_age'] = [
 
                 'slug' => $category_slug,
                 'answer' => $category,
@@ -920,22 +920,22 @@ class ProductsController extends BaseController {
 
     }
 
-    return $user_ordered_answers;
+    return $customer_ordered_answers;
 
   }
 
   /**
    * Compare serialized filters with serialized answers and put a result
    * @param  array $ordered_filters     
-   * @param  array $user_ordered_answers
+   * @param  array $customer_ordered_answers
    * @return mixed                      
    */
-  private function compare_serialized_filters_to_answers($ordered_filters, $user_ordered_answers) {
+  private function compare_serialized_filters_to_answers($ordered_filters, $customer_ordered_answers) {
 
     /**
      * Now we compare the two fields and put some maths
      */
-    foreach ($user_ordered_answers as $question_id => $user_ordered_answer) {
+    foreach ($customer_ordered_answers as $question_id => $customer_ordered_answer) {
 
       $match = NULL;
       $answer_cant_match = FALSE;
@@ -945,7 +945,7 @@ class ProductsController extends BaseController {
       if (isset($ordered_filters[$question_id])) {
 
         // It's an array
-        if (is_array($user_ordered_answer)) {
+        if (is_array($customer_ordered_answer)) {
 
           foreach ($ordered_filters[$question_id] as $ordered_filter) {
 
@@ -955,14 +955,14 @@ class ProductsController extends BaseController {
 
                 if (empty($to_referent_slug)) {
 
-                  foreach ($user_ordered_answer as $user_answer_array) {
+                  foreach ($customer_ordered_answer as $customer_answer_array) {
 
-                    $user_answer_slug = $user_answer_array['slug'];
+                    $customer_answer_slug = $customer_answer_array['slug'];
                     $filter_answer_slug = $ordered_filter_referent_slug['slug'];
                     $filter_must_match = $ordered_filter_referent_slug['filter_must_match'];
 
                     // Does it matches ?
-                    if ($user_answer_slug === $filter_answer_slug) {
+                    if ($customer_answer_slug === $filter_answer_slug) {
 
                       // It matches, we don't need to go further
                       $match = TRUE;
@@ -984,12 +984,12 @@ class ProductsController extends BaseController {
 
                 } else {
 
-                  foreach ($user_ordered_answer as $referent_id => $user_answer_array) {
+                  foreach ($customer_ordered_answer as $referent_id => $customer_answer_array) {
 
                     // Sometimes the user don't answer everything (like for the kids)
-                    if (isset($user_answer_array[$to_referent_slug]['slug'])) {
+                    if (isset($customer_answer_array[$to_referent_slug]['slug'])) {
 
-                      $user_answer_slug = $user_answer_array[$to_referent_slug]['slug'];
+                      $customer_answer_slug = $customer_answer_array[$to_referent_slug]['slug'];
 
                       // Then we get the filter result
                       $filter_answer_slug = $ordered_filter_referent_slug['slug'];
@@ -1014,7 +1014,7 @@ class ProductsController extends BaseController {
                       }
 
                       // Does it matches ?
-                      if ($user_answer_slug === $filter_answer_slug) {
+                      if ($customer_answer_slug === $filter_answer_slug) {
 
                         // It matches, we don't need to go further
                         $match = TRUE;
@@ -1065,22 +1065,22 @@ class ProductsController extends BaseController {
    * Compare the product filters with the user answers and tell us if it matches, and how much does it match (accuracy)
    * 
    * @param  object  $product_filter_box_answers
-   * @param  object  $user_answers              
+   * @param  object  $customer_answers              
    * @return integer if it returns FALSE, the product isn't acceptable for this user
    */
-  private function get_accuracy_product_filters_matching_user_answer($product_filter_box_answers, $user_profile_answers)
+  private function get_accuracy_product_filters_matching_user_answer($product_filter_box_answers, $customer_profile_answers)
   {
 
     /**
      * We serialize the filters and user answers
      */
     $ordered_filters = $this->serialize_product_filter_box_answers($product_filter_box_answers);
-    $user_ordered_answers = $this->serialize_user_profile_answers($user_profile_answers);
+    $customer_ordered_answers = $this->serialize_customer_profile_answers($customer_profile_answers);
 
     /**
      * We compare them and return the results
      */
-    $results = $this->compare_serialized_filters_to_answers($ordered_filters, $user_ordered_answers);
+    $results = $this->compare_serialized_filters_to_answers($ordered_filters, $customer_ordered_answers);
 
     return $results;
 

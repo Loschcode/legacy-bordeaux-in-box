@@ -23,14 +23,14 @@ class Order extends Model {
 	public function user()
 	{
 
-		return $this->belongsTo('App\Models\User', 'user_id');
+		return $this->belongsTo('App\Models\Customer', 'user_id');
 
 	}
 
-	public function user_profile()
+	public function customer_profile()
 	{
 
-		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id');
 
 	}
 
@@ -68,10 +68,10 @@ class Order extends Model {
 	 * HasMany
 	 */
 	
-	public function user_profile_products()
+	public function customer_profile_products()
 	{
 
-		return $this->hasMany('App\Models\UserProfileProduct');
+		return $this->hasMany('App\Models\CustomerProfileProduct');
 
 	}
 
@@ -129,7 +129,7 @@ class Order extends Model {
 
 			if ($billing === NULL) {
 
-				$destination_zip = $this->user_profile()->first()->user()->first()->zip;
+				$destination_zip = $this->customer_profile()->first()->user()->first()->zip;
 
 			} else {
 
@@ -167,7 +167,7 @@ class Order extends Model {
 	{
 
 		return $query
-		->join('user_order_preferences as preferences', 'preferences.user_profile_id', '=', 'orders.user_profile_id')
+		->join('customer_order_preferences as preferences', 'preferences.customer_profile_id', '=', 'orders.customer_profile_id')
 		->where('preferences.frequency', '=', $frequency);
 		
 	}
@@ -179,12 +179,12 @@ class Order extends Model {
 
 	}
 
-	public function scopeGetUserProfiles($query) // Orders not delivered but also not canceled
+	public function scopeGetCustomerProfiles($query) // Orders not delivered but also not canceled
 	{
 
-		return $query->join('user_profiles', 'orders.user_profile_id', '=', 'user_profiles.id')
-                ->groupBy('user_profiles.id')
-                ->select('user_profiles.*');
+		return $query->join('customer_profiles', 'orders.customer_profile_id', '=', 'customer_profiles.id')
+                ->groupBy('customer_profiles.id')
+                ->select('customer_profiles.*');
 	}
 
 	public function scopeDeliveredOrders($query) // Orders not delivered but also not canceled

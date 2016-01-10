@@ -5,7 +5,7 @@ use App\Http\Controllers\MasterBox\BaseController;
 use Carbon\Carbon;
 
 use App\Models\DeliverySerie;
-use App\Models\UserOrderBuilding;
+use App\Models\CustomerOrderBuilding;
 
 class StatisticsController extends BaseController {
 
@@ -51,14 +51,14 @@ class StatisticsController extends BaseController {
   public function getUnfinishedProfiles($id)
   {
 
-    $user_order_buildings = UserOrderBuilding::where('delivery_serie_id', '=', $id)->orderBy('updated_at', 'desc')->get();
+    $customer_order_buildings = CustomerOrderBuilding::where('delivery_serie_id', '=', $id)->orderBy('updated_at', 'desc')->get();
 
     $series = DeliverySerie::find($id);
 
     $config_graph_unfinished_profiles_focus = $this->unfinished_profiles_focus_graph_config($series);
 
     return view('master-box.admin.statistics.unfinished_profiles')->with(compact(
-      'user_order_buildings',
+      'customer_order_buildings',
       'series',
       'config_graph_unfinished_profiles_focus'
     ));
@@ -72,7 +72,7 @@ class StatisticsController extends BaseController {
 
     $graph_data = array();
 
-    $grouped_order_buildings = $series->user_order_buildings()->select('id', 'updated_at')
+    $grouped_order_buildings = $series->customer_order_buildings()->select('id', 'updated_at')
     ->get()
     ->groupBy(function($date) {
 
@@ -153,13 +153,13 @@ class StatisticsController extends BaseController {
 
     foreach (DeliverySerie::orderBy('delivery', 'asc')->get() as $serie) {
 
-      if ($serie->user_order_buildings()->count() > 0) {
+      if ($serie->customer_order_buildings()->count() > 0) {
 
         $graph_data[] = [
 
             'series' => $serie->delivery,
             'subscriptions' => $serie->orders()->notCanceledOrders()->count(),
-            'unfinished' => $serie->user_order_buildings()->count()
+            'unfinished' => $serie->customer_order_buildings()->count()
 
           ];
 
@@ -193,18 +193,18 @@ class StatisticsController extends BaseController {
 
     foreach (DeliverySerie::orderBy('delivery', 'asc')->get() as $serie) {
 
-      if ($serie->user_order_buildings()->count() > 0) {
+      if ($serie->customer_order_buildings()->count() > 0) {
 
         $graph_unfinished_profiles_steps_data[] = [
 
           'series' => $serie->delivery, 
-          'choose-box' => $serie->user_order_buildings()->where('step', '=', 'choose-box')->count(), 
-          'box-form' => $serie->user_order_buildings()->where('step', '=', 'box-form')->count(),
-          'choose-frequency' => $serie->user_order_buildings()->where('step', '=', 'choose-frequency')->count(),
-          'billing-address' => $serie->user_order_buildings()->where('step', '=', 'billing-address')->count(),
-          'delivery-mode' => $serie->user_order_buildings()->where('step', '=', 'delivery-mode')->count(),
-          'choose-spot' => $serie->user_order_buildings()->where('step', '=', 'choose-spot')->count(),
-          'payment' => $serie->user_order_buildings()->where('step', '=', 'payment')->count(),
+          'choose-box' => $serie->customer_order_buildings()->where('step', '=', 'choose-box')->count(), 
+          'box-form' => $serie->customer_order_buildings()->where('step', '=', 'box-form')->count(),
+          'choose-frequency' => $serie->customer_order_buildings()->where('step', '=', 'choose-frequency')->count(),
+          'billing-address' => $serie->customer_order_buildings()->where('step', '=', 'billing-address')->count(),
+          'delivery-mode' => $serie->customer_order_buildings()->where('step', '=', 'delivery-mode')->count(),
+          'choose-spot' => $serie->customer_order_buildings()->where('step', '=', 'choose-spot')->count(),
+          'payment' => $serie->customer_order_buildings()->where('step', '=', 'payment')->count(),
 
           ];
 

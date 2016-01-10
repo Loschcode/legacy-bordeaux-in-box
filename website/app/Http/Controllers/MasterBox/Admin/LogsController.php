@@ -6,7 +6,7 @@ use App\Models\Contact;
 use App\Models\Order;
 use App\Models\EmailTrace;
 use App\Models\ContactSetting;
-use App\Models\UserProfileNote;
+use App\Models\CustomerProfileNote;
 
 class LogsController extends BaseController {
 
@@ -46,7 +46,7 @@ class LogsController extends BaseController {
 
 		$contact_setting = ContactSetting::first();
 
-    $profile_notes = UserProfileNote::orderBy('created_at', 'DESC')->get();
+    $profile_notes = CustomerProfileNote::orderBy('created_at', 'DESC')->get();
 
 		return view('master-box.admin.logs.index')->with(compact(
       'contacts',

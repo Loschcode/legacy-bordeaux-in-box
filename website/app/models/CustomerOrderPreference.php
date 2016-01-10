@@ -2,14 +2,14 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserOrderPreference extends Model {
+class CustomerOrderPreference extends Model {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'user_order_preferences';
+	protected $table = 'customer_order_preferences';
 
 	/**
 	 * Belongs To
@@ -18,7 +18,7 @@ class UserOrderPreference extends Model {
 	public function user_profile()
 	{
 
-		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id');
 
 	}
 

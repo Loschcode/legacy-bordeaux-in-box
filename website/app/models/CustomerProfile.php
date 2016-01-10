@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class UserProfile extends Model {
+class CustomerProfile extends Model {
 
 	use SoftDeletes;
 
@@ -14,7 +14,7 @@ class UserProfile extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'user_profiles';
+	protected $table = 'customer_profiles';
 
 	/**
 	 * Create / Update
@@ -61,7 +61,7 @@ class UserProfile extends Model {
 	public function user()
 	{
 
-		return $this->belongsTo('App\Models\User', 'user_id');
+		return $this->belongsTo('App\Models\Customer', 'user_id');
 
 	}
 
@@ -80,21 +80,21 @@ class UserProfile extends Model {
 	public function order_preference()
 	{
 
-		return $this->hasOne('App\Models\UserOrderPreference');
+		return $this->hasOne('App\Models\CustomerOrderPreference');
 
 	}
 
 	public function payment_profile()
 	{
 
-		return $this->hasOne('App\Models\UserPaymentProfile');
+		return $this->hasOne('App\Models\CustomerPaymentProfile');
 
 	}
 
 	public function order_building()
 	{
 
-		return $this->hasOne('App\Models\UserOrderBuilding');
+		return $this->hasOne('App\Models\CustomerOrderBuilding');
 
 	}
 
@@ -105,14 +105,14 @@ class UserProfile extends Model {
 	public function answers()
 	{
 
-		return $this->hasMany('App\Models\UserAnswer');
+		return $this->hasMany('App\Models\CustomerAnswer');
 
 	}
 
-	public function user_profile_products()
+	public function customer_profile_products()
 	{
 
-		return $this->hasMany('App\Models\UserProfileProduct');
+		return $this->hasMany('App\Models\CustomerProfileProduct');
 
 	}
 
@@ -126,7 +126,7 @@ class UserProfile extends Model {
 	public function notes()
 	{
 
-		return $this->hasMany('App\Models\UserProfileNote');
+		return $this->hasMany('App\Models\CustomerProfileNote');
 
 	}
 
@@ -153,12 +153,12 @@ class UserProfile extends Model {
 
 		if ($focus_question == NULL) return $focus_question;
 
-		$user_answers = $this->answers()->where('box_question_id', '=', $focus_question->id)->where('user_profile_id', '=', $this->id)->get();
+		$customer_answers = $this->answers()->where('box_question_id', '=', $focus_question->id)->where('customer_profile_id', '=', $this->id)->get();
 
-		if ($user_answers->count() > 1) {
+		if ($customer_answers->count() > 1) {
 
 			$total_answers = '';
-			foreach ($user_answers->get() as $answer) {
+			foreach ($customer_answers->get() as $answer) {
 
 				$total_answers .= $answer->answer . ' / ';
 			}
@@ -167,9 +167,9 @@ class UserProfile extends Model {
 
 		} else {
 
-			if ($user_answers->first() == NULL) return '';
+			if ($customer_answers->first() == NULL) return '';
 
-			return $user_answers->first()->answer;
+			return $customer_answers->first()->answer;
 
 		}
 
@@ -255,11 +255,11 @@ class UserProfile extends Model {
 
 	public function seriesProfileProduct($serie_id) {
 
-		return $this->user_profile_products()
-  	->join('serie_products', 'user_profile_products.serie_product_id', '=', 'serie_products.id')
+		return $this->customer_profile_products()
+  	->join('serie_products', 'customer_profile_products.serie_product_id', '=', 'serie_products.id')
   	->where('serie_products.delivery_serie_id', '=', $serie_id)
-  	->select('user_profile_products.*')
-  	->groupBy('user_profile_products.id');
+  	->select('customer_profile_products.*')
+  	->groupBy('customer_profile_products.id');
 
 	}
 
@@ -327,12 +327,12 @@ class UserProfile extends Model {
 	public function sendExpirationEmail($last_box_was_sent=FALSE)
 	{
 
-		$user = $this->user()->first();
+		$customer = $this->user()->first();
 		$box = $this->box()->first();
 
 		$data = [
 
-			'first_name' => $user->first_name,
+			'first_name' => $customer->first_name,
 			'box_title' => $box->title,
 			'last_box_was_sent' => $last_box_was_sent,
 

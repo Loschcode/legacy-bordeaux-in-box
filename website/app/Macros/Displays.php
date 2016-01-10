@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Models\Customer;
 
 /**
  * We will generate a link for the admin to access the user profile, from the email
@@ -8,10 +8,10 @@ use App\Models\User;
 Html::macro('generateAdminLinkFromUserEmail', function($email)
 {
 
-  $user = User::where('email', '=', $email)->first();
-  if ($user === NULL) return 'N/A';
+  $customer = Customer::where('email', '=', $email)->first();
+  if ($customer === NULL) return 'N/A';
 
-  return "<a href='/admin/users/focus/".$user->id."'>".$user->getFullName()."</a>";
+  return "<a href='/admin/users/focus/".$customer->id."'>".$customer->getFullName()."</a>";
 
 });
 

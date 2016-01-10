@@ -13,7 +13,7 @@ function get_email_listing_from_orders($orders) {
 
   foreach ($orders as $order) {
 
-    $profile = $order->user_profile()->first();
+    $profile = $order->customer_profile()->first();
 
     if (($profile != NULL) && (!in_array($profile->user()->first()->email, $email_already_used))) {
 
@@ -36,9 +36,9 @@ function get_email_listing_from_unfinished_profiles($series) {
 
   $email_already_used = [];
 
-  foreach ($series->user_order_buildings()->get() as $user_order_building) {
+  foreach ($series->customer_order_buildings()->get() as $customer_order_building) {
 
-    $profile = $user_order_building->profile()->first();
+    $profile = $customer_order_building->profile()->first();
 
     if (($profile != NULL) && (!in_array($profile->user()->first()->email, $email_already_used))) {
 
@@ -55,13 +55,13 @@ function get_email_listing_from_unfinished_profiles($series) {
 function mailing_send($profile, $subject, $template, $template_data, $additional_mailgun_variables=NULL) {
 
   // We resolve everything
-  $user = $profile->user()->first();
-  $email = $user->email;
+  $customer = $profile->user()->first();
+  $email = $customer->email;
 
   $datas = [
 
     'email' => $email,
-    'user' => $user,
+    'user' => $customer,
     'profile' => $profile,
     'subject' => $subject,
     'template' => $template,
@@ -74,14 +74,14 @@ function mailing_send($profile, $subject, $template, $template_data, $additional
 
 }
 
-function mailing_send_user_only($user, $subject, $template, $template_data, $additional_mailgun_variables=NULL) {
+function mailing_send_user_only($customer, $subject, $template, $template_data, $additional_mailgun_variables=NULL) {
 
-  $email = $user->email;
+  $email = $customer->email;
 
   $datas = [
 
     'email' => $email,
-    'user' => $user,
+    'user' => $customer,
     'subject' => $subject,
     'template' => $template,
     'template_data' => $template_data,
@@ -96,7 +96,7 @@ function mailing_send_user_only($user, $subject, $template, $template_data, $add
 function send_email_with_trace($datas) {
 
   if (isset($datas['email'])) $email = $datas['email']; else $email = NULL;
-  if (isset($datas['user'])) $user = $datas['user']; else $user = NULL;
+  if (isset($datas['user'])) $customer = $datas['user']; else $customer = NULL;
   if (isset($datas['profile'])) $profile = $datas['profile']; else $profile = NULL;
   if (isset($datas['subject'])) $subject = $datas['subject']; else $subject = NULL;
   if (isset($datas['template'])) $template = $datas['template']; else $template = NULL;
@@ -108,7 +108,7 @@ function send_email_with_trace($datas) {
   $body = $body_preparation->render();
 
   // We will queue the email (we could add a protection here)
-  Mail::queue($template, $template_data, function($message) use ($email, $subject, $body, $user, $profile, $additional_mailgun_variables)
+  Mail::queue($template, $template_data, function($message) use ($email, $subject, $body, $customer, $profile, $additional_mailgun_variables)
   {
 
     // We prepare the email trace
@@ -116,13 +116,13 @@ function send_email_with_trace($datas) {
     $email_trace->recipient = $email;
     $email_trace->subject = $subject;
 
-    if ($user !== NULL) $email_trace->user_id = $user->id;
-    if ($profile !== NULL) $email_trace->user_profile_id = $profile->id;
+    if ($customer !== NULL) $email_trace->user_id = $customer->id;
+    if ($profile !== NULL) $email_trace->customer_profile_id = $profile->id;
     
     $email_trace->prepared_at = date('Y-m-d H:i:s');
 
     if ($profile !== NULL) $profile_id = $profile->id; else $profile_id = NULL;
-    if ($user !== NULL) $user_id = $user->id; else $profile_id = NULL;
+    if ($customer !== NULL) $customer_id = $customer->id; else $profile_id = NULL;
 
     $email_trace->content = $body;
     $email_trace->save();
@@ -130,7 +130,7 @@ function send_email_with_trace($datas) {
     // We prepare the MailGun variables
     $mailgun_variables = [
 
-      'user_id' => (int) $user_id,
+      'user_id' => (int) $customer_id,
       'profile_id' => (int) $profile_id,
       'email_trace_id' => (int) $email_trace->id,
 

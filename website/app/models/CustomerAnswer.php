@@ -3,14 +3,14 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class UserAnswer extends Model {
+class CustomerAnswer extends Model {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'user_answers';
+	protected $table = 'customer_answers';
 
 	/**
 	 * Create / Update
@@ -20,25 +20,25 @@ class UserAnswer extends Model {
 
         parent::boot();
 
-        static::creating(function($user_answer)
+        static::creating(function($customer_answer)
         {
 
-        	if (empty($user_answer->slug))
+        	if (empty($customer_answer->slug))
         	{
 
-           		$user_answer->slug = Str::slug($user_answer->answer);
+           		$customer_answer->slug = Str::slug($customer_answer->answer);
 
        		}
 
         });
 
-        static::updating(function($user_answer)
+        static::updating(function($customer_answer)
         {
 
-        	if (empty($user_answer->slug))
+        	if (empty($customer_answer->slug))
         	{
 
-           		$user_answer->slug = Str::slug($user_answer->answer);
+           		$customer_answer->slug = Str::slug($customer_answer->answer);
 
        		}
 
@@ -53,7 +53,7 @@ class UserAnswer extends Model {
   public function referent()
   {
 
-    return $this->belongsTo('App\Models\UserAnswer', 'referent_id');
+    return $this->belongsTo('App\Models\CustomerAnswer', 'referent_id');
 
   }
 
@@ -61,7 +61,7 @@ class UserAnswer extends Model {
 	public function profile()
 	{
 
-		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id');
 
 	}
 
@@ -79,7 +79,7 @@ class UserAnswer extends Model {
   public function children()
   {
 
-    return $this->hasMany('App\Models\UserAnswer', 'referent_id');
+    return $this->hasMany('App\Models\CustomerAnswer', 'referent_id');
 
   }
   

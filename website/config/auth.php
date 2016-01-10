@@ -10,7 +10,7 @@ return array(
     /**
      * Customer
      */
-    'admin' => [
+    'customer' => [
 
       'driver' => 'eloquent',
       'model' => App\Models\Customer::class,
@@ -21,7 +21,7 @@ return array(
     /**
      * Partner
      */
-    'admin' => [
+    'partner' => [
 
       'driver' => 'eloquent',
       'model' => App\Models\Partner::class,

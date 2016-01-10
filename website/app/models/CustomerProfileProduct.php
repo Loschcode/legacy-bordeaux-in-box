@@ -2,23 +2,23 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class UserProfileProduct extends Model {
+class CustomerProfileProduct extends Model {
 
   /**
    * The database table used by the model.
    *
    * @var string
    */
-  protected $table = 'user_profile_products';
+  protected $table = 'customer_profile_products';
 
   /**
    * Belongs To
    */
   
-  public function user_profile()
+  public function customer_profile()
   {
 
-    return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
+    return $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id');
 
   }
 
@@ -43,7 +43,7 @@ class UserProfileProduct extends Model {
   public static function getAverageCost($serie_id)
   {
 
-    $serie_products = self::join('serie_products', 'user_profile_products.serie_product_id', '=', 'serie_products.id')
+    $serie_products = self::join('serie_products', 'customer_profile_products.serie_product_id', '=', 'serie_products.id')
               ->where('serie_products.delivery_serie_id', '=', $serie_id)->get();
 
     return self::average_calculator($serie_products, 'cost_per_unity');
@@ -53,7 +53,7 @@ class UserProfileProduct extends Model {
   public static function getAverageValue($serie_id)
   {
 
-    $serie_products = self::join('serie_products', 'user_profile_products.serie_product_id', '=', 'serie_products.id')
+    $serie_products = self::join('serie_products', 'customer_profile_products.serie_product_id', '=', 'serie_products.id')
               ->where('serie_products.delivery_serie_id', '=', $serie_id)->get();
 
     return self::average_calculator($serie_products, 'value_per_unity');
@@ -63,7 +63,7 @@ class UserProfileProduct extends Model {
   public static function getAverageWeight($serie_id)
   {
 
-    $serie_products = self::join('serie_products', 'user_profile_products.serie_product_id', '=', 'serie_products.id')
+    $serie_products = self::join('serie_products', 'customer_profile_products.serie_product_id', '=', 'serie_products.id')
               ->join('partner_products', 'serie_products.partner_product_id', '=', 'partner_products.id')
               ->where('serie_products.delivery_serie_id', '=', $serie_id)->get();
 

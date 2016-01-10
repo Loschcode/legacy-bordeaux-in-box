@@ -6,9 +6,9 @@ use Session, Auth, Request, Redirect, URL, Validator;
 use App\Models\Box;
 use App\Models\DeliverySerie;
 use App\Models\DeliveryPrice;
-use App\Models\UserProfile;
-use App\Models\UserOrderBuilding;
-use App\Models\UserOrderPreference;
+use App\Models\CustomerProfile;
+use App\Models\CustomerOrderBuilding;
+use App\Models\CustomerOrderPreference;
 use App\Models\DeliverySetting;
 use App\Models\DeliverySpot;
 
@@ -52,7 +52,7 @@ class OrderController extends BaseController {
     session()->put('isOrdering', TRUE);
     session()->put('isGift', FALSE);
     
-    if (Auth::guest()) 
+    if (Auth::customer()->guest()) 
     {
       session()->put('after-login-redirection', Request::url());
       return redirect('user/subscribe');
@@ -71,7 +71,7 @@ class OrderController extends BaseController {
     session()->put('isOrdering', TRUE);
     session()->put('isGift', TRUE);
 
-    if (Auth::guest()) 
+    if (Auth::customer()->guest()) 
     {
       session()->put('after-login-redirection', Request::url());
       return redirect('user/subscribe');
@@ -91,9 +91,9 @@ class OrderController extends BaseController {
 
     $boxes = Box::where('active', TRUE)->get();
 
-    $user = Auth::user();
+    $customer = Auth::customer()->get();
 
-    $order_building = $user->order_building()->first();
+    $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
 
     return view('master-box.customer.order.choose_box')->with(compact(
@@ -124,19 +124,19 @@ class OrderController extends BaseController {
       $box = Box::find($fields['box_choice']);
       if ($box === NULL) return redirect()->back();
 
-      $user = Auth::user();
+      $customer = Auth::customer()->get();
 
       // We update the current step
-      $order_building = $user->order_building()->first();
+      $order_building = $customer->order_building()->first();
       $order_building->step = 'box-form';
       $order_building->save();
 
       // We update the profile
-      $user_profile = $order_building->profile()->first();
+      $customer_profile = $order_building->profile()->first();
 
-      $user_profile->user()->associate($user);
-      $user_profile->box()->associate($box);
-      $user_profile->save();
+      $customer_profile->user()->associate($customer);
+      $customer_profile->box()->associate($box);
+      $customer_profile->save();
 
       // Then we redirect
       $redirect = $this->guessStepFromUser();
@@ -160,9 +160,9 @@ class OrderController extends BaseController {
   public function getBoxForm()
   {
 
-    $user = Auth::user();
+    $customer = Auth::customer()->get();
 
-    $order_building = $user->order_building()->first();
+    $order_building = $customer->order_building()->first();
     $profile = $order_building->profile()->first();
 
     $box = $profile->box()->first();
@@ -196,9 +196,9 @@ class OrderController extends BaseController {
     // Set a flag to know if we already passed by the validation
     session()->flash('flag-box-form', true);
 
-    $user = Auth::user();
+    $customer = Auth::customer()->get();
 
-    $order_building = $user->order_building()->first();
+    $order_building = $customer->order_building()->first();
     $profile = $order_building->profile()->first();
 
     // We auto trim everything
@@ -227,7 +227,7 @@ class OrderController extends BaseController {
         } 
         elseif ($question->type == 'member_email') 
         {
-          $rules[$question->id.'-0'] = ['email', 'exists:users,email', 'not_in:'.$user->email];
+          $rules[$question->id.'-0'] = ['email', 'exists:users,email', 'not_in:'.$customer->email];
         } 
         elseif ($question->type == 'children_details') 
         {
@@ -290,9 +290,9 @@ class OrderController extends BaseController {
 
     $next_series = DeliverySerie::nextOpenSeries();
 
-    $user = Auth::user();
+    $customer = Auth::customer()->get();
 
-    $order_building = $user->order_building()->first();
+    $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
 
     $delivery_prices = DeliveryPrice::where('gift', $order_preference->gift)->orderBy('unity_price', 'asc')->get();
@@ -323,8 +323,8 @@ class OrderController extends BaseController {
 
       if ($delivery_price === NULL) return redirect()->back();
 
-      $user = Auth::user();
-      $order_building = $user->order_building()->first();
+      $customer = Auth::customer()->get();
+      $order_building = $customer->order_building()->first();
       
       $order_preference = $order_building->order_preference()->first();
 
@@ -357,9 +357,9 @@ class OrderController extends BaseController {
   public function getBillingAddress()
   {
 
-    $user = Auth::user();
+    $customer = Auth::customer()->get();
 
-    $order_building = $user->order_building()->first();
+    $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
 
     return view('master-box.customer.order.billing_address')->with(compact('user', 'order_building', 'order_preference'));
@@ -396,18 +396,18 @@ class OrderController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $user = Auth::user();
-      $order_building = $user->order_building()->first();
+      $customer = Auth::customer()->get();
+      $order_building = $customer->order_building()->first();
       $order_preference = $order_building->order_preference()->first();
       
       // If the user hasn't billing address yet
-      if ((!$user->hasBillingAddress()) || ($user->profiles()->count() <= 1)) {
+      if ((!$customer->hasBillingAddress()) || ($customer->profiles()->count() <= 1)) {
 
         // We refresh the billing informations
-        $user->city = $fields['billing_city'];
-        $user->zip = $fields['billing_zip'];
-        $user->address = $fields['billing_address'];
-        $user->save();
+        $customer->city = $fields['billing_city'];
+        $customer->zip = $fields['billing_zip'];
+        $customer->address = $fields['billing_address'];
+        $customer->save();
 
       }
 
@@ -440,8 +440,8 @@ class OrderController extends BaseController {
   public function getDeliveryMode()
   {
 
-    $user = Auth::user();
-    $order_building = $user->order_building()->first();
+    $customer = Auth::customer()->get();
+    $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
 
     // Back
@@ -492,8 +492,8 @@ class OrderController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $user = Auth::user();
-      $order_building = $user->order_building()->first();
+      $customer = Auth::customer()->get();
+      $order_building = $customer->order_building()->first();
       $order_preference = $order_building->order_preference()->first();
 
       $order_preference->take_away = $fields['take_away'];
@@ -538,8 +538,8 @@ class OrderController extends BaseController {
   public function getChooseSpot()
   {
 
-    $user = Auth::user();
-    $order_building = $user->order_building()->first();
+    $customer = Auth::customer()->get();
+    $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
 
     // In case the user come back
@@ -572,8 +572,8 @@ class OrderController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $user = Auth::user();
-      $order_building = $user->order_building()->first();
+      $customer = Auth::customer()->get();
+      $order_building = $customer->order_building()->first();
       $order_preference = $order_building->order_preference()->first();
 
       $delivery_spot = DeliverySpot::find($fields['chosen_spot']);
@@ -604,8 +604,8 @@ class OrderController extends BaseController {
 
   public function getPayment()
   {
-    $user = Auth::user();
-    $order_building = $user->order_building()->first();
+    $customer = Auth::customer()->get();
+    $order_building = $customer->order_building()->first();
     $profile = $order_building->profile()->first();
     $order_preference = $order_building->order_preference()->first();
     $delivery_spot = $order_preference->delivery_spot()->first(); // May be NULL
@@ -637,8 +637,8 @@ class OrderController extends BaseController {
 
       $stripe_token = $fields['stripeToken'];
 
-      $user = Auth::user();
-      $order_building = $user->order_building()->first();
+      $customer = Auth::customer()->get();
+      $order_building = $customer->order_building()->first();
       $profile = $order_building->profile()->first();
 
       /**
@@ -646,7 +646,7 @@ class OrderController extends BaseController {
        */
 
       // We make a new payment profile
-      $payment_profile = new UserPaymentProfile;
+      $payment_profile = new CustomerPaymentProfile;
       $payment_profile->profile()->associate($profile);
 
       /**
@@ -659,10 +659,10 @@ class OrderController extends BaseController {
        * If the stripe customer doesn't exist we create it and store it to the users table
        * (And not another table, there's only one customer per account, make sense ?)
        */
-      //if (!$user->stripe_customer) {
+      //if (!$customer->stripe_customer) {
       //
 
-        $stripe_customer = Payments::makeCustomer($stripe_token, $user, $profile);
+        $stripe_customer = Payments::makeCustomer($stripe_token, $customer, $profile);
 
         if (is_array($stripe_customer)) {
 
@@ -738,13 +738,13 @@ class OrderController extends BaseController {
          * If someone blows up the system we absolutely must avoid double orders
          * which are the same. So we avoid the creation if needed
          */
-        $order_already_exists = Order::where('user_profile_id', '=', $profile->id)->where('delivery_serie_id', '=', $delivery_serie->id)->first();
+        $order_already_exists = Order::where('customer_profile_id', '=', $profile->id)->where('delivery_serie_id', '=', $delivery_serie->id)->first();
 
         if ($order_already_exists === NULL) {
           // We make the order
           $order = new Order;
-          $order->user()->associate($user);
-          $order->user_profile()->associate($profile);
+          $order->user()->associate($customer);
+          $order->customer_profile()->associate($profile);
           $order->delivery_serie()->associate($delivery_serie);
           $order->box()->associate($box);
 
@@ -763,11 +763,11 @@ class OrderController extends BaseController {
           // We make the order billing
           $order_billing = new OrderBilling;
           $order_billing->order()->associate($order);
-          $order_billing->first_name = $user->first_name;
-          $order_billing->last_name = $user->last_name;
-          $order_billing->city = $user->city;
-          $order_billing->address = $user->address;
-          $order_billing->zip = $user->zip;
+          $order_billing->first_name = $customer->first_name;
+          $order_billing->last_name = $customer->last_name;
+          $order_billing->city = $customer->city;
+          $order_billing->address = $customer->address;
+          $order_billing->zip = $customer->zip;
           $order_billing->save();
 
           // We make the order destination
@@ -791,7 +791,7 @@ class OrderController extends BaseController {
        */
       if (($order_preference->gift) || ($order_preference->frequency == 1)) {
         // If it's a gift it's a direct invoice
-        $feedback = Payments::invoice($stripe_customer, $user, $profile, $order_preference->totalPricePerMonth());
+        $feedback = Payments::invoice($stripe_customer, $customer, $profile, $order_preference->totalPricePerMonth());
 
         if ($feedback !== TRUE) {
           // Not sure about it, but to be clean we might delete the orders we just built
@@ -812,7 +812,7 @@ class OrderController extends BaseController {
         $order_preference->stripe_plan = $plan_name;
         $order_preference->save();
 
-        $feedback = Payments::makeSubscription($stripe_customer, $user, $profile, $plan_name, $plan_price);
+        $feedback = Payments::makeSubscription($stripe_customer, $customer, $profile, $plan_name, $plan_price);
 
         if (is_array($feedback)) {
 
@@ -847,7 +847,7 @@ class OrderController extends BaseController {
   public function getConfirmed()
   {
     // We will delete the user building system because we don't need it anymore
-    Auth::user()->order_building()->first()->delete();
+    Auth::customer()->get()->order_building()->first()->delete();
 
     return view('master-box.customer.order.confirmed');
   }
@@ -855,7 +855,7 @@ class OrderController extends BaseController {
   private function isCorrectStep($step)
   {
 
-    if (Auth::user()->order_building()->first()->step == $step) return TRUE;
+    if (Auth::customer()->get()->order_building()->first()->step == $step) return TRUE;
     else return FALSE;
 
   }
@@ -874,35 +874,35 @@ class OrderController extends BaseController {
      * - Resumee
      */
     
-    $user = Auth::user();
+    $customer = Auth::customer()->get()->get();
     $next_series = DeliverySerie::nextOpenSeries()->first();
-    $order_building = $user->order_building()->first();
+    $order_building = $customer->order_building()->first();
 
     // Means there's no step yet, let's go to the first one
     if ($order_building === NULL) {
 
-      $order_building = new UserOrderBuilding;
-      $order_building->user()->associate($user);
+      $order_building = new CustomerOrderBuilding;
+      $order_building->user()->associate($customer);
       $order_building->delivery_serie()->associate($next_series);
 
       // We will build the entire profile
       // All the other steps will only be updating (like that the user can go backward)
       
-      $user_profile = new UserProfile;
-      $user_profile->user()->associate($user);
-      $user_profile->status = 'not-subscribed';
-      $user_profile->priority = 'medium';
+      $customer_profile = new CustomerProfile;
+      $customer_profile->user()->associate($customer);
+      $customer_profile->status = 'not-subscribed';
+      $customer_profile->priority = 'medium';
 
-      $user_profile->save();
+      $customer_profile->save();
 
       // We can already build the contract id
-      $user_profile->contract_id = strtoupper(str_random(1)) . rand(100,999) . $user->id . $user_profile->id;
-      $user_profile->save();
+      $customer_profile->contract_id = strtoupper(str_random(1)) . rand(100,999) . $customer->id . $customer_profile->id;
+      $customer_profile->save();
 
-      $order_building->profile()->associate($user_profile);
+      $order_building->profile()->associate($customer_profile);
 
-      $order_preference = new UserOrderPreference;
-      $order_preference->user_profile()->associate($user_profile);
+      $order_preference = new CustomerOrderPreference;
+      $order_preference->customer_profile()->associate($customer_profile);
       $order_preference->gift = session()->get('isGift');
       $order_preference->save();
 

@@ -33,10 +33,10 @@ class SerieProduct extends Model {
    * HasMany
    */
   
-  public function user_profile_products()
+  public function customer_profile_products()
   {
 
-    return $this->hasMany('App\Models\UserProfileProduct');
+    return $this->hasMany('App\Models\CustomerProfileProduct');
 
   }
 

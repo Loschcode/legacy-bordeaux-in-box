@@ -7,9 +7,9 @@ use Carbon\Carbon;
 use Request, Validator, Auth, URL;
 
 use App\Models\Box;
-use App\Models\User;
-use App\Models\UserProfile;
-use App\Models\UserProfileNote;
+use App\Models\Customer;
+use App\Models\CustomerProfile;
+use App\Models\CustomerProfileNote;
 use App\Models\DeliverySpot;
 use App\Models\OrderDestination;
 
@@ -42,13 +42,13 @@ class ProfilesController extends BaseController {
 	public function getIndex()
 	{
 		
-		$profiles = UserProfile::orderBy('created_at', 'desc')->get();
+		$profiles = CustomerProfile::orderBy('created_at', 'desc')->get();
 
-		$config_graph_user_profile_status_progress = $this->user_profile_status_progress_graph_config();
+		$config_graph_customer_profile_status_progress = $this->customer_profile_status_progress_graph_config();
 
 	  return view('master-box.admin.profiles.index')->with(compact(
       'profiles',
-      'config_graph_user_profile_status_progress'
+      'config_graph_customer_profile_status_progress'
     ));
 
 	}
@@ -72,7 +72,7 @@ class ProfilesController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $profile = UserProfile::findOrFail($fields['profile_id']);
+      $profile = CustomerProfile::findOrFail($fields['profile_id']);
       $profile->priority = $fields['priority'];
       $profile->save();
 
@@ -93,9 +93,9 @@ class ProfilesController extends BaseController {
   public function getResetProfilesPriorities()
   {
 
-    $user_profiles = UserProfile::get();
+    $customer_profiles = CustomerProfile::get();
 
-    foreach ($user_profiles as $profile) {
+    foreach ($customer_profiles as $profile) {
 
       $profile->priority = 'medium';
       $profile->save();
@@ -113,7 +113,7 @@ class ProfilesController extends BaseController {
 	public function getDelete($id)
 	{
 
-    $profile = UserProfile::findOrFail($id);
+    $profile = CustomerProfile::findOrFail($id);
     $profile->delete();
 
     session()->flash('message', "L'abonnement a bien été supprimé");
@@ -127,7 +127,7 @@ class ProfilesController extends BaseController {
 	public function getEdit($id)
 	{
 
-		$profile = UserProfile::findOrFail($id);
+		$profile = CustomerProfile::findOrFail($id);
 
     $box = $profile->box()->first();
 
@@ -138,7 +138,7 @@ class ProfilesController extends BaseController {
     }
 
     $order_preference = $profile->order_preference()->first();
-    $user = $profile->user()->first();
+    $customer = $profile->user()->first();
 
     $next_delivery_order = $profile->orders()->where('locked', FALSE)->whereNull('date_completed')->first();
 
@@ -181,8 +181,8 @@ class ProfilesController extends BaseController {
 	public function getCancelSubscription($profile_id)
 	{
 
-		$profile = UserProfile::findOrFail($profile_id);
-		$user = $profile->user()->first();
+		$profile = CustomerProfile::findOrFail($profile_id);
+		$customer = $profile->user()->first();
 
 		$payment_profile = $profile->payment_profile()->first();
 
@@ -231,7 +231,7 @@ class ProfilesController extends BaseController {
 
 		$rules = [
 
-			'user_profile_id' => 'required|numeric',
+			'customer_profile_id' => 'required|numeric',
 
 			'note' => 'required',
 
@@ -243,11 +243,11 @@ class ProfilesController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$profile = UserProfile::findOrFail($fields['user_profile_id']);
+			$profile = CustomerProfile::findOrFail($fields['customer_profile_id']);
 			
-			$note = new UserProfileNote;
-			$note->user_profile_id = $profile->id;
-			$note->user_id = Auth::user()->id;
+			$note = new CustomerProfileNote;
+			$note->customer_profile_id = $profile->id;
+			$note->user_id = Auth::customer()->get()->id;
 			$note->note = $fields['note'];
 
 			$note->save();
@@ -274,7 +274,7 @@ class ProfilesController extends BaseController {
 
     $rules = [
 
-      'user_profile_id' => 'required|numeric',
+      'customer_profile_id' => 'required|numeric',
       'selected_spot' => 'required|numeric',
 
       ];
@@ -285,7 +285,7 @@ class ProfilesController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $profile = UserProfile::find($fields['user_profile_id']);
+      $profile = CustomerProfile::find($fields['customer_profile_id']);
       $next_orders = $profile->orders()->where('locked', FALSE)->get();
 
       $delivery_spot = DeliverySpot::find($fields['selected_spot']);
@@ -319,7 +319,7 @@ class ProfilesController extends BaseController {
   public function getGenerateDeliveryAddress($profile_id)
   {
 
-    $profile = UserProfile::find($profile_id);
+    $profile = CustomerProfile::find($profile_id);
 
     $next_orders = $profile->orders()->where('locked', FALSE)->get();
 
@@ -358,7 +358,7 @@ class ProfilesController extends BaseController {
 
 		$rules = [
 
-			'user_profile_id' => 'required|numeric',
+			'customer_profile_id' => 'required|numeric',
 
 			'destination_first_name' => 'required',
 			'destination_last_name' => 'required',
@@ -374,7 +374,7 @@ class ProfilesController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$profile = UserProfile::find($fields['user_profile_id']);
+			$profile = CustomerProfile::find($fields['customer_profile_id']);
 			$next_orders = $profile->orders()->where('locked', FALSE)->get();
 
 			foreach ($next_orders as $order) {
@@ -415,14 +415,14 @@ class ProfilesController extends BaseController {
   public function getForcePay($profile_id)
   {
 
-    $profile = UserProfile::find($profile_id);
-    $user = $profile->user()->first();
+    $profile = CustomerProfile::find($profile_id);
+    $customer = $profile->user()->first();
     $stripe_customer = $profile->stripe_customer;
 
     $order_preference = $profile->order_preference()->first();
     $raw_amount = $order_preference->totalPricePerMonth();
 
-    $callback = Payments::invoice($stripe_customer, $user, $profile, $raw_amount);
+    $callback = Payments::invoice($stripe_customer, $customer, $profile, $raw_amount);
 
     if (is_array($callback)) {
 
@@ -445,8 +445,8 @@ class ProfilesController extends BaseController {
   public function getResetSubscriptionAndPay($profile_id)
   {
 
-    $profile = UserProfile::find($profile_id);
-    $user = $profile->user()->first();
+    $profile = CustomerProfile::find($profile_id);
+    $customer = $profile->user()->first();
 
     $stripe_customer = $profile->stripe_customer;
 
@@ -467,7 +467,7 @@ class ProfilesController extends BaseController {
     /**
      * We artificially create a new subscription with the same data
      */
-    $callback = Payments::makeSubscription($stripe_customer, $user, $profile, $plan_name, $plan_price);
+    $callback = Payments::makeSubscription($stripe_customer, $customer, $profile, $plan_name, $plan_price);
     
     if (is_array($callback)) {
 
@@ -490,10 +490,10 @@ class ProfilesController extends BaseController {
 	public function getAddDelivery($profile_id)
 	{
 
-		$profile = UserProfile::find($profile_id);
-		$user = $profile->user()->first();
+		$profile = CustomerProfile::find($profile_id);
+		$customer = $profile->user()->first();
 
-		generate_new_order($user, $profile);
+		generate_new_order($customer, $profile);
 
 		session()->flash('message', "Une livraison a été ajoutée pour cet utilisateur");
 		return redirect()->to(URL::previous() . '#deliveries');
@@ -514,7 +514,7 @@ class ProfilesController extends BaseController {
 		$box = Box::find($fields['box_id']);
 		if ($box === NULL) return redirect()->back();
 
-		$profile = UserProfile::find($fields['user_profile_id']);
+		$profile = CustomerProfile::find($fields['customer_profile_id']);
 		if ($profile === NULL) return redirect()->back();
 
 		// Let's generate the rules
@@ -552,12 +552,12 @@ class ProfilesController extends BaseController {
 	}
 
 
-  public function user_profile_status_progress_graph_config()
+  public function customer_profile_status_progress_graph_config()
   {
 
     $graph_data = array();
 
-    $grouped_profiles = UserProfile::select('id', 'status', 'status_updated_at')
+    $grouped_profiles = CustomerProfile::select('id', 'status', 'status_updated_at')
     ->get()
     ->groupBy(function($date) {
 

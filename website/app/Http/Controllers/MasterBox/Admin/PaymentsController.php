@@ -252,7 +252,7 @@ class PaymentsController extends BaseController {
     public function getDownloadBill($bill_id)
     {
 
-    	$user = Auth::user();
+    	$customer = Auth::customer()->get();
     	$payment = Payment::where('bill_id', $bill_id)->first();
 
     	if ($payment != NULL) {

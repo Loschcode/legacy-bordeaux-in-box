@@ -3,7 +3,7 @@
 use App\Http\Controllers\MasterBox\BaseController;
 
 use Request, Validator;
-use App\Models\User;
+use App\Models\Customer;
 
 
 class UsersController extends BaseController {
@@ -33,7 +33,7 @@ class UsersController extends BaseController {
 	public function getIndex()
 	{
 
-		$users = User::orderBy('created_at', 'desc')->get();
+		$customers = Customer::orderBy('created_at', 'desc')->get();
 
 		return view('master-box.admin.users.index')->with(compact(
       'users'
@@ -48,7 +48,7 @@ class UsersController extends BaseController {
 	public function getFocus($id)
 	{
 
-		$user = User::findOrFail($id);
+		$customer = Customer::findOrFail($id);
 
 		$roles_list = [
 
@@ -94,34 +94,34 @@ class UsersController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$user = User::findOrFail($fields['user_id']);
+			$customer = Customer::findOrFail($fields['user_id']);
 
 
-      $user->email = $fields['email'];
+      $customer->email = $fields['email'];
 
       if ( ! empty($fields['password'])) {
 
-       $user->password = Hash::make($fields['password']);
+       $customer->password = Hash::make($fields['password']);
 
       }
 
-      $user->role = $fields['role'];
+      $customer->role = $fields['role'];
 
-      $user->phone = $fields['phone'];
+      $customer->phone = $fields['phone'];
 
-      $user->first_name = $fields['first_name'];
-      $user->last_name = $fields['last_name'];
+      $customer->first_name = $fields['first_name'];
+      $customer->last_name = $fields['last_name'];
 
-      $user->zip = $fields['zip'];
-      $user->city = $fields['city'];
-      $user->address = $fields['address'];
+      $customer->zip = $fields['zip'];
+      $customer->city = $fields['city'];
+      $customer->address = $fields['address'];
 
-      $user->save();
+      $customer->save();
 
 			// If the user got profiles we will edit the next deliveries
-      if ($user->profiles()->first() != NULL) {
+      if ($customer->profiles()->first() != NULL) {
 
-        $profiles = $user->profiles()->get();
+        $profiles = $customer->profiles()->get();
 
         foreach ($profiles as $profile) {
 
@@ -136,11 +136,11 @@ class UsersController extends BaseController {
 
                 $billing = $profile_order->billing()->first();
 
-                $billing->first_name = $user->first_name;
-                $billing->last_name = $user->last_name;
-                $billing->zip = $user->zip;
-                $billing->city = $user->city;
-                $billing->address = $user->address;
+                $billing->first_name = $customer->first_name;
+                $billing->last_name = $customer->last_name;
+                $billing->zip = $customer->zip;
+                $billing->city = $customer->city;
+                $billing->address = $customer->address;
 
 								// We save everything
                 $billing->save();

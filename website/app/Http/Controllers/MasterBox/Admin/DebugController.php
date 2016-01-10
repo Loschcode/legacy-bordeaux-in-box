@@ -3,13 +3,13 @@
 use App\Http\Controllers\MasterBox\BaseController;
 
 use App\Models\Order;
-use App\Models\UserProfile;
-use App\Models\User;
-use App\Models\UserAnswer;
-use App\Models\UserOrderBuilding;
+use App\Models\CustomerProfile;
+use App\Models\Customer;
+use App\Models\CustomerAnswer;
+use App\Models\CustomerOrderBuilding;
 use App\Models\Payment;
 use App\Models\PaymentProfile;
-use App\Models\UserOrderPreference;
+use App\Models\CustomerOrderPreference;
 use App\Models\DeliverySerie;
 
 
@@ -78,7 +78,7 @@ class DebugController extends BaseController {
   public function getDatabaseCorrectionSeriesInfiniteSequel()
   {
 
-    $profiles = UserProfile::get();
+    $profiles = CustomerProfile::get();
     $affected_rows = 0;
 
     foreach ($profiles as $profile) {
@@ -105,7 +105,7 @@ class DebugController extends BaseController {
   public function getDatabaseCorrectionSeriesInfinite()
   {
 
-    $profiles = UserProfile::get();
+    $profiles = CustomerProfile::get();
     $affected_rows = 0;
 
     foreach ($profiles as $profile) {
@@ -160,19 +160,19 @@ class DebugController extends BaseController {
 
     $affected_rows = 0;
 
-    $users = User::get();
+    $customers = Customer::get();
 
-    foreach ($users as $user) {
+    foreach ($customers as $customer) {
 
-        $slugged_user = Str::slug($user->getFullName());
+        $slugged_user = Str::slug($customer->getFullName());
 
-        $user_answer = UserAnswer::where('slug', '=', $slugged_user)->first();
+        $customer_answer = CustomerAnswer::where('slug', '=', $slugged_user)->first();
 
-        if ($user_answer !== NULL) {
+        if ($customer_answer !== NULL) {
           
-          $user_answer->answer = $user->email;
-          $user_answer->slug = Str::slug($user->email);
-          $user_answer->save();
+          $customer_answer->answer = $customer->email;
+          $customer_answer->slug = Str::slug($customer->email);
+          $customer_answer->save();
 
           $affected_rows++;
 
@@ -181,15 +181,15 @@ class DebugController extends BaseController {
     }
 
     // Now we will remove the ones that aren't emails
-    $user_answers = UserAnswer::get();
+    $customer_answers = CustomerAnswer::get();
 
-    foreach ($user_answers as $user_answer) {
+    foreach ($customer_answers as $customer_answer) {
 
-      if ($user_answer->box_question()->first()->slug == 'sponsor') {
+      if ($customer_answer->box_question()->first()->slug == 'sponsor') {
 
-        if (!filter_var($user_answer->answer, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($customer_answer->answer, FILTER_VALIDATE_EMAIL)) {
 
-          $user_answer->delete();
+          $customer_answer->delete();
           $affected_rows++;
 
         }
@@ -227,13 +227,13 @@ class DebugController extends BaseController {
 
 
   /**
-   * Update the `status_updated_at` data within the `user_profiles` table if empty
+   * Update the `status_updated_at` data within the `customer_profiles` table if empty
    * @return [type] [description]
    */
-  public function getUpdateUserProfileStatusUpdatedAt()
+  public function getUpdateCustomerProfileStatusUpdatedAt()
   {
 
-    $profiles = UserProfile::get();
+    $profiles = CustomerProfile::get();
     $affected_rows = 0;
 
     foreach ($profiles as $profile) {
@@ -300,13 +300,13 @@ class DebugController extends BaseController {
   }
 
   /**
-   * Update the `status` data within the `user_profiles` table if empty
+   * Update the `status` data within the `customer_profiles` table if empty
    * @return [type] [description]
    */
-  public function getUpdateUserProfileStatus()
+  public function getUpdateCustomerProfileStatus()
   {
 
-    $profiles = UserProfile::get();
+    $profiles = CustomerProfile::get();
     $affected_rows = 0;
 
     foreach ($profiles as $profile) {
@@ -371,25 +371,25 @@ class DebugController extends BaseController {
   }
 
   /**
-   * Update the `user_profile_id` data within the `user_order_buildings` table if empty
+   * Update the `customer_profile_id` data within the `customer_order_buildings` table if empty
    * @return void
    */
-  public function getUpdateLinkUserProfilesAndUserOrderBuilding()
+  public function getUpdateLinkCustomerProfilesAndCustomerOrderBuilding()
   {
 
-    $user_order_buildings = UserOrderBuilding::whereNull('user_profile_id')->get();
+    $customer_order_buildings = CustomerOrderBuilding::whereNull('customer_profile_id')->get();
     $affected_rows = 0;
 
-    foreach ($user_order_buildings as $user_order_building) {
+    foreach ($customer_order_buildings as $customer_order_building) {
 
         // We take the first we don't have any other solution
         
-        $user = $user_order_building->user()->first();
+        $customer = $customer_order_building->user()->first();
 
-        if ($user != NULL) {
+        if ($customer != NULL) {
 
-          $user_order_building->user_profile_id = $user->profiles()->first()->id;
-          $user_order_building->save();
+          $customer_order_building->customer_profile_id = $customer->profiles()->first()->id;
+          $customer_order_building->save();
 
           $affected_rows++;
 
@@ -397,7 +397,7 @@ class DebugController extends BaseController {
 
     }
 
-    session()->flash('message', "Les profils non terminés ne possédant pas de `user_profile` ont été reliés ($affected_rows entrées affectées)");
+    session()->flash('message', "Les profils non terminés ne possédant pas de `customer_profile` ont été reliés ($affected_rows entrées affectées)");
     return redirect()->back();
 
   }
@@ -440,14 +440,14 @@ class DebugController extends BaseController {
 
   }
 
-  public function getRetrieveLast4InUserPaymentProfilesWithStripe()
+  public function getRetrieveLast4InCustomerPaymentProfilesWithStripe()
   {
 
-    $user_payment_profiles = UserPaymentProfile::get();
+    $customer_payment_profiles = CustomerPaymentProfile::get();
 
     $affected_rows = 0;
 
-    foreach ($user_payment_profiles as $payment_profile) {
+    foreach ($customer_payment_profiles as $payment_profile) {
 
       if (empty($payment_profile->last4)) {
 
@@ -472,14 +472,14 @@ class DebugController extends BaseController {
 
   }
 
-  public function getRetrievePlanIdInUserPaymentProfilesWithStripe()
+  public function getRetrievePlanIdInCustomerPaymentProfilesWithStripe()
   {
 
-    $user_payment_profiles = UserPaymentProfile::get();
+    $customer_payment_profiles = CustomerPaymentProfile::get();
 
     $affected_rows = 0;
 
-    foreach ($user_payment_profiles as $payment_profile) {
+    foreach ($customer_payment_profiles as $payment_profile) {
 
       if (empty($payment_profile->stripe_plan)) {
 
@@ -505,21 +505,21 @@ class DebugController extends BaseController {
   }
 
   /**
-   * Generate the `slug` of the `user_answers` if empty
+   * Generate the `slug` of the `customer_answers` if empty
    * @return void
    */
-  public function getGenerateUserAnswersSlugs()
+  public function getGenerateCustomerAnswersSlugs()
   {
 
-    $user_answers = UserAnswer::get();
+    $customer_answers = CustomerAnswer::get();
     $affected_rows = 0;
 
-    foreach ($user_answers as $user_answer) {
+    foreach ($customer_answers as $customer_answer) {
 
-      if (empty($user_answer->slug)) {
+      if (empty($customer_answer->slug)) {
 
-        $user_answer->slug = Str::slug($user_answer->answer);
-        $user_answer->save();
+        $customer_answer->slug = Str::slug($customer_answer->answer);
+        $customer_answer->save();
 
         $affected_rows++;
 
@@ -527,27 +527,27 @@ class DebugController extends BaseController {
 
     }
 
-    session()->flash('message', "Le `slug` des `user_answers` a été généré si nécessaire ($affected_rows entrées affectées)");
+    session()->flash('message', "Le `slug` des `customer_answers` a été généré si nécessaire ($affected_rows entrées affectées)");
     return redirect()->back();
 
   }
 
   /**
-   * Update the `frequency` data within the `user_order_preferences` table if 0 to NULL
+   * Update the `frequency` data within the `customer_order_preferences` table if 0 to NULL
    * @return void
    */
-  public function getConvertUserOrderPreferencesZeroToNull()
+  public function getConvertCustomerOrderPreferencesZeroToNull()
   {
 
-    $user_order_preferences = UserOrderPreference::get();
+    $customer_order_preferences = CustomerOrderPreference::get();
     $affected_rows = 0;
 
-    foreach ($user_order_preferences as $user_order_preference) {
+    foreach ($customer_order_preferences as $customer_order_preference) {
 
-      if ($user_order_preference->frequency == 0) {
+      if ($customer_order_preference->frequency == 0) {
 
-        $user_order_preference->frequency = NULL;
-        $user_order_preference->save();
+        $customer_order_preference->frequency = NULL;
+        $customer_order_preference->save();
 
       }
 
@@ -559,10 +559,10 @@ class DebugController extends BaseController {
   }
 
   /**
-   * Update the `delivery_serie_id` data within the `user_order_buildings` table if empty
+   * Update the `delivery_serie_id` data within the `customer_order_buildings` table if empty
    * @return void
    */
-  public function getUpdateLinkSeriesAndUserOrderBuilding()
+  public function getUpdateLinkSeriesAndCustomerOrderBuilding()
   {
     $series = DeliverySerie::orderBy('delivery', 'asc')->get();
     $affected_rows = 0;
@@ -573,14 +573,14 @@ class DebugController extends BaseController {
       if ($serie->closed == NULL) $serie_date = $serie->delivery;
       else $serie_date = $serie->closed;
 
-      $user_order_buildings = UserOrderBuilding::where('created_at', '<=', $serie_date)->whereNull('delivery_serie_id')->get();
-      $affected_rows += $user_order_buildings->count();
+      $customer_order_buildings = CustomerOrderBuilding::where('created_at', '<=', $serie_date)->whereNull('delivery_serie_id')->get();
+      $affected_rows += $customer_order_buildings->count();
 
       // For each one of those unbuilt profile we will assign a serie (because there weren't any delivery serie id before)
-      foreach ($user_order_buildings as $user_order_building) {
+      foreach ($customer_order_buildings as $customer_order_building) {
 
-        $user_order_building->delivery_serie_id = $serie->id;
-        $user_order_building->save();
+        $customer_order_building->delivery_serie_id = $serie->id;
+        $customer_order_building->save();
 
       }
 

@@ -53,10 +53,10 @@ class Box extends Model {
 	 * HasMany
 	 */
 	
-	public function user_profiles()
+	public function customer_profiles()
 	{
 
-		return $this->hasMany('\App\Models\UserProfile');
+		return $this->hasMany('\App\Models\CustomerProfile');
 
 	}
 

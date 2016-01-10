@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
-class UserPaymentProfile extends Model {
+class CustomerPaymentProfile extends Model {
 
   use SoftDeletes;
 
@@ -14,7 +14,7 @@ class UserPaymentProfile extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'user_payment_profiles';
+	protected $table = 'customer_payment_profiles';
 
 	/**
 	 * Belongs To
@@ -23,7 +23,7 @@ class UserPaymentProfile extends Model {
 	public function profile()
 	{
 
-		return $this->belongsTo('App\Models\UserProfile', 'user_profile_id');
+		return $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id');
 
 	}
 

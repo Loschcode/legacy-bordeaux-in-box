@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\BoxQuestion;
-use App\Models\UserAnswer;
+use App\Models\CustomerAnswer;
 
 function is_birthday($dateBirthday) {
 
@@ -133,27 +133,27 @@ function refresh_answers_from_dynamic_questions_form($fields, $profile) {
             // Will work only if the answers are valid
             if (($real_answer != "0") && (!empty($real_answer))) {
 
-              $user_answer = new UserAnswer;
-              $user_answer->profile()->associate($profile);
+              $customer_answer = new CustomerAnswer;
+              $customer_answer->profile()->associate($profile);
 
               $box_question = $matching_question;
-              $user_answer->box_question()->associate($box_question);
+              $customer_answer->box_question()->associate($box_question);
 
               // Every other answers from this will be linked with the parent 'name'
               // It's the master entry
               if (($to_referent_slug != 'child_name') && (isset($referent_id))) {
 
-                $user_answer->referent_id = $referent_id;
+                $customer_answer->referent_id = $referent_id;
 
               }
 
-              $user_answer->to_referent_slug = $to_referent_slug;
-              $user_answer->answer = $real_answer;
-              $user_answer->save();
+              $customer_answer->to_referent_slug = $to_referent_slug;
+              $customer_answer->answer = $real_answer;
+              $customer_answer->save();
 
               if ($to_referent_slug == 'child_name') {
 
-                $referent_id = $user_answer->id;
+                $referent_id = $customer_answer->id;
 
               }
 
@@ -173,8 +173,8 @@ function refresh_answers_from_dynamic_questions_form($fields, $profile) {
          */
         if (!empty($answer)) {
           
-          $user_answer = new UserAnswer;
-          $user_answer->profile()->associate($profile);
+          $customer_answer = new CustomerAnswer;
+          $customer_answer->profile()->associate($profile);
 
           /**
            * Date is kind of special too
@@ -183,16 +183,16 @@ function refresh_answers_from_dynamic_questions_form($fields, $profile) {
            */
           if ($matching_question->type == 'date') {
 
-            $user_answer->to_referent_slug = 'date_age';
+            $customer_answer->to_referent_slug = 'date_age';
 
           }
 
           $box_question = $matching_question;
-          $user_answer->box_question()->associate($box_question);
+          $customer_answer->box_question()->associate($box_question);
 
-          $user_answer->answer = $answer;
+          $customer_answer->answer = $answer;
 
-          $user_answer->save();
+          $customer_answer->save();
 
         }
 

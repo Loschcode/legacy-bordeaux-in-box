@@ -8,7 +8,7 @@
 function get_percent_unfinished_buildings($serie) {
 
     
-    $raw_percent = $serie->user_order_buildings()->count() / ($serie->orders()->notCanceledOrders()->count() + $serie->user_order_buildings()->count());
+    $raw_percent = $serie->customer_order_buildings()->count() / ($serie->orders()->notCanceledOrders()->count() + $serie->customer_order_buildings()->count());
     $percent = $raw_percent * 100;
     return round($percent);
 

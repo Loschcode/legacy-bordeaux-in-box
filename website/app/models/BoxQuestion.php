@@ -27,9 +27,9 @@ class BoxQuestion extends Model {
         {
 
           // We also delete the advanced filter that's linked to it -> we will use softDeleting trait at the end
-          /*$user_answers = UserAnswer::where('box_question_id', '=', $box_question->id)->get();
-          foreach ($user_answers as $user_answer) {
-            $user_answer->delete();
+          /*$customer_answers = CustomerAnswer::where('box_question_id', '=', $box_question->id)->get();
+          foreach ($customer_answers as $customer_answer) {
+            $customer_answer->delete();
           }*/
 
           // We don't forget to reset the different positions
@@ -66,10 +66,10 @@ class BoxQuestion extends Model {
 	 * HasMany
 	 */
 	
-	public function user_answers()
+	public function customer_answers()
 	{
 
-		return $this->hasMany('App\Models\UserAnswer');
+		return $this->hasMany('App\Models\CustomerAnswer');
 
 	}
 

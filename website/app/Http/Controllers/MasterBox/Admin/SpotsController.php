@@ -5,7 +5,7 @@ use App\Http\Controllers\MasterBox\BaseController;
 use Request, Validator;
 
 use App\Models\DeliverySpot;
-use App\Models\UserProfile;
+use App\Models\CustomerProfile;
 
 class SpotsController extends BaseController {
 
@@ -84,14 +84,14 @@ class SpotsController extends BaseController {
 			/**
 			 * Now we will transfer and send an email to each user
 			 */
-			$profiles = $old_spot->orders()->ActiveOrders()->getUserProfiles()->get(); // Be careful with this bullshit
+			$profiles = $old_spot->orders()->ActiveOrders()->getCustomerProfiles()->get(); // Be careful with this bullshit
 
 			$already_delivered = [];
 
 			foreach ($profiles as $profile) {
 
-				// We need to reload the profile because it's a modified model because of user_profiles()
-				$profile = UserProfile::find($profile->id);
+				// We need to reload the profile because it's a modified model because of customer_profiles()
+				$profile = CustomerProfile::find($profile->id);
 
 				// One more conditio just in case
 				if ($profile->status === 'subscribed') {
@@ -113,14 +113,14 @@ class SpotsController extends BaseController {
 		      }
 
 		      $box = $profile->box()->first();
-		      $user = $profile->user()->first();
+		      $customer = $profile->user()->first();
 
 			    /**
 			     * Then we send an email
 			     */
 					$data = [
 
-						'first_name' => $user->first_name,
+						'first_name' => $customer->first_name,
 
 						'old_spot_name' => $old_spot->name,
 
@@ -132,7 +132,7 @@ class SpotsController extends BaseController {
 
 					];
 
-					$email = $user->email;
+					$email = $customer->email;
 
 					/**
 					 * To avoid bullshit multi-sent for no fucking reason.
