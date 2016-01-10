@@ -1,0 +1,45 @@
+// ===========================================================
+// Color
+// ===========================================================
+//
+// Get the hexa color for the color given
+//
+// @example
+//
+// color(orange)
+//
+@function color($color)
+  @if not map-has-key($colors-palette, $color)
+    @warn "`#{inspect($colors-palette)}` doesn't seem to have a key named `#{inspect($color)}`."
+
+  @return map-get($colors-palette, $color)
+
+// ===========================================================
+// Color light
+// ===========================================================
+//
+// Lighten the color given
+//
+// @example
+//
+// color-light(orange)
+//
+@function color-light($color)
+  $color: color($color)
+
+  @return lighten($color, 5%)
+
+// ===========================================================
+// Color Dark
+// ===========================================================
+//
+// Darken the color given
+//
+// @example
+//
+// color(orange)
+//
+@function color-dark($color)
+  $color: color($color)
+
+  @return darken($color, 5%)
