@@ -45,7 +45,7 @@ class OrdersController extends BaseController {
 
 		$problem_orders = Order::where('status', 'problem')->orderBy('updated_at', 'asc')->get();
 
-		return view('master-box.admin.orders.index')->with(compact(
+		return view('masterbox.admin.orders.index')->with(compact(
       'locked_orders',
       'packed_orders',
       'problem_orders'
@@ -216,7 +216,7 @@ class OrdersController extends BaseController {
 
 		if ($spot !== NULL) {
 
-			return view('master-box.admin.spots.edit')->with(compact(
+			return view('masterbox.admin.spots.edit')->with(compact(
         'spot'
       ));
 
@@ -411,7 +411,7 @@ class OrdersController extends BaseController {
 
 		$locked_orders = Order::LockedOrders()->notCanceledOrders()->get();
 
-		return view('master-box.admin.orders.email_locked_orders')->with(compact(
+		return view('masterbox.admin.orders.email_locked_orders')->with(compact(
       'locked_orders'
     ));
 

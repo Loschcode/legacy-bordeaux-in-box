@@ -35,7 +35,7 @@ class UsersController extends BaseController {
 
 		$customers = Customer::orderBy('created_at', 'desc')->get();
 
-		return view('master-box.admin.users.index')->with(compact(
+		return view('masterbox.admin.users.index')->with(compact(
       'users'
     ));
 
@@ -57,7 +57,7 @@ class UsersController extends BaseController {
 
 		];
 
-		return view('master-box.admin.users.focus')->with(compact(
+		return view('masterbox.admin.users.focus')->with(compact(
       'roles_list',
       'user'
     ));

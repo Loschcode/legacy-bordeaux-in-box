@@ -13,13 +13,4 @@ class BaseController extends Controller {
 		ini_set('memory_limit', '-1');
 	}
 
-	/**
-	 * Setup the layout used by the controller.
-	 *
-	 * @return void
-	 */
-	protected function setupLayout()
-	{
-	}
-
 }

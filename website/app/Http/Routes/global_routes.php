@@ -20,16 +20,14 @@ Route::pattern('slug', '[0-9A-Za-z\-]+');
 
 /**
  * *****************
- * Auth Section *
+ * Shared Section *
  * *****************
  */
 
-Route::group(['namespace' => 'Auth', 'domain' => "auth.".config('app.domain')], function() {
+/*Route::group(['namespace' => 'Auth', 'domain' => "auth.".config('app.domain')], function() {
 
-  Route::controller('customer', 'CustomerController');
-  Route::controller('customer-password', 'CustomerRemindersController');
 
-});
+});*/
 
 /**
  * *****************
@@ -64,6 +62,19 @@ Route::group(['namespace' => 'Company', 'domain' => "company.".config('app.domai
  * *******************
  */
 Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain')], function() {
+
+  /**
+   *  Connect Service Area
+   */
+  Route::group(['namespace' => 'Connect', 'prefix' => 'connect'], function() {
+
+    /**
+     * Customer
+     */
+    Route::controller('customer', 'CustomerController');
+    Route::controller('customer-password', 'CustomerRemindersController');
+
+  });
 
   /**
    *  MasterBox Service Area

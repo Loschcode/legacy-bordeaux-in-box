@@ -40,7 +40,7 @@ class StatisticsController extends BaseController {
 
     $config_graph_subscriptions_versus_unfinished = $this->subscriptions_versus_unfinished_graph_config();
 
-    return view('master-box.admin.statistics.index')->with(compact(
+    return view('masterbox.admin.statistics.index')->with(compact(
       'series',
       'config_graph_unfinished_profiles_steps',
       'config_graph_subscriptions_versus_unfinished'
@@ -57,7 +57,7 @@ class StatisticsController extends BaseController {
 
     $config_graph_unfinished_profiles_focus = $this->unfinished_profiles_focus_graph_config($series);
 
-    return view('master-box.admin.statistics.unfinished_profiles')->with(compact(
+    return view('masterbox.admin.statistics.unfinished_profiles')->with(compact(
       'customer_order_buildings',
       'series',
       'config_graph_unfinished_profiles_focus'
