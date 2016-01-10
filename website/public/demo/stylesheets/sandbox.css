@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=Rancho);
+@import url(https://fonts.googleapis.com/css?family=Gudea:400,400italic,700&subset=latin,latin-ext);
 #csstyle .\+text-center {
   text-align: center; }
 
@@ -28,11 +30,13 @@ html {
           box-sizing: inherit; }
 
 body {
-  font: 16px/2 serif; }
+  font: 18px/2 serif;
+  font-family: "Gudea", sans-serif;
+  font-weight: 400; }
 
 .alert {
   width: 100%;
-  padding: 16px;
+  padding: 18px;
   background-color: #D6E1E5; }
 
 
