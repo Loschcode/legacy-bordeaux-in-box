@@ -37,7 +37,7 @@ class TaxesController extends BaseController {
 
     $series = DeliverySerie::orderBy('delivery', 'asc')->get();
 
-    return view('master-box.admin.taxes.index')->with(compact(
+    return view('masterbox.admin.taxes.index')->with(compact(
       'series'
     ));
 

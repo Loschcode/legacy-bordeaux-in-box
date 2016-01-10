@@ -19,7 +19,7 @@ class FinancesController extends BaseController {
   public function getIndex()
   {
 
-    dd('test');
+    dd(action('MasterBox\Connect\CustomerController@getLogin'));
 
   }
 

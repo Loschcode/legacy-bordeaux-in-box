@@ -38,7 +38,7 @@ class SpotsController extends BaseController {
 		
 		$spots_list = $this->generate_active_spots_list();
 
-		return view('master-box.admin.spots.index')->with(compact(
+		return view('masterbox.admin.spots.index')->with(compact(
       'spots_list',
       'active_spots',
       'unactive_spots'
@@ -221,7 +221,7 @@ class SpotsController extends BaseController {
 
 		$spot = DeliverySpot::findOrFail($id);
 
-		return view('master-box.admin.spots.edit')->with(compact(
+		return view('masterbox.admin.spots.edit')->with(compact(
       'spot'
     ));
 	}
@@ -283,7 +283,7 @@ class SpotsController extends BaseController {
 	public function getNew()
 	{
 
-		return view('master-box.admin.spots.new');
+		return view('masterbox.admin.spots.new');
 
 	}
 

@@ -42,7 +42,7 @@ class ContentController extends BaseController {
 
 		$pages = Page::get();
 
-		return view('master-box.admin.content.index')->with(compact(
+		return view('masterbox.admin.content.index')->with(compact(
       'pages',
       'image_articles',
       'blog_articles'
@@ -70,7 +70,7 @@ class ContentController extends BaseController {
 	{
 		$blog_article = BlogArticle::findOrFail($id);
 
-		return view('master-box.admin.content.blog.edit')->with(compact(
+		return view('masterbox.admin.content.blog.edit')->with(compact(
       'blog_article'
     ));
 	}
@@ -155,7 +155,7 @@ class ContentController extends BaseController {
 	public function getNewBlog()
 	{
 
-    return view('master-box.admin.content.blog.new');
+    return view('masterbox.admin.content.blog.new');
 
 	}
 
@@ -310,7 +310,7 @@ class ContentController extends BaseController {
 
 		$image_article = ImageArticle::findOrFail($id);
 			
-    return view('master-box.admin.content.illustrations.edit')->with(compact(
+    return view('masterbox.admin.content.illustrations.edit')->with(compact(
       'image_article'
     ));
 
@@ -378,7 +378,7 @@ class ContentController extends BaseController {
 	public function getNewIllustration()
 	{
 
-		return view('master-box.admin.content.illustrations.new');
+		return view('masterbox.admin.content.illustrations.new');
 
 	}
 

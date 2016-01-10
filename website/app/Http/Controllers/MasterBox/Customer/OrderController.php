@@ -96,7 +96,7 @@ class OrderController extends BaseController {
     $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
 
-    return view('master-box.customer.order.choose_box')->with(compact(
+    return view('masterbox.customer.order.choose_box')->with(compact(
       'boxes', 
       'order_preference'
     ));
@@ -178,7 +178,7 @@ class OrderController extends BaseController {
     //$answers = $profile->answers();
     //view()->share('answers', $answers);
 
-    return view('master-box.customer.order.box_form')->with(compact(
+    return view('masterbox.customer.order.box_form')->with(compact(
       'profile', 
       'box', 
       'questions', 
@@ -297,7 +297,7 @@ class OrderController extends BaseController {
 
     $delivery_prices = DeliveryPrice::where('gift', $order_preference->gift)->orderBy('unity_price', 'asc')->get();
 
-    return view('master-box.customer.order.choose_frequency')->with(compact('next_series', 'delivery_prices', 'order_preference'));
+    return view('masterbox.customer.order.choose_frequency')->with(compact('next_series', 'delivery_prices', 'order_preference'));
 
   }
 
@@ -362,7 +362,7 @@ class OrderController extends BaseController {
     $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
 
-    return view('master-box.customer.order.billing_address')->with(compact('user', 'order_building', 'order_preference'));
+    return view('masterbox.customer.order.billing_address')->with(compact('user', 'order_building', 'order_preference'));
 
   }
 
@@ -473,7 +473,7 @@ class OrderController extends BaseController {
 
     }
 
-    return view('master-box.customer.order.delivery_mode');
+    return view('masterbox.customer.order.delivery_mode');
 
   }
 
@@ -550,7 +550,7 @@ class OrderController extends BaseController {
 
     $delivery_spots = DeliverySpot::where('active', TRUE)->get();
 
-    return view('master-box.customer.order.choose_spot')->with(compact(
+    return view('masterbox.customer.order.choose_spot')->with(compact(
       'chosen_delivery_spot',
       'delivery_spots'
     ));
@@ -610,7 +610,7 @@ class OrderController extends BaseController {
     $order_preference = $order_building->order_preference()->first();
     $delivery_spot = $order_preference->delivery_spot()->first(); // May be NULL
 
-    return view('master-box.customer.order.payment')->with(compact(
+    return view('masterbox.customer.order.payment')->with(compact(
       'user',
       'order_building',
       'profile',
@@ -849,7 +849,7 @@ class OrderController extends BaseController {
     // We will delete the user building system because we don't need it anymore
     Auth::customer()->get()->order_building()->first()->delete();
 
-    return view('master-box.customer.order.confirmed');
+    return view('masterbox.customer.order.confirmed');
   }
 
   private function isCorrectStep($step)
