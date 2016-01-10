@@ -32,13 +32,8 @@ body {
 
 .alert {
   width: 100%;
-  height: 3em; }
-  .alert.\--grey-light {
-    background-color: #e6ecef; }
-  .alert.\--grey {
-    background-color: #D6E1E5; }
-  .alert.\--grey-dark {
-    background-color: #c6d6db; }
+  padding: 16px;
+  background-color: #D6E1E5; }
 
 
 /*# sourceMappingURL=main-boxes.css.map*/
