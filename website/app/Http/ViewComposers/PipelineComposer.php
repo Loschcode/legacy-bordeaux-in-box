@@ -1,6 +1,6 @@
 <?php
 
-view()->composer('_includes.pipeline', function($view) {
+view()->composer('masterbox.partials.pipeline', function($view) {
 
   // Total steps of the pipeline  
   $totalSteps = 5;
