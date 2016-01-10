@@ -1,12 +1,12 @@
-<?php namespace App\Http\Controllers\Documentation\Ui;
+<?php namespace App\Http\Controllers\Sandbox\Ui;
 
-use App\Http\Controllers\Documentation\BaseController;
+use App\Http\Controllers\Sandbox\BaseController;
 
 class PagesController extends BaseController {
 
   public function getHome()
   {
-    return view('documentation.ui.pages.home');
+    return view('sandbox.ui.pages.home');
   }
 
 }
