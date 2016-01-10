@@ -12,7 +12,7 @@ use App\Models\CustomerOrderPreference;
 use App\Models\DeliverySetting;
 use App\Models\DeliverySpot;
 
-class OrderController extends BaseController {
+class PurchaseController extends BaseController {
 
   /*
   |--------------------------------------------------------------------------
@@ -719,7 +719,7 @@ class OrderController extends BaseController {
       while ($num < $num_orders) {
         // Matching series
         if (!isset($delivery_series[$num]))  {
-          Log::info("ERROR : no enough delivery series to order (checkout OrderController line ~700");
+          Log::info("ERROR : no enough delivery series to order (checkout PurchaseController line ~700");
 
           $profile->orders()->delete();
 
@@ -949,7 +949,7 @@ class OrderController extends BaseController {
     ];
 
     // Let's redirect depending on the step
-    return action("MasterBox\Customer\OrderController@".$methods_from_step[$order_building->step]);
+    return action("MasterBox\Customer\PurchaseController@".$methods_from_step[$order_building->step]);
 
   }
 

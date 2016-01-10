@@ -258,7 +258,7 @@
     </div>
           <nav>
         <ul class="pager">
-          <li><a href="{{ action('MasterBox\Customer\OrderController@getChooseFrequency') }}">&larr; Retour au choix de la fréquence</a></li>
+          <li><a href="{{ action('MasterBox\Customer\PurchaseController@getChooseFrequency') }}">&larr; Retour au choix de la fréquence</a></li>
         </ul>
       </nav>
 </div>

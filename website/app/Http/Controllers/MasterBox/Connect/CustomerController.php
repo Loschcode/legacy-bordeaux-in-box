@@ -106,7 +106,7 @@ class CustomerController extends BaseController {
 
       } else {
 
-        return redirect()->action('MasterBox\Customer\OrderController@getIndex');
+        return redirect()->action('MasterBox\Customer\PurchaseController@getIndex');
 
       }
 
@@ -175,7 +175,7 @@ class CustomerController extends BaseController {
         // In case the customer is already building an order
         if (Auth::customer()->get()->order_building()->first() != NULL) 
         {
-          return redirect()->action('MasterBox\Customer\OrderController@getIndex');
+          return redirect()->action('MasterBox\Customer\PurchaseController@getIndex');
         }
 
         // If the customer has clicked on the correct button
@@ -183,11 +183,11 @@ class CustomerController extends BaseController {
         {
           if (session()->get('isGift')) 
           {
-            return redirect()->action('MasterBox\Customer\OrderController@getGift');
+            return redirect()->action('MasterBox\Customer\PurchaseController@getGift');
           } 
           else 
           {
-            return redirect()->action('MasterBox\Customer\OrderController@getClassic');
+            return redirect()->action('MasterBox\Customer\PurchaseController@getClassic');
           }
         }
 

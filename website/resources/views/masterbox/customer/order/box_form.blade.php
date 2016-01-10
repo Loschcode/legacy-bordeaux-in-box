@@ -19,7 +19,7 @@
         @endif
         <div class="spacer20"></div>
         <p>
-        	<a href="{{ action('MasterBox\Customer\OrderController@getChooseFrequency') }}" class="spyro-btn spyro-btn-warning spyro-btn-lg icon-space">Je ne veux pas personnaliser la box <i class="fa fa-angle-right"></i></a>
+        	<a href="{{ action('MasterBox\Customer\PurchaseController@getChooseFrequency') }}" class="spyro-btn spyro-btn-warning spyro-btn-lg icon-space">Je ne veux pas personnaliser la box <i class="fa fa-angle-right"></i></a>
         </p>
       </div>
     </div>
@@ -243,7 +243,7 @@
       <button type="submit"><i class="fa fa-check"></i> Valider</button>
       <nav>
         <ul class="pager">
-          <li><a href="{{action('MasterBox\Customer\OrderController@getChooseBox')}}">&larr; Revenir au choix de la box</a></li>
+          <li><a href="{{action('MasterBox\Customer\PurchaseController@getChooseBox')}}">&larr; Revenir au choix de la box</a></li>
         </ul>
       </nav>
 

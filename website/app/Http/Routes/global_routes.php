@@ -136,12 +136,12 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
   Route::group(['namespace' => 'Customer', 'prefix' => 'customer'], function() {
 
     /**
-     * Order
+     * Purchase a box
      */
-    Route::controller('order', 'OrderController');
+    Route::controller('purchase', 'PurchaseController');
 
     /**
-     * Profile
+     * Check your profile
      */
     Route::controller('profile', 'ProfileController');
 

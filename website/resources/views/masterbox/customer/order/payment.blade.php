@@ -158,7 +158,7 @@
     <div class="spacer50"></div>
     <nav>
       <ul class="pager">
-        <li><a href="{{ action('MasterBox\Customer\OrderController@getBillingAddress') }}">&larr; Retour aux détails de livraison</a></li>
+        <li><a href="{{ action('MasterBox\Customer\PurchaseController@getBillingAddress') }}">&larr; Retour aux détails de livraison</a></li>
       </ul>
     </nav>
   </div>

@@ -22,7 +22,7 @@ class BlogController extends BaseController {
   {
     $blog_articles = BlogArticle::orderBy('created_at', 'desc')->paginate(5);
     
-    return view('blog.index')->with(compact(
+    return view('masterbox.guest.blog.index')->with(compact(
       'blog_articles'
     ));
   }
@@ -35,7 +35,7 @@ class BlogController extends BaseController {
     $previous_article = $blog_article->get_previous();
     $next_article = $blog_article->get_next();
 
-    return view('blog.article')->with(compact(
+    return view('masterbox.guest.blog.article')->with(compact(
       'blog_article',
       'previous_article',
       'next_article'

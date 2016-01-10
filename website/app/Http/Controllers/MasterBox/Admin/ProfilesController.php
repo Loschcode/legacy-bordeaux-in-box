@@ -521,7 +521,7 @@ class ProfilesController extends BaseController {
 		foreach ($box->questions()->get() as $question) {
 
 			// Checkbox aren't mandatory
-      // It's the ADMIN section so we don't specify much rules, not like the OrderController side 
+      // It's the ADMIN section so we don't specify much rules, not like the PurchaseController side 
 			if ($question->type != 'checkbox') {
 
 				$rules[$question->id.'-0'] = ''; // Nothing is required anymore -> //'required';

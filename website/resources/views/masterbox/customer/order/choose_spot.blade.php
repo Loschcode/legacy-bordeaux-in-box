@@ -45,7 +45,7 @@
     	<button type="submit"><i class="fa fa-check"></i> Valider</button>
       <nav>
         <ul class="pager">
-          <li><a href="{{ action('MasterBox\Customer\OrderController@getDeliveryMode') }}">&larr; Retour au mode de livraison</a></li>
+          <li><a href="{{ action('MasterBox\Customer\PurchaseController@getDeliveryMode') }}">&larr; Retour au mode de livraison</a></li>
         </ul>
       </nav>
     </div>
