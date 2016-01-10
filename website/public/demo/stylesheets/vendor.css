@@ -46,6 +46,13 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+.grid-centered {
+  display: block !important;
+  float: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  clear: both !important; }
+
 .container:after {
   content: "";
   display: table;

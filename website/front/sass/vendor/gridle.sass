@@ -16,6 +16,15 @@
 // Change classes name (.gr-1 becomes .grid-1)
 +gridle_set_classname_map('grid', ('grid','-','%column','@','%state'))
 
+// Bug with gridle_set_classname_map to change the name of gr-centered to grid-centered
+// so I created that alias.
+.grid-centered 
+  display: block !important
+  float: none !important
+  margin-left: auto !important
+  margin-right: auto !important
+  clear: both !important
+
 // Register the states for the responsive
 +gridle_register_default_mobile_first_states()
 
