@@ -27,7 +27,7 @@
 
 
       {!! Form::label("email", "Email") !!}
-      {!! Form::text("email", (Auth::check()) ? Auth::user()->email : Request::old("email"), ['placeholder' => 'Votre adresse email']) !!}
+      {!! Form::text("email", (Auth::check()) ? Auth::customer()->get()->email : Request::old("email"), ['placeholder' => 'Votre adresse email']) !!}
 
 
       @if ($errors->first('email'))

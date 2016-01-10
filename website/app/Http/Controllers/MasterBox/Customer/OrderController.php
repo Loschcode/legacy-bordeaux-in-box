@@ -947,7 +947,7 @@ class OrderController extends BaseController {
       'payment' => 'getPayment',
 
     ];
-    
+
     // Let's redirect depending on the step
     return action("MasterBox\Customer\OrderController@".$methods_from_step[$order_building->step]);
 

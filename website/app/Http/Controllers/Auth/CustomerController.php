@@ -1,19 +1,19 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Auth\BaseController;
 
 use Request, Validator, Redirect, Hash, Auth;
 
 use App\Models\Customer;
 
-class UserController extends BaseController {
+class CustomerController extends BaseController {
 
   /*
   |--------------------------------------------------------------------------
-  | User Controller
+  | Customer Controller
   |--------------------------------------------------------------------------
   |
-  | All about the user registering, login, signout
+  | All about the customer registering, login, signout
   |
   */
 
@@ -25,13 +25,28 @@ class UserController extends BaseController {
     $this->middleware('is.not.connected', array('except' => 'getLogout'));
   }
 
+  public function getIndex()
+  {
+
+    /**
+     * We either Login the user or go to the homepage
+     * Protected already via middleware
+     */
+    if (Auth::customer()->guest()) {
+
+      return redirect()->action('Auth\CustomerController@getLogin');
+
+    }
+
+  }
+
   /**
    * Subscribe page
    * @return [type] [description]
    */
   public function getSubscribe()
   {
-    return view('user.subscribe');
+    return view('auth.customer.subscribe');
   }
 
   /**
@@ -41,12 +56,12 @@ class UserController extends BaseController {
   public function postSubscribe()
   {
 
-    // New user rules
+    // New customer rules
     $rules = [
 
       'first_name' => 'required',
       'last_name' => 'required',
-      'email' => 'required|email|unique:users,email',
+      'email' => 'required|email|unique:customers,email',
       'password' => 'required|min:5|confirmed',
 
       'phone' => 'required',
@@ -59,7 +74,7 @@ class UserController extends BaseController {
     // The form validation was good
     if ($validator->passes()) 
     {
-      $customer = new User;
+      $customer = new Customer;
       $customer->email = $fields['email'];
       $customer->password = $fields['password'];
       $customer->first_name = $fields['first_name'];
@@ -67,7 +82,7 @@ class UserController extends BaseController {
       $customer->phone = $fields['phone'];
 
       // We add/change some specific fields
-      $customer->role = 'user';
+      $customer->role = 'customer';
       $customer->password = Hash::make($customer->password);
 
       $customer->save();
@@ -77,13 +92,13 @@ class UserController extends BaseController {
         'first_name' => $customer->first_name,
       ];
 
-      // Specific to user, we don't use the classical system
-      mailing_send_user_only($customer, 'Bienvenue sur Bordeaux in Box !', 'emails.user.welcome', $data, NULL);
+      // Specific to customer, we don't use the classical system
+      mailing_send_customer_only($customer, 'Bienvenue sur Bordeaux in Box !', 'auth.emails.customer.welcome', $data, NULL);
 
       session()->flash('message', "Ton inscription a bien été confirmée !");
 
       // Auto-connection : on
-      Auth::login($customer);
+      Auth::customer()->login($customer);
       
       if (session()->get('after-login-redirection')) {
 
@@ -91,7 +106,7 @@ class UserController extends BaseController {
 
       } else {
 
-        return redirect('/order');
+        return redirect()->action('MasterBox\Customer\OrderController@getIndex');
 
       }
 
@@ -112,7 +127,7 @@ class UserController extends BaseController {
    */
   public function getLogin()
   {
-    return view('user.login');
+    return view('auth.customer.login');
   }
 
   /**
@@ -121,10 +136,10 @@ class UserController extends BaseController {
    */
   public function getLogout()
   {
-    Auth::logout();
-    session()->flush();
+    Auth::customer()->logout();
+    session()->flush(); // should be commented to let the other session live
     
-    return redirect('user/login');
+    return redirect()->action('MasterBox\Guest\HomeController@getIndex');
   }
 
   /**
@@ -157,28 +172,22 @@ class UserController extends BaseController {
           return redirect(session()->get('after-login-redirection'));
         }
 
-        // Otherwise, if the user is admin
-        if (Auth::customer()->get()->role === 'admin') 
-        {
-          return redirect('/admin');
-        }
-
-        // In case the user is already building an order
+        // In case the customer is already building an order
         if (Auth::customer()->get()->order_building()->first() != NULL) 
         {
-          return redirect('/order');
+          return redirect()->action('MasterBox\Customer\OrderController@getIndex');
         }
 
-        // If the user has clicked on the correct button
+        // If the customer has clicked on the correct button
         if (session()->get('isOrdering')) 
         {
           if (session()->get('isGift')) 
           {
-            return redirect()->to('/order/gift');
+            return redirect()->action('MasterBox\Customer\OrderController@getGift');
           } 
           else 
           {
-            return redirect()->to('/order/classic');
+            return redirect()->action('MasterBox\Customer\OrderController@getClassic');
           }
         }
 

@@ -20,6 +20,19 @@ Route::pattern('slug', '[0-9A-Za-z\-]+');
 
 /**
  * *****************
+ * Auth Section *
+ * *****************
+ */
+
+Route::group(['namespace' => 'Auth', 'domain' => "auth.".config('app.domain')], function() {
+
+  Route::controller('customer', 'CustomerController');
+  Route::controller('customer-password', 'CustomerRemindersController');
+
+});
+
+/**
+ * *****************
  * Company Section *
  * *****************
  */
@@ -166,19 +179,6 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
   Route::get('easygo/index', array('as' => 'easygo'));
 
 });
-
-  /** TO CHANGE OF AREA WITHIN AUTH **/
-
-  /**
-   * User
-   */
-  Route::controller('user', 'UserController');
-
-  /**
-   * Reminds (forgot password module)
-   */
-  Route::controller('user-password', 'RemindersController');
-
 
 /**
  * Manual files

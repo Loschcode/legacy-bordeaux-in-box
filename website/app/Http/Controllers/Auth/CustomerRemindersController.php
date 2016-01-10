@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Password;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
-class RemindersController extends Controller
+class CustomerRemindersController extends Controller
 {
     /**
      * Subject of the reminder's email
@@ -49,11 +49,11 @@ class RemindersController extends Controller
      */
     public function getRemind()
     {
-      return view('user.password.remind');
+      return view('auth.customer.password.remind');
     }
 
     /**
-     * Send a reset link to the given user.
+     * Send a reset link to the given customer.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -87,7 +87,7 @@ class RemindersController extends Controller
             throw new NotFoundHttpException;
         }
 
-        return view('user.password.reset')->with('token', $token);
+        return view('auth.customer.password.reset')->with('token', $token);
     }
 
 }

@@ -14,9 +14,9 @@ class IsNotConnected {
   public function handle($request, Closure $next)
   {
     
-    if (Auth::customer()->check() && Request::segment(2) !== 'logout') {
+    if (Auth::customer()->check()) {
 
-      return redirect()->to('/');
+      return redirect()->action('MasterBox\Guest\HomeController@getIndex');
 
     }
 

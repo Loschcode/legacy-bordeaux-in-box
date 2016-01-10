@@ -44,7 +44,7 @@ return array(
 
   'password' => [
 
-    'email' => 'emails.user.reminder',
+    'email' => 'auth.emails.customer.reminder',
     'table' => 'password_reminders',
     'expire' => 60,
 
