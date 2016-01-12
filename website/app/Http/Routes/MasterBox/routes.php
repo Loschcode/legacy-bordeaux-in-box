@@ -17,7 +17,7 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
      * Customer
      */
     Route::controller('customer', 'CustomerController');
-    Route::controller('customer-password', 'CustomerRemindersController');
+    Route::controller('password-reminders', 'PasswordRemindersController');
 
   });
 

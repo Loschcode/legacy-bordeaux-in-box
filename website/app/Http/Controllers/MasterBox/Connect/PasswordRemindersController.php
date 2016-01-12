@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Password;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
-class CustomerRemindersController extends BaseController {
+class PasswordRemindersController extends BaseController {
 
     /**
      * Subject of the reminder's email
