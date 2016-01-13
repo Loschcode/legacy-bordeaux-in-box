@@ -40,7 +40,7 @@ function generate_pdf_bill($payment, $download=FALSE, $destination_folder=FALSE)
 
   }
 
-  $html = view('pdf.bill')->with(compact(
+  $html = view('masterbox.pdf.bill')->with(compact(
     'customer',
     'customer_order_preference',
     'box',

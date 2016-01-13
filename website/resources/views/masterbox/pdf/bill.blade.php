@@ -20,7 +20,7 @@ table {
   width: 100%;
 }
 
-.user {
+.customer {
   font-size: 15px;
 }
 
@@ -72,6 +72,10 @@ table {
 table {
 }
 
+.micro {
+  font-size: 8px;
+}
+
 table, th, td {
    border: 0px solid black;
 }
@@ -109,7 +113,7 @@ th {
     </tr>
     <tr class="customer-number">
       <td>N° client</td>
-      <td>{{$customer->id}}</td>
+      <td>BX{{$customer->id}}</td>
     </tr>
   </table>
 </div>
@@ -118,7 +122,7 @@ th {
 <br />
 
 
-<div class="user">
+<div class="customer">
 <strong>
 Madame, Monsieur<br />
 
@@ -164,7 +168,7 @@ FRANCE
       <tr>
         <th>Prestation</th>
         <th>Date approximative de livraison</th>
-        <th>Montant à payer (TTC)</th>
+        <th>Montant à payer</th>
       </tr>
 
     </thead>
@@ -175,9 +179,20 @@ FRANCE
 
         @if ($order != NULL)
 
-        	<th>Frais d'abonnement de la box surprise</th>
+          <th>Frais d'abonnement de la box surprise
+          
+          @if ($order->gift == TRUE)
+          (à offrir / paiement en une fois)
+          @endif
+
+          </th>
           <th>{{$order->delivery_serie()->first()->delivery}}</th>
-          <th>{{$order->unity_and_fees_price}}€
+          <th>{{$payment->amount}}€
+          <br />
+          <span class="micro">TVA non applicable, article 293 B du Code général des impôts
+          </span>
+
+          <!-- $order->unity_and_fees_price -->
 
           @if ($payment->paid == 0)
 
@@ -198,8 +213,7 @@ FRANCE
 
 <br />
 
-{!! Html::page('bill') !!}
-
-<br />
+{!! HTML::page('bill') !!}
 
 </body></html>
+

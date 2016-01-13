@@ -7,16 +7,16 @@
   <div class="container profile-orders-section">
 
     <ul class="nav-tabs tabs col-md-2">
-      <li class=""><a href="{{ url('profile#account') }}"><i class="fa fa-cog"></i>Mon compte</a></li>
+      <li class=""><a href="{{ action('MasterBox\Customer\ProfileController@getIndex') }}#account"><i class="fa fa-cog"></i>Mon compte</a></li>
 
-      <li><a href="{{ url('profile#contracts') }}">
+      <li><a href="{{ action('MasterBox\Customer\ProfileController@getIndex') }}#contracts">
         <i class="fa fa-shopping-cart"></i> Abonnements
       </a></li>
             <li>
         <a href="{{ url('contact') }}"><i class="fa fa-envelope-o"></i> Contact</a>
       </li>
       <li>
-        <a href="{{ url('user/logout') }}"><i class="fa fa-unlock"></i> Déconnexion</a>
+        <a href="{{ action('MasterBox\Connect\CustomerController@getLogout') }}"><i class="fa fa-unlock"></i> Déconnexion</a>
       </li>
     </ul>
 
@@ -105,8 +105,8 @@
                 <th>{{$payment->created_at}}</th>
                 <th>
                 @if ($payment->amount > 0)
-                  <a class="spyro-btn spyro-btn-primary upper spyro-btn-sm" href="{{url('/profile/bill/' . $payment->bill_id)}}" target="_blank">Accéder à ma facture</a>
-                  <a class="spyro-btn spyro-btn-green upper spyro-btn-sm" href="{{url('/profile/download-bill/' . $payment->bill_id)}}" target="_blank">Télécharger ma facture</a>
+                  <a class="spyro-btn spyro-btn-primary upper spyro-btn-sm" href="{{action('MasterBox\Customer\ProfileController@getBill', ['bill_id' => $payment->bill_id])}}" target="_blank">Accéder à ma facture</a>
+                  <a class="spyro-btn spyro-btn-green upper spyro-btn-sm" href="{{action('MasterBox\Customer\ProfileController@getDownloadBill', ['bill_id' => $payment->bill_id])}}" target="_blank">Télécharger ma facture</a>
                 @endif
                 </th>
 
@@ -137,7 +137,7 @@
       <div id="errors"></div>
 
 
-      {!! Form::open(['action' => 'ProfileController@postChangeCard', 'id' => 'payment-form', 'class' => 'form-component']) !!}
+      {!! Form::open(['action' => 'MasterBox\Customer\ProfileController@postChangeCard', 'id' => 'payment-form', 'class' => 'form-component']) !!}
       {!! Form::hidden('stripeToken', null, ['id' => 'stripe-token']) !!}
 
       {!! Form::hidden('profile_id', $profile->id) !!}

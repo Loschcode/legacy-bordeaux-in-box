@@ -383,7 +383,7 @@ class InvoicesController extends BaseController {
           view()->share('payment', $payment);
           view()->share('profile', $profile);
 
-          $html = view()->make('pdf.bill');
+          $html = view()->make('masterbox.pdf.bill');
 
           $destinationPath = 'public/uploads/bills/';
           $outputName = $payment->bill_id;

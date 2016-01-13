@@ -20,7 +20,7 @@
         <a href="{{ url('contact') }}"><i class="fa fa-envelope-o"></i> Contact</a>
       </li>
       <li>
-        <a href="{{ url('user/logout') }}"><i class="fa fa-unlock"></i> Déconnexion</a>
+        <a href="{{ action('MasterBox\Connect\CustomerController@getLogout') }}"><i class="fa fa-unlock"></i> Déconnexion</a>
       </li>
     </ul>
 
@@ -84,7 +84,7 @@
                   {!! Html::getReadableProfileStatus($profile->status) !!}
                 </th>
                 <th>
-                  <a class="spyro spyro-btn spyro-btn-primary spyro-btn-sm upper" href="{{url('/profile/orders/'.$profile->id)}}"><i class="fa fa-list-alt"></i> Détails</a>
+                  <a class="spyro spyro-btn spyro-btn-primary spyro-btn-sm upper" href="{{action('MasterBox\Customer\ProfileController@getOrders', ['id' => $profile->id])}}"><i class="fa fa-list-alt"></i> Détails</a>
                 </th>
               </tr>
 
