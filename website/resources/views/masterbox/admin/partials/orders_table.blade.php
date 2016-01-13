@@ -32,19 +32,19 @@
 
 					@foreach ($orders as $order)
 
-						<?php $profile = $order->user_profile()->first(); ?>
+						<?php $profile = $order->customer_profile()->first(); ?>
 						<?php $box = $profile->box()->first(); ?>
 
 						<tr>
 
 							<th>{{$order->id}}</th>
 							<th>{{$order->delivery_serie()->first()->delivery}}</th>
-							<th><a href="{{ url('/admin/users/focus/'.$order->user_profile()->first()->customer()->first()->id)}}">{{$order->user_profile()->first()->customer()->first()->getFullName()}}</a></th>
+							<th><a href="{{ url('/admin/users/focus/'.$order->customer_profile()->first()->customer()->first()->id)}}">{{$order->customer_profile()->first()->customer()->first()->getFullName()}}</a></th>
 
-							<th>{{ $order->user_profile()->first()->customer()->first()->getFullAddress()}} </th>
-							<th>{{ $order->user_profile()->first()->customer()->first()->phone}} </th>
+							<th>{{ $order->customer_profile()->first()->customer()->first()->getFullAddress()}} </th>
+							<th>{{ $order->customer_profile()->first()->customer()->first()->phone}} </th>
 
-							<th>{{ $order->user_profile()->first()->customer()->first()->email}} </th>
+							<th>{{ $order->customer_profile()->first()->customer()->first()->email}} </th>
 
 							<th>
 

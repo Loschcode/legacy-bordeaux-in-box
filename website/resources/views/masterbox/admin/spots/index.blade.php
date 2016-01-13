@@ -93,7 +93,7 @@
 
 				{!! Html::info("Un email sera envoyé aux abonnés leur indiquant le changement de point relais lié à leur abonnement") !!}
 
-          {!! Form::open(['class' => 'form-inline', 'action' => 'Admin\SpotsController@postTransferSpotSubscriptions']) !!}
+          {!! Form::open(['class' => 'form-inline', 'action' => 'MasterBox\Admin\SpotsController@postTransferSpotSubscriptions']) !!}
 
           <div class="form-group @if ($errors->first('old_spot')) has-error has-feedback @endif">
             {!! Form::label("old_spot", "Point relais d'origine", ['class' => 'sr-only']) !!}

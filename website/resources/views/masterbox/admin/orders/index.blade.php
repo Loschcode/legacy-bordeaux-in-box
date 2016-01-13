@@ -39,7 +39,7 @@
 			<a class="spyro-btn spyro-btn-success" href="{{ url('admin/orders/email-locked-orders') }}">Liste des Emails</a>
 			<div class="spacer20"></div>
 
-			@include('admin.partials.orders_table', array('orders' => $locked_orders))
+			@include('masterbox.admin.partials.orders_table', array('orders' => $locked_orders))
 
 		</div>
 
@@ -54,13 +54,13 @@
 
 			<div class="spacer20"></div>
 
-			@include('admin.partials.orders_table', array('orders' => $packed_orders))
+			@include('masterbox.admin.partials.orders_table', array('orders' => $packed_orders))
 
 		</div>
 
 	    <div class="tab-pane" id="problems">
 
-	    	@include('admin.partials.orders_table', array('orders' => $problem_orders))
+	    	@include('masterbox.admin.partials.orders_table', array('orders' => $problem_orders))
 
 		</div>
 

@@ -17,14 +17,14 @@
         <td>{{ $order->customer()->first()->getFullName() }}</td>
         <td>{{ $order->box()->first()->title }}</td>
         <td>
-          @if ($order->user_profile()->first()->isSponsor())
+          @if ($order->customer_profile()->first()->isSponsor())
             <i class="fa fa-check" style="color: green"></i>
           @else
             <i class="fa fa-times" style="color: grey"></i>
           @endif
         </td>
         <td>
-          @if (Html::isBirthday($order->user_profile()->first()->getAnswer('birthday')))
+          @if (Html::isBirthday($order->customer_profile()->first()->getAnswer('birthday')))
             <i class="fa fa-check" style="color: green"></i>
           @else
             <i class="fa fa-times" style="color: grey"></i>

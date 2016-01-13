@@ -22,7 +22,7 @@
     <div class="js-alert-remove spyro-alert spyro-alert-danger">Erreurs dans le formulaire</div>
   @endif
 
-  {!! Form::open(array('action' => 'Admin\ContentController@postEditIllustration', 'files' => true)) !!}
+  {!! Form::open(array('action' => 'MasterBox\Admin\ContentController@postEditIllustration', 'files' => true)) !!}
 
   {!! Form::hidden("image_article_id", $image_article->id) !!}
 

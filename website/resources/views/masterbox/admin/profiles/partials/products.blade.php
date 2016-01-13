@@ -1,5 +1,5 @@
 
-      @if ($profile->user_profile_products()->first() != NULL)
+      @if ($profile->customer_profile_products()->first() != NULL)
 
         <table class="js-datas">
 
@@ -28,8 +28,7 @@
 
                 @endforeach
 
-                </th>
-    
+                </th>    
 
                 <th>
 

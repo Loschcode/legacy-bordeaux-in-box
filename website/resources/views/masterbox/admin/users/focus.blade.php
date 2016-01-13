@@ -94,7 +94,7 @@
 
       {!! Html::info("Si l'utilisateur possède des abonnements, l'adresse de facturation des abonnements éditables sera également modifiée") !!}
 
-      {!! Form::open(array('action' => 'Admin\UsersController@postEdit')) !!}
+      {!! Form::open(array('action' => 'MasterBox\Admin\UsersController@postEdit')) !!}
 
       {!! Form::hidden('user_id', $customer->id) !!}
 

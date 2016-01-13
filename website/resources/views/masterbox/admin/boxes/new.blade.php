@@ -27,7 +27,7 @@
   {!! Html::info("Lors de l'ajout d'une nouvelle boxe elle sera désactivé par défaut") !!}
 
   <div class="w80">
-    {!! Form::open(array('action' => 'Admin\BoxesController@postNew', 'files' => true)) !!}
+    {!! Form::open(array('action' => 'MasterBox\Admin\BoxesController@postNew', 'files' => true)) !!}
 
     <!-- Title -->
     <div class="form-group @if ($errors->first('title')) has-error has-feedback @endif">

@@ -76,7 +76,7 @@
 			<div class="panel-body">
 		
 			<!-- Single line -->
-			@include('admin.partials.graphs.line_chart', ['config' => $config_graph_user_profile_status_progress])
+			@include('masterbox.admin.partials.graphs.line_chart', ['config' => $config_graph_user_profile_status_progress])
 
 			</div>
 		</div>

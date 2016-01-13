@@ -34,8 +34,8 @@ class Payments {
 
             "metadata" => [
 
-                'customer_id' => $customer->id,
-                'customer_profile_id' => $profile->id,
+                'user_id' => $customer->id,
+                'user_profile_id' => $profile->id,
                 'payment_type' => FALSE
 
             ]
@@ -260,8 +260,8 @@ class Payments {
 
                 "metadata" => [
 
-                    'customer_id' => $customer->id,
-                    'customer_profile_id' => $profile->id,
+                    'user_id' => $customer->id,
+                    'user_profile_id' => $profile->id,
                     'payment_type' => 'plan'
 
                 ]
@@ -318,11 +318,11 @@ class Payments {
 
     /**
      * Get the last4 of a card from a specific customer
-     * @param  string $stripe_customer_id stripe customer id
+     * @param  string $stripe_user_id stripe customer id
      * @param  string $stripe_card_id the card itself
      * @return string
      */
-    public static function getLast4FromCard($stripe_customer_id, $stripe_card_id) {
+    public static function getLast4FromCard($stripe_user_id, $stripe_card_id) {
 
         $api_key = Config::get('services.stripe.secret');
         \Stripe\Stripe::setApiKey($api_key);
@@ -330,7 +330,7 @@ class Payments {
         // We get the customer
         try {
 
-        $cu = \Stripe\Customer::retrieve($stripe_customer_id);
+        $cu = \Stripe\Customer::retrieve($stripe_user_id);
         $cards = $cu->cards;
 
         $last_card = $cards->data[count($cards->data)-1];
@@ -351,7 +351,7 @@ class Payments {
      * @param  string $stripe_subscription stripe subscription id
      * @return mixed                  object / false
      */
-    public static function getPlanFromSubscription($stripe_customer_id, $stripe_subscription_id)
+    public static function getPlanFromSubscription($stripe_user_id, $stripe_subscription_id)
     {
 
         $api_key = Config::get('services.stripe.secret');
@@ -360,7 +360,7 @@ class Payments {
         // We get the customer
         try {
         
-        $stripe_customer = Stripe\Customer::retrieve($stripe_customer_id);
+        $stripe_customer = Stripe\Customer::retrieve($stripe_user_id);
 
         } catch (Exception $e) {
 
@@ -486,8 +486,8 @@ class Payments {
 
               "metadata" => [
 
-                'customer_id' => $customer->id,
-                'customer_profile_id' => $profile->id,
+                'user_id' => $customer->id,
+                'user_profile_id' => $profile->id,
                 'payment_type' => 'direct_invoice'
 
               ]

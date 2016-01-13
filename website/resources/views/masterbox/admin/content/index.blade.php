@@ -106,7 +106,7 @@
   <!-- Tab List -->
   <div class="tab-pane" id="pages">
 
-  {!! Form::open(array('action' => 'Admin\\ContentController@postEditPage')) !!}
+  {!! Form::open(array('action' => 'MasterBox\Admin\\ContentController@postEditPage')) !!}
 
   @foreach ($pages as $page)
 

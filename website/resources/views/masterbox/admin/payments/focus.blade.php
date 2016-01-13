@@ -46,7 +46,7 @@
 
     <div class="panel-body">
 
-      {!! Form::open(array('action' => 'Admin\PaymentsController@postUpdatePaymentOrder', 'class' => 'form-inline')) !!}
+      {!! Form::open(array('action' => 'MasterBox\Admin\PaymentsController@postUpdatePaymentOrder', 'class' => 'form-inline')) !!}
 
       {!! Form::hidden("payment_id", $payment->id) !!}
 

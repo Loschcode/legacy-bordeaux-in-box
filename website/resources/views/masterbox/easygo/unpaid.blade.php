@@ -52,7 +52,7 @@
                 <td>{{ $order->customer()->first()->phone }}</td>
                 <td>{{ $order->already_paid }}&euro; / {{ $order->unity_and_fees_price }}&euro; <br/> {{ $order->payments()->count() }} tentative(s) de paiement</td>
                 <td>
-                  <a target="_blank" class="button --default --sm" href="{{ url('/admin/profiles/edit/' . $order->user_profile()->first()->id) }}">En savoir plus</a>
+                  <a target="_blank" class="button --default --sm" href="{{ url('/admin/profiles/edit/' . $order->customer_profile()->first()->id) }}">En savoir plus</a>
                   <div class="spacer --sm"></div>
                   <a class="button --danger --sm" href="{{ url('/admin/orders/confirm-cancel/' . $order->id) }}">Annuler Commande</a>
                 </td>

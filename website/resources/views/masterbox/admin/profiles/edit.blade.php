@@ -44,7 +44,7 @@
     
     <div class="spacer20"></div>
 
-      @include('admin.profiles.partials.details', array('profile' => $profile))
+      @include('masterbox.admin.profiles.partials.details', array('profile' => $profile))
       
     </div>
 
@@ -56,7 +56,7 @@
 
       <div class="spacer20"></div>
 
-      @include('admin.profiles.partials.deliveries', array('profile' => $profile))
+      @include('masterbox.admin.profiles.partials.deliveries', array('profile' => $profile))
       
     </div>
   
@@ -64,20 +64,20 @@
 
       <div class="spacer20"></div>
 
-      @include('admin.partials.payments_from_profile_table', array('payments' => $profile->payments()->get()))
+      @include('masterbox.admin.partials.payments_from_profile_table', array('payments' => $profile->payments()->get()))
 
 
     </div>
 
     <div class="tab-pane" id="questions">
      
-        @include('admin.profiles.partials.questions', array('profile' => $profile, 'questions' => $questions))
+        @include('masterbox.admin.profiles.partials.questions', array('profile' => $profile, 'questions' => $questions))
   
     </div>
 
     <div class="tab-pane" id="products">
      
-        @include('admin.profiles.partials.products', array('profile' => $profile))
+        @include('masterbox.admin.profiles.partials.products', array('profile' => $profile))
   
     </div>
 

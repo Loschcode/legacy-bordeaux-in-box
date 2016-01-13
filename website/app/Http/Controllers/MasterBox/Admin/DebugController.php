@@ -451,10 +451,10 @@ class DebugController extends BaseController {
 
       if (empty($payment_profile->last4)) {
 
-        $stripe_customer_id = $payment_profile->stripe_customer;
+        $stripe_user_id = $payment_profile->stripe_customer;
         $stripe_card_id = $payment_profile->stripe_card;
 
-        $stripe_last4 = Payments::getLast4FromCard($stripe_customer_id, $stripe_card_id);
+        $stripe_last4 = Payments::getLast4FromCard($stripe_user_id, $stripe_card_id);
 
         if ($stripe_last4 == FALSE) $payment_profile->last4 = '';
         else $payment_profile->last4 = $stripe_last4;
@@ -484,9 +484,9 @@ class DebugController extends BaseController {
       if (empty($payment_profile->stripe_plan)) {
 
         $stripe_subscription_id = $payment_profile->stripe_subscription;
-        $stripe_customer_id = $payment_profile->stripe_customer;
+        $stripe_user_id = $payment_profile->stripe_customer;
 
-        $stripe_plan = Payments::getPlanFromSubscription($stripe_customer_id, $stripe_subscription_id);
+        $stripe_plan = Payments::getPlanFromSubscription($stripe_user_id, $stripe_subscription_id);
 
         if ($stripe_plan == FALSE) $payment_profile->stripe_plan = '';
         else $payment_profile->stripe_plan = $stripe_plan->id;

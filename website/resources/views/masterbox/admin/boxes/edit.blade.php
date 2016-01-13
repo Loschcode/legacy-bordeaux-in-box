@@ -27,7 +27,7 @@
   {!! Html::info("L'édition d'une box la désactive par défaut") !!}
 
   <div class="w80">
-    {!! Form::open(array('action' => 'Admin\BoxesController@postEdit', 'files' => true)) !!}
+    {!! Form::open(array('action' => 'MasterBox\Admin\BoxesController@postEdit', 'files' => true)) !!}
     
     {!! Form::hidden('box_id', $box->id) !!}
 

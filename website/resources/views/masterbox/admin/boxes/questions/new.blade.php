@@ -24,7 +24,7 @@
   
   {!! Html::info("Remplissez le champs `slug` uniquement s'il va être utilisé ailleurs que dans le formulaire dans le système (demander à un développeur compétent si vous ne comprenez pas ce que cela signifie).") !!}
 
-  {!! Form::open(array('action' => 'Admin\BoxesQuestionsController@postNew')) !!}
+  {!! Form::open(array('action' => 'MasterBox\Admin\BoxesQuestionsController@postNew')) !!}
 
   {!! Form::hidden('box_id', $box->id) !!}
 

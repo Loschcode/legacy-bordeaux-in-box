@@ -20,7 +20,7 @@
 
 	@foreach ($locked_orders as $order)
 
-		<? $profile = $order->user_profile()->first() ?>
+		<? $profile = $order->customer_profile()->first() ?>
 
 		@if ($profile != NULL)
 

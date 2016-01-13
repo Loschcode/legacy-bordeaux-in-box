@@ -14,7 +14,7 @@
 
 @section('content')
 
-  {!! Form::open(array('action' => 'Admin\ContentController@postNewBlog', 'files' => true)) !!}
+  {!! Form::open(array('action' => 'MasterBox\Admin\ContentController@postNewBlog', 'files' => true)) !!}
 
     <!-- Title -->
     <div class="form-group @if ($errors->first('title')) has-error has-feedback @endif">

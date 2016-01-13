@@ -256,7 +256,7 @@ class ProfileController extends BaseController {
 
 			'phone' => 'required',
 
-			'email' => 'required|email|unique:users,email,'. Auth::guard('customer')->user()->id,
+			'email' => 'required|email|unique:customers,email,'. Auth::guard('customer')->user()->id,
 
 			'first_name' => 'required',
 			'last_name' => 'required', 
@@ -302,7 +302,7 @@ class ProfileController extends BaseController {
 
 				$customer->save();
 
-				// If the user got profiles we will edit the next deliveries
+				// If the customer got profiles we will edit the next deliveries
 				if ($customer->profiles()->first() != NULL) {
 
 					$profiles = $customer->profiles()->get();

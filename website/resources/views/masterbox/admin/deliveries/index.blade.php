@@ -30,7 +30,7 @@
         <div class="panel-body">
 
         <!-- Single line -->
-        @include('admin.partials.graphs.area_chart', ['config' => $config_graph_all_orders])
+        @include('masterbox.admin.partials.graphs.area_chart', ['config' => $config_graph_all_orders])
 
         </div>
       </div>
@@ -160,7 +160,7 @@
       <div class="panel panel-default">
         <div class="panel-heading">Ajouter une offre</div>
         <div class="panel-body add-offer">
-          {!! Form::open(['action' => 'Admin\DeliveriesController@postAddPrice', 'class' => 'form-inline']) !!}
+          {!! Form::open(['action' => 'MasterBox\Admin\DeliveriesController@postAddPrice', 'class' => 'form-inline']) !!}
 
           @if ($errors->first('unity_price'))
             {{{ $errors->first('unity_price') }}}<br />
@@ -199,7 +199,7 @@
           <ul class="forms">
           @foreach ($prices as $price)
             <li>
-            {!! Form::open(array('action' => 'Admin\DeliveriesController@postEditPrice', 'class' => 'form-inline')) !!}
+            {!! Form::open(array('action' => 'MasterBox\Admin\DeliveriesController@postEditPrice', 'class' => 'form-inline')) !!}
 
             {!! Form::hidden('delivery_price_id', $price->id) !!}
 
@@ -252,7 +252,7 @@
 
       <div class="panel-body">
 
-      {!! Form::open(array('action' => 'Admin\DeliveriesController@postEditSettings')) !!}
+      {!! Form::open(array('action' => 'MasterBox\Admin\DeliveriesController@postEditSettings')) !!}
 
       @if ($errors->first('regional_delivery_fees'))
         {{{ $errors->first('regional_delivery_fees') }}}<br />
@@ -290,13 +290,13 @@
         <div class="panel-body">
 
         <!-- Single line -->
-        @include('admin.partials.graphs.area_chart', ['config' => $config_graph_all_payments])
+        @include('masterbox.admin.partials.graphs.area_chart', ['config' => $config_graph_all_payments])
 
         </div>
       </div>
 
 
-      @include('admin.partials.payments_table', array('payments' => $payments))
+      @include('masterbox.admin.partials.payments_table', array('payments' => $payments))
 
     </div>
 
@@ -307,7 +307,7 @@
       <div class="panel-body">
 
       <!-- Single line -->
-      @include('admin.partials.graphs.line_chart', ['config' => $config_graph_box_orders])
+      @include('masterbox.admin.partials.graphs.line_chart', ['config' => $config_graph_box_orders])
 
       </div>
     </div>

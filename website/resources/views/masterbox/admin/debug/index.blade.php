@@ -46,27 +46,27 @@
 
     <div class="tab-pane active" id="payments">
 
-      @include('admin.partials.payments_table', array('payments' => $payments))
+      @include('masterbox.admin.partials.payments_table', array('payments' => $payments))
 
     </div>
 
     <!-- Tab List -->
     <div class="tab-pane" id="refund">
 
-      @include('admin.partials.payments_table', array('payments' => $refunded_payments))
+      @include('masterbox.admin.partials.payments_table', array('payments' => $refunded_payments))
 
     </div>
 
     <!-- Tab List -->
     <div class="tab-pane" id="series_refund">
 
-      @include('admin.partials.payments_table', array('payments' => $series_refunded_payments))
+      @include('masterbox.admin.partials.payments_table', array('payments' => $series_refunded_payments))
 
     </div>
 
     <div class="tab-pane" id="all">
 
-      @include('admin.partials.payments_table', array('payments' => $all_transactions))
+      @include('masterbox.admin.partials.payments_table', array('payments' => $all_transactions))
 
     </div>
 
@@ -81,7 +81,7 @@
         <!--
           You can use options from http://morrisjs.github.io/morris.js/lines.html (Area section, but not the options which ask for a js function ... obviously.)
         -->
-        @include('admin.partials.graphs.area_chart', ['config' => [
+        @include('masterbox.admin.partials.graphs.area_chart', ['config' => [
 
           // Id (required)
           // Description : Set an id for the graph, need to be uniqueness
@@ -126,7 +126,7 @@
         <!--
           You can use options from http://morrisjs.github.io/morris.js/lines.html (But not the options which ask for a js function ... obviously.)
         -->
-        @include('admin.partials.graphs.line_chart', ['config' => [
+        @include('masterbox.admin.partials.graphs.line_chart', ['config' => [
 
           // Id (required)
           // Description : Set an id for the graph, need to be uniqueness
@@ -162,7 +162,7 @@
         ]])
 
         <!-- Example 2 Line Chart -->
-        @include('admin.partials.graphs.line_chart', ['config' => [
+        @include('masterbox.admin.partials.graphs.line_chart', ['config' => [
 
           // Id (required)
           // Description : Set an id for the graph, need to be uniqueness
@@ -209,7 +209,7 @@
         <!--
           All options of that chart are used, so it's useless to give you the link to the documentation for that
         -->
-        @include('admin.partials.graphs.donut_chart', ['config' => [
+        @include('masterbox.admin.partials.graphs.donut_chart', ['config' => [
 
           'id' => 'graph-donut-heroes',
 
@@ -230,7 +230,7 @@
         <!--
           You can use options from http://morrisjs.github.io/morris.js/bars.htmll (But not the options which ask for a js function ... obviously.)
         -->
-        @include('admin.partials.graphs.bar_chart', ['config' => [
+        @include('masterbox.admin.partials.graphs.bar_chart', ['config' => [
 
           'id' => 'graph-bar-example',
 

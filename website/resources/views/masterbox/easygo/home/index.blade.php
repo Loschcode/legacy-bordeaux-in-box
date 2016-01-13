@@ -84,7 +84,7 @@
 
       @foreach ($orders as $order)
 
-        <? $profile = $order->user_profile()->first(); ?>
+        <? $profile = $order->customer_profile()->first(); ?>
         <? $serie = Order::LockedOrders()->first()->delivery_serie()->first(); ?>
         <? $profile_products = $profile->getSeriesProfileProduct($serie->id); ?>
         <? $box = $profile->box()->first(); ?>
@@ -99,8 +99,8 @@
 
 
             <div class="text-center">
-              <img class="img-rounded" src="http://www.gravatar.com/avatar/{{ md5( strtolower( trim( $order->user_profile()->first()->customer()->first()->email ) )) }}" /> 
-              <h3>{{ ucwords($order->user_profile()->first()->customer()->first()->getFullName()) }}</h3>
+              <img class="img-rounded" src="http://www.gravatar.com/avatar/{{ md5( strtolower( trim( $order->customer_profile()->first()->customer()->first()->email ) )) }}" /> 
+              <h3>{{ ucwords($order->customer_profile()->first()->customer()->first()->getFullName()) }}</h3>
               
               <div class="col-md-6 col-md-offset-3">
                 @if ($order->already_paid == 0)
@@ -166,10 +166,10 @@
                 <div>
                   <h4>Détails</h4>
                   <div class="well">
-                    <strong>Anniversaire :</strong> {{ $order->user_profile()->first()->getAnswer('birthday') }} <br/>
-                    <strong>Age :</strong> {{ Html::getAge($order->user_profile()->first()->getAnswer('birthday')) }} <br/>
+                    <strong>Anniversaire :</strong> {{ $order->customer_profile()->first()->getAnswer('birthday') }} <br/>
+                    <strong>Age :</strong> {{ Html::getAge($order->customer_profile()->first()->getAnswer('birthday')) }} <br/>
                     <strong>Est ce que c'est son anniversaire ? :</strong> 
-                    @if (Html::isBirthday($order->user_profile()->first()->getAnswer('birthday')))
+                    @if (Html::isBirthday($order->customer_profile()->first()->getAnswer('birthday')))
                       Oui
                     @else
                       Non
@@ -179,9 +179,9 @@
                 <div>
                   <h4>Contact</h4>
                   <div class="well">
-                    <strong>Adresse :</strong> {{ $order->user_profile()->first()->customer()->first()->getFullAddress()}} <br/>
-                    <strong>Téléphone :</strong> {{ $order->user_profile()->first()->customer()->first()->phone}}<br/>
-                    <strong>Email :</strong> <a href="mailto:{{ $order->user_profile()->first()->customer()->first()->email}}">{{ $order->user_profile()->first()->customer()->first()->email}}</a>
+                    <strong>Adresse :</strong> {{ $order->customer_profile()->first()->customer()->first()->getFullAddress()}} <br/>
+                    <strong>Téléphone :</strong> {{ $order->customer_profile()->first()->customer()->first()->phone}}<br/>
+                    <strong>Email :</strong> <a href="mailto:{{ $order->customer_profile()->first()->customer()->first()->email}}">{{ $order->customer_profile()->first()->customer()->first()->email}}</a>
                   </div>
                 </div>
                 <div>

@@ -20,7 +20,7 @@
 
   @include('masterbox.partials.errors', ['errors' => $errors])
 
-  {!! Form::open(['action' => 'Admin\ProductsController@postEditProduct', 'files' => true]) !!}
+  {!! Form::open(['action' => 'MasterBox\Admin\ProductsController@postEditProduct', 'files' => true]) !!}
 
   {!! Form::hidden("product_id", $product->id) !!}
 

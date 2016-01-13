@@ -186,10 +186,10 @@ class ProfilesController extends BaseController {
 
 		$payment_profile = $profile->payment_profile()->first();
 
-		$stripe_customer_id = $payment_profile->stripe_customer;
+		$stripe_user_id = $payment_profile->stripe_customer;
 		$stripe_subscription_id = $payment_profile->stripe_subscription;
 
-		$feedback = Payments::cancelSubscription($stripe_customer_id, $stripe_subscription_id);
+		$feedback = Payments::cancelSubscription($stripe_user_id, $stripe_subscription_id);
 
 		// If the feedback is FALSE
 		// It may not have a subscription (within Stripe)

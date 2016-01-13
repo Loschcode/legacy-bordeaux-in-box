@@ -33,7 +33,7 @@
         <div class="panel-body">
 
           <!-- Multiple lines -->
-          @include('admin.partials.graphs.bar_chart', ['config' => $config_graph_subscriptions_versus_unfinished])
+          @include('masterbox.admin.partials.graphs.bar_chart', ['config' => $config_graph_subscriptions_versus_unfinished])
 
         </div>
       </div>
@@ -43,7 +43,7 @@
         <div class="panel-body">
 
           <!-- Multiple lines -->
-          @include('admin.partials.graphs.line_chart', ['config' => $config_graph_unfinished_profiles_steps])
+          @include('masterbox.admin.partials.graphs.line_chart', ['config' => $config_graph_unfinished_profiles_steps])
 
         </div>
       </div>
@@ -77,7 +77,7 @@
 
           @foreach ($series as $serie)
 
-            @if ($serie->user_order_buildings()->count() > 0)
+            @if ($serie->customer_order_buildings()->count() > 0)
 
             <tr>
 
@@ -87,21 +87,21 @@
               <th> {{get_percent_unfinished_buildings($serie)}}%</th>
 
 
-               <th><a href="{{url('/admin/statistics/unfinished-profiles/'.$serie->id)}}">{{$serie->user_order_buildings()->count()}}</a></th>
+               <th><a href="{{url('/admin/statistics/unfinished-profiles/'.$serie->id)}}">{{$serie->customer_order_buildings()->count()}}</a></th>
 
-              <th>{{$serie->user_order_buildings()->where('step', '=', 'choose-box')->count()}}</th>
+              <th>{{$serie->customer_order_buildings()->where('step', '=', 'choose-box')->count()}}</th>
 
-              <th>{{$serie->user_order_buildings()->where('step', '=', 'box-form')->count()}}</th>
+              <th>{{$serie->customer_order_buildings()->where('step', '=', 'box-form')->count()}}</th>
 
-              <th>{{$serie->user_order_buildings()->where('step', '=', 'choose-frequency')->count()}}</th>
+              <th>{{$serie->customer_order_buildings()->where('step', '=', 'choose-frequency')->count()}}</th>
 
-              <th>{{$serie->user_order_buildings()->where('step', '=', 'billing-address')->count()}}</th>
+              <th>{{$serie->customer_order_buildings()->where('step', '=', 'billing-address')->count()}}</th>
 
-              <th>{{$serie->user_order_buildings()->where('step', '=', 'delivery-mode')->count()}}</th>
+              <th>{{$serie->customer_order_buildings()->where('step', '=', 'delivery-mode')->count()}}</th>
 
-              <th>{{$serie->user_order_buildings()->where('step', '=', 'choose-spot')->count()}}</th>
+              <th>{{$serie->customer_order_buildings()->where('step', '=', 'choose-spot')->count()}}</th>
               
-              <th>{{$serie->user_order_buildings()->where('step', '=', 'payment')->count()}}</th>
+              <th>{{$serie->customer_order_buildings()->where('step', '=', 'payment')->count()}}</th>
 
               <th>
 
@@ -157,7 +157,7 @@
 
           @foreach ($series as $serie)
 
-            @if ($serie->user_order_buildings()->count() > 0)
+            @if ($serie->customer_order_buildings()->count() > 0)
 
             <tr>
 

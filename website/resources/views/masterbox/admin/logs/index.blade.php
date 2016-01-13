@@ -29,7 +29,7 @@
 
   	<div class="tab-pane" id="orders-history">
 
-	    	@include('admin.partials.orders_table', array('orders' => $all_orders))
+	    	@include('masterbox.admin.partials.orders_table', array('orders' => $all_orders))
 
 		</div>
 
@@ -129,22 +129,22 @@
 							<th>{{$profile_note->id}}</th>
 							<th>
 
-							@if ($profile_note->user_profile()->first() === NULL)
+							@if ($profile_note->customer_profile()->first() === NULL)
 							N/A
 							@else
-							<a href="{{ url('/admin/users/focus/'.$profile_note->user_profile()->first()->customer()->first()->id)}}">{{$profile_note->user_profile()->first()->customer()->first()->getFullName()}}</a>
+							<a href="{{ url('/admin/users/focus/'.$profile_note->customer_profile()->first()->customer()->first()->id)}}">{{$profile_note->customer_profile()->first()->customer()->first()->getFullName()}}</a>
 							@endif
 
 							</th>
 							<th>
 
-								@if ($profile_note->user_profile()->first() !== NULL)
+								@if ($profile_note->customer_profile()->first() !== NULL)
 
-									@if ($profile_note->user_profile()->first()->box()->first() != NULL)
+									@if ($profile_note->customer_profile()->first()->box()->first() != NULL)
 
-										<a class="spyro-btn {{Html::getColorFromBoxSlug($profile_note->user_profile()->first()->box()->first()->slug)}}" href="/admin/profiles/edit/{{$profile_note->user_profile()->first()->id}}">
+										<a class="spyro-btn {{Html::getColorFromBoxSlug($profile_note->customer_profile()->first()->box()->first()->slug)}}" href="/admin/profiles/edit/{{$profile_note->customer_profile()->first()->id}}">
 										
-										{{$profile_note->user_profile()->first()->box()->first()->title}}
+										{{$profile_note->customer_profile()->first()->box()->first()->title}}
 
 										</a><br/>
 
@@ -222,13 +222,13 @@
 							</th>
 							<th>
 
-								@if ($email_trace->user_profile()->first() !== NULL)
+								@if ($email_trace->customer_profile()->first() !== NULL)
 
-									@if ($email_trace->user_profile()->first()->box()->first() != NULL)
+									@if ($email_trace->customer_profile()->first()->box()->first() != NULL)
 
-										<a class="spyro-btn {{Html::getColorFromBoxSlug($email_trace->user_profile()->first()->box()->first()->slug)}}" href="/admin/profiles/edit/{{$email_trace->user_profile()->first()->id}}">
+										<a class="spyro-btn {{Html::getColorFromBoxSlug($email_trace->customer_profile()->first()->box()->first()->slug)}}" href="/admin/profiles/edit/{{$email_trace->customer_profile()->first()->id}}">
 										
-										{{$email_trace->user_profile()->first()->box()->first()->title}}
+										{{$email_trace->customer_profile()->first()->box()->first()->title}}
 
 										</a><br/>
 
@@ -247,8 +247,8 @@
 							<th>{{$email_trace->prepared_at}}</th>
 							<th>{{$email_trace->delivered_at}}</th>
 							<th>
-							@if ($email_trace->user_profile()->first() !== NULL)
-							{{$email_trace->user_profile()->first()->customer()->first()->emails_fully_authorized}}
+							@if ($email_trace->customer_profile()->first() !== NULL)
+							{{$email_trace->customer_profile()->first()->customer()->first()->emails_fully_authorized}}
 							@endif
 							</th>
 							<th>{{$email_trace->first_opened_at}}</th>
@@ -272,7 +272,7 @@
 		<div class="tab-pane" id="config">
 
 			{!! Html::info('Ci-dessous vous pouvez configurer les adresses emails destinataires pour les différents services') !!}
-			{!! Form::open(array('action' => 'Admin\LogsController@postEditSettings')) !!}
+			{!! Form::open(array('action' => 'MasterBox\Admin\LogsController@postEditSettings')) !!}
 
 				<div class="panel panel-default">
 					<div class="panel-heading">

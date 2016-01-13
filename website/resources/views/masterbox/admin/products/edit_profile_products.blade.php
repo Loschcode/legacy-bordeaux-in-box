@@ -1,7 +1,7 @@
 @extends('masterbox.layouts.admin')
 
 @section('page')
-  <i class="fa fa-folder-open"></i> Produits {{$order->user_profile()->first()->customer()->first()->getFullName()}} du {{$order->delivery_serie()->first()->delivery}}
+  <i class="fa fa-folder-open"></i> Produits {{$order->customer_profile()->first()->customer()->first()->getFullName()}} du {{$order->delivery_serie()->first()->delivery}}
 @stop
 
 @section('buttons')
@@ -36,7 +36,7 @@
 
           <tbody>
 
-            @foreach ($order->user_profile_products()->get() as $profile_product)
+            @foreach ($order->customer_profile_products()->get() as $profile_product)
 
               <tr>
 
@@ -63,7 +63,7 @@
         <div class="panel-heading">Assigner un nouveau produit</div>
         <div class="panel-body">
 
-          {!! Form::open(['action' => 'Admin\ProductsController@postAddProductToUserProfile']) !!}
+          {!! Form::open(['action' => 'MasterBox\Admin\ProductsController@postAddProductToUserProfile']) !!}
 
           {!! Form::hidden('order_id', $order->id) !!}
           {!! Form::select("product_id", $possible_serie_products) !!}

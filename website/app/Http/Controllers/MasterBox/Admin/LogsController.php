@@ -38,15 +38,15 @@ class LogsController extends BaseController {
 	public function getIndex()
 	{
 
-		$contacts = Contact::orderBy('created_at', 'DESC')->get();
+		$contacts = Contact::orderBy('created_at', 'DESC')->limit(500)->get();
 
-    $all_orders = Order::orderBy('created_at', 'DESC')->get();
+    $all_orders = Order::orderBy('created_at', 'DESC')->limit(500)->get();
 
-    $email_traces = EmailTrace::orderBy('created_at', 'DESC')->get();
+    $email_traces = EmailTrace::orderBy('created_at', 'DESC')->limit(500)->get();
 
 		$contact_setting = ContactSetting::first();
 
-    $profile_notes = CustomerProfileNote::orderBy('created_at', 'DESC')->get();
+    $profile_notes = CustomerProfileNote::orderBy('created_at', 'DESC')->limit(500)->get();
 
 		return view('masterbox.admin.logs.index')->with(compact(
       'contacts',

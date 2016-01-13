@@ -50,7 +50,7 @@
 			<div class="panel-body">
 
 				<!-- Single line -->
-				@include('admin.partials.graphs.area_chart', ['config' => $config_graph_series_orders])
+				@include('masterbox.admin.partials.graphs.area_chart', ['config' => $config_graph_series_orders])
 
 			</div>
 		</div>
@@ -58,7 +58,7 @@
 		<!-- Tab List -->
 		<div class="tab-pane active" id="box-orders">
 		
-			@include('admin.partials.orders_table', array('orders' => $series->orders()->get()))
+			@include('masterbox.admin.partials.orders_table', array('orders' => $series->orders()->get()))
 
 		</div>
 

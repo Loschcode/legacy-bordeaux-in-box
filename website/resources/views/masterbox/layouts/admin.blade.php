@@ -62,9 +62,6 @@
 	            	<a href="{{ action('MasterBox\Admin\ProfilesController@getIndex') }}"><i class="fa fa-suitcase"></i> Abonnements</a>
 	            </li>
 	            <li>
-	                <a href="{{ action('MasterBox\Admin\TaxesController@getIndex') }}"><i class="fa fa-calculator"></i> Factures &amp; Fiscalité</a>
-	            </li>
-	            <li>
 	            	<a href="{{ action('MasterBox\Admin\StatisticsController@getIndex') }}"><i class="fa fa-area-chart"></i> Statistiques</a>
 	            </li>
 	            <li>

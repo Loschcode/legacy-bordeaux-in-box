@@ -29,7 +29,7 @@
   {!! Html::info('Les données statistiques (e.g. coût maximum, avantage haute priorité) sont des approximations, le résultat pourra être légèrement différent selon les produits sélectionnés.') !!}
 
 
-  {!! Form::open(['action' => 'Admin\ProductsController@postSetupProductsSelection']) !!}
+  {!! Form::open(['action' => 'MasterBox\Admin\ProductsController@postSetupProductsSelection']) !!}
 
   {!! Form::hidden("serie_id", $serie->id) !!}
 

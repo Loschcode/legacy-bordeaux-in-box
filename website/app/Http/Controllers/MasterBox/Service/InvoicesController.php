@@ -47,7 +47,7 @@ class InvoicesController extends BaseController {
       $stripe_event_id = $datas->id; // stripe event id
       $stripe_charge_id = $stripe_raw->id; // stripe charge id
       $stripe_card_id = $stripe_raw->card->id; // stripe card id
-      $stripe_customer_id = $stripe_raw->customer; // customer id
+      $stripe_user_id = $stripe_raw->customer; // customer id
 
       $stripe_refund = $stripe_raw->refunded;
 
@@ -63,7 +63,7 @@ class InvoicesController extends BaseController {
       Log::info("1B. stripe_event_id : $stripe_event_id");
       Log::info("1B. stripe_charge_id : $stripe_charge_id");
       Log::info("1B. stripe_card_id : $stripe_card_id");
-      Log::info("1B. stripe_customer_id : $stripe_customer_id");
+      Log::info("1B. stripe_user_id : $stripe_user_id");
       Log::info('---');
       Log::info("1C. stripe_refund : " . $this->inject_var_dump($stripe_refund));
       Log::info("1C. stripe_amount : " . $this->inject_var_dump($stripe_amount));
@@ -79,10 +79,10 @@ class InvoicesController extends BaseController {
 
         // If the metadata is empty it means there's a problem transfering it or it's an indirect invoice (from months or something)
         // Let's retrieve the data from the user stored datas
-        $customer_profile = CustomerProfile::where('stripe_customer', $stripe_customer_id)->first();
+        $customer_profile = CustomerProfile::where('stripe_customer', $stripe_user_id)->first();
 
         // We retrieve the user profile from its card
-        $customer_payment_profile = CustomerPaymentProfile::where('stripe_card', $stripe_card_id)->where('stripe_customer', $stripe_customer_id)->first();
+        $customer_payment_profile = CustomerPaymentProfile::where('stripe_card', $stripe_card_id)->where('stripe_customer', $stripe_user_id)->first();
 
         Log::info('3. We tried to look from the user profile and check the customer ID from his own profile ...');
 
@@ -127,7 +127,7 @@ class InvoicesController extends BaseController {
         $payment->customer()->associate($customer);
 
         $payment->stripe_event = $stripe_event_id;
-        $payment->stripe_customer = $stripe_customer_id;
+        $payment->stripe_customer = $stripe_user_id;
         $payment->stripe_charge = $stripe_charge_id;
         $payment->stripe_card = $stripe_card_id;
 
@@ -344,8 +344,8 @@ class InvoicesController extends BaseController {
               $payment_profile = $profile->payment_profile()->orderBy('created_at', 'desc')->first(); // Just in case of bug
               $stripe_subscription_id = $payment_profile->stripe_subscription;
 
-              Log::info('25. Cancelling the subscription : ' . $stripe_subscription_id . ' for the stripe customer : '. $stripe_customer_id);
-              $feedback = Payments::cancelSubscription($stripe_customer_id, $stripe_subscription_id);
+              Log::info('25. Cancelling the subscription : ' . $stripe_subscription_id . ' for the stripe customer : '. $stripe_user_id);
+              $feedback = Payments::cancelSubscription($stripe_user_id, $stripe_subscription_id);
 
               if ($feedback !== FALSE) {
 

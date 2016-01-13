@@ -33,7 +33,7 @@
 	      <div class="panel-body">
 
 	      <!-- Single line -->
-	      @include('admin.partials.graphs.line_chart', ['config' => $config_graph_unfinished_profiles_focus])
+	      @include('masterbox.admin.partials.graphs.line_chart', ['config' => $config_graph_unfinished_profiles_focus])
 
 	      </div>
 	    </div>
@@ -41,7 +41,7 @@
 		<!-- Tab List -->
 		<div class="tab-pane active" id="unfinished-table">
 
-      	@include('admin.partials.unfinished_profiles_table', array('user_order_buildings' => $customer_order_buildings))
+      	@include('masterbox.admin.partials.unfinished_profiles_table', array('user_order_buildings' => $customer_order_buildings))
 
 		</div>
 
