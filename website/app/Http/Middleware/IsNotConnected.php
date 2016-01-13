@@ -14,7 +14,7 @@ class IsNotConnected {
   public function handle($request, Closure $next)
   {
     
-    if (Auth::customer()->check()) {
+    if (Auth::guard('customer')->check()) {
 
       return redirect()->action('MasterBox\Guest\HomeController@getIndex');
 

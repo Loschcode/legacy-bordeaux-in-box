@@ -14,9 +14,9 @@ class HasOrderBuilding {
    */
   public function handle($request, Closure $next)
   {
-    if (Auth::customer()->guest()) return redirect()->to('user/login');
+    if (Auth::guard('customer')->guest()) return redirect()->to('user/login');
 
-    if (Auth::customer()->get()->order_building()->first() === NULL) return redirect()->to('/');
+    if (Auth::guard('customer')->get()->order_building()->first() === NULL) return redirect()->to('/');
     
     return $next($request);
   }

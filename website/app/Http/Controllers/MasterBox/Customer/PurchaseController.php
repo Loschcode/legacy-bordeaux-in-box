@@ -52,7 +52,7 @@ class PurchaseController extends BaseController {
     session()->put('isOrdering', TRUE);
     session()->put('isGift', FALSE);
     
-    if (Auth::customer()->guest()) 
+    if (Auth::guard('customer')->guest()) 
     {
       session()->put('after-login-redirection', Request::url());
       return redirect('user/subscribe');
@@ -71,7 +71,7 @@ class PurchaseController extends BaseController {
     session()->put('isOrdering', TRUE);
     session()->put('isGift', TRUE);
 
-    if (Auth::customer()->guest()) 
+    if (Auth::guard('customer')->guest()) 
     {
       session()->put('after-login-redirection', Request::url());
       return redirect('user/subscribe');
@@ -91,7 +91,7 @@ class PurchaseController extends BaseController {
 
     $boxes = Box::where('active', TRUE)->get();
 
-    $customer = Auth::customer()->get();
+    $customer = Auth::guard('customer')->get();
 
     $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
@@ -124,7 +124,7 @@ class PurchaseController extends BaseController {
       $box = Box::find($fields['box_choice']);
       if ($box === NULL) return redirect()->back();
 
-      $customer = Auth::customer()->get();
+      $customer = Auth::guard('customer')->get();
 
       // We update the current step
       $order_building = $customer->order_building()->first();
@@ -160,7 +160,7 @@ class PurchaseController extends BaseController {
   public function getBoxForm()
   {
 
-    $customer = Auth::customer()->get();
+    $customer = Auth::guard('customer')->get();
 
     $order_building = $customer->order_building()->first();
     $profile = $order_building->profile()->first();
@@ -196,7 +196,7 @@ class PurchaseController extends BaseController {
     // Set a flag to know if we already passed by the validation
     session()->flash('flag-box-form', true);
 
-    $customer = Auth::customer()->get();
+    $customer = Auth::guard('customer')->get();
 
     $order_building = $customer->order_building()->first();
     $profile = $order_building->profile()->first();
@@ -290,7 +290,7 @@ class PurchaseController extends BaseController {
 
     $next_series = DeliverySerie::nextOpenSeries();
 
-    $customer = Auth::customer()->get();
+    $customer = Auth::guard('customer')->get();
 
     $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
@@ -323,7 +323,7 @@ class PurchaseController extends BaseController {
 
       if ($delivery_price === NULL) return redirect()->back();
 
-      $customer = Auth::customer()->get();
+      $customer = Auth::guard('customer')->get();
       $order_building = $customer->order_building()->first();
       
       $order_preference = $order_building->order_preference()->first();
@@ -357,7 +357,7 @@ class PurchaseController extends BaseController {
   public function getBillingAddress()
   {
 
-    $customer = Auth::customer()->get();
+    $customer = Auth::guard('customer')->get();
 
     $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
@@ -396,7 +396,7 @@ class PurchaseController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $customer = Auth::customer()->get();
+      $customer = Auth::guard('customer')->get();
       $order_building = $customer->order_building()->first();
       $order_preference = $order_building->order_preference()->first();
       
@@ -440,7 +440,7 @@ class PurchaseController extends BaseController {
   public function getDeliveryMode()
   {
 
-    $customer = Auth::customer()->get();
+    $customer = Auth::guard('customer')->get();
     $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
 
@@ -492,7 +492,7 @@ class PurchaseController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $customer = Auth::customer()->get();
+      $customer = Auth::guard('customer')->get();
       $order_building = $customer->order_building()->first();
       $order_preference = $order_building->order_preference()->first();
 
@@ -538,7 +538,7 @@ class PurchaseController extends BaseController {
   public function getChooseSpot()
   {
 
-    $customer = Auth::customer()->get();
+    $customer = Auth::guard('customer')->get();
     $order_building = $customer->order_building()->first();
     $order_preference = $order_building->order_preference()->first();
 
@@ -572,7 +572,7 @@ class PurchaseController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $customer = Auth::customer()->get();
+      $customer = Auth::guard('customer')->get();
       $order_building = $customer->order_building()->first();
       $order_preference = $order_building->order_preference()->first();
 
@@ -604,7 +604,7 @@ class PurchaseController extends BaseController {
 
   public function getPayment()
   {
-    $customer = Auth::customer()->get();
+    $customer = Auth::guard('customer')->get();
     $order_building = $customer->order_building()->first();
     $profile = $order_building->profile()->first();
     $order_preference = $order_building->order_preference()->first();
@@ -637,7 +637,7 @@ class PurchaseController extends BaseController {
 
       $stripe_token = $fields['stripeToken'];
 
-      $customer = Auth::customer()->get();
+      $customer = Auth::guard('customer')->get();
       $order_building = $customer->order_building()->first();
       $profile = $order_building->profile()->first();
 
@@ -847,7 +847,7 @@ class PurchaseController extends BaseController {
   public function getConfirmed()
   {
     // We will delete the user building system because we don't need it anymore
-    Auth::customer()->get()->order_building()->first()->delete();
+    Auth::guard('customer')->get()->order_building()->first()->delete();
 
     return view('masterbox.customer.order.confirmed');
   }
@@ -855,7 +855,7 @@ class PurchaseController extends BaseController {
   private function isCorrectStep($step)
   {
 
-    if (Auth::customer()->get()->order_building()->first()->step == $step) return TRUE;
+    if (Auth::guard('customer')->get()->order_building()->first()->step == $step) return TRUE;
     else return FALSE;
 
   }
@@ -874,7 +874,7 @@ class PurchaseController extends BaseController {
      * - Resumee
      */
     
-    $customer = Auth::customer()->get();
+    $customer = Auth::guard('customer')->get();
     $next_series = DeliverySerie::nextOpenSeries()->first();
     $order_building = $customer->order_building()->first();
 

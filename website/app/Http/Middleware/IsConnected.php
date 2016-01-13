@@ -13,7 +13,7 @@ class IsConnected {
    */
   public function handle($request, Closure $next)
   {
-    if (Auth::customer()->guest()) {
+    if (Auth::guard('customer')->guest()) {
 
       // We register the URL where the user tried to go before
       session()->put('after-login-redirection', Request::url());

@@ -13,13 +13,13 @@ class IsAdmin {
    */
   public function handle($request, Closure $next)
   {
-    if (Auth::customer()->guest()) {
+    if (Auth::guard('customer')->guest()) {
 
       return redirect()->to('/');
 
     } else {
 
-      if (Auth::customer()->get()->role !== 'admin') 
+      if (Auth::guard('customer')->get()->role !== 'admin') 
       {
         return redirect()->to('/');
       }

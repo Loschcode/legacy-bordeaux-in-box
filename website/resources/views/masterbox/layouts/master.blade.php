@@ -39,7 +39,7 @@
 
   <!-- Logo -->
   <div class="img --logo center">
-    <a href="{{ url() }}"><img id="logo-text" src="{{ url('images/logo.png') }}" /></a>
+    <a href="{{ url('/') }}"><img id="logo-text" src="{{ url('images/logo.png') }}" /></a>
   </div>
 
   <!-- Navigation -->

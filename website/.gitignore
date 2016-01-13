@@ -1,23 +1,5 @@
-# Composer
 /vendor
-composer.lock
-
-# Npm folder
 /node_modules
-
-# Local Configuration
+Homestead.yaml
+Homestead.json
 .env
-
-# Ds Store
-.DS_Store
-
-# Uploads
-/uploads/bill
-/uploads/blog
-/uploads/boxes
-/uploads/illustrations
-/uploads/others
-/uploads/packs
-/uploads/partners
-/uploads/products
-

@@ -32,7 +32,7 @@ class CustomerController extends BaseController {
      * We either Login the user or go to the homepage
      * Protected already via middleware
      */
-    if (Auth::customer()->guest()) {
+    if (Auth::guard('customer')->guest()) {
 
       return redirect()->action('MasterBox\Connect\CustomerController@getLogin');
 
@@ -98,7 +98,7 @@ class CustomerController extends BaseController {
       session()->flash('message', "Ton inscription a bien été confirmée !");
 
       // Auto-connection : on
-      Auth::customer()->login($customer);
+      Auth::guard('customer')->login($customer);
       
       if (session()->get('after-login-redirection')) {
 
@@ -136,7 +136,7 @@ class CustomerController extends BaseController {
    */
   public function getLogout()
   {
-    Auth::customer()->logout();
+    Auth::guard('customer')->logout();
     session()->flush(); // should be commented to let the other session live
     
     return redirect()->action('MasterBox\Guest\HomeController@getIndex');
@@ -164,7 +164,7 @@ class CustomerController extends BaseController {
       $authAttempt = $this->getLoginCredentials();
 
       // We try our credentials
-      if (Auth::customer()->attempt($authAttempt)) 
+      if (Auth::guard('customer')->attempt($authAttempt)) 
       {
         // If there's an after login redirection
         if (session()->get('after-login-redirection')) 
@@ -173,7 +173,7 @@ class CustomerController extends BaseController {
         }
 
         // In case the customer is already building an order
-        if (Auth::customer()->get()->order_building()->first() != NULL) 
+        if (Auth::guard('customer')->get()->order_building()->first() != NULL) 
         {
           return redirect()->action('MasterBox\Customer\PurchaseController@getIndex');
         }
