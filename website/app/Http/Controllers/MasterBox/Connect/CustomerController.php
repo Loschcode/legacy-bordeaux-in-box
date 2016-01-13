@@ -93,7 +93,7 @@ class CustomerController extends BaseController {
       ];
 
       // Specific to customer, we don't use the classical system
-      mailing_send_customer_only($customer, 'Bienvenue sur Bordeaux in Box !', 'auth.emails.customer.welcome', $data, NULL);
+      mailing_send_customer_only($customer, 'Bienvenue sur Bordeaux in Box !', 'masterbox.connect.emails.customer.welcome', $data, NULL);
 
       session()->flash('message', "Ton inscription a bien été confirmée !");
 

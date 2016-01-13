@@ -40,38 +40,38 @@ class RouteServiceProvider extends ServiceProvider
 
       $router->group(['namespace' => $this->namespace], function($router) {
 
-        /**
-         * Base routing
-         */
-        if (file_exists(app_path("Http/Routes/routes.php")))
-           require app_path("Http/Routes/routes.php");
+          /**
+           * Base routing
+           */
+          if (file_exists(app_path("Http/Routes/routes.php")))
+             require app_path("Http/Routes/routes.php");
 
-        /**
-         * Environment dedependants routing
-         */
-        $env = app()->environment();
-        $routes = config('routes');
+          /**
+           * Environment dedependants routing
+           */
+          $env = app()->environment();
+          $routes = config('routes');
 
-        if ($env === 'development') {
+          if ($env === 'development') {
 
-          foreach ($routes['development'] as $development_routes) {
+            foreach ($routes['development'] as $development_routes) {
 
-            if (file_exists(app_path("Http/Routes/$development_routes/routes.php")))
-              require app_path("Http/Routes/$development_routes/routes.php");
+              if (file_exists(app_path("Http/Routes/$development_routes/routes.php")))
+                require app_path("Http/Routes/$development_routes/routes.php");
 
+            }
+          
           }
         
-        }
-      
-        /**
-         * Universal routing
-         */
-        foreach ($routes['*'] as $universal_routes) {
-        
-          if (file_exists(app_path("Http/Routes/$universal_routes/routes.php")))
-            require app_path("Http/Routes/$universal_routes/routes.php");
+          /**
+           * Universal routing
+           */
+          foreach ($routes['*'] as $universal_routes) {
+          
+            if (file_exists(app_path("Http/Routes/$universal_routes/routes.php")))
+              require app_path("Http/Routes/$universal_routes/routes.php");
 
-        }
+          }
 
       });
 

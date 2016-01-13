@@ -74,7 +74,7 @@ function mailing_send($profile, $subject, $template, $template_data, $additional
 
 }
 
-function mailing_send_user_only($customer, $subject, $template, $template_data, $additional_mailgun_variables=NULL) {
+function mailing_send_customer_only($customer, $subject, $template, $template_data, $additional_mailgun_variables=NULL) {
 
   $email = $customer->email;
 
