@@ -19,7 +19,7 @@ class IsAdmin {
 
     } else {
 
-      if (Auth::guard('customer')->get()->role !== 'admin') 
+      if (Auth::guard('customer')->user()->role !== 'admin') 
       {
         return redirect()->to('/');
       }

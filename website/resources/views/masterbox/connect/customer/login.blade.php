@@ -42,7 +42,7 @@
 
     <div class="col-md-8 col-md-offset-2">
       <div class="description">
-        Hey choupette ... si tu as oublié ton mot de passe <a href="{{ action('MasterBox\Connect\CustomerRemindersController@getRemind') }}">on peut t'aider</a> et si tu n'as toujours pas de compte tu peux <a href="{{ action('MasterBox\Connect\CustomerController@getSubscribe') }}">t'inscrire</a> !
+        Hey choupette ... si tu as oublié ton mot de passe <a href="{{ action('MasterBox\Connect\PasswordRemindersController@getRemind') }}">on peut t'aider</a> et si tu n'as toujours pas de compte tu peux <a href="{{ action('MasterBox\Connect\CustomerController@getSubscribe') }}">t'inscrire</a> !
       </div>
 
     </div>

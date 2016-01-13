@@ -44,7 +44,7 @@ class ProfileController extends BaseController {
     public function getIndex()
     {
 
-    	$customer = Auth::guard('customer')->get();
+    	$customer = Auth::guard('customer')->user();
     	$profiles = $customer->profiles()->orderBy('created_at', 'desc')->get();
 
     	// We get the destination (the last editable order destination)
@@ -79,7 +79,7 @@ class ProfileController extends BaseController {
     public function getBill($bill_id)
     {
 
-    	$customer = Auth::guard('customer')->get();
+    	$customer = Auth::guard('customer')->user();
     	$payment = Payment::where('bill_id', $bill_id)->first();
 
     	if ($payment != NULL) {
@@ -104,7 +104,7 @@ class ProfileController extends BaseController {
     public function getDownloadBill($bill_id)
     {
 
-    	$customer = Auth::guard('customer')->get();
+    	$customer = Auth::guard('customer')->user();
     	$payment = Payment::where('bill_id', $bill_id)->first();
 
     	if ($payment != NULL) {
@@ -129,7 +129,7 @@ class ProfileController extends BaseController {
     public function getOrders($id)
     {
 
-    	$customer = Auth::guard('customer')->get();
+    	$customer = Auth::guard('customer')->user();
 
     	// Small protection to be sure it's the correct user
     	if ($customer->profiles()->where('id', '=', $id)->first() == NULL) {
@@ -182,7 +182,7 @@ class ProfileController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $customer = Auth::guard('customer')->get();
+      $customer = Auth::guard('customer')->user();
       $profile = CustomerProfile::find($fields['profile_id']);
 
       if ($profile !== NULL) {
@@ -256,7 +256,7 @@ class ProfileController extends BaseController {
 
 			'phone' => 'required',
 
-			'email' => 'required|email|unique:users,email,'. Auth::guard('customer')->get()->id,
+			'email' => 'required|email|unique:users,email,'. Auth::guard('customer')->user()->id,
 
 			'first_name' => 'required',
 			'last_name' => 'required', 
@@ -284,7 +284,7 @@ class ProfileController extends BaseController {
 		// The form validation was good
 		if ($validator->passes()) {
 
-			$customer = Auth::guard('customer')->get();
+			$customer = Auth::guard('customer')->user();
 
 			if ($customer !== NULL)
 			{

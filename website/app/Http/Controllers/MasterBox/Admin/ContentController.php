@@ -106,7 +106,7 @@ class ContentController extends BaseController {
 			$blog_article->slug = $fields['slug'];
 			$blog_article->url = $fields['url'];
 			$blog_article->content = $fields['content'];
-			$blog_article->customer()->associate(Auth::guard('customer')->get());
+			$blog_article->customer()->associate(Auth::guard('customer')->user());
 			
 			if ( ! empty($fields['thumbnail']))
 			{
@@ -189,7 +189,7 @@ class ContentController extends BaseController {
 			$blog_article->title = $fields['title'];
 			$blog_article->content = $fields['content'];
 			$blog_article->url = $fields['url'];
-			$blog_article->customer()->associate(Auth::guard('customer')->get());
+			$blog_article->customer()->associate(Auth::guard('customer')->user());
 
 			// We manage the thumbnail
 			$file = Request::file('thumbnail');
@@ -256,7 +256,7 @@ class ContentController extends BaseController {
 
 				if ($page !== NULL) {
 
-					//addLogAuth::guard('customer')->get()->id, "La page `$page->title` a été modifiée");
+					//addLogAuth::guard('customer')->user()->id, "La page `$page->title` a été modifiée");
 					
 					$page->content = $value;
 					$page->save();
@@ -345,7 +345,7 @@ class ContentController extends BaseController {
 			$image_article->title = $fields['title'];
 			$image_article->slug = $fields['slug'];
 			$image_article->description = $fields['description'];
-			$image_article->customer()->associate(Auth::guard('customer')->get());
+			$image_article->customer()->associate(Auth::guard('customer')->user());
 
 			if ( ! empty($fields['image'])) {
 			 $image_article->image = $this->_prepare_image($fields, $image_article);
@@ -410,7 +410,7 @@ class ContentController extends BaseController {
 
 			$image_article = new ImageArticle;
 
-			$image_article->customer()->associate(Auth::guard('customer')->get());
+			$image_article->customer()->associate(Auth::guard('customer')->user());
 
 			$image_article->title = $fields['title'];
 			$image_article->description = $fields['description'];

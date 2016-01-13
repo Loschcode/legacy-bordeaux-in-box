@@ -173,7 +173,7 @@ class CustomerController extends BaseController {
         }
 
         // In case the customer is already building an order
-        if (Auth::guard('customer')->get()->order_building()->first() != NULL) 
+        if (Auth::guard('customer')->user()->order_building()->first() != NULL) 
         {
           return redirect()->action('MasterBox\Customer\PurchaseController@getIndex');
         }

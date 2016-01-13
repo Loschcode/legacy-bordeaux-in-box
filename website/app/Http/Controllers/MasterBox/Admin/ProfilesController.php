@@ -247,7 +247,7 @@ class ProfilesController extends BaseController {
 			
 			$note = new CustomerProfileNote;
 			$note->customer_profile_id = $profile->id;
-			$note->customer_id = Auth::guard('customer')->get()->id;
+			$note->customer_id = Auth::guard('customer')->user()->id;
 			$note->note = $fields['note'];
 
 			$note->save();
