@@ -30,8 +30,8 @@
 	    <div id="sidebar-wrapper">
 	        <ul class="sidebar-nav">
 	            <li class="sidebar-brand">
-	                <a href="{{ url('/admin') }}">
-	                    Admin
+	                <a href="{{ action('MasterBox\Admin\DashboardController@getIndex') }}">
+	                    Boxes principales
 	                </a>
 	            </li>
 	            <li>

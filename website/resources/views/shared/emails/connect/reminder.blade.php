@@ -9,7 +9,7 @@
 
 			Pour réintialiser ton mot de passe, il te suffit de cliquer sur le lien suivant<br /><br />
 
-			<strong><a href="{{ url('user-password/reset/' . $token) }}">{{ url('user-password/reset/' . $token) }}</a></strong>
+			<strong><a href="{{ action('MasterBox\Connect\PasswordRemindersController@getReset', ['token' => $token]) }}">{{ action('MasterBox\Connect\PasswordRemindersController@getReset', ['token' => $token]) }}</a></strong>
 		</div>
 	</body>
 </html>

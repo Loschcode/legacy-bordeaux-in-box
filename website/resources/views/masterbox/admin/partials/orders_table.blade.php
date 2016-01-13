@@ -39,12 +39,12 @@
 
 							<th>{{$order->id}}</th>
 							<th>{{$order->delivery_serie()->first()->delivery}}</th>
-							<th><a href="{{ url('/admin/users/focus/'.$order->user_profile()->first()->user()->first()->id)}}">{{$order->user_profile()->first()->user()->first()->getFullName()}}</a></th>
+							<th><a href="{{ url('/admin/users/focus/'.$order->user_profile()->first()->customer()->first()->id)}}">{{$order->user_profile()->first()->customer()->first()->getFullName()}}</a></th>
 
-							<th>{{ $order->user_profile()->first()->user()->first()->getFullAddress()}} </th>
-							<th>{{ $order->user_profile()->first()->user()->first()->phone}} </th>
+							<th>{{ $order->user_profile()->first()->customer()->first()->getFullAddress()}} </th>
+							<th>{{ $order->user_profile()->first()->customer()->first()->phone}} </th>
 
-							<th>{{ $order->user_profile()->first()->user()->first()->email}} </th>
+							<th>{{ $order->user_profile()->first()->customer()->first()->email}} </th>
 
 							<th>
 

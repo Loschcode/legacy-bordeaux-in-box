@@ -48,8 +48,8 @@
             @if ($order->payments->count() > 0)
               <tr>
                 <td>{{ $order->box()->first()->title }}</td>
-                <td>{{ $order->user()->first()->getFullName() }}</td>
-                <td>{{ $order->user()->first()->phone }}</td>
+                <td>{{ $order->customer()->first()->getFullName() }}</td>
+                <td>{{ $order->customer()->first()->phone }}</td>
                 <td>{{ $order->already_paid }}&euro; / {{ $order->unity_and_fees_price }}&euro; <br/> {{ $order->payments()->count() }} tentative(s) de paiement</td>
                 <td>
                   <a target="_blank" class="button --default --sm" href="{{ url('/admin/profiles/edit/' . $order->user_profile()->first()->id) }}">En savoir plus</a>

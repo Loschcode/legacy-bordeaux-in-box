@@ -19,6 +19,7 @@ class PasswordRemindersController extends BaseController {
      * @var string
      */
     public $subject = 'Réinitialisation de ton mot de passe';
+    public $redirectTo = '/';
 
     /*
     |--------------------------------------------------------------------------

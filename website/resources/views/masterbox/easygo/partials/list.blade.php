@@ -14,7 +14,7 @@
       <?php $i++ ?>
       <tr>
         <td>@if ($order->already_paid == 0) <i class="fa fa-exclamation-triangle" style="color: red"></i> @endif {{ $i }}</td>
-        <td>{{ $order->user()->first()->getFullName() }}</td>
+        <td>{{ $order->customer()->first()->getFullName() }}</td>
         <td>{{ $order->box()->first()->title }}</td>
         <td>
           @if ($order->user_profile()->first()->isSponsor())

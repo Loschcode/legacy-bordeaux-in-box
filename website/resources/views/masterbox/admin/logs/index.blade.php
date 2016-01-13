@@ -132,7 +132,7 @@
 							@if ($profile_note->user_profile()->first() === NULL)
 							N/A
 							@else
-							<a href="{{ url('/admin/users/focus/'.$profile_note->user_profile()->first()->user()->first()->id)}}">{{$profile_note->user_profile()->first()->user()->first()->getFullName()}}</a>
+							<a href="{{ url('/admin/users/focus/'.$profile_note->user_profile()->first()->customer()->first()->id)}}">{{$profile_note->user_profile()->first()->customer()->first()->getFullName()}}</a>
 							@endif
 
 							</th>
@@ -159,10 +159,10 @@
 							</th>
 							<th>
 
-							@if ($profile_note->user()->first() === NULL)
+							@if ($profile_note->customer()->first() === NULL)
 							N/A
 							@else
-							<a href="{{ url('/admin/users/focus/'.$profile_note->user()->first()->id)}}">{{$profile_note->user()->first()->getFullName()}}</a>
+							<a href="{{ url('/admin/users/focus/'.$profile_note->customer()->first()->id)}}">{{$profile_note->customer()->first()->getFullName()}}</a>
 							@endif
 
 							</th>
@@ -213,10 +213,10 @@
 							<th>{{$email_trace->id}}</th>
 							<th>
 
-							@if ($email_trace->user()->first() === NULL)
+							@if ($email_trace->customer()->first() === NULL)
 							N/A
 							@else
-							<a href="{{ url('/admin/users/focus/'.$email_trace->user()->first()->id)}}">{{$email_trace->user()->first()->getFullName()}}</a>
+							<a href="{{ url('/admin/users/focus/'.$email_trace->customer()->first()->id)}}">{{$email_trace->customer()->first()->getFullName()}}</a>
 							@endif
 
 							</th>
@@ -248,7 +248,7 @@
 							<th>{{$email_trace->delivered_at}}</th>
 							<th>
 							@if ($email_trace->user_profile()->first() !== NULL)
-							{{$email_trace->user_profile()->first()->user()->first()->emails_fully_authorized}}
+							{{$email_trace->user_profile()->first()->customer()->first()->emails_fully_authorized}}
 							@endif
 							</th>
 							<th>{{$email_trace->first_opened_at}}</th>

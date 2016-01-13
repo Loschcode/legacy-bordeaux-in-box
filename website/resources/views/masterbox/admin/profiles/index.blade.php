@@ -117,7 +117,7 @@
 				<tr>
 					<th>{{$profile->id}}</th>
 					<th><a class="simple" data-profile="{{ $profile->id }}">{{$profile->contract_id}}</a></th>
-					<th><a href="{{ url('/admin/users/focus/'.$profile->user()->first()->id)}}">{{ ucwords(mb_strtolower($profile->user()->first()->getFullName())) }}</a></th>
+					<th><a href="{{ url('/admin/users/focus/'.$profile->customer()->first()->id)}}">{{ ucwords(mb_strtolower($profile->customer()->first()->getFullName())) }}</a></th>
 					<th>
 						{{$profile->orders()->whereNull('date_sent')->count()}}
 					</th>

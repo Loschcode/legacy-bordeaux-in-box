@@ -99,8 +99,8 @@
 
 
             <div class="text-center">
-              <img class="img-rounded" src="http://www.gravatar.com/avatar/{{ md5( strtolower( trim( $order->user_profile()->first()->user()->first()->email ) )) }}" /> 
-              <h3>{{ ucwords($order->user_profile()->first()->user()->first()->getFullName()) }}</h3>
+              <img class="img-rounded" src="http://www.gravatar.com/avatar/{{ md5( strtolower( trim( $order->user_profile()->first()->customer()->first()->email ) )) }}" /> 
+              <h3>{{ ucwords($order->user_profile()->first()->customer()->first()->getFullName()) }}</h3>
               
               <div class="col-md-6 col-md-offset-3">
                 @if ($order->already_paid == 0)
@@ -179,9 +179,9 @@
                 <div>
                   <h4>Contact</h4>
                   <div class="well">
-                    <strong>Adresse :</strong> {{ $order->user_profile()->first()->user()->first()->getFullAddress()}} <br/>
-                    <strong>Téléphone :</strong> {{ $order->user_profile()->first()->user()->first()->phone}}<br/>
-                    <strong>Email :</strong> <a href="mailto:{{ $order->user_profile()->first()->user()->first()->email}}">{{ $order->user_profile()->first()->user()->first()->email}}</a>
+                    <strong>Adresse :</strong> {{ $order->user_profile()->first()->customer()->first()->getFullAddress()}} <br/>
+                    <strong>Téléphone :</strong> {{ $order->user_profile()->first()->customer()->first()->phone}}<br/>
+                    <strong>Email :</strong> <a href="mailto:{{ $order->user_profile()->first()->customer()->first()->email}}">{{ $order->user_profile()->first()->customer()->first()->email}}</a>
                   </div>
                 </div>
                 <div>

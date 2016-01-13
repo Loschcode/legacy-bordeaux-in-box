@@ -120,7 +120,7 @@ return [
 
         'customer' => [
             'provider' => 'customer',
-            'email' => 'connect.emails.customer.reminder',
+            'email' => 'shared.emails.connect.reminder',
             'table' => 'password_resets',
             'expire' => 60,
         ],
@@ -128,14 +128,14 @@ return [
         /*
         'admin' => [
             'provider' => 'admin',
-            'email' => 'connect.emails.customer.reminder',
+            'email' => 'shared.emails.connect.reminder',
             'table' => 'password_resets',
             'expire' => 60,
         ],
 
         'partner' => [
             'provider' => 'partner',
-            'email' => 'connect.emails.customer.reminder',
+            'email' => 'shared.emails.connect.reminder',
             'table' => 'password_resets',
             'expire' => 60,
         ],

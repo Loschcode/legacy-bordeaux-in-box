@@ -38,7 +38,7 @@
 
 							<th>
 							@if ($profile != NULL)
-							<a href="/admin/users/focus/{{$profile->user()->first()->id}}">{{$profile->user()->first()->getFullName()}}</a>
+							<a href="/admin/users/focus/{{$profile->customer()->first()->id}}">{{$profile->customer()->first()->getFullName()}}</a>
 							@endif
 							</th>
 

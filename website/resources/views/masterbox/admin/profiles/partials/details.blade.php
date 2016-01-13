@@ -1,10 +1,10 @@
 
     <div class="panel panel-default">
-      <div class="panel-heading"><i class="fa fa-list-alt"></i> Abonnement de {{$profile->user()->first()->getFullName()}} (#{{$profile->user()->first()->id}})</div>
+      <div class="panel-heading"><i class="fa fa-list-alt"></i> Abonnement de {{$profile->customer()->first()->getFullName()}} (#{{$profile->customer()->first()->id}})</div>
 
       <div class="panel-body">
 
-        <strong>Utilisateur :</strong> <a href="/admin/users/focus/{{$profile->user()->first()->id}}">{{ ucfirst(mb_strtolower($profile->user()->first()->getFullName())) }}</a><br />
+        <strong>Utilisateur :</strong> <a href="/admin/users/focus/{{$profile->customer()->first()->id}}">{{ ucfirst(mb_strtolower($profile->customer()->first()->getFullName())) }}</a><br />
 
         <strong>Marraine :</strong> {!! Html::generateAdminLinkFromUserEmail($profile->getAnswer('sponsor')) !!}<br />
         <strong>Naissance :</strong> {{$profile->getAnswer('birthday')}} ({{$profile->getAge()}} ans)<br />
@@ -73,7 +73,7 @@
 
       <div class="spyro-alert spyro-alert-primary">
 
-          Ecrit par <strong>{{$note->user()->first()->getFullName()}}</strong> le <strong>{{$note->created_at->format('d/m/Y')}}</strong>
+          Ecrit par <strong>{{$note->customer()->first()->getFullName()}}</strong> le <strong>{{$note->created_at->format('d/m/Y')}}</strong>
 
           <div class="spacer10"></div>
 

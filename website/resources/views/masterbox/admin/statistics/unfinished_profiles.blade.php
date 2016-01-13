@@ -58,7 +58,7 @@
 
 					@if ($profile != NULL)
 
-					<?= $profile->user()->first()->email ?>, 
+					<?= $profile->customer()->first()->email ?>, 
 
 					@endif
 

@@ -6,7 +6,7 @@
 |--------------------------------------------------------------------------
 */
 
-Route::group(['namespace' => 'Company', 'domain' => "company.".config('app.domain')], function() {
+Route::group(['namespace' => 'Company', 'domain' => "company.".config('app.domain'), 'middleware' => ['web']], function() {
 
   /**
    * Company Admin Area
@@ -15,6 +15,7 @@ Route::group(['namespace' => 'Company', 'domain' => "company.".config('app.domai
 
     // , 'middleware' => 'isAdminMiddleware'
     Route::controller('finances', 'FinancesController');
+    Route::controller('', 'DashboardController');
 
   });
 

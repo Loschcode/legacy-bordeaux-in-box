@@ -131,7 +131,7 @@ function generate_csv_finances_spreadsheet($file_name, $payments)
 
     // We prepare some stuff
     $profile = $payment->profile()->first();
-    $user = $profile->user()->first();
+    $user = $profile->customer()->first();
     $box = $profile->box()->first();
     $email = $user->email;
 

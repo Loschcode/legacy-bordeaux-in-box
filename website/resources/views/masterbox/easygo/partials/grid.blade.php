@@ -14,7 +14,7 @@
         @if ($order->already_paid == 0)
           <i class="fa fa-exclamation-triangle" style="color: red"></i>
         @endif
-        N°{{ $i }} - {{ $order->user_profile()->first()->user()->first()->getFullName() }}
+        N°{{ $i }} - {{ $order->user_profile()->first()->customer()->first()->getFullName() }}
       </p>
     </div>
 

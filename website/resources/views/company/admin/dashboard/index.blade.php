@@ -1,7 +1,7 @@
-@extends('masterbox.layouts.admin')
+@extends('company.layouts.admin')
 
 @section('page')
-	<i class="fa fa-home"></i> Boxes principales
+	<i class="fa fa-home"></i> Société
 @stop
 
 @section('content')
