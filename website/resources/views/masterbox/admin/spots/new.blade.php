@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('masterbox.layouts.admin')
 
 @section('page')
   <i class="fa fa-map-marker"></i> Nouveau points relais

@@ -95,6 +95,117 @@ function generate_pdf($html, $pdf_name, $download, $destination_folder) {
 }
 
 /**
+ * Generate a CSV for the orders
+ * @param  string $file_name the file name
+ * @param  object $orders    the Order object
+ * @return csv  
+ */
+function generate_csv_finances_spreadsheet($file_name, $payments)
+{
+
+  // We make up the titles
+  $output[0] = [
+
+    'Date facture',
+    'Date réglement',
+    'Montant',
+    'Type gain',
+
+    '',
+
+    'Méthode',
+    'Créditeur',
+    'Type créditeur',
+    'Statut',
+    'Facture',
+
+    '',
+
+    'Branche',
+    'Gestion',
+    'Note'
+
+  ];
+
+  foreach ($payments as $payment) {
+
+    // We prepare some stuff
+    $profile = $payment->profile()->first();
+    $user = $profile->user()->first();
+    $box = $profile->box()->first();
+    $email = $user->email;
+
+    $order = $payment->order()->first();
+    if ($order !== NULL) {
+      $delivery_serie = $order->delivery_serie()->first();
+    } else {
+      $delivery_serie = NULL;
+    }
+
+    // Now we get the datas
+    $date_facture = date_format($payment->created_at,"d/m/Y");
+    $date_reglement = date_format($payment->created_at,"d/m/Y");
+
+    // Refund or not ?
+    if ($payment->amount >= 0) {
+
+      $amount = $payment->amount;
+      $statut = "Payé";
+      $note = "Vente sur le site à ".Downloaders::prepareForCsv($user->getFullName());
+      $type_gain = "Vente de boxes";
+
+    } else {
+
+      $amount = ($payment->amount) - ($payment->amount*2);
+      $statut = "Payé";
+      $note = "Remboursement sur le site à ".Downloaders::prepareForCsv($user->getFullName());
+      $type_gain = "Remboursement client";
+
+    }
+
+    if ($delivery_serie !== NULL) {
+      $note .= " pour la série ".$delivery_serie->delivery;
+    }
+
+    //setlocale(LC_MONETARY, 'fr_FR');
+    $montant = str_replace('.', '%coma%', $amount); //money_format('%i', $payment->amount);
+
+    $methode = "Carte bancaire"; // This not included any CHECK
+    $crediteur = "BX".$user->id;
+    $type_crediteur = "Personnel";
+    $facture = "\"=HYPERLINK(\"\"https://www.bordeauxinbox.fr/v1/archive/public-bill/".$payment->bill_id."\"\"%coma% \"\"".$payment->bill_id."\"\")\"";
+
+    $branche = "Boxes principales";
+    $gestion = "Laurent Schaffner";
+
+    // Downloaders::prepareForCsv($user->getFullName());
+
+    $output[] = [
+
+      $date_facture,
+      $date_reglement,
+      $montant,
+      $type_gain,
+      ' ',
+      $methode,
+      $crediteur,
+      $type_crediteur,
+      $statut,
+      $facture,
+      ' ',
+      $branche,
+      $gestion,
+      $note
+
+    ];
+
+  }
+
+  return Downloaders::makeCsvFromArray($file_name, $output);
+
+}
+
+/**
  * Generate a CSV for the payments
  * @param  string $file_name the file name
  * @param  object $payments the payment object

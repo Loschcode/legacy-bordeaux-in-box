@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('masterbox.layouts.admin')
 
 @section('page')
 	<i class="fa fa-user"></i> Utilisateurs ({{$customers->count()}})

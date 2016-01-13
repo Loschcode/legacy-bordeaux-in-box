@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('masterbox.layouts.admin')
 
 @section('page')
   <h1 class="page">Réponses pour la question #{{$question->id}}</h1>

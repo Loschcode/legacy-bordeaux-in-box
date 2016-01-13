@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('masterbox.layouts.admin')
 
 @section('page')
   <i class="fa fa-calculator"></i> Factures &amp; Fiscalité
@@ -22,6 +22,10 @@
     <li><a href="#others" role="tab" data-toggle="tab"><i class="fa fa-star"></i> Autre</a></li>
 
   </ul>
+
+  <a href="{{ action('MasterBox\Admin\TaxesController@getFinancesSpreadsheetTotalCredits') }}">Spreadsheet crédits total</a>
+  <br />
+  <a href="{{ action('MasterBox\Admin\TaxesController@getFinancesSpreadsheetTotalDebits') }}">Spreadsheet débits total</a>
 
   <div class="tab-content">
 

@@ -5,6 +5,7 @@ use App\Http\Controllers\MasterBox\BaseController;
 use Carbon\Carbon; 
 
 use App\Models\DeliverySerie;
+use App\Models\Payment;
 
 class TaxesController extends BaseController {
 
@@ -80,6 +81,61 @@ class TaxesController extends BaseController {
 
     $csv_name = 'payments-'.$series->delivery.'-'.time().'.csv';
     return generate_csv_payments($csv_name, $payments);
+
+  }
+
+
+  public function getFinancesSpreadsheetTotalCredits()
+  {
+
+    // We will list all the payments as bills
+    $payments = Payment::where('amount', '>=', 0)->where('paid', '=', TRUE)->get();
+
+    $csv_name = 'finances-spreadsheet-total-debits-'.time().'.csv';
+    
+    return generate_csv_finances_spreadsheet($csv_name, $payments);
+
+  }
+
+  public function getFinancesSpreadsheetTotalDebits()
+  {
+
+    // We will list all the payments as bills
+    $payments = Payment::where('amount', '<', 0)->where('paid', '=', TRUE)->get();
+
+    $csv_name = 'finances-spreadsheet-total-debits-'.time().'.csv';
+    
+    return generate_csv_finances_spreadsheet($csv_name, $payments);
+
+  }
+
+  public function getFinancesSpreadsheetCredits($serie_id)
+  {
+
+    $series = DeliverySerie::find($serie_id);
+    if ($series === NULL) return Redirect::to('/');
+
+    // We will list all the payments as bills
+    $payments = $series->payments()->where('paid', '=', TRUE)->where('amount', '>=', 0)->get();
+
+    $csv_name = 'finances-spreadsheet-credits-'.$series->delivery.'-'.time().'.csv';
+    
+    return generate_csv_finances_spreadsheet($csv_name, $payments);
+
+  }
+
+  public function getFinancesSpreadsheetDebits($serie_id)
+  {
+
+    $series = DeliverySerie::find($serie_id);
+    if ($series === NULL) return Redirect::to('/');
+
+    // We will list all the payments as bills
+    $payments = $series->payments()->where('paid', '=', TRUE)->where('amount', '<', 0)->get();
+
+    $csv_name = 'finances-spreadsheet-debits-'.$series->delivery.'-'.time().'.csv';
+    
+    return generate_csv_finances_spreadsheet($csv_name, $payments);
 
   }
 

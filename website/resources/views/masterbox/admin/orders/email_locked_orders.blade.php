@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('masterbox.layouts.admin')
 
 @section('page')
 	<i class="fa fa-list-alt"></i> Suivi des commandes

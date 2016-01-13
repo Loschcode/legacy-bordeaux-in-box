@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('masterbox.layouts.admin')
 
 @section('page')
   <i class="fa fa-filter"></i> Filtres avancés {{$product->name}}  (#{{$product->id}})

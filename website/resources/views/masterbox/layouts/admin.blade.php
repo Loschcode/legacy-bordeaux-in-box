@@ -38,43 +38,40 @@
 	            	<a href="{{ url('easygo') }}"><i class="fa fa-heart"></i> Easy Go</a>
 	            </li>
 	            <li>
-	                <a href="{{ url('admin/orders') }}"><i class="fa fa-truck"></i> Suivi des commandes</a>
+	                <a href="{{ action('MasterBox\Admin\OrdersController@getIndex') }}"><i class="fa fa-truck"></i> Suivi des commandes</a>
 	            </li>
 	            <li>
-	                <a href="{{ url('admin/deliveries') }}"><i class="fa fa-bank"></i> Séries &amp; Finances</a>
+	                <a href="{{ action('MasterBox\Admin\DeliveriesController@getIndex') }}"><i class="fa fa-bank"></i> Séries &amp; Finances</a>
 	            </li>
 	            <li>
-	                <a href="{{ url('admin/spots') }}"><i class="fa fa-map-marker"></i> Points relais</a>
+	                <a href="{{ action('MasterBox\Admin\SpotsController@getIndex') }}"><i class="fa fa-map-marker"></i> Points relais</a>
 	            </li>
 	            <li>
-	                <a href="{{ url('admin/boxes') }}"><i class="fa fa-gift"></i> Boxes</a>
+	                <a href="{{ action('MasterBox\Admin\BoxesController@getIndex') }}"><i class="fa fa-gift"></i> Boxes</a>
 	            </li>
 	            <li>
-	                <a href="{{ url('admin/products') }}"><i class="fa fa-folder"></i> Produits &amp; Partenaires</a>
+	                <a href="{{ action('MasterBox\Admin\ProductsController@getIndex') }}"><i class="fa fa-folder"></i> Produits &amp; Partenaires</a>
 	            </li>
 	            <li>
-	                <a href="{{ url('admin/shop') }}"><i class="fa fa-shopping-cart"></i> Shop</a>
+	                <a href="{{ action('MasterBox\Admin\ContentController@getIndex') }}"><i class="fa fa-picture-o"></i> Contenus</a>
 	            </li>
 	            <li>
-	                <a href="{{ url('admin/content') }}"><i class="fa fa-picture-o"></i> Contenus</a>
+	            	<a href="{{ action('MasterBox\Admin\UsersController@getIndex') }}"><i class="fa fa-group"></i> Utilisateurs</a>
 	            </li>
 	            <li>
-	            	<a href="{{ url('admin/users') }}"><i class="fa fa-group"></i> Utilisateurs</a>
+	            	<a href="{{ action('MasterBox\Admin\ProfilesController@getIndex') }}"><i class="fa fa-suitcase"></i> Abonnements</a>
 	            </li>
 	            <li>
-	            	<a href="{{ url('admin/profiles') }}"><i class="fa fa-suitcase"></i> Abonnements</a>
+	                <a href="{{ action('MasterBox\Admin\TaxesController@getIndex') }}"><i class="fa fa-calculator"></i> Factures &amp; Fiscalité</a>
 	            </li>
 	            <li>
-	                <a href="{{ url('admin/taxes') }}"><i class="fa fa-calculator"></i> Factures &amp; Fiscalité</a>
+	            	<a href="{{ action('MasterBox\Admin\StatisticsController@getIndex') }}"><i class="fa fa-area-chart"></i> Statistiques</a>
 	            </li>
 	            <li>
-	            	<a href="{{ url('admin/statistics') }}"><i class="fa fa-area-chart"></i> Statistiques</a>
+	            	<a href="{{ action('MasterBox\Admin\LogsController@getIndex') }}"><i class="fa fa-gear"></i> Logs &amp; Configuration</a>
 	            </li>
 	            <li>
-	            	<a href="{{ url('admin/logs') }}"><i class="fa fa-gear"></i> Logs &amp; Configuration</a>
-	            </li>
-	            <li>
-	            <a href="{{ url('admin/debug') }}"><i class="fa fa-bug"></i> Debug</a>
+	            <a href="{{ action('MasterBox\Admin\DebugController@getIndex') }}"><i class="fa fa-bug"></i> Debug</a>
 	            </li>
 	        </ul>
 	    </div>

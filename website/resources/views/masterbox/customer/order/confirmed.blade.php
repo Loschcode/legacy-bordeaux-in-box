@@ -12,7 +12,7 @@
 			<p>
 				Choupette ton paiement a été effectué et sera confirmé dans quelques minutes, toute l'équipe espère que tu passeras un agréable moment lorsque tu recevras ta box !
 			</p>
-			<a href="{{ url('profile#contracts') }}" class="spyro-btn spyro-btn-lg spyro-btn-red upper spyro-btn-block">Suivre ma commande</a>
+			<a href="{{ action('MasterBox\Customer\ProfileController@getIndex') }}#contracts" class="spyro-btn spyro-btn-lg spyro-btn-red upper spyro-btn-block">Suivre ma commande</a>
 
 		</div>
 	</div>
