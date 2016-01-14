@@ -56,7 +56,7 @@
 	                <a href="{{ action('MasterBox\Admin\ContentController@getIndex') }}"><i class="fa fa-picture-o"></i> Contenus</a>
 	            </li>
 	            <li>
-	            	<a href="{{ action('MasterBox\Admin\UsersController@getIndex') }}"><i class="fa fa-group"></i> Utilisateurs</a>
+	            	<a href="{{ action('MasterBox\Admin\CustomersController@getIndex') }}"><i class="fa fa-group"></i> Utilisateurs</a>
 	            </li>
 	            <li>
 	            	<a href="{{ action('MasterBox\Admin\ProfilesController@getIndex') }}"><i class="fa fa-suitcase"></i> Abonnements</a>

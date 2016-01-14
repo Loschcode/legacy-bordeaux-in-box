@@ -72,9 +72,9 @@
 					<th>
 
     
-					<a data-toggle="tooltip" title="En savoir plus" class="spyro-btn-sm spyro-btn spyro-btn-primary" href="{{ url('/admin/users/focus/'.$customer->id) }}"><i class="fa fa-search"></i></a>
+					<a data-toggle="tooltip" title="En savoir plus" class="spyro-btn-sm spyro-btn spyro-btn-primary" href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id]) }}"><i class="fa fa-search"></i></a>
 
-					<a data-toggle="tooltip" title="Editer" class="spyro-btn-sm spyro-btn spyro-btn-warning" href="{{ url('/admin/users/focus/'.$customer->id) }}#edit"><i class="fa fa-pencil"></i></a>
+					<a data-toggle="tooltip" title="Editer" class="spyro-btn-sm spyro-btn spyro-btn-warning" href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id]) }}#edit"><i class="fa fa-pencil"></i></a>
 
 					</th>
 

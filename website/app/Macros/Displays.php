@@ -11,7 +11,7 @@ Html::macro('generateAdminLinkFromUserEmail', function($email)
   $customer = Customer::where('email', '=', $email)->first();
   if ($customer === NULL) return 'N/A';
 
-  return "<a href='/admin/users/focus/".$customer->id."'>".$customer->getFullName()."</a>";
+  return "<a href='/admin/customers/focus/".$customer->id."'>".$customer->getFullName()."</a>";
 
 });
 

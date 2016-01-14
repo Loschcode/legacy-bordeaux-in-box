@@ -6,7 +6,7 @@ use Request, Validator;
 use App\Models\Customer;
 
 
-class UsersController extends BaseController {
+class CustomersController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -35,8 +35,8 @@ class UsersController extends BaseController {
 
 		$customers = Customer::orderBy('created_at', 'desc')->get();
 
-		return view('masterbox.admin.users.index')->with(compact(
-      'users'
+		return view('masterbox.admin.customers.index')->with(compact(
+      'customers'
     ));
 
 	}
@@ -57,7 +57,7 @@ class UsersController extends BaseController {
 
 		];
 
-		return view('masterbox.admin.users.focus')->with(compact(
+		return view('masterbox.admin.customers.focus')->with(compact(
       'roles_list',
       'customer'
     ));
@@ -154,7 +154,7 @@ class UsersController extends BaseController {
         }
       }
 
-			return redirect()->to('/admin/users')
+			return redirect()->to('/admin/customers')
 			->withInput()
 			->with('message', 'L\'utilisateur à bien été modifié');
 
