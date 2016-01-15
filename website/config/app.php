@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'url' => 'http://localhost',
+    'url' => 'http://www.bordeauxinbox.dev',
 
     /**
      * Other variables about the URL

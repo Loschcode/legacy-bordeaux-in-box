@@ -140,7 +140,7 @@ class ProfilesController extends BaseController {
     $order_preference = $profile->order_preference()->first();
     $customer = $profile->customer()->first();
 
-    $next_delivery_order = $profile->orders()->where('locked', FALSE)->whereNull('date_completed')->first();
+    $next_delivery_order = $profile->orders()->whereNull('date_completed')->orderBy('orders.created_at', 'DESC')->first();
 
     if ($next_delivery_order != NULL) {
 
@@ -550,7 +550,6 @@ class ProfilesController extends BaseController {
 		}
 
 	}
-
 
   public function customer_profile_status_progress_graph_config()
   {
