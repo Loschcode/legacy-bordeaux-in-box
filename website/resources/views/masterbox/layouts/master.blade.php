@@ -28,7 +28,7 @@
 
 </head>
 
-<body>
+<body data-environment="{{ app()->environment() }}">
   <div class="header">
     <div class="fill1"></div>
     <div class="fill2"></div>
