@@ -40,4 +40,11 @@ class CustomerOrderPreference extends Model {
 
 	}
 
+  public function totalPricePerMonthInCents()
+  {
+
+    return round((float) $this->unity_price + $this->delivery_fees, 2) * 100;
+
+  }
+
 }
