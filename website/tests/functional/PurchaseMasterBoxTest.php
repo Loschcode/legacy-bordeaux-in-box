@@ -19,19 +19,8 @@ class PurchaseMasterBoxTest extends TestCase
     $this->visit('/customer/purchase/classic')
          ->seePageIs('/connect/customer/subscribe');
 
+    // Subscribe
     $password = $faker->password;
-
-    /*$this->post('/connect/customer/subscribe', [
-
-      'first_name' => 'fuck',
-      'last_name' => 'yeah',
-      'email' => 'jlklmkmlkmlk@jlk.fr',
-      'phone' => "798798789",
-      "password" => "yoyoyo",
-      "password_confirmation" => "yoyoyo"
-
-      ])->seePageIs('/customer/purchase/choose-box');*/
-
     $this->visit('/connect/customer/subscribe')
           ->type($faker->firstName, 'first_name')
           ->type($faker->firstName, 'first_name')
@@ -42,19 +31,12 @@ class PurchaseMasterBoxTest extends TestCase
           ->type($password, 'password_confirmation')
           ->press("S'inscrire");
 
-    dd($this->dump());
-    
-    /*
-          ->type($faker->firstName, 'first_name')
-          ->type($faker->lastName, 'last_name')
-          ->type($faker->email, 'email')
-          ->type($faker->phoneNumber, 'phone')
-          ->type($password, 'password')
-          ->type($password, 'password_confirmation')
-          ->press("S'inscrire")
-          ->seePageIs('/customer/purchase/choose-box');
+    // Email is sent
+    $this->assertEmailIsSent();
 
-*/
+    // Was redirected to the choose box ?
+    $this->seePageIs('/customer/purchase/choose-box');
+
   }
 
    /* public function test_it_display_errors_if_ad_not_correct()

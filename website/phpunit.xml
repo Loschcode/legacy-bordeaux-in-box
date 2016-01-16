@@ -24,5 +24,10 @@
         <env name="SESSION_DRIVER" value="array"/>
         <env name="QUEUE_DRIVER" value="sync"/>
         <env name="BASE_URL" value="http://www.bordeauxinbox.dev"/>
+
+        <env name="MAILTRAP_API_TOKEN" value="95ec270559d5924fa290b9c317ffe8a9" />
+        <env name="MAILTRAP_API_BASE_URI" value="https://mailtrap.io/api/v1/" />
+        <env name="MAILTRAP_API_INBOX" value="77922" />
+
     </php>
 </phpunit>
