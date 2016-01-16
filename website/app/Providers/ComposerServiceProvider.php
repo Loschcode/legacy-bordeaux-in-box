@@ -13,8 +13,9 @@ class ComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
       foreach (glob(app_path().'/Http/ViewComposers/*.php') as $filename){  
-        require_once($filename);
+        require($filename);
       }
     }
 
