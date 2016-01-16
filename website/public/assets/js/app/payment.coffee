@@ -33,6 +33,121 @@ class @Payment
   #
   init: ->
 
+    @initStripe()
+    @events()
+
+  #--------------------------------------------------------------------------
+  # Events
+  #--------------------------------------------------------------------------
+  #
+  # Some listeners
+  #
+  events: ->
+    $('#trigger-payment').click (e) =>
+      
+      # Add state button
+      @displayLoading()
+
+      # Catch default behavior of click
+      e.preventDefault()
+
+      # Open modal
+      @handler.open
+        name: 'Bordeaux in Box'
+        description: 'Commande Box'
+        currency: 'eur'
+        amount: $('#payment-form').data('price')
+
+  initStripe: =>
+
+    # Configure stripe modal
+    @handler = StripeCheckout.configure
+      key: @stripeKey
+      image: 'https://s3.amazonaws.com/stripe-uploads/acct_14e5CdIIyezb3ziumerchant-icon-1452677496121-bdxinbox.png'
+      locale: 'fr'
+      token: @afterPayment
+      allowRememberMe: false
+      closed: ->
+        $('#trigger-payment').html $('#trigger-payment').data('text')
+
+  afterPayment: (token) =>
+    secret = token.id
+
+    $('#stripe-token').val(secret)
+    $('#payment-form').submit()
+
+  displayLoading: () ->
+
+    $('#trigger-payment').html('<i class="fa fa-spinner fa-spin"></i>')
+
+
+  ###
+      var handler = StripeCheckout.configure({
+         key: 'pk_test_HNPpbWh3FV4Lw4RmIQqirqsj',
+         image: 'https://s3.amazonaws.com/stripe-uploads/acct_14e5CdIIyezb3ziumerchant-icon-1452677496121-bdxinbox.png',
+         locale: 'auto',
+         token: function(token) {
+           // Use the token to create the charge with a server-side script.
+           // You can access the token ID with `token.id`
+         }
+       });
+
+       $('#customButton').on('click', function(e) {
+         // Open Checkout with further options
+         handler.open({
+           name: 'La Petite Box',
+           description: '2 widgets',
+           currency: "eur",
+           amount: 2000
+         });
+         e.preventDefault();
+       });
+
+       // Close Checkout on page navigation
+       $(window).on('popstate', function() {
+         handler.close();
+       });
+  ###
+
+
+
+
+###
+class @Payment
+
+  #--------------------------------------------------------------------------
+  # Constructor
+  #--------------------------------------------------------------------------
+  #
+  # Runned always when class called
+  #
+  constructor: (stripeKey) ->
+
+    # Key used by stripe to give a token
+    @stripeKey = stripeKey
+    
+    # Check if this controller must be run or not
+    if @canRun()
+      @init()
+
+  #--------------------------------------------------------------------------
+  # Can Run
+  #--------------------------------------------------------------------------
+  #
+  # Check if we run this controller, based of the id "js-page-payment"
+  #
+  canRun: ->
+
+    return $('#js-page-payment').length
+
+  #--------------------------------------------------------------------------
+  # Init
+  #--------------------------------------------------------------------------
+  #
+  # Controller runned, we will run listeners (events) and we will init stripe
+  #
+  init: ->
+
     @events()
     @initStripe()
     @initRestrictInputs()
@@ -289,6 +404,8 @@ class @Payment
   closeModal: ->
 
     $('#modal-payment').modal 'hide'
+###
+
 
 
 

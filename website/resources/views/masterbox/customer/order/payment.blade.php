@@ -71,7 +71,7 @@
           <p>Montant à payer : {{$order_preference->totalPricePerMonth()}} &euro;</p>
         </div>
         <div class="cart-buy">
-          <a id="trigger-payment" href="#"><i class="fa fa-credit-card"></i> Procéder au paiement sécurisé</a>
+          <a id="trigger-payment" href="#" data-text="<i class='fa fa-credit-card'></i> Procéder au paiement sécurisé"><i class="fa fa-credit-card"></i> Procéder au paiement sécurisé</a>
         </div>
       </div>
     </div>
@@ -163,60 +163,18 @@
     </nav>
   </div>
 
-
-    <!-- Modal -->
-    <div class="modal fade stripe-component" data-backdrop="static" id="modal-payment" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-      {!! Form::open(['id' => 'payment-form']) !!}
-      {!! Form::hidden('stripeToken', null, ['id' => 'stripe-token']) !!}
-      {!! Form::hidden('email', $customer->email) !!}
+  {!! Form::open(['id' => 'payment-form', 'data-price' => $order_preference->totalPricePerMonthInCents()]) !!}
+    {!! Form::hidden('stripeToken', null, ['id' => 'stripe-token']) !!}
+    {!! Form::hidden('email', $customer->email) !!}
+  {!! Form::close() !!}
       
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <a id="trigger-close" class="close" href="#"></a>
-            <h4 class="modal-title" id="myModalLabel">Bordeaux in Box</h4>
-            <h5 class="modal-subtitle">Stripe Payments Europe, Ltd</h5>
-          </div>
-          <div class="modal-body">
-
-            <div class="content-form">
-
-               <div class="bank">
-
-                 <div class="form-group card">
-                      <div class="icon"><i class="fa fa-credit-card"></i></div>
-                      <input id="card" class="form-control" type="card" placeholder="Numéro de carte" data-stripe="number">
-                  </div>
-
-                 <div class="form-group calendar">
-                      <div class="icon"><i class="fa fa-calendar"></i></div>
-                      <input id="expiration" class="form-control" type="calendar" placeholder="MM / AA">
-                  </div>
-
-                  <div class="form-group ccv">
-                       <div class="icon"><i class="fa fa-lock"></i></div>
-                       <input id="cvc" class="form-control" type="ccv" placeholder="CCV">
-                   </div>
-                </div>
-
-              <button id="trigger-pay" class="button" type="submit">Payer {{$order_preference->totalPricePerMonth()}} <i class="fa fa-euro"></i></button>
-
-            </div>
-
-          </div>
-        </div>
-      </div>
-      {!! Form::close() !!}
-    </div>
-    <!-- End modal -->
-
-
   <div class="clearfix"></div>
   <div class="spacer100"></div>
 
   {!! View::make('masterbox.partials.front.footer') !!}
-
+  
+  <!-- Checkout js stripe -->
+  <script src="https://checkout.stripe.com/checkout.js"></script>
 
   <!-- Facebook Conversion Code for Paiements -->
   <script>(function() {
