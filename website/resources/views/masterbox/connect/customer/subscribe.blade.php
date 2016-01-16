@@ -13,8 +13,6 @@
 
     {!! Form::open() !!}
 
-    {{ csrf_field() }}
-
     {!! Form::text("first_name", Request::old("first_name"), ['placeholder' => 'Prénom']) !!}
 
     @if ($errors->first('first_name'))
