@@ -29,8 +29,10 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
               ]
           ]);
         $this->mailtrap_inbox = getenv('MAILTRAP_API_INBOX');
+        
         // Clean messages of mailtrap between each tests
         $this->mailtrapCleanMessages();
+
         // Faker
         $this->faker = Faker::create();
 
