@@ -11,9 +11,9 @@ class ExampleTest extends TestCase
      *
      * @return void
      */
-    public function testBasicExample()
+    public function testVisitHome()
     {
         $this->visit('/')
-             ->see('Laravel 5');
+             ->seePageIs('/');
     }
 }

@@ -56,7 +56,7 @@ class PurchaseController extends BaseController {
     if (Auth::guard('customer')->guest()) {
 
       session()->put('after-login-redirection', Request::url());
-      return redirect('user/subscribe');
+      return redirect()->action('MasterBox\Connect\CustomerController@getSubscribe');
       
     }
 
@@ -76,7 +76,7 @@ class PurchaseController extends BaseController {
     if (Auth::guard('customer')->guest()) 
     {
       session()->put('after-login-redirection', Request::url());
-      return redirect('user/subscribe');
+      return redirect()->action('MasterBox\Connect\CustomerController@getSubscribe');
     }
 
     $redirect = $this->guessStepFromUser();
