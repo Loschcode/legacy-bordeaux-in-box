@@ -2,12 +2,14 @@
 
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
-    /**
-     * The base URL to use while testing the application.
-     *
-     * @var string
-     */
-    protected $baseUrl = 'http://www.bordeauxinbox.dev:8000';
+
+    public function __construct()
+    {
+      parent::__construct();
+
+      $this->baseUrl = getenv('BASE_URL');
+
+    }
 
     /**
      * Creates the application.
