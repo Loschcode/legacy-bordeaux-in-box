@@ -52,9 +52,9 @@ class RouteServiceProvider extends ServiceProvider
           $env = app()->environment();
           $routes = config('routes');
 
-          if ($env === 'development') {
+          if ($env === 'local') {
 
-            foreach ($routes['development'] as $development_routes) {
+            foreach ($routes['local'] as $development_routes) {
 
               if (file_exists(app_path("Http/Routes/$development_routes/routes.php")))
                 require app_path("Http/Routes/$development_routes/routes.php");

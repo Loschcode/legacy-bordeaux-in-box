@@ -21,7 +21,7 @@ class PurchaseMasterBoxTest extends TestCase
 
     $password = $faker->password;
 
-    $this->post('/connect/customer/subscribe', [
+    /*$this->post('/connect/customer/subscribe', [
 
       'first_name' => 'fuck',
       'last_name' => 'yeah',
@@ -30,9 +30,21 @@ class PurchaseMasterBoxTest extends TestCase
       "password" => "yoyoyo",
       "password_confirmation" => "yoyoyo"
 
-      ])->seePageIs('/customer/purchase/choose-box');
-/*
+      ])->seePageIs('/customer/purchase/choose-box');*/
+
     $this->visit('/connect/customer/subscribe')
+          ->type($faker->firstName, 'first_name')
+          ->type($faker->firstName, 'first_name')
+          ->type($faker->lastName, 'last_name')
+          ->type($faker->email, 'email')
+          ->type($faker->phoneNumber, 'phone')
+          ->type($password, 'password')
+          ->type($password, 'password_confirmation')
+          ->press("S'inscrire");
+
+    dd($this->dump());
+    
+    /*
           ->type($faker->firstName, 'first_name')
           ->type($faker->lastName, 'last_name')
           ->type($faker->email, 'email')
@@ -41,6 +53,7 @@ class PurchaseMasterBoxTest extends TestCase
           ->type($password, 'password_confirmation')
           ->press("S'inscrire")
           ->seePageIs('/customer/purchase/choose-box');
+
 */
   }
 

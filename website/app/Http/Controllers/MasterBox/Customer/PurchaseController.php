@@ -50,6 +50,7 @@ class PurchaseController extends BaseController {
   public function getClassic()
   {
 
+
     session()->put('isOrdering', TRUE);
     session()->put('isGift', FALSE);
 

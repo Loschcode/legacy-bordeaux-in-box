@@ -99,7 +99,7 @@ class CustomerController extends BaseController {
 
       // Auto-connection : on
       Auth::guard('customer')->login($customer);
-      
+
       if (session()->get('after-login-redirection')) {
 
         return redirect(session()->get('after-login-redirection'));
