@@ -10,7 +10,7 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
       parent::__construct();
 
-      $this->baseUrl = getenv('BASE_URL');
+      $this->baseUrl = env('BASE_URL');
 
     }
 
@@ -21,17 +21,21 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
 
         parent::setUp();
-        // Create connexion mailtrap.io
-        $this->mailtrap = new Client([
+
+        // CURRENTLY NOT WORKING ON LAURENT'S COMPUTER
+        // Create connection mailtrap.io
+        /*$this->mailtrap = new Client([
               'base_uri' => getenv('MAILTRAP_API_BASE_URI'),
               'headers' => [
                   'Api-Token' => getenv('MAILTRAP_API_TOKEN')
               ]
           ]);
+
         $this->mailtrap_inbox = getenv('MAILTRAP_API_INBOX');
-        
+        dd('fuck');
         // Clean messages of mailtrap between each tests
-        $this->mailtrapCleanMessages();
+        $this->mailtrapCleanMessages();*/
+        // END OF NOT WORKING
 
         // Faker
         $this->faker = Faker::create();

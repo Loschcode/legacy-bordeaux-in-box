@@ -65,13 +65,6 @@ class CustomerProfile extends Model {
 
 	}
 
-	public function box()
-	{
-
-		return $this->belongsTo('App\Models\Box', 'box_id');
-
-	}
-
 	/**
 	 * HasOne
 	 */
@@ -105,7 +98,7 @@ class CustomerProfile extends Model {
 	public function answers()
 	{
 
-		return $this->hasMany('App\Models\CustomerAnswer');
+		return $this->hasMany('App\Models\BoxQuestionCustomerAnswer');
 
 	}
 

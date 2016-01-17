@@ -5,7 +5,7 @@ use App\Http\Controllers\MasterBox\BaseController;
 use App\Models\Order;
 use App\Models\CustomerProfile;
 use App\Models\Customer;
-use App\Models\CustomerAnswer;
+use App\Models\BoxQuestionCustomerAnswer;
 use App\Models\CustomerOrderBuilding;
 use App\Models\Payment;
 use App\Models\PaymentProfile;
@@ -166,7 +166,7 @@ class DebugController extends BaseController {
 
         $slugged_user = Str::slug($customer->getFullName());
 
-        $customer_answer = CustomerAnswer::where('slug', '=', $slugged_user)->first();
+        $customer_answer = BoxQuestionCustomerAnswer::where('slug', '=', $slugged_user)->first();
 
         if ($customer_answer !== NULL) {
           
@@ -181,7 +181,7 @@ class DebugController extends BaseController {
     }
 
     // Now we will remove the ones that aren't emails
-    $customer_answers = CustomerAnswer::get();
+    $customer_answers = BoxQuestionCustomerAnswer::get();
 
     foreach ($customer_answers as $customer_answer) {
 
@@ -508,10 +508,10 @@ class DebugController extends BaseController {
    * Generate the `slug` of the `customer_answers` if empty
    * @return void
    */
-  public function getGenerateCustomerAnswersSlugs()
+  public function getGenerateBoxQuestionCustomerAnswersSlugs()
   {
 
-    $customer_answers = CustomerAnswer::get();
+    $customer_answers = BoxQuestionCustomerAnswer::get();
     $affected_rows = 0;
 
     foreach ($customer_answers as $customer_answer) {

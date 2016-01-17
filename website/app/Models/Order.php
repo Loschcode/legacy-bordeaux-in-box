@@ -34,13 +34,6 @@ class Order extends Model {
 
 	}
 
-	public function box()
-	{
-
-		return $this->belongsTo('App\Models\Box', 'box_id');
-
-	}
-
 	public function delivery_serie()
 	{
 

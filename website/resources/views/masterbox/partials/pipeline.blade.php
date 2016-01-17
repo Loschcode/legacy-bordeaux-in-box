@@ -7,7 +7,7 @@
 		<div class="col-xs-2 bs-wizard-step {{ $states['step1'] }} col-md-offset-1">
 			<div class="text-center bs-wizard-stepnum">Etape 1</div>
 			<div class="progress"><div class="progress-bar"></div></div>
-			<a {{ $tooltips['step1'] }} href="{{ action('MasterBox\Customer\PurchaseController@getChooseBox') }}" class="bs-wizard-dot"></a>
+			<a {{ $tooltips['step1'] }} href="" class="bs-wizard-dot"></a>
 			<div class="bs-wizard-info text-center">Choix de la box</div>
 		</div>
 

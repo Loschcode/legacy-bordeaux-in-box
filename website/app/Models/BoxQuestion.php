@@ -14,7 +14,6 @@ class BoxQuestion extends Model {
 	 */
 	protected $table = 'box_questions';
 
-
   /**
    * Create / Update
    */
@@ -26,12 +25,6 @@ class BoxQuestion extends Model {
         static::deleting(function($box_question)
         {
 
-          // We also delete the advanced filter that's linked to it -> we will use softDeleting trait at the end
-          /*$customer_answers = CustomerAnswer::where('box_question_id', '=', $box_question->id)->get();
-          foreach ($customer_answers as $customer_answer) {
-            $customer_answer->delete();
-          }*/
-
           // We don't forget to reset the different positions
           $box_questions = BoxQuestion::where('id', '!=', $box_question->id)->orderBy('position', 'asc')->get();
           $num = 1;
@@ -41,26 +34,9 @@ class BoxQuestion extends Model {
             $num++;
           }
 
-          // We also delete the advanced filter that's linked to it
-          $product_filter_box_answers = ProductFilterBoxAnswer::where('box_question_id', '=', $box_question->id)->get();
-          foreach ($product_filter_box_answers as $product_filter_box_answer) {
-            $product_filter_box_answer->delete();
-          }
-
         });
 
     }
-
-	/**
-	 * Belongs To
-	 */
-	
-	public function box()
-	{
-
-		return $this->belongsTo('App\Models\Box', 'box_id');
-
-	}
 
 	/**
 	 * HasMany
@@ -69,7 +45,7 @@ class BoxQuestion extends Model {
 	public function customer_answers()
 	{
 
-		return $this->hasMany('App\Models\CustomerAnswer');
+		return $this->hasMany('App\Models\BoxQuestionCustomerAnswer');
 
 	}
 

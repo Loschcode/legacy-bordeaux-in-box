@@ -36,12 +36,12 @@
         <div class="spacer10"></div>
         <div class="row">
           <div class="col-md-4">
-            <p><img class="avatar" src="{{ url($profile->box()->first()->image->full) }}" /></p>
+            <p><img class="avatar" src="{{ url('images/macaron-masterbox.png') }}" /></p>
           </div>
           <div class="col-md-8">
             <div class="spacer10"></div>
-            <p>Box {{ strtolower($profile->box()->first()->title)}}</p>
-            <p>Type : @if ($order_preference->gift) Cadeau @else Commande @endif</p>
+            <p>Bordeaux in Box</p>
+            <p>@if ($order_preference->gift) Cadeau pour {{$order_building->destination_first_name}} @else Commande pour soi @endif</p>
             <p>Fréquence : 
 
             @if ($order_preference->frequency == 0)
@@ -71,7 +71,9 @@
           <p>Montant à payer : {{$order_preference->totalPricePerMonth()}} &euro;</p>
         </div>
         <div class="cart-buy">
+
           <a id="trigger-payment" href="#" data-text="<i class='fa fa-credit-card'></i> Procéder au paiement sécurisé"><i class="fa fa-credit-card"></i> Procéder au paiement sécurisé</a>
+
         </div>
       </div>
     </div>
@@ -108,8 +110,7 @@
           </h2>
 
           <div class="resume-line">
-            <p>
-              Type : 
+            <p> 
               @if ($order_preference->take_away)
                 A emporter dans un point relais
               @else

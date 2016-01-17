@@ -87,205 +87,6 @@ class PurchaseController extends BaseController {
   }
 
   /**
-   * Choose box page
-   */
-  public function getChooseBox()
-  {
-
-    $boxes = Box::where('active', TRUE)->get();
-
-    $customer = Auth::guard('customer')->user();
-
-    $order_building = $customer->order_building()->first();
-    $order_preference = $order_building->order_preference()->first();
-
-    return view('masterbox.customer.order.choose_box')->with(compact(
-      'boxes', 
-      'order_preference'
-    ));
-
-  }
-
-  /**
-   * The user chose a box
-   */
-  public function postChooseBox()
-  {
-
-    $rules = [
-
-      'box_choice' => 'required|integer',
-
-      ];
-
-    $fields = Request::all();
-    $validator = Validator::make($fields, $rules);
-
-    // The form validation was good
-    if ($validator->passes()) 
-    {
-      $box = Box::find($fields['box_choice']);
-      if ($box === NULL) return redirect()->back();
-
-      $customer = Auth::guard('customer')->user();
-
-      // We update the current step
-      $order_building = $customer->order_building()->first();
-      $order_building->step = 'box-form';
-      $order_building->save();
-
-      // We update the profile
-      $customer_profile = $order_building->profile()->first();
-
-      $customer_profile->customer()->associate($customer);
-      $customer_profile->box()->associate($box);
-      $customer_profile->save();
-
-      // Then we redirect
-      $redirect = $this->guessStepFromUser();
-      return redirect($redirect);
-
-    } else {
-
-      // We return the same page with the error and saving the input datas
-      return redirect()->back()
-      ->withInput()
-      ->withErrors($validator);
-
-    }
-
-
-  }
-
-  /**
-   * Form depending on the box page
-   */
-  public function getBoxForm()
-  {
-
-    $customer = Auth::guard('customer')->user();
-
-    $order_building = $customer->order_building()->first();
-    $profile = $order_building->profile()->first();
-
-    $box = $profile->box()->first();
-    if ($box === NULL) 
-    {
-      return redirect()->back();
-    }
-
-    $questions = $box->questions()->orderBy('position', 'asc')->get();
-    $order_preference = $order_building->order_preference()->first();
-
-    // Back case
-    //$answers = $profile->answers();
-    //view()->share('answers', $answers);
-
-    return view('masterbox.customer.order.box_form')->with(compact(
-      'profile', 
-      'box', 
-      'questions', 
-      'order_preference'
-    ));
-
-  }
-
-  /**
-   * We add the answer to the profile of the user
-   */
-  public function postBoxForm()
-  {
-
-    // Set a flag to know if we already passed by the validation
-    session()->flash('flag-box-form', true);
-
-    $customer = Auth::guard('customer')->user();
-
-    $order_building = $customer->order_building()->first();
-    $profile = $order_building->profile()->first();
-
-    // We auto trim everything
-    //Request::merge(array_map('trim', Request::all()));
-
-    $fields = Request::all();
-    $rules = [];
-
-    // If there's no box_id it means it's certainly a hack
-    if (!isset($fields['box_id'])) return redirect()->to('/');
-
-    // If we don't find the box, there's a bug somewhere (or a hack)
-    $box = Box::find($fields['box_id']);
-    if ($box === NULL) return redirect()->back();
-
-    // Let's generate the rules
-    foreach ($box->questions()->orderBy('position', 'asc')->get() as $question) 
-    {
-
-      // Checkbox aren't mandatory
-      if ($question->type != 'checkbox') 
-      {
-        if ($question->type == 'date') 
-        {
-          $rules[$question->id.'-0'] = ['required', 'regex:#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#'];
-        } 
-        elseif ($question->type == 'member_email') 
-        {
-          $rules[$question->id.'-0'] = ['email', 'exists:users,email', 'not_in:'.$customer->email];
-        } 
-        elseif ($question->type == 'children_details') 
-        {
-          $rules[$question->id.'-0'] = ['array'];
-        } 
-        else 
-        {
-          $rules[$question->id.'-0'] = ['required'];
-        }
-
-      }
-
-    }
-
-    $validator = Validator::make($fields, $rules);
-
-    // The form validation was good
-    if ($validator->passes()) 
-    {
-
-      refresh_answers_from_dynamic_questions_form($fields, $profile);
-
-      // Let's go to the next step
-      $order_building->step = 'choose-frequency';
-      $order_building->save();
-
-      // We change the profile status (the guy filled the form)
-      $profile->status = 'in-progress';
-      $profile->save();
-
-      // Then we redirect
-      $redirect = $this->guessStepFromUser();
-      return redirect($redirect);
-
-    } 
-    else 
-    {
-      $messages = $validator->messages()->toArray();
-
-      // We get the key
-      foreach ($messages as $tag => $value) 
-      {
-        $return_tag = $tag;
-        break;
-      }
-
-      // We return the same page with the error and saving the input datas
-      return redirect(URL::previous() . '#' . $return_tag)
-      ->withInput()
-      ->withErrors($validator);
-
-    }
-  }
-
-  /**
    * Choose frequency page
    */
   public function getChooseFrequency()
@@ -847,6 +648,131 @@ class PurchaseController extends BaseController {
     }
   }
 
+
+  /**
+   * Form depending on the box page
+   */
+  public function getBoxForm()
+  {
+
+    $customer = Auth::guard('customer')->user();
+
+    $order_building = $customer->order_building()->first();
+    $profile = $order_building->profile()->first();
+
+    $box = $profile->box()->first();
+    if ($box === NULL) 
+    {
+      return redirect()->back();
+    }
+
+    $questions = $box->questions()->orderBy('position', 'asc')->get();
+    $order_preference = $order_building->order_preference()->first();
+
+    // Back case
+    //$answers = $profile->answers();
+    //view()->share('answers', $answers);
+
+    return view('masterbox.customer.order.box_form')->with(compact(
+      'profile', 
+      'box', 
+      'questions', 
+      'order_preference'
+    ));
+
+  }
+
+  /**
+   * We add the answer to the profile of the user
+   */
+  public function postBoxForm()
+  {
+
+    // Set a flag to know if we already passed by the validation
+    session()->flash('flag-box-form', true);
+
+    $customer = Auth::guard('customer')->user();
+
+    $order_building = $customer->order_building()->first();
+    $profile = $order_building->profile()->first();
+
+    // We auto trim everything
+    //Request::merge(array_map('trim', Request::all()));
+
+    $fields = Request::all();
+    $rules = [];
+
+    // Let's generate the rules
+    $box_questions = BoxQuestion::orderBy('position', 'asc')->get();
+
+    foreach ($box_questions as $question) 
+    {
+
+      // Checkbox aren't mandatory
+      if ($question->type != 'checkbox') 
+      {
+        if ($question->type == 'date') 
+        {
+          $rules[$question->id.'-0'] = ['required', 'regex:#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#'];
+        } 
+        elseif ($question->type == 'member_email') 
+        {
+          $rules[$question->id.'-0'] = ['email', 'exists:users,email', 'not_in:'.$customer->email];
+        } 
+        elseif ($question->type == 'children_details') 
+        {
+          $rules[$question->id.'-0'] = ['array'];
+        } 
+        else 
+        {
+          $rules[$question->id.'-0'] = ['required'];
+        }
+
+      }
+
+    }
+
+    $validator = Validator::make($fields, $rules);
+
+    // The form validation was good
+    if ($validator->passes()) 
+    {
+
+      refresh_answers_from_dynamic_questions_form($fields, $profile);
+
+      // Let's go to the next step
+      $order_building->step = 'choose-frequency';
+      $order_building->save();
+
+      // We change the profile status (the guy filled the form)
+      $profile->status = 'in-progress';
+      $profile->save();
+
+      // Then we redirect
+      $redirect = $this->guessStepFromUser();
+      return redirect($redirect);
+
+    } 
+    else 
+    {
+      $messages = $validator->messages()->toArray();
+
+      // We get the key
+      foreach ($messages as $tag => $value) 
+      {
+        $return_tag = $tag;
+        break;
+      }
+
+      // We return the same page with the error and saving the input datas
+      return redirect(URL::previous() . '#' . $return_tag)
+      ->withInput()
+      ->withErrors($validator);
+
+    }
+  }
+
+
   public function getConfirmed()
   {
     // We will delete the user building system because we don't need it anymore
@@ -868,12 +794,11 @@ class PurchaseController extends BaseController {
 
     /**
      * ORDER :
-     * - Choose box
-     * - Fill box form
      * - Choose frequency
      * - Billing address and details
      * - Choose delivery mode (can be skipped if outside allowed area)
      * - Fill payment
+     * - Form
      * - Resumee
      */
     
@@ -899,7 +824,7 @@ class PurchaseController extends BaseController {
       $customer_profile->save();
 
       // We can already build the contract id
-      $customer_profile->contract_id = strtoupper(str_random(1)) . rand(100,999) . $customer->id . $customer_profile->id;
+      $customer_profile->contract_id = 'MBX/'.strtoupper(str_random(1)) . rand(100,999) . $customer->id . $customer_profile->id;
       $customer_profile->save();
 
       $order_building->profile()->associate($customer_profile);
@@ -912,7 +837,7 @@ class PurchaseController extends BaseController {
       $order_building->order_preference()->associate($order_preference);
 
       // Finally we set the current step
-      $order_building->step = 'choose-box';
+      $order_building->step = 'choose-frequency';
       $order_building->save();
 
     } else {
@@ -925,14 +850,15 @@ class PurchaseController extends BaseController {
 
       // If the guy switches from a gift to a classic or anything like that
       // He will redo everything
-      // 
       if ((is_bool(session()->get('isGift'))) && (session()->get('isGift') != $order_preference->gift)) {
+        
         $order_preference->gift = session()->get('isGift');
         $order_preference->save();
 
         // Finally we set the current step
-        $order_building->step = 'choose-box';
+        $order_building->step = 'choose-frequency';
         $order_building->save();
+
       }
     }
 
@@ -941,13 +867,12 @@ class PurchaseController extends BaseController {
      */
     $methods_from_step = [
 
-      'choose-box' => 'getChooseBox',
-      'box-form' => 'getBoxForm',
       'choose-frequency' => 'getChooseFrequency',
       'delivery-mode' => 'getDeliveryMode',
       'choose-spot' => 'getChooseSpot',
       'billing-address' => 'getBillingAddress',
       'payment' => 'getPayment',
+      'box-form' => 'getBoxForm',
 
     ];
 

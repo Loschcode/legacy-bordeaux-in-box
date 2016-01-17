@@ -31,9 +31,6 @@ class PurchaseMasterBoxTest extends TestCase
           ->type($password, 'password_confirmation')
           ->press("S'inscrire");
 
-    // Email is sent
-    $this->assertEmailIsSent();
-
     // Was redirected to the choose box ?
     $this->seePageIs('/customer/purchase/choose-box');
 

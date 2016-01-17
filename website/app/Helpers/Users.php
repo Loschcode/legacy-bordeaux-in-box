@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\BoxQuestion;
-use App\Models\CustomerAnswer;
+use App\Models\BoxQuestionCustomerAnswer;
 
 function is_birthday($dateBirthday) {
 
@@ -133,7 +133,7 @@ function refresh_answers_from_dynamic_questions_form($fields, $profile) {
             // Will work only if the answers are valid
             if (($real_answer != "0") && (!empty($real_answer))) {
 
-              $customer_answer = new CustomerAnswer;
+              $customer_answer = new BoxQuestionCustomerAnswer;
               $customer_answer->profile()->associate($profile);
 
               $box_question = $matching_question;
@@ -173,7 +173,7 @@ function refresh_answers_from_dynamic_questions_form($fields, $profile) {
          */
         if (!empty($answer)) {
           
-          $customer_answer = new CustomerAnswer;
+          $customer_answer = new BoxQuestionCustomerAnswer;
           $customer_answer->profile()->associate($profile);
 
           /**

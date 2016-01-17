@@ -23,6 +23,7 @@ class HomeController extends BaseController {
    */
   public function getIndex()
   {
+
     $next_series = DeliverySerie::nextOpenSeries();
 
     // Blog articles
@@ -32,6 +33,7 @@ class HomeController extends BaseController {
       'next_series', 
       'articles'
     ));
+
 
   }
 

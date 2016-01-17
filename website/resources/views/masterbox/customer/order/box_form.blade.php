@@ -241,11 +241,6 @@
       @endforeach
 
       <button type="submit"><i class="fa fa-check"></i> Valider</button>
-      <nav>
-        <ul class="pager">
-          <li><a href="{{action('MasterBox\Customer\PurchaseController@getChooseBox')}}">&larr; Revenir au choix de la box</a></li>
-        </ul>
-      </nav>
 
 
       {!! Form::close() !!}

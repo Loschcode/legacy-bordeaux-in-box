@@ -3,14 +3,14 @@
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class CustomerAnswer extends Model {
+class BoxQuestionCustomerAnswer extends Model {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'customer_answers';
+	protected $table = 'box_question_customer_answers';
 
 	/**
 	 * Create / Update
@@ -26,7 +26,7 @@ class CustomerAnswer extends Model {
         	if (empty($customer_answer->slug))
         	{
 
-           		$customer_answer->slug = Str::slug($customer_answer->answer);
+           	  $customer_answer->slug = Str::slug($customer_answer->answer);
 
        		}
 
@@ -53,7 +53,7 @@ class CustomerAnswer extends Model {
   public function referent()
   {
 
-    return $this->belongsTo('App\Models\CustomerAnswer', 'referent_id');
+    return $this->belongsTo('App\Models\BoxQuestionCustomerAnswer', 'referent_id');
 
   }
 
@@ -79,7 +79,7 @@ class CustomerAnswer extends Model {
   public function children()
   {
 
-    return $this->hasMany('App\Models\CustomerAnswer', 'referent_id');
+    return $this->hasMany('App\Models\BoxQuestionCustomerAnswer', 'referent_id');
 
   }
   
