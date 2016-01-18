@@ -503,7 +503,6 @@ class PurchaseController extends BaseController {
        */
       $order_preference = $order_building->order_preference()->first();
 
-
       // We look how many boxes we will send
       // The infinite plan is special, the num orders is artificial (we will add them up progressively)
       if ($order_preference->frequency == 0) $num_orders = 3;
@@ -755,7 +754,7 @@ class PurchaseController extends BaseController {
 
       // We get the key
       foreach ($messages as $tag => $value) {
-        
+
         $return_tag = $tag;
         break;
 

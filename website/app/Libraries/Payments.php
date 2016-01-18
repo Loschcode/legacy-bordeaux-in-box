@@ -34,9 +34,8 @@ class Payments {
 
             "metadata" => [
 
-                'user_id' => $customer->id,
-                'user_profile_id' => $profile->id,
-                'payment_type' => FALSE
+                'customer_id' => $customer->id,
+                'customer_profile_id' => $profile->id,
 
             ]
 
@@ -260,8 +259,8 @@ class Payments {
 
                 "metadata" => [
 
-                    'user_id' => $customer->id,
-                    'user_profile_id' => $profile->id,
+                    'customer_id' => $customer->id,
+                    'customer_profile_id' => $profile->id,
                     'payment_type' => 'plan'
 
                 ]
@@ -385,22 +384,6 @@ class Payments {
     }
 
     /**
-     * Get a customer
-     * @param  string $stripe_subscription stripe subscription id
-     * @return mixed                  object / false
-     */
-    public static function getCustomer($stripe_customer)
-    {
-
-        $api_key = Config::get('services.stripe.secret');
-        \Stripe\Stripe::setApiKey($api_key);
-        
-        $cu = \Stripe\Customer::retrieve($stripe_customer);
-        return $cu;
-
-    }
-
-    /**
      * Cancel a subscription
      * @param  string $stripe_customer strip customer id
      * @param  string $stripe_plan     stripe plan id (that we got when we subscribed)
@@ -486,8 +469,8 @@ class Payments {
 
               "metadata" => [
 
-                'user_id' => $customer->id,
-                'user_profile_id' => $profile->id,
+                'customer_id' => $customer->id,
+                'customer_profile_id' => $profile->id,
                 'payment_type' => 'direct_invoice'
 
               ]
@@ -521,6 +504,58 @@ class Payments {
         }
 
         return TRUE;
+
+    }
+
+    /**
+     * Get a customer
+     * @param  string $stripe_customer stripe customer id
+     * @return mixed                  object / false
+     */
+    public static function getCustomer($stripe_customer)
+    {
+
+      $api_key = Config::get('services.stripe.secret');
+      \Stripe\Stripe::setApiKey($api_key);
+
+      try {
+
+        $customer = \Stripe\Customer::retrieve($stripe_customer);
+
+      } catch(Exception $e) {
+
+          return ['success' => false, 'error' => $e];
+
+      }
+
+      return ['success' => true, 'customer' => $customer];
+
+    }
+
+    /**
+     * Get a subscription
+     * @param  string $stripe_customer stripe customer id
+     * @param  string $stripe_subscription stripe subscription id
+     * @return mixed object / false
+     */
+    public static function getSubscription($stripe_customer, $stripe_subscription)
+    {
+
+      $api_key = Config::get('services.stripe.secret');
+      \Stripe\Stripe::setApiKey($api_key);
+
+      try {
+        
+        $customer = \Stripe\Customer::retrieve($stripe_customer);
+        $subscription = $customer->subscriptions->retrieve($stripe_subscription);
+
+      } catch(Exception $e) {
+
+          return ['success' => false, 'error' => $e];
+
+      }
+
+      return ['success' => true, 'customer' => $customer, 'subscription' => $subscription];
 
     }
 
