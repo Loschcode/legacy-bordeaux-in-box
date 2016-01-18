@@ -10,7 +10,7 @@
 
 			Une transaction bancaire d'un montant de {{$amount}} euro vient d'être effectuée sur Bordeaux in Box. Pour plus de détails n'hésite pas à visiter<br /><br />
 
-			 <a href="https://www.bordeauxinbox.fr/profile#abonnements">https://www.bordeauxinbox.fr/profile#abonnements</a><br /><br />
+			 <a href="{{action('MasterBox\Customer\ProfileController@getIndex')}}#abonnements">https://www.bordeauxinbox.fr/profile#abonnements</a><br /><br />
 
 			L'équipe Bordeaux in Box :)<br /><br />
 
