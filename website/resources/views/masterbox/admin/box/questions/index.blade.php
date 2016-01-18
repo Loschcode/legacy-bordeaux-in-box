@@ -48,7 +48,7 @@
 				@if (Html::hasNoAnswerPossible($question->type))
 					Cette question ne nécessite pas de réponse prédéfinie
 				@else
-					<a class="spyro-btn spyro-btn-primary spyro-btn-sm" href="{{url('admin/boxes/questions/answers/focus/'.$question->id)}}">
+					<a class="spyro-btn spyro-btn-primary spyro-btn-sm" href="{{ action('MasterBox\Admin\BoxQuestionsAnswersController@getFocus', ['id' => $question->id]) }}">
 						@if ($question->answers()->first() !== NULL)
 							Cette question possède {{$question->answers()->count()}} réponses
 						@else
@@ -58,8 +58,8 @@
 				@endif
 				</th>
 				<th>
-					<a data-toggle="tooltip" class="spyro-btn spyro-btn-warning spyro-btn-sm" title="Editer" href="{{action('MasterBox\Admin\BoxQuestionsController@getEdit', ['id' => $question->id])}}"><i class="fa fa-pencil"></i></a>
-					<a data-toggle="tooltip" class="spyro-btn spyro-btn-inverse spyro-btn-sm" title="Archiver" href="{{action('MasterBox\Admin\BoxQuestionsController@getDelete', ['id' => $question->id])}}"><i class="fa fa-archive"></i></a>
+					<a data-toggle="tooltip" class="spyro-btn spyro-btn-warning spyro-btn-sm" title="Editer" href="{{ action('MasterBox\Admin\BoxQuestionsController@getEdit', ['id' => $question->id]) }}"><i class="fa fa-pencil"></i></a>
+					<a data-toggle="tooltip" class="spyro-btn spyro-btn-inverse spyro-btn-sm" title="Archiver" href="{{ action('MasterBox\Admin\BoxQuestionsController@getDelete', ['id' => $question->id]) }}"><i class="fa fa-archive"></i></a>
 				</th>
 			</tr>
 

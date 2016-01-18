@@ -1,7 +1,7 @@
 @extends('masterbox.layouts.admin')
 
 @section('page')
-  <h1 class="page">Nouvelle question {{$box->title}}</h1>
+  <h1 class="page">Nouvelle question</h1>
 @stop
 
 @section('buttons')
@@ -25,8 +25,6 @@
   {!! Html::info("Remplissez le champs `slug` uniquement s'il va être utilisé ailleurs que dans le formulaire dans le système (demander à un développeur compétent si vous ne comprenez pas ce que cela signifie).") !!}
 
   {!! Form::open(array('action' => 'MasterBox\Admin\BoxQuestionsController@postNew')) !!}
-
-  {!! Form::hidden('box_id', $box->id) !!}
 
     {!! Html::info("Le résumé ne sera visible que depuis le panel administrateur. Veuillez rester pragmatique dans sa composition (1 ou 2 mots).") !!}
   

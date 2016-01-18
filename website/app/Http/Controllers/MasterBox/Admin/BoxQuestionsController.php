@@ -70,7 +70,6 @@ class BoxQuestionsController extends BaseController {
 			'question_id' => 'required|integer',
 			'question' => 'required|min:5',
 			'short_question' => 'required|max:15',
-			'filter_must_match' => 'required|integer',
 			'slug' => '',
 			'type' => 'required|not_in:0',
 			'position' => 'required|not_in:0',
@@ -94,9 +93,6 @@ class BoxQuestionsController extends BaseController {
 		$box_question->short_question = $fields['short_question'];
 		$box_question->slug = $fields['slug'];
 
-		if ($fields['filter_must_match'] === '0') $box_question->filter_must_match = FALSE;
-		else $box_question->filter_must_match = TRUE;
-
 		$box_question->type = $fields['type'];
 		$box_question->position = $fields['position'];
 
@@ -112,8 +108,7 @@ class BoxQuestionsController extends BaseController {
 
 		session()->flash('message', "La question a bien été mise à jour");
 		
-    return redirect()->to('/admin/boxes/questions/focus/'.BoxQuestion::first()->id)
-      ->withInput();
+    return redirect()->action('MasterBox\Admin\BoxQuestionsController@getIndex');
 
 	}
 
@@ -121,15 +116,12 @@ class BoxQuestionsController extends BaseController {
      * Add a new question
      * @return void
      */
-	public function getNew($id)
+	public function getNew()
 	{
 
-		$box = Box::findOrFail($id);
-
-		$position_listing = $this->_generate_position_listing($box, 2); // Incrementation +1
+		$position_listing = $this->_generate_position_listing(2); // Incrementation +1
 
 		return view('masterbox.admin.box.questions.new')->with(compact(
-      'box',
       'position_listing'
     ));
 
@@ -179,8 +171,7 @@ class BoxQuestionsController extends BaseController {
 
 		session()->flash('message', "La question a bien été ajoutée à la box");
 		
-    return redirect()->to('/admin/boxes/questions/focus/'.$box->id)
-		  ->withInput();
+    return redirect()->action('MasterBox\Admin\BoxQuestionsController@getIndex');
 
 	}
 

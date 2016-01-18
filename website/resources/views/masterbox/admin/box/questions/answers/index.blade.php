@@ -12,7 +12,7 @@
   
 <h2>Réponses pour la question `{{$question->question}}` ({!! Html::getReadableQuestionType($question->type) !!})</h2>
 
-Fil : <a href="{{ url('/admin/boxes') }}">{{$box->title}}</a> - <a href="{{ url('/admin/boxes/questions/focus/'.$box->id) }}">{{$question->question}}</a><br /><br />
+<a href="{{ action('MasterBox\Admin\BoxQuestionsController@getIndex') }}">{{$question->question}}</a><br /><br />
 
 <table>
 
@@ -32,7 +32,7 @@ Fil : <a href="{{ url('/admin/boxes') }}">{{$box->title}}</a> - <a href="{{ url(
 
 			<tr>
 				<th>{{$answer->content}}</th>
-				<th><a href="{{ url('/admin/boxes/questions/answers/edit/'.$answer->id) }}">Editer</a> | <a href="{{ url('/admin/boxes/questions/answers/delete/'.$answer->id) }}">Archiver</a>
+				<th><a href="{{ action('MasterBox\Admin\BoxQuestionsAnswersController@getEdit', ['id' => $answer->id]) }}">Editer</a> | <a href="{{ action('MasterBox\Admin\BoxQuestionsAnswersController@getDelete', ['id' => $answer->id]) }}">Archiver</a>
 				</th>
 			</tr>
 
@@ -43,6 +43,6 @@ Fil : <a href="{{ url('/admin/boxes') }}">{{$box->title}}</a> - <a href="{{ url(
 </table>
 
 <br />
-<a href="{{ url('/admin/boxes/questions/answers/new/' . $question->id) }}">Ajouter une réponse à cette question</a>
+<a href="{{ action('MasterBox\Admin\BoxQuestionsAnswersController@getNew', ['id' => $question->id]) }}">Ajouter une réponse à cette question</a>
 
 @stop

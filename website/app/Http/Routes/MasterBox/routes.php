@@ -41,7 +41,6 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
     Route::controller('lightbox', 'LightboxController');
     Route::controller('orders', 'OrdersController');
     Route::controller('deliveries', 'DeliveriesController');
-    Route::controller('products', 'ProductsController');
     Route::controller('payments', 'PaymentsController');
     Route::controller('customers', 'CustomersController');
     Route::controller('spots', 'SpotsController');

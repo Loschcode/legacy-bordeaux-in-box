@@ -50,9 +50,6 @@
 	                <a href="{{ action('MasterBox\Admin\BoxController@getIndex') }}"><i class="fa fa-gift"></i> Box</a>
 	            </li>
 	            <li>
-	                <a href="{{ action('MasterBox\Admin\ProductsController@getIndex') }}"><i class="fa fa-folder"></i> Produits &amp; Partenaires</a>
-	            </li>
-	            <li>
 	                <a href="{{ action('MasterBox\Admin\ContentController@getIndex') }}"><i class="fa fa-picture-o"></i> Contenus</a>
 	            </li>
 	            <li>
