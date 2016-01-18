@@ -35,7 +35,7 @@
 
     <li class="active"><a href="#box-orders" role="tab" data-toggle="tab"><i class="fa fa-cube"></i>Commandes ({{$series->orders()->notCanceledOrders()->count()}})</a></li>
 
-    <li><a href="#orders-spots" role="tab" data-toggle="tab"><i class="fa fa-map-marker"></i> Points relais ({{Order::where('delivery_serie_id', '=', $series->id)->where('take_away', '=', true)->notCanceledOrders()->count()}})</a></li>
+    <li><a href="#orders-spots" role="tab" data-toggle="tab"><i class="fa fa-map-marker"></i> Points relais ({{App\Models\Order::where('delivery_serie_id', '=', $series->id)->where('take_away', '=', true)->notCanceledOrders()->count()}})</a></li>
 
 		<li><a href="#questions" role="tab" data-toggle="tab"><i class="fa fa-question"></i> Questionnaire</a></li>
 
@@ -119,34 +119,32 @@
 	  			<tr>
 	  				<th>Question</th>
 
-	  				@foreach ($boxes as $box)
+	  					<th>Box</th>
 
-	  					<th>{{$box->title}}</th>
-
-	  				@endforeach
 	  			</tr>
 	  		</thead>
 	  		<tbody>
 
-	  			@foreach (BoxQuestion::get() as $box_question)
+	  			@foreach (App\Models\BoxQuestion::get() as $box_question)
 
 	  				<tr>
 	  					<th><strong>{{$box_question->short_question}}</strong></th>
 
-		  				@foreach ($boxes as $box)
-
 		  					<th>
-			  					@if (isset($form_stats[$box->id][$box_question->id]))
 
-			  						@foreach ($form_stats[$box->id][$box_question->id] as $answer => $hit)
+			  					@if (isset($form_stats[$box_question->id]))
+
+			  						@foreach ($form_stats[$box_question->id] as $answer => $hit)
 											{{$answer}} - {{$hit}}<br />
 										@endforeach
-			  					@else
-			  						N/A
-			  					@endif
-		  					</th>
 
-		  				@endforeach
+			  					@else
+
+			  						N/A
+
+			  					@endif
+
+		  					</th>
 
 	  				</tr>
 
