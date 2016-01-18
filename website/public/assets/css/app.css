@@ -57,13 +57,13 @@
   background-color: #4de3be; }
 
 .spyro-btn-bichette {
-  background-color: #e8a5be; }
+  background-color: #E8A5BE; }
 
 .spyro-btn-ghetto {
-  background-color: #88ccc0; }
+  background-color: #88CCC0; }
 
 .spyro-btn-mamoune {
-  background-color: #f7c774; }
+  background-color: #F7C774; }
 
 .spyro-btn {
   opacity: 1 !important; }
@@ -96,7 +96,7 @@ table.dataTable {
       border: 0px !important;
       font-weight: 300 !important; }
     table.dataTable thead tr {
-      background-color: whitesmoke; }
+      background-color: #f5f5f5; }
 
 input[type="search"] {
   outline: 0;
@@ -111,9 +111,9 @@ input[type="search"] {
   font-size: 14px; }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-  color: #333333 !important;
+  color: #333 !important;
   border: 1px solid #cacaca;
-  background-color: white;
+  background-color: #fff;
   background: none;
   font-size: 14px;
   padding: 5px; }
@@ -179,16 +179,16 @@ div.fancy-select div.trigger {
   color: white;
   border: none;
   box-shadow: none;
-  color: #333333;
-  border: 1px solid #dddddd; }
+  color: #333;
+  border: 1px solid #ddd; }
 
 div.fancy-select div.trigger.open {
   background-color: transparent;
   color: white;
   border: none;
   box-shadow: none;
-  color: #333333;
-  border: 1px solid #dddddd; }
+  color: #333;
+  border: 1px solid #ddd; }
 
 div.fancy-select select:focus + div.trigger {
   box-shadow: none; }
@@ -200,7 +200,7 @@ body {
   font-family: "Lato"; }
 
 .pager a {
-  color: gray; }
+  color: grey; }
 
 form input[type="text"],
 form input[type="password"],
@@ -250,7 +250,7 @@ h4.title {
   font-size: 30px;
   font-style: italic;
   text-align: center;
-  color: #cccccc; }
+  color: #ccc; }
 
 img.img-align {
   margin-right: auto;
@@ -284,7 +284,7 @@ img.img-align {
   margin-right: auto;
   margin-left: auto; }
 .blog .pager a {
-  color: gray; }
+  color: grey; }
 
 .confirmed h1 {
   text-align: center;
@@ -383,7 +383,7 @@ img.img-align {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: #45619d;
+  background-color: #45619D;
   color: white;
   display: inline-block;
   padding: 12px 24px;
@@ -522,7 +522,7 @@ img.img-align {
   margin-top: 1em;
   margin-right: 1.5em; }
   .nav a {
-    color: #cccccc;
+    color: #ccc;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 16px; }
@@ -646,7 +646,7 @@ h3.title {
       margin-right: 1em; }
       .subnav ul li a {
         font-size: 14px;
-        color: #cccccc;
+        color: #ccc;
         padding-bottom: 4px;
         border: none;
         text-decoration: none; }
@@ -703,7 +703,7 @@ h3.title {
       font-size: 16px;
       margin-bottom: 5px; }
     .bs-wizard > .bs-wizard-step .bs-wizard-info {
-      color: #999999;
+      color: #999;
       font-size: 14px; }
     .bs-wizard > .bs-wizard-step > .bs-wizard-dot {
       position: absolute;
@@ -745,7 +745,7 @@ h3.title {
     .bs-wizard > .bs-wizard-step:last-child > .progress {
       width: 50%; }
     .bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot {
-      background-color: whitesmoke; }
+      background-color: #f5f5f5; }
       .bs-wizard > .bs-wizard-step.disabled > .bs-wizard-dot:after {
         opacity: 0; }
     .bs-wizard > .bs-wizard-step.disabled a.bs-wizard-dot {
@@ -927,7 +927,7 @@ h3.title {
   border: 1px solid #ededed; }
   .cart-component .cart-header {
     height: 2em;
-    background-color: whitesmoke;
+    background-color: #f5f5f5;
     line-height: 2em;
     border: 1px solid #ededed;
     font-weight: 300;
@@ -958,7 +958,8 @@ h3.title {
     margin-top: 1em;
     text-align: center;
     padding-bottom: 1em; }
-    .cart-component .cart-buy a {
+    .cart-component .cart-buy button {
+      cursor: pointer;
       width: 90%;
       margin-right: auto;
       margin-left: auto;
@@ -980,6 +981,9 @@ h3.title {
       border: none;
       background-color: #cf0f40;
       text-transform: uppercase; }
+      .cart-component .cart-buy button.cart-buy-disabled {
+        opacity: 0.6;
+        cursor: not-allowed; }
 
 .resume-component .resume-image {
   width: 150px;
@@ -1138,7 +1142,7 @@ h3.title {
   font-family: "Amatic SC", cursive;
   font-weight: 300; }
 .illus .pager a {
-  color: gray; }
+  color: grey; }
 
 .stripe-component .modal-dialog {
   width: 312px;
@@ -1155,18 +1159,18 @@ h3.title {
   background-image: -ms-linear-gradient(#f5f5f7, #e9e9ea);
   background-image: -o-linear-gradient(#f5f5f7, #e9e9ea);
   background-image: linear-gradient(#f5f5f7, #e9e9ea);
-  border-top: 1px solid white;
+  border-top: 1px solid #fff;
   border-bottom: 1px solid #d3d3d4;
   -webkit-border-radius: 7px 7px 0 0;
   -moz-border-radius: 7px 7px 0 0;
   -ms-border-radius: 7px 7px 0 0;
   -o-border-radius: 7px 7px 0 0;
   border-radius: 7px 7px 0 0;
-  -webkit-box-shadow: 0 1px 0 white;
-  -moz-box-shadow: 0 1px 0 white;
-  -ms-box-shadow: 0 1px 0 white;
-  -o-box-shadow: 0 1px 0 white;
-  box-shadow: 0 1px 0 white;
+  -webkit-box-shadow: 0 1px 0 #fff;
+  -moz-box-shadow: 0 1px 0 #fff;
+  -ms-box-shadow: 0 1px 0 #fff;
+  -o-box-shadow: 0 1px 0 #fff;
+  box-shadow: 0 1px 0 #fff;
   cursor: default; }
 .stripe-component .modal-image {
   width: 130px;
@@ -1178,7 +1182,7 @@ h3.title {
     position: absolute;
     top: -4em !important; }
 .stripe-component .modal-title {
-  text-shadow: 0 1px 0 white;
+  text-shadow: 0 1px 0 #fff;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1198,7 +1202,7 @@ h3.title {
   height: 15em;
   text-align: center; }
 .stripe-component .modal-content {
-  background-color: #f5f5f7; }
+  background-color: #F5F5F7; }
 .stripe-component .content-form {
   width: 80%;
   margin-right: auto;
@@ -1223,7 +1227,7 @@ h3.title {
   -o-box-shadow: inset 0 1px 1px rgba(124, 124, 127, 0.1), 0 1px 0 rgba(255, 255, 255, 0.7), 0 0 4px rgba(86, 149, 219, 0);
   box-shadow: inset 0 1px 1px rgba(124, 124, 127, 0.1), 0 1px 0 rgba(255, 255, 255, 0.7), 0 0 4px rgba(86, 149, 219, 0); }
   .stripe-component .form-control:focus {
-    border-color: #cccccc !important; }
+    border-color: #ccc !important; }
   .stripe-component .form-control.focus {
     -webkit-box-shadow: none !important;
     -moz-box-shadow: none !important;
@@ -1310,7 +1314,7 @@ h3.title {
   font-family: "Helvetica Neue", "Helvetica", Arial, sans-serif;
   font-weight: bold;
   font-size: 17px;
-  color: white;
+  color: #fff;
   text-shadow: 0 -1px 0 rgba(46, 86, 153, 0.3);
   -webkit-box-shadow: 0 1px 0 rgba(46, 86, 153, 0.15), 0 0 4px rgba(86, 149, 219, 0), inset 0 2px 0 rgba(41, 102, 20, 0);
   -moz-box-shadow: 0 1px 0 rgba(46, 86, 153, 0.15), 0 0 4px rgba(86, 149, 219, 0), inset 0 2px 0 rgba(41, 102, 20, 0);
@@ -1475,7 +1479,7 @@ h3.title {
     margin-right: auto !important;
     margin-left: auto !important; } }
 .pink-link {
-  color: #d83f66; }
+  color: #D83F66; }
 
 .payment-stripe {
   width: 200px;
@@ -1503,3 +1507,5 @@ h3.title {
 
 .readable-price {
   display: block; }
+
+/*# sourceMappingURL=app.css.map */

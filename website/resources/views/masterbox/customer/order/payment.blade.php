@@ -3,7 +3,7 @@
 @section('content')
   
   <!-- Flag to run controller js -->
-  <div id="js-page-payment"></div>
+  <div id="js-page-payment" data-email="{{ $customer->email }}"></div>
 
   {!! View::make('masterbox.partials.pipeline')->with('step', 5) !!}
 
@@ -72,7 +72,7 @@
         </div>
         <div class="cart-buy">
 
-          <a id="trigger-payment" href="#" data-text="<i class='fa fa-credit-card'></i> Procéder au paiement sécurisé"><i class="fa fa-credit-card"></i> Procéder au paiement sécurisé</a>
+          <button id="trigger-payment" href="#"><i class="fa fa-credit-card"></i> Procéder au paiement sécurisé</button>
 
         </div>
       </div>
