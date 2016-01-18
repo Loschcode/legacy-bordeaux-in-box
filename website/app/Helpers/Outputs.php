@@ -289,7 +289,6 @@ function generate_csv_order($file_name, $orders, $short=false)
     'Utilisateur',
     'Téléphone utilisateur',
     'Email utilisateur',
-    'Abonnement',
     'Destination / Spot',
     'Création'
 
@@ -326,18 +325,11 @@ function generate_csv_order($file_name, $orders, $short=false)
     // We prepare some stuff
     $profile = $order->customer_profile()->first();
     $customer = $profile->customer()->first();
-    $box = $profile->box()->first();
 
     $email = $customer->email;
 
-    if ($box == NULL) $box_title = 'Non renseigné';
-    else $box_title = $box->title;
-
-    if ($box == NULL) $box_questions = 'Pas de question';
-    else $box_questions = Downloaders::prepareForCsv(order_questions($box, $profile, " / "));
-
-    if ($box == NULL) $box_answers = 'Pas de réponse';
-    else $box_answers = Downloaders::prepareForCsv(order_answers($box, $profile, " / "));
+    $questions = Downloaders::prepareForCsv(order_questions($profile, " / "));
+    $answers = Downloaders::prepareForCsv(order_answers($profile, " / "));
 
     $paid = $order->already_paid." / ".$order->unity_and_fees_price;
 
@@ -360,7 +352,6 @@ function generate_csv_order($file_name, $orders, $short=false)
       Downloaders::prepareForCsv($customer->getFullName()),
       Downloaders::prepareForCsv($customer->phone),
       Downloaders::prepareForCsv($email),
-      $box_title,
       $order_spot_or_destination,
       $order->created_at->toDateTimeString()
 
@@ -376,9 +367,8 @@ function generate_csv_order($file_name, $orders, $short=false)
       Downloaders::prepareForCsv($customer->getFullAddress()),
       Downloaders::prepareForCsv($customer->phone),
       Downloaders::prepareForCsv($email),
-      $box_title,
-      $box_questions,
-      $box_answers,
+      $questions,
+      $answers,
       $paid,
       $order_gift,
       $order_locked,

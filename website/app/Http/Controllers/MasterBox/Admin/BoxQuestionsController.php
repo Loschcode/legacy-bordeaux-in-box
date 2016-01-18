@@ -8,7 +8,7 @@ use App\Models\Box;
 use App\Models\BoxQuestion;
 use App\Models\BoxAnswer;
 
-class BoxesQuestionsController extends BaseController {
+class BoxQuestionsController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -33,14 +33,12 @@ class BoxesQuestionsController extends BaseController {
      * Get the listing page of the blog
      * @return void
      */
-	public function getFocus($id)
+	public function getIndex()
 	{
 
-		$box = Box::findOrFail($id);
+		$questions = BoxQuestion::orderBy('position', 'asc')->get();
 
-		$questions = $box->questions()->orderBy('position', 'asc')->get();
-
-		return view('masterbox.admin.boxes.questions.index')->with(compact(
+		return view('masterbox.admin.box.questions.index')->with(compact(
       'questions',
       'box'
     ));
@@ -55,10 +53,9 @@ class BoxesQuestionsController extends BaseController {
 
 		$question = BoxQuestion::findOrFail($id);
 
-		$box = $question->box()->first();
-		$position_listing = $this->_generate_position_listing($box, 1); // No incrementation
+		$position_listing = $this->_generate_position_listing(1); // No incrementation
 
-		return view('masterbox.admin.boxes.questions.edit')->with(compact(
+		return view('masterbox.admin.box.questions.edit')->with(compact(
       'question',
       'position_listing'
     ));
@@ -115,7 +112,7 @@ class BoxesQuestionsController extends BaseController {
 
 		session()->flash('message', "La question a bien été mise à jour");
 		
-    return redirect()->to('/admin/boxes/questions/focus/'.$box_question->box()->first()->id)
+    return redirect()->to('/admin/boxes/questions/focus/'.BoxQuestion::first()->id)
       ->withInput();
 
 	}
@@ -131,7 +128,7 @@ class BoxesQuestionsController extends BaseController {
 
 		$position_listing = $this->_generate_position_listing($box, 2); // Incrementation +1
 
-		return view('masterbox.admin.boxes.questions.new')->with(compact(
+		return view('masterbox.admin.box.questions.new')->with(compact(
       'box',
       'position_listing'
     ));
@@ -148,10 +145,8 @@ class BoxesQuestionsController extends BaseController {
 		// New article rules
 		$rules = [
 
-			'box_id' => 'required|integer',
 			'question' => 'required|min:5',
 			'short_question' => 'required|max:15',
-			'filter_must_match' => 'required|integer',
 			'slug' => '',
 			'type' => 'required|not_in:0',
 			'position' => 'required|not_in:0',
@@ -173,18 +168,12 @@ class BoxesQuestionsController extends BaseController {
 
     $box_question = new BoxQuestion;
 
-	 	$box = Box::findOrFail($fields['box_id']);
-
 		$box_question->question = $fields['question'];
 		$box_question->short_question = $fields['short_question'];
 		$box_question->slug = $fields['slug'];
 
-		if ($fields['filter_must_match'] === '0') $box_question->filter_must_match = FALSE;
-		else $box_question->filter_must_match = TRUE;
-			
 		$box_question->type = $fields['type'];
 		$box_question->position = $fields['position'];
-		$box_question->box()->associate($box);
     
     $box_question->save();
 
@@ -208,10 +197,10 @@ class BoxesQuestionsController extends BaseController {
 		return redirect()->back();
 	}
 
-	private function _generate_position_listing($box, $inc=0)
+	private function _generate_position_listing($inc=0)
 	{
 
-		$num_questions = $box->questions()->count() + $inc;
+		$num_questions = BoxQuestion::count() + $inc;
 		$final_array = ['0' => '-'];
 
 		$num = 1;

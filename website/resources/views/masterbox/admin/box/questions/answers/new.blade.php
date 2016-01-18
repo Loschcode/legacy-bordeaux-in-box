@@ -3,7 +3,7 @@
 @section('content')
   {!! Html::info("N'oubliez pas de mettre à jour la section de filtrage des produits, la question ne sera pas auto-validée par défaut lors des sélections automatiques de produit") !!}
 
-  {!! Form::open(array('action' => 'MasterBox\Admin\\BoxesQuestionsAnswersController@postNew')) !!}
+  {!! Form::open(array('action' => 'MasterBox\Admin\\BoxQuestionsAnswersController@postNew')) !!}
 
   {!! Form::hidden('question_id', $question->id) !!}
 

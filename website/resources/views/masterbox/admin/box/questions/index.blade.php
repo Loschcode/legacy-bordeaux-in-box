@@ -1,11 +1,11 @@
 @extends('masterbox.layouts.admin')
 
 @section('page')
-	<h1 class="page">Questions {{$box->title}}</h1>
+	<h1 class="page">Box Questions</h1>
 @stop
 
 @section('buttons')
-	<a class="spyro-btn spyro-btn-success" href="{{ url('/admin/boxes/questions/new/' . $box->id) }}"><i class="fa fa-plus"></i> Ajouter une question</a>
+	<a class="spyro-btn spyro-btn-success" href="{{action('MasterBox\Admin\BoxQuestionsController@getNew')}}"><i class="fa fa-plus"></i> Ajouter une question</a>
 @stop
 
 
@@ -58,8 +58,8 @@
 				@endif
 				</th>
 				<th>
-					<a data-toggle="tooltip" class="spyro-btn spyro-btn-warning spyro-btn-sm" title="Editer" href="{{ url('/admin/boxes/questions/edit/'.$question->id) }}"><i class="fa fa-pencil"></i></a>
-					<a data-toggle="tooltip" class="spyro-btn spyro-btn-inverse spyro-btn-sm" title="Archiver" href="{{ url('/admin/boxes/questions/delete/'.$question->id) }}"><i class="fa fa-archive"></i></a>
+					<a data-toggle="tooltip" class="spyro-btn spyro-btn-warning spyro-btn-sm" title="Editer" href="{{action('MasterBox\Admin\BoxQuestionsController@getEdit', ['id' => $question->id])}}"><i class="fa fa-pencil"></i></a>
+					<a data-toggle="tooltip" class="spyro-btn spyro-btn-inverse spyro-btn-sm" title="Archiver" href="{{action('MasterBox\Admin\BoxQuestionsController@getDelete', ['id' => $question->id])}}"><i class="fa fa-archive"></i></a>
 				</th>
 			</tr>
 

@@ -47,7 +47,7 @@
 	                <a href="{{ action('MasterBox\Admin\SpotsController@getIndex') }}"><i class="fa fa-map-marker"></i> Points relais</a>
 	            </li>
 	            <li>
-	                <a href="{{ action('MasterBox\Admin\BoxesController@getIndex') }}"><i class="fa fa-gift"></i> Boxes</a>
+	                <a href="{{ action('MasterBox\Admin\BoxController@getIndex') }}"><i class="fa fa-gift"></i> Box</a>
 	            </li>
 	            <li>
 	                <a href="{{ action('MasterBox\Admin\ProductsController@getIndex') }}"><i class="fa fa-folder"></i> Produits &amp; Partenaires</a>
