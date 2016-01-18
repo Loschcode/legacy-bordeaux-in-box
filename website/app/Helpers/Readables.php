@@ -1,19 +1,6 @@
 <?php
 
 /**
- * Get the readable role of a user
- * @param  string $role
- * @return string
- */
-function readable_role($role) {
-
-  if ($role === 'admin') return 'Administrateur';
-  elseif ($role === 'customer') return 'Utilisateur';
-  else return $role;
-
-}
-
-/**
  * Get the slug from the box question type
  * @param  string $slug e.g. tech-idea, tech-bug
  * @return string

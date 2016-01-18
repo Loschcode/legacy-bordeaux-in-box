@@ -21,8 +21,6 @@
 
         <br />
 
-        <strong>Box :</strong> {{ ($box != NULL) ? $box->title : 'Non sélectionné' }}
-        <br />
         @if ($order_preference != NULL)
 
           <strong>A offrir :</strong> {{ ($order_preference->gift) ? 'Oui' : 'Non' }}<br />

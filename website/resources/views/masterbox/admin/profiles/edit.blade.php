@@ -33,7 +33,6 @@
     <li><a href="#deliveries" role="tab" data-toggle="tab"><i class="fa fa-truck"></i> Livraisons</a></li>
     <li><a href="#paiements" role="tab" data-toggle="tab"><i class="fa fa-dollar"></i> Historique de paiements</a></li>
     <li><a href="#questions" role="tab" data-toggle="tab"><i class="fa fa-question"></i> Questionnaire</a></li>
-    <li><a href="#products" role="tab" data-toggle="tab"><i class="fa fa-folder-open"></i> Produits</a></li>
   </ul>
   
 
@@ -72,12 +71,6 @@
     <div class="tab-pane" id="questions">
      
         @include('masterbox.admin.profiles.partials.questions', array('profile' => $profile, 'questions' => $questions))
-  
-    </div>
-
-    <div class="tab-pane" id="products">
-     
-        @include('masterbox.admin.profiles.partials.products', array('profile' => $profile))
   
     </div>
 

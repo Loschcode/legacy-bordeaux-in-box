@@ -52,7 +52,6 @@
       Email : {{$customer->email}}<br />
       Téléphone : {{$customer->phone}}<br />
       <br />
-      Rôle : {!! Html::getReadableRole($customer->role) !!}<br />
       <br />
 
       Ville : {!! Html::getReadableEmpty($customer->city) !!}<br />

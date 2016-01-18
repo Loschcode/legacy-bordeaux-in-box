@@ -56,13 +56,6 @@ class DeliverySerie extends Model {
 
   }
 
-  public function customer_profile_products()
-  {
-
-  	return $this->hasManyThrough('CustomerProfileProduct', 'SerieProduct', 'delivery_serie_id', 'serie_product_id');
-
-  }
-
   /**
    * HasOne
    */

@@ -12,6 +12,7 @@ use App\Models\CustomerProfile;
 use App\Models\CustomerProfileNote;
 use App\Models\DeliverySpot;
 use App\Models\OrderDestination;
+use App\Models\BoxQuestion;
 
 class ProfilesController extends BaseController {
 
@@ -128,14 +129,7 @@ class ProfilesController extends BaseController {
 	{
 
 		$profile = CustomerProfile::findOrFail($id);
-
-    $box = $profile->box()->first();
-
-    if ($box != NULL) {
-      $questions = $box->questions()->get();
-    } else {
-      $questions = [];
-    }
+    $questions = BoxQuestion::get();
 
     $order_preference = $profile->order_preference()->first();
     $customer = $profile->customer()->first();

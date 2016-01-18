@@ -119,16 +119,6 @@ Html::macro('getReadableQuestionType', function($slug)
 });
 
 /**
- * Get a readable role for the users
- */
-Html::macro('getReadableRole', function($role)
-{
-
-  return readable_role($role);
-
-});
-
-/**
  * Get a readable profile status
  */
 Html::macro('getReadableProfileStatus', function($status)

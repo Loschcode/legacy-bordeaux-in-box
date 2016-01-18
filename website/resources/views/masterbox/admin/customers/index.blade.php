@@ -21,8 +21,7 @@
 				<th>Email</th>
 				<th>Téléphone</th>
 				<th>Nom</th>
-				<th>Role</th>
-				<th>Abonnements</th>
+        <th>Abonnements</th>
 				<th>Total payé</th>
 				<th>Ville</th>
 				<th>Code postal</th>
@@ -43,21 +42,17 @@
 					<th>{{$customer->email}}</th>
 					<th>{{$customer->phone}}</th>
 					<th>{{$customer->getFullName()}}</th>
-					<th>{!! Html::getReadableRole($customer->role) !!}</th>
 					<th>
 						@if ($customer->profiles()->count() > 0)
 							@foreach ($customer->profiles()->get() as $profile)
 
-							@if ($profile->box()->first() != NULL)
-
-								<a class="spyro-btn {{Html::getColorFromBoxSlug($profile->box()->first()->slug)}}" href="/admin/profiles/edit/{{$profile->id}}">
+								<a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $profile->id])}}">
 								
 
 								{!! Html::getReadableProfileStatus($profile->status) !!}
 
 								</a><br/>
 
-							@endif
 
 							@endforeach
 						@else

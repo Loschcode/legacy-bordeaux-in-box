@@ -60,13 +60,6 @@ class Order extends Model {
 	/**
 	 * HasMany
 	 */
-	
-	public function customer_profile_products()
-	{
-
-		return $this->hasMany('App\Models\CustomerProfileProduct');
-
-	}
 
 	public function payments()
 	{

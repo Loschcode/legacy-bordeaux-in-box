@@ -1,16 +1,9 @@
 
       <div class="spyro-well">
 
-       @if ($box == NULL)
-
-         Aucune box sélectionnée
-
-       @else
-
          {!! Form::open(array('url' => '/admin/profiles/edit-questions')) !!}
 
          {!! Form::hidden('customer_profile_id', $profile->id) !!}
-         {!! Form::hidden('box_id', $box->id) !!}
 
          @foreach ($questions as $question)
 
@@ -194,5 +187,4 @@
 
          {!! Form::close() !!}
 
-       @endif
       </div>

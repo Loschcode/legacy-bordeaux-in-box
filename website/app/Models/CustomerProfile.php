@@ -102,13 +102,6 @@ class CustomerProfile extends Model {
 
 	}
 
-	public function customer_profile_products()
-	{
-
-		return $this->hasMany('App\Models\CustomerProfileProduct');
-
-	}
-
 	public function orders()
 	{
 
@@ -141,8 +134,8 @@ class CustomerProfile extends Model {
 	public function getAnswer($slug, $with_trashed=FALSE)
 	{
 
-		if ($with_trashed) $focus_question = $this->box()->first()->questions()->withTrashed()->where('slug', '=', $slug)->first();
-		else $focus_question = $this->box()->first()->questions()->where('slug', '=', $slug)->first();
+		if ($with_trashed) $focus_question = BoxQuestion::withTrashed()->where('slug', '=', $slug)->first();
+		else $focus_question = BoxQuestion::where('slug', '=', $slug)->first();
 
 		if ($focus_question == NULL) return $focus_question;
 
@@ -243,16 +236,6 @@ class CustomerProfile extends Model {
 	public function getSeriesProfileProduct($serie_id) {
 
   	return $this->seriesProfileProduct($serie_id)->get();
-
-	}
-
-	public function seriesProfileProduct($serie_id) {
-
-		return $this->customer_profile_products()
-  	->join('serie_products', 'customer_profile_products.serie_product_id', '=', 'serie_products.id')
-  	->where('serie_products.delivery_serie_id', '=', $serie_id)
-  	->select('customer_profile_products.*')
-  	->groupBy('customer_profile_products.id');
 
 	}
 
