@@ -2,7 +2,7 @@
 
 namespace App\Libraries;
 
-use Stripe\Stripe, Config, Log;
+use Stripe\Stripe, Config, Log, \Exception;
 
 /**
  * Payment system
@@ -249,7 +249,7 @@ class Payments {
         $api_key = Config::get('services.stripe.secret');
         \Stripe\Stripe::setApiKey($api_key);
 
-        $stripe_customer = Stripe\Customer::retrieve($stripe_customer);
+        $stripe_customer = \Stripe\Customer::retrieve($stripe_customer);
         $stripe_plan = self::makeOrRetrieveStripePlan($plan_name, $plan_price);
 
         try {
@@ -360,7 +360,7 @@ class Payments {
         // We get the customer
         try {
         
-        $stripe_customer = Stripe\Customer::retrieve($stripe_user_id);
+        $stripe_customer = \Stripe\Customer::retrieve($stripe_user_id);
 
         } catch (Exception $e) {
 
@@ -422,7 +422,7 @@ class Payments {
         // We get the customer, then subscription and we cancel
         try {
           
-          $cu = Stripe\Customer::retrieve($stripe_customer);
+          $cu = \Stripe\Customer::retrieve($stripe_customer);
 
           // Get the subscriptions listing (in case the $stripe_subscription doesn't exist)
           $datas_subscriptions = $cu->subscriptions->all();

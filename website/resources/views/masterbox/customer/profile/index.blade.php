@@ -33,7 +33,6 @@
 
             <tr>
               <th>Abonnement</th>
-              <th>Box</th>
               <th>Durée</th>
               <th>Livraisons restantes</th>
               <th>Statut</th>
@@ -52,19 +51,6 @@
               <tr>
 
                 <th>N°{{$profile->id}}</th>
-                <th>
-
-                  @if ($profile->box()->first() != NULL)
-
-                    {{$profile->box()->first()->title}}
-
-                  @else
-
-                    Aucune box
-
-                  @endif
-
-                </th>
                 <th>
 
                 @if ($profile->order_preference()->first()->frequency == 0)

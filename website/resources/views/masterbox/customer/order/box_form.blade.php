@@ -19,7 +19,7 @@
         @endif
         <div class="spacer20"></div>
         <p>
-        	<a href="{{ action('MasterBox\Customer\PurchaseController@getChooseFrequency') }}" class="spyro-btn spyro-btn-warning spyro-btn-lg icon-space">Je ne veux pas personnaliser la box <i class="fa fa-angle-right"></i></a>
+        	<a href="{{ action('MasterBox\Customer\PurchaseController@getConfirmed') }}" class="spyro-btn spyro-btn-warning spyro-btn-lg icon-space">Je ne veux pas personnaliser la box <i class="fa fa-angle-right"></i></a>
         </p>
       </div>
     </div>
@@ -33,8 +33,6 @@
     <div class="col-md-8 col-md-offset-2">
 
       {!! Form::open(['class' => 'form-component']) !!}
-
-      {!! Form::hidden('box_id', $box->id) !!}
 
       @if (session()->has('message'))
         <div>{{ session()->get('message') }}</div>

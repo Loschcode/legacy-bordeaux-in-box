@@ -43,6 +43,27 @@ class CustomerOrderBuilding extends Model {
 
 	}
 
+  public function scopeNotPaidYet($query)
+  {
+
+    return $query->whereNull('paid_at');
+
+  }
+
+  public function scopeOnlyPaid($query)
+  {
+
+    return $query->whereNotNull('paid_at');
+
+  }
+
+  public function scope($query)
+  {
+
+    return $query->whereNull('paid_at');
+
+  }
+
 	public function isRegionalAddress()
 	{
 

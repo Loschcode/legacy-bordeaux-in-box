@@ -8,10 +8,17 @@ use App\Models\Customer;
 use App\Models\DeliverySerie;
 use App\Models\DeliveryPrice;
 use App\Models\CustomerProfile;
+use App\Models\CustomerPaymentProfile;
 use App\Models\CustomerOrderBuilding;
 use App\Models\CustomerOrderPreference;
 use App\Models\DeliverySetting;
 use App\Models\DeliverySpot;
+use App\Models\Order;
+use App\Models\OrderBilling;
+use App\Models\OrderDestination;
+use App\Models\BoxQuestion;
+
+use App\Libraries\Payments;
 
 class PurchaseController extends BaseController {
 
@@ -96,7 +103,7 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->first();
+    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
     $order_preference = $order_building->order_preference()->first();
 
     $delivery_prices = DeliveryPrice::where('gift', $order_preference->gift)->orderBy('unity_price', 'asc')->get();
@@ -128,8 +135,13 @@ class PurchaseController extends BaseController {
       if ($delivery_price === NULL) return redirect()->back();
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->first();
-      
+      $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+      $profile = $order_building->profile()->first();
+
+      // We change the profile status (the guy chose something)
+      $profile->status = 'in-progress';
+      $profile->save();
+
       $order_preference = $order_building->order_preference()->first();
 
       // We duplicate the delivery price (because it could change with the time)
@@ -163,7 +175,7 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->first();
+    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
     $order_preference = $order_building->order_preference()->first();
 
     return view('masterbox.customer.order.billing_address')->with(compact('customer', 'order_building', 'order_preference'));
@@ -201,7 +213,7 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->first();
+      $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
       $order_preference = $order_building->order_preference()->first();
       
       // If the user hasn't billing address yet
@@ -245,7 +257,7 @@ class PurchaseController extends BaseController {
   {
 
     $customer = Auth::guard('customer')->user();
-    $order_building = $customer->order_building()->first();
+    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
     $order_preference = $order_building->order_preference()->first();
 
     // Back
@@ -297,7 +309,7 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->first();
+      $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
       $order_preference = $order_building->order_preference()->first();
 
       $order_preference->take_away = $fields['take_away'];
@@ -343,7 +355,7 @@ class PurchaseController extends BaseController {
   {
 
     $customer = Auth::guard('customer')->user();
-    $order_building = $customer->order_building()->first();
+    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
     $order_preference = $order_building->order_preference()->first();
 
     // In case the user come back
@@ -377,7 +389,7 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->first();
+      $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
       $order_preference = $order_building->order_preference()->first();
 
       $delivery_spot = DeliverySpot::find($fields['chosen_spot']);
@@ -409,7 +421,7 @@ class PurchaseController extends BaseController {
   public function getPayment()
   {
     $customer = Auth::guard('customer')->user();
-    $order_building = $customer->order_building()->first();
+    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
     $profile = $order_building->profile()->first();
     $order_preference = $order_building->order_preference()->first();
     $delivery_spot = $order_preference->delivery_spot()->first(); // May be NULL
@@ -442,7 +454,7 @@ class PurchaseController extends BaseController {
       $stripe_token = $fields['stripeToken'];
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->first();
+      $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
       $profile = $order_building->profile()->first();
 
       /**
@@ -463,30 +475,25 @@ class PurchaseController extends BaseController {
        * If the stripe customer doesn't exist we create it and store it to the users table
        * (And not another table, there's only one customer per account, make sense ?)
        */
-      //if (!$customer->stripe_customer) {
-      //
+      $stripe_customer = Payments::makeCustomer($stripe_token, $customer, $profile);
 
-        $stripe_customer = Payments::makeCustomer($stripe_token, $customer, $profile);
+      if (is_array($stripe_customer)) {
 
-        if (is_array($stripe_customer)) {
-
-          return redirect()->back()->withErrors([
-            "stripeToken" => $stripe_customer
+        return redirect()->back()->withErrors([
+          "stripeToken" => $stripe_customer
           ]);
-        }
+      }
 
-        // We change the guy to "subscribed" because we made a new customer right now
-        $profile->status = 'subscribed';
+      // We change the guy to "subscribed" because we made a new customer right now
+      $profile->status = 'subscribed';
 
-        // Then we come back to our payment process
-        $profile->stripe_customer = $stripe_customer;
-        $payment_profile->stripe_customer = $stripe_customer;
-        $payment_profile->stripe_card = Payments::retrieveLastCard($stripe_customer);
+      // Then we come back to our payment process
+      $profile->stripe_customer = $stripe_customer;
+      $payment_profile->stripe_customer = $stripe_customer;
+      $payment_profile->stripe_card = Payments::retrieveLastCard($stripe_customer);
 
-        $profile->save();
-        $payment_profile->save();
-
-      //}
+      $profile->save();
+      $payment_profile->save();
 
       // We retrieve the stripe customer data (from old or new customer)
       $stripe_customer = $profile->stripe_customer;
@@ -498,7 +505,7 @@ class PurchaseController extends BaseController {
 
 
       // We look how many boxes we will send
-      // The infinite plan is special, the num orders is artificial (6 months default)
+      // The infinite plan is special, the num orders is artificial (we will add them up progressively)
       if ($order_preference->frequency == 0) $num_orders = 3;
       else $num_orders = $order_preference->frequency;
 
@@ -513,18 +520,23 @@ class PurchaseController extends BaseController {
        * (it will done in cascade with the stripe callback)
        */
       if ($order_preference->gift) {
+
         $unity_and_fees_price = $order_preference->totalPricePerMonth() / $order_preference->frequency;
-      } else {  
+      
+      } else { 
+
         $unity_and_fees_price = $order_preference->totalPricePerMonth();
+
       }
 
       $num = 0;
 
       while ($num < $num_orders) {
+
         // Matching series
         if (!isset($delivery_series[$num]))  {
-          Log::info("ERROR : no enough delivery series to order (checkout PurchaseController line ~700");
 
+          Log::info("ERROR : no enough delivery series to order (checkout PurchaseController line ~700");
           $profile->orders()->delete();
 
           return redirect()->back()->withErrors([
@@ -535,8 +547,6 @@ class PurchaseController extends BaseController {
 
         $delivery_serie = $delivery_series[$num];
 
-        $box = $profile->box()->first();
-
         /**
          * Duplicate protection
          * If someone blows up the system we absolutely must avoid double orders
@@ -545,12 +555,12 @@ class PurchaseController extends BaseController {
         $order_already_exists = Order::where('customer_profile_id', '=', $profile->id)->where('delivery_serie_id', '=', $delivery_serie->id)->first();
 
         if ($order_already_exists === NULL) {
+
           // We make the order
           $order = new Order;
           $order->customer()->associate($customer);
           $order->customer_profile()->associate($profile);
           $order->delivery_serie()->associate($delivery_serie);
-          $order->box()->associate($box);
 
           // We don't lock the new orders
           $order->locked = FALSE;
@@ -594,6 +604,7 @@ class PurchaseController extends BaseController {
        * We finally invoice the user (no feedback here, we have InvoicesController to handle it)
        */
       if (($order_preference->gift) || ($order_preference->frequency == 1)) {
+        
         // If it's a gift it's a direct invoice
         $feedback = Payments::invoice($stripe_customer, $customer, $profile, $order_preference->totalPricePerMonth());
 
@@ -610,7 +621,6 @@ class PurchaseController extends BaseController {
       } else {
 
         // If it's not a gift, even for 1 month subscription we will subscribe and directly cancel after the payment
-        
         $plan_price = $order_preference->totalPricePerMonth();
         $plan_name = 'plan' . $plan_price * 100;
         $order_preference->stripe_plan = $plan_name;
@@ -637,7 +647,12 @@ class PurchaseController extends BaseController {
 
       }
 
-      return redirect('/order/confirmed');
+      // We go to the next step (after the payment)
+      $order_building->paid_at = date('Y-m-d H:i:s');
+      $order_building->save();
+
+      // Then we redirect to the optional form
+      return redirect()->action("MasterBox\Customer\PurchaseController@getBoxForm");
 
     } else {
 
@@ -657,16 +672,10 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->first();
+    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->onlyPaid()->first();
     $profile = $order_building->profile()->first();
 
-    $box = $profile->box()->first();
-    if ($box === NULL) 
-    {
-      return redirect()->back();
-    }
-
-    $questions = $box->questions()->orderBy('position', 'asc')->get();
+    $questions = BoxQuestion::orderBy('position', 'asc')->get();
     $order_preference = $order_building->order_preference()->first();
 
     // Back case
@@ -693,7 +702,7 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->first();
+    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->onlyPaid()->first();
     $profile = $order_building->profile()->first();
 
     // We auto trim everything
@@ -735,33 +744,21 @@ class PurchaseController extends BaseController {
     $validator = Validator::make($fields, $rules);
 
     // The form validation was good
-    if ($validator->passes()) 
-    {
+    if ($validator->passes()) {
 
       refresh_answers_from_dynamic_questions_form($fields, $profile);
+      return redirect('MasterBox\Customer\PurchaseController@getConfirmed');
 
-      // Let's go to the next step
-      $order_building->step = 'choose-frequency';
-      $order_building->save();
+    } else {
 
-      // We change the profile status (the guy filled the form)
-      $profile->status = 'in-progress';
-      $profile->save();
-
-      // Then we redirect
-      $redirect = $this->guessStepFromUser();
-      return redirect($redirect);
-
-    } 
-    else 
-    {
       $messages = $validator->messages()->toArray();
 
       // We get the key
-      foreach ($messages as $tag => $value) 
-      {
+      foreach ($messages as $tag => $value) {
+        
         $return_tag = $tag;
         break;
+
       }
 
       // We return the same page with the error and saving the input datas
@@ -776,17 +773,9 @@ class PurchaseController extends BaseController {
   public function getConfirmed()
   {
     // We will delete the user building system because we don't need it anymore
-    Auth::guard('customer')->user()->order_building()->first()->delete();
+    Auth::guard('customer')->user()->order_building()->orderBy('created_at', 'desc')->first()->delete();
 
     return view('masterbox.customer.order.confirmed');
-  }
-
-  private function isCorrectStep($step)
-  {
-
-    if (Auth::guard('customer')->user()->order_building()->first()->step == $step) return TRUE;
-    else return FALSE;
-
   }
 
   private function guessStepFromUser()
@@ -798,13 +787,11 @@ class PurchaseController extends BaseController {
      * - Billing address and details
      * - Choose delivery mode (can be skipped if outside allowed area)
      * - Fill payment
-     * - Form
-     * - Resumee
      */
     
     $customer = Auth::guard('customer')->user();
     $next_series = DeliverySerie::nextOpenSeries()->first();
-    $order_building = $customer->order_building()->first();
+    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
 
     // Means there's no step yet, let's go to the first one
     if ($order_building === NULL) {
@@ -872,7 +859,6 @@ class PurchaseController extends BaseController {
       'choose-spot' => 'getChooseSpot',
       'billing-address' => 'getBillingAddress',
       'payment' => 'getPayment',
-      'box-form' => 'getBoxForm',
 
     ];
 
