@@ -46,7 +46,7 @@ class @Payment
     $('#trigger-payment').click (e) =>
       
       # Add state button
-      @displayLoading()
+      @displayLoading('En cours de chargement')
 
       # Catch default behavior of click
       e.preventDefault()
@@ -57,6 +57,7 @@ class @Payment
         description: 'Commande Box'
         currency: 'eur'
         amount: $('#payment-form').data('price')
+        email: $('#js-page-payment').data('email')
 
   initStripe: =>
 
@@ -66,20 +67,27 @@ class @Payment
       image: 'https://s3.amazonaws.com/stripe-uploads/acct_14e5CdIIyezb3ziumerchant-icon-1452677496121-bdxinbox.png'
       locale: 'fr'
       token: @afterPayment
-      allowRememberMe: false
-      closed: ->
-        $('#trigger-payment').html $('#trigger-payment').data('text')
+      allowRememberMe: true
+      
+      opened: =>
+
+        @displayDefault()
 
   afterPayment: (token) =>
     secret = token.id
 
+    @displayLoading('En cours de redirection')
+
     $('#stripe-token').val(secret)
     $('#payment-form').submit()
 
-  displayLoading: () ->
+  displayLoading: (message) ->
 
-    $('#trigger-payment').html('<i class="fa fa-spinner fa-spin"></i>')
+    $('#trigger-payment').prop('disabled', true).addClass('cart-buy-disabled').html('<i class="fa fa-spinner fa-spin"></i> ' + message)
 
+  displayDefault: =>
+
+    $('#trigger-payment').prop('disabled', false).removeClass('cart-buy-disabled').html('<i class="fa fa-credit-card"></i> Procéder au paiement sécurisé')
 
   ###
       var handler = StripeCheckout.configure({

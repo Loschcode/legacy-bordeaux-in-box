@@ -57,13 +57,13 @@
   background-color: #4de3be; }
 
 .spyro-btn-bichette {
-  background-color: #e8a5be; }
+  background-color: #E8A5BE; }
 
 .spyro-btn-ghetto {
-  background-color: #88ccc0; }
+  background-color: #88CCC0; }
 
 .spyro-btn-mamoune {
-  background-color: #f7c774; }
+  background-color: #F7C774; }
 
 .spyro-btn {
   opacity: 1 !important; }
@@ -96,7 +96,7 @@ table.dataTable {
       border: 0px !important;
       font-weight: 300 !important; }
     table.dataTable thead tr {
-      background-color: whitesmoke; }
+      background-color: #f5f5f5; }
 
 input[type="search"] {
   outline: 0;
@@ -111,9 +111,9 @@ input[type="search"] {
   font-size: 14px; }
 
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-  color: #333333 !important;
+  color: #333 !important;
   border: 1px solid #cacaca;
-  background-color: white;
+  background-color: #fff;
   background: none;
   font-size: 14px;
   padding: 5px; }
@@ -179,16 +179,16 @@ div.fancy-select div.trigger {
   color: white;
   border: none;
   box-shadow: none;
-  color: #333333;
-  border: 1px solid #dddddd; }
+  color: #333;
+  border: 1px solid #ddd; }
 
 div.fancy-select div.trigger.open {
   background-color: transparent;
   color: white;
   border: none;
   box-shadow: none;
-  color: #333333;
-  border: 1px solid #dddddd; }
+  color: #333;
+  border: 1px solid #ddd; }
 
 div.fancy-select select:focus + div.trigger {
   box-shadow: none; }
@@ -224,7 +224,7 @@ svg {
   height: 100%;
   margin-left: -250px;
   overflow-y: auto;
-  background: black;
+  background: #000;
   -webkit-transition: all 0.5s ease;
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
@@ -274,7 +274,7 @@ svg {
       transition: all 0.05s ease; }
       .sidebar-nav li a:hover {
         text-decoration: none;
-        color: white;
+        color: #fff;
         background: rgba(255, 255, 255, 0.2);
         margin-left: 2px; }
       .sidebar-nav li a:active, .sidebar-nav li a:focus {
@@ -288,7 +288,7 @@ svg {
     .sidebar-nav > .sidebar-brand a {
       color: white; }
       .sidebar-nav > .sidebar-brand a:hover {
-        color: white;
+        color: #fff;
         background: none; }
 
 @media (min-width: 768px) {
@@ -338,11 +338,11 @@ label {
   top: 29px; }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
-  color: #555555;
+  color: #555;
   cursor: default;
-  background-color: whitesmoke;
+  background-color: #f5f5f5;
   border: none;
-  border-bottom: 1px solid whitesmoke; }
+  border-bottom: 1px solid #f5f5f5; }
 
 .nav-tabs {
   border: none;
@@ -353,8 +353,8 @@ label {
     border: 0 !important; }
 
 .nav-tabs > li > a:hover {
-  border-color: whitesmoke;
-  background-color: whitesmoke; }
+  border-color: #f5f5f5;
+  background-color: #f5f5f5; }
 
 .modal-content h3 {
   font-size: 20px;
@@ -431,3 +431,5 @@ ul.forms {
   width: 100%; }
   .filters-profiles a {
     margin-right: 0.3em; }
+
+/*# sourceMappingURL=admin.css.map */

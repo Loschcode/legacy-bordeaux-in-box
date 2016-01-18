@@ -933,7 +933,8 @@ $color_wild_sand_approx: #f5f5f5
 		text-align: center
 		padding-bottom: 1em
 
-		a
+		button
+			cursor: pointer
 			width: 90%
 			margin-right: auto
 			margin-left: auto
@@ -952,6 +953,10 @@ $color_wild_sand_approx: #f5f5f5
 			border: none
 			background-color: $color-red
 			text-transform: uppercase
+
+			&.cart-buy-disabled
+				opacity: 0.6
+				cursor: not-allowed
 
 
 
