@@ -72,7 +72,7 @@ Html::macro('getOrderQuestionsAndAnswers', function($box, $profile)
  */
 Html::macro('displayQuizz', function ($box, $profile, $spacer=" ", $long=false) {
 
-  $questions = $box->questions()->get();
+  $questions = BoxQuestion::get();
   $output = '<div class="well">';
 
   foreach ($questions as $question) {

@@ -1,7 +1,7 @@
 
       <div class="spyro-well">
 
-         {!! Form::open(array('url' => '/admin/profiles/edit-questions')) !!}
+         {!! Form::open(array('action' => 'MasterBox\Admin\ProfilesController@postEditQuestions')) !!}
 
          {!! Form::hidden('customer_profile_id', $profile->id) !!}
 

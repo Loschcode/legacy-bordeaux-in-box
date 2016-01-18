@@ -154,11 +154,12 @@ class CustomersController extends BaseController {
         }
       }
 
-			return redirect()->to('/admin/customers')
+			return redirect()->action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id])
 			->withInput()
 			->with('message', 'L\'utilisateur à bien été modifié');
 
 		} else {
+
 
 			session()->flash('error', 'Il y a des erreurs dans le formulaire');
 

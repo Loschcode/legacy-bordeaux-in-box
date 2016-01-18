@@ -64,15 +64,12 @@
           
           @foreach ($customer->profiles()->get() as $profile)
 
-              @if ($profile->box()->first() != NULL)
-
-                <a class="spyro-btn {{Html::getColorFromBoxSlug($profile->box()->first()->slug)}}" href="/admin/profiles/edit/{{$profile->id}}">
+                <a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $profile->id])}}">
                 
-                {{$profile->box()->first()->title}} ({!! Html::getReadableProfileStatus($profile->status) !!})
+
+                {!! Html::getReadableProfileStatus($profile->status) !!}
 
                 </a><br/>
-
-              @endif
 
           @endforeach
 
@@ -95,7 +92,7 @@
 
       {!! Form::open(array('action' => 'MasterBox\Admin\CustomersController@postEdit')) !!}
 
-      {!! Form::hidden('user_id', $customer->id) !!}
+      {!! Form::hidden('customer_id', $customer->id) !!}
 
       <div class="w80">
         <!-- Email -->

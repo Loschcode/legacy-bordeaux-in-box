@@ -28,7 +28,7 @@
 
   {!! Form::open(array('action' => 'MasterBox\Admin\CustomersController@postEdit', 'class' => 'form-inline')) !!}
 
-  {!! Form::hidden('user_id', $customer->id) !!}
+  {!! Form::hidden('customer_id', $customer->id) !!}
 
   <div class="w80">
     <!-- Email -->

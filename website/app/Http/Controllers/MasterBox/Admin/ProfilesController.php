@@ -501,18 +501,11 @@ class ProfilesController extends BaseController {
 		$fields = Request::all();
 		$rules = array();
 
-		// If there's no box_id it means it's certainly a hack
-		if (!isset($fields['box_id'])) return redirect()->to('/');
-
-		// If we don't find the box, there's a bug somewhere (or a hack)
-		$box = Box::find($fields['box_id']);
-		if ($box === NULL) return redirect()->back();
-
 		$profile = CustomerProfile::find($fields['customer_profile_id']);
 		if ($profile === NULL) return redirect()->back();
 
 		// Let's generate the rules
-		foreach ($box->questions()->get() as $question) {
+		foreach (BoxQuestion::get() as $question) {
 
 			// Checkbox aren't mandatory
       // It's the ADMIN section so we don't specify much rules, not like the PurchaseController side 
