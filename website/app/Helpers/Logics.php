@@ -13,14 +13,13 @@ function generate_new_order($customer, $profile) {
 
   $delivery_spot = $last_order->delivery_spot()->first();
 
-  $delivery_serie = DeliverySerie::where('delivery', '>', $last_delivery_serie->delivery)->whereNull('closed')->orderBy('delivery', 'asc')->first();
+  $delivery_serie = \App\Models\DeliverySerie::where('delivery', '>', $last_delivery_serie->delivery)->whereNull('closed')->orderBy('delivery', 'asc')->first();
 
   // We make the order
-  $order = new Order;
+  $order = new \App\Models\Order;
   $order->customer()->associate($customer);
   $order->customer_profile()->associate($profile);
   $order->delivery_serie()->associate($delivery_serie);
-  $order->box()->associate($last_order->box()->first());
 
   // We don't lock the new orders
   $order->locked = FALSE;
@@ -35,7 +34,7 @@ function generate_new_order($customer, $profile) {
   $order->save();
 
   // We make the order billing
-  $order_billing = new OrderBilling;
+  $order_billing = new \App\Models\OrderBilling;
   $order_billing->order()->associate($order);
   $order_billing->first_name = $customer->first_name;
   $order_billing->last_name = $customer->last_name;
@@ -49,7 +48,7 @@ function generate_new_order($customer, $profile) {
   if ($last_order_destination != NULL) {
 
     // We make the order destination
-    $order_destination = new OrderDestination;
+    $order_destination = new \App\Models\OrderDestination;
     $order_destination->order()->associate($order);
     $order_destination->first_name = $last_order_destination->first_name;
     $order_destination->last_name = $last_order_destination->last_name;
@@ -69,7 +68,7 @@ function generate_new_order($customer, $profile) {
  */
 function has_no_answer_possible($type) {
 
-  $arr_check = Config::get('bdxnbx.no_answer_question_type');
+  $arr_check = config('bdxnbx.no_answer_question_type');
   
   if (in_array($type, $arr_check)) return TRUE;
   else return FALSE;

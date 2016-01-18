@@ -141,12 +141,6 @@ class ProfileController extends BaseController {
     	$payments = $profile->payments()->get();
       $payment_profile = $profile->payment_profile()->first();
 
-
-    	// Protection if there's no box (normaly it shouldn't happend but we never know)
-    	if ($profile->box()->first() == NULL) {
-    		return redirect()->to('/profile');
-    	}
-    	
 		  return view('masterbox.customer.profile.orders')->with(compact(
         'customer',
         'profile',

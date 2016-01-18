@@ -86,7 +86,7 @@ th {
 </head>
 
 <body>
-<img src="public/assets/img/logo-text.png" width="200" />
+<img src="{{public_path(assets/img/logo-text.png)}}" width="200" />
 
 <br />
 
@@ -109,11 +109,11 @@ th {
     </tr>
     <tr>
       <td>N° d'abonnement</td>
-      <td>{{$profile->id}}-{{$profile->contract_id}}</td>
+      <td>{{$profile->contract_id}}</td>
     </tr>
     <tr class="customer-number">
       <td>N° client</td>
-      <td>BX{{$customer->id}}</td>
+      <td>MBX{{$customer->id}}</td>
     </tr>
   </table>
 </div>
@@ -147,7 +147,7 @@ FRANCE
 
 <br />
 
-<h2>Box {{$box->title}}</h2>
+<h2>Box principale</h2>
 
 @if ($order == NULL)
   

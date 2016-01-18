@@ -82,7 +82,7 @@ class StripeNormalizeMetadata extends Command {
 
       } else {
 
-        $this->error("Stripe Subscription not found : " . $stripe_customer_id);
+        $this->error("Stripe Subscription not found : " . $stripe_subscription_id);
 
       }
 

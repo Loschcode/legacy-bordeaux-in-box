@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\MasterBox\Service;
+<?php namespace App\Http\Controllers\Shared\Service;
 
 use App\Http\Controllers\MasterBox\BaseController;
 

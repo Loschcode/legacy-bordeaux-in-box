@@ -13,6 +13,6 @@
 return [
 
   'local' => ['Sandbox'],
-  '*' => ['Company', 'MasterBox'],
+  '*' => ['Company', 'MasterBox', 'Shared'],
 
 ];

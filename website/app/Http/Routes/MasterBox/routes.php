@@ -30,18 +30,7 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
      * Api
      */
     Route::controller('api', 'ApiController');
-
-    /**
-     * Traces
-     */
-    Route::controller('traces', 'TracesController');
-
-
-    /**
-     * Invoices (connected to Stripes)
-     */
-    Route::controller('invoices', 'InvoicesController');
-
+    
   });
 
   /**

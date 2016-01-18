@@ -26,8 +26,6 @@ function generate_pdf_bill($payment, $download=FALSE, $destination_folder=FALSE)
 
   $order = $payment->order()->first();
 
-  $box = $profile->box()->first();
-
   // In case the payment doesn't match any order in peculiar
   // So we will address to the user directly
   if ($order == NULL) {
@@ -43,7 +41,6 @@ function generate_pdf_bill($payment, $download=FALSE, $destination_folder=FALSE)
   $html = view('masterbox.pdf.bill')->with(compact(
     'customer',
     'customer_order_preference',
-    'box',
     'order',
     'billing',
     'payment',
@@ -132,7 +129,6 @@ function generate_csv_finances_spreadsheet($file_name, $payments)
     // We prepare some stuff
     $profile = $payment->profile()->first();
     $user = $profile->customer()->first();
-    $box = $profile->box()->first();
     $email = $user->email;
 
     $order = $payment->order()->first();
@@ -223,7 +219,6 @@ function generate_csv_payments($file_name, $payments)
     'Stripe Card',
     'Utilisateur',
     'ID Abonnement',
-    'Box',
     'Série',
     'Type',
     'Montant',
@@ -238,13 +233,8 @@ function generate_csv_payments($file_name, $payments)
     // We prepare some stuff
     $profile = $payment->profile()->first();
     $customer = $profile->customer()->first();
-    $box = $profile->box()->first();
 
     $email = $customer->email;
-
-    if ($box == NULL) $box_title = 'Non renseigné';
-    else $box_title = $box->title;
-
     $amount = $payment->amount;
 
     if ($payment->order()->first() != NULL) {
@@ -267,7 +257,6 @@ function generate_csv_payments($file_name, $payments)
 
       Downloaders::prepareForCsv($customer->getFullName()),
       $profile->id,
-      Downloaders::prepareForCsv($box_title),
       $serie,
       readable_payment_type($payment->type),
       $payment->amount,

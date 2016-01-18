@@ -1,11 +1,13 @@
-<?php namespace App\Http\Controllers\MasterBox\Service;
+<?php namespace App\Http\Controllers\Shared\Service;
 
 use App\Http\Controllers\MasterBox\BaseController;
 
-use Config, Stripe, Log, Response;
+use Config, Log, Response;
 
 use App\Models\Customer;
 use App\Models\CustomerProfile;
+use App\Models\CustomerPaymentProfile;
+use App\Models\CustomerOrderPreference;
 use App\Models\Payment;
 
 use App\Libraries\Payments;
@@ -26,8 +28,8 @@ class InvoicesController extends BaseController {
    */
   public function postIndex()
   {
-    $api_key = Config::get('stripe.api_key');
-    Stripe::setApiKey($api_key);
+    //$api_key = Config::get('stripe.api_key');
+    //Stripe::setApiKey($api_key);
 
     $input = @file_get_contents("php://input");
     $datas = json_decode($input);
@@ -84,14 +86,16 @@ class InvoicesController extends BaseController {
 
         if (!$invoice_callback['success']) {
 
-          Log::info('5. Invoice ID doesn\'t match, process aborted');
-          Log::info('6. Stripe event trace : ' . $stripe_event_id);
+          Log::info('2.1 Invoice ID doesn\'t match, process aborted');
+          Log::info('2.2 Stripe event trace : ' . $stripe_event_id);
 
         }
 
         // From the charge we got the invoice, from the invoice we got the subscription if there's one
         // There must be a subscription, because it has no metadata
         $stripe_subscription_id = $invoice_callback['invoice']['subscription'];
+
+        Log::info("2.3 We retrieved the subscription id `$stripe_subscription_id`");
 
         // We retrieve the user profile from its subscription
         $customer_payment_profile = CustomerPaymentProfile::where('stripe_subscription', $stripe_subscription_id)->first();
@@ -425,7 +429,7 @@ class InvoicesController extends BaseController {
 
         $email = $customer->email;
 
-        mailing_send($profile, "Bordeaux in Box - Confirmation de transaction", 'emails.transaction', $data, NULL);
+        mailing_send($profile, "Bordeaux in Box - Confirmation de transaction", 'masterbox.emails.transaction', $data, NULL);
 
         Log::info('27. Transaction email sent to ' . $email);
 
