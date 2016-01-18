@@ -4,7 +4,7 @@
 
   <div id="js-page-box-form"></div>
 
-  @include('masterbox.partials.pipeline', ['step' => 2])
+  @include('masterbox.partials.pipeline', ['step' => 1])
 
   <div class="block-description text-center">
     <div class="container">

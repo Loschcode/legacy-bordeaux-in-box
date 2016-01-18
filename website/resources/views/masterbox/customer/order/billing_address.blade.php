@@ -8,7 +8,7 @@
     <div id="js-flag-billing-address"></div>
   @endif
 
-  {!! View::make('masterbox.partials.pipeline')->with('step', 4) !!}
+  {!! View::make('masterbox.partials.pipeline')->with('step', 3) !!}
 
   <div class="block-description text-center">
     <div class="container">

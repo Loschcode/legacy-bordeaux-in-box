@@ -746,7 +746,7 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       refresh_answers_from_dynamic_questions_form($fields, $profile);
-      return redirect('MasterBox\Customer\PurchaseController@getConfirmed');
+      return redirect()->action('MasterBox\Customer\PurchaseController@getChooseFrequency');
 
     } else {
 

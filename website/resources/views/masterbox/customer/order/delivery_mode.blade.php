@@ -2,7 +2,7 @@
 
 @section('content')
 
-  @include('masterbox.partials.pipeline', ['step' => 4])
+  @include('masterbox.partials.pipeline', ['step' => 3])
     
   <div id="js-page-delivery-mode"></div>
   
