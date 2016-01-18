@@ -533,6 +533,31 @@ class Payments {
     }
 
     /**
+     * Get an invoice
+     * @param  string $stripe_invoice stripe invoice id
+     * @return mixed                  object / false
+     */
+    public static function getInvoice($stripe_invoice)
+    {
+
+      $api_key = Config::get('services.stripe.secret');
+      \Stripe\Stripe::setApiKey($api_key);
+
+      try {
+
+        $invoice = \Stripe\Invoice::retrieve($stripe_invoice);
+
+      } catch(Exception $e) {
+
+          return ['success' => false, 'error' => $e];
+
+      }
+
+      return ['success' => true, 'invoice' => $invoice];
+
+    }
+
+    /**
      * Get a subscription
      * @param  string $stripe_customer stripe customer id
      * @param  string $stripe_subscription stripe subscription id
