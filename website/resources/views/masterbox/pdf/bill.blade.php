@@ -86,7 +86,7 @@ th {
 </head>
 
 <body>
-<img src="{{public_path(assets/img/logo-text.png)}}" width="200" />
+<img src="{{ url('assets/img/logo-text.png')}}" width="200" />
 
 <br />
 
