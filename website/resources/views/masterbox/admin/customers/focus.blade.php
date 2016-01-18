@@ -46,20 +46,22 @@
 
       <div class="panel-body">
 
-      Prénom : {{$customer->first_name}}<br />
-      Nom : {{$customer->last_name}}<br />
+      <strong>Prénom :</strong> {{$customer->first_name}}<br />
+      <strong>Nom :</strong> {{$customer->last_name}}<br />
       <br />
-      Email : {{$customer->email}}<br />
-      Téléphone : {{$customer->phone}}<br />
-      <br />
-      <br />
-
-      Ville : {!! Html::getReadableEmpty($customer->city) !!}<br />
-      Code postal : {!! Html::getReadableEmpty($customer->zip) !!}<br />
-      Adresse : {!! Html::getReadableEmpty($customer->address) !!}<br />
+      <strong>Email :</strong> {{$customer->email}}<br />
+      <strong>Téléphone :</strong> {{$customer->phone}}<br />
       <br />
 
-      Abonnements :<br />
+      <strong>Ville :</strong> {!! Html::getReadableEmpty($customer->city) !!}<br />
+      <strong>Code postal :</strong> {!! Html::getReadableEmpty($customer->zip) !!}<br />
+      <strong>Adresse :</strong> {!! Html::getReadableEmpty($customer->address) !!}<br />
+      <br />
+
+      <strong>Emails totalement autorisés depuis le :</strong> {{ $customer->emails_fully_authorized }}
+      <br /><br />
+
+      <strong>Abonnements :</strong><br />
        @if ($customer->profiles()->count() > 0)
           
           @foreach ($customer->profiles()->get() as $profile)
