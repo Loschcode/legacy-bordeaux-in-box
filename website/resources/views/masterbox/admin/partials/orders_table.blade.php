@@ -10,7 +10,6 @@
 						<th>Adresse utilisateur</th>
 						<th>Téléphone utilisateur</th>
 						<th>Email utilisateur</th>
-						<th>Abonnement</th>
 						<th>Questions</th>
 						<th>Réponses</th>
 						<th>Paiement</th>
@@ -33,7 +32,6 @@
 					@foreach ($orders as $order)
 
 						<?php $profile = $order->customer_profile()->first(); ?>
-						<?php $box = $profile->box()->first(); ?>
 
 						<tr>
 
@@ -47,44 +45,16 @@
 							<th>{{ $order->customer_profile()->first()->customer()->first()->email}} </th>
 
 							<th>
-
-
-							@if ($box == NULL)
-
-								Non renseigné
-
-							@else
-
-								<a href="{{url('/admin/profiles/edit/'.$profile->id)}}">{{$box->title}}</a>
-
-							@endif
-
-
-							</th>
-							<th>
 							<!-- Questions -->
 
-							@if ($box == NULL)
+								{!! order_questions($profile, " / ") !!}
 
-								Pas de question
-
-							@else
-
-								{!! order_questions($box, $profile, " / ") !!}
-
-						    @endif
 
 							</th>
 							<th>
-							@if ($box == NULL)
 
-								Pas de réponse
+								{!! order_answers($profile, " / ") !!}
 
-							@else
-
-								{!! order_answers($box, $profile, " / ") !!}
-
-							@endif
 
 							</th>
 							<th>

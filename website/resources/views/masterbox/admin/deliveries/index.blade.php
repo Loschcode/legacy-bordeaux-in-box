@@ -18,7 +18,6 @@
   <ul class="nav nav-tabs" role="tablist">
     <li class="active"><a href="#series" role="tab" data-toggle="tab"><i class="fa fa-cube"></i> Séries &amp; chiffres clés ({{ App\Models\DeliverySerie::getTotalPaid() }} €)</a></li>
     <li><a href="#offers" role="tab" data-toggle="tab"><i class="fa fa-star"></i> Offres &amp; frais divers ({{$prices->count()}})</a></li>
-    <li><a href="#list-boxes" role="tab" data-toggle="tab"><i class="fa fa-gift"></i> Boxes ({{$boxes->count()}})</a></li>
     <li><a href="#history" role="tab" data-toggle="tab"><i class="fa fa-history"></i> Historique des paiements ({{App\Models\Payment::getTotal()}} € / {{$payments->count()}})</a></li>
   </ul>
 
@@ -300,56 +299,4 @@
 
     </div>
 
-    <div class="tab-pane" id="list-boxes">
-
-    <div class="panel panel-default">
-      <div class="panel-heading"><i class="fa fa-area-chart"></i> Disparité des commandes entre les offres</div>
-      <div class="panel-body">
-
-      <!-- Single line -->
-      @include('masterbox.admin.partials.graphs.line_chart', ['config' => $config_graph_box_orders])
-
-      </div>
-    </div>
-
-      <table class="js-datas">
-
-        <thead>
-
-          <tr>
-            <th>ID</th>
-            <th>Box</th>
-            <th>Répartition</th>
-            <th>Chiffres</th>
-            <th>Commandes</th>
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          @foreach ($boxes as $box)
-
-            <tr>
-
-              <th>{{$box->id}}</th>
-              <th>{{$box->title}}</th>
-              <th>{{round($box->orders()->sum('already_paid') / App\Models\Order::sum('already_paid')*100,2)}}%</th>
-              <th>{{$box->orders()->sum('already_paid')}} €</th>
-              <th>
-
-              <a href="{{url('/admin/deliveries/focus-box/'.$box->id)}}">
-              {{$box->orders()->notCanceledOrders()->count()}}
-              </a>
-
-              </th>
-
-            </tr>
-
-          @endforeach
-
-          </tbody>
-
-        </table>
-    </div>
 @stop

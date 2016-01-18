@@ -44,25 +44,20 @@ class DeliveriesController extends BaseController {
     
     # Payment part
     $payments = Payment::orderBy('created_at', 'desc')->get();
-    $boxes = Box::orderBy('created_at', 'desc')->get();
-
     $series = DeliverySerie::orderBy('delivery', 'asc')->get();
     $prices = DeliveryPrice::orderBy('unity_price')->get();
     $settings = DeliverySetting::first();
 
     $config_graph_all_orders = $this->all_orders_graph_config($series);
     $config_graph_all_payments = $this->all_payments_graph_config($series);
-    $config_graph_box_orders = $this->box_orders_graph_config();
 
     return view('masterbox.admin.deliveries.index')->with(compact(
       'payments',
-      'boxes',
       'series',
       'prices',
       'settings',
       'config_graph_all_orders',
-      'config_graph_all_payments',
-      'config_graph_box_orders'
+      'config_graph_all_payments'
     ));
 
   }
@@ -72,8 +67,6 @@ class DeliveriesController extends BaseController {
 
     $series = DeliverySerie::find($id);
     $spots = DeliverySpot::get();
-    $boxes = Box::get();
-
     $form_stats = $series->getFormStats();
 
     $config_graph_series_orders = $this->series_orders_graph_config($series);
@@ -85,27 +78,9 @@ class DeliveriesController extends BaseController {
       'series',
       'spots',
       'form_stats',
-      'boxes',
       'config_graph_series_orders',
       'series_email_listing',
       'series_unfinished_email_listing'
-    ));
-
-  }
-
-  public function getFocusBox($id)
-  {
-
-    $box = Box::findOrFail($id);
-
-    $config_graph_box_orders = $this->box_orders_graph_config($box);
-
-    $box_email_listing = get_email_listing_from_orders($box->orders()->notCanceledOrders()->get());
-
-    return view('masterbox.admin.deliveries.focus_box')->with(compact(
-      'box',
-      'config_graph_box_orders',
-      'box_email_listing'
     ));
 
   }
@@ -458,26 +433,6 @@ class DeliveriesController extends BaseController {
 
   }
 
-  /**
-   * We make a CSV out of the orders from a specific box
-   * @return void
-   */
-  public function getDownloadCsvOrdersFromBox($box_id)
-  {
-
-    $box = Box::find($box_id);
-
-    if ($box != NULL) {
-
-      $slug = $box->slug;
-      $file_name = "orders-from-box-".$slug."-".time().".csv";
-      $orders = Order::where('box_id', $box->id)->get();
-
-      return generate_csv_order($file_name, $orders);
-
-    }
-
-  }
 
   /**
    * We make a CSV out of the orders from a specific series
@@ -539,112 +494,6 @@ class DeliveriesController extends BaseController {
     }
 
   }
-
-  public function box_orders_graph_config($focused_box=false)
-  {
-
-    $graph_data = array();
-
-    if ($focused_box) $boxes = Box::where('id', '=', $focused_box->id)->get();
-    else $boxes = Box::get();
-
-    if ($focused_box) {
-
-      $grouped_orders = $boxes->first()->orders()->notCanceledOrders()->get()
-      ->groupBy(function($date) {
-
-          return Carbon::parse($date->created_at)->format('Y/m/d');
-    
-      });
-
-    } else {
-
-      $grouped_orders = Order::notCanceledOrders()->get()
-      ->groupBy(function($date) {
-
-          return Carbon::parse($date->created_at)->format('Y/m/d');
-    
-      });
-
-    }
-
-    // We prepare the dynamic box lines
-    $array_box_ykeys = [];
-    $array_box_labels = [];
-
-    $array_box_random_color = [];
-    $possible_colors = ['purple', 'green', 'blue', 'red', 'black', 'orange', 'brown'];
-
-    foreach ($boxes as $box) { 
-
-      $slug = $box->slug;
-
-      $array_box_ykeys[] = $slug;
-      $array_box_labels[] = $box->title;
-
-      $rand = array_rand($possible_colors);
-
-      /**
-       * This will search a matching color from the configuration file
-       * For the matching slug (e.g. `super-mamoune` will have `orange` color from the config)
-       */
-      
-      $arr_check = Config::get('bdxnbx.box_color');
-      if (isset($arr_check[$slug])) $rand = array_search($arr_check[$slug], $possible_colors);
-
-      $array_box_random_color[] = $possible_colors[$rand];
-      unset($possible_colors[$rand]); // To avoid repeat
-
-      $array_boxes_counter[$slug] = 0;
-
-    }
-
-    foreach ($grouped_orders as $orders) {
-
-      foreach ($orders as $order) {
-
-        $slug = Str::slug(Box::find($order->box_id)->title);
-
-        $array_boxes_counter[$slug]++;
-
-      }
-
-      $current_date = $orders[0]->created_at->format('Y-m-d');
-      $datas_to_push = array_merge(['date' => $current_date], $array_boxes_counter);
-
-      array_push($graph_data, $datas_to_push);
-
-      foreach ($boxes as $box) { 
-
-        $array_boxes_counter[$slug] = 0;
-
-      }
-
-
-    }
-
-    $config_graph = [
-
-          'id' => 'graph-box-orders',
-
-          'data' => $graph_data,
-
-          'xkey' => 'date',
-          'ykeys' => $array_box_ykeys,
-          'labels' =>  $array_box_labels,
-
-          "xLabels" => 'week',
-
-          'lineColors' => convert_to_graph_colors($array_box_random_color),
-
-        ];
-
-    //dd($config_graph);
-
-    return $config_graph;
-
-  }
-
 
   public function all_payments_graph_config()
   {

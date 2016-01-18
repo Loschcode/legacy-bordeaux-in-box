@@ -118,7 +118,7 @@ function order_questions_and_answers($box, $profile, $spacer=", ") {
 
 function order_questions($profile, $spacer=" - ") {
 
-  $questions = BoxQuestion::get();
+  $questions = App\Models\BoxQuestion::get();
   $output = '';
 
   foreach ($questions as $question) {
@@ -139,7 +139,7 @@ function order_questions($profile, $spacer=" - ") {
 
 function order_answers($profile, $spacer=", ") {
 
-  $questions = BoxQuestion::get();
+  $questions = App\Models\BoxQuestion::get();
   $output = '';
 
   foreach ($questions as $question) {

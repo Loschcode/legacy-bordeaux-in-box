@@ -133,9 +133,9 @@ class DeliverySerie extends Model {
 
   	$answers = $this->orders()
   	->join('customer_profiles', 'orders.customer_profile_id', '=', 'customer_profiles.id')
-  	->join('customer_answers', 'customer_profiles.id', '=', 'customer_answers.customer_profile_id')
-  	->select('customer_answers.*')
-  	->groupBy('customer_answers.id')->get();
+  	->join('box_question_customer_answers', 'customer_profiles.id', '=', 'box_question_customer_answers.customer_profile_id')
+  	->select('box_question_customer_answers.*')
+  	->groupBy('box_question_customer_answers.id')->get();
 
 		foreach ($answers as $customer_answer) {
 
@@ -144,7 +144,6 @@ class DeliverySerie extends Model {
 
 				if ($box_question !== NULL) {
 
-					$box_id = $box_question->box_id;
 					$real_answer = $customer_answer->answer;
 
 					if ($box_question->type === 'date') {
@@ -158,8 +157,8 @@ class DeliverySerie extends Model {
 
 					}
 
-					if (!isset($form_stats[$box_id][$box_question_id][$real_answer])) $form_stats[$box_id][$box_question_id][$real_answer] = 1;
-					else $form_stats[$box_id][$box_question_id][$real_answer]++;
+					if (!isset($form_stats[$box_question_id][$real_answer])) $form_stats[$box_question_id][$real_answer] = 1;
+					else $form_stats[$box_question_id][$real_answer]++;
 
 				}
 
