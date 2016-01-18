@@ -114,6 +114,8 @@ class StripeNormalizeMetadata extends Command {
 
           $stripe_customer->metadata->customer_id = $customer_id;
           $stripe_customer->metadata->customer_profile_id = $customer_profile_id;
+          $stripe_customer->metadata->contract_id = $customer_payment_profile->profile()->first()->contract_id;
+          $stripe_customer->metadata->branch = 'masterbox';
 
           $stripe_customer->metadata->user_id = NULL;
           $stripe_customer->metadata->user_profile_id = NULL;

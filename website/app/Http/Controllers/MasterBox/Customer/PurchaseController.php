@@ -475,7 +475,7 @@ class PurchaseController extends BaseController {
        * If the stripe customer doesn't exist we create it and store it to the users table
        * (And not another table, there's only one customer per account, make sense ?)
        */
-      $stripe_customer = Payments::makeCustomer($stripe_token, $customer, $profile);
+      $stripe_customer = Payments::makeCustomer($stripe_token, $customer, $profile, "Client de la box principale ".$customer->getFullName(), $profile->contract_id);
 
       if (is_array($stripe_customer)) {
 

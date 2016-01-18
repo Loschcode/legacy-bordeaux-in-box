@@ -6,7 +6,7 @@ use Config, Stripe, Log, Response;
 
 use App\Models\Customer;
 use App\Models\CustomerProfile;
-use App\Models\Payments;
+use App\Models\Payment;
 
 use App\Libraries\Payments;
 

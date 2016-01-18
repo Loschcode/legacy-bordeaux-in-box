@@ -17,7 +17,7 @@ class Payments {
      * @param  object $profile profile object
      * @return mixed          stripe customer id
      */
-    public static function makeCustomer($stripe_card, $customer, $profile)
+    public static function makeCustomer($stripe_card, $customer, $profile, $description='', $contract_id=NULL)
     {
 
         $api_key = Config::get('services.stripe.secret');
@@ -27,7 +27,7 @@ class Payments {
 
         $callback = \Stripe\Customer::create(array(
 
-            "description" => "Utilisateur ID `" . $customer->id . '`',
+            "description" => $description,
             "card" => $stripe_card,
 
             "email" => $customer->email,
@@ -36,6 +36,7 @@ class Payments {
 
                 'customer_id' => $customer->id,
                 'customer_profile_id' => $profile->id,
+                'contract_id' => $contract_id,
 
             ]
 
