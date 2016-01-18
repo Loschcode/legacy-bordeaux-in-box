@@ -304,18 +304,16 @@ class CustomerProfile extends Model {
 	{
 
 		$customer = $this->customer()->first();
-		$box = $this->box()->first();
 
 		$data = [
 
 			'first_name' => $customer->first_name,
-			'box_title' => $box->title,
 			'last_box_was_sent' => $last_box_was_sent,
 
 		];
 
 		// We send the email
-		mailing_send($this, "Bordeaux in Box - Ton abonnement vient d'expirer", 'emails.subscription.expired', $data, NULL);
+		mailing_send($this, "Bordeaux in Box - Ton abonnement vient d'expirer", 'masterbox.emails.subscription.expired', $data, NULL);
 
 	}
 

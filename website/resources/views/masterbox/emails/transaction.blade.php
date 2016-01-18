@@ -15,7 +15,7 @@
 			L'équipe Bordeaux in Box :)<br /><br />
 
 			-------<br />
-			 NOTE : Veuillez à ne pas répondre à ce message. Pour nous contacter envoyez un email à <a href="mailto:jeremie@bordeauxinbox.com">jeremie@bordeauxinbox.com</a>
+			 NOTE : Veuillez à ne pas répondre à ce message. Pour nous contacter envoyez un email à <a href="mailto:bonjour@bordeauxinbox.com">bonjour@boreauxinbox.com</a>
 
 		</div>
 	</body>

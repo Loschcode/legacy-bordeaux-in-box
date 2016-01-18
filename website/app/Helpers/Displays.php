@@ -72,7 +72,7 @@ function order_spot_or_destination($order) {
 
 function order_questions_and_answers($box, $profile, $spacer=", ") {
 
-  $questions = $box->questions()->get();
+  $questions = BoxQuestion::get();
   $output = '';
 
   foreach ($questions as $question) {

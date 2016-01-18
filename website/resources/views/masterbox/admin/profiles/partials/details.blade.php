@@ -12,7 +12,7 @@
         <br />
 
          <strong>Abonnement</strong> {{$profile->contract_id}}<br />
-        <strong>Status :</strong> {!! Html::getReadableProfileStatus($profile->status) !!}<br/> 
+        <strong>Statut :</strong> {!! Html::getReadableProfileStatus($profile->status) !!}<br/> 
 
         {!! Form::open(array('action' => 'MasterBox\Admin\ProfilesController@postUpdatePriority')) !!}
         {!! Form::hidden('profile_id', $profile->id) !!}

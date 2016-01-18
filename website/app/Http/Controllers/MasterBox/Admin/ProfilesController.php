@@ -14,6 +14,8 @@ use App\Models\DeliverySpot;
 use App\Models\OrderDestination;
 use App\Models\BoxQuestion;
 
+use App\Libraries\Payments;
+
 class ProfilesController extends BaseController {
 
 	/*
@@ -215,7 +217,7 @@ class ProfilesController extends BaseController {
 
 		}
 
-		return redirect()->to(URL::previous() . '#deliveries');
+		return redirect(action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $profile->id]).'#deliveries');
 
 	}
 
@@ -509,7 +511,7 @@ class ProfilesController extends BaseController {
 
 			// Checkbox aren't mandatory
       // It's the ADMIN section so we don't specify much rules, not like the PurchaseController side 
-			if ($question->type != 'checkbox') {
+			if ($question->type != 'check') {
 
 				$rules[$question->id.'-0'] = ''; // Nothing is required anymore -> //'required';
 
