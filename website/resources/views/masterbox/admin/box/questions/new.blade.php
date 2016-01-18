@@ -1,7 +1,7 @@
 @extends('masterbox.layouts.admin')
 
 @section('page')
-  <h1 class="page">Nouvelle question {{$box->title}}</h1>
+  <h1 class="page">Nouvelle question</h1>
 @stop
 
 @section('buttons')
@@ -24,9 +24,7 @@
   
   {!! Html::info("Remplissez le champs `slug` uniquement s'il va être utilisé ailleurs que dans le formulaire dans le système (demander à un développeur compétent si vous ne comprenez pas ce que cela signifie).") !!}
 
-  {!! Form::open(array('action' => 'MasterBox\Admin\BoxesQuestionsController@postNew')) !!}
-
-  {!! Form::hidden('box_id', $box->id) !!}
+  {!! Form::open(array('action' => 'MasterBox\Admin\BoxQuestionsController@postNew')) !!}
 
     {!! Html::info("Le résumé ne sera visible que depuis le panel administrateur. Veuillez rester pragmatique dans sa composition (1 ou 2 mots).") !!}
   
@@ -48,16 +46,6 @@
       @if ($errors->first('short_question'))
         <span class="glyphicon glyphicon-remove form-control-feedback"></span>
         <span class="help-block">{{ $errors->first('short_question') }}</span>
-      @endif
-    </div>
-
-    <!-- Filter -->
-    <div class="form-group @if ($errors->first('filter_must_match')) has-error has-feedback @endif">
-      {!! Form::label("filter_must_match", "Le filtre doit correspondre", ['class' => 'control-label']) !!}
-      {!! Form::select('filter_must_match', ['0' => 'Non', '1' => 'Oui'], Request::old('filter_must_match'), ['class' => 'form-control'])!!}
-      @if ($errors->first('filter_must_match'))
-        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-        <span class="help-block">{{ $errors->first('filter_must_match') }}</span>
       @endif
     </div>
 

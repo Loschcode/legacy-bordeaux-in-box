@@ -41,7 +41,6 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
     Route::controller('lightbox', 'LightboxController');
     Route::controller('orders', 'OrdersController');
     Route::controller('deliveries', 'DeliveriesController');
-    Route::controller('products', 'ProductsController');
     Route::controller('payments', 'PaymentsController');
     Route::controller('customers', 'CustomersController');
     Route::controller('spots', 'SpotsController');
@@ -50,9 +49,9 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
 
     Route::controller('debug', 'DebugController');
 
-    Route::controller('boxes/questions/answers', 'BoxesQuestionsAnswersController');
-    Route::controller('boxes/questions', 'BoxesQuestionsController');
-    Route::controller('boxes', 'BoxesController');
+    Route::controller('box/questions/answers', 'BoxQuestionsAnswersController');
+    Route::controller('box/questions', 'BoxQuestionsController');
+    Route::controller('box', 'BoxController');
 
     Route::controller('profiles', 'ProfilesController');
     Route::controller('logs', 'LogsController');

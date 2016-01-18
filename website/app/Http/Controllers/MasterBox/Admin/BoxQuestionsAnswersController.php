@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\MasterBox\BaseController;
 
+use Request, Validator;
+
 use App\Models\BoxQuestion;
 use App\Models\BoxAnswer;
 
-class BoxesQuestionsAnswersController extends BaseController {
+class BoxQuestionsAnswersController extends BaseController {
 
 	/*
 	|--------------------------------------------------------------------------
@@ -35,14 +37,11 @@ class BoxesQuestionsAnswersController extends BaseController {
 	{
 
 		$question = BoxQuestion::findOrFail($id);
-		$box = $question->box()->first();
-
 		$answers = $question->answers()->orderBy('created_at', 'desc')->get();
 
-  	return view('masterbox.admin.boxes.questions.answers.index')->with(compact(
+  	return view('masterbox.admin.box.questions.answers.index')->with(compact(
       'answers',
-      'question',
-      'box'
+      'question'
     ));
 
 	}
@@ -56,7 +55,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 		$answer = BoxAnswer::findOrFail($id);
 		$question = $answer->question()->first();
 
-    return view('masterbox.admin.boxes.questions.answers.edit')->with(compact(
+    return view('masterbox.admin.box.questions.answers.edit')->with(compact(
       'answer',
       'question'
     ));
@@ -93,8 +92,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 		session()->flash('message', "La réponse a bien été mise à jour");
 
-		return redirect()->to('/admin/boxes/questions/answers/focus/'.$question_answer->question()->first()->id)
-		  ->withInput();
+		return redirect()->action('MasterBox\Admin\BoxQuestionsAnswersController@getFocus', ['id' => $question_answer->question()->first()->id]);
 	}
 
     /**
@@ -106,7 +104,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 		$question = BoxQuestion::findOrFail($id);
 
-		return view('masterbox.admin.boxes.questions.answers.new')->with(compact(
+		return view('masterbox.admin.box.questions.answers.new')->with(compact(
       'question'
     ));
 
@@ -152,8 +150,7 @@ class BoxesQuestionsAnswersController extends BaseController {
 
 		session()->flash('message', "La réponse a bien été ajoutée à la question");
 		
-    return redirect()->to('/admin/boxes/questions/answers/focus/'.$question->id)
-      ->withInput();
+    return redirect()->action('MasterBox\Admin\BoxQuestionsAnswersController@getFocus', ['id' => $question->id]);
 	}
 
 	/**

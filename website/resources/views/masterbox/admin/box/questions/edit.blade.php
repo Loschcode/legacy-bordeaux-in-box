@@ -1,7 +1,7 @@
 @extends('masterbox.layouts.admin')
 
 @section('page')
-  <h1 class="page">Edition question #{{ $question->id }} {{$question->box()->first()->title}}</h1>
+  <h1 class="page">Edition question #{{ $question->id }}</h1>
 @stop
 
 @section('buttons')
@@ -18,7 +18,7 @@
 
   {!! Html::info("Faites très attention au `slug` certains (tels `sponsor` ou `birthday`) sont utilisés pour le développement, leur disparition entraîne l'impossibilité d'utiliser les données sur le système.") !!}
 
-  {!! Form::open(array('action' => 'MasterBox\Admin\BoxesQuestionsController@postEdit')) !!}
+  {!! Form::open(array('action' => 'MasterBox\Admin\BoxQuestionsController@postEdit')) !!}
 
   {!! Form::hidden('question_id', $question->id) !!}
 
@@ -46,16 +46,6 @@
     @if ($errors->first('short_question'))
       <span class="glyphicon glyphicon-remove form-control-feedback"></span>
       <span class="help-block">{{ $errors->first('short_question') }}</span>
-    @endif
-  </div>
-
-  <!-- Filter -->
-  <div class="form-group @if ($errors->first('filter_must_match')) has-error has-feedback @endif">
-    {!! Form::label("filter_must_match", "Le filtre doit correspondre", ['class' => 'control-label']) !!}
-    {!! Form::select('filter_must_match', ['0' => 'Non', '1' => 'Oui'], (Request::old("filter_must_match")) ? Request::old("filter_must_match") : $question->filter_must_match, ['class' => 'form-control']) !!}
-    @if ($errors->first('filter_must_match'))
-      <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-      <span class="help-block">{{ $errors->first('filter_must_match') }}</span>
     @endif
   </div>
 

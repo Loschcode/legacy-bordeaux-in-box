@@ -116,9 +116,9 @@ function order_questions_and_answers($box, $profile, $spacer=", ") {
 
 }
 
-function order_questions($box, $profile, $spacer=" - ") {
+function order_questions($profile, $spacer=" - ") {
 
-  $questions = $box->questions()->get();
+  $questions = BoxQuestion::get();
   $output = '';
 
   foreach ($questions as $question) {
@@ -137,9 +137,9 @@ function order_questions($box, $profile, $spacer=" - ") {
 
 }
 
-function order_answers($box, $profile, $spacer=", ") {
+function order_answers($profile, $spacer=", ") {
 
-  $questions = $box->questions()->get();
+  $questions = BoxQuestion::get();
   $output = '';
 
   foreach ($questions as $question) {
