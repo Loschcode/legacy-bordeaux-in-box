@@ -5,7 +5,7 @@
   <!-- Flag to run controller js -->
   <div id="js-page-payment" data-email="{{ $customer->email }}"></div>
 
-  {!! View::make('masterbox.partials.pipeline')->with('step', 5) !!}
+  {!! View::make('masterbox.partials.pipeline')->with('step', 4) !!}
 
   <div class="block-description text-center">
     <div class="container">
