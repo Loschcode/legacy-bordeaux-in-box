@@ -478,6 +478,12 @@ class ProfilesController extends BaseController {
     $payment_profile->stripe_subscription = $callback;
     $payment_profile->save();
 
+    /**
+     * If the profile was expired, it's not expired anymore
+     */
+    $profile->status = 'subscribed';
+    $profile->save();
+
     session()->flash('message', "L'abonnement a bien été réinitialisé");
     return redirect()->to(URL::previous() . '#paiements');
 

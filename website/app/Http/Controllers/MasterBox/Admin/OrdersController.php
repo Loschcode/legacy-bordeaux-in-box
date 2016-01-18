@@ -6,6 +6,8 @@ use App\Models\DeliverySerie;
 use App\Models\Order;
 use App\Models\DeliverySpot;
 
+use Request, Validator;
+
 class OrdersController extends BaseController {
 
 	/*
@@ -52,6 +54,66 @@ class OrdersController extends BaseController {
     ));
 
 	}
+
+  public function getFocus($id)
+  {
+
+    $order = Order::findOrFail($id);
+    $order_status_list = [
+
+    'paid' => readable_order_status('paid'),
+    'unpaid' => readable_order_status('unpaid'),
+    'scheduled' => readable_order_status('scheduled'),
+    'failed' => readable_order_status('failed'),
+    'delivered' => readable_order_status('delivered'),
+    'half-paid' => readable_order_status('half-paid'),
+    'packing' => readable_order_status('packing'),
+    'ready' => readable_order_status('ready'),
+    'problem' => readable_order_status('problem'),
+    'canceled' => readable_order_status('canceled'),
+
+    ];
+
+    return view('masterbox.admin.orders.focus')->with(compact(
+      'order',
+      'order_status_list'
+    ));
+
+  }
+
+  public function postUpdateOrderStatus()
+  {
+
+    $rules = [
+
+      'order_id' => 'required|numeric',
+      'order_status' => 'required',
+
+      ];
+
+    $fields = Request::all();
+    $validator = Validator::make($fields, $rules);
+
+    // The form validation was good
+    if ($validator->passes()) {
+
+      $order = Order::find($fields['order_id']);
+      $order->status = $fields['order_status'];
+      $order->save();
+
+      return redirect()->back()
+      ->withInput();
+
+    } else {
+
+      // We return the same page with the error and saving the input datas
+      return redirect()->back()
+      ->withInput()
+      ->withErrors($validator);
+
+    }
+
+  }
 
 	/**
 	 * Order has a problem
@@ -116,7 +178,6 @@ class OrdersController extends BaseController {
 		}
 
 	}
-
 
 	/**
 	 * Order was sent
