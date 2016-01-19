@@ -34,9 +34,11 @@ class CustomersController extends BaseController {
 	{
 
 		$customers = Customer::orderBy('created_at', 'desc')->get();
+    $email_listing_from_all_customers = get_email_listing_from_all_customers();
 
 		return view('masterbox.admin.customers.index')->with(compact(
-      'customers'
+      'customers',
+      'email_listing_from_all_customers'
     ));
 
 	}

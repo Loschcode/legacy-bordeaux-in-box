@@ -559,6 +559,64 @@ class Payments {
     }
 
     /**
+     * Get a charge
+     * @param  string $stripe_charge stripe charge id
+     * @return mixed object / false
+     */
+    public static function getCharge($stripe_charge)
+    {
+
+      $api_key = Config::get('services.stripe.secret');
+      \Stripe\Stripe::setApiKey($api_key);
+
+      try {
+        
+        $charge = \Stripe\Charge::retrieve($stripe_charge);
+
+      } catch(Exception $e) {
+
+          return ['success' => false, 'error' => $e];
+
+      }
+
+      return ['success' => true, 'charge' => $charge];
+
+    }
+
+    /**
+     * Get a charge
+     * @param  string $stripe_charge stripe charge id
+     * @return mixed object / false
+     */
+    public static function getBalanceFeesFromCharge($stripe_charge)
+    {
+
+      $api_key = Config::get('services.stripe.secret');
+      \Stripe\Stripe::setApiKey($api_key);
+
+      try {
+        
+        $charge = \Stripe\Charge::retrieve($stripe_charge);
+
+        $stripe_balance_transaction = $charge->balance_transaction;
+        $balance_transaction = \Stripe\BalanceTransaction::retrieve($stripe_balance_transaction);
+        $fees = $balance_transaction->fee;
+
+      } catch(Exception $e) {
+
+          return ['success' => false, 'error' => $e];
+
+      }
+
+      /**
+       * Cents to Euros conversion
+       */
+      $fees = ($fees / 100);
+      return ['success' => true, 'charge' => $charge, 'balance_transaction' => $balance_transaction, 'fees' => $fees];
+
+    }
+
+    /**
      * Get a subscription
      * @param  string $stripe_customer stripe customer id
      * @param  string $stripe_subscription stripe subscription id

@@ -94,7 +94,7 @@ class FinancesController extends BaseController {
 
   }
 
-  public function getFinancesSpreadsheetCredits($serie_id)
+  public function getFinancesSpreadsheetCredits($serie_id, $only_fees=FALSE)
   {
 
     $series = DeliverySerie::find($serie_id);
@@ -103,13 +103,16 @@ class FinancesController extends BaseController {
     // We will list all the payments as bills
     $payments = $series->payments()->where('paid', '=', TRUE)->where('amount', '>=', 0)->get();
 
-    $csv_name = 'finances-spreadsheet-credits-'.$series->delivery.'-'.time().'.csv';
-    
-    return generate_csv_finances_spreadsheet($csv_name, $payments);
+    if ($only_fees)
+      $csv_name = 'finances-spreadsheet-credits-only-fees-'.$series->delivery.'-'.time().'.csv';
+    else
+      $csv_name = 'finances-spreadsheet-credits-'.$series->delivery.'-'.time().'.csv';
+
+    return generate_csv_finances_spreadsheet($csv_name, $payments, $only_fees);
 
   }
 
-  public function getFinancesSpreadsheetDebits($serie_id)
+  public function getFinancesSpreadsheetDebits($serie_id, $only_fees=FALSE)
   {
 
     $series = DeliverySerie::find($serie_id);
@@ -118,8 +121,11 @@ class FinancesController extends BaseController {
     // We will list all the payments as bills
     $payments = $series->payments()->where('paid', '=', TRUE)->where('amount', '<', 0)->get();
 
-    $csv_name = 'finances-spreadsheet-debits-'.$series->delivery.'-'.time().'.csv';
-    
+    if ($only_fees)
+      $csv_name = 'finances-spreadsheet-debits-only-fees-'.$series->delivery.'-'.time().'.csv';
+    else
+      $csv_name = 'finances-spreadsheet-debits-'.$series->delivery.'-'.time().'.csv';
+
     return generate_csv_finances_spreadsheet($csv_name, $payments);
 
   }

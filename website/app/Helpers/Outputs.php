@@ -2,6 +2,24 @@
 
 use App\Libraries\Downloaders;
 
+function generate_contract_id($branch='MBX', $customer) {
+
+  return $branch.'/'. $customer->created_at->format('Ymd') . '/' . $customer->id . strtoupper(str_random(1)) . time();
+
+}
+
+function generate_bill_id($branch='MBX', $customer, $payment) {
+
+  return $branch.'/' . $payment->created_at->format('Ymd') . '/' . $customer->id . '-' . strtoupper(str_random(1)) . time() . '-' . $payment->id;
+
+}
+
+function retrieve_customer_id($customer) {
+
+  return 'BDNBX/' . $customer->created_at->format('Ymd') . '/' . $customer->id;
+
+}
+
 function generate_zip($name, $folder) {
 
   $zip_file = 'uploads/' . $name . '.zip';
@@ -27,7 +45,7 @@ function generate_pdf_bill($payment, $download=FALSE, $destination_folder=FALSE)
   $order = $payment->order()->first();
 
   // In case the payment doesn't match any order in peculiar
-  // So we will address to the user directly
+  // So we will address to the customer directly
   if ($order == NULL) {
 
     $billing = NULL;
@@ -97,7 +115,7 @@ function generate_pdf($html, $pdf_name, $download, $destination_folder) {
  * @param  object $orders    the Order object
  * @return csv  
  */
-function generate_csv_finances_spreadsheet($file_name, $payments)
+function generate_csv_finances_spreadsheet($file_name, $payments, $only_fees=FALSE)
 {
 
   // We make up the titles
@@ -128,8 +146,8 @@ function generate_csv_finances_spreadsheet($file_name, $payments)
 
     // We prepare some stuff
     $profile = $payment->profile()->first();
-    $user = $profile->customer()->first();
-    $email = $user->email;
+    $customer = $profile->customer()->first();
+    $email = $customer->email;
 
     $order = $payment->order()->first();
     if ($order !== NULL) {
@@ -145,17 +163,39 @@ function generate_csv_finances_spreadsheet($file_name, $payments)
     // Refund or not ?
     if ($payment->amount >= 0) {
 
-      $amount = $payment->amount;
+      if ($only_fees) {
+
+        $amount = $payment->fees;
+        $note = "Frais de transfert Stripe pour le paiement de ".Downloaders::prepareForCsv($customer->getFullName());
+        $type_gain = "Frais de transaction";
+
+      } else {
+
+        $amount = $payment->amount;
+        $note = "Vente sur le site à ".Downloaders::prepareForCsv($customer->getFullName());
+        $type_gain = "Vente de boxes";
+
+      }
+
       $statut = "Payé";
-      $note = "Vente sur le site à ".Downloaders::prepareForCsv($user->getFullName());
-      $type_gain = "Vente de boxes";
 
     } else {
 
-      $amount = ($payment->amount) - ($payment->amount*2);
+      if ($only_fees) {
+
+        $amount = ($payment->fees) - ($payment->fees*2);
+        $note = "Remboursement des frais de transfert Stripe pour le paiement de ".Downloaders::prepareForCsv($customer->getFullName());
+        $type_gain = "Remboursement de frais de transaction";
+
+      } else {
+
+        $amount = ($payment->amount) - ($payment->amount*2);
+        $note = "Remboursement sur le site à ".Downloaders::prepareForCsv($customer->getFullName());
+        $type_gain = "Remboursement client";
+
+      }
+
       $statut = "Payé";
-      $note = "Remboursement sur le site à ".Downloaders::prepareForCsv($user->getFullName());
-      $type_gain = "Remboursement client";
 
     }
 
@@ -167,14 +207,14 @@ function generate_csv_finances_spreadsheet($file_name, $payments)
     $montant = str_replace('.', '%coma%', $amount); //money_format('%i', $payment->amount);
 
     $methode = "Carte bancaire"; // This not included any CHECK
-    $crediteur = "BX".$user->id;
+    $crediteur = retrieve_customer_id($customer);
     $type_crediteur = "Personnel";
     $facture = "\"=HYPERLINK(\"\"https://www.bordeauxinbox.fr/v1/archive/public-bill/".$payment->bill_id."\"\"%coma% \"\"".$payment->bill_id."\"\")\"";
 
     $branche = "Boxes principales";
     $gestion = "Laurent Schaffner";
 
-    // Downloaders::prepareForCsv($user->getFullName());
+    // Downloaders::prepareForCsv($customer->getFullName());
 
     $output[] = [
 

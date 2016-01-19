@@ -20,21 +20,21 @@ class LogsController extends BaseController {
 	|
 	*/
 
-    /**
-     * Filters
-     */
-    public function __construct()
-    {
+  /**
+   * Filters
+   */
+  public function __construct()
+  {
     	
-    	$this->beforeMethod();
+    $this->beforeMethod();
 
-    }
+  }
     
 
-    /**
-     * Get the listing page of the blog
-     * @return void
-     */
+  /**
+   * Get the listing page of the blog
+   * @return void
+   */
 	public function getIndex()
 	{
 

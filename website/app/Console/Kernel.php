@@ -13,7 +13,11 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+
         Commands\StripeNormalizeMetadata::class,
+        Commands\StripeNormalizePaymentFees::class,
+        Commands\StripeNormalizePaymentRefundOrders::class,
+        
     ];
 
     /**

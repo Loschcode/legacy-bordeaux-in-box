@@ -80,4 +80,15 @@
 		</tbody>
 
 	</table>
+
+    <div class="panel panel-default">
+      <div class="panel-heading"><i class="fa fa-envelope"></i> Listing des emails de tous les clients de la box</div>
+      <div class="panel-body">
+
+        @foreach ($email_listing_from_all_customers as $email)
+          {{$email}}, 
+        @endforeach
+
+      </div>
+    </div>
 @stop

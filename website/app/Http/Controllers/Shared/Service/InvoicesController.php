@@ -158,12 +158,48 @@ class InvoicesController extends BaseController {
         Log::info('7. We made the payment entry');
 
         // If it's a stripe refund the debit will be negative
-        if ($stripe_refund) $payment->amount = 0 - $database_amount;
-        else $payment->amount = $database_amount;
+        if ($stripe_refund) $payment->amount = -$database_amount;
+        else $payment->amount = +$database_amount;
         
+        /**
+         * Refund auto-detect order (before to save this one)
+         */
+        if ($stripe_refund) {
+
+          $original_payment = Payment::where('stripe_charge', '=', $stripe_charge_id)->whereNotNull('order_id')->first();
+          
+          if ($original_payment !== NULL)
+            $payment->order_id = $original_payment->order_id;
+
+        }
+
         $payment->save();
 
-        $payment->bill_id = strtoupper(str_random(1)) . rand(100,999) . $customer->id . $payment->id;
+        /**
+         * We take into consideration the fees
+         */
+        $callback = Payments::getBalanceFeesFromCharge($stripe_charge_id);
+
+        if ($callback['success']) {
+
+          $fees = $callback['fees'];
+
+          if ($stripe_refund) $payment->fees = -$fees;
+          else $payment->fees = +$fees;
+
+          $payment->save();
+
+        } else {
+
+          Log::info('7.1 We couldn\'t retrieve the fees for this transaction.');
+          Log::info('7.2 Stripe event trace : ' . $stripe_event_id);
+
+        }
+
+        /**
+         * We output the bill
+         */
+        $payment->bill_id = generate_bill_id($branch='MBX', $customer, $payment);
         $payment->save();
 
         Log::info("8. We will now fetch the orders ...");

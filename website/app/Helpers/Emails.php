@@ -28,6 +28,25 @@ function get_email_listing_from_orders($orders) {
 }
 
 /**
+ * Get email listing from all customers
+ * @param  object $orders
+ * @return array with all the emails
+ */
+function get_email_listing_from_all_customers() {
+
+  $emails_list = [];
+
+  foreach (App\Models\Customer::get() as $customer) {
+
+      array_push($emails_list, $customer->email);
+
+  }
+
+  return $emails_list;
+
+}
+
+/**
  * Get email listing from a got orders list (model object)
  * @param  object $orders
  * @return array with all the emails
