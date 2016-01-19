@@ -66,3 +66,23 @@
 //
 =font-rancho
   font-family: 'Rancho', cursive
+
+// ===========================================================
+// Font Montserrat
+// ===========================================================
+// 
+// Write for you the minimal boilerplate to set the font montserrat
+// 
+// @example sass - Basic usage
+//  
+//  .something
+//    +font-montserrat
+//
+=font-montserrat($size: 400)
+  @if not index($font-sizes-montserrat, $size)
+    @warn "`#{inspect($font-sizes-montserrat)}` doesn't seem to have a key named `#{inspect($size)}`."
+  @else
+    font-family: 'Montserrat', sans-serif
+    font-weight: $size
+
+

@@ -1,0 +1,166 @@
+@import url(https://fonts.googleapis.com/css?family=Rancho);
+@import url(https://fonts.googleapis.com/css?family=Gudea:400,400italic,700&subset=latin,latin-ext);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+#csstyle .\+text-center {
+  text-align: center; }
+
+#csstyle .\+text-left {
+  text-align: left; }
+
+#csstyle .\+text-right {
+  text-align: right; }
+
+#csstyle .\+text-justify {
+  text-align: justify; }
+
+#csstyle .\+lowercase {
+  text-transform: lowercase; }
+
+#csstyle .\+uppercase {
+  text-transform: uppercase; }
+
+#csstyle .\+capitalize {
+  text-transform: capitalize; }
+
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box; }
+
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit; }
+
+body {
+  font: 18px/2 serif;
+  font-family: "Gudea", sans-serif;
+  font-weight: 400;
+  color: #364347; }
+
+a {
+  text-decoration: none;
+  color: #364347; }
+
+.header__item {
+  width: 20%;
+  height: 9px;
+  float: left; }
+  .header__item.\--first {
+    background-color: #93F3E0; }
+  .header__item.\--second {
+    background-color: #FFE59E; }
+  .header__item.\--third {
+    background-color: #801E45; }
+  .header__item.\--fourth {
+    background-color: #CF0F40; }
+  .header__item.\--fifth {
+    background-color: #F1C5D6; }
+
+.logo {
+  text-align: center; }
+  .logo__link {
+    display: block;
+    padding-top: 36px; }
+  .logo__picture {
+    max-width: 100%; }
+
+.navbar__list {
+  text-align: center; }
+.navbar__item {
+  display: inline-block;
+  margin-right: 18px;
+  font-size: 19.8px; }
+  .navbar__item a {
+    color: #c0cdd1; }
+
+.artwork {
+  text-align: center; }
+  .artwork__picture {
+    display: block;
+    padding-top: 7.2px;
+    max-width: 100%; }
+
+.title.\--home-punchline {
+  text-align: center;
+  font-family: "Rancho", cursive;
+  font-size: 36px;
+  color: #364347; }
+
+.button {
+  display: inline-block;
+  border: 0;
+  font: inherit;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative; }
+  .button__home-action {
+    background-color: #D83F66;
+    font-size: 23.400000000000002px;
+    padding: 10.799999999999999px;
+    text-align: center;
+    border-radius: 5px;
+    background: color-grey(grey);
+    color: white;
+    text-transform: uppercase;
+    -webkit-box-shadow: inset 0 -6px #b5254a;
+            box-shadow: inset 0 -6px #b5254a;
+    outline: 0;
+    color: white;
+    width: 100%;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400; }
+    .button__home-action i {
+      padding-right: 7.2px; }
+    .button__home-action:active {
+      top: 1px;
+      -webkit-box-shadow: none;
+              box-shadow: none; }
+
+.counter__content {
+  text-align: center;
+  padding-top: 14.4px; }
+
+.section__title {
+  text-align: center;
+  padding-top: 108px;
+  font-family: "Rancho", cursive;
+  font-size: 61.199999999999996px;
+  color: #364347; }
+.section__description {
+  text-align: center;
+  font-size: 21.599999999999998px; }
+
+.step__title {
+  padding-top: 36px;
+  text-align: center;
+  font-family: "Rancho", cursive;
+  font-size: 46.800000000000004px;
+  color: #364347; }
+.step__description {
+  text-align: center;
+  width: 90%;
+  margin: 0 auto;
+  display: block; }
+.step__picture-container {
+  min-height: 360px; }
+.step__picture {
+  max-width: 100%;
+  display: block;
+  padding-bottom: 14.4px; }
+  .step__picture.\--step1 {
+    max-width: 70%;
+    margin: 0 auto; }
+  .step__picture.\--step2 {
+    max-width: 70%;
+    margin: 0 auto;
+    padding-top: 57.6px; }
+  .step__picture.\--step3 {
+    max-width: 70%;
+    margin: 0 auto;
+    padding-top: 50.4px; }
+
+
+/*# sourceMappingURL=masterbox.css.map*/

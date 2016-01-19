@@ -23,7 +23,7 @@ exports.config =
     public: '../public'
 
     # List of all paths watched by brunch.
-    watched: ['sass']
+    watched: ['sass', 'app']
 
   #--------------------------------------------------------------------------
   # Files
@@ -42,7 +42,9 @@ exports.config =
 
     javascripts:
 
-      joinTo: {}
+      joinTo:
+        'javascripts/app.js': /^(app)/
+        'javascripts/vendor.js': /^(vendor|bower_components)/
 
       order:
         before: []
@@ -51,9 +53,8 @@ exports.config =
     stylesheets:
 
       joinTo:
-        'demo/stylesheets/vendor.css': /^(vendor|bower_components|sass\/vendor\/gridle)/
-        'demo/stylesheets/main-boxes.css': /^sass\/main-boxes/
-        'demo/stylesheets/sandbox.css': /^sass\/sandbox/
+        'stylesheets/vendor.css': /^(vendor|bower_components|sass\/vendor\/gridle)/
+        'stylesheets/masterbox.css': /^sass\/masterbox/
 
 
       order:
@@ -61,7 +62,7 @@ exports.config =
         after: []
 
     templates:
-      joinTo: {}
+      joinTo: 'javascripts/app.js'
 
   #--------------------------------------------------------------------------
   # Notifications
