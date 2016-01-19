@@ -199,7 +199,7 @@ class InvoicesController extends BaseController {
         /**
          * We output the bill
          */
-        $payment->bill_id = 'MBX/' . strtoupper(str_random(1)) . rand(100,999) . $customer->id . $payment->id;
+        $payment->bill_id = generate_bill_id($branch='MBX', $customer, $payment);
         $payment->save();
 
         Log::info("8. We will now fetch the orders ...");

@@ -810,7 +810,7 @@ class PurchaseController extends BaseController {
       $customer_profile->save();
 
       // We can already build the contract id
-      $customer_profile->contract_id = 'MBX/'.strtoupper(str_random(1)) . rand(100,999) . $customer->id . $customer_profile->id;
+      $customer_profile->contract_id = generate_contract_id('MBX', $customer);
       $customer_profile->save();
 
       $order_building->profile()->associate($customer_profile);
