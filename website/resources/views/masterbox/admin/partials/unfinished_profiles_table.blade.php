@@ -20,18 +20,6 @@
 						<? $profile = $order_building->profile()->first(); ?>
 						<? $order_preference = $order_building->order_preference()->first(); ?>
 						
-						<? 
-						if ($profile != NULL) {
-							
-							$box = $profile->box()->first();
-
-						} else {
-
-							$box = NULL;
-
-						}
-
-						?>
 						<tr>
 
 							<th>{{$order_building->id}}</th>
@@ -44,15 +32,12 @@
 
 							<th>
 								
-  							@if ($box == NULL)
+                <a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $profile->id])}}">
+                
 
-  								Non renseigné
+                {!! Html::getReadableProfileStatus($profile->status) !!}
 
-  							@else
-
-  								<a href="{{url('/admin/profiles/edit/'.$profile->id)}}">{{$box->title}}</a>
-
-  							@endif
+                </a><br/>
 
 							</th>
 

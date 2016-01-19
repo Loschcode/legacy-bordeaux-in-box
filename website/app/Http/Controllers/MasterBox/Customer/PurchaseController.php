@@ -817,6 +817,10 @@ class PurchaseController extends BaseController {
 
       $order_preference = new CustomerOrderPreference;
       $order_preference->customer_profile()->associate($customer_profile);
+
+      if (session()->get('isGift') === NULL)
+        session()->put('isGift', FALSE);
+      
       $order_preference->gift = session()->get('isGift');
       $order_preference->save();
 

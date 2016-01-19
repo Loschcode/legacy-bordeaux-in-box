@@ -113,7 +113,7 @@ th {
     </tr>
     <tr class="customer-number">
       <td>N° client</td>
-      <td>MBX{{$customer->id}}</td>
+      <td>{{$customer->id}}</td>
     </tr>
   </table>
 </div>

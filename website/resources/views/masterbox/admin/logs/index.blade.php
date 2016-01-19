@@ -140,17 +140,12 @@
 
 								@if ($profile_note->customer_profile()->first() !== NULL)
 
-									@if ($profile_note->customer_profile()->first()->box()->first() != NULL)
+                    <a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile_note->customer_profile()->first()->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $profile_note->customer_profile()->first()->id])}}">
+                    
 
-										<a class="spyro-btn {{Html::getColorFromBoxSlug($profile_note->customer_profile()->first()->box()->first()->slug)}}" href="/admin/profiles/edit/{{$profile_note->customer_profile()->first()->id}}">
-										
-										{{$profile_note->customer_profile()->first()->box()->first()->title}}
+                    {!! Html::getReadableProfileStatus($profile_note->customer_profile()->first()->status) !!}
 
-										</a><br/>
-
-									@else
-									N/A
-									@endif
+                    </a><br/>
 
 								@else
 									N/A
@@ -195,7 +190,7 @@
 						<th>MailGun Message ID</th>
 						<th>Email destinataire</th>
 						<th>Sujet</th>
-						<th>Prépararé</th>
+						<th>Préparé</th>
 						<th>Envoyé</th>
 						<th>Emails / images autorisés</th>
 						<th>Première lecture</th>
@@ -224,17 +219,12 @@
 
 								@if ($email_trace->customer_profile()->first() !== NULL)
 
-									@if ($email_trace->customer_profile()->first()->box()->first() != NULL)
+                    <a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile_note->customer_profile()->first()->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $profile_note->customer_profile()->first()->id])}}">
+                    
 
-										<a class="spyro-btn {{Html::getColorFromBoxSlug($email_trace->customer_profile()->first()->box()->first()->slug)}}" href="/admin/profiles/edit/{{$email_trace->customer_profile()->first()->id}}">
-										
-										{{$email_trace->customer_profile()->first()->box()->first()->title}}
+                    {!! Html::getReadableProfileStatus($profile_note->customer_profile()->first()->status) !!}
 
-										</a><br/>
-
-									@else
-									N/A
-									@endif
+                    </a><br/>
 
 								@else
 									N/A
