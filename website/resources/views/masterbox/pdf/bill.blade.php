@@ -176,7 +176,7 @@ FRANCE
           {{$company_billing_line->label}}
           </th>
           <th>
-          {{$company_billing_line->amount}} €
+          {{euros($company_billing_line->amount)}}
           </th>
 
         </tr>
@@ -190,7 +190,7 @@ FRANCE
         <h1>Total</h1>
         </th>
         <th>
-        <h1>{{$total}} €</h1>
+        <h1>{{euros($total)}}</h1>
         </th>
         </tr>
 
