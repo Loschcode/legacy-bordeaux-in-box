@@ -4,6 +4,8 @@ use App\Http\Controllers\Company\BaseController;
 
 use App\Models\DeliverySerie;
 
+use App\Models\Payment;
+
 class FinancesController extends BaseController {
 
   /*
@@ -70,19 +72,24 @@ class FinancesController extends BaseController {
   }
 
 
-  public function getFinancesSpreadsheetTotalCredits()
+  public function getFinancesSpreadsheetTotalCredits($only_fees=FALSE)
   {
 
     // We will list all the payments as bills
     $payments = Payment::where('amount', '>=', 0)->where('paid', '=', TRUE)->get();
 
-    $csv_name = 'finances-spreadsheet-total-debits-'.time().'.csv';
-    
+    if ($only_fees)
+      $csv_name = 'finances-spreadsheet-credits-only-fees-'.time().'.csv';
+    else
+      $csv_name = 'finances-spreadsheet-credits-'.time().'.csv';
+
+    return generate_csv_finances_spreadsheet($csv_name, $payments, $only_fees);
+
     return generate_csv_finances_spreadsheet($csv_name, $payments);
 
   }
 
-  public function getFinancesSpreadsheetTotalDebits()
+  public function getFinancesSpreadsheetTotalDebits($only_fees=FALSE)
   {
 
     // We will list all the payments as bills
@@ -90,6 +97,13 @@ class FinancesController extends BaseController {
 
     $csv_name = 'finances-spreadsheet-total-debits-'.time().'.csv';
     
+    if ($only_fees)
+      $csv_name = 'finances-spreadsheet-debits-only-fees-'.time().'.csv';
+    else
+      $csv_name = 'finances-spreadsheet-debits-'.time().'.csv';
+
+    return generate_csv_finances_spreadsheet($csv_name, $payments, $only_fees);
+
     return generate_csv_finances_spreadsheet($csv_name, $payments);
 
   }

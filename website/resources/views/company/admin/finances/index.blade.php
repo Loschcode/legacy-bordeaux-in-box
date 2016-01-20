@@ -23,9 +23,11 @@
 
   </ul>
 
-  <a href="{{ action('Company\Admin\FinancesController@getFinancesSpreadsheetTotalCredits') }}">Spreadsheet crédits total</a>
+  <a href="{{ action('Company\Admin\FinancesController@getFinancesSpreadsheetTotalCredits') }}">Spreadsheet crédits total</a> -
+    <a href="{{ action('Company\Admin\FinancesController@getFinancesSpreadsheetTotalCredits', ['only_fees' => TRUE]) }}">Spreadsheet crédits frais Stripe total</a>
   <br />
-  <a href="{{ action('Company\Admin\FinancesController@getFinancesSpreadsheetTotalDebits') }}">Spreadsheet débits total</a>
+
+  <a href="{{ action('Company\Admin\FinancesController@getFinancesSpreadsheetTotalDebits') }}">Spreadsheet débits total</a> - <a href="{{ action('Company\Admin\FinancesController@getFinancesSpreadsheetTotalDebits', ['only_fees' => TRUE]) }}">Spreadsheet débits remboursement frais Stripe total</a>
 
   <div class="tab-content">
 

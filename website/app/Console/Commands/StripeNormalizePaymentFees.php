@@ -39,7 +39,7 @@ class StripeNormalizePaymentFees extends Command {
 
     $this->line('We will normalize the Stripe payments ... ');
 
-    $payments = Payment::orderBy('created_at', 'desc')->get();
+    $payments = Payment::where('paid', '=', TRUE)->orderBy('created_at', 'desc')->get();
 
     foreach ($payments as $payment) {
 
