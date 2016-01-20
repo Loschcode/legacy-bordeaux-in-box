@@ -3,6 +3,21 @@
 use App\Models\Customer;
 
 /**
+ * If we find an error for the label given, we output a text error
+ */
+Html::macro('checkError', function($label, $errors)
+{
+
+  if ($errors->has($label)) {
+    return '<p class="form__error">' . $errors->first($label) . '</p>'; 
+  }
+
+  return;
+
+});
+
+
+/**
  * We will generate a link for the admin to access the user profile, from the email
  */
 Html::macro('generateAdminLinkFromUserEmail', function($email)

@@ -302,6 +302,34 @@ _.mixin({
     return false;
   }
 });
+
+_.mixin({
+  hasFormErrors: function() {
+    var hasErrors;
+    hasErrors = _.trim($('#gotham').data('form-errors'));
+    if (_.isEmpty(hasErrors)) {
+      return false;
+    }
+    if (hasErrors === '1') {
+      return true;
+    }
+    return false;
+  }
+});
+
+_.mixin({
+  notificationFormErrors: function() {
+    if (_.hasFormErrors()) {
+      return swal({
+        title: 'Erreur',
+        text: 'Des erreurs sont présentes dans le formulaire',
+        type: 'error',
+        confirmButtonColor: '#D83F66',
+        html: true
+      });
+    }
+  }
+});
 });
 
 ;require.register("initialize", function(exports, require, module) {
@@ -319,7 +347,7 @@ $(function() {
 });
 
 ;require.register("start", function(exports, require, module) {
-
+_.notificationFormErrors();
 });
 
 ;require.register("validators", function(exports, require, module) {

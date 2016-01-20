@@ -1,0 +1,31 @@
++component(form)
+  
+  +part(input)
+    border: 0
+    outline: 0
+    border-radius: 5px
+    border: 1px solid #D6DBDF
+    width: 100%
+    font-size: 0.5vr
+    +font-lato(300)
+    padding: 0.3vr
+    
+    +option(grouped-left)
+      border-right: 0
+      border-top-right-radius: 0
+      border-bottom-right-radius: 0
+
+    +option(grouped-right)
+      
+      border-top-left-radius: 0
+      border-bottom-left-radius: 0
+
+  +part(title)
+    +font-montserrat
+    border-bottom: 2px solid #D6DBDF
+    margin-bottom: 0.3vr
+
+  +part(error)
+    color: color-get(pink-fluo)
+    font-size: 0.45vr
+    +font-lato(700)

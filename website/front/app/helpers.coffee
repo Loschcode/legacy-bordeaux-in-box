@@ -23,3 +23,25 @@ _.mixin isBatman: (name) ->
     return true
 
   return false
+
+_.mixin hasFormErrors: ->
+
+  hasErrors = _.trim($('#gotham').data('form-errors'))
+
+  if _.isEmpty(hasErrors)
+    return false
+
+  if hasErrors == '1'
+    return true
+
+  return false
+
+_.mixin notificationFormErrors: ->
+
+  if _.hasFormErrors()
+    swal
+      title: 'Erreur'
+      text: 'Des erreurs sont présentes dans le formulaire'
+      type: 'error'
+      confirmButtonColor: '#D83F66'
+      html: true

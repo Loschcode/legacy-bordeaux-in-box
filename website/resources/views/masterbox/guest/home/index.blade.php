@@ -169,53 +169,6 @@
 
 <div class="+spacer"></div>
 
-<div class="footer">
-  <div class="container">
-    <div class="row">
-      <div class="grid-4">
-        <ul>
-          <li><a href="{{ action('MasterBox\Guest\HomeController@getHelp') }}">Foire aux questions</a></li>
-          <li><a href="{{ action('MasterBox\Guest\ContactController@getIndex') }}">Nous contacter</a></li>
-        </ul>
-      </div>
-      <div class="grid-4 push-4">
-        <ul>
-        <li><a href="{{ action('MasterBox\Guest\HomeController@getLegals') }}">Mentions Légales</a></li>
-        <li><a href="{{ action('MasterBox\Guest\HomeController@getCgv') }}">Conditions générales de vente</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
+@include('masterbox.partials.footer')
 
-
-<?php /*
-
-	<div id="others" class="anchor">
-
-		<div class="text-center">
-			<h1 class="title">Et sinon</h1>
-		</div>
-
-		<p class="others">
-			Pour savoir si tout ça est bien légal <a href="{{ action('MasterBox\Guest\HomeController@getLegals') }}">tu peux cliquer là</a> ... et si tu veux nous contacter pour parler de la pluie et du beau temps, <a href="{{ action('MasterBox\Guest\ContactController@getIndex') }}">on est toujours présent !</a>
-		</p>
-
-	</div>
-
-	<div class="spacer20"></div>
-	<div class="center">
-		<a target="_blank" href="{{ config('bdxnbx.facebook') }}" class="button --icon --xxl --facebook"><i class="fa fa-facebook"></i> Rejoins-nous sur Facebook !</a>
-	</div>
-
-</div>
-
-<div class="spacer150"></div>
-</div>
-
-<div class="footer-container">
-	@include('masterbox.partials.footer')
-</div>
-
-*/ ?>
 @stop

@@ -1,0 +1,33 @@
++component(panel)
+  
+  +part(heading)
+    background-color: white
+    border: 1px solid #DDDEDF
+    border-top-right-radius: 5px
+    border-top-left-radius: 5px
+  
+  +part(footer)
+    background-color: white
+    border: 1px solid #DDDEDF
+    border-top: 0
+    border-bottom-right-radius: 5px
+    border-bottom-left-radius: 5px
+    margin-bottom: 2vr
+
+  +part(title)
+    +font-montserrat
+    font-size: 0.6vr
+    text-transform: uppercase
+    text-align: center
+    padding-top: 0.2vr
+    padding-bottom: 0.2vr
+
+  +part(content)
+    background-color: #F5F6F7
+    border: 1px solid #DDDEDF
+    border-top: 0
+    padding: 0.7vr
+
+    a
+      font-weight: bold
+      border-bottom: 1px dotted color-get(dark)
