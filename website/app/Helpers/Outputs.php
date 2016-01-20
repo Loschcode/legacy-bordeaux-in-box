@@ -207,9 +207,20 @@ function generate_csv_finances_spreadsheet($file_name, $payments, $only_fees=FAL
     $montant = str_replace('.', '%coma%', $amount); //money_format('%i', $payment->amount);
 
     $methode = "Carte bancaire"; // This not included any CHECK
-    $crediteur = retrieve_customer_id($customer);
-    $type_crediteur = "Personnel";
-    $facture = "\"=HYPERLINK(\"\"https://www.bordeauxinbox.fr/v1/archive/public-bill/".$payment->bill_id."\"\"%coma% \"\"".$payment->bill_id."\"\")\"";
+
+    if ($only_fees) {
+
+      $crediteur = "Stripe Ltd";
+      $type_crediteur = "Professionnel";
+      $facture = "N/A";
+
+    } else {
+
+      $crediteur = retrieve_customer_id($customer);
+      $type_crediteur = "Personnel";
+      $facture = "\"=HYPERLINK(\"\"https://www.bordeauxinbox.fr/v1/archive/public-bill/".$payment->bill_id."\"\"%coma% \"\"".$payment->bill_id."\"\")\"";
+
+    }
 
     $branche = "Boxes principales";
     $gestion = "Laurent Schaffner";
