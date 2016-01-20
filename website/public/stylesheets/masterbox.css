@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Rancho);
 @import url(https://fonts.googleapis.com/css?family=Gudea:400,400italic,700&subset=latin,latin-ext);
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,300,300italic,400italic,700italic,900,900italic&subset=latin,latin-ext);
 #csstyle .\+text-center {
   text-align: center; }
 
@@ -22,6 +23,14 @@
 #csstyle .\+capitalize {
   text-transform: capitalize; }
 
+#csstyle .\+spacer-small {
+  height: 36px;
+  content: " "; }
+
+#csstyle .\+spacer {
+  height: 72px;
+  content: " "; }
+
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
@@ -32,8 +41,8 @@ html {
 
 body {
   font: 18px/2 serif;
-  font-family: "Gudea", sans-serif;
-  font-weight: 400;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
   color: #364347; }
 
 a {
@@ -45,7 +54,7 @@ a {
   height: 9px;
   float: left; }
   .header__item.\--first {
-    background-color: #93F3E0; }
+    background-color: #4de3be; }
   .header__item.\--second {
     background-color: #FFE59E; }
   .header__item.\--third {
@@ -81,8 +90,9 @@ a {
 
 .title.\--home-punchline {
   text-align: center;
-  font-family: "Rancho", cursive;
-  font-size: 36px;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-size: 28.8px;
   color: #364347; }
 
 .button {
@@ -118,6 +128,26 @@ a {
       top: 1px;
       -webkit-box-shadow: none;
               box-shadow: none; }
+  .button__home-partner {
+    background-color: #D83F66;
+    font-size: 14.4px;
+    padding: 10.799999999999999px;
+    text-align: center;
+    border-radius: 5px;
+    background: color-grey(grey);
+    color: white;
+    text-transform: uppercase;
+    -webkit-box-shadow: inset 0 -6px #b5254a;
+            box-shadow: inset 0 -6px #b5254a;
+    outline: 0;
+    color: white;
+    width: 100%;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400; }
+    .button__home-partner:active {
+      top: 1px;
+      -webkit-box-shadow: none;
+              box-shadow: none; }
 
 .counter__content {
   text-align: center;
@@ -126,8 +156,9 @@ a {
 .section__title {
   text-align: center;
   padding-top: 108px;
-  font-family: "Rancho", cursive;
-  font-size: 61.199999999999996px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 43.199999999999996px;
   color: #364347; }
 .section__description {
   text-align: center;
@@ -136,8 +167,9 @@ a {
 .step__title {
   padding-top: 36px;
   text-align: center;
-  font-family: "Rancho", cursive;
-  font-size: 46.800000000000004px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 28.8px;
   color: #364347; }
 .step__description {
   text-align: center;
@@ -161,6 +193,61 @@ a {
     max-width: 70%;
     margin: 0 auto;
     padding-top: 50.4px; }
+
+.product__picture-container {
+  min-height: 252px;
+  text-align: center;
+  padding-top: 36px; }
+.product__picture.\--glasses {
+  padding-top: 57.6px; }
+.product__picture.\--underwear {
+  padding-top: 57.6px; }
+.product__title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  color: white;
+  font-size: 25.2px;
+  text-align: center; }
+.product__description {
+  text-align: center;
+  color: white;
+  padding: 10.799999999999999px;
+  padding-bottom: 72px; }
+
+.background__green {
+  background-color: #4de3be; }
+.background__pink {
+  background-color: #ecb0c7; }
+.background__yellow {
+  background-color: #ffde85; }
+
+.partner__picture-container {
+  margin-right: 2%;
+  margin-left: 2%;
+  margin-bottom: 10.799999999999999px; }
+.partner__picture {
+  border-radius: 6px;
+  max-width: 100%; }
+
+.footer {
+  text-align: center;
+  color: white;
+  min-height: 216px;
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  padding-top: 36px;
+  padding-bottom: 36px;
+  font-size: 18px;
+  background-color: #ECF0F1; }
+  .footer ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+  .footer li {
+    text-align: left;
+    padding: 0;
+    margin: 0; }
 
 
 /*# sourceMappingURL=masterbox.css.map*/

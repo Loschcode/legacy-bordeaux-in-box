@@ -5083,6 +5083,9 @@ body {
   max-width: 95%;
   margin: 0 auto; }
 
+.container-fluid {
+  width: 100%; }
+
 @media screen and (max-width: 750px) {
   [class*="gr-"] {
     -webkit-flex-basis: 100%;

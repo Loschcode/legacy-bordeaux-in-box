@@ -37,7 +37,7 @@
 
 </head>
 
-<body data-environment="{{ app()->environment() }}">
+<body id="csstyle" data-environment="{{ app()->environment() }}">
   
   <div class="header">
     <div class="header__item --first"></div>

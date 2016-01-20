@@ -85,4 +85,21 @@
     font-family: 'Montserrat', sans-serif
     font-weight: $size
 
+// ===========================================================
+// Font Lato
+// ===========================================================
+// 
+// Write for you the minimal boilerplate to set the font lato
+// 
+// @example sass - Basic usage
+//  
+//  .something
+//    +font-montserrat
+//
+=font-lato($size: 400)
+  @if not index($font-sizes-lato, $size)
+    @warn "`#{inspect($font-sizes-lato)}` doesn't seem to have a key named `#{inspect($size)}`."
+  @else
+    font-family: 'Lato', sans-serif
+    font-weight: $size
 
