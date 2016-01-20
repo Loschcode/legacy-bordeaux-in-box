@@ -23,6 +23,8 @@ Route::group(['namespace' => 'Company', 'domain' => "company.".config('app.domai
    * Company Guest Area
    */
   Route::group(['namespace' => 'Guest', 'prefix' => ''], function() {
+    
+    Route::controller('billing', 'BillingController');
 
   });
 
