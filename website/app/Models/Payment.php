@@ -39,6 +39,25 @@ class Payment extends Model {
 
 	}
 
+  /**
+   * HasOne
+   */
+
+  public function company_billing_lines()
+  {
+
+    return $this->hasOne('App\Models\CompanyBillingLine');
+
+  }
+
+  public function company_billing()
+  {
+
+    $middle = $this->hasOne('App\Models\CompanyBillingLine'); 
+    return $middle->getResults()->belongsTo('App\Models\CompanyBilling', 'company_billing_id'); 
+
+  }
+
 	/**
 	 * Other
 	 */
@@ -48,5 +67,12 @@ class Payment extends Model {
 		return self::where('paid', '=', true)->sum('amount');
 
 	}
+
+  public function getBillEncryptedAccess()
+  {
+
+    return $this->company_billing()->first()->encrypted_access;
+
+  }
 	
 }

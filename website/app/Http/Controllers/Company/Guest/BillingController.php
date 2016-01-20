@@ -19,7 +19,7 @@ class BillingController extends BaseController {
    * Index dashboard
    * @return void
    */
-  public function getFocus($encrypted_access)
+  public function getWatch($encrypted_access)
   {
 
     $company_billing = CompanyBilling::where('encrypted_access', '=', $encrypted_access)->first();
@@ -27,6 +27,21 @@ class BillingController extends BaseController {
       if ($company_billing !== NULL) {
 
         return generate_pdf_bill($company_billing);
+
+      }
+
+    return redirect()->action('MasterBox\Guest\HomeController@getIndex');
+
+  }
+
+  public function getDownload($encrypted_access)
+  {
+
+    $company_billing = CompanyBilling::where('encrypted_access', '=', $encrypted_access)->first();
+
+      if ($company_billing !== NULL) {
+
+        return generate_pdf_bill($company_billing, TRUE);
 
       }
 

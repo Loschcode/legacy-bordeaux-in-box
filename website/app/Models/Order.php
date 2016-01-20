@@ -39,6 +39,7 @@ class Order extends Model {
 
     $middle = $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id'); 
     return $middle->getResults()->hasOne('App\Models\CustomerOrderPreference'); 
+  
   }
 
 	public function customer_profile()

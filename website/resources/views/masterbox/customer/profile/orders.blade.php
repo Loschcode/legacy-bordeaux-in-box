@@ -105,8 +105,9 @@
                 <th>{{$payment->created_at}}</th>
                 <th>
                 @if ($payment->amount > 0)
-                  <a class="spyro-btn spyro-btn-primary upper spyro-btn-sm" href="{{action('MasterBox\Customer\ProfileController@getBill', ['bill_id' => $payment->bill_id])}}" target="_blank">Accéder à ma facture</a>
-                  <a class="spyro-btn spyro-btn-green upper spyro-btn-sm" href="{{action('MasterBox\Customer\ProfileController@getDownloadBill', ['bill_id' => $payment->bill_id])}}" target="_blank">Télécharger ma facture</a>
+
+                  <a class="spyro-btn spyro-btn-primary upper spyro-btn-sm" href="{{action('Company\Guest\BillingController@getWatch', ['encrypted_access' => $payment->getBillEncryptedAccess()])}}" target="_blank">Accéder à ma facture</a>
+                  <a class="spyro-btn spyro-btn-green upper spyro-btn-sm" href="{{action('Company\Guest\BillingController@getDownload', ['encrypted_access' => $payment->getBillEncryptedAccess()])}}" target="_blank">Télécharger ma facture</a>
                 @endif
                 </th>
 
