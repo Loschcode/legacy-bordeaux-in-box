@@ -12,7 +12,8 @@
     "lodash": "~3.9.0",
     "reset-css": "~2.0.2011012602",
     "sweetalert": "~1.1.3",
-    "smooth-scroll": "https://github.com/cferdinandi/smooth-scroll.git#~7.1.1"
+    "smooth-scroll": "https://github.com/cferdinandi/smooth-scroll.git#~7.1.1",
+    "chosen": "~1.4.2"
   },
   "overrides": {
     "reset-css": {
@@ -23,6 +24,14 @@
     "smooth-scroll": {
       "main": [
         "dist/js/smooth-scroll.js"
+      ]
+    },
+    "chosen": {
+      "main": [
+        "chosen.jquery.min.js",
+        "chosen.min.css",
+        "chosen-sprite@2x.png",
+        "chosen-sprite.png"
       ]
     }
   }

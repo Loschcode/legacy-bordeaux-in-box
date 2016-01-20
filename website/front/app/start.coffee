@@ -15,3 +15,9 @@ _.notificationFormErrors()
 # Notify success message returned by Laravel
 ##
 _.notificationSuccessMessage()
+
+##
+# Chosen select form
+##
+$('.js-chosen').chosen
+  disable_search_threshold: 30

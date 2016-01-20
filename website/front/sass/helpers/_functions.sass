@@ -27,7 +27,7 @@
 @function color-light($color, $percentage: 5%)
   $color: color-get($color)
 
-  @return lighten($color)
+  @return lighten($color, $percentage)
 
 // ===========================================================
 // Color Dark

@@ -350,6 +350,10 @@ $(function() {
 _.notificationFormErrors();
 
 _.notificationSuccessMessage();
+
+$('.js-chosen').chosen({
+  disable_search_threshold: 30
+});
 });
 
 ;require.register("validators", function(exports, require, module) {

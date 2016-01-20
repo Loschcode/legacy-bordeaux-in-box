@@ -1,6 +1,16 @@
 @extends('masterbox.layouts.master')
+
 @section('content')
-	
+
+<div class="page">
+  <div class="container">
+    <div class="page__typography">
+      {!! nl2br($help->content) !!}
+    </div>
+  </div>
+</div>
+
+<?php /*
 	<div class="page">
 		<div class="container">
 			<h1 class="page-title">Questions souvent posées</h1>
@@ -23,4 +33,5 @@
   <div class="footer-container">
     @include('masterbox.partials.footer')
   </div>
+*/ ?>
 @stop
