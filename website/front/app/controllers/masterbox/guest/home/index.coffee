@@ -14,6 +14,8 @@ class Index extends Controller
   ##
   before: ->
 
+    @smoothScroll()
+
   ##
   # Run
   #
@@ -39,6 +41,15 @@ class Index extends Controller
       type: 'error'
       confirmButtonColor: '#D83F66'
       html: true
+
+  ##
+  # When an user click on an anchor, we do an auto
+  # smooth scroll.
+  ##
+  smoothScroll: ->
+
+    smoothScroll.init
+      selector: '.js-anchor'
 
 
 

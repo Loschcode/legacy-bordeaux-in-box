@@ -51,7 +51,7 @@
 
 
 {{-- Section how it works --}}
-<div class="section">
+<div id="how-to" class="section">
 	<h1 class="section__title">Comment ça marche ?</h1>
 	<p class="section__description">Plaisir perso ou idée cadeau, voici comment ça marche !</p>
 </div>
@@ -95,7 +95,7 @@
 </div>
 
 {{-- Section Inside the box --}}
-<div class="section">
+<div id="inside" class="section">
 	<h1 class="section__title">Ce qu'il y a dans la boîte !</h1>
 </div>
 

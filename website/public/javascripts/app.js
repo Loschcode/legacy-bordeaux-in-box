@@ -159,7 +159,9 @@ Index = (function(superClass) {
     return Index.__super__.constructor.apply(this, arguments);
   }
 
-  Index.prototype.before = function() {};
+  Index.prototype.before = function() {
+    return this.smoothScroll();
+  };
 
   Index.prototype.run = function() {
     return this.on('click', '.js-no-boxes', this.alertNoBoxes);
@@ -173,6 +175,12 @@ Index = (function(superClass) {
       type: 'error',
       confirmButtonColor: '#D83F66',
       html: true
+    });
+  };
+
+  Index.prototype.smoothScroll = function() {
+    return smoothScroll.init({
+      selector: '.js-anchor'
     });
   };
 
