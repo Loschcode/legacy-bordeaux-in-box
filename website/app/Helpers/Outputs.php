@@ -4,19 +4,22 @@ use App\Libraries\Downloaders;
 
 function generate_contract_id($branch='MBX', $customer) {
 
-  return $branch.'/'. $customer->created_at->format('Ymd') . '/' . $customer->id . strtoupper(str_random(1)) . time();
+  return $branch.'/'. $customer->created_at->format('ymd') . 'CON' . $customer->id . 'R' . rand(0,999);
 
 }
 
-function generate_bill_id($branch='MBX', $customer, $payment) {
+function generate_bill_id($branch='MBX', $customer, $order=NULL) {
 
-  return $branch.'/' . $payment->created_at->format('Ymd') . '/' . $customer->id . '-' . strtoupper(str_random(1)) . time() . '-' . $payment->id;
+  if ($order === NULL)
+    return $branch.'/' . $customer->created_at->format('ymd') . 'BIL' . $customer->id . 'R' . rand(0,999);
+  else
+    return $branch.'/' . $order->created_at->format('ymd') . 'BIL' . $customer->id . 'O' . $order->id;
 
 }
 
 function retrieve_customer_id($customer) {
 
-  return 'BDNBX/' . $customer->created_at->format('Ymd') . '/' . $customer->id;
+  return 'BDNBX/' . $customer->created_at->format('ymd') . 'CUS' . $customer->id;
 
 }
 
@@ -36,36 +39,18 @@ function generate_zip($name, $folder) {
 /**
  * Generate a PDF for the bills (linked to payments)
  */
-function generate_pdf_bill($payment, $download=FALSE, $destination_folder=FALSE) {
+function generate_pdf_bill($company_billing, $download=FALSE, $destination_folder=FALSE) {
 
-  $customer = $payment->customer()->first();
-  $profile = $payment->profile()->first();
-  $customer_order_preference = $profile->order_preference()->first();
-
-  $order = $payment->order()->first();
-
-  // In case the payment doesn't match any order in peculiar
-  // So we will address to the customer directly
-  if ($order == NULL) {
-
-    $billing = NULL;
-
-  } else {
-
-    $billing = $order->billing()->first();
-
-  }
+  $company_billing_lines = $company_billing->billing_lines()->get();
+  $total = $company_billing_lines->sum('amount');
 
   $html = view('masterbox.pdf.bill')->with(compact(
-    'customer',
-    'customer_order_preference',
-    'order',
-    'billing',
-    'payment',
-    'profile'
+    'company_billing',
+    'company_billing_lines',
+    'total'
   ));
 
-  $pdf_name = $payment->bill_id . '.pdf';
+  $pdf_name = $company_billing->bill_id . '.pdf';
 
   return generate_pdf($html, $pdf_name, $download, $destination_folder);
 

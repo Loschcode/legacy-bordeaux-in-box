@@ -19,13 +19,28 @@ class Order extends Model {
 	/**
 	 * Belongs To
 	 */
-	
+
+  public function company_billing()
+  {
+
+    return $this->belongsTo('App\Models\CompanyBilling', 'billing_id');
+
+  }
+
 	public function customer()
 	{
 
 		return $this->belongsTo('App\Models\Customer', 'customer_id');
 
 	}
+
+  public function customer_preference()
+  {
+
+    $middle = $this->belongsTo('App\Models\CustomerProfile', 'customer_profile_id'); 
+    return $middle->getResults()->hasOne('App\Models\CustomerOrderPreference'); 
+  
+  }
 
 	public function customer_profile()
 	{

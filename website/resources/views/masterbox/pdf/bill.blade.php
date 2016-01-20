@@ -46,6 +46,18 @@ table {
   width: 40%;
 }
 
+.w45 {
+  width: 45%;
+}
+
+.w50 {
+  width: 50%;
+}
+
+.w55 {
+  width: 55%;
+}
+
 .w60 {
   width: 60%;
 }
@@ -73,7 +85,7 @@ table {
 }
 
 .micro {
-  font-size: 8px;
+  font-size: 10px;
 }
 
 table, th, td {
@@ -86,34 +98,30 @@ th {
 </head>
 
 <body>
-<img src="{{ url('assets/img/logo-text.png')}}" width="200" />
+<img src=" url('assets/img/logo-text.png')" width="200" />
 
 <br />
 
-<div class="right w60">
+<div class="right w50">
 &nbsp;
 </div>
-<div class="right w40">
+<div class="right w50">
   <table>
     <tr>
       <td><strong>Facture du</strong></td>
-      <td><strong>{{$payment->created_at->format('d.m.Y')}}</strong></td>
-    </tr>
-    <tr>
-      <td>N° de transaction</td>
-      <td>{{$payment->id}}</td>
+      <td><strong>{{$company_billing->created_at->format('d.m.Y')}}</strong></td>
     </tr>
     <tr>
       <td>N° de facture</td>
-      <td>{{$payment->bill_id}}</td>
+      <td>{{$company_billing->bill_id}}</td>
     </tr>
     <tr>
       <td>N° d'abonnement</td>
-      <td>{{$profile->contract_id}}</td>
+      <td>{{$company_billing->contract_id}}</td>
     </tr>
     <tr class="customer-number">
       <td>N° client</td>
-      <td>{{retrieve_customer_id($customer)}}</td>
+      <td>{{$company_billing->customer_id}}</td>
     </tr>
   </table>
 </div>
@@ -126,18 +134,12 @@ th {
 <strong>
 Madame, Monsieur<br />
 
-@if ($billing != NULL)
+{{$company_billing->first_name}} {{$company_billing->last_name}}<br />
 
-{{$billing->first_name}} {{$billing->last_name}}<br />
-{{$billing->address}}<br/>
-{{$billing->zip}} {{$billing->city}}<br />
+@if ($company_billing->address !== NULL)
 
-@else
-
-{{$customer->first_name}} {{$customer->last_name}}<br />
-{{$customer->address}}<br/>
-{{$customer->zip}} {{$customer->city}}<br />
-
+{{$company_billing->address}}<br/>
+{{$company_billing->zip}} {{$company_billing->city}}<br />
 
 @endif
 
@@ -147,27 +149,15 @@ FRANCE
 
 <br />
 
-<h2>Box principale</h2>
-
-@if ($order == NULL)
-  
-  Cette facture n'est reliée à aucune commande en particulier. La transaction bancaire correspondante est de {{$payment->amount}}€
-
-  @if ($payment->paid == 0)
-
-   (ECHEC)
-
-  @endif
-
-@else
+<h2>{{$company_billing->title}}</h2>
 
   <table>
 
     <thead>
 
       <tr>
+        <th>Transaction</th>
         <th>Prestation</th>
-        <th>Date approximative de livraison</th>
         <th>Montant à payer</th>
       </tr>
 
@@ -175,41 +165,41 @@ FRANCE
 
     <tbody>
 
+        @foreach ($company_billing_lines as $company_billing_line)
+
         <tr>
 
-        @if ($order != NULL)
-
-          <th>Frais d'abonnement de la box surprise
-          
-          @if ($order->gift == TRUE)
-          (à offrir / paiement en une fois)
-          @endif
-
+          <th>
+          <strong>#{{$company_billing_line->payment_id}}</strong>
           </th>
-          <th>{{$order->delivery_serie()->first()->delivery}}</th>
-          <th>{{$payment->amount}}€
-          <br />
-          <span class="micro">TVA non applicable, article 293 B du Code général des impôts
-          </span>
-
-          <!-- $order->unity_and_fees_price -->
-
-          @if ($payment->paid == 0)
-
-           (ECHEC)
-
-          @endif
-  
+          <th>
+          {{$company_billing_line->label}}
           </th>
-        @endif
-          
+          <th>
+          {{euros($company_billing_line->amount)}}
+          </th>
+
+        </tr>
+
+        @endforeach
+
+        <tr>
+        <th>
+        </th>
+        <th>
+        <h1>Total</h1>
+        </th>
+        <th>
+        <h1>{{euros($total)}}</h1>
+        </th>
         </tr>
 
     </tbody>
 
   </table>
-
-@endif
+<h2></h2>
+<div align="right"><span class="micro">TVA non applicable, article 293 B du Code général des impôts</span>
+</div>
 
 <br />
 

@@ -1,5 +1,11 @@
 <?php
 
+function euros($number) {
+
+  return number_format($number, 2, ',', ' ') . ' €';
+
+}
+
 function order_spot_or_destination_zip($order) {
 
   if ($order->take_away == TRUE) {

@@ -75,31 +75,6 @@ class ProfileController extends BaseController {
 
     }
 
-    // Check a bill
-    public function getBill($bill_id)
-    {
-
-    	$customer = Auth::guard('customer')->user();
-    	$payment = Payment::where('bill_id', $bill_id)->first();
-
-    	if ($payment != NULL) {
-
-    		// If it's not the user bill, we redirect him
-    		if ($payment->customer()->first()->id != $customer->id) {
-
-    			return redirect()->to('/profile');
-
-    		}
-
-    		return generate_pdf_bill($payment);
-
-    	}
-
-		return redirect()->to('/profile');
-
-    }
-
-
     // Check and download a bill
     public function getDownloadBill($bill_id)
     {
