@@ -46,6 +46,18 @@ table {
   width: 40%;
 }
 
+.w45 {
+  width: 45%;
+}
+
+.w50 {
+  width: 50%;
+}
+
+.w55 {
+  width: 55%;
+}
+
 .w60 {
   width: 60%;
 }
@@ -73,7 +85,7 @@ table {
 }
 
 .micro {
-  font-size: 8px;
+  font-size: 10px;
 }
 
 table, th, td {
@@ -86,14 +98,14 @@ th {
 </head>
 
 <body>
-<img src="{{ url('assets/img/logo-text.png')}}" width="200" />
+<img src=" url('assets/img/logo-text.png')" width="200" />
 
 <br />
 
-<div class="right w60">
+<div class="right w50">
 &nbsp;
 </div>
-<div class="right w40">
+<div class="right w50">
   <table>
     <tr>
       <td><strong>Facture du</strong></td>
@@ -144,6 +156,7 @@ FRANCE
     <thead>
 
       <tr>
+        <th>Transaction</th>
         <th>Prestation</th>
         <th>Montant à payer</th>
       </tr>
@@ -157,6 +170,9 @@ FRANCE
         <tr>
 
           <th>
+          <strong>#{{$company_billing_line->payment_id}}</strong>
+          </th>
+          <th>
           {{$company_billing_line->label}}
           </th>
           <th>
@@ -167,14 +183,23 @@ FRANCE
 
         @endforeach
 
+        <tr>
+        <th>
+        </th>
+        <th>
+        <h1>Total</h1>
+        </th>
+        <th>
+        <h1>{{$total}} €</h1>
+        </th>
+        </tr>
+
     </tbody>
 
   </table>
-
-  Total : {{$total}}
-
-  <span class="micro">TVA non applicable, article 293 B du Code général des impôts
-  </span>
+<h2></h2>
+<div align="right"><span class="micro">TVA non applicable, article 293 B du Code général des impôts</span>
+</div>
 
 <br />
 

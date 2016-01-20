@@ -177,13 +177,14 @@ class BillingNormalizeMasterbox extends Command {
     }
 
     $this->info('We will create billing for orphan payments ...');
+
     $payments = Payment::whereNull('order_id')->get();
 
     foreach ($payments as $payment) {
 
       $this->info('We will process the payment `'.$payment->id.'`');
 
-      $customer = $order->customer()->first();
+      $customer = $payment->customer()->first();
 
       $company_billing = new CompanyBilling;
       $company_billing->branch = 'masterbox';
@@ -206,7 +207,7 @@ class BillingNormalizeMasterbox extends Command {
       } else {
 
         $billing_line = new CompanyBillingLine;
-        $billing_line->company_billing_id = $billing->id;
+        $billing_line->company_billing_id = $company_billing->id;
         $billing_line->payment_id = $payment->id;
         $billing_line->label = "Remboursement de la box surprise";
         $billing_line->amount = $payment->amount;

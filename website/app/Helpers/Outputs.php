@@ -4,22 +4,22 @@ use App\Libraries\Downloaders;
 
 function generate_contract_id($branch='MBX', $customer) {
 
-  return $branch.'/'. $customer->created_at->format('Ymd') . '/' . $customer->id . strtoupper(str_random(1)) . time();
+  return $branch.'/'. $customer->created_at->format('ymd') . '/' . $customer->id . strtoupper(str_random(1)) . $customer->created_at->format('His');
 
 }
 
 function generate_bill_id($branch='MBX', $customer, $order=NULL) {
 
   if ($order === NULL)
-    return $branch.'/' . $customer->created_at->format('Ymd') . '/' . $customer->id . '-' . strtoupper(str_random(1)) . time() . '-0';
+    return $branch.'/' . $customer->created_at->format('ymd') . '/' . $customer->id . '-' . strtoupper(str_random(1)) . $customer->created_at->format('His') . '-0';
   else
-    return $branch.'/' . $order->created_at->format('Ymd') . '/' . $customer->id . '-' . strtoupper(str_random(1)) . time() . '-' . $order->id;
+    return $branch.'/' . $order->created_at->format('ymd') . '/' . $customer->id . '-' . strtoupper(str_random(1)) . $customer->created_at->format('His') . '-' . $order->id;
 
 }
 
 function retrieve_customer_id($customer) {
 
-  return 'BDNBX/' . $customer->created_at->format('Ymd') . '/' . $customer->id;
+  return 'BDNBX/' . $customer->created_at->format('ymd') . '/' . $customer->id;
 
 }
 
