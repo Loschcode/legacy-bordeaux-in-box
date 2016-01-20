@@ -6,6 +6,7 @@
 	data-controller="masterbox.guest.home.index"
 	data-no-boxes-title="Désolé"
 	data-no-boxes-text="Il ne reste plus aucune box pour ce mois ci !"
+	data-success-message="@if (session()->has('status')) {{ session()->get('status') }} @endif"
 ></div>
 
 <div class="artwork">

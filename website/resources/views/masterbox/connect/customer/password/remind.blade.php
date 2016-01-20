@@ -1,41 +1,47 @@
 @extends('masterbox.layouts.master')
-
 @section('content')
-		
-	<div class="spacer50"></div>
-	<div class="col-md-4 col-md-offset-4">
-    
-    @if (count($errors) > 0)
-        <div class="remove spyro-alert spyro-alert-danger">
-          <strong>Whoops !</strong> Il y'a des erreurs dans le formulaire <br/>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
 
-		@if (session()->has('status'))
-			<div class="spyro-alert spyro-alert-green">{{ session()->get('status') }}</div>
-		@endif
+<div 
+  id="gotham"
+  data-form-errors="{{ $errors->has() }}"
+  data-success-message="@if (session()->has('status')) {{ session()->get('status') }} @endif"
+></div>
+
+<div class="+spacer-small"></div>
+
+<div class="container">
+  <div class="grid-8 grid-centered">
 
     {!! Form::open(['action' => 'MasterBox\Connect\PasswordRemindersController@postRemind']) !!}
-		  <input type="text" name="email" placeholder="Email">
 
-		  @if (session()->has('error'))
-		    <div class="error"><i class="fa fa-times"></i> {{ session()->get('error') }}</div>
-		  @endif
-      
-		  <input type="submit" value="Réinitialiser mon mot de passe" class="spyro-btn spyro-btn-block spyro-btn-red spyro-btn-lg upper">
-    
+    <div class="panel">
+      <div class="panel__heading">
+        <h2 class="panel__title">Mot de passe oublié</h2>
+      </div>
+      <div class="panel__content">
+
+        <div class="+spacer-extra-small"></div>
+
+        <div class="form">
+
+          {!! Form::text("email", Request::old("email"), ['placeholder' => 'Email', 'class' => 'form__input']) !!}
+          {!! Html::checkError('email', $errors) !!}
+
+          <div class="+spacer-small"></div>
+
+        </div>
+      </div>
+      <div class="panel__footer">
+        <button type="submit" class="button button__submit --panel">Récupérer mon mot de passe</button>
+      </div>
+    </div>
     {!! Form::close() !!}
 
-	</div>
-	<div class="clearfix"></div>
+  </div>
 
-	<div class="spacer200"></div>
+</div>
 
-	@include('masterbox.partials.front.footer', ['stick' => true])
+@include('masterbox.partials.footer')
 
 @stop
+

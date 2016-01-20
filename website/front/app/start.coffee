@@ -7,6 +7,11 @@
 ##
 
 ##
-# Auto errors system for forms validated by Laravel
+# Notify errors from froms validated by Laravel
 ##
 _.notificationFormErrors()
+
+##
+# Notify success message returned by Laravel
+##
+_.notificationSuccessMessage()

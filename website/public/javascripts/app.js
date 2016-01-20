@@ -295,39 +295,39 @@ module.exports = View;
 
 ;require.register("helpers", function(exports, require, module) {
 _.mixin({
-  isBatman: function(name) {
-    if (name.toLowerCase() === "batman") {
-      return true;
-    }
-    return false;
-  }
-});
-
-_.mixin({
-  hasFormErrors: function() {
+  notificationFormErrors: function() {
     var hasErrors;
     hasErrors = _.trim($('#gotham').data('form-errors'));
     if (_.isEmpty(hasErrors)) {
-      return false;
+      return;
     }
-    if (hasErrors === '1') {
-      return true;
+    if (hasErrors !== '1') {
+      return;
     }
-    return false;
+    return swal({
+      title: 'Erreur',
+      text: 'Des erreurs sont présentes dans le formulaire',
+      type: 'error',
+      confirmButtonColor: '#D83F66',
+      html: true
+    });
   }
 });
 
 _.mixin({
-  notificationFormErrors: function() {
-    if (_.hasFormErrors()) {
-      return swal({
-        title: 'Erreur',
-        text: 'Des erreurs sont présentes dans le formulaire',
-        type: 'error',
-        confirmButtonColor: '#D83F66',
-        html: true
-      });
+  notificationSuccessMessage: function() {
+    var successMessage;
+    successMessage = _.trim($('#gotham').data('success-message'));
+    if (_.isEmpty(successMessage)) {
+      return;
     }
+    return swal({
+      title: 'Bravo !',
+      text: successMessage,
+      type: 'success',
+      confirmButtonColor: '#A5DC86',
+      html: true
+    });
   }
 });
 });
@@ -348,6 +348,8 @@ $(function() {
 
 ;require.register("start", function(exports, require, module) {
 _.notificationFormErrors();
+
+_.notificationSuccessMessage();
 });
 
 ;require.register("validators", function(exports, require, module) {

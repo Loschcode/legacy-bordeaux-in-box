@@ -11,37 +11,38 @@
 ##
 
 ##
-# Example
-#
-# Check if the user is batman
-#
-# @param [string] Name of the user
+# If laravel returned a form error, it displays a sweet alert
 ##
-_.mixin isBatman: (name) ->
-
-  if name.toLowerCase() is "batman"
-    return true
-
-  return false
-
-_.mixin hasFormErrors: ->
+_.mixin notificationFormErrors: ->
 
   hasErrors = _.trim($('#gotham').data('form-errors'))
 
   if _.isEmpty(hasErrors)
-    return false
+    return
 
-  if hasErrors == '1'
-    return true
+  unless hasErrors == '1'
+    return
 
-  return false
+  swal
+    title: 'Erreur'
+    text: 'Des erreurs sont présentes dans le formulaire'
+    type: 'error'
+    confirmButtonColor: '#D83F66'
+    html: true
 
-_.mixin notificationFormErrors: ->
+##
+# If laravel returned a success message, it displays a sweet alert
+##
+_.mixin notificationSuccessMessage: ->
 
-  if _.hasFormErrors()
-    swal
-      title: 'Erreur'
-      text: 'Des erreurs sont présentes dans le formulaire'
-      type: 'error'
-      confirmButtonColor: '#D83F66'
-      html: true
+  successMessage = _.trim($('#gotham').data('success-message'))
+
+  if _.isEmpty(successMessage)
+    return
+
+  swal
+    title: 'Bravo !'
+    text: successMessage
+    type: 'success'
+    confirmButtonColor: '#A5DC86'
+    html: true
