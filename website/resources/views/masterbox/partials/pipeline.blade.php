@@ -16,7 +16,7 @@
 					<h2 class="pipeline__title">Etape 2</h2>
 					<div class="pipeline__progress"></div>
 					<a class="pipeline__dot" href="#"></a>
-					<p class="pipeline__description"><i class="fa fa-truck"></i> Facturation / Livraison</p>
+					<p class="pipeline__description"><i class="fa fa-truck"></i> Livraison / Facturation</p>
 				</div>
 			</div>
 			<div class="grid-3 no-gutter">

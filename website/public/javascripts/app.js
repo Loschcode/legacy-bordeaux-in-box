@@ -143,6 +143,46 @@ Example = (function(superClass) {
 module.exports = Example;
 });
 
+;require.register("controllers/masterbox/customer/purchase/billing-address", function(exports, require, module) {
+var BillingAddress, Controller,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+BillingAddress = (function(superClass) {
+  extend(BillingAddress, superClass);
+
+  function BillingAddress() {
+    return BillingAddress.__super__.constructor.apply(this, arguments);
+  }
+
+  BillingAddress.prototype.before = function() {};
+
+  BillingAddress.prototype.run = function() {
+    return this.on('click', '#copy', this.copyFormDestination);
+  };
+
+  BillingAddress.prototype.copyFormDestination = function(e) {
+    var fields;
+    e.preventDefault();
+    fields = ['city', 'zip', 'address'];
+    return _.each(fields, (function(_this) {
+      return function(field) {
+        var value;
+        value = $('[name=destination_' + field + ']').val();
+        return $('[name=billing_' + field + ']').val(value);
+      };
+    })(this));
+  };
+
+  return BillingAddress;
+
+})(Controller);
+
+module.exports = BillingAddress;
+});
+
 ;require.register("controllers/masterbox/guest/home/index", function(exports, require, module) {
 var Controller, Index,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -309,7 +349,7 @@ _.mixin({
     if (!_.isEmpty(titleErrors)) {
       title = titleErrors;
     } else {
-      title = 'Erreur';
+      title = 'Attention';
     }
     if (!_.isEmpty(textErrors)) {
       text = textErrors;

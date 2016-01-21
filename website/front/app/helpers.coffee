@@ -30,7 +30,7 @@ _.mixin notificationFormErrors: ->
   unless _.isEmpty(titleErrors)
     title = titleErrors
   else
-    title = 'Erreur'
+    title = 'Attention'
 
   # Guess text
   unless _.isEmpty(textErrors)
