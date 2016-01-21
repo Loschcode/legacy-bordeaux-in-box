@@ -4,22 +4,22 @@ use App\Libraries\Downloaders;
 
 function generate_contract_id($branch='MBX', $customer) {
 
-  return $branch.'/'. $customer->created_at->format('ymd') . 'CON' . $customer->id . 'R' . rand(0,999);
+  return $branch . $customer->created_at->format('ymd') . 'CON' . $customer->id . 'R' . rand(0,999);
 
 }
 
 function generate_bill_id($branch='MBX', $customer, $order=NULL) {
 
   if ($order === NULL)
-    return $branch.'/' . $customer->created_at->format('ymd') . 'BIL' . $customer->id . 'R' . rand(0,999);
+    return $branch . $customer->created_at->format('ymd') . 'BIL' . $customer->id . 'R' . rand(0,999);
   else
-    return $branch.'/' . $order->created_at->format('ymd') . 'BIL' . $customer->id . 'O' . $order->id;
+    return $branch . $order->created_at->format('ymd') . 'BIL' . $customer->id . 'O' . $order->id;
 
 }
 
 function retrieve_customer_id($customer) {
 
-  return 'BDNBX/' . $customer->created_at->format('ymd') . 'CUS' . $customer->id;
+  return 'BDNBX' . $customer->created_at->format('ymd') . 'CUS' . $customer->id;
 
 }
 

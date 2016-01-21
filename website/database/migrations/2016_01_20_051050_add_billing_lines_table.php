@@ -24,7 +24,7 @@ class AddBillingLinesTable extends Migration
       $table->text('label');
       $table->float('amount');
       
-      $table->integer('company_billing_id')->unsigned()->nullable();
+      $table->integer('company_billing_id')->unsigned();
 
       // Timestamps
       $table->timestamps();

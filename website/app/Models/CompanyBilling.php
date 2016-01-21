@@ -30,6 +30,19 @@ class CompanyBilling extends Model {
 
         });
 
+        static::deleting(function($billing) {
+
+          /**
+           * We also delete the lines associated
+           */
+          $company_billing_lines = $billing->billing_lines()->get();
+          
+          foreach ($company_billing_lines as $company_billing_line) {
+            $company_billing_line->delete();
+          }
+
+        });
+
     }
 
   /**
