@@ -521,8 +521,8 @@ class PurchaseController extends BaseController {
       if ($order_preference->gift) {
 
         $unity_and_fees_price = $order_preference->totalPricePerMonth() / $order_preference->frequency;
-        $unity_price = $order_preference->unity_price / $order_preference->unity_price;
-        $delivery_fees = $order_preference->delivery_fees / $order_preference->delivery_fees;
+        $unity_price = $order_preference->unity_price / $order_preference->frequency;
+        $delivery_fees = $order_preference->delivery_fees / $order_preference->frequency;
       
       } else { 
 

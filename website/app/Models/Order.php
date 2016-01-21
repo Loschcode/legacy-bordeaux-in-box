@@ -103,7 +103,8 @@ class Order extends Model {
 	public function payments()
 	{
 
-		return $this->hasMany('App\Models\Payment');
+    return $this->belongsToMany('App\Models\Payment', 'order_payments');
+		//return $this->hasManyThrough('App\Models\Payment', 'App\Models\OrderPayment');
 
 	}
 	
@@ -187,6 +188,18 @@ class Order extends Model {
 		}
 
 	}
+
+  /**
+   * Only the payable orders (used in the Invoice to credit orders)
+   */
+  public function scopeOnlyPayable($query)
+  {
+
+    return $query->where('status', '!=', 'paid')
+                 ->where('status', '!=', 'delivered')
+                 ->where('status', '!=', 'canceled');
+
+  }
 
 	public function scopeByFrequency($query, $frequency)
 	{

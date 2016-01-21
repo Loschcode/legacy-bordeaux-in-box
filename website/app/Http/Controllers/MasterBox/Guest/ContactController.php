@@ -76,7 +76,7 @@ class ContactController extends BaseController {
         $contact->recipient = $email;
         $contact->save();
 
-      // Specific to the admisn, so we don't log it
+      // Specific to the admin, so we don't log it
       Mail::queue('masterbox.emails.contact', $data, function($message) use ($email, $fields)
       {
           $message->from($fields['email'])->to($email)->subject('Prise de contact');
