@@ -489,6 +489,7 @@ class InvoicesController extends BaseController {
 
           'first_name' => $customer->first_name,
           'amount' => $email_amount,
+          'paid' => $payment->paid,
 
         ];
 
