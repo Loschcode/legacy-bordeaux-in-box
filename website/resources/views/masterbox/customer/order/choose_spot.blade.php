@@ -2,6 +2,12 @@
 
 @section('content')
   
+<div 
+  id="gotham"
+  data-controller="masterbox.customer.purchase.choose-spot"
+  data-form-errors="{{ $errors->has() }}"
+  data-form-errors-text="Tu dois choisir le point relais que tu préfères"
+></div>
 
 <div class="container">
   
@@ -13,16 +19,34 @@
     <div class="section">
       <h2 class="section__title --choose-frequency">Choisis ton point relais</h2>
       <p class="section__description --choose-frequency">
-        @if ($order_preference->isGift())
-          Envie de faire plaisir sur la durée ?
-        @else
-          Envie de recevoir une jolie box chaque mois ? Ou juste faire un test ?
-        @endif
+        Où veux-tu que la box soit déposée ?
       </p>
     </div>
   </div>
   
   <div class="+spacer"></div>
+
+  <div class="grid-7 grid-centered labelauty-choose-frequency">
+
+    {!! Form::open() !!}
+    
+    @foreach ($delivery_spots as $delivery_spot)
+
+      {!! Form::radio('chosen_spot', $delivery_spot->id, ($chosen_delivery_spot == $delivery_spot->id) ? true : Request::old($delivery_spot->id), ['id' => $delivery_spot->id, 'data-labelauty' => Html::getTextCheckboxSpot($delivery_spot)]) !!}
+ 
+      <div class="+spacer-extra-small"></div>
+
+      <a id="gmap-{{ $delivery_spot->id }}" href="{{ $delivery_spot->getUrlGoogleMap() }}" target="_blank" class="button button__google-map +hidden">Voir sur Google map</a>
+
+    @endforeach
+
+    <div class="+spacer-extra-small"></div>
+
+    <button class="button button__submit --big" type="submit"><i class="fa fa-check"></i> Valider</button>
+    
+
+    {!! Form::close()  !!}
+  </div>
 
 </div>
 

@@ -80,17 +80,18 @@ class DeliverySpot extends Model {
 
 	}
 
-	public function readableSpot()
-	{
+  /**
+   * Fetch the google map url of the spot
+   * @return string
+   */
+  public function getUrlGoogleMap()
+  {
 
-		return $this->name . ' <br/> <small><i class="fa fa-map-marker"></i>' . $this->address . ', ' . $this->city . ' ('.$this->zip.')</span>';
+    $address = str_slug($this->address . ' ' . $this->city . ' ' . $this->zip, "+");
 
-	}
+    return 'https://www.google.com/maps/place/' . $address;
 
-	public function googleMaps()
-	{
-		return $this->name . ' - ' . $this->address . ' - ' . $this->city . ' - ' . $this->zip;
-	}
+  }
 
 	public function emailReadableSpot()
 	{

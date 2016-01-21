@@ -183,6 +183,42 @@ BillingAddress = (function(superClass) {
 module.exports = BillingAddress;
 });
 
+;require.register("controllers/masterbox/customer/purchase/choose-spot", function(exports, require, module) {
+var ChooseSpot, Controller,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+ChooseSpot = (function(superClass) {
+  extend(ChooseSpot, superClass);
+
+  function ChooseSpot() {
+    return ChooseSpot.__super__.constructor.apply(this, arguments);
+  }
+
+  ChooseSpot.prototype.before = function() {};
+
+  ChooseSpot.prototype.run = function() {
+    return this.on('click', 'label', this.displayGoogleMap);
+  };
+
+  ChooseSpot.prototype.displayGoogleMap = function() {
+    var id;
+    $('[id^=gmap]').addClass('+hidden');
+    id = $(this).attr('for');
+    if ($('#gmap-' + id).hasClass('+hidden')) {
+      return $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn();
+    }
+  };
+
+  return ChooseSpot;
+
+})(Controller);
+
+module.exports = ChooseSpot;
+});
+
 ;require.register("controllers/masterbox/guest/home/index", function(exports, require, module) {
 var Controller, Index,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },

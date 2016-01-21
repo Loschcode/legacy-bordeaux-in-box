@@ -17,9 +17,21 @@ Html::macro('checkError', function($label, $errors)
 });
 
 /**
- * Check if we need to return the class --complete for the pipeline
+ * Return the html to set in the spot checkbox
  */
-Html::macro('pipelineComplete', function($step_pipeline, $current_step) {
+Html::macro('getTextCheckboxSpot', function($delivery_spot) 
+{
+  return 
+    '<span class="labelauty-title"><i class="fa fa-map-marker labelauty-icon"></i>' . $delivery_spot->name . '</span>' .
+    '<span class="labelauty-description">' . $delivery_spot->address . ', ' . $delivery_spot->city . ' (' . $delivery_spot->zip . ')</span>';
+});
+
+/**
+ * Check if we need to return the class --complete for the pipeline
+ * of masterbox.
+ */
+Html::macro('pipelineComplete', function($step_pipeline, $current_step) 
+{
 
   if ($step_pipeline <= $current_step) {
     return '--complete';
