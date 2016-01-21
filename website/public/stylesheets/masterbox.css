@@ -35,6 +35,10 @@
   height: 72px;
   content: " "; }
 
+#csstyle .\+spacer-large {
+  height: 180px;
+  content: " "; }
+
 html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
@@ -175,6 +179,9 @@ a {
     .button__submit.\--panel {
       border-top-right-radius: 0;
       border-top-left-radius: 0; }
+    .button__submit.\--big {
+      font-size: 23.400000000000002px;
+      padding: 10.799999999999999px; }
 
 .counter__content {
   text-align: center;
@@ -187,9 +194,13 @@ a {
   font-weight: 400;
   font-size: 43.199999999999996px;
   color: #364347; }
+  .section__title.\--choose-frequency {
+    padding-top: 36px; }
 .section__description {
   text-align: center;
   font-size: 21.599999999999998px; }
+  .section__description.\--choose-frequency {
+    font-size: 19.8px; }
 
 .step__title {
   padding-top: 36px;
@@ -332,6 +343,58 @@ a {
   font-size: 16.2px;
   font-family: "Lato", sans-serif;
   font-weight: 700; }
+
+.pipeline__title {
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  text-align: center;
+  font-size: 16.919999999999998px;
+  padding-bottom: 14.4px; }
+.pipeline__dot {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+  background-color: #ECF0F1;
+  position: absolute;
+  top: 38px;
+  left: 0;
+  right: 0; }
+  .pipeline__dot.\--complete {
+    background-color: #FFE59E; }
+.pipeline__description {
+  text-align: center;
+  font-size: 15.12px;
+  color: #b1c2c6;
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  padding-top: 18px; }
+.pipeline__progress {
+  position: relative;
+  background-color: #ECF0F1;
+  width: 100%;
+  height: 10.799999999999999px; }
+  .pipeline__progress.\--first {
+    width: 50%;
+    left: 50%; }
+  .pipeline__progress.\--last {
+    width: 50%; }
+  .pipeline__progress.\--complete {
+    background-color: #FFE59E; }
+    .pipeline__progress.\--complete:after {
+      content: " ";
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: #ffca38;
+      position: absolute;
+      z-index: 2;
+      left: -7.2px;
+      top: -2px; }
+.pipeline__step {
+  position: relative; }
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }
@@ -482,6 +545,83 @@ select + .chosen-container-multi .chosen-results li.result-selected {
   color: #ccc;
   cursor: default;
   background-color: white; }
+
+.labelauty-choose-frequency {
+  text-align: center; }
+  .labelauty-choose-frequency span.labelauty-title {
+    font-size: 25.2px;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    display: block;
+    text-transform: uppercase;
+    padding-top: 28.8px;
+    padding-bottom: 10.799999999999999px; }
+  .labelauty-choose-frequency span.labelauty-description {
+    font-size: 18px;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    display: block;
+    padding-bottom: 36px; }
+  .labelauty-choose-frequency input.labelauty {
+    display: none !important; }
+    .labelauty-choose-frequency input.labelauty + label {
+      width: 100%;
+      display: table;
+      font-size: 11px;
+      padding: 10px;
+      background-color: #cdcdcd;
+      color: white;
+      cursor: pointer;
+      border-radius: 3px 3px 3px 3px;
+      -webkit-transition: background-color 0.25s;
+              transition: background-color 0.25s;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none; }
+      .labelauty-choose-frequency input.labelauty + label ::-moz-selection, .labelauty-choose-frequency input.labelauty + label ::-moz-selection {
+        background-color: rgba(255, 255, 255, 0); }
+      .labelauty-choose-frequency input.labelauty + label ::selection, .labelauty-choose-frequency input.labelauty + label ::-moz-selection {
+        background-color: rgba(255, 255, 255, 0); }
+      .labelauty-choose-frequency input.labelauty + label > span.labelauty-unchecked, .labelauty-choose-frequency input.labelauty + label > span.labelauty-checked {
+        display: inline-block;
+        line-height: 16px;
+        vertical-align: bottom; }
+      .labelauty-choose-frequency input.labelauty + label > span.labelauty-unchecked-image, .labelauty-choose-frequency input.labelauty + label > span.labelauty-checked-image {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: bottom;
+        background-repeat: no-repeat;
+        background-position: left center;
+        transition: background-image 0.5s linear;
+        -moz-transition: background-image 0.5s linear;
+        -webkit-transition: background-image 0.5s linear;
+        -o-transition: background-image 0.5s linear; }
+      .labelauty-choose-frequency input.labelauty + label > span.labelauty-unchecked-image + span.labelauty-unchecked, .labelauty-choose-frequency input.labelauty + label > span.labelauty-checked-image + span.labelauty-checked {
+        color: inherit; }
+    .labelauty-choose-frequency input.labelauty:not(:checked):not([disabled]) + label:hover {
+      background-color: #cdcdcd;
+      color: white; }
+    .labelauty-choose-frequency input.labelauty:not(:checked) + label > span.labelauty-checked-image, .labelauty-choose-frequency input.labelauty:not(:checked) + label > span.labelauty-checked {
+      display: none; }
+    .labelauty-choose-frequency input.labelauty:checked + label {
+      background-color: #FFC414;
+      color: #ffffff; }
+    .labelauty-choose-frequency input.labelauty:checked:not([disabled]) + label:hover {
+      background-color: #ffd147; }
+    .labelauty-choose-frequency input.labelauty:checked + label > span.labelauty-unchecked-image, .labelauty-choose-frequency input.labelauty:checked + label > span.labelauty-unchecked {
+      display: none; }
+    .labelauty-choose-frequency input.labelauty:checked + label > span.labelauty-checked {
+      display: inline-block; }
+    .labelauty-choose-frequency input.labelauty.no-label:checked + label > span.labelauty-checked {
+      display: block; }
+    .labelauty-choose-frequency input.labelauty[disabled] + label {
+      opacity: 0.5; }
+    .labelauty-choose-frequency input.labelauty + label > span.labelauty-unchecked-image {
+      background-image: none; }
+    .labelauty-choose-frequency input.labelauty + label > span.labelauty-checked-image {
+      background-image: none; }
 
 
 /*# sourceMappingURL=masterbox.css.map*/

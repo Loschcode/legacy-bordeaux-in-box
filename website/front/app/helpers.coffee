@@ -23,9 +23,26 @@ _.mixin notificationFormErrors: ->
   unless hasErrors == '1'
     return
 
+  titleErrors = _.trim($('#gotham').data('form-errors-title'))
+  textErrors = _.trim($('#gotham').data('form-errors-text'))
+
+  # Guess tittle
+  unless _.isEmpty(titleErrors)
+    title = titleErrors
+  else
+    title = 'Erreur'
+
+  # Guess text
+  unless _.isEmpty(textErrors)
+    text = textErrors
+  else
+    text = 'Des erreurs sont présentes dans le formulaire'
+
+
+  # Open the modal
   swal
-    title: 'Erreur'
-    text: 'Des erreurs sont présentes dans le formulaire'
+    title: title
+    text: text
     type: 'error'
     confirmButtonColor: '#D83F66'
     html: true

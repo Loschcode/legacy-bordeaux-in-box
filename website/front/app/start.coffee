@@ -21,3 +21,9 @@ _.notificationSuccessMessage()
 ##
 $('.js-chosen').chosen
   disable_search_threshold: 30
+
+##
+# Labelauty (Prettify checkboxes and radios html tags)
+##
+$(':checkbox').labelauty()
+$(':radio').labelauty()

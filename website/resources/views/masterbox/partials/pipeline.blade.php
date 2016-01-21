@@ -1,3 +1,45 @@
+<div class="+spacer-small"></div>
+
+<div class="container">
+	<div class="pipeline">
+		<div class="row">
+			<div class="grid-3 no-gutter">
+				<div class="pipeline__step">
+					<h2 class="pipeline__title">Etape 1</h2>
+					<div class="pipeline__progress --first --complete"></div>
+					<a class="pipeline__dot --complete" href="#"></a>
+					<p class="pipeline__description"><i class="fa fa-clock-o"></i> Fréquence de livraison</p>
+				</div>
+			</div>
+			<div class="grid-3 no-gutter">
+				<div class="pipeline__step">
+					<h2 class="pipeline__title">Etape 2</h2>
+					<div class="pipeline__progress"></div>
+					<a class="pipeline__dot" href="#"></a>
+					<p class="pipeline__description"><i class="fa fa-truck"></i> Facturation / Livraison</p>
+				</div>
+			</div>
+			<div class="grid-3 no-gutter">
+				<div class="pipeline__step">
+					<h2 class="pipeline__title">Etape 3</h2>
+					<div class="pipeline__progress"></div>
+					<a class="pipeline__dot" href="#"></a>
+					<p class="pipeline__description"><i class="fa fa-credit-card"></i> Paiement</p>
+				</div>
+			</div>
+			<div class="grid-3 no-gutter">
+				<div class="pipeline__step">
+					<h2 class="pipeline__title">Etape 4</h2>
+					<div class="pipeline__progress --last"></div>
+					<a class="pipeline__dot" href="#"></a>
+					<p class="pipeline__description"><i class="fa fa-magic"></i> Personnalisation</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php 
+/*
 <div class="container">
 
 	<div class="spacer20"></div>
@@ -35,3 +77,4 @@
 
 
 </div>
+*/ ?>

@@ -2,6 +2,68 @@
 
 @section('content')
 
+<div 
+  id="gotham"
+  data-form-errors="{{ $errors->has() }}"
+  data-form-errors-text="Tu dois choisir l'offre que tu souhaites"
+></div>
+
+<div class="container">
+  
+  @include('masterbox.partials.pipeline')
+
+  {{-- Section --}}
+  <div class="grid-9 grid-centered">
+    <div class="section">
+      <h2 class="section__title --choose-frequency">Fréquence de livraison</h2>
+      <p class="section__description --choose-frequency">
+        @if ($order_preference->isGift())
+          Envie de faire plaisir sur la durée ?
+        @else
+          Envie de recevoir une jolie box chaque mois ? Ou juste faire un test ?
+        @endif
+      </p>
+    </div>
+  </div>
+
+  {{-- Pipeline --}}
+  
+  <div class="+spacer"></div>
+
+  {{-- Choices --}}
+  <div class="grid-7 grid-centered labelauty-choose-frequency">
+    {!! Form::open() !!}
+      @if ($order_preference->isGift())
+
+        @foreach ($delivery_prices as $key => $delivery_price)
+          {!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencyGiftText()]) !!}
+          <div class="+spacer-extra-small"></div>
+        @endforeach
+
+      @else
+
+        @foreach ($delivery_prices as $key => $delivery_price)
+
+          {!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencySubscriptionText()]) !!}
+          <div class="+spacer-extra-small"></div>
+
+        @endforeach
+
+      @endif
+
+      <button class="button button__submit --big" type="submit"><i class="fa fa-check"></i> Valider</button>
+
+    {!! Form::close() !!}
+
+  </div>
+
+</div>
+
+<div class="+spacer-large"></div>
+
+@include('masterbox.partials.footer')
+
+<?php /*
   <div id="js-page-box-frequency"></div>
 
   @include('masterbox.partials.pipeline', ['step' => 2])
@@ -68,9 +130,9 @@
           @if ($delivery_price->frequency == 0)
             {!! Form::label($delivery_price->id, '<span class="readable-price">'. $delivery_price->unity_price.'€ par mois</span>' . '<span class="readable-frequency">' . $delivery_price->readableFrequency() . '</span>' , ['class' => 'hidden']) !!}
 	  			@elseif ($delivery_price->frequency == 1)
-	  			{!! Form::label($delivery_price->id, '<span class="readable-price">'. $delivery_price->unity_price.'€</span>' . '<span class="readable-frequency">' . $delivery_price->readableFrequency() . '</span>' , ['class' => 'hidden']) !!}
+	  			  {!! Form::label($delivery_price->id, '<span class="readable-price">'. $delivery_price->unity_price.'€</span>' . '<span class="readable-frequency">' . $delivery_price->readableFrequency() . '</span>' , ['class' => 'hidden']) !!}
 	  			@else
-	  			{!! Form::label($delivery_price->id, '<span class="readable-price">'. $delivery_price->unity_price.'€ par mois</span>' . '<span class="readable-frequency">' . $delivery_price->readableFrequency() . '</span>', ['class' => 'hidden']) !!}
+	  			  {!! Form::label($delivery_price->id, '<span class="readable-price">'. $delivery_price->unity_price.'€ par mois</span>' . '<span class="readable-frequency">' . $delivery_price->readableFrequency() . '</span>', ['class' => 'hidden']) !!}
 	  			@endif
 
 	  			{!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), array('id' => $delivery_price->id, 'class' => $class)) !!}
@@ -104,5 +166,5 @@
 
   <div class="spacer50"></div>
   {!! View::make('masterbox.partials.front.footer') !!}
-
+*/ ?>
 @stop

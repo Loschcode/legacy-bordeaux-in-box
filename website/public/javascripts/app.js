@@ -296,7 +296,7 @@ module.exports = View;
 ;require.register("helpers", function(exports, require, module) {
 _.mixin({
   notificationFormErrors: function() {
-    var hasErrors;
+    var hasErrors, text, textErrors, title, titleErrors;
     hasErrors = _.trim($('#gotham').data('form-errors'));
     if (_.isEmpty(hasErrors)) {
       return;
@@ -304,9 +304,21 @@ _.mixin({
     if (hasErrors !== '1') {
       return;
     }
+    titleErrors = _.trim($('#gotham').data('form-errors-title'));
+    textErrors = _.trim($('#gotham').data('form-errors-text'));
+    if (!_.isEmpty(titleErrors)) {
+      title = titleErrors;
+    } else {
+      title = 'Erreur';
+    }
+    if (!_.isEmpty(textErrors)) {
+      text = textErrors;
+    } else {
+      text = 'Des erreurs sont présentes dans le formulaire';
+    }
     return swal({
-      title: 'Erreur',
-      text: 'Des erreurs sont présentes dans le formulaire',
+      title: title,
+      text: text,
       type: 'error',
       confirmButtonColor: '#D83F66',
       html: true
@@ -354,6 +366,10 @@ _.notificationSuccessMessage();
 $('.js-chosen').chosen({
   disable_search_threshold: 30
 });
+
+$(':checkbox').labelauty();
+
+$(':radio').labelauty();
 });
 
 ;require.register("validators", function(exports, require, module) {

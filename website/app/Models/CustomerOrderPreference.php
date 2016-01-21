@@ -47,4 +47,9 @@ class CustomerOrderPreference extends Model {
 
   }
 
+  public function isGift()
+  {
+  	return $this->gift;
+  }
+
 }
