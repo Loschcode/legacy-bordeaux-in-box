@@ -22,6 +22,17 @@
     +option(complete)
       background-color: color-get(yellow)
 
+      &:after
+        content: " "
+        width: 14px
+        height: 14px
+        border-radius: 50%
+        background-color: color-dark(yellow, 20%)
+        position: absolute
+        z-index: 2
+        left: 8px
+        top: 8px
+
   +part(description)
     text-align: center
     font-size: 0.42vr
@@ -44,17 +55,6 @@
 
     +option(complete)
       background-color: color-get(yellow)
-
-      &:after
-        content: " "
-        width: 14px
-        height: 14px
-        border-radius: 50%
-        background-color: color-dark(yellow, 20%)
-        position: absolute
-        z-index: 2
-        left: -7.2px
-        top: -2px
 
   +part(step)
     position: relative

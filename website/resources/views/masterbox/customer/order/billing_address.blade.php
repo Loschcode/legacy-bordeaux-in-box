@@ -11,7 +11,7 @@
   <div class="container">
     
     {{-- Pipeline --}}
-    @include('masterbox.partials.pipeline')
+    @include('masterbox.partials.pipeline', ['step' => 2])
 
     {{-- Section --}}
     <div class="grid-9 grid-centered">

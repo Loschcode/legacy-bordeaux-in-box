@@ -16,6 +16,16 @@ Html::macro('checkError', function($label, $errors)
 
 });
 
+/**
+ * Check if we need to return the class --complete for the pipeline
+ */
+Html::macro('pipelineComplete', function($step_pipeline, $current_step) {
+
+  if ($step_pipeline <= $current_step) {
+    return '--complete';
+  }
+
+});
 
 /**
  * We will generate a link for the admin to access the user profile, from the email

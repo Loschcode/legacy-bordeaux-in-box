@@ -389,6 +389,16 @@ a {
   right: 0; }
   .pipeline__dot.\--complete {
     background-color: #FFE59E; }
+    .pipeline__dot.\--complete:after {
+      content: " ";
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background-color: #ffca38;
+      position: absolute;
+      z-index: 2;
+      left: 8px;
+      top: 8px; }
 .pipeline__description {
   text-align: center;
   font-size: 15.12px;
@@ -408,16 +418,6 @@ a {
     width: 50%; }
   .pipeline__progress.\--complete {
     background-color: #FFE59E; }
-    .pipeline__progress.\--complete:after {
-      content: " ";
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background-color: #ffca38;
-      position: absolute;
-      z-index: 2;
-      left: -7.2px;
-      top: -2px; }
 .pipeline__step {
   position: relative; }
 
