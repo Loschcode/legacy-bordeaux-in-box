@@ -4,8 +4,18 @@
 
   <div 
     id="gotham"
+    data-controller="masterbox.customer.purchase.payment"
     data-form-errors="{{ $errors->first('stripeToken')}}"
+    data-customer-email="{{ $customer->email }}"
+    data-amount="{{ $order_preference->totalPricePerMonthInCents() }}"
   ></div>
+
+  {{-- Form to submit payment --}}
+  {!! Form::open(['id' => 'payment-form', 'data-price' => $order_preference->totalPricePerMonthInCents()]) !!}
+    {!! Form::hidden('stripeToken', null, ['id' => 'stripe-token']) !!}
+    {!! Form::hidden('email', $customer->email) !!}
+  {!! Form::close() !!}
+
 
   <div class="container">
     
@@ -78,7 +88,7 @@
             <h4 class="payment__amount">Montant à payer: {{$order_preference->totalPricePerMonth()}}&euro;</h4>
           </div>
           <div class="payment__container --no-border-top">
-            <a class="button button__payment"><i class="fa fa-credit-card"></i> Procéder au paiement sécurisé</a>
+            <button id="trigger-payment" class="button button__payment"><i class="fa fa-credit-card"></i> Procéder au paiement sécurisé</button>
           </div>
         </div>
         <div class="grid-6">
@@ -317,4 +327,9 @@
   </script>
   <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6022362413870&amp;cd[value]=0.00&amp;cd[currency]=EUR&amp;noscript=1" /></noscript>
   */ ?>
+@stop
+
+@section('stripe-checkout')
+  <!-- Checkout js stripe -->
+  <script src="https://checkout.stripe.com/checkout.js"></script>
 @stop

@@ -67,6 +67,9 @@
 
 </body>
 
+@section('stripe-checkout')
+@show
+
 {{-- Facebook Conversion Code for Impressions --}}
 @include('masterbox.partials.facebook_conversions')
 

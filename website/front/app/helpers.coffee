@@ -7,8 +7,24 @@
 #
 # Gotham uses lo-dash and the concept of mixins.
 #
-# @see http://gothamjs.iodocumentation/1.0.0/helpers
+# @see http://gothamjs.io/documentation/1.0.0/helpers
 ##
+Config = require 'config'
+
+##
+# It returns the stripe key depending the environment
+##
+_.mixin getStripeKey: ->
+
+  environment = $('body').data('environment')
+
+  if environment is 'production'
+    return Config.stripe.production
+
+  return Config.stripe.testing
+
+
+
 
 ##
 # If laravel returned a form error, it displays a sweet alert

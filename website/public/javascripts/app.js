@@ -111,9 +111,9 @@
 })();
 require.register("config", function(exports, require, module) {
 module.exports = {
-  app: {
-    name: 'My Gotham Application',
-    version: 0.1
+  stripe: {
+    testing: 'pk_test_HNPpbWh3FV4Lw4RmIQqirqsj',
+    production: 'pk_live_EhCVbntIqph3ppfNCiN6wq3x'
   }
 };
 });
@@ -217,6 +217,84 @@ ChooseSpot = (function(superClass) {
 })(Controller);
 
 module.exports = ChooseSpot;
+});
+
+;require.register("controllers/masterbox/customer/purchase/payment", function(exports, require, module) {
+var Controller, Payment,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Payment = (function(superClass) {
+  extend(Payment, superClass);
+
+  function Payment() {
+    this.displayDefault = bind(this.displayDefault, this);
+    this.afterPayment = bind(this.afterPayment, this);
+    this.initStripe = bind(this.initStripe, this);
+    return Payment.__super__.constructor.apply(this, arguments);
+  }
+
+  Payment.prototype.before = function() {
+    return this.initStripe();
+  };
+
+  Payment.prototype.run = function() {
+    return $('#trigger-payment').click((function(_this) {
+      return function(e) {
+        e.preventDefault();
+        if ($(_this).prop('disabled') !== true) {
+          _this.displayLoading('En cours de chargement');
+          return _this.handler.open({
+            name: 'Bordeaux in Box',
+            description: 'Commande Box',
+            currency: 'eur',
+            amount: $('#gotham').data('amount'),
+            email: $('#gotham').data('customer-email')
+          });
+        }
+      };
+    })(this));
+  };
+
+  Payment.prototype.initStripe = function() {
+    return this.handler = StripeCheckout.configure({
+      key: _.getStripeKey(),
+      image: 'https://s3.amazonaws.com/stripe-uploads/acct_14e5CdIIyezb3ziumerchant-icon-1452677496121-bdxinbox.png',
+      locale: 'fr',
+      token: this.afterPayment,
+      allowRememberMe: true,
+      opened: (function(_this) {
+        return function() {
+          return _this.displayDefault();
+        };
+      })(this)
+    });
+  };
+
+  Payment.prototype.afterPayment = function(token) {
+    var secret;
+    secret = token.id;
+    this.displayLoading('En cours de redirection');
+    $('#stripe-token').val(secret);
+    return $('#payment-form').submit();
+  };
+
+  Payment.prototype.displayLoading = function(message) {
+    return $('#trigger-payment').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spinner fa-spin"></i> ' + message);
+  };
+
+  Payment.prototype.displayDefault = function() {
+    return $('#trigger-payment').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-credit-card"></i> Procéder au paiement sécurisé');
+  };
+
+  return Payment;
+
+})(Controller);
+
+module.exports = Payment;
 });
 
 ;require.register("controllers/masterbox/guest/home/index", function(exports, require, module) {
@@ -370,6 +448,21 @@ module.exports = View;
 });
 
 ;require.register("helpers", function(exports, require, module) {
+var Config;
+
+Config = require('config');
+
+_.mixin({
+  getStripeKey: function() {
+    var environment;
+    environment = $('body').data('environment');
+    if (environment === 'production') {
+      return Config.stripe.production;
+    }
+    return Config.stripe.testing;
+  }
+});
+
 _.mixin({
   notificationFormErrors: function() {
     var hasErrors, text, textErrors, title, titleErrors;
