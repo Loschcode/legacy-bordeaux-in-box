@@ -60,5 +60,4 @@
 
 <div class="+spacer-large"></div>
 
-@include('masterbox.partials.footer')
 @stop

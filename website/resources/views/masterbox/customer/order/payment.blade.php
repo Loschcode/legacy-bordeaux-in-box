@@ -1,7 +1,130 @@
 @extends('masterbox.layouts.master')
 
 @section('content')
-  
+
+  <div 
+    id="gotham"
+    data-form-errors="{{ $errors->first('stripeToken')}}"
+  ></div>
+
+  <div class="container">
+    
+    {{-- Pipeline --}}
+    @include('masterbox.partials.pipeline', ['step' => 3])
+
+    {{-- Section --}}
+    <div class="grid-9 grid-centered">
+      <div class="section">
+        <h2 class="section__title --choose-frequency">Paiement</h2>
+        <p class="section__description --choose-frequency">
+          Plus qu'à valider ta commande et c'est terminé !
+        </p>
+      </div>
+    </div>
+
+    <div class="+spacer-small"></div>
+    
+    <div class="payment">
+      <div class="row">
+        <div class="grid-6">
+          <div class="payment__container">
+            <h3 class="payment__title">Résumé commande</h3>
+
+            <div class="row">
+              <div class="grid-4">
+                <div class="payment__picture-container">
+                  <img class="payment__picture" src="{{ url('images/macaron-masterbox.png') }}" />
+                </div>
+              </div>
+              <div class="grid-8">
+                <p class="payment__description">
+                  Bordeaux in Box<br/>
+                  
+                  Type: 
+                  @if ($order_preference->isGift()) 
+                    Cadeau pour {{$order_building->destination_first_name}} 
+                  @else 
+                    Commande pour soi 
+                  @endif
+
+                  <br/>
+
+                  Fréquence: 
+
+                  @if ($order_preference->frequency == 0)
+
+                    1 box par mois
+
+                  @else
+                    
+                    1 box par mois pendant {{$order_preference->frequency}} mois
+
+                  @endif
+
+                    @if ($order_preference->gift)
+                    pour {{$order_preference->totalPricePerMonth()}}€ au total
+                    @else
+                    pour {{$order_preference->totalPricePerMonth()}}€ par mois
+                    @endif
+
+                    @if (!$order_preference->take_away)
+                    ({{$order_preference->delivery_fees}}€ de frais de port inclus)
+                    @endif<br/>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="payment__container --no-border-top">
+            <h4 class="payment__amount">Montant à payer: {{$order_preference->totalPricePerMonth()}}&euro;</h4>
+          </div>
+          <div class="payment__container --no-border-top">
+            <a class="button button__payment"><i class="fa fa-credit-card"></i> Procéder au paiement sécurisé</a>
+          </div>
+        </div>
+        <div class="grid-6">
+          <div class="payment__container">
+            <h3 class="payment__title">Facturation</h3>
+            <p class="payment__description">
+              Nom / Prénom : {{$customer->last_name}} {{$customer->first_name}}<br/>
+              Ville : {{$customer->city}}, {{$customer->zip}}<br/>
+              Adresse : {{$customer->address}}<br/>
+            </p>
+          </div>
+
+          <div class="payment__container --no-border-top">
+            <h3 class="payment__title">Livraison</h3>
+            <p class="payment__description">
+              @if ($order_preference->take_away)
+                A emporter dans un point relais<br/>
+              @else
+                A une adresse spécifique<br/>
+              @endif
+
+              @if ($order_preference->take_away)
+
+                Point relais : {{$delivery_spot->name}}<br/>
+                Ville : {{$delivery_spot->city}}, {{$delivery_spot->zip}}<br/>
+                Adresse : {{$delivery_spot->address}}<br/>
+              
+              @else
+
+                Nom / Prénom : {{$order_building->destination_last_name}} {{$order_building->destination_first_name}}<br/>
+                Ville : {{$order_building->destination_city}}, {{$order_building->destination_zip}}<br/>
+                Adresse : {{$order_building->destination_address}}<br/>
+
+              @endif
+            </p>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+   
+
+  </div>
+
+  <div class="+spacer-large"></div>
+  <?php /*
   <!-- Flag to run controller js -->
   <div id="js-page-payment" data-email="{{ $customer->email }}"></div>
 
@@ -193,5 +316,5 @@
   window._fbq.push(['track', '6022362413870', {'value':'0.00','currency':'EUR'}]);
   </script>
   <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6022362413870&amp;cd[value]=0.00&amp;cd[currency]=EUR&amp;noscript=1" /></noscript>
-
+  */ ?>
 @stop
