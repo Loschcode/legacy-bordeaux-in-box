@@ -7,6 +7,11 @@
 ##
 
 ##
+# Polify placeholders for old browsers
+##
+$('input, textarea').placeholder()
+
+##
 # Notify errors from froms validated by Laravel
 ##
 _.notificationFormErrors()

@@ -359,6 +359,8 @@ $(function() {
 });
 
 ;require.register("start", function(exports, require, module) {
+$('input, textarea').placeholder();
+
 _.notificationFormErrors();
 
 _.notificationSuccessMessage();
