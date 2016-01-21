@@ -59,6 +59,12 @@
 
   @yield('content')
 
+  {{-- Footer --}}
+  @section('footer')
+    <div class="+spacer"></div>
+    @include('masterbox.partials.footer')
+  @show
+
 </body>
 
 {{-- Facebook Conversion Code for Impressions --}}

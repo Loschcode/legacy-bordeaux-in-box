@@ -456,6 +456,14 @@ a {
 .billing__container {
   margin-bottom: 10.799999999999999px; }
 
+.typography p {
+  font-size: 18px; }
+.typography a {
+  border-bottom: 1px dotted #364347;
+  padding-bottom: 3.6px; }
+.typography em {
+  font-style: italic; }
+
 .chosen-container.chosen-container-single {
   width: 100% !important; }
 
@@ -615,7 +623,8 @@ select + .chosen-container-multi .chosen-results li.result-selected {
     display: block;
     text-transform: uppercase;
     padding-top: 28.8px;
-    padding-bottom: 10.799999999999999px; }
+    padding-bottom: 10.799999999999999px;
+    line-height: 36px; }
   .labelauty-choose-frequency span.labelauty-description {
     font-size: 18px;
     font-family: "Lato", sans-serif;

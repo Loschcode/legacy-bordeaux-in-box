@@ -243,8 +243,10 @@
         </div>
       {!! Form::close() !!}
     </div>
-  
+    
+
   </div>
+  
 
   <?php /*
   <div id="js-page-billing-address"></div>

@@ -2,6 +2,31 @@
 
 @section('content')
   
+
+<div class="container">
+  
+  {{-- Pipeline --}}
+  @include('masterbox.partials.pipeline', ['step' => 1])
+
+  {{-- Section --}}
+  <div class="grid-9 grid-centered">
+    <div class="section">
+      <h2 class="section__title --choose-frequency">Choisis ton point relais</h2>
+      <p class="section__description --choose-frequency">
+        @if ($order_preference->isGift())
+          Envie de faire plaisir sur la durée ?
+        @else
+          Envie de recevoir une jolie box chaque mois ? Ou juste faire un test ?
+        @endif
+      </p>
+    </div>
+  </div>
+  
+  <div class="+spacer"></div>
+
+</div>
+
+  <?php /*
   <div id="js-page-spot"></div>
 
   {!! View::make('masterbox.partials.pipeline')->with('step', 3) !!}
@@ -57,5 +82,5 @@
 
   <div class="spacer50"></div>
   {!! View::make('masterbox.partials.front.footer') !!}
-
+  */ ?>
 @stop
