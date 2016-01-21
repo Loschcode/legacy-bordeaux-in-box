@@ -16,6 +16,37 @@ class Order extends Model {
 	 */
 	protected $table = 'orders';
 
+  /**
+   * Create / Update
+   */
+  public static function boot()
+    {
+
+        parent::boot();
+
+        static::creating(function($order)
+        {
+
+          if ($order->company_billing()->first() === NULL) {
+
+            generate_new_company_billing_from_order($order, TRUE);
+
+          }
+
+        });
+
+        static::updating(function($order)
+        {
+
+        });
+
+        static::deleting(function($order) {
+
+
+        });
+
+    }
+
 	/**
 	 * Belongs To
 	 */

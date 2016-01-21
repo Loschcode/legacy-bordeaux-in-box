@@ -14,6 +14,31 @@ class Payment extends Model {
 	 */
 	protected $table = 'payments';
 
+  /**
+   * Create / Update
+   */
+  public static function boot()
+  {
+
+    parent::boot();
+
+    static::creating(function($payment)
+    {
+
+    });
+
+    static::updating(function($payment)
+    {
+
+    });
+
+    static::deleting(function($payment) {
+
+
+    });
+
+  }
+
 	/**
 	 * Belongs To
 	 */

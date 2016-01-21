@@ -197,10 +197,64 @@ class InvoicesController extends BaseController {
         }
 
         /**
-         * We output the bill
+         * We will manage the billing lines and link it
+         * If there's no order linked we must create a new company billing
+         * If there an order, we just have to associate and add a company billing line
          */
-        $payment->bill_id = generate_bill_id($branch='MBX', $customer, $payment);
-        $payment->save();
+        if ($payment->order()->first() !== NULL) {
+
+          $order = $payment->order()->first();
+          $company_billing = $order->company_billing()->first();
+
+          $unity_price = $order->unity_price;
+          $delivery_fees = $order->delivery_fees;
+
+          $billing_line = new CompanyBillingLine;
+          $billing_line->company_billing_id = $company_billing->id;
+          $billing_line->payment_id = $payment->id;
+          $billing_line->label = "Achat de la box surprise";
+          $billing_line->amount = $unity_price;
+          $billing_line->save();
+
+          $billing_line = new CompanyBillingLine;
+          $billing_line->company_billing_id = $company_billing->id;
+          $billing_line->payment_id = $payment->id;
+          $billing_line->label = "Frais de transport de la box surprise";
+          $billing_line->amount = $delivery_fees;
+          $billing_line->save();
+
+        } else {
+
+          /**
+           * If there's no order linked to this payment, there might a very high chance
+           * There is no company billing existing for this payment so we must generate it in standalone mode
+           */
+          $company_billing = generate_new_company_billing_without_order($payment);
+
+          /**
+           * Now we can guess if it's a refund or not what is the label of the bill
+           */
+          if ($payment->amount >= 0) {
+
+            $billing_line = new CompanyBillingLine;
+            $billing_line->company_billing_id = $company_billing->id;
+            $billing_line->payment_id = $payment->id;
+            $billing_line->label = "Achat et frais de transport de la box surprise";
+            $billing_line->amount = $payment->amount;
+            $billing_line->save();
+
+          } else {
+
+            $billing_line = new CompanyBillingLine;
+            $billing_line->company_billing_id = $company_billing->id;
+            $billing_line->payment_id = $payment->id;
+            $billing_line->label = "Remboursement de la box surprise";
+            $billing_line->amount = $payment->amount;
+            $billing_line->save();
+
+          }
+
+        }
 
         Log::info("8. We will now fetch the orders ...");
 
@@ -413,40 +467,6 @@ class InvoicesController extends BaseController {
           }
 
         }
-
-        // Then we put the bill within a folder in case there's a problem with the database
-        
-        /*if (!$stripe_refund) {
-
-          // For the PDF Output
-          $customer = $payment->customer()->first();
-          $profile = $payment->profile()->first();
-          $customer_order_preference = $profile->order_preference()->first();
-
-          $orders = $payment->orders()->get();
-
-          $box = $profile->box()->first();
-
-          $billing = $orders->first()->billing()->first();
-
-          view()->share('customer', $customer);
-          view()->share('customer_order_preference', $customer_order_preference);
-          view()->share('box', $box);
-          view()->share('orders', $orders);
-          view()->share('billing', $billing);
-          view()->share('payment', $payment);
-          view()->share('profile', $profile);
-
-          $html = view()->make('masterbox.pdf.bill');
-
-          $destinationPath = 'public/uploads/bills/';
-          $outputName = $payment->bill_id;
-          $pdfPath = $destinationPath.'/'.$outputName.'.pdf';
-
-          File::put($pdfPath, PDF::load($html, 'A4', 'portrait')->output());
-          // End of PDF output
-         
-        }*/
 
         // 
         // Now we will send a confirmation email after everything has been done

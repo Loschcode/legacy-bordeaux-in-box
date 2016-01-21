@@ -78,39 +78,9 @@ class BillingNormalizeMasterbox extends Command {
       
       $this->info('We will process the order `'.$order->id.'`');
       
-      $customer = $order->customer()->first();
-      $billing = $order->billing()->first();
+      $company_billing = generate_new_company_billing_from_order($order, TRUE);
+
       $payments = $order->payments()->get();
-
-      $company_billing = new CompanyBilling;
-      $company_billing->branch = 'masterbox';
-      $company_billing->customer_id = retrieve_customer_id($customer);
-      $company_billing->contract_id = generate_contract_id('MBX', $customer);
-      $company_billing->bill_id = generate_bill_id('MBX', $customer, $order);
-      $company_billing->encrypted_access = Crypt::encrypt($company_billing->branch.$company_billing->customer_id.$company_billing->contract_id.$company_billing->bill_id);
-
-      $company_billing->title = 'Box principale';
-
-      if ($billing === NULL) {
-
-        $this->error('Billing unknown for this entry');
-
-        $company_billing->first_name = $customer->first_name;
-        $company_billing->last_name = $customer->last_name;
-
-      } else {
-
-        $this->info('We found the billing infos');
-
-        $company_billing->first_name = $billing->first_name;
-        $company_billing->last_name = $billing->last_name;
-        $company_billing->city = $billing->city;
-        $company_billing->address = $billing->address;
-        $company_billing->zip = $billing->zip;
-
-      }
-
-      $company_billing->save();
 
       foreach ($payments as $payment) {
 
@@ -181,17 +151,7 @@ class BillingNormalizeMasterbox extends Command {
 
       $this->info('We will process the payment `'.$payment->id.'`');
 
-      $customer = $payment->customer()->first();
-
-      $company_billing = new CompanyBilling;
-      $company_billing->branch = 'masterbox';
-      $company_billing->customer_id = retrieve_customer_id($customer);
-      $company_billing->contract_id = generate_contract_id('MBX', $customer);
-      $company_billing->bill_id = generate_bill_id('MBX', $customer);
-      $company_billing->encrypted_access = Crypt::encrypt($company_billing->branch.$company_billing->customer_id.$company_billing->contract_id.$company_billing->bill_id);
-
-      $company_billing->title = 'Box principale';
-      $company_billing->save();
+      $company_billing = generate_new_company_billing_without_order($payment);
 
       if ($payment->amount >= 0) {
 

@@ -521,11 +521,15 @@ class PurchaseController extends BaseController {
       if ($order_preference->gift) {
 
         $unity_and_fees_price = $order_preference->totalPricePerMonth() / $order_preference->frequency;
+        $unity_price = $order_preference->unity_price / $order_preference->unity_price;
+        $delivery_fees = $order_preference->delivery_fees / $order_preference->delivery_fees;
       
       } else { 
 
         $unity_and_fees_price = $order_preference->totalPricePerMonth();
-
+        $unity_price = $order_preference->unity_price;
+        $delivery_fees = $order_preference->delivery_fees;
+        
       }
 
       $num = 0;
@@ -571,6 +575,10 @@ class PurchaseController extends BaseController {
           $order->gift = $order_preference->gift;
           $order->take_away = $order_preference->take_away;
           $order->unity_and_fees_price = $unity_and_fees_price;
+
+          $order->unity_price = $unity_price;
+          $order->delivery_fees = $delivery_fees;
+
           $order->save();
 
           // We make the order billing
