@@ -33,6 +33,7 @@ return [
     'stripe' => [
         'model'  => App\Customer::class,
         'secret' => env('STRIPE_API_SECRET'),
+        'version' => env('STRIPE_API_VERSION'),
     ],
 
 ];

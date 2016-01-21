@@ -239,6 +239,9 @@ class ContentController extends BaseController {
 		$fields = Request::all();
 		$rules = []; // Dynamic rule
 
+    // Never understood why this was here.
+    unset($fields['files']);
+
 		foreach ($fields as $label => $value) {
 
 			$rules[$label] = 'required';

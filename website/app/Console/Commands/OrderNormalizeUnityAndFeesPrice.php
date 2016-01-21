@@ -51,8 +51,23 @@ class OrderNormalizeUnityAndFeesPrice extends Command {
 
       $order_preference = $order->customer_preference()->first();
 
-      $order->delivery_fees = $order_preference->delivery_fees;
-      $order->unity_price = $order_preference->unity_price;
+      /**
+       * We set it up differently if it's a gift or not (division)
+       */
+      if ($order_preference->gift) {
+
+        $unity_price = $order_preference->unity_price / $order_preference->frequency;
+        $delivery_fees = $order_preference->delivery_fees / $order_preference->frequency;
+      
+      } else { 
+
+        $unity_price = $order_preference->unity_price;
+        $delivery_fees = $order_preference->delivery_fees;
+        
+      }
+
+      $order->delivery_fees = $delivery_fees;
+      $order->unity_price = $unity_price;
 
       $this->info('The order has been updated : '.$order->unity_price. ' / '. $order->delivery_fees);
 

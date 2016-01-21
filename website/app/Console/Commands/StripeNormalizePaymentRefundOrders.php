@@ -42,31 +42,32 @@ class StripeNormalizePaymentRefundOrders extends Command {
     /**
      * Let's do it
      */
-    $payments = Payment::whereNull('order_id')->where('amount', '<', 0)->orderBy('created_at', 'desc')->get();
+    $payments = Payment::where('amount', '<', 0)->orderBy('created_at', 'desc')->get();
 
     foreach ($payments as $payment) {
 
-      $stripe_charge_id = $payment->stripe_charge;
-      $amount = $payment->amount;
-      
-      $this->info("Analysing the charge `$stripe_charge_id` for $amount €`");
+      if ($payment->orders()->first() === NULL) {
 
-      $original_payment = Payment::where('stripe_charge', '=', $stripe_charge_id)->whereNotNull('order_id')->first();
-          
-      if ($original_payment !== NULL) {
+        $stripe_charge_id = $payment->stripe_charge;
+        $amount = $payment->amount;
+        
+        $this->info("Analysing the charge `$stripe_charge_id` for $amount €`");
 
-        $payment->order_id = $original_payment->order_id;
-        $payment->save();
+        $original_payment = Payment::where('stripe_charge', '=', $stripe_charge_id)->orderBy('created_at', 'asc')->first();
+            
+        if (($original_payment !== NULL) && ($original_payment->orders()->first() !== NULL)) {
 
-        $this->info("Order `".$payment->order_id."` linked to the Payment `".$payment->id."`");
+          $payment->orders()->attach($original_payment->orders()->first()->id);
 
-      } else {
+          $this->info("Order `".$original_payment->orders()->first()->id."` linked to the Payment `".$payment->id."`");
 
-        $this->error('Original payment was not found : ' . $stripe_charge_id);
+        } else {
+
+          $this->error('Original payment orders was not found : ' . $stripe_charge_id);
+
+        }
 
       }
-
-
 
     }
 

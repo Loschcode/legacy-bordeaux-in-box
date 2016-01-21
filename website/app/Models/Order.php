@@ -16,6 +16,30 @@ class Order extends Model {
 	 */
 	protected $table = 'orders';
 
+  /**
+   * Create / Update
+   */
+  public static function boot()
+    {
+
+        parent::boot();
+
+        static::creating(function($order)
+        {
+
+        });
+
+        static::updating(function($order)
+        {
+
+        });
+
+        static::deleting(function($order) {
+
+        });
+
+    }
+
 	/**
 	 * Belongs To
 	 */
@@ -23,7 +47,7 @@ class Order extends Model {
   public function company_billing()
   {
 
-    return $this->belongsTo('App\Models\CompanyBilling', 'billing_id');
+    return $this->belongsTo('App\Models\CompanyBilling', 'company_billing_id');
 
   }
 
@@ -79,7 +103,8 @@ class Order extends Model {
 	public function payments()
 	{
 
-		return $this->hasMany('App\Models\Payment');
+    return $this->belongsToMany('App\Models\Payment', 'order_payments');
+		//return $this->hasManyThrough('App\Models\Payment', 'App\Models\OrderPayment');
 
 	}
 	
@@ -163,6 +188,32 @@ class Order extends Model {
 		}
 
 	}
+
+  /**
+   * Only the payable orders (used in the Invoice to credit orders)
+   */
+  public function scopeOnlyPayable($query)
+  {
+
+    return $query->where('status', '!=', 'paid')
+                 ->where('status', '!=', 'delivered')
+                 ->where('status', '!=', 'canceled');
+
+  }
+
+  /**
+   * Only the refundable orders (used in the Invoice to debit orders)
+   */
+  public function scopeOnlyRefundable($query)
+  {
+
+    return $query->where('already_paid', '>', 0);
+    //$query->where('status', '=', 'paid')
+                 //->where('status', '=', 'half-paid') <--- OR WHERE IF NOT WORKING (I FORGOT AND CHANGE MTHOLOGY IN THE MIDDLE)
+                 //->where('status', '=', 'delivered')
+                 //->where('status', '=', 'canceled');
+
+  }
 
 	public function scopeByFrequency($query, $frequency)
 	{

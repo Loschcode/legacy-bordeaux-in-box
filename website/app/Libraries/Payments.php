@@ -10,6 +10,15 @@ use Stripe\Stripe, Config, Log, \Exception;
  */
 class Payments {
 
+    public static function prepare_stripe()
+    {
+
+      $api_key = Config::get('services.stripe.secret');
+      \Stripe\Stripe::setApiKey($api_key);
+      \Stripe\Stripe::setApiVersion(Config::get('services.stripe.version'));
+
+    }
+
     /**
      * Make a new customer and return its id
      * @param  string $stripe_card   card stripe
@@ -20,8 +29,7 @@ class Payments {
     public static function makeCustomer($stripe_card, $customer, $profile, $description='', $contract_id=NULL)
     {
 
-        $api_key = Config::get('services.stripe.secret');
-        \Stripe\Stripe::setApiKey($api_key);
+      self::prepare_stripe();
 
         try {
 
@@ -81,8 +89,7 @@ class Payments {
     public static function removeCard($stripe_customer, $stripe_card)
     {
 
-        $api_key = Config::get('services.stripe.secret');
-        \Stripe\Stripe::setApiKey($api_key);
+      self::prepare_stripe();
 
         try {
 
@@ -106,8 +113,7 @@ class Payments {
     public static function addCard($stripe_customer, $stripe_token)
     {
 
-        $api_key = Config::get('services.stripe.secret');
-        \Stripe\Stripe::setApiKey($api_key);
+      self::prepare_stripe();
 
         try {
 
@@ -178,8 +184,7 @@ class Payments {
     public static function makeStripePlan($plan_name, $plan_price, $frequency)
     {
 
-      $api_key = Config::get('services.stripe.secret');
-      \Stripe\Stripe::setApiKey($api_key);
+      self::prepare_stripe();
 
       $amount_in_cents = ($plan_price * 100);
 
@@ -218,8 +223,7 @@ class Payments {
     public static function makeOrRetrieveStripePlan($plan_name, $plan_price)
     {
 
-      $api_key = Config::get('services.stripe.secret');
-      \Stripe\Stripe::setApiKey($api_key);
+      self::prepare_stripe();
 
       $try_retrieve = self::retrieveStripePlan($plan_name);
 
@@ -246,8 +250,7 @@ class Payments {
     public static function makeSubscription($stripe_customer, $customer, $profile, $plan_name, $plan_price)
     {
         
-        $api_key = Config::get('services.stripe.secret');
-        \Stripe\Stripe::setApiKey($api_key);
+        self::prepare_stripe();
 
         $stripe_customer = \Stripe\Customer::retrieve($stripe_customer);
         $stripe_plan = self::makeOrRetrieveStripePlan($plan_name, $plan_price);
@@ -303,11 +306,10 @@ class Payments {
     public static function retrieveLastCard($stripe_customer)
     {
 
-        $api_key = Config::get('services.stripe.secret');
-        \Stripe\Stripe::setApiKey($api_key);
+        self::prepare_stripe();
 
         $cu = \Stripe\Customer::retrieve($stripe_customer);
-        $cards = $cu->cards;
+        $cards = $cu->sources;
 
         $last_card = $cards->data[count($cards->data)-1];
 
@@ -318,20 +320,19 @@ class Payments {
 
     /**
      * Get the last4 of a card from a specific customer
-     * @param  string $stripe_user_id stripe customer id
+     * @param  string $stripe_customer_id stripe customer id
      * @param  string $stripe_card_id the card itself
      * @return string
      */
-    public static function getLast4FromCard($stripe_user_id, $stripe_card_id) {
+    public static function getLast4FromCard($stripe_customer_id, $stripe_card_id) {
 
-        $api_key = Config::get('services.stripe.secret');
-        \Stripe\Stripe::setApiKey($api_key);
+        self::prepare_stripe();
 
         // We get the customer
         try {
 
-        $cu = \Stripe\Customer::retrieve($stripe_user_id);
-        $cards = $cu->cards;
+        $cu = \Stripe\Customer::retrieve($stripe_customer_id);
+        $cards = $cu->sources;
 
         $last_card = $cards->data[count($cards->data)-1];
 
@@ -351,16 +352,15 @@ class Payments {
      * @param  string $stripe_subscription stripe subscription id
      * @return mixed                  object / false
      */
-    public static function getPlanFromSubscription($stripe_user_id, $stripe_subscription_id)
+    public static function getPlanFromSubscription($stripe_customer_id, $stripe_subscription_id)
     {
 
-        $api_key = Config::get('services.stripe.secret');
-        \Stripe\Stripe::setApiKey($api_key);
+        self::prepare_stripe();
 
         // We get the customer
         try {
         
-        $stripe_customer = \Stripe\Customer::retrieve($stripe_user_id);
+        $stripe_customer = \Stripe\Customer::retrieve($stripe_customer_id);
 
         } catch (Exception $e) {
 
@@ -400,8 +400,7 @@ class Payments {
         // Laurent, 9th October 2015
         // 
 
-        $api_key = Config::get('services.stripe.secret');
-        \Stripe\Stripe::setApiKey($api_key);
+        self::prepare_stripe();
 
         // We get the customer, then subscription and we cancel
         try {
@@ -453,10 +452,9 @@ class Payments {
     public static function invoice($stripe_customer, $customer, $profile, $raw_amount)
     {
 
-        $api_key = Config::get('services.stripe.secret');
-        $amount = $raw_amount * 100;
+        self::prepare_stripe();
 
-        \Stripe\Stripe::setApiKey($api_key);
+        $amount = $raw_amount * 100;
 
         try {
 
@@ -516,8 +514,7 @@ class Payments {
     public static function getCustomer($stripe_customer)
     {
 
-      $api_key = Config::get('services.stripe.secret');
-      \Stripe\Stripe::setApiKey($api_key);
+      self::prepare_stripe();
 
       try {
 
@@ -541,8 +538,7 @@ class Payments {
     public static function getInvoice($stripe_invoice)
     {
 
-      $api_key = Config::get('services.stripe.secret');
-      \Stripe\Stripe::setApiKey($api_key);
+      self::prepare_stripe();
 
       try {
 
@@ -566,8 +562,7 @@ class Payments {
     public static function getCharge($stripe_charge)
     {
 
-      $api_key = Config::get('services.stripe.secret');
-      \Stripe\Stripe::setApiKey($api_key);
+      self::prepare_stripe();
 
       try {
         
@@ -591,8 +586,7 @@ class Payments {
     public static function getBalanceFeesFromCharge($stripe_charge)
     {
 
-      $api_key = Config::get('services.stripe.secret');
-      \Stripe\Stripe::setApiKey($api_key);
+      self::prepare_stripe();
 
       try {
         
@@ -625,8 +619,7 @@ class Payments {
     public static function getSubscription($stripe_customer, $stripe_subscription)
     {
 
-      $api_key = Config::get('services.stripe.secret');
-      \Stripe\Stripe::setApiKey($api_key);
+      self::prepare_stripe();
 
       try {
         

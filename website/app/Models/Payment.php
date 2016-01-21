@@ -14,6 +14,31 @@ class Payment extends Model {
 	 */
 	protected $table = 'payments';
 
+  /**
+   * Create / Update
+   */
+  public static function boot()
+  {
+
+    parent::boot();
+
+    static::creating(function($payment)
+    {
+
+    });
+
+    static::updating(function($payment)
+    {
+
+    });
+
+    static::deleting(function($payment) {
+
+
+    });
+
+  }
+
 	/**
 	 * Belongs To
 	 */
@@ -25,13 +50,6 @@ class Payment extends Model {
 
 	}
 
-	public function order()
-	{
-
-		return $this->belongsTo('App\Models\Order', 'order_id');
-
-	}
-	
 	public function profile()
 	{
 
@@ -39,6 +57,25 @@ class Payment extends Model {
 
 	}
 
+  /**
+   * HasManyThrough
+   */
+  public function orders()
+  {
+
+    return $this->belongsToMany('App\Models\Order', 'order_payments');
+    //return $this->hasManyThrough('App\Models\Order', 'App\Models\OrderPayment');
+
+  }
+
+  public function ScopeWithOrders($query)
+  {
+
+    $query->join('order_payments', 'order_payments.payment_id', '=', 'payments.id');
+    
+
+  }
+  
   /**
    * HasOne
    */
