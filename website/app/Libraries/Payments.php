@@ -332,7 +332,7 @@ class Payments {
         try {
 
         $cu = \Stripe\Customer::retrieve($stripe_customer_id);
-        $cards = $cu->cards;
+        $cards = $cu->sources;
 
         $last_card = $cards->data[count($cards->data)-1];
 

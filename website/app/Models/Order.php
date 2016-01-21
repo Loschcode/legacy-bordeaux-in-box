@@ -201,6 +201,20 @@ class Order extends Model {
 
   }
 
+  /**
+   * Only the refundable orders (used in the Invoice to debit orders)
+   */
+  public function scopeOnlyRefundable($query)
+  {
+
+    return $query->where('already_paid', '>', 0);
+    //$query->where('status', '=', 'paid')
+                 //->where('status', '=', 'half-paid') <--- OR WHERE IF NOT WORKING (I FORGOT AND CHANGE MTHOLOGY IN THE MIDDLE)
+                 //->where('status', '=', 'delivered')
+                 //->where('status', '=', 'canceled');
+
+  }
+
 	public function scopeByFrequency($query, $frequency)
 	{
 
