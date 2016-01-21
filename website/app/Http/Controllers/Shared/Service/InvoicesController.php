@@ -10,6 +10,9 @@ use App\Models\CustomerPaymentProfile;
 use App\Models\CustomerOrderPreference;
 use App\Models\Payment;
 
+use App\Models\CompanyBilling;
+use App\Models\CompanyBillingLine;
+
 use App\Libraries\Payments;
 
 class InvoicesController extends BaseController {
@@ -196,66 +199,6 @@ class InvoicesController extends BaseController {
 
         }
 
-        /**
-         * We will manage the billing lines and link it
-         * If there's no order linked we must create a new company billing
-         * If there an order, we just have to associate and add a company billing line
-         */
-        if ($payment->order()->first() !== NULL) {
-
-          $order = $payment->order()->first();
-          $company_billing = $order->company_billing()->first();
-
-          $unity_price = $order->unity_price;
-          $delivery_fees = $order->delivery_fees;
-
-          $billing_line = new CompanyBillingLine;
-          $billing_line->company_billing_id = $company_billing->id;
-          $billing_line->payment_id = $payment->id;
-          $billing_line->label = "Achat de la box surprise";
-          $billing_line->amount = $unity_price;
-          $billing_line->save();
-
-          $billing_line = new CompanyBillingLine;
-          $billing_line->company_billing_id = $company_billing->id;
-          $billing_line->payment_id = $payment->id;
-          $billing_line->label = "Frais de transport de la box surprise";
-          $billing_line->amount = $delivery_fees;
-          $billing_line->save();
-
-        } else {
-
-          /**
-           * If there's no order linked to this payment, there might a very high chance
-           * There is no company billing existing for this payment so we must generate it in standalone mode
-           */
-          $company_billing = generate_new_company_billing_without_order($payment);
-
-          /**
-           * Now we can guess if it's a refund or not what is the label of the bill
-           */
-          if ($payment->amount >= 0) {
-
-            $billing_line = new CompanyBillingLine;
-            $billing_line->company_billing_id = $company_billing->id;
-            $billing_line->payment_id = $payment->id;
-            $billing_line->label = "Achat et frais de transport de la box surprise";
-            $billing_line->amount = $payment->amount;
-            $billing_line->save();
-
-          } else {
-
-            $billing_line = new CompanyBillingLine;
-            $billing_line->company_billing_id = $company_billing->id;
-            $billing_line->payment_id = $payment->id;
-            $billing_line->label = "Remboursement de la box surprise";
-            $billing_line->amount = $payment->amount;
-            $billing_line->save();
-
-          }
-
-        }
-
         Log::info("8. We will now fetch the orders ...");
 
         /**
@@ -434,6 +377,72 @@ class InvoicesController extends BaseController {
           }
 
           Log::info('23. There is ' . $orders_unpaid_plans . ' orders left at the end of this transaction.');
+
+          /**
+           * We will manage the billing lines and link it
+           * If there's no order linked we must create a new company billing
+           * If there an order, we just have to associate and add a company billing line
+           */
+          if (($payment->order()->first() !== NULL) && ($payment->order()->first()->company_billing()->first() !== NULL)) {
+
+            Log::info('23.1 We will add 2 lines to the company billing linked to this order ('.$order->unity_price.' / '.$order->delivery_fees.')');
+
+            $order = $payment->order()->first();
+            $company_billing = $order->company_billing()->first();
+
+            $unity_price = $order->unity_price;
+            $delivery_fees = $order->delivery_fees;
+
+            $billing_line = new CompanyBillingLine;
+            $billing_line->company_billing_id = $company_billing->id;
+            $billing_line->payment_id = $payment->id;
+            $billing_line->label = "Achat de la box surprise";
+            $billing_line->amount = $unity_price;
+            $billing_line->save();
+
+            $billing_line = new CompanyBillingLine;
+            $billing_line->company_billing_id = $company_billing->id;
+            $billing_line->payment_id = $payment->id;
+            $billing_line->label = "Frais de transport de la box surprise";
+            $billing_line->amount = $delivery_fees;
+            $billing_line->save();
+
+          } else {
+
+            Log::info('23.1 We will generate a company billing without order from the payment `'.$payment->id.'`');
+
+            /**
+             * If there's no order linked to this payment, there might a very high chance
+             * There is no company billing existing for this payment so we must generate it in standalone mode
+             */
+            $company_billing = generate_new_company_billing_without_order($payment);
+
+            Log::info('23.2 We will add 1 line to the company billing freshly generated');
+
+            /**
+             * Now we can guess if it's a refund or not what is the label of the bill
+             */
+            if ($payment->amount >= 0) {
+
+              $billing_line = new CompanyBillingLine;
+              $billing_line->company_billing_id = $company_billing->id;
+              $billing_line->payment_id = $payment->id;
+              $billing_line->label = "Achat et frais de transport de la box surprise";
+              $billing_line->amount = $payment->amount;
+              $billing_line->save();
+
+            } else {
+
+              $billing_line = new CompanyBillingLine;
+              $billing_line->company_billing_id = $company_billing->id;
+              $billing_line->payment_id = $payment->id;
+              $billing_line->label = "Remboursement de la box surprise";
+              $billing_line->amount = $payment->amount;
+              $billing_line->save();
+
+            }
+
+          }
 
           if ($orders_unpaid_plans <= 0) {
 

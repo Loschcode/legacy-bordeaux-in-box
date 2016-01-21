@@ -601,6 +601,11 @@ class PurchaseController extends BaseController {
           $order_destination->zip = $order_building->destination_zip;
           $order_destination->save();
 
+          /**
+           * Finally we generate the company billing of the order
+           */
+          generate_new_company_billing_from_order($order, TRUE);
+
         }
 
         $num++;

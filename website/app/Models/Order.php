@@ -27,12 +27,6 @@ class Order extends Model {
         static::creating(function($order)
         {
 
-          if ($order->company_billing()->first() === NULL) {
-
-            generate_new_company_billing_from_order($order, TRUE);
-
-          }
-
         });
 
         static::updating(function($order)
@@ -41,7 +35,6 @@ class Order extends Model {
         });
 
         static::deleting(function($order) {
-
 
         });
 
@@ -54,7 +47,7 @@ class Order extends Model {
   public function company_billing()
   {
 
-    return $this->belongsTo('App\Models\CompanyBilling', 'billing_id');
+    return $this->belongsTo('App\Models\CompanyBilling', 'company_billing_id');
 
   }
 

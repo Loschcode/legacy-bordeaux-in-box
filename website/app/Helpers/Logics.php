@@ -29,6 +29,10 @@ function generate_new_company_billing_without_order($payment) {
  */
 function generate_new_company_billing_from_order($order, $associate=TRUE) {
 
+  // If it already exists
+  if ($order->company_billing()->first() !== NULL)
+    return FALSE;
+
   $customer = $order->customer()->first();
   $billing = $order->billing()->first();
 
@@ -134,6 +138,11 @@ function generate_new_order($customer, $profile) {
     $order_destination->save();
 
   }
+
+  /**
+   * Finally we generate the company billing of the order
+   */
+  generate_new_company_billing_from_order($order, TRUE);
 
 }
 
