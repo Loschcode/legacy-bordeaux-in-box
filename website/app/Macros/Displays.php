@@ -33,11 +33,39 @@ Html::macro('getTextCheckboxSpot', function($delivery_spot)
 Html::macro('pipelineComplete', function($step_pipeline, $current_step) 
 {
 
-  if ($step_pipeline <= $current_step) {
+  if (Html::pipelineStepCompleted($step_pipeline, $current_step)) {
     return '--complete';
   }
 
 });
+
+/**
+ * Check if the step of the pipeline is completed
+ */
+Html::macro('pipelineStepCompleted', function($step_pipeline, $current_step) {
+
+  if ($step_pipeline <= $current_step) {
+    return true;
+  }
+
+  return false;
+
+});
+
+/**
+ * Check if the step of the pipeline is completed
+ */
+Html::macro('pipelinePaymentStepDone', function($current_step) {
+
+
+  if ($current_step >= 3) {
+    return true;
+  }
+
+  return false;
+
+});
+
 
 /**
  * We will generate a link for the admin to access the user profile, from the email

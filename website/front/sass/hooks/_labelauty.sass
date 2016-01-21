@@ -77,3 +77,67 @@
         background-image: none
       &.labelauty-checked-image
         background-image: none
+
+
+
+input.labelauty
+  + label
+    \::selection, ::-moz-selection
+      background-color: rgba(255, 255, 255, 0)
+    display: block
+    text-align: left
+    font-size: 0.5vr
+    vertical-align: middle
+    margin: 0
+    background-color: #efefef
+    color: #b3b3b3
+    cursor: pointer
+    padding: 0.2vr
+    padding-left: 0.7vr
+    transition: background-color 0.25s
+    user-select: none
+    > span
+      &.labelauty-unchecked, &.labelauty-checked
+        display: inline-block
+      &.labelauty-unchecked-image, &.labelauty-checked-image
+        display: inline-block
+        width: 16px
+        height: 16px
+        background-repeat: no-repeat
+        background-position: left center
+        transition: background-image 0.5s linear
+        -moz-transition: background-image 0.5s linear
+        -webkit-transition: background-image 0.5s linear
+        -o-transition: background-image 0.5s linear
+      &.labelauty-unchecked-image + span.labelauty-unchecked, &.labelauty-checked-image + span.labelauty-checked
+        margin-left: 7px
+  display: none !important
+  &:not(:checked)
+    &:not([disabled]) + label:hover
+      background-color: lighten(#FFC414, 10%)
+      color: white
+    + label > span
+      &.labelauty-checked-image, &.labelauty-checked
+        display: none
+  &:checked
+    + label
+      background-color: #FFC414
+      color: #ffffff
+    &:not([disabled]) + label:hover
+      background-color: #FFC414
+    + label > span
+      &.labelauty-unchecked-image, &.labelauty-unchecked
+        display: none
+      &.labelauty-checked
+        display: inline-block
+  &.no-label:checked + label > span.labelauty-checked
+    display: block
+  &[disabled] + label
+    opacity: 0.5
+  + label > span
+    &.labelauty-unchecked-image
+      background-image: url( images/input-unchecked.png )
+    &.labelauty-checked-image
+      background-image: url( images/input-checked.png )
+
+

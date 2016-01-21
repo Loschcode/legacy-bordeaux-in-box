@@ -1,10 +1,120 @@
 @extends('masterbox.layouts.master')
 
 @section('content')
+  
+  <div class="container">
+    
+    {{-- Pipeline --}}
+    @include('masterbox.partials.pipeline', ['step' => 4])
 
+    {{-- Section --}}
+    <div class="grid-9 grid-centered">
+      <div class="section">
+        <h2 class="section__title --choose-frequency">
+          @if ($order_preference->isGift())
+            Personnalise sa box
+          @else
+            Personnalise ta box
+          @endif
+        </h2>
+        <p class="section__description --choose-frequency">
+          @if ($order_preference->isGift())
+            <p>Pour que la box soit la plus personnalisée possible, réponds à ces quelques questions à la place de ton amie !</p>
+          @else
+            <p>
+              Pour que la box soit la plus personnalisée possible, répondez à ces quelques questions !
+            </p>
+          @endif
+        </p>
+      </div>
+    </div>
+
+    <div class="+spacer-small"></div>
+    
+    <div class="grid-8 grid-centered">
+      <div class="custombox">
+        {!! Form::open() !!}
+          @foreach ($questions as $question)
+            
+            {{-- Logical business --}}
+            <?php $answers = $profile->answers(); ?>
+            <?php $old_reply = $answers->where('box_question_id', $question->id); ?>
+            
+            <h3 class="custombox__question">{{$question->question}}</h3>
+
+            @if ($question->type === 'date')              
+              
+              {!! Form::text($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer :  Request::old($question->id), ['class' => 'custombox__input']) !!}
+
+            @elseif ($question->type === "member_email")
+
+              {!! Form::text($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer :  Request::old($question->id), ['class' => 'custombox__input']) !!}
+
+            @elseif ($question->type === "text")
+
+              {!! Form::text($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer :  Request::old($question->id), ['class' => 'custombox__input']) !!}
+
+            @elseif ($question->type === "textarea")
+
+              {!! Form::textarea($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer : Request::old($question->id), ['class' => 'custombox__input']) !!}
+
+            @elseif ($question->type == "children_details")
+            
+            @else
+
+                @foreach ($question->answers()->get() as $answer)
+
+                <?php $answers = $profile->answers(); ?>
+                <?php $old_reply = $answers->where('box_question_id', $question->id); ?>
+
+
+                    @if ($question->type === 'radiobutton')
+
+                      @if ($old_reply->first() != NULL)
+                        
+              
+                      {!! Form::radio($question->id.'-0', $answer->content, ($old_reply->first()->answer == $answer->content) ? true : Request::old($question->id.'-0'), array('id' => $answer->id, 'data-labelauty' => $answer->content)) !!}
+
+                      @else
+                      
+                        {!! Form::radio($question->id.'-0', $answer->content, Request::old($question->id.'-0'), array('id' => $answer->id, 'data-labelauty' => $answer->content)) !!}
+                      @endif
+
+
+                    @elseif ($question->type == 'checkbox')
+                      
+
+                      @if ($old_reply === NULL)
+
+                        {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, Request::old($question->id.'-'.$answer->id), array('id' => $answer->id, 'data-labelauty' => $answer->content)) !!}
+
+                      @else
+
+              
+                        {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, ($old_reply->where('answer', $answer->content)->first()) ? true : Request::old($question->id.'-'.$answer->id), array('id' => $answer->id, 'data-labelauty' => $answer->content)) !!}
+
+                      @endif
+
+                      
+
+                    @endif
+
+                @endforeach
+
+            @endif
+
+
+          @endforeach
+        {!! Form::close() !!}
+      </div>
+    </div>
+
+  </div>
+
+  <?php /*
   <div id="js-page-box-form"></div>
 
-  @include('masterbox.partials.pipeline', ['step' => 1])
+  @include('masterbox.partials.pipeline', ['step' => 4])
 
   <div class="block-description text-center">
     <div class="container">
@@ -246,5 +356,5 @@
   </div>
 
   <div class="spacer50"></div>
-
+  */ ?>
 @stop
