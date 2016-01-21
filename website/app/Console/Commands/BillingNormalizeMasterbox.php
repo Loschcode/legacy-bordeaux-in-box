@@ -55,9 +55,6 @@ class BillingNormalizeMasterbox extends Command {
       foreach ($company_billings as $company_billing) {
         $company_billing->delete();
       }
-      foreach ($company_billing_lines as $company_billing_line) {
-        $company_billing_line->delete();
-      }
 
       $orders = Order::get();
       foreach ($orders as $order) {
@@ -158,7 +155,7 @@ class BillingNormalizeMasterbox extends Command {
         } else {
 
           $billing_line = new CompanyBillingLine;
-          $billing_line->company_billing_id = $billing->id;
+          $billing_line->company_billing_id = $company_billing->id;
           $billing_line->payment_id = $payment->id;
           $billing_line->label = "Remboursement de la box surprise";
           $billing_line->amount = $payment->amount;
@@ -194,6 +191,7 @@ class BillingNormalizeMasterbox extends Command {
       $company_billing->encrypted_access = Crypt::encrypt($company_billing->branch.$company_billing->customer_id.$company_billing->contract_id.$company_billing->bill_id);
 
       $company_billing->title = 'Box principale';
+      $company_billing->save();
 
       if ($payment->amount >= 0) {
 
@@ -216,7 +214,6 @@ class BillingNormalizeMasterbox extends Command {
       }
 
       $this->info('We save the changes for this entry.');
-      $company_billing->save();
 
 
     }
