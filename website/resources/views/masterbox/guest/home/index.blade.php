@@ -153,9 +153,8 @@
 					<div class="partner">
 						<div class="partner__picture-container">
 							<a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['id' => $article->id]) }}">
-								<img class="partner__picture" src="{{ url('images/tests/partner.jpg') }}" />
+								<img class="partner__picture" src="{{ $article->thumbnail->full }}" />
 							</a>
-							{{-- <img src="{{ $article->thumbnail->full }}" /> --}}
 						</div>
 					</div>
 				</div>
