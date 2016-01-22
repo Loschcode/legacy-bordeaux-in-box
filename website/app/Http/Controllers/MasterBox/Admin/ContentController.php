@@ -189,15 +189,13 @@ class ContentController extends BaseController {
 
 	}
 
-    /**
-     * Add a new illustration
-     * @return void
-     */
+   /**
+    * Add a new illustration
+    * @return void
+    */
 	public function getNewBlog()
 	{
-
-    return view('masterbox.admin.content.blog.new');
-
+		return view('masterbox.admin.content.blog.new');
 	}
 
     /**

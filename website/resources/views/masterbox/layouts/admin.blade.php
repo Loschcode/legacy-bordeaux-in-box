@@ -36,7 +36,7 @@
   <script>require('initialize');</script>
 
 </head>
-<body>
+<body id="csstyle" data-environment="{{ app()->environment() }}">
 
 	<div
 		id="gotham-layout"
