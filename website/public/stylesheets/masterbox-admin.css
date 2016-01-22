@@ -115,7 +115,13 @@ a {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   padding-top: 18px;
-  font-size: 36px; }
+  font-size: 36px;
+  display: inline-block; }
+.title__subsection {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  display: inline-block;
+  color: #415155; }
 
 .button {
   display: inline-block;
