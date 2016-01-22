@@ -188,6 +188,7 @@ return [
         Chumper\Zipper\ZipperServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
 
+
     ],
 
     /*
@@ -250,6 +251,7 @@ return [
         'Dumper' => Symfony\Component\VarDumper\VarDumper::class,
         'Str' => Illuminate\Support\Str::class,
         'Image' => Intervention\Image\Facades\Image::class,
+
 
     ],
 

@@ -26,7 +26,8 @@
         "symfony/var-dumper" : "*",
 
         "deviservi/nusoap": "*",
-        "intervention/image": "^2.3"
+        "intervention/image": "^2.3",
+        "intervention/imagecache": "^2.3"
 
     },
     "require-dev": {

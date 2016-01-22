@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Shared\Service;
 
 use App\Http\Controllers\MasterBox\BaseController;
-use Image, File;
+use Image, File, Storage;
 
 class ImagesController extends BaseController {
 
@@ -42,13 +42,18 @@ class ImagesController extends BaseController {
     // Fetch the first picture
     $file = $files[0];
 
-    // Return the picture resized
-    return Image::make($file)
+
+    $image = Image::make($file)
       ->resize($width, $height, function($constraint) {
         $constraint->aspectRatio();
         $constraint->upsize();
-      })
-      ->response();
+      });
+
+    // Store it (cache system)
+    $image->save(public_path('cache/' . $type . '-' . $filename));
+
+    // Display the picture
+    return $image->response();
 
   }
 
