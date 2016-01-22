@@ -1,6 +1,6 @@
 @extends('masterbox.layouts.admin')
 
-@section('page')
+@section('content')
   
   <div
     id="gotham"

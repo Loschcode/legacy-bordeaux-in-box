@@ -172,7 +172,7 @@ class ContentController extends BaseController {
 
 			$blog_article->save();
 
-			return redirect()->to('/admin/content#blog')
+			return redirect()->to('/admin/content/blog')
 			->with('message', 'Modifications effectuées')
 			->withInput();
 
