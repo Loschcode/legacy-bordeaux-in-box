@@ -35,8 +35,7 @@ return [
 			'checkbox' => 'Cases à cocher',
 
 			'date' => 'Date à remplir',
-			'member_email' => 'Email d\'un membre',
-			'children_details' => 'Description des enfants',
+			'member_email' => 'Email d\'un membre'
 
 		],
 

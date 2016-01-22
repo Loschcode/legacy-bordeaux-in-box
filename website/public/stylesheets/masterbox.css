@@ -206,6 +206,26 @@ a {
       top: 0;
       -webkit-box-shadow: none;
               box-shadow: none; }
+  .button__skip-custom-box {
+    display: inline-block;
+    background-color: #D83F66;
+    font-size: 21.599999999999998px;
+    text-align: center;
+    border-radius: 5px;
+    padding: 14.4px;
+    color: white;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    outline: 0;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    margin-top: 18px;
+    margin-bottom: 18px; }
+    .button__skip-custom-box:active {
+      top: 0;
+      -webkit-box-shadow: none;
+              box-shadow: none; }
   .button__google-map {
     background-color: #D83F66;
     font-size: 18px;
@@ -772,9 +792,9 @@ select + .chosen-container-multi .chosen-results li.result-selected {
     .labelauty-choose-frequency input.labelauty + label > span.labelauty-checked-image {
       background-image: none; }
 
-input.labelauty {
+.labelauty-default input.labelauty {
   display: none !important; }
-  input.labelauty + label {
+  .labelauty-default input.labelauty + label {
     display: block;
     text-align: left;
     font-size: 18px;
@@ -791,13 +811,13 @@ input.labelauty {
        -moz-user-select: none;
         -ms-user-select: none;
             user-select: none; }
-    input.labelauty + label ::-moz-selection, input.labelauty + label ::-moz-selection {
+    .labelauty-default input.labelauty + label ::-moz-selection, .labelauty-default input.labelauty + label ::-moz-selection {
       background-color: rgba(255, 255, 255, 0); }
-    input.labelauty + label ::selection, input.labelauty + label ::-moz-selection {
+    .labelauty-default input.labelauty + label ::selection, .labelauty-default input.labelauty + label ::-moz-selection {
       background-color: rgba(255, 255, 255, 0); }
-    input.labelauty + label > span.labelauty-unchecked, input.labelauty + label > span.labelauty-checked {
+    .labelauty-default input.labelauty + label > span.labelauty-unchecked, .labelauty-default input.labelauty + label > span.labelauty-checked {
       display: inline-block; }
-    input.labelauty + label > span.labelauty-unchecked-image, input.labelauty + label > span.labelauty-checked-image {
+    .labelauty-default input.labelauty + label > span.labelauty-unchecked-image, .labelauty-default input.labelauty + label > span.labelauty-checked-image {
       display: inline-block;
       width: 16px;
       height: 16px;
@@ -807,29 +827,29 @@ input.labelauty {
       -moz-transition: background-image 0.5s linear;
       -webkit-transition: background-image 0.5s linear;
       -o-transition: background-image 0.5s linear; }
-    input.labelauty + label > span.labelauty-unchecked-image + span.labelauty-unchecked, input.labelauty + label > span.labelauty-checked-image + span.labelauty-checked {
+    .labelauty-default input.labelauty + label > span.labelauty-unchecked-image + span.labelauty-unchecked, .labelauty-default input.labelauty + label > span.labelauty-checked-image + span.labelauty-checked {
       margin-left: 7px; }
-  input.labelauty:not(:checked):not([disabled]) + label:hover {
+  .labelauty-default input.labelauty:not(:checked):not([disabled]) + label:hover {
     background-color: #ffd147;
     color: white; }
-  input.labelauty:not(:checked) + label > span.labelauty-checked-image, input.labelauty:not(:checked) + label > span.labelauty-checked {
+  .labelauty-default input.labelauty:not(:checked) + label > span.labelauty-checked-image, .labelauty-default input.labelauty:not(:checked) + label > span.labelauty-checked {
     display: none; }
-  input.labelauty:checked + label {
+  .labelauty-default input.labelauty:checked + label {
     background-color: #FFC414;
     color: #ffffff; }
-  input.labelauty:checked:not([disabled]) + label:hover {
+  .labelauty-default input.labelauty:checked:not([disabled]) + label:hover {
     background-color: #FFC414; }
-  input.labelauty:checked + label > span.labelauty-unchecked-image, input.labelauty:checked + label > span.labelauty-unchecked {
+  .labelauty-default input.labelauty:checked + label > span.labelauty-unchecked-image, .labelauty-default input.labelauty:checked + label > span.labelauty-unchecked {
     display: none; }
-  input.labelauty:checked + label > span.labelauty-checked {
+  .labelauty-default input.labelauty:checked + label > span.labelauty-checked {
     display: inline-block; }
-  input.labelauty.no-label:checked + label > span.labelauty-checked {
+  .labelauty-default input.labelauty.no-label:checked + label > span.labelauty-checked {
     display: block; }
-  input.labelauty[disabled] + label {
+  .labelauty-default input.labelauty[disabled] + label {
     opacity: 0.5; }
-  input.labelauty + label > span.labelauty-unchecked-image {
+  .labelauty-default input.labelauty + label > span.labelauty-unchecked-image {
     background-image: url(images/input-unchecked.png); }
-  input.labelauty + label > span.labelauty-checked-image {
+  .labelauty-default input.labelauty + label > span.labelauty-checked-image {
     background-image: url(images/input-checked.png); }
 
 

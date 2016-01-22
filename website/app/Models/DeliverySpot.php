@@ -93,6 +93,13 @@ class DeliverySpot extends Model {
 
   }
 
+  public function readableSpot()
+  {
+
+    return $this->name . ' <br/> <small><i class="fa fa-map-marker"></i>' . $this->address . ', ' . $this->city . ' ('.$this->zip.')</span>';
+
+  }
+
 	public function emailReadableSpot()
 	{
 

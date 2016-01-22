@@ -2,6 +2,12 @@
 
 @section('content')
   
+  <div 
+    id="gotham"
+    data-form-errors="{{ $errors->has() }}"
+    data-form-errors-text="Des erreurs sont présentes dans le formulaire"
+  ></div>
+
   <div class="container">
     
     {{-- Pipeline --}}
@@ -28,11 +34,16 @@
         </p>
       </div>
     </div>
-
+    
     <div class="+spacer-small"></div>
     
     <div class="grid-8 grid-centered">
-      <div class="custombox">
+      
+      <div class="+text-center">
+        <a href="{{ action('MasterBox\Customer\PurchaseController@getConfirmed') }}" class="button button__skip-custom-box">Je ne veux pas personnaliser la box</a>
+      </div>
+
+      <div class="custombox labelauty-default">
         {!! Form::open() !!}
           @foreach ($questions as $question)
             
@@ -41,7 +52,7 @@
             <?php $old_reply = $answers->where('box_question_id', $question->id); ?>
             
             <h3 class="custombox__question">{{$question->question}}</h3>
-
+            
             @if ($question->type === 'date')              
               
               {!! Form::text($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer :  Request::old($question->id), ['class' => 'custombox__input']) !!}
@@ -57,8 +68,6 @@
             @elseif ($question->type === "textarea")
 
               {!! Form::textarea($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer : Request::old($question->id), ['class' => 'custombox__input']) !!}
-
-            @elseif ($question->type == "children_details")
             
             @else
 
@@ -105,6 +114,10 @@
 
 
           @endforeach
+          
+          <div class="+spacer-small"></div>
+
+          <button class="button button__submit --big"><i class="fa fa-check"></i> Valider</button>
         {!! Form::close() !!}
       </div>
     </div>
