@@ -251,8 +251,9 @@ class ContentController extends BaseController {
 
 			$blog_article->save();
 
-			return redirect()->to('/admin/content#blog')
-			->with('message', 'Nouveau article ajouté')
+			session()->flash('message', 'Nouveau article ajouté');
+
+			return redirect()->to('/admin/content/blog')
 			->withInput();
 
 		} else {

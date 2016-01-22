@@ -2,21 +2,12 @@
 
 @section('page')
   
-  <div class="navbar">
-    <div class="navbar__wrapper">
-      <ul class="navbar__list">
-        <li class="navbar__item">
-          <a class="navbar__link" href="{{ action('MasterBox\Admin\ContentController@getBlog') }}">Blog</a>
-        </li>
-        <li class="navbar__item">
-          <a class="navbar__link" href="{{ action('MasterBox\Admin\ContentController@getIllustrations') }}">Illustrations</a>
-        </li>
-        <li class="navbar__item">
-          <a class="navbar__link" href="{{ action('MasterBox\Admin\ContentController@getPages') }}">Pages</a>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <div
+    id="gotham"
+    data-success-message="{{ session('message') }}"
+  ></div>
+
+  @include('masterbox.admin.partials.navbar_content')
 
   <div class="row">
     <div class="grid-8">

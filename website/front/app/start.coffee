@@ -62,7 +62,7 @@ if $('#gotham-layout').data('layout') is 'masterbox-admin'
       search: 'Chercher: '
 
   # Delete confirm
-  $('.js-confirm-delete').on 'click', (e) ->
+  $(document).on 'click', '.js-confirm-delete', (e) ->
 
     e.preventDefault();
 

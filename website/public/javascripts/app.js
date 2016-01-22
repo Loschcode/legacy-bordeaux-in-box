@@ -585,7 +585,7 @@ if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
       search: 'Chercher: '
     }
   });
-  $('.js-confirm-delete').on('click', function(e) {
+  $(document).on('click', '.js-confirm-delete', function(e) {
     e.preventDefault();
     return swal({
       type: 'warning',
