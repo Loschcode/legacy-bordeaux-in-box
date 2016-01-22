@@ -575,7 +575,15 @@ $(':radio').labelauty();
 if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
   new AdminSidebar();
   $('.js-datatable-simple').DataTable({
-    length: false
+    length: false,
+    language: {
+      lengthMenu: "Afficher _MENU_ résultats par page",
+      zeroRecords: "Aucun enregistrement trouvé",
+      info: "Page _PAGE_ sur _PAGES_",
+      infoEmpty: "Aucun enregistrement disponible",
+      infoFiltered: "(filtré sur _MAX_ enregistrements)",
+      search: 'Chercher: '
+    }
   });
 }
 });

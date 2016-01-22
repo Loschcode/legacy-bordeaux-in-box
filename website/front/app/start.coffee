@@ -53,4 +53,12 @@ if $('#gotham-layout').data('layout') is 'masterbox-admin'
   # Datatable 
   $('.js-datatable-simple').DataTable
     length: false
+    language:
+      lengthMenu: "Afficher _MENU_ résultats par page"
+      zeroRecords: "Aucun enregistrement trouvé"
+      info: "Page _PAGE_ sur _PAGES_"
+      infoEmpty: "Aucun enregistrement disponible"
+      infoFiltered: "(filtré sur _MAX_ enregistrements)"
+      search: 'Chercher: '
+
 
