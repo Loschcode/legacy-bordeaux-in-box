@@ -585,6 +585,23 @@ if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
       search: 'Chercher: '
     }
   });
+  $('.js-confirm-delete').on('click', function(e) {
+    e.preventDefault();
+    return swal({
+      type: 'warning',
+      title: 'Es-tu sûr ?',
+      text: 'La ressource sera supprimé définitivement',
+      showCancelButton: true,
+      confirmButtonText: "Oui je suis sûr",
+      cancelButtonText: "Annuler",
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    }, (function(_this) {
+      return function() {
+        return window.location.href = $(_this).attr('href');
+      };
+    })(this));
+  });
 }
 });
 

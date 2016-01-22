@@ -61,4 +61,22 @@ if $('#gotham-layout').data('layout') is 'masterbox-admin'
       infoFiltered: "(filtré sur _MAX_ enregistrements)"
       search: 'Chercher: '
 
+  # Delete confirm
+  $('.js-confirm-delete').on 'click', (e) ->
+
+    e.preventDefault();
+
+    swal
+      type: 'warning'
+      title: 'Es-tu sûr ?'
+      text: 'La ressource sera supprimé définitivement'
+      showCancelButton: true
+      confirmButtonText: "Oui je suis sûr", 
+      cancelButtonText: "Annuler"
+      closeOnConfirm: false
+      showLoaderOnConfirm: true
+    , =>
+
+      window.location.href = $(this).attr('href')
+
 
