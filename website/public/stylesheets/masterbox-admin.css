@@ -133,6 +133,31 @@ a {
   .button__table {
     padding-left: 10px; }
 
+.navbar__wrapper {
+  background-color: #ECF0F1;
+  width: 100%;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding-left: 10.799999999999999px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#3895cb), to(#015e94));
+  background: -webkit-linear-gradient(#3895cb, #015e94);
+  background: linear-gradient(#3895cb, #015e94); }
+.navbar__item {
+  display: inline-block;
+  height: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 14.4px; }
+  .navbar__item:hover {
+    opacity: 0.7; }
+.navbar__link {
+  color: white;
+  display: block;
+  padding-top: 7.2px;
+  padding-bottom: 7.2px;
+  padding-left: 14.4px;
+  padding-right: 14.4px; }
+
 .chosen-container.chosen-container-single {
   width: 100% !important; }
 

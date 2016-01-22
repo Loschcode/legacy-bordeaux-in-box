@@ -36,6 +36,9 @@ class ContentController extends BaseController {
 	 */
 	public function getIndex()
 	{
+		return redirect()->action('MasterBox\Admin\ContentController@getBlog');
+
+		/*
 		$blog_articles = BlogArticle::orderBy('created_at', 'desc')->get();
 		$image_articles = ImageArticle::orderBy('created_at', 'desc')->get();
 
@@ -45,7 +48,7 @@ class ContentController extends BaseController {
 			'pages',
 			'image_articles',
 			'blog_articles'
-		));
+		));*/
 	}
 
 	/**
@@ -59,6 +62,33 @@ class ContentController extends BaseController {
 		return view('masterbox.admin.content.blog.index')->with(compact(
 			'blog_articles'
 		));
+	}
+
+	/**
+	 * Display illustrations
+	 * @return void
+	 */
+	public function getIllustrations()
+	{
+		$image_articles = ImageArticle::orderBy('created_at', 'desc')->get();
+
+		return view('masterbox.admin.content.illustrations.index')->with(compact(
+			'images_articles'
+		));
+
+	}
+
+	/**
+	 * Display pages, you can directly edit them
+	 * @return void
+	 */
+	public function getPages()
+	{
+	  $pages = Page::get();
+
+	  return view('masterbox.admin.content.pages.index')->with(compact(
+	  	'pages'
+	  ));
 	}
 
 	/**
