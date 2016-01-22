@@ -515,36 +515,29 @@ a {
 .billing__container {
   margin-bottom: 10.799999999999999px; }
 
-.typography h1,
-.markdown-preview h1 {
+.typography h1 {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 28.8px;
   padding-bottom: 14.4px;
   padding-top: 21.599999999999998px; }
-.typography h2,
-.markdown-preview h2 {
+.typography h2 {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 21.599999999999998px;
   padding-bottom: 14.4px;
   padding-top: 21.599999999999998px; }
-.typography p,
-.markdown-preview p {
+.typography p {
   font-size: 18px;
   text-align: justify; }
-.typography a,
-.markdown-preview a {
+.typography a {
   border-bottom: 1px dotted #364347;
   padding-bottom: 3.6px; }
-.typography em,
-.markdown-preview em {
+.typography em {
   font-style: italic; }
-.typography strong,
-.markdown-preview strong {
+.typography strong {
   font-weight: bold; }
-.typography a,
-.markdown-preview a {
+.typography a {
   color: #3498db;
   border-bottom: 1px dotted #3498db; }
 

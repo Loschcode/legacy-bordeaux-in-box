@@ -236,6 +236,39 @@ a {
   width: 100%;
   min-height: 252px; }
 
+.typography h1,
+.meltdown_preview h1 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 28.8px;
+  padding-bottom: 14.4px;
+  padding-top: 21.599999999999998px; }
+.typography h2,
+.meltdown_preview h2 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 21.599999999999998px;
+  padding-bottom: 14.4px;
+  padding-top: 21.599999999999998px; }
+.typography p,
+.meltdown_preview p {
+  font-size: 18px;
+  text-align: justify; }
+.typography a,
+.meltdown_preview a {
+  border-bottom: 1px dotted #364347;
+  padding-bottom: 3.6px; }
+.typography em,
+.meltdown_preview em {
+  font-style: italic; }
+.typography strong,
+.meltdown_preview strong {
+  font-weight: bold; }
+.typography a,
+.meltdown_preview a {
+  color: #3498db;
+  border-bottom: 1px dotted #3498db; }
+
 .chosen-container.chosen-container-single {
   width: 100% !important; }
 
