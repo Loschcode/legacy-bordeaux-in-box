@@ -163,7 +163,7 @@
 	@endforeach
 
 	<div class="grid-5 grid-centered">
-		<a class="button button__home-partner" href="#">Voir les autres boutiques complices ...</a>
+		<a class="button button__home-partner" href="{{ action('MasterBox\Guest\BlogController@getIndex') }}">Voir les autres boutiques complices ...</a>
 	</div>
 </div>
 

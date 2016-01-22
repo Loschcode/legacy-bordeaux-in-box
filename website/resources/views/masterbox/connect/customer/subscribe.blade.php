@@ -82,6 +82,4 @@
 
 </div>
 
-@include('masterbox.partials.footer')
-
 @stop

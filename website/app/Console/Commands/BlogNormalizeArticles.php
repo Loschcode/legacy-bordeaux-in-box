@@ -461,7 +461,7 @@ Partager avec ses clients, ses conseils et astuces beauté et bien-être. Maritz
 
 ## Quels sont ses futurs projets ?
 
-Développer sa boutique en ligne : www.maritza.fr pour pouvoir satisfaire et toucher des clientes même à distance car il est possible de se faire livrer n'importe quel produit de la boutique directement chez soi !
+Développer sa boutique en ligne : <http://www.maritza.fr> pour pouvoir satisfaire et toucher des clientes même à distance car il est possible de se faire livrer n'importe quel produit de la boutique directement chez soi !
 
 
 
