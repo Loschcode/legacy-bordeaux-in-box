@@ -11,7 +11,7 @@
 				<img class="img-responsive thumbnail blog-align" src="{{ url($blog_article->thumbnail->full) }}">
 
 				<div class="blog-content">
-					{!! nl2br($blog_article->content) !!}
+					{!! Markdown::convertToHtml($blog_article->content) !!}
 				</div>
 			</div>
 

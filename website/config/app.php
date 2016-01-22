@@ -187,6 +187,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Chumper\Zipper\ZipperServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 
 
     ],
@@ -251,6 +252,7 @@ return [
         'Dumper' => Symfony\Component\VarDumper\VarDumper::class,
         'Str' => Illuminate\Support\Str::class,
         'Image' => Intervention\Image\Facades\Image::class,
+        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
 
 
     ],

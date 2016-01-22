@@ -27,7 +27,8 @@
 
         "deviservi/nusoap": "*",
         "intervention/image": "^2.3",
-        "intervention/imagecache": "^2.3"
+        "intervention/imagecache": "^2.3",
+        "graham-campbell/markdown": "^6.0"
 
     },
     "require-dev": {
