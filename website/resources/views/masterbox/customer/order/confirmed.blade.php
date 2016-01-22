@@ -17,5 +17,4 @@
 		</div>
 	</div>
 	
-	{!! View::make('masterbox.partials.front.footer')->with('stick', true) !!}
 @stop
