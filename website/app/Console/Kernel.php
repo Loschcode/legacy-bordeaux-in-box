@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         Commands\OrderNormalizeUnityAndFeesPrice::class,
         Commands\BillingNormalizeMasterbox::class,
         Commands\QuestionsNormalizeMasterbox::class,
+        Commands\BlogNormalizeArticles::class,
         
     ];
 

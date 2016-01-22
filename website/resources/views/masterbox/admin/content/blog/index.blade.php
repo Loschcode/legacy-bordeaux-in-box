@@ -28,6 +28,7 @@
 
     <thead>
       <tr>
+        <th>Id</th>
         <th>Titre</th>
         <th>Date</th>
         <th>Action</th>
@@ -37,6 +38,7 @@
       @foreach ($blog_articles as $blog_article)
 
       <tr>
+        <td>{{ $blog_article->id }}</td>
         <td>{{$blog_article->title}}</td>
         <td>{{ Html::dateFrench($blog_article->created_at) }}</td>
         <td>
