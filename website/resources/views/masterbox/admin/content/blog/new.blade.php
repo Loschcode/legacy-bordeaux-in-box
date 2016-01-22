@@ -16,7 +16,7 @@
     </div>
     <div class="grid-4">
       <div class="+text-right">
-        <a href="{{ action('MasterBox\Admin\ContentController@getNewBlog') }}" class="button button__section"><i class="fa fa-list"></i> Voir les articles</a>
+        <a href="{{ action('MasterBox\Admin\ContentController@getBlog') }}" class="button button__section"><i class="fa fa-list"></i> Voir les articles</a>
       </div>
     </div>
   </div>

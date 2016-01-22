@@ -43,6 +43,19 @@ class BlogNormalizeArticles extends Command
 
         foreach ($ids as $id) {
 
+            $this->info('Updating content article ' . $id);
+
+            $article = BlogArticle::find($id);
+
+            if ($article !== NULL) {
+                $article->content = trim($this->{'article' . $id}());
+                $article->save();
+                $this->line('Updated !');
+            } else {
+                $this->error('Can\'t find the article');
+            }
+
+
         }
     }
 
