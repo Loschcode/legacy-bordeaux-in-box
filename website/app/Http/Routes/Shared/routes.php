@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| MasterBox Routes
+| Shared Routes
 |--------------------------------------------------------------------------
 */
 
@@ -10,7 +10,7 @@ Route::group(['namespace' => 'Shared', 'domain' => "shared.".config('app.domain'
 
 
   /**
-   *  MasterBox Service Area
+   * Shared Service Area
    */
   Route::group(['namespace' => 'Service', 'prefix' => 'service'], function() {
 
@@ -23,6 +23,11 @@ Route::group(['namespace' => 'Shared', 'domain' => "shared.".config('app.domain'
      * Invoices (connected to Stripes)
      */
     Route::controller('invoices', 'InvoicesController');
+
+    /**
+     * Image (Resize on the fly)
+     */
+    Route::controller('images', 'ImagesController');
 
   });
 

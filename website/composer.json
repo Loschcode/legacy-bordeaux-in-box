@@ -25,7 +25,8 @@
         "chumper/zipper": "0.6.x",
         "symfony/var-dumper" : "*",
 
-        "deviservi/nusoap": "*"
+        "deviservi/nusoap": "*",
+        "intervention/image": "^2.3"
 
     },
     "require-dev": {
