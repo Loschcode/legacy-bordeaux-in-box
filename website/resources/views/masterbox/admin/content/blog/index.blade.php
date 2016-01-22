@@ -20,8 +20,8 @@
             <td>{{$blog_article->title}}</td>
             <td>{{ Html::dateFrench($blog_article->created_at) }}</td>
             <td>
-              <a href="{{url('/admin/content/edit-blog/'.$blog_article->id)}}"><i class="fa fa-pencil"></i></a>
-              <a href="{{url('/admin/content/delete-blog/'.$blog_article->id)}}"><i class="fa fa-trash-o"></i></a>
+              <a class="button__table --first" href="{{url('/admin/content/edit-blog/'.$blog_article->id)}}"><i class="fa fa-pencil"></i></a>
+              <a class="button__table --last" href="{{url('/admin/content/delete-blog/'.$blog_article->id)}}"><i class="fa fa-trash-o"></i></a>
             </td>
           </tr>
 

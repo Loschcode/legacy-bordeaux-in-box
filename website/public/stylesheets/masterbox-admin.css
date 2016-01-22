@@ -119,6 +119,20 @@ a {
   border-bottom: 2px solid #ECF0F1;
   margin-bottom: 25.2px; }
 
+.button {
+  display: inline-block;
+  border: 0;
+  font: inherit;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative; }
+  .button__table {
+    padding-left: 10px; }
+
 .chosen-container.chosen-container-single {
   width: 100% !important; }
 
