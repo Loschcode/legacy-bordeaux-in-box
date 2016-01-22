@@ -21,8 +21,8 @@ class ImagesController extends BaseController {
       break;
 
       case 'large':
-        $width = 600;
-        $height = 600;
+        $width = 500;
+        $height = 300;
       break;
 
       default:

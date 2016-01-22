@@ -1,6 +1,6 @@
 @extends('masterbox.layouts.master')
 @section('content')
-
+	
 	<div class="container blog">
 
 		@if ($blog_articles->count() === 0)
