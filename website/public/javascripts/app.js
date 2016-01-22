@@ -602,6 +602,10 @@ if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
       };
     })(this));
   });
+  $('.js-markdown').meltdown({
+    openPreview: true,
+    sidebyside: true
+  });
 }
 });
 

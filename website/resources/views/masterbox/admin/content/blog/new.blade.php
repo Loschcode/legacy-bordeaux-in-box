@@ -47,7 +47,7 @@
     </div>
 
     {!! Form::label("content", "Contenu", ['class' => 'form__label']) !!}
-    {!! Form::textarea("content", Request::old("content"), ['class' => 'form__input']) !!}
+    {!! Form::textarea("content", Request::old("content"), ['class' => 'form__markdown js-markdown']) !!}
     {!! Html::checkError('content', $errors) !!}
 
 

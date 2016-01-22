@@ -79,4 +79,9 @@ if $('#gotham-layout').data('layout') is 'masterbox-admin'
 
       window.location.href = $(this).attr('href')
 
+  # Markdown
+  $('.js-markdown').meltdown
+    openPreview: true
+    sidebyside: true
+
 
