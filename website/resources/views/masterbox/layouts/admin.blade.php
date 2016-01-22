@@ -86,6 +86,8 @@
 		</ul>
 	</div>
 	<div class="page page__wrapper">
+		@yield('page')
+		@yield('buttons')
 		@yield('content')
 
 	</div>

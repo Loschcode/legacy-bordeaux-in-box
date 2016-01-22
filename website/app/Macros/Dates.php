@@ -16,3 +16,12 @@ Html::macro('diffHumans', function($date, $diff=0) {
   return ucfirst(Date::createFromTimeStamp(strtotime($date))->diffForHumans());
 
 });
+
+/**
+ * Format english date to french
+ */
+Html::macro('dateFrench', function($date) {
+
+  return Date::parse($date)->format('d-m-Y');
+
+});

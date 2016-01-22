@@ -108,7 +108,16 @@ a {
     padding-right: 18px; }
 
 .page__wrapper {
-  margin-left: 260px; }
+  margin-left: 75px;
+  margin-right: 15px; }
+
+.title__section {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  padding-top: 18px;
+  font-size: 36px;
+  border-bottom: 2px solid #ECF0F1;
+  margin-bottom: 25.2px; }
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }
@@ -259,6 +268,90 @@ select + .chosen-container-multi .chosen-results li.result-selected {
   color: #ccc;
   cursor: default;
   background-color: white; }
+
+table.dataTable {
+  text-align: left !important;
+  width: 100%;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-weight: 300 !important;
+  font-size: 14.4px; }
+  table.dataTable.no-footer {
+    border-bottom: 1px solid #f1f1f1; }
+  table.dataTable tbody th {
+    font-size: 14.4px; }
+  table.dataTable tbody tr:nth-child(odd) {
+    background-color: #ECF0F1; }
+  table.dataTable thead {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700; }
+    table.dataTable thead td {
+      border: 0px !important; }
+    table.dataTable thead th {
+      border: 0px !important;
+      font-weight: 300 !important; }
+    table.dataTable thead tr {
+      background: -webkit-gradient(linear, left top, left bottom, from(#3895cb), to(#015e94));
+      background: -webkit-linear-gradient(#3895cb, #015e94);
+      background: linear-gradient(#3895cb, #015e94);
+      color: white; }
+
+.dataTables_length {
+  display: none; }
+
+.dataTables_filter {
+  width: 100%; }
+  .dataTables_filter label {
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    padding: 10.799999999999999px;
+    color: white;
+    background: -webkit-gradient(linear, left top, left bottom, from(#364347), to(#20282a));
+    background: -webkit-linear-gradient(#364347, #20282a);
+    background: linear-gradient(#364347, #20282a);
+    text-align: left;
+    display: inline-block;
+    width: 100%;
+    float: left;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 14.4px; }
+  .dataTables_filter input[type="search"] {
+    outline: 0;
+    border: 1px solid #d5d5d5;
+    padding: 5px;
+    font-weight: 300;
+    width: 20%;
+    border-radius: 5px; }
+
+.dataTables_wrapper .dataTables_info {
+  font-size: 14px; }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+  font-size: 14px; }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: #333 !important;
+  border: 1px solid #cacaca;
+  background-color: #fff;
+  background: none;
+  font-size: 14px;
+  padding: 5px; }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  font-size: 12px !important;
+  border: 1px solid #c4c4c4 !important;
+  padding: 5px 10px !important;
+  background: none !important;
+  color: #565a5c !important; }
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  background-color: #edefed !important;
+  color: #565a5c !important; }
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+  margin-top: 1em; }
 
 @import url(https://fonts.googleapis.com/css?family=Rancho);
 @import url(https://fonts.googleapis.com/css?family=Gudea:400,400italic,700&subset=latin,latin-ext);

@@ -574,6 +574,9 @@ $(':radio').labelauty();
 
 if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
   new AdminSidebar();
+  $('.js-datatable-simple').DataTable({
+    length: false
+  });
 }
 });
 

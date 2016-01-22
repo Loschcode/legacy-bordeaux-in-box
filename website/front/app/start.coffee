@@ -47,4 +47,10 @@ $(':radio').labelauty()
 #
 if $('#gotham-layout').data('layout') is 'masterbox-admin'
 
+  # Manage sidebar hover / unhover
   new AdminSidebar()
+
+  # Datatable 
+  $('.js-datatable-simple').DataTable
+    length: false
+

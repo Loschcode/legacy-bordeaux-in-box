@@ -15,7 +15,9 @@
     "smooth-scroll": "https://github.com/cferdinandi/smooth-scroll.git#~7.1.1",
     "chosen": "~1.4.2",
     "jquery-labelauty": "labelauty#~1.1.0",
-    "jquery-placeholder": "~2.3.1"
+    "jquery-placeholder": "~2.3.1",
+    "datatables.net": "~1.10.10",
+    "datatables.net-dt": "~1.10.10"
   },
   "overrides": {
     "reset-css": {

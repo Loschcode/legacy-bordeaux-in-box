@@ -30,24 +30,35 @@ class ContentController extends BaseController {
     }
     
 
-    /**
-     * Get the listing page of the blog
-     * @return void
-     */
+	/**
+	 * Get the listing page of the blog
+	 * @return void
+	 */
 	public function getIndex()
 	{
-
 		$blog_articles = BlogArticle::orderBy('created_at', 'desc')->get();
 		$image_articles = ImageArticle::orderBy('created_at', 'desc')->get();
 
 		$pages = Page::get();
 
-		return view('masterbox.admin.content.index')->with(compact(
-      'pages',
-      'image_articles',
-      'blog_articles'
-    ));
+		return view('masterbox.admin.content.blog.index')->with(compact(
+			'pages',
+			'image_articles',
+			'blog_articles'
+		));
+	}
 
+	/**
+	 * Display articles of the blog
+	 * @return void
+	 */
+	public function getBlog()
+	{
+		$blog_articles = BlogArticle::orderBy('created_at', 'desc')->get();
+
+		return view('masterbox.admin.content.blog.index')->with(compact(
+			'blog_articles'
+		));
 	}
 
 	/**
