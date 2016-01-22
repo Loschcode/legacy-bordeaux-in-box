@@ -527,7 +527,37 @@ $(function() {
 });
 });
 
+;require.register("libraries/admin-sidebar", function(exports, require, module) {
+var AdminSidebar;
+
+AdminSidebar = (function() {
+  function AdminSidebar() {
+    $('#sidebar').on('mouseenter', this.sidebarEnter);
+    $('#sidebar').on('mouseleave', this.sidebarLeave);
+  }
+
+  AdminSidebar.prototype.sidebarEnter = function() {
+    $(this).css('width', '270px');
+    return $('#sidebar-brand').css('display', 'block');
+  };
+
+  AdminSidebar.prototype.sidebarLeave = function() {
+    $(this).css('width', '60px');
+    return $('#sidebar-brand').css('display', 'none');
+  };
+
+  return AdminSidebar;
+
+})();
+
+module.exports = AdminSidebar;
+});
+
 ;require.register("start", function(exports, require, module) {
+var AdminSidebar;
+
+AdminSidebar = require('libraries/admin-sidebar');
+
 $('input, textarea').placeholder();
 
 _.notificationFormErrors();
@@ -541,6 +571,10 @@ $('.js-chosen').chosen({
 $(':checkbox').labelauty();
 
 $(':radio').labelauty();
+
+if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
+  new AdminSidebar();
+}
 });
 
 ;require.register("validators", function(exports, require, module) {

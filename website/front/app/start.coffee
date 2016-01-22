@@ -5,6 +5,13 @@
 # Gotham will run after that file the "router" system. It's the right place
 # to put some code to execute globally like the init of jQuery plugins, etc.
 ##
+#
+AdminSidebar = require 'libraries/admin-sidebar'
+
+#--------------------------------------------------------------------------
+# Global elements
+#--------------------------------------------------------------------------
+#
 
 ##
 # Polify placeholders for old browsers
@@ -32,3 +39,12 @@ $('.js-chosen').chosen
 ##
 $(':checkbox').labelauty()
 $(':radio').labelauty()
+
+
+#--------------------------------------------------------------------------
+# MasterBox admin elements
+#--------------------------------------------------------------------------
+#
+if $('#gotham-layout').data('layout') is 'masterbox-admin'
+
+  new AdminSidebar()
