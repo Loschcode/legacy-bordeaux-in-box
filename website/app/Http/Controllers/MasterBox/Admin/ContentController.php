@@ -10,46 +10,15 @@ use Request, Validator, Auth, Str;
 
 class ContentController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Admin Illustration Controller
-	|--------------------------------------------------------------------------
-	|
-	| Add / Edit / Delete blog
-	|
-	*/
 
-    /**
-     * Filters
-     */
-    public function __construct()
-    {
-    	
-    	$this->beforeMethod();
-
-    }
-    
-
-	/**
-	 * Get the listing page of the blog
-	 * @return void
-	 */
-	public function getIndex()
-	{
-		return redirect()->action('MasterBox\Admin\ContentController@getBlog');
-
-		/*
-		$blog_articles = BlogArticle::orderBy('created_at', 'desc')->get();
-		$image_articles = ImageArticle::orderBy('created_at', 'desc')->get();
-
-		$pages = Page::get();
-
-		return view('masterbox.admin.content.blog.index')->with(compact(
-			'pages',
-			'image_articles',
-			'blog_articles'
-		));*/
+ 	/**
+	 * Filters
+   */
+	public function __construct()
+  {
+		$this->beforeMethod();
 	}
+    
 
 	/**
 	 * Display articles of the blog
@@ -64,32 +33,6 @@ class ContentController extends BaseController {
 		));
 	}
 
-	/**
-	 * Display illustrations
-	 * @return void
-	 */
-	public function getIllustrations()
-	{
-		$image_articles = ImageArticle::orderBy('created_at', 'desc')->get();
-
-		return view('masterbox.admin.content.illustrations.index')->with(compact(
-			'images_articles'
-		));
-
-	}
-
-	/**
-	 * Display pages, you can directly edit them
-	 * @return void
-	 */
-	public function getPages()
-	{
-	  $pages = Page::get();
-
-	  return view('masterbox.admin.content.pages.index')->with(compact(
-	  	'pages'
-	  ));
-	}
 
 	/**
 	 * We remove the illustration
@@ -116,6 +59,9 @@ class ContentController extends BaseController {
     ));
 	}
 
+	/**
+	 * Manage edit blog article
+	 */
 	public function postEditBlog()
 	{
 
@@ -154,7 +100,7 @@ class ContentController extends BaseController {
 
 				// We manage the thumbnail
 				$file = Request::file('thumbnail');
-				$destinationPath = 'public/uploads/blog/';
+				$destinationPath = public_path('uploads/blog/');
 
 				$filename = value(function() use ($file, $blog_article) {
 
@@ -186,9 +132,9 @@ class ContentController extends BaseController {
 		}
 
 
-
 	}
 
+	
    /**
     * Add a new illustration
     * @return void
@@ -268,61 +214,79 @@ class ContentController extends BaseController {
 
 	}
 
+	/**
+	 * Display pages, you can directly edit them
+	 * @return void
+	 */
+	public function getPages()
+	{
+	  $pages = Page::get();
+
+	  return view('masterbox.admin.content.pages.index')->with(compact(
+	  	'pages'
+	  ));
+	}
 
 	/**
-	 * We edit a page
-	 * @return redirect
+	 * Display the form to edit a page
+	 * @param  string $id Id of the page
+	 */
+	public function getEditPage($id)
+	{
+
+		$page = Page::findOrFail($id);
+
+		return view('masterbox.admin.content.pages.edit')->with(compact(
+			'page'
+		));
+
+	}
+
+	/**
+	 * Handle the form edit page
 	 */
 	public function postEditPage()
 	{
 
-		$fields = Request::all();
-		$rules = []; // Dynamic rule
+		// Fetch inputs
+		$inputs = Request::all();
 
-    // Never understood why this was here.
-    unset($fields['files']);
+		// Fetch page or stop the process
+		$page = Page::findOrFail($inputs['page_id']);
 
-		foreach ($fields as $label => $value) {
-
-			$rules[$label] = 'required';
-
-		}
-
-		$validator = Validator::make($fields, $rules);
+		// Content is Required
+		$validator = Validator::make($inputs, ['content' => 'required']);
 
 		// The form validation was good
 		if ($validator->passes()) {
 
-			foreach ($fields as $label => $value) {
+			// Update page
+			$page->content = $inputs['content'];
+			$page->save();
 
-				$page = Page::where('slug', $label)->first();
-
-				if ($page !== NULL) {
-
-					//addLogAuth::guard('customer')->user()->id, "La page `$page->title` a été modifiée");
-					
-					$page->content = $value;
-					$page->save();
-
-				}
-
-			}
-
-			session()->flash('message', "Vos pages ont correctement été mises à jour");
-			return redirect()->back();
-
-		} else {
-
-			// We return the same page with the error and saving the input datas
-			return redirect()->back()
-			->withInput()
-			->withErrors($validator);
+			return redirect()->back()->with('message', 'La page à bien été édité');
 
 		}
 
+		return redirect()->back()
+		->withInput()
+		->withErrors($validator);
 
 	}
 
+	/**
+	 * Display illustrations
+	 * @return void
+	 */
+	public function getIllustrations()
+	{
+		$image_articles = ImageArticle::orderBy('created_at', 'desc')->get();
+
+		return view('masterbox.admin.content.illustrations.index')->with(compact(
+			'images_articles'
+		));
+
+	}
 
 	/**
 	 * We remove the illustration
@@ -397,7 +361,7 @@ class ContentController extends BaseController {
 			$image_article->save();
 
 
-			return redirect()->to('/admin/content#illustrations')
+			return redirect()->to('/admin/content/illustrations')
 			->with('message', 'L\'illustration à été ajouté avec succès')
 			->withInput();
 
@@ -432,7 +396,6 @@ class ContentController extends BaseController {
 	public function postNewIllustration()
 	{
 
-
 		// New article rules
 		$rules = [
 
@@ -461,7 +424,7 @@ class ContentController extends BaseController {
 
 			$image_article->save();
 
-			return redirect()->to('/admin/content#illustrations')
+			return redirect()->to('/admin/content/illustrations')
 			->withInput();
 
 		} else {
@@ -479,10 +442,9 @@ class ContentController extends BaseController {
 	private function _prepare_image($fields, $image_article)
 	{
 
-
 		// We manage the image
 		$file = Request::file('image');
-		$destinationPath = 'public/uploads/illustrations/';
+		$destinationPath = public_path('uploads/illustrations/');
 
 		$filename = value(function() use ($file, $image_article) {
 
@@ -492,9 +454,6 @@ class ContentController extends BaseController {
 		});
 
 		Request::file('image')->move($destinationPath, $filename);
-
-		// We remove public for the array
-		//$destinationPath = str_replace('public/', '', $destinationPath);
 
 		$image = ['folder' => 'illustrations', 'filename' => $filename];
 

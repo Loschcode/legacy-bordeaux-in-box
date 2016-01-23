@@ -66,7 +66,7 @@
 				<a class="sidebar__link" href="{{ action('MasterBox\Admin\BoxController@getIndex') }}"><i class="fa fa-gift"></i> Box</a>
 			</li>
 			<li class="sidebar__item">
-				<a class="sidebar__link" href="{{ action('MasterBox\Admin\ContentController@getIndex') }}"><i class="fa fa-picture-o"></i> Contenus</a>
+				<a class="sidebar__link" href="{{ action('MasterBox\Admin\ContentController@getBlog') }}"><i class="fa fa-picture-o"></i> Contenus</a>
 			</li>
 			<li class="sidebar__item">
 				<a class="sidebar__link" href="{{ action('MasterBox\Admin\CustomersController@getIndex') }}"><i class="fa fa-group"></i> Utilisateurs</a>
