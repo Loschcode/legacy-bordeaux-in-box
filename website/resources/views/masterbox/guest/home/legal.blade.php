@@ -1,17 +1,19 @@
 @extends('masterbox.layouts.master')
+
 @section('content')
-	
-	<div class="page">
-		<div class="container">
-			<h1 class="page-title">Mention légales</h1>
-			<div class="description">{!! nl2br($legal->content) !!}</div>
-		</div>
-	</div>
 
-  <div class="spacer150"></div>
-  </div>
+<div class="section section__wrapper">
+  <h1 class="section__title --page">Mentions Légales</h1>
+</div>
 
-  <div class="footer-container">
-    @include('masterbox.partials.footer', ['stick' => true])
+<div class="page page__wrapper">
+  <div class="container">
+    <div class="grid-10 grid-centered">
+      <div class="typography">
+        {!! Markdown::convertToHtml($legal->content) !!}
+      </div>
+    </div>
   </div>
+</div>
+
 @stop
