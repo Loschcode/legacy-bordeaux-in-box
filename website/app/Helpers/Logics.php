@@ -92,7 +92,7 @@ function generate_new_order($customer, $profile) {
 
   } catch (Exception $e) {
 
-    warning_tech_admin('masterbox.emails.admin.no_more_deliver_serie_to_generate_order', 'Plus assez de séries pour générer des commandes', $customer, $profile);
+    warning_tech_admin('masterbox.emails.admin.no_more_delivery_serie_to_generate_order', 'Plus assez de séries pour générer des commandes', $customer, $profile);
 
   }
 

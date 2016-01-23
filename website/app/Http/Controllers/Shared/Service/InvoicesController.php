@@ -543,7 +543,7 @@ class InvoicesController extends BaseController {
      */
     if (!$this->has_processable_metadata()) {
 
-      $this->log_now("No processable metadata, it might me a subscription callback, not a direct transaction ...");
+      $this->log_now("No processable metadata, it might be a subscription callback, not a direct transaction ...");
 
       /**
        * WARNING : 
@@ -610,6 +610,17 @@ class InvoicesController extends BaseController {
 
       $this->log_now('We did not find any matching customer or customer profile with the data given.');
       $this->abort_transaction();
+
+    }
+
+    /**
+     * We couldn't check before because we lacked data about the user
+     * Now we can check if the amount refunded wasn't total or not, if it's a refund
+     */
+    
+    if (($this->stripe_transaction['refund']) && ($his->stripe_raw->amount_refunded < $this->stripe_raw->amount)) {
+
+      warning_tech_admin('masterbox.emails.admin.partial_refund_order_problem', 'Problème de remboursement partiel d\'une commande', $customer, $customer_profile, NULL, $this->log_store);
 
     }
 
@@ -756,7 +767,7 @@ class InvoicesController extends BaseController {
     // 
 
     // For the email
-    $email_amount = euros(number_format($database_amount, 2));
+    $email_amount = euros($database_amount);
     if ($this->stripe_transaction['refund']) $email_amount = euros($email_amount) . ' (remboursement)';
 
     $data = [
