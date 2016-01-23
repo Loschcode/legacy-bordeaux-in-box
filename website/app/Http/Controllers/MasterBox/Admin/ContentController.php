@@ -362,7 +362,7 @@ class ContentController extends BaseController {
 
 
 			return redirect()->to('/admin/content/illustrations')
-			->with('message', 'L\'illustration à été ajouté avec succès')
+			->with('message', 'L\'illustration à été édité avec succès')
 			->withInput();
 
 		} else {

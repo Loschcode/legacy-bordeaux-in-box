@@ -38,6 +38,8 @@
         <td>{{ $image_article->title }}</td>
         <td>
           <a class="button__table" href="{{ action('MasterBox\Admin\ContentController@getEditIllustration', ['id' => $image_article->id]) }}"><i class="fa fa-pencil"></i></a>
+          <a class="button__table js-confirm-delete" href="{{ action('MasterBox\Admin\ContentController@getDeleteIllustration', ['id' => $image_article->id]) }}"><i class="fa fa-trash-o"></i></a>
+
         </td>
       </tr>
 
