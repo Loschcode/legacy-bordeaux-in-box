@@ -29,7 +29,7 @@
     {!! Form::open(array('action' => 'MasterBox\Admin\ContentController@postEditPage')) !!}
     
     {!! Form::hidden("page_id", $page->id) !!}
-
+    
     {!! Form::label('content', $page->title, ['class' => 'form__label']) !!}
     {!! Form::textarea('content', $page->content, ['class' => 'form__markdown js-markdown']) !!}
 
