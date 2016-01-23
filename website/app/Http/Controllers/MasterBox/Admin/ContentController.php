@@ -134,7 +134,7 @@ class ContentController extends BaseController {
 
 	}
 
-	
+
    /**
     * Add a new illustration
     * @return void
@@ -283,7 +283,7 @@ class ContentController extends BaseController {
 		$image_articles = ImageArticle::orderBy('created_at', 'desc')->get();
 
 		return view('masterbox.admin.content.illustrations.index')->with(compact(
-			'images_articles'
+			'image_articles'
 		));
 
 	}
