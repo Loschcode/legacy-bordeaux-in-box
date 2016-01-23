@@ -6066,7 +6066,7 @@ body {
   margin: 0 auto; }
 
 .container-fluid {
-  width: 100%; }
+  max-width: 100%; }
 
 @media screen and (max-width: 750px) {
   [class*="gr-"] {

@@ -2,6 +2,7 @@
 @import url(https://fonts.googleapis.com/css?family=Gudea:400,400italic,700&subset=latin,latin-ext);
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,300,300italic,400italic,700italic,900,900italic&subset=latin,latin-ext);
+@import url(https://fonts.googleapis.com/css?family=Amatic+SC:400,700&subset=latin,latin-ext);
 #csstyle .\+text-center {
   text-align: center; }
 
@@ -24,19 +25,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: NaNpx;
+  height: 13.600000000000001px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: NaNpx;
+  height: 34px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: NaNpx;
+  height: 68px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: NaNpx;
+  height: 170px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -51,10 +52,11 @@ html {
           box-sizing: inherit; }
 
 body {
-  font: 18px/2 serif;
+  font: 17px/2 serif;
   font-family: "Lato", sans-serif;
   font-weight: 300;
-  color: #364347; }
+  color: #364347;
+  overflow-x: hidden; }
 
 a {
   text-decoration: none;
@@ -62,7 +64,7 @@ a {
 
 .header__item {
   width: 20%;
-  height: 9px;
+  height: 8.5px;
   float: left; }
   .header__item.\--first {
     background-color: #4de3be; }
@@ -78,32 +80,40 @@ a {
 .logo {
   text-align: center; }
   .logo__link {
+    width: 280px;
+    margin: 0 auto;
     display: block;
-    padding-top: 36px; }
+    padding-top: 34px; }
   .logo__picture {
-    max-width: 100%; }
+    width: 100%;
+    height: 100%; }
 
 .navbar__list {
   text-align: center; }
 .navbar__item {
   display: inline-block;
-  margin-right: 18px;
-  font-size: 19.8px; }
+  margin-right: 17px;
+  font-size: 18.700000000000003px; }
   .navbar__item a {
     color: #c0cdd1; }
 
 .artwork {
   text-align: center; }
+  .artwork__container {
+    width: 550px;
+    display: block;
+    margin: 0 auto; }
   .artwork__picture {
     display: block;
-    padding-top: 7.2px;
-    max-width: 100%; }
+    padding-top: 6.800000000000001px;
+    width: 100%;
+    height: 100%; }
 
 .title.\--home-punchline {
   text-align: center;
   font-family: "Lato", sans-serif;
   font-weight: 300;
-  font-size: 28.8px;
+  font-size: 27.200000000000003px;
   color: #364347; }
 
 .button {
@@ -119,8 +129,8 @@ a {
   position: relative; }
   .button__home-action {
     background-color: #D83F66;
-    font-size: 23.400000000000002px;
-    padding: 10.799999999999999px;
+    font-size: 22.1px;
+    padding: 10.2px;
     text-align: center;
     border-radius: 5px;
     background: color-grey(grey);
@@ -134,15 +144,15 @@ a {
     font-family: "Montserrat", sans-serif;
     font-weight: 400; }
     .button__home-action i {
-      padding-right: 7.2px; }
+      padding-right: 6.800000000000001px; }
     .button__home-action:active {
       top: 1px;
       -webkit-box-shadow: none;
               box-shadow: none; }
   .button__home-partner {
     background-color: #D83F66;
-    font-size: 14.4px;
-    padding: 10.799999999999999px;
+    font-size: 13.600000000000001px;
+    padding: 10.2px;
     text-align: center;
     border-radius: 5px;
     background: color-grey(grey);
@@ -161,8 +171,8 @@ a {
               box-shadow: none; }
   .button__submit {
     background-color: #D83F66;
-    font-size: 14.4px;
-    padding: 10.799999999999999px;
+    font-size: 13.600000000000001px;
+    padding: 10.2px;
     text-align: center;
     border-radius: 5px;
     background: color-grey(grey);
@@ -183,16 +193,16 @@ a {
       border-top-right-radius: 0;
       border-top-left-radius: 0; }
     .button__submit.\--big {
-      font-size: 23.400000000000002px;
-      padding: 10.799999999999999px; }
+      font-size: 22.1px;
+      padding: 10.2px; }
   .button__copy-delivery {
     display: inline-block;
     background-color: #D83F66;
-    font-size: 14.4px;
+    font-size: 13.600000000000001px;
     text-align: center;
     border-radius: 5px;
-    padding-right: 7.2px;
-    padding-left: 7.2px;
+    padding-right: 6.800000000000001px;
+    padding-left: 6.800000000000001px;
     color: white;
     -webkit-box-shadow: none;
             box-shadow: none;
@@ -200,8 +210,8 @@ a {
     color: white;
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
-    margin-top: 18px;
-    margin-bottom: 18px; }
+    margin-top: 17px;
+    margin-bottom: 17px; }
     .button__copy-delivery:active {
       top: 0;
       -webkit-box-shadow: none;
@@ -209,10 +219,10 @@ a {
   .button__skip-custom-box {
     display: inline-block;
     background-color: #D83F66;
-    font-size: 21.599999999999998px;
+    font-size: 20.4px;
     text-align: center;
     border-radius: 5px;
-    padding: 14.4px;
+    padding: 13.600000000000001px;
     color: white;
     -webkit-box-shadow: none;
             box-shadow: none;
@@ -220,16 +230,16 @@ a {
     color: white;
     font-family: "Montserrat", sans-serif;
     font-weight: 400;
-    margin-top: 18px;
-    margin-bottom: 18px; }
+    margin-top: 17px;
+    margin-bottom: 17px; }
     .button__skip-custom-box:active {
       top: 0;
       -webkit-box-shadow: none;
               box-shadow: none; }
   .button__google-map {
     background-color: #D83F66;
-    font-size: 18px;
-    padding: 7.2px;
+    font-size: 17px;
+    padding: 6.800000000000001px;
     text-align: center;
     border-radius: 5px;
     background: color-grey(grey);
@@ -240,13 +250,13 @@ a {
     outline: 0;
     color: white;
     width: 100%;
-    margin-bottom: 21.599999999999998px;
+    margin-bottom: 20.4px;
     font-family: "Montserrat", sans-serif;
     font-weight: 400; }
   .button__payment {
     background-color: #D83F66;
-    font-size: 19.8px;
-    padding: 14.4px;
+    font-size: 18.700000000000003px;
+    padding: 13.600000000000001px;
     text-align: center;
     border-radius: 5px;
     background: color-grey(grey);
@@ -265,29 +275,29 @@ a {
 
 .counter__content {
   text-align: center;
-  padding-top: 14.4px; }
+  padding-top: 13.600000000000001px; }
 
 .section__title {
   text-align: center;
-  padding-top: 108px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  font-size: 43.199999999999996px;
+  padding-top: 102px;
+  font-family: "Amatic SC", cursive;
+  font-weight: 700;
+  font-size: 61.2px;
   color: #364347; }
   .section__title.\--choose-frequency {
-    padding-top: 36px; }
+    padding-top: 34px; }
 .section__description {
   text-align: center;
-  font-size: 21.599999999999998px; }
+  font-size: 20.4px; }
   .section__description.\--choose-frequency {
-    font-size: 19.8px; }
+    font-size: 18.700000000000003px; }
 
 .step__title {
-  padding-top: 36px;
+  padding-top: 34px;
   text-align: center;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  font-size: 28.8px;
+  font-family: "Amatic SC", cursive;
+  font-weight: 700;
+  font-size: 40.8px;
   color: #364347; }
 .step__description {
   text-align: center;
@@ -295,42 +305,42 @@ a {
   margin: 0 auto;
   display: block; }
 .step__picture-container {
-  min-height: 360px; }
+  min-height: 387.6px; }
 .step__picture {
   max-width: 100%;
   display: block;
-  padding-bottom: 14.4px; }
+  padding-bottom: 13.600000000000001px; }
   .step__picture.\--step1 {
     max-width: 70%;
     margin: 0 auto; }
   .step__picture.\--step2 {
     max-width: 70%;
     margin: 0 auto;
-    padding-top: 57.6px; }
+    padding-top: 54.400000000000006px; }
   .step__picture.\--step3 {
     max-width: 70%;
     margin: 0 auto;
-    padding-top: 50.4px; }
+    padding-top: 47.599999999999994px; }
 
 .product__picture-container {
-  min-height: 252px;
+  min-height: 251.60000000000002px;
   text-align: center;
-  padding-top: 36px; }
+  padding-top: 34px; }
 .product__picture.\--glasses {
-  padding-top: 57.6px; }
+  padding-top: 54.400000000000006px; }
 .product__picture.\--underwear {
-  padding-top: 57.6px; }
+  padding-top: 54.400000000000006px; }
 .product__title {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   color: white;
-  font-size: 25.2px;
+  font-size: 23.799999999999997px;
   text-align: center; }
 .product__description {
   text-align: center;
   color: white;
-  padding: 10.799999999999999px;
-  padding-bottom: 72px; }
+  padding: 10.2px;
+  padding-bottom: 68px; }
 
 .background__green {
   background-color: #4de3be; }
@@ -342,7 +352,7 @@ a {
 .partner__picture-container {
   margin-right: 2%;
   margin-left: 2%;
-  margin-bottom: 10.799999999999999px; }
+  margin-bottom: 10.2px; }
 .partner__picture {
   border-radius: 6px;
   max-width: 100%; }
@@ -350,14 +360,16 @@ a {
 .footer {
   text-align: center;
   color: white;
-  min-height: 216px;
+  min-height: 204px;
   width: 100%;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  padding-top: 36px;
-  padding-bottom: 36px;
-  font-size: 18px;
-  background-color: #ECF0F1; }
+  padding-top: 34px;
+  padding-bottom: 34px;
+  font-size: 17px;
+  background-color: #D83F66; }
+  .footer a {
+    color: white; }
   .footer ul {
     list-style: none;
     padding: 0;
@@ -378,20 +390,20 @@ a {
   border-top: 0;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
-  margin-bottom: 72px; }
+  margin-bottom: 68px; }
 .panel__title {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  font-size: 21.599999999999998px;
+  font-size: 20.4px;
   text-transform: uppercase;
   text-align: center;
-  padding-top: 7.2px;
-  padding-bottom: 7.2px; }
+  padding-top: 6.800000000000001px;
+  padding-bottom: 6.800000000000001px; }
 .panel__content {
   background-color: #F5F6F7;
   border: 1px solid #DDDEDF;
   border-top: 0;
-  padding: 25.2px; }
+  padding: 23.799999999999997px; }
   .panel__content a {
     font-weight: bold;
     border-bottom: 1px dotted #364347; }
@@ -406,10 +418,10 @@ a {
   border-radius: 5px;
   border: 1px solid #D6DBDF;
   width: 100%;
-  font-size: 18px;
+  font-size: 17px;
   font-family: "Lato", sans-serif;
   font-weight: 300;
-  padding: 10.799999999999999px; }
+  padding: 10.2px; }
   .form__input.\--grouped-left {
     border-right: 0;
     border-top-right-radius: 0;
@@ -421,10 +433,10 @@ a {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   border-bottom: 2px solid #D6DBDF;
-  margin-bottom: 10.799999999999999px; }
+  margin-bottom: 10.2px; }
 .form__error {
   color: #D83F66;
-  font-size: 16.2px;
+  font-size: 15.3px;
   font-family: "Lato", sans-serif;
   font-weight: 700; }
 
@@ -432,8 +444,8 @@ a {
   font-family: "Lato", sans-serif;
   font-weight: 400;
   text-align: center;
-  font-size: 16.919999999999998px;
-  padding-bottom: 14.4px; }
+  font-size: 15.979999999999999px;
+  padding-bottom: 13.600000000000001px; }
 .pipeline__dot {
   width: 30px;
   height: 30px;
@@ -460,16 +472,16 @@ a {
       top: 8px; }
 .pipeline__description {
   text-align: center;
-  font-size: 15.12px;
+  font-size: 14.28px;
   color: #b1c2c6;
   font-family: "Lato", sans-serif;
   font-weight: 300;
-  padding-top: 18px; }
+  padding-top: 17px; }
 .pipeline__progress {
   position: relative;
   background-color: #ECF0F1;
   width: 100%;
-  height: 10.799999999999999px; }
+  height: 10.2px; }
   .pipeline__progress.\--first {
     width: 50%;
     left: 50%; }
@@ -483,28 +495,28 @@ a {
 .billing__title {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  font-size: 25.2px;
-  padding-top: 36px;
+  font-size: 23.799999999999997px;
+  padding-top: 34px;
   text-align: center;
   border-bottom: 3px solid #ECF0F1;
-  margin-bottom: 18px; }
+  margin-bottom: 17px; }
 .billing__label {
   background-color: #ECF0F1;
   border-top-right-radius: 5px;
   border-top-left-radius: 5px;
-  padding: 7.2px;
-  padding-left: 14.4px;
+  padding: 6.800000000000001px;
+  padding-left: 13.600000000000001px;
   border: 1px solid #dde4e6; }
 .billing__input {
   width: 100%;
   outline: 0;
   border: 0;
-  padding: 18px;
+  padding: 17px;
   border: 1px solid #dde4e6;
   border-top: 0;
-  font-size: 14.4px; }
+  font-size: 13.600000000000001px; }
   .billing__input.\--textarea {
-    height: 90px; }
+    height: 85px; }
   .billing__input.\--disabled {
     background-color: #ECF0F1;
     cursor: not-allowed;
@@ -513,26 +525,26 @@ a {
         -ms-user-select: none;
             user-select: none; }
 .billing__container {
-  margin-bottom: 10.799999999999999px; }
+  margin-bottom: 10.2px; }
 
 .typography h1 {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  font-size: 28.8px;
-  padding-bottom: 14.4px;
-  padding-top: 21.599999999999998px; }
+  font-size: 27.200000000000003px;
+  padding-bottom: 13.600000000000001px;
+  padding-top: 20.4px; }
 .typography h2 {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  font-size: 21.599999999999998px;
-  padding-bottom: 14.4px;
-  padding-top: 21.599999999999998px; }
+  font-size: 20.4px;
+  padding-bottom: 13.600000000000001px;
+  padding-top: 20.4px; }
 .typography p {
-  font-size: 18px;
+  font-size: 17px;
   text-align: justify; }
 .typography a {
   border-bottom: 1px dotted #364347;
-  padding-bottom: 3.6px; }
+  padding-bottom: 3.4000000000000004px; }
 .typography em {
   font-style: italic; }
 .typography strong {
@@ -543,13 +555,13 @@ a {
 
 .payment__container {
   border: 1px solid #ECF0F1;
-  padding: 18px; }
+  padding: 17px; }
   .payment__container.\--no-border-top {
     border-top: 0; }
 .payment__title {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  font-size: 21.599999999999998px; }
+  font-size: 20.4px; }
 .payment__picture-container {
   width: 100%; }
 .payment__picture {
@@ -558,16 +570,16 @@ a {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   text-align: center;
-  font-size: 28.8px; }
+  font-size: 27.200000000000003px; }
 .payment__description {
-  font-size: 16.2px; }
+  font-size: 15.3px; }
 
 .custombox__question {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
-  padding-top: 50.4px;
-  padding-bottom: 3.6px;
-  font-size: 16.2px;
+  padding-top: 47.599999999999994px;
+  padding-bottom: 3.4000000000000004px;
+  font-size: 15.3px;
   display: block; }
 .custombox__input {
   border: 0;
@@ -575,34 +587,34 @@ a {
   border-radius: 5px;
   border: 1px solid #D6DBDF;
   width: 100%;
-  font-size: 18px;
+  font-size: 17px;
   font-family: "Lato", sans-serif;
   font-weight: 300;
-  padding: 10.799999999999999px; }
+  padding: 10.2px; }
 
 .article__wrapper {
-  padding-top: 36px; }
+  padding-top: 34px; }
 .article__cover-container {
   width: 100%;
-  padding-top: 36px; }
+  padding-top: 34px; }
 .article__cover {
   display: block;
   max-width: 100%;
   height: auto;
   margin: 0 auto;
   border-radius: 5px;
-  padding-bottom: 36px; }
+  padding-bottom: 34px; }
 .article__title {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   text-align: left;
-  font-size: 36px; }
+  font-size: 34px; }
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }
 
 a.chosen-single {
-  padding: 10.799999999999999px !important;
+  padding: 10.2px !important;
   font-size: 18px !important;
   height: auto !important;
   border: 1px solid #D6DBDF !important;
@@ -751,22 +763,22 @@ select + .chosen-container-multi .chosen-results li.result-selected {
 .labelauty-choose-frequency {
   text-align: center; }
   .labelauty-choose-frequency span.labelauty-title {
-    font-size: 25.2px;
+    font-size: 23.799999999999997px;
     font-family: "Lato", sans-serif;
     font-weight: 300;
     display: block;
     text-transform: uppercase;
-    padding-top: 28.8px;
-    padding-bottom: 10.799999999999999px;
-    line-height: 36px; }
+    padding-top: 27.200000000000003px;
+    padding-bottom: 10.2px;
+    line-height: 34px; }
   .labelauty-choose-frequency span.labelauty-description {
-    font-size: 18px;
+    font-size: 17px;
     font-family: "Lato", sans-serif;
     font-weight: 300;
     display: block;
-    padding-bottom: 36px; }
+    padding-bottom: 34px; }
   .labelauty-choose-frequency .labelauty-icon {
-    padding-right: 10.799999999999999px; }
+    padding-right: 10.2px; }
   .labelauty-choose-frequency input.labelauty {
     display: none !important; }
     .labelauty-choose-frequency input.labelauty + label {
@@ -833,14 +845,14 @@ select + .chosen-container-multi .chosen-results li.result-selected {
   .labelauty-default input.labelauty + label {
     display: block;
     text-align: left;
-    font-size: 18px;
+    font-size: 17px;
     vertical-align: middle;
     margin: 0;
     background-color: #efefef;
     color: #b3b3b3;
     cursor: pointer;
-    padding: 7.2px;
-    padding-left: 25.2px;
+    padding: 6.800000000000001px;
+    padding-left: 23.799999999999997px;
     -webkit-transition: background-color 0.25s;
             transition: background-color 0.25s;
     -webkit-user-select: none;

@@ -9,52 +9,56 @@
 	data-success-message="@if (session()->has('status')) {{ session()->get('status') }} @endif"
 ></div>
 
-<div class="artwork">
-	<img class="artwork --picture" src="{{ url('images/artwork.png') }}" />
+
+<div class="artwork artwork__container">
+	<img class="artwork__picture" src="{{ url('images/artwork.png') }}" />
 </div>
 
 <div class="title --home-punchline">Des surprises tout les mois dans une petite boîte rien que pour toi !</div>
 
-{{-- Buttons to order --}}
-@if ($next_series->first()->getCounter() !== 0 || $next_series->first()->getCounter() === FALSE)
-	
-	<div class="row">
-		<div class="grid-3 push-3">
-			<a class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getGift') }}"><i class="fa fa-gift"></i>L'offrir</a>
+<div class="container">
+	{{-- Buttons to order --}}
+	@if ($next_series->first()->getCounter() !== 0 || $next_series->first()->getCounter() === FALSE)
+		
+		<div class="row">
+			<div class="grid-3 push-3">
+				<a class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getGift') }}"><i class="fa fa-gift"></i>L'offrir</a>
+			</div>
+			<div class="grid-3 push-3">
+				<a class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+			</div>
 		</div>
-		<div class="grid-3 push-3">
-			<a class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+
+		<div class="counter">
+			<div class="counter__content">
+				Il ne reste que {{$next_series->first()->getCounter()}} box(s) et {{ str_replace('dans', '', strtolower(Html::diffHumans($next_series->first()->delivery, 5
+				))) }} pour commander la box de {!! Html::convertMonth($next_series->first()->delivery) !!}
+			</div>
 		</div>
+
+
+	@endif
+
+	{{-- No more boxes to order --}}
+	@if ($next_series->first()->getCounter() === 0)
+
+		<div class="row">
+			<div class="grid-3 push-3">
+				<a class="button button__home-action js-no-boxes" href="#"><i class="fa fa-gift"></i>L'offrir</a>
+			</div>
+			<div class="grid-3 push-3">
+				<a class="button button__home-action js-no-boxes" href="#"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+			</div>
+		</div>
+	@endif
+</div>
+
+<div class="container">
+	{{-- Section how it works --}}
+	<div id="how-to" class="section">
+		<h1 class="section__title">Comment ça marche ?</h1>
+		<p class="section__description">Plaisir perso ou idée cadeau, voici comment ça marche !</p>
 	</div>
-
-	<div class="counter">
-		<div class="counter__content">
-			Il ne reste que {{$next_series->first()->getCounter()}} box(s) et {{ str_replace('dans', '', strtolower(Html::diffHumans($next_series->first()->delivery, 5
-			))) }} pour commander la box de {!! Html::convertMonth($next_series->first()->delivery) !!}
-		</div>
-	</div>
-
-
-@endif
-
-{{-- No more boxes to order --}}
-@if ($next_series->first()->getCounter() === 0)
-
-	<div class="row">
-		<div class="grid-3 push-3">
-			<a class="button button__home-action js-no-boxes" href="#"><i class="fa fa-gift"></i>L'offrir</a>
-		</div>
-		<div class="grid-3 push-3">
-			<a class="button button__home-action js-no-boxes" href="#"><i class="fa fa-shopping-cart"></i> La recevoir</a>
-		</div>
-	</div>
-@endif
-
-
-{{-- Section how it works --}}
-<div id="how-to" class="section">
-	<h1 class="section__title">Comment ça marche ?</h1>
-	<p class="section__description">Plaisir perso ou idée cadeau, voici comment ça marche !</p>
 </div>
 
 <div class="container-static">
@@ -94,10 +98,13 @@
 		</div>
 	</div>
 </div>
+<div class="clear"></div>
 
-{{-- Section Inside the box --}}
-<div id="inside" class="section">
-	<h1 class="section__title">Ce qu'il y a dans la boîte !</h1>
+<div class="container">
+	{{-- Section Inside the box --}}
+	<div id="inside" class="section">
+		<h1 class="section__title">Ce qu'il y a dans la boîte !</h1>
+	</div>
 </div>
 
 <div class="+spacer-small"></div>
@@ -138,13 +145,19 @@
 			</div>
 		</div>
 	</div>
-</div>
+	<div class="clear"></div>
 
-{{-- Section Partners --}}
-<div class="section">
-	<h1 class="section__title">Nos complices</h1>
+</div>
+<div class="clear"></div>
+
+<div class="container">
+	{{-- Section Partners --}}
+	<div class="section">
+		<h1 class="section__title">Nos complices</h1>
+	</div>
 </div>
 <div class="+spacer-small"></div>
+
 <div class="container-static">
 	@foreach ($articles->chunk(4) as $chunk)
 		<div class="row">
@@ -166,6 +179,7 @@
 		<a class="button button__home-partner" href="{{ action('MasterBox\Guest\BlogController@getIndex') }}">Voir les autres boutiques complices ...</a>
 	</div>
 </div>
+<div class="clear"></div>
 
 <div class="+spacer"></div>
 

@@ -94,7 +94,7 @@
 // @example sass - Basic usage
 //  
 //  .something
-//    +font-montserrat
+//    +font-lato
 //
 =font-lato($size: 400)
   @if not index($font-sizes-lato, $size)
@@ -103,3 +103,20 @@
     font-family: 'Lato', sans-serif
     font-weight: $size
 
+// ===========================================================
+// Font Amatic
+// ===========================================================
+// 
+// Write for you the minimal boilerplate to set the font amatic
+// 
+// @example sass - Basic usage
+//  
+//  .something
+//    +font-amatic
+//
+=font-amatic($size: 400)
+  @if not index($font-sizes-amatic, $size)
+    @warn "`#{inspect($font-sizes-amatic)}` doesn't seem to have a key named `#{inspect($amatic)}`."
+  @else
+    font-family: 'Amatic SC', cursive
+    font-weight: $size
