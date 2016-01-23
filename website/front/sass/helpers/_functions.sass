@@ -8,7 +8,7 @@
 //
 // color(orange)
 //
-@function color($color)
+@function color-get($color)
   @if not map-has-key($colors-palette, $color)
     @warn "`#{inspect($colors-palette)}` doesn't seem to have a key named `#{inspect($color)}`."
 
@@ -24,10 +24,10 @@
 //
 // color-light(orange)
 //
-@function color-light($color, $level: 1)
-  $color: color($color)
+@function color-light($color, $percentage: 5%)
+  $color: color-get($color)
 
-  @return lighten($color, 5% * $level)
+  @return lighten($color, $percentage)
 
 // ===========================================================
 // Color Dark
@@ -39,7 +39,7 @@
 //
 // color(orange)
 //
-@function color-dark($color, $level: 1)
-  $color: color($color)
+@function color-dark($color, $percentage: 5%)
+  $color: color-get($color)
 
-  @return darken($color, 5% * $level)
+  @return darken($color, $percentage)

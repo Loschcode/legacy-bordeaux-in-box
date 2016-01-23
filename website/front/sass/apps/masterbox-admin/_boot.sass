@@ -1,0 +1,46 @@
+// ===========================================================
+// Typography
+// ===========================================================
+// 
+// Set the default typography for the project.
+//
+
+html
+  box-sizing: border-box
+
+*, *:before, *:after
+  box-sizing: inherit
+
+// Fonts
+@import url(https://fonts.googleapis.com/css?family=Rancho)
+@import url(https://fonts.googleapis.com/css?family=Gudea:400,400italic,700&subset=latin,latin-ext)
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700)
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,300,300italic,400italic,700italic,900,900italic&subset=latin,latin-ext)
+
+// We use the concept of vertical-rythm
+// @see https://github.com/markgoodyear/postcss-vertical-rhythm/
+body
+  font: 18px/2 serif
+  +font-lato(300)
+  color: $default-color
+
+// Reset links
+a
+  text-decoration: none
+  color: $default-color
+
+
+// ===========================================================
+// Components
+// ===========================================================
+// 
+// Import components of the section
+//
+@import 'components/sidebar'
+@import 'components/page'
+@import 'components/title'
+@import 'components/button'
+@import 'components/navbar'
+@import 'components/divider'
+@import 'components/form'
+@import 'components/typography'

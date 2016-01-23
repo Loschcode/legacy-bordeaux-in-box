@@ -19,6 +19,8 @@ class Kernel extends ConsoleKernel
         Commands\StripeNormalizePaymentRefundOrders::class,
         Commands\OrderNormalizeUnityAndFeesPrice::class,
         Commands\BillingNormalizeMasterbox::class,
+        Commands\QuestionsNormalizeMasterbox::class,
+        Commands\BlogNormalizeArticles::class,
         
     ];
 

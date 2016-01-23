@@ -60,7 +60,7 @@ class BlogArticle extends Model {
     {
 
     	$thumbnail = json_decode($value);
-    	$thumbnail->full = url('/public/uploads/' . $thumbnail->folder . '/' . $thumbnail->filename);
+    	$thumbnail->full = url('uploads/' . $thumbnail->folder . '/' . $thumbnail->filename);
     	return $thumbnail;
 
     }

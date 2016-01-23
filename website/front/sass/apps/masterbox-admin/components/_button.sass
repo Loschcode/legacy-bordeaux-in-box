@@ -1,0 +1,60 @@
++component(button)
+  // Reset <button>, <a>, <submit> to be ready
+  // to be styled.
+  display: inline-block
+  border: 0
+  font: inherit
+  display: inline-block
+  cursor: pointer
+  user-select: none
+  position: relative
+  
+  +part(table)
+    padding-left: 10px
+
+  +part(section)
+    margin-top: 1.1vr
+    background-color: color-get(green-flat)
+    font-size: 0.34vr
+    text-align: center
+    padding: 0.2vr
+    border-radius: 5px
+    background: color-grey(grey)
+    color: white
+    text-transform: uppercase
+    box-shadow: inset 0 -3px color-dark(green-flat, 4%)
+    outline: 0
+    color: white
+    +font-montserrat(400)
+
+    i
+      padding-right: 0.1vr
+
+    &:active
+      top: 1px
+      box-shadow: none
+
+  +part(submit)
+    background-color: color-dark(grey, 20%)
+    font-size: 0.65vr
+    padding: 0.3vr
+    text-align: center
+    border-radius: 5px
+    background: color-grey(grey)
+    color: white
+    text-transform: uppercase
+    box-shadow: inset 0 -6px color-dark(grey, 28%)
+    outline: 0
+    color: white
+    width: 40%
+    margin: 0 auto
+    display: block
+    +font-montserrat(400)
+    margin-top: 0.5vr
+
+    i
+      padding-right: 0.2vr
+
+    &:active
+      top: 1px
+      box-shadow: none

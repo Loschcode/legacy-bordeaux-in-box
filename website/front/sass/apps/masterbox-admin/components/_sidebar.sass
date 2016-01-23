@@ -1,0 +1,54 @@
++component(sidebar)
+  
+  +part(wrapper)
+    background-color: color-dark(dark, 20%)
+    width: 60px
+    position: fixed
+    top: 0
+    bottom: 0
+    z-index: 3
+    overflow: hidden
+    transition: width 0.4s
+
+  +part(list)
+    width: 270px
+    z-index: 2
+    position: absolute
+
+  
+  +part(brand)
+    color: white
+    +font-montserrat
+    display: none
+
+  +part(item)
+    display: block
+
+    &:hover
+      background-color: color-dark(dark, 10%)
+
+    +option(brand)
+      padding-left: 0.5vr
+      margin-top: 0.5vr
+      margin-bottom: 0.5vr
+      min-height: 1vr
+      
+      &:hover
+        background-color: color-dark(dark, 20%)
+
+  +part(link)
+    display: inline-block
+    padding-bottom: 0.22vr
+    padding-top: 0.22vr
+    width: 100%
+    height: 100%
+    color: darken(white, 15%)
+    +font-montserrat
+    padding-left: 0.5vr
+    font-size: 0.45vr
+
+    i
+      display: inline-block
+      min-width: 1.1vr
+      text-align: center
+      padding-right: 0.5vr

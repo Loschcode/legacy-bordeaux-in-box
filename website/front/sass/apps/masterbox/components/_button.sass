@@ -1,0 +1,157 @@
++component(button)
+  // Reset <button>, <a>, <submit> to be ready
+  // to be styled.
+  display: inline-block
+  border: 0
+  font: inherit
+  display: inline-block
+  cursor: pointer
+  user-select: none
+  position: relative
+  
+  +part(home-action)
+    background-color: color-get(pink-fluo)
+    font-size: 0.65vr
+    padding: 0.3vr
+    text-align: center
+    border-radius: 5px
+    background: color-grey(grey)
+    color: white
+    text-transform: uppercase
+    box-shadow: inset 0 -6px color-dark(pink-fluo, 12%)
+    outline: 0
+    color: white
+    width: 100%
+    +font-montserrat(400)
+
+    i
+      padding-right: 0.2vr
+
+    &:active
+      top: 1px
+      box-shadow: none
+
+  +part(home-partner)
+    background-color: color-get(pink-fluo)
+    font-size: 0.4vr
+    padding: 0.3vr
+    text-align: center
+    border-radius: 5px
+    background: color-grey(grey)
+    color: white
+    text-transform: uppercase
+    box-shadow: inset 0 -6px color-dark(pink-fluo, 12%)
+    outline: 0
+    color: white
+    width: 100%
+    +font-montserrat(400)
+
+    &:active
+      top: 1px
+      box-shadow: none
+
+  +part(submit)
+    background-color: color-get(pink-fluo)
+    font-size: 0.4vr
+    padding: 0.3vr
+    text-align: center
+    border-radius: 5px
+    background: color-grey(grey)
+    color: white
+    text-transform: uppercase
+    box-shadow: inset 0 -6px color-dark(pink-fluo, 12%)
+    outline: 0
+    color: white
+    width: 100%
+    +font-montserrat(400)
+
+    &:active
+      top: 1px
+      box-shadow: none
+
+    +option(panel)
+      border-top-right-radius: 0
+      border-top-left-radius: 0
+
+    +option(big)
+      font-size: 0.65vr
+      padding: 0.3vr
+
+  +part(copy-delivery)
+    display: inline-block
+    background-color: color-get(pink-fluo)
+    font-size: 0.4vr
+    text-align: center
+    border-radius: 5px
+    padding-right: 0.2vr
+    padding-left: 0.2vr
+    color: white
+    box-shadow: none
+    outline: 0
+    color: white
+    +font-montserrat(400)
+    margin-top: 0.5vr
+    margin-bottom: 0.5vr
+
+    &:active
+      top: 0
+      box-shadow: none
+
+  +part(skip-custom-box)
+    display: inline-block
+    background-color: color-get(pink-fluo)
+    font-size: 0.6vr
+    text-align: center
+    border-radius: 5px
+    padding: 0.4vr
+    color: white
+    box-shadow: none
+    outline: 0
+    color: white
+    +font-montserrat(400)
+    margin-top: 0.5vr
+    margin-bottom: 0.5vr
+
+    &:active
+      top: 0
+      box-shadow: none
+
+  +part(google-map)
+    background-color: color-get(pink-fluo)
+    font-size: 0.5vr
+    padding: 0.2vr
+    text-align: center
+    border-radius: 5px
+    background: color-grey(grey)
+    color: white
+    text-transform: uppercase
+    box-shadow: inset 0 -6px color-dark(pink-fluo, 12%)
+    outline: 0
+    color: white
+    width: 100%
+    margin-bottom: 0.6vr
+    +font-montserrat(400)
+
+  +part(payment)
+    background-color: color-get(pink-fluo)
+    font-size: 0.55vr
+    padding: 0.4vr
+    text-align: center
+    border-radius: 5px
+    background: color-grey(grey)
+    color: white
+    text-transform: uppercase
+    box-shadow: inset 0 -6px color-dark(pink-fluo, 12%)
+    outline: 0
+    color: white
+    width: 100%
+    +font-montserrat(400)
+
+    +option(disabled)
+      opacity: 0.7
+      cursor: not-allowed
+
+  
+
+
+

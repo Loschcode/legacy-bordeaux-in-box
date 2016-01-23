@@ -3,6 +3,71 @@
 use App\Models\Customer;
 
 /**
+ * If we find an error for the label given, we output a text error
+ */
+Html::macro('checkError', function($label, $errors)
+{
+
+  if ($errors->has($label)) {
+    return '<p class="form__error">' . $errors->first($label) . '</p>'; 
+  }
+
+  return;
+
+});
+
+/**
+ * Return the html to set in the spot checkbox
+ */
+Html::macro('getTextCheckboxSpot', function($delivery_spot) 
+{
+  return 
+    '<span class="labelauty-title"><i class="fa fa-map-marker labelauty-icon"></i>' . $delivery_spot->name . '</span>' .
+    '<span class="labelauty-description">' . $delivery_spot->address . ', ' . $delivery_spot->city . ' (' . $delivery_spot->zip . ')</span>';
+});
+
+/**
+ * Check if we need to return the class --complete for the pipeline
+ * of masterbox.
+ */
+Html::macro('pipelineComplete', function($step_pipeline, $current_step) 
+{
+
+  if (Html::pipelineStepCompleted($step_pipeline, $current_step)) {
+    return '--complete';
+  }
+
+});
+
+/**
+ * Check if the step of the pipeline is completed
+ */
+Html::macro('pipelineStepCompleted', function($step_pipeline, $current_step) {
+
+  if ($step_pipeline <= $current_step) {
+    return true;
+  }
+
+  return false;
+
+});
+
+/**
+ * Check if the step of the pipeline is completed
+ */
+Html::macro('pipelinePaymentStepDone', function($current_step) {
+
+
+  if ($current_step >= 3) {
+    return true;
+  }
+
+  return false;
+
+});
+
+
+/**
  * We will generate a link for the admin to access the user profile, from the email
  */
 Html::macro('generateAdminLinkFromUserEmail', function($email)

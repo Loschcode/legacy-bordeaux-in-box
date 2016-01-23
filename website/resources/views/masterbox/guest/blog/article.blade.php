@@ -1,6 +1,25 @@
 @extends('masterbox.layouts.master')
 @section('content')
-	
+	 
+<div class="container">
+    <div class="article article__wrapper">
+
+      <div class="grid-8 grid-centered">
+        <div class="article__cover-container">
+          <img class="article__cover" src="{{ $blog_article->thumbnail->full }}" />
+        </div>
+      </div>
+      <div class="grid-10 grid-centered">
+        <div class="article__content typography">
+          {!! Markdown::convertToHtml($blog_article->content) !!}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <?php /*
 	<div class="container blog">
 
 		<div class="blog-post">
@@ -11,7 +30,7 @@
 				<img class="img-responsive thumbnail blog-align" src="{{ url($blog_article->thumbnail->full) }}">
 
 				<div class="blog-content">
-					{!! nl2br($blog_article->content) !!}
+					{!! Markdown::convertToHtml($blog_article->content) !!}
 				</div>
 			</div>
 
@@ -45,10 +64,8 @@
 
 		<div id="disqus_thread"></div>
     <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
         var disqus_shortname = 'lapetitebox'; // required: replace example with your forum shortname
 
-        /* * * DON'T EDIT BELOW THIS LINE * * */
         (function() {
             
             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
@@ -64,5 +81,7 @@
 	</div>
 
 	@include('masterbox.partials.footer')
+
+  */ ?>
 
 @stop

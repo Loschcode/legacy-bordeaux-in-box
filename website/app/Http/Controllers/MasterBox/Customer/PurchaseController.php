@@ -688,6 +688,7 @@ class PurchaseController extends BaseController {
     $profile = $order_building->profile()->first();
 
     $questions = BoxQuestion::orderBy('position', 'asc')->get();
+
     $order_preference = $order_building->order_preference()->first();
 
     // Back case
@@ -728,7 +729,6 @@ class PurchaseController extends BaseController {
 
     foreach ($box_questions as $question) 
     {
-
       // Checkbox aren't mandatory
       if ($question->type != 'checkbox') 
       {
@@ -740,10 +740,10 @@ class PurchaseController extends BaseController {
         {
           $rules[$question->id.'-0'] = ['email', 'exists:users,email', 'not_in:'.$customer->email];
         } 
-        elseif ($question->type == 'children_details') 
+        /*elseif ($question->type == 'children_details') 
         {
           $rules[$question->id.'-0'] = ['array'];
-        } 
+        }*/
         else 
         {
           $rules[$question->id.'-0'] = ['required'];
@@ -759,7 +759,7 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       refresh_answers_from_dynamic_questions_form($fields, $profile);
-      return redirect()->action('MasterBox\Customer\PurchaseController@getChooseFrequency');
+      return redirect()->action('MasterBox\Customer\PurchaseController@getConfirmed');
 
     } else {
 

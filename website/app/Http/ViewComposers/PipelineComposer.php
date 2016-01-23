@@ -2,6 +2,7 @@
 
 view()->composer('masterbox.partials.pipeline', function($view) {
 
+  /*
   // Total steps of the pipeline  
   $totalSteps = 5;
 
@@ -63,5 +64,6 @@ view()->composer('masterbox.partials.pipeline', function($view) {
   }
 
   $view->with(compact('states', 'tooltips'));
+  */
 
 });

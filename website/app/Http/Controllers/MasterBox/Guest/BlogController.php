@@ -20,7 +20,7 @@ class BlogController extends BaseController {
    */
   public function getIndex()
   {
-    $blog_articles = BlogArticle::orderBy('created_at', 'desc')->paginate(5);
+    $blog_articles = BlogArticle::orderBy('created_at', 'desc')->get();
     
     return view('masterbox.guest.blog.index')->with(compact(
       'blog_articles'

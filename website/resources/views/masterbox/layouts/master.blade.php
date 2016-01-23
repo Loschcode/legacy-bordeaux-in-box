@@ -2,81 +2,78 @@
 <html>
 <head>
 
-  <!-- Charset -->
+  {{-- Charset --}}
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-  <!-- Title -->
+  {{-- Title --}}
   <title>Bordeaux In Box</title>
 
-  <!-- Favicon -->
-  <link rel="icon" href="{{ url('assets/img/favicon-bib.ico') }}" />
+  {{-- Favicon --}}
+  <link rel="icon" href="{{ url('assets/images/favicon-bib.ico') }}" />
 
-  <!-- Responsive scale -->
+  {{-- Responsive scale --}}
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0" />
 
-  <!-- Font Awesome -->
+  {{-- FontAwesome (icons) (we use CDN to load the icons faster) --}}
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
 
-  <!-- Vendor css -->
-  <link href="{{ url('stylesheets/vendor.css?version=1.2') }}" rel="stylesheet">
+  {{-- SASS app --}}
+  <link href="{{ url('stylesheets/vendor.css') }}" rel="stylesheet">
+  <link href="{{ url('stylesheets/masterbox.css') }}" rel="stylesheet">
+  
+  {{-- CoffeeScript App --}}
+  @if ( ! $app->environment('production'))
 
-  <!-- Front -->
-  <link href="{{ url('stylesheets/front.css?version=1.2') }}" rel="stylesheet">
+    <script>
+      window.brunch = window.brunch || {};
+      window.brunch.server = 'localhost';
+    </script>
 
-  <!-- App -->
-  <link href="{{ url('assets/css/app.css?version=1.2') }}" rel="stylesheet">
+  @endif
+
+  <script src="{{ url('javascripts/vendor.js') }}"></script>
+  <script src="{{ url('javascripts/app.js') }}"></script>
+  <script>require('initialize');</script>
 
 </head>
 
-<body data-environment="{{ app()->environment() }}">
+<body id="csstyle" data-environment="{{ app()->environment() }}">
+  
   <div class="header">
-    <div class="fill1"></div>
-    <div class="fill2"></div>
-    <div class="fill3"></div>
-    <div class="fill4"></div>
-    <div class="fill5"></div>
+    <div class="header__item --first"></div>
+    <div class="header__item --second"></div>
+    <div class="header__item --third"></div>
+    <div class="header__item --fourth"></div>
+    <div class="header__item --fifth"></div>
   </div>
 
-  <!-- Logo -->
-  <div class="img --logo center">
-    <a href="{{ url('/') }}"><img id="logo-text" src="{{ url('images/logo.png') }}" /></a>
+  {{-- Logo --}}
+  <div class="logo">
+    <a href="{{ action('MasterBox\Guest\HomeController@getIndex') }}" class="logo__link">
+      <img class="logo__picture" src="{{ url('images/logo.png') }}" />
+    </a>
   </div>
 
-  <!-- Navigation -->
-  @include('masterbox.partials.front.nav')
+  {{-- Navbar --}}
+  @include('masterbox.partials.navbar')
 
   @yield('content')
 
+  {{-- Footer --}}
+  @section('footer')
+    <div class="+spacer"></div>
+    @include('masterbox.partials.footer')
+  @show
 
 </body>
 
-<!-- Vendor js -->
-<script src="{{ url('javascripts/vendor.js') }}"></script>
+@section('stripe-checkout')
+@show
 
-<!-- Gotham App -->
-<script src="{{ url('javascripts/app.js') }}"></script>
-<script>require('initialize');</script>
+{{-- Facebook Conversion Code for Impressions --}}
+@include('masterbox.partials.facebook_conversions')
 
-<!-- Controllers -->
-<script src="{{ url('assets/js/app/global.js') }}"></script>
-<script src="{{ url('assets/js/app/box.js') }}"></script>
-<script src="{{ url('assets/js/app/billing.js') }}"></script>
-<script src="{{ url('assets/js/app/payment.js') }}"></script>
-<script src="{{ url('assets/js/app/login.js') }}"></script>
-<script src="{{ url('assets/js/app/spot.js') }}"></script>
-<script src="{{ url('assets/js/app/card.js') }}"></script>
-
-<!-- The required Stripe lib -->
-<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-
-<!-- App -->
-<script src="{{ url('assets/js/app/main.js') }}"></script>
-
-<!-- Facebook Conversion Code for Impressions -->
-@include('masterbox.partials.front.facebook_conversions')
-
-<!-- Google Analytics -->
-@include('masterbox.partials.front.google_analytics')
-
+{{-- Google analytics tracking --}}
+@include('masterbox.partials.google_analytics')
 
 </html>

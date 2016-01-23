@@ -111,118 +111,295 @@
 })();
 require.register("config", function(exports, require, module) {
 module.exports = {
-  app_name: "Your app name",
-  app_version: "0.0.1",
-  app_author: "Your name"
+  stripe: {
+    testing: 'pk_test_HNPpbWh3FV4Lw4RmIQqirqsj',
+    production: 'pk_live_EhCVbntIqph3ppfNCiN6wq3x'
+  }
 };
 });
 
-;require.register("controllers/front/home", function(exports, require, module) {
-var Front_Home, Gotham,
+;require.register("controllers/example-controller", function(exports, require, module) {
+var Controller, Example,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
-Gotham = require('core/gotham');
+Controller = require('core/controller');
 
-Front_Home = (function(superClass) {
-  extend(Front_Home, superClass);
+Example = (function(superClass) {
+  extend(Example, superClass);
 
-  function Front_Home() {
-    return Front_Home.__super__.constructor.apply(this, arguments);
+  function Example() {
+    return Example.__super__.constructor.apply(this, arguments);
   }
 
-  Front_Home.prototype.el = {
-    anchorsScroll: 'a[href*=#]:not([href=#])'
-  };
+  Example.prototype.before = function() {};
 
-  Front_Home.prototype.before = function() {};
+  Example.prototype.run = function() {};
 
-  Front_Home.prototype.run = function() {
-    return this.on('click', this.el.anchorsScroll, this.smoothScroll);
-  };
+  return Example;
 
-  Front_Home.prototype.smoothScroll = function() {
-    var target;
-    if (location.pathname.replace(/^\//, "") === this.pathname.replace(/^\//, "") || location.hostname === this.hostname) {
-      target = $(this.hash);
-      target = (target.length ? target : $("[name=" + this.hash.slice(1) + "]"));
-      if (target.length) {
-        return $("html,body").animate({
-          scrollTop: target.offset().top
-        }, 1000);
-      }
-    }
-  };
+})(Controller);
 
-  return Front_Home;
-
-})(Gotham.Controller);
-
-module.exports = Front_Home;
+module.exports = Example;
 });
 
-;require.register("core/application", function(exports, require, module) {
-var Application, router;
+;require.register("controllers/masterbox/customer/purchase/billing-address", function(exports, require, module) {
+var BillingAddress, Controller,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
 
-router = require('core/router');
+Controller = require('core/controller');
 
-Application = (function() {
-  function Application() {}
+BillingAddress = (function(superClass) {
+  extend(BillingAddress, superClass);
 
-  Application.prototype.construct = function() {};
+  function BillingAddress() {
+    return BillingAddress.__super__.constructor.apply(this, arguments);
+  }
 
-  Application.prototype.start = function() {
-    var response;
-    require('helpers');
-    require('views');
-    require('validators');
-    router = new router();
-    require('routes')(router);
-    require('start');
-    router.run();
-    if (router.passes()) {
-      response = router.response();
-      return this._controller(response);
+  BillingAddress.prototype.before = function() {};
+
+  BillingAddress.prototype.run = function() {
+    return this.on('click', '#copy', this.copyFormDestination);
+  };
+
+  BillingAddress.prototype.copyFormDestination = function(e) {
+    var fields;
+    e.preventDefault();
+    fields = ['city', 'zip', 'address'];
+    return _.each(fields, (function(_this) {
+      return function(field) {
+        var value;
+        value = $('[name=destination_' + field + ']').val();
+        return $('[name=billing_' + field + ']').val(value);
+      };
+    })(this));
+  };
+
+  return BillingAddress;
+
+})(Controller);
+
+module.exports = BillingAddress;
+});
+
+;require.register("controllers/masterbox/customer/purchase/choose-spot", function(exports, require, module) {
+var ChooseSpot, Controller,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+ChooseSpot = (function(superClass) {
+  extend(ChooseSpot, superClass);
+
+  function ChooseSpot() {
+    return ChooseSpot.__super__.constructor.apply(this, arguments);
+  }
+
+  ChooseSpot.prototype.before = function() {};
+
+  ChooseSpot.prototype.run = function() {
+    return this.on('click', 'label', this.displayGoogleMap);
+  };
+
+  ChooseSpot.prototype.displayGoogleMap = function() {
+    var id;
+    $('[id^=gmap]').addClass('+hidden');
+    id = $(this).attr('for');
+    if ($('#gmap-' + id).hasClass('+hidden')) {
+      return $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn();
     }
   };
 
-  Application.prototype._controller = function(response) {
-    var controller;
-    controller = require('controllers/' + response.controller);
+  return ChooseSpot;
+
+})(Controller);
+
+module.exports = ChooseSpot;
+});
+
+;require.register("controllers/masterbox/customer/purchase/payment", function(exports, require, module) {
+var Controller, Payment,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Payment = (function(superClass) {
+  extend(Payment, superClass);
+
+  function Payment() {
+    this.displayDefault = bind(this.displayDefault, this);
+    this.afterPayment = bind(this.afterPayment, this);
+    this.initStripe = bind(this.initStripe, this);
+    return Payment.__super__.constructor.apply(this, arguments);
+  }
+
+  Payment.prototype.before = function() {
+    return this.initStripe();
+  };
+
+  Payment.prototype.run = function() {
+    return $('#trigger-payment').click((function(_this) {
+      return function(e) {
+        e.preventDefault();
+        if ($(_this).prop('disabled') !== true) {
+          _this.displayLoading('En cours de chargement');
+          return _this.handler.open({
+            name: 'Bordeaux in Box',
+            description: 'Commande Box',
+            currency: 'eur',
+            amount: $('#gotham').data('amount'),
+            email: $('#gotham').data('customer-email')
+          });
+        }
+      };
+    })(this));
+  };
+
+  Payment.prototype.initStripe = function() {
+    return this.handler = StripeCheckout.configure({
+      key: _.getStripeKey(),
+      image: 'https://s3.amazonaws.com/stripe-uploads/acct_14e5CdIIyezb3ziumerchant-icon-1452677496121-bdxinbox.png',
+      locale: 'fr',
+      token: this.afterPayment,
+      allowRememberMe: true,
+      opened: (function(_this) {
+        return function() {
+          return _this.displayDefault();
+        };
+      })(this)
+    });
+  };
+
+  Payment.prototype.afterPayment = function(token) {
+    var secret;
+    secret = token.id;
+    this.displayLoading('En cours de redirection');
+    $('#stripe-token').val(secret);
+    return $('#payment-form').submit();
+  };
+
+  Payment.prototype.displayLoading = function(message) {
+    return $('#trigger-payment').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spinner fa-spin"></i> ' + message);
+  };
+
+  Payment.prototype.displayDefault = function() {
+    return $('#trigger-payment').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-credit-card"></i> Procéder au paiement sécurisé');
+  };
+
+  return Payment;
+
+})(Controller);
+
+module.exports = Payment;
+});
+
+;require.register("controllers/masterbox/guest/home/index", function(exports, require, module) {
+var Controller, Index,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Index = (function(superClass) {
+  extend(Index, superClass);
+
+  function Index() {
+    this.alertNoBoxes = bind(this.alertNoBoxes, this);
+    return Index.__super__.constructor.apply(this, arguments);
+  }
+
+  Index.prototype.before = function() {
+    return this.smoothScroll();
+  };
+
+  Index.prototype.run = function() {
+    return this.on('click', '.js-no-boxes', this.alertNoBoxes);
+  };
+
+  Index.prototype.alertNoBoxes = function(e) {
+    e.preventDefault();
+    return swal({
+      title: $('#gotham').data('no-boxes-title'),
+      text: $('#gotham').data('no-boxes-text'),
+      type: 'error',
+      confirmButtonColor: '#D83F66',
+      html: true
+    });
+  };
+
+  Index.prototype.smoothScroll = function() {
+    return smoothScroll.init({
+      selector: '.js-anchor'
+    });
+  };
+
+  return Index;
+
+})(Controller);
+
+module.exports = Index;
+});
+
+;require.register("core/bootstrap", function(exports, require, module) {
+var Bootstrap;
+
+Bootstrap = (function() {
+  function Bootstrap() {}
+
+  Bootstrap.prototype.run = function() {
+    var controller, pathController;
+    require('helpers');
+    require('validators');
+    require('start');
+    controller = $('#gotham').data('controller');
+    if (controller == null) {
+      return;
+    }
+    if (_.isEmpty(controller)) {
+      return;
+    }
+    pathController = this._formatPath(controller);
+    controller = require('controllers/' + pathController);
     controller = new controller();
     if (controller['before'] != null) {
-      controller.before(response.params);
+      controller.before();
     }
-    if (!controller._gotham_stop) {
-      return controller.run(response.params);
+    if (!controller._gothamStop) {
+      return controller.run();
     }
   };
 
-  return Application;
+  Bootstrap.prototype._formatPath = function(str) {
+    return str.split('.').join('/');
+  };
+
+  return Bootstrap;
 
 })();
 
-module.exports = Application;
+module.exports = Bootstrap;
 });
 
 ;require.register("core/controller", function(exports, require, module) {
-var Controller, view;
+var Controller, View;
 
-view = require('core/view');
+View = require('core/view');
 
 Controller = (function() {
-  Controller.prototype._gotham_stop = false;
+  Controller.prototype._gothamStop = false;
 
   function Controller() {}
 
   Controller.prototype.stop = function() {
-    return this._gotham_stop = true;
+    return this._gothamStop = true;
   };
 
   Controller.prototype.log = function(value) {
-    if (_.isObject(value) || _.isArray(value)) {
-      return console.table(value);
-    }
     return console.log(value);
   };
 
@@ -239,7 +416,8 @@ Controller = (function() {
   };
 
   Controller.prototype.view = function(template, datas) {
-    view = new view();
+    var view;
+    view = new View();
     return view.render(template, datas);
   };
 
@@ -250,375 +428,6 @@ Controller = (function() {
 module.exports = Controller;
 });
 
-;require.register("core/gotham", function(exports, require, module) {
-module.exports = {
-  Application: require('core/application'),
-  Controller: require('core/controller'),
-  Router: require('core/router'),
-  Syphon: require('core/syphon'),
-  Validator: require('core/validator'),
-  View: require('core/view')
-};
-});
-
-;require.register("core/router", function(exports, require, module) {
-var Router;
-
-Router = (function() {
-  Router.prototype._routes = [];
-
-  Router.prototype._request = '';
-
-  Router.prototype._success = false;
-
-  Router.prototype._response = {};
-
-  function Router() {
-    this._request = this._slashes(window.location.pathname);
-  }
-
-  Router.prototype.match = function(pattern, controller, constraint) {
-    pattern = this._slashes(pattern);
-    return this._routes.push({
-      pattern: pattern,
-      controller: controller,
-      parsed: this._parse_pattern(pattern),
-      variables: this._fetch_variables(pattern),
-      constraint: constraint
-    });
-  };
-
-  Router.prototype.run = function() {
-    var i, index, j, len, len1, params, params_request, ref, ref1, results, route, success, success_constraint, variable;
-    ref = this._routes;
-    results = [];
-    for (i = 0, len = ref.length; i < len; i++) {
-      route = ref[i];
-      if (route.parsed.test(this._request)) {
-        success = true;
-        params = {};
-        if (route.variables != null) {
-          params_request = route.parsed.exec(this._request);
-          ref1 = route.variables;
-          for (index = j = 0, len1 = ref1.length; j < len1; index = ++j) {
-            variable = ref1[index];
-            params[variable] = params_request[index + 1];
-          }
-        }
-        if (route.constraint != null) {
-          if (_.isFunction(route.constraint)) {
-            success_constraint = route.constraint(params);
-            if (success_constraint === false) {
-              success = false;
-            }
-          }
-        }
-        if (success === true) {
-          this._success = true;
-          this._response = {
-            controller: this._decode(route.controller),
-            params: params
-          };
-          break;
-        } else {
-          results.push(void 0);
-        }
-      } else {
-        results.push(void 0);
-      }
-    }
-    return results;
-  };
-
-  Router.prototype.passes = function() {
-    return this._success;
-  };
-
-  Router.prototype.fails = function() {
-    if (!this._success) {
-      return true;
-    }
-    return false;
-  };
-
-  Router.prototype.response = function() {
-    return this._response;
-  };
-
-  Router.prototype._decode = function(controller) {
-    return controller.split('#').join('/');
-  };
-
-  Router.prototype._slashes = function(str) {
-    if (str) {
-      if (str[str.length - 1] === '/') {
-        str = str.substr(0, str.length - 1);
-      }
-      while (str.charAt(0) === '/') {
-        str = str.substr(1);
-      }
-    }
-    return str;
-  };
-
-  Router.prototype._parse_pattern = function(pattern) {
-    var variables;
-    variables = /(:[a-zA-Z_]*)/g;
-    pattern = pattern.replace(variables, '([a-zA-Z0-9-_]*)');
-    return new RegExp('^' + pattern + '$');
-  };
-
-  Router.prototype._fetch_variables = function(pattern) {
-    var i, index, len, variable, variables;
-    variables = /(:[a-zA-Z_]*)/g;
-    variables = pattern.match(variables);
-    if (variables != null) {
-      for (index = i = 0, len = variables.length; i < len; index = ++i) {
-        variable = variables[index];
-        variables[index] = variable.replace(':', '');
-      }
-    }
-    return variables;
-  };
-
-  return Router;
-
-})();
-
-module.exports = Router;
-});
-
-;require.register("core/syphon", function(exports, require, module) {
-var Syphon,
-  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
-
-Syphon = (function() {
-  Syphon.prototype._exclude = [];
-
-  Syphon.prototype._keep = [];
-
-  function Syphon() {}
-
-  Syphon.prototype.exclude = function() {
-    var i, len, to_exclude, value;
-    to_exclude = arguments;
-    if (_.isArray(to_exclude[0])) {
-      to_exclude = arguments[0];
-    }
-    for (i = 0, len = to_exclude.length; i < len; i++) {
-      value = to_exclude[i];
-      this._exclude.push(value);
-    }
-    return this;
-  };
-
-  Syphon.prototype.keep = function() {
-    var i, len, to_keep, value;
-    to_keep = arguments;
-    if (_.isArray(to_keep[0])) {
-      to_keep = arguments[0];
-    }
-    for (i = 0, len = to_keep.length; i < len; i++) {
-      value = to_keep[i];
-      this._keep.push(value);
-    }
-    return this;
-  };
-
-  Syphon.prototype.get = function(selector) {
-    var datas, datas_serialized;
-    datas_serialized = $(selector).serializeArray();
-    datas = {};
-    _.each(datas_serialized, (function(_this) {
-      return function(data) {
-        var ref;
-        if (ref = data.name, indexOf.call(_this._exclude, ref) < 0) {
-          return datas[data.name] = data.value;
-        }
-      };
-    })(this));
-    if (!_.isEmpty(this._keep)) {
-      return _.pick(datas, this._keep);
-    }
-    this._exclude = [];
-    this._keep = [];
-    return datas;
-  };
-
-  return Syphon;
-
-})();
-
-module.exports = Syphon;
-});
-
-;require.register("core/validator", function(exports, require, module) {
-var Validator;
-
-Validator = (function() {
-  Validator.prototype._rules_to_validate = {};
-
-  Validator.prototype._datas_to_validate = {};
-
-  Validator.prototype._success = true;
-
-  Validator.prototype._errors = {};
-
-  Validator.prototype._rules = {};
-
-  Validator.prototype._messages = {};
-
-  Validator.prototype._attributes = {};
-
-  function Validator() {}
-
-  Validator.prototype.make = function(datas, rules) {
-    this._errors = {};
-    this._datas_to_validate = datas;
-    _.each(rules, (function(_this) {
-      return function(value, index) {
-        if (value !== '') {
-          return _this._rules_to_validate[index] = _this._parse_params(value);
-        }
-      };
-    })(this));
-    return this._run();
-  };
-
-  Validator.prototype.errors = function(type, attribute) {
-    var errors;
-    switch (type) {
-      case 'first':
-        if (this._errors[attribute] != null) {
-          return _.first(this._errors[attribute]);
-        }
-        break;
-      case 'last':
-        if (this._errors[attribute]) {
-          return _.last(this._errors[attribute]);
-        }
-        break;
-      case 'all':
-        errors = [];
-        _.each(this._errors, (function(_this) {
-          return function(attributes) {
-            var error, i, len, results;
-            results = [];
-            for (i = 0, len = attributes.length; i < len; i++) {
-              error = attributes[i];
-              results.push(errors.push(error));
-            }
-            return results;
-          };
-        })(this));
-        return errors;
-      case 'get':
-        if (this._errors[attribute] != null) {
-          return this._errors[attribute];
-        }
-    }
-  };
-
-  Validator.prototype.passes = function() {
-    return this._success;
-  };
-
-  Validator.prototype.fails = function() {
-    if (!this._success) {
-      return true;
-    }
-    return false;
-  };
-
-  Validator.prototype.error = function(rule, message) {
-    return this._messages[rule] = message;
-  };
-
-  Validator.prototype.rule = function(name, callback) {
-    return this._rules[name] = callback;
-  };
-
-  Validator.prototype.attributes = function(attributes) {
-    return _.each(attributes, (function(_this) {
-      return function(attribute, index) {
-        return _this._attributes[index] = attribute;
-      };
-    })(this));
-  };
-
-  Validator.prototype._run = function() {
-    return _.each(this._rules_to_validate, (function(_this) {
-      return function(rule, input) {
-        return _.each(rule, function(value, index) {
-          var error, result;
-          if ((_this._rules[index] != null) && (_this._datas_to_validate[input] != null)) {
-            result = _this._rules[index](input, _this._datas_to_validate[input], value, _this._datas_to_validate);
-            if (!result) {
-              _this._success = false;
-              if (_this._messages[index] != null) {
-                error = _this._create_error_message(_this._messages[index], input, value);
-              } else {
-                error = '[Rule ' + index + '] No error message for this rule';
-              }
-              if (_this._errors[input] != null) {
-                return _this._errors[input].push(error);
-              } else {
-                return _this._errors[input] = [error];
-              }
-            }
-          }
-        });
-      };
-    })(this));
-  };
-
-  Validator.prototype._create_error_message = function(string, attribute, value) {
-    var i, index, len, option;
-    if (this._attributes[attribute] != null) {
-      attribute = this._attributes[attribute];
-    }
-    string = string.split(':attribute').join(attribute);
-    if (!_.isEmpty(value)) {
-      if (value.indexOf(',') !== -1) {
-        string = string.split(':options').join(value.join(', '));
-      } else {
-        string = string.split(':options').join(value);
-      }
-      for (index = i = 0, len = value.length; i < len; index = ++i) {
-        option = value[index];
-        string = string.split(':option' + index).join(option);
-      }
-    }
-    return string;
-  };
-
-  Validator.prototype._parse_params = function(str) {
-    var attribute, i, len, options, parsed, rule, rules;
-    parsed = {};
-    rules = str.split('|');
-    for (i = 0, len = rules.length; i < len; i++) {
-      rule = rules[i];
-      if (rule.indexOf(':') !== -1) {
-        attribute = rule.split(':');
-        parsed[attribute[0]] = [attribute[1]];
-        if (attribute[1].indexOf(',') !== -1) {
-          options = attribute[1].split(',');
-          parsed[attribute[0]] = options;
-        }
-      } else {
-        parsed[rule] = {};
-      }
-    }
-    return parsed;
-  };
-
-  return Validator;
-
-})();
-
-module.exports = Validator;
-});
-
 ;require.register("core/view", function(exports, require, module) {
 var View;
 
@@ -626,6 +435,7 @@ View = (function() {
   function View() {}
 
   View.prototype.render = function(template, datas) {
+    template = template.split('.').join('/');
     template = require('views/' + template);
     return template(datas);
   };
@@ -638,235 +448,171 @@ module.exports = View;
 });
 
 ;require.register("helpers", function(exports, require, module) {
+var Config;
+
+Config = require('config');
+
 _.mixin({
-  capitalize: function(string) {
-    return string.charAt(0).toUpperCase() + string.substring(1).toLowerCase();
+  getStripeKey: function() {
+    var environment;
+    environment = $('body').data('environment');
+    if (environment === 'production') {
+      return Config.stripe.production;
+    }
+    return Config.stripe.testing;
+  }
+});
+
+_.mixin({
+  notificationFormErrors: function() {
+    var hasErrors, text, textErrors, title, titleErrors;
+    hasErrors = _.trim($('#gotham').data('form-errors'));
+    if (_.isEmpty(hasErrors)) {
+      return;
+    }
+    if (hasErrors !== '1') {
+      return;
+    }
+    titleErrors = _.trim($('#gotham').data('form-errors-title'));
+    textErrors = _.trim($('#gotham').data('form-errors-text'));
+    if (!_.isEmpty(titleErrors)) {
+      title = titleErrors;
+    } else {
+      title = 'Attention';
+    }
+    if (!_.isEmpty(textErrors)) {
+      text = textErrors;
+    } else {
+      text = 'Des erreurs sont présentes dans le formulaire';
+    }
+    return swal({
+      title: title,
+      text: text,
+      type: 'error',
+      confirmButtonColor: '#D83F66',
+      html: true
+    });
+  }
+});
+
+_.mixin({
+  notificationSuccessMessage: function() {
+    var successMessage;
+    successMessage = _.trim($('#gotham').data('success-message'));
+    if (_.isEmpty(successMessage)) {
+      return;
+    }
+    return swal({
+      title: 'Bravo !',
+      text: successMessage,
+      type: 'success',
+      confirmButtonColor: '#A5DC86',
+      html: true
+    });
   }
 });
 });
 
 ;require.register("initialize", function(exports, require, module) {
-var Gotham;
+var Bootstrap;
 
-Gotham = require('core/gotham');
+Bootstrap = require('core/bootstrap');
 
 $(function() {
-  return new Gotham.Application().start();
+  var bootstrap;
+  bootstrap = new Bootstrap({
+    request: window.location.pathname
+  });
+  return bootstrap.run();
 });
 });
 
-;require.register("routes", function(exports, require, module) {
-module.exports = function(route) {
-  return route.match('/', 'front/home');
-};
+;require.register("libraries/admin-sidebar", function(exports, require, module) {
+var AdminSidebar;
+
+AdminSidebar = (function() {
+  function AdminSidebar() {
+    $('#sidebar').on('mouseenter', this.sidebarEnter);
+    $('#sidebar').on('mouseleave', this.sidebarLeave);
+  }
+
+  AdminSidebar.prototype.sidebarEnter = function() {
+    $(this).css('width', '270px');
+    return $('#sidebar-brand').css('display', 'block');
+  };
+
+  AdminSidebar.prototype.sidebarLeave = function() {
+    $(this).css('width', '60px');
+    return $('#sidebar-brand').css('display', 'none');
+  };
+
+  return AdminSidebar;
+
+})();
+
+module.exports = AdminSidebar;
 });
 
 ;require.register("start", function(exports, require, module) {
-if ($('[data-gotham=tooltipster]').length > 0) {
-  $('[data-gotham=tooltipster').tooltipster();
+var AdminSidebar;
+
+AdminSidebar = require('libraries/admin-sidebar');
+
+$('input, textarea').placeholder();
+
+_.notificationFormErrors();
+
+_.notificationSuccessMessage();
+
+$('.js-chosen').chosen({
+  disable_search_threshold: 30
+});
+
+$(':checkbox').labelauty();
+
+$(':radio').labelauty();
+
+if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
+  new AdminSidebar();
+  $('.js-datatable-simple').DataTable({
+    length: false,
+    language: {
+      lengthMenu: "Afficher _MENU_ résultats par page",
+      zeroRecords: "Aucun enregistrement trouvé",
+      info: "Page _PAGE_ sur _PAGES_",
+      infoEmpty: "Aucun enregistrement disponible",
+      infoFiltered: "(filtré sur _MAX_ enregistrements)",
+      search: 'Chercher: '
+    }
+  });
+  $(document).on('click', '.js-confirm-delete', function(e) {
+    e.preventDefault();
+    return swal({
+      type: 'warning',
+      title: 'Es-tu sûr ?',
+      text: 'La ressource sera supprimé définitivement',
+      showCancelButton: true,
+      confirmButtonText: "Oui je suis sûr",
+      cancelButtonText: "Annuler",
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    }, (function(_this) {
+      return function() {
+        return window.location.href = $(_this).attr('href');
+      };
+    })(this));
+  });
+  $('.js-markdown').meltdown({
+    openPreview: true,
+    sidebyside: true
+  });
 }
 });
 
 ;require.register("validators", function(exports, require, module) {
-var Validator;
+Validator.errors;
 
-Validator = require('core/validator');
-
-Validator.prototype.attributes;
-
-Validator.prototype.rule('accepted', function(attribute, value, params) {
-  if (value === 'yes' || value === 'on' || value === '1') {
-    return true;
-  }
-  return false;
-});
-
-Validator.prototype.rule('alpha', function(attribute, value, params) {
-  if (value === void 0 || value === '') {
-    return true;
-  }
-  if (value.match(/^[a-zA-Z]+$/)) {
-    return true;
-  }
-  return false;
-});
-
-Validator.prototype.rule('alpha_dash', function(attribute, value, params) {
-  if (value === void 0 || value === '') {
-    return true;
-  }
-  if (value.match(/^[a-zA-Z0-9_-]+$/)) {
-    return true;
-  }
-  return false;
-});
-
-Validator.prototype.rule('alpha_num', function(attribute, value, params) {
-  if (value === void 0 || value === '') {
-    return true;
-  }
-  if (value.match(/^[a-zA-Z0-9]+$/)) {
-    return true;
-  }
-  return false;
-});
-
-Validator.prototype.rule('array', function(attribute, value, params) {
-  if (_.isArray(value)) {
-    return true;
-  }
-  return false;
-});
-
-Validator.prototype.rule('between', function(attribute, value, params) {
-  var length;
-  if (value === void 0 || value === '') {
-    return true;
-  }
-  length = value.toString().length;
-  if (length >= params[0] && length <= params[1]) {
-    return true;
-  }
-  return false;
-});
-
-Validator.prototype.rule('boolean', function(attribute, value, params) {
-  if (value === true || value === false) {
-    return true;
-  }
-  return false;
-});
-
-Validator.prototype.rule('required', function(attribute, value, params) {
-  if (!value) {
-    return false;
-  }
-  if (value.length === 0) {
-    return false;
-  }
-  return true;
-});
-
-Validator.prototype.rule('email', function(attribute, value, params) {
-  var valid_email;
-  if (value === void 0 || value === '') {
-    return true;
-  }
-  valid_email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return valid_email.test(value);
-});
-
-Validator.prototype.rule('in', function(attribute, value, params) {
-  var i, len, param, success;
-  if (value === void 0 || value === '') {
-    return true;
-  }
-  value = value.toString();
-  success = false;
-  for (i = 0, len = params.length; i < len; i++) {
-    param = params[i];
-    if (value === param) {
-      success = true;
-      break;
-    }
-  }
-  return success;
-});
-
-Validator.prototype.rule('max', function(attribute, value, params) {
-  var constraint;
-  if (value === void 0 || value === '') {
-    return true;
-  }
-  value = parseInt(value);
-  constraint = parseInt(params[0]);
-  if (value > constraint) {
-    return false;
-  }
-  return true;
-});
-
-Validator.prototype.rule('min', function(attribute, value, params) {
-  var constraint;
-  if (value === void 0 || value === '') {
-    return true;
-  }
-  value = parseInt(value);
-  constraint = parseInt(params[0]);
-  if (value < constraint) {
-    return false;
-  }
-  return true;
-});
-
-Validator.prototype.rule('size', function(attribute, value, params) {
-  if (value.length !== params[0]) {
-    return false;
-  }
-  return true;
-});
-
-Validator.prototype.rule('match', function(attribute, value, params, datas) {
-  var field, value_of_field;
-  field = params[0];
-  if (_.has(datas, field)) {
-    value = value.toString();
-    value_of_field = datas[field].toString();
-    if (value === value_of_field) {
-      return true;
-    }
-  }
-  return false;
-});
-
-Validator.prototype.rule('different', function(attribute, value, params, datas) {
-  var field, value_of_field;
-  field = params[0];
-  if (_.has(datas, field)) {
-    value = value.toString();
-    value_of_field = datas[field].toString();
-    if (value !== value_of_field) {
-      return true;
-    }
-  }
-  return false;
-});
-
-Validator.prototype.error('accepted', 'The :attribute must be accepted');
-
-Validator.prototype.error('alpha', 'The :attribute may only contain letters.');
-
-Validator.prototype.error('alpha_dash', 'The :attribute may only contain letters, numbers, and dashes.');
-
-Validator.prototype.error('alpha_num', 'The :attribute may only contain letters and numbers.');
-
-Validator.prototype.error('array', 'The :attribute must be an array.');
-
-Validator.prototype.error('between', 'The :attribute must be between :option0 and :option1 characters.');
-
-Validator.prototype.error('boolean', 'The :attribute must be a boolean.');
-
-Validator.prototype.error('required', 'The :attribute is required.');
-
-Validator.prototype.error('email', 'The :attribute must be a valid email.');
-
-Validator.prototype.error('in', 'The :attribute must be in :options.');
-
-Validator.prototype.error('max', 'The :attribute can\'t be superior to :option0.');
-
-Validator.prototype.error('min', 'The :attribute can\'t be inferior to :option0.');
-
-Validator.prototype.error('size', 'The :attribute must contain :option0 chars.');
-
-Validator.prototype.error('match', 'The :attribute does not match.');
-
-Validator.prototype.error('different', 'The :attribute isn\'t different.');
-});
-
-;require.register("views", function(exports, require, module) {
-Handlebars.registerHelper('example', function() {
-  return 'example';
-});
+Validator.attributes;
 });
 
 ;

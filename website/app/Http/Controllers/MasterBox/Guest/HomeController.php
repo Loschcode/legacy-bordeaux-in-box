@@ -27,7 +27,7 @@ class HomeController extends BaseController {
     $next_series = DeliverySerie::nextOpenSeries();
 
     // Blog articles
-    $articles = BlogArticle::orderBy('id', 'DESC')->limit(12)->get();
+    $articles = BlogArticle::orderBy('id', 'DESC')->limit(8)->get();
 
     return view('masterbox.guest.home.index')->with(compact(
       'next_series', 

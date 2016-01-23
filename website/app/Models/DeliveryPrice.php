@@ -21,4 +21,25 @@ class DeliveryPrice extends Model {
 
 	}
 
+	public function getCheckboxFrequencyGiftText()
+	{
+		return 
+			'<span class="labelauty-title">' . $this->title . '</span><br/>' .
+			'<span class="labelauty-description">' . $this->readableFrequency() . '</span>';
+	}
+
+	public function getCheckboxFrequencySubscriptionText()
+	{
+
+		if ($this->frequency == 1) {
+			$title = number_format($this->unity_price, 2) . '&euro;';
+		} else {
+			$title = number_format($this->unity_price, 2) . '&euro; par mois';
+		}
+
+		return 
+			'<span class="labelauty-title">' . $title . '</span><br/>' .
+			'<span class="labelauty-description">' . $this->readableFrequency() . '</span>';
+	}
+
 }
