@@ -2,36 +2,18 @@
 
 @section('content')
 
-<div class="page">
+<div class="section section__wrapper">
+  <h1 class="section__title --page">Foire aux questions</h1>
+</div>
+
+<div class="page page__wrapper">
   <div class="container">
-    <div class="page__typography">
-      {!! nl2br($help->content) !!}
+    <div class="grid-10 grid-centered">
+      <div class="typography">
+        {!! Markdown::convertToHtml($help->content) !!}
+      </div>
     </div>
   </div>
 </div>
 
-<?php /*
-	<div class="page">
-		<div class="container">
-			<h1 class="page-title">Questions souvent posées</h1>
-      <div class="col-md-10 col-md-offset-1">
-				<div class="description">{!! nl2br($help->content) !!}</div>
-      </div>
-		</div>
-	</div>
-
-  <div class="container">
-    <div class="description text-center">
-      Impossible de trouver une réponse à ta question ? Besoin d'une aide spécifique ? N'hésite pas à <a href="{{ url('/contact') }}">nous contacter</a> !
-    </div>
-  </div>
-
-  <br/><br/>
-
-  <div class="spacer150"></div>
-
-  <div class="footer-container">
-    @include('masterbox.partials.footer')
-  </div>
-*/ ?>
 @stop
