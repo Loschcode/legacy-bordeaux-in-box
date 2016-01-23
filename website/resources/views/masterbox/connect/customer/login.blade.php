@@ -2,48 +2,44 @@
 @section('content')
 
 <div 
-  id="gotham"
-  data-form-errors="{{ $errors->has() }}"
+id="gotham"
+data-form-errors="{{ $errors->has() }}"
 ></div>
 
 <div class="+spacer-small"></div>
 
 <div class="container">
-  <div class="grid-8 grid-centered">
+<div class="grid-6 grid-centered">
     <div class="panel">
       <div class="panel__heading">
         <h2 class="panel__title">Connexion</h2>
       </div>
-      <div class="panel__content">
-        
+      <div class="panel__content --white">
+
         {!! Form::open(['action' => 'MasterBox\Connect\CustomerController@postLogin']) !!}
 
         <div class="+spacer-extra-small"></div>
-          
-          <div class="form">
-            
-            <div class="row">
-              <div class="grid-6 no-gutter">
-                {!! Form::text("email", Request::old("email"), ['placeholder' => 'Email', 'class' => 'form__input --grouped-left']) !!}
-                {!! Html::checkError('email', $errors) !!}
-              </div>
-              <div class="grid-6 no-gutter">
-                {!! Form::password("password", ['placeholder' => 'Mot de passe', 'class' => 'form__input --grouped-right']) !!}
-                {!! Html::checkError('password', $errors) !!}
-              </div>
-            </div>
-            
-            <div class="+spacer-small"></div>
 
-            <p>
-              Si tu as oublié ton mot de passe <a href="{{ action('MasterBox\Connect\PasswordRemindersController@getRemind') }}">on peut t'aider</a> et si tu n'as toujours pas de compte tu peux <a href="{{ action('MasterBox\Connect\CustomerController@getSubscribe') }}">t'inscrire</a> !
-            </p>
-            
-          </div>
+        <div class="form">
+
+          {!! Form::text("email", Request::old("email"), ['placeholder' => 'Email', 'class' => 'form__input']) !!}
+          {!! Html::checkError('email', $errors) !!}
+
+          <div class="+spacer-extra-small"></div>
+
+          {!! Form::password("password", ['placeholder' => 'Mot de passe', 'class' => 'form__input']) !!}
+          {!! Html::checkError('password', $errors) !!}
+
+
+          <div class="+spacer-small"></div>
+
+          <p>
+            Si tu as oublié ton mot de passe <a href="{{ action('MasterBox\Connect\PasswordRemindersController@getRemind') }}">on peut t'aider</a> et si tu n'as toujours pas de compte tu peux <a href="{{ action('MasterBox\Connect\CustomerController@getSubscribe') }}">t'inscrire</a> !
+          </p>
+
+        </div>
       </div>
-      <div class="panel__footer">
-        <button type="submit" class="button button__submit --panel">Me connecter</button>
-      </div>
+      <button type="submit" class="button button__submit --panel">Me connecter</button>
     </div>
     {!! Form::close() !!}
 
@@ -51,7 +47,7 @@
 
 </div>
 
-@include('masterbox.partials.footer')
+<div class="+spacer"></div>
 
 @stop
 <?php /*
