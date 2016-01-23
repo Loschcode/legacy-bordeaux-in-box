@@ -1,7 +1,12 @@
 @extends('masterbox.layouts.master')
 @section('content')
 
-<div class="+spacer"></div>
+
+<div class="section section__wrapper">
+  <h1 class="section__title --page">Nos complices</h1>
+</div>
+
+<div class="+spacer-small"></div>
 
 <div class="container-static">
 	
