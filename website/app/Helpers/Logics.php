@@ -86,7 +86,15 @@ function generate_new_order($customer, $profile) {
 
   $delivery_spot = $last_order->delivery_spot()->first();
 
-  $delivery_serie = \App\Models\DeliverySerie::where('delivery', '>', $last_delivery_serie->delivery)->whereNull('closed')->orderBy('delivery', 'asc')->first();
+  try {
+    
+    $delivery_serie = \App\Models\DeliverySerie::where('delivery', '>', $last_delivery_serie->delivery)->whereNull('closed')->orderBy('delivery', 'asc')->first();
+
+  } catch (Exception $e) {
+
+    warning_tech_admin('masterbox.emails.admin.no_more_delivery_serie_to_generate_order', 'Plus assez de séries pour générer des commandes', $customer, $profile);
+
+  }
 
   // We make the order
   $order = new \App\Models\Order;

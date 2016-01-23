@@ -2,6 +2,40 @@
 
 use App\Models\EmailTrace;
 
+function warning_tech_admin($template, $subject, $customer, $customer_profile, $payment=NULL, $log_store=NULL) {
+
+  // Communication recipient will receive the failure
+  $email = App\Models\ContactSetting::first()->tech_support;
+
+  $data = [
+
+  'customer_email' => $customer->email,
+  'customer_full_name' => $customer->getFullName(),
+
+  'customer_profile_id' => $customer_profile->id,
+  'customer_id' => $customer->id,
+
+  ];
+
+  if ($payment !== NULL)
+    $data['payment_id'] = $payment->id;
+  else
+    $data['payment_id'] = 'N/A';
+
+  if ($log_store !== NULL)
+    $data['log_store'] = $log_store;
+  else
+    $data['log_store'] = 'N/A';
+
+  Mail::queue($template, $data, function($message) use ($email, $subject)
+  {
+
+    $message->from($email)->to($email)->subject('WARNING : ' . $subject);
+
+  });
+
+}
+
 /**
  * Get email listing from a got orders list (model object)
  * @param  object $orders
