@@ -7,57 +7,55 @@
   data-success-message="{{ session()->get('message') }}"
 ></div>
 
-<div class="+spacer-small"></div>
+
+<div class="section section__wrapper">
+  <h1 class="section__title --page">Nous contacter</h1>
+</div>
+          <div class="+spacer-small"></div>
 
 <div class="container">
   <div class="grid-8 grid-centered">
 
+
     {!! Form::open() !!}
       
-      <div class="panel">
-        <div class="panel__heading">
-          <h2 class="panel__title">Nous Contacter</h2>
-        </div>
-        <div class="panel__content">
+
 
           <div class="+spacer-extra-small"></div>
 
           <div class="form">
-          
-            <div class="row">
+              {!! Form::label('service', 'Service', ['class' => 'form__label']) !!}
               {!! Form::select('service', Html::getContactServices(), Request::old('service'), ['class' => 'js-chosen']) !!}
               {!! Html::checkError('service', $errors) !!}
-            </div>
-            
             <div class="+spacer-small"></div>
+              
+              {!! Form::label('email', 'Email', ['class' => 'form__label']) !!}
 
-            <div class="row">
-              {!! Form::text("email", Request::old("email"), ['placeholder' => 'Email', 'class' => 'form__input']) !!}
+              @if (Auth::check())
+                {!! Form::text("email", Auth::user()->email, ['class' => 'form__input']) !!}
+              @else
+                {!! Form::text("email", Request::old("email"), ['class' => 'form__input']) !!}
+              @endif
+
               {!! Html::checkError('email', $errors) !!}
-            </div>
             
             <div class="+spacer-small"></div>
 
-            <div class="row">
+              {!! Form::label('message', 'Message', ['class' => 'form__label']) !!}
               {!! Form::textarea("message", Request::old("message"), ['class' => 'form__input', 'placeholder' => 'Votre message']) !!}
               {!! Html::checkError('message', $errors) !!}
-            </div>
 
             <div class="+spacer-small"></div>
 
           </div>
-        </div>
-        <div class="panel__footer">
-          <button type="submit" class="button button__submit --panel">Envoyer mon message à l'équipe</button>
-        </div>
+
+          <button type="submit" class="button button__submit">Envoyer mon message à l'équipe</button>
       </div>
     {!! Form::close() !!}
 
   </div>
 
 </div>
-
-@include('masterbox.partials.footer')
 
 @stop
 

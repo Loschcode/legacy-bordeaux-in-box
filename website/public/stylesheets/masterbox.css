@@ -288,7 +288,8 @@ a {
     padding-top: 34px; }
   .section__title.\--page {
     color: white;
-    padding-top: 0; }
+    padding-top: 0;
+    font-size: 47.599999999999994px; }
 .section__wrapper {
   background-color: #801E45;
   margin-top: 34px; }
@@ -435,6 +436,12 @@ a {
   .form__input.\--grouped-right {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0; }
+.form__label {
+  display: block;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  font-size: 15.3px;
+  padding-top: 6.800000000000001px; }
 .form__title {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
@@ -546,6 +553,12 @@ a {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 20.4px;
+  padding-bottom: 13.600000000000001px;
+  padding-top: 20.4px; }
+.typography h3 {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 17px;
   padding-bottom: 13.600000000000001px;
   padding-top: 20.4px; }
 .typography p {
