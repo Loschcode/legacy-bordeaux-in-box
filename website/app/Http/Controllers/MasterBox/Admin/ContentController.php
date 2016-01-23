@@ -425,6 +425,7 @@ class ContentController extends BaseController {
 			$image_article->save();
 
 			return redirect()->to('/admin/content/illustrations')
+			->with('message', "L'illustration a été ajouté")
 			->withInput();
 
 		} else {
