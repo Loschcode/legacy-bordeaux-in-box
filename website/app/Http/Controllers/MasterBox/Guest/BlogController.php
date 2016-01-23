@@ -44,6 +44,11 @@ class BlogController extends BaseController {
 
   }
 
+  public function getRedirectContact()
+  {
+    return redirect()->action('MasterBox\Guest\ContactController@getIndex')->with('from_contact', true);
+  }
+
   public function checkSeoBlog($id, $slug)
   {
 

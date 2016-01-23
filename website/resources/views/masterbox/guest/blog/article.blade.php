@@ -1,21 +1,37 @@
 @extends('masterbox.layouts.master')
 @section('content')
-	 
-<div class="container">
-    <div class="article article__wrapper">
 
-      <div class="grid-8 grid-centered">
-        <div class="article__cover-container">
-          <img class="article__cover" src="{{ $blog_article->thumbnail->full }}" />
-        </div>
-      </div>
-      <div class="grid-10 grid-centered">
-        <div class="article__content typography">
-          {!! Markdown::convertToHtml($blog_article->content) !!}
-        </div>
+<div class="container">
+  <div class="article article__wrapper">
+
+    <div class="grid-8 grid-centered">
+      <div class="article__cover-container">
+        <img class="article__cover" src="{{ $blog_article->thumbnail->full }}" />
       </div>
     </div>
+    <div class="grid-10 grid-centered">
+      <div class="article__content typography">
+        {!! Markdown::convertToHtml($blog_article->content) !!}
+      </div>
+  
+      <div class="+spacer"></div>
+
+      <div id="disqus_thread"></div>
+      <script type="text/javascript">
+        var disqus_shortname = 'lapetitebox'; // required: replace example with your forum shortname
+
+        (function() {
+
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+      </script>
+      <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+    </div>
   </div>
+</div>
 </div>
 
 
@@ -84,4 +100,4 @@
 
   */ ?>
 
-@stop
+  @stop

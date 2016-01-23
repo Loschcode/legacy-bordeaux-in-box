@@ -1,12 +1,7 @@
 @extends('masterbox.layouts.master')
 @section('content')
 
-
-<div class="section section__wrapper">
-  <h1 class="section__title --page">Nos complices</h1>
-</div>
-
-<div class="+spacer-small"></div>
+<div class="+spacer"></div>
 
 <div class="container-static">
 	
@@ -25,6 +20,12 @@
 			@endforeach
 		</div>
 	@endforeach
+
+	<div class="+spacer-small"></div>
+	
+	<div class="grid-6 grid-centered">
+		<a href="{{ action('MasterBox\Guest\BlogController@getRedirectContact') }}" class="button button__submit">Envie de devenir un de nos complices ?</a>
+	</div>
 
 </div>
 	<?php /*
