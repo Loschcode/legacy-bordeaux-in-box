@@ -9,7 +9,7 @@
 <div class="+spacer-small"></div>
 
 <div class="container">
-  <div class="grid-8 grid-centered">
+  <div class="grid-6 grid-centered">
       <div class="panel__heading">
         <h2 class="panel__title">Inscription</h2>
       </div>
