@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
         Commands\BillingNormalizeMasterbox::class,
         Commands\QuestionsNormalizeMasterbox::class,
         Commands\BlogNormalizeArticles::class,
+        Commands\ContentNormalizePages::class,
         
     ];
 
