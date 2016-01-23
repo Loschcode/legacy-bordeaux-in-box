@@ -4,7 +4,7 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,700,300,300italic,400italic,700italic,900,900italic&subset=latin,latin-ext);
 @import url(https://fonts.googleapis.com/css?family=Amatic+SC:400,700&subset=latin,latin-ext);
 #csstyle .\+text-center {
-  text-align: center; }
+  text-align: center !important; }
 
 #csstyle .\+text-left {
   text-align: left; }
@@ -399,10 +399,9 @@ a {
   border-bottom-left-radius: 5px;
   margin-bottom: 68px; }
 .panel__title {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
   font-size: 20.4px;
-  text-transform: uppercase;
   text-align: center;
   padding-top: 6.800000000000001px;
   padding-bottom: 6.800000000000001px; }

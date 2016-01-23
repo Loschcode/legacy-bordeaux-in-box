@@ -2,14 +2,11 @@
 
 @section('content')
 
-<div class="section section__wrapper">
-  <h1 class="section__title --page">Mentions Légales</h1>
-</div>
 
 <div class="page page__wrapper">
   <div class="container">
     <div class="grid-10 grid-centered">
-      <div class="typography">
+      <div class="typography +text-center">
         {!! Markdown::convertToHtml($legal->content) !!}
       </div>
     </div>
