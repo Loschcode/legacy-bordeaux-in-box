@@ -42,6 +42,7 @@ class ContentNormalizePages extends Command
         $this->deletePage(1, 'Home');
         $this->deletePage(2, 'Contact');
         $this->deletePage(5, 'Bill');
+        $this->deletePage(4, 'Facebook');
 
         $ids = [3, 4, 6, 7, 8];
 
