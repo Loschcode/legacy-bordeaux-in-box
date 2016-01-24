@@ -44,7 +44,7 @@ function generate_pdf_bill($company_billing, $download=FALSE, $destination_folde
   $company_billing_lines = $company_billing->billing_lines()->get();
   $total = $company_billing_lines->sum('amount');
 
-  $html = view('masterbox.pdf.bill')->with(compact(
+  $html = view('shared.pdf.bill')->with(compact(
     'company_billing',
     'company_billing_lines',
     'total'
