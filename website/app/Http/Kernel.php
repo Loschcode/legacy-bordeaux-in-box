@@ -58,7 +58,8 @@ class Kernel extends HttpKernel
 
       // App
       'below.serie.counter' => \App\Http\Middleware\BelowSerieCounter::class,
-      'has.order.building' => \App\Http\Middleware\HasOrderBuilding::class,
+      'has.unpaid.order.building' => \App\Http\Middleware\HasUnpaidOrderBuilding::class,
+      'has.paid.order.building' => \App\Http\Middleware\HasPaidOrderBuilding::class,
       'is.admin' => \App\Http\Middleware\IsAdmin::class,
       'is.connected' => \App\Http\Middleware\IsConnected::class,
       'is.not.connected' => \App\Http\Middleware\IsNotConnected::class,

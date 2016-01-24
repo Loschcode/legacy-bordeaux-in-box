@@ -3,7 +3,7 @@
 use Closure;
 use Auth;
 
-class HasOrderBuilding {
+class HasUnpaidOrderBuilding {
 
   /**
    * Handle an incoming request.
@@ -14,9 +14,8 @@ class HasOrderBuilding {
    */
   public function handle($request, Closure $next)
   {
-    if (Auth::guard('customer')->guest()) return redirect()->to('user/login');
 
-    if (Auth::guard('customer')->user()->order_building()->first() === NULL) return redirect()->to('/');
+    if (Auth::guard('customer')->user()->order_building()->notPaidYet()->first() === NULL) return redirect()->action('MasterBox\Guest\HomeController@getIndex');
     
     return $next($request);
   }

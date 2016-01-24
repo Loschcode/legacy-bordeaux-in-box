@@ -18,7 +18,7 @@
       <div class="panel__heading">
         <h2 class="panel__title">Mot de passe oublié</h2>
       </div>
-      <div class="panel__content">
+      <div class="panel__content --white">
 
         <div class="+spacer-extra-small"></div>
 
@@ -40,8 +40,6 @@
   </div>
 
 </div>
-
-@include('masterbox.partials.footer')
 
 @stop
 

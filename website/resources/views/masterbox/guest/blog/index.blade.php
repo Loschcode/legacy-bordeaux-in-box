@@ -11,7 +11,7 @@
 				<div class="grid-3">
 					<div class="partner">
 						<div class="partner__picture-container">
-							<a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['id' => $article->id]) }}">
+							<a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['slug' => $article->slug]) }}">
 								<img class="partner__picture" src="{{ Html::resizeImage('medium', $article->thumbnail->filename) }}" />
 							</a>
 						</div>
@@ -24,7 +24,7 @@
 	<div class="+spacer-small"></div>
 	
 	<div class="grid-6 grid-centered">
-		<a href="{{ action('MasterBox\Guest\BlogController@getRedirectContact') }}" class="button button__submit">Envie de devenir un de nos complices ?</a>
+		<a href="{{ action('MasterBox\Guest\ContactController@getIndex', ['service' => 'com-partner']) }}" class="button button__submit">Envie de devenir un de nos complices ?</a>
 	</div>
 
 </div>

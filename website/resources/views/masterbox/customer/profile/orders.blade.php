@@ -89,7 +89,7 @@
               <th>Numéro de transaction</th>
               <th>Prélévement</th>
               <th>Date</th>
-              <th>Facture</th>
+              <th>Facture(s)</th>
             </tr>
 
           </thead>
@@ -106,8 +106,18 @@
                 <th>
                 @if ($payment->amount > 0)
 
-                  <a class="spyro-btn spyro-btn-primary upper spyro-btn-sm" href="{{action('Company\Guest\BillingController@getWatch', ['encrypted_access' => $payment->getBillEncryptedAccess()])}}" target="_blank">Accéder à ma facture</a>
-                  <a class="spyro-btn spyro-btn-green upper spyro-btn-sm" href="{{action('Company\Guest\BillingController@getDownload', ['encrypted_access' => $payment->getBillEncryptedAccess()])}}" target="_blank">Télécharger ma facture</a>
+                  @foreach ($payment->getCompanyBillings() as $company_billing)
+
+                  <a class="spyro-btn spyro-btn-primary upper spyro-btn-sm" href="{{ action('Company\Guest\BillingController@getWatch', ['encrypted_access' => $company_billing->encrypted_access]) }}" target="_blank">{{$company_billing->bill_id}}</a>
+                  <a class="spyro-btn spyro-btn-green upper spyro-btn-sm" href="{{ action('Company\Guest\BillingController@getDownload', ['encrypted_access' => $company_billing->encrypted_access]) }}" target="_blank">Télécharger</a>
+
+                  <br />
+
+                  
+
+                  @endforeach
+
+
                 @endif
                 </th>
 

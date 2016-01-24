@@ -25,7 +25,7 @@ data-success-message="{{ session()->get('message') }}"
 
     <div class="form">
       {!! Form::label('service', 'Service', ['class' => 'form__label']) !!}
-      {!! Form::select('service', Html::getContactServices(), session('from_contact') ? 'com-partner' : old('service'), ['class' => 'js-chosen']) !!}
+      {!! Form::select('service', Html::getContactServices(), (request()->input('service')) ? request()->input('service') : old('service'), ['class' => 'js-chosen']) !!}
       {!! Html::checkError('service', $errors) !!}
       <div class="+spacer-small"></div>
 

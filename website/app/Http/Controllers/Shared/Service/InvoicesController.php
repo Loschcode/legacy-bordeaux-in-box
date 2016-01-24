@@ -217,12 +217,15 @@ class InvoicesController extends BaseController {
       foreach ($payment->orders()->get() as $order) {
 
         $this->log_now('We will add 2 lines to the company billing linked to this order ('.$order->unity_price.' / '.$order->delivery_fees.')');
-
         $company_billing = $order->company_billing()->first();
 
         // If the company billing is empty we generate it beforehand
-        if ($company_billing === NULL)
+        if ($company_billing === NULL) {
+
           $company_billing = generate_new_company_billing_from_order($order, TRUE);
+          $this->log_now('We generated a new company billing from order `'.$order->id.'`');
+
+        }
 
         if ($this->stripe_transaction['refund']) {
 
@@ -265,7 +268,6 @@ class InvoicesController extends BaseController {
        * There is no company billing existing for this payment so we must generate it in standalone mode
        */
       $company_billing = generate_new_company_billing_without_order($payment);
-
       $this->log_now('We will add 1 line to the company billing freshly generated');
 
       /**
