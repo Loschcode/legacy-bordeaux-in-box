@@ -16,6 +16,24 @@
   
       <div class="+spacer"></div>
 
+      @foreach ($random_articles->chunk(4) as $chunk)
+        <div class="row">
+          @foreach ($chunk as $article)
+            <div class="grid-3">
+              <div class="partner">
+                <div class="partner__picture-container">
+                  <a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['id' => $article->id]) }}">
+                    <img class="partner__picture" src="{{ Html::resizeImage('medium', $article->thumbnail->filename) }}" />
+                  </a>
+                </div>
+              </div>
+            </div>
+          @endforeach
+        </div>
+      @endforeach
+
+      <div class="+spacer-small"></div>
+
       <div id="disqus_thread"></div>
       <script type="text/javascript">
         var disqus_shortname = 'lapetitebox'; // required: replace example with your forum shortname
