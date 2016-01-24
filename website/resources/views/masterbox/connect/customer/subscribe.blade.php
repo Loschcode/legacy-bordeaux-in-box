@@ -9,7 +9,11 @@
 <div class="+spacer-small"></div>
 
 <div class="container">
+
+  {!! Form::open(['action' => 'MasterBox\Connect\CustomerController@postSubscribe']) !!}
+
   <div class="grid-6 grid-centered">
+
       <div class="panel__heading">
         <h2 class="panel__title">Inscription</h2>
       </div>
@@ -18,8 +22,6 @@
           Si tu as déjà un compte, tu peux <a href="{{ action('MasterBox\Connect\CustomerController@getLogin') }}">te connecter</a> !
         </p>
         
-        {!! Form::open(['action' => 'MasterBox\Connect\CustomerController@postSubscribe']) !!}
-
         <div class="+spacer-extra-small"></div>
           
           <div class="form">

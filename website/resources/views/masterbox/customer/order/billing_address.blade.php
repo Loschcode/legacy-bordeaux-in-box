@@ -165,7 +165,7 @@
 
             </div>
             <div class="panel__footer">
-              <button type="submit" class="button button__submit --panel"><i class="fa fa-check"></i> Passer à l'étape de paiement</button>
+              <button type="submit" class="button button__submit --panel"><i class="fa fa-check"></i> Valider</button>
             </div>
             </div>
           @else
@@ -232,7 +232,7 @@
 
               </div>
               <div class="panel__footer">
-                <button type="submit" class="button button__submit --panel"><i class="fa fa-check"></i> Passer à l'étape de paiement</button>
+                <button type="submit" class="button button__submit --panel"><i class="fa fa-check"></i> Valider</button>
               </div>
             </div>
 
