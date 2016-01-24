@@ -16,7 +16,7 @@
 						<span class="pipeline__dot"></span>
 					@endif
 
-					<p class="pipeline__description"><i class="fa fa-clock-o"></i> Fréquence de livraison</p>
+					<p class="pipeline__description"><i class="fa fa-clock-o"></i> Fréquence</p>
 				</div>
 			</div>
 			<div class="grid-3 no-gutter">
@@ -32,7 +32,7 @@
 						<span class="pipeline__dot"></span>
 					@endif
 
-					<p class="pipeline__description"><i class="fa fa-truck"></i> Livraison / Facturation</p>
+					<p class="pipeline__description"><i class="fa fa-truck"></i> Livraison</p>
 				</div>
 			</div>
 			<div class="grid-3 no-gutter">
