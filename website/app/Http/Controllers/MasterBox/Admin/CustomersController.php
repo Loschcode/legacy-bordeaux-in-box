@@ -52,10 +52,40 @@ class CustomersController extends BaseController {
   public function getJsonCustomers()
   {
 
-    $customers = Customer::with('profiles')->orderBy('created_at', 'desc')->get();
+    $draw = request()->input('draw');
+    $start = request()->input('start');
+    $search = request()->input('search')['value'];
+    $length = request()->input('length');
+
+    $total_results = Customer::count();
+
+    if (empty($search)) {
+
+      $customers = Customer::with('profiles')->skip($start)->take($length)->get();
+      $total_results_after_filtered = $total_results;
+
+    } else {
+
+      $customers = Customer::with('profiles')
+        ->where('id', $search)
+        ->orWhere('first_name', 'like', '%' . $search . '%')
+        ->orWhere('last_name', 'like', '%' . $search . '%')
+        ->orWhere('email', 'like', '%' . $search . '%')
+        ->orWhere('phone', 'like', '%' . $search . '%')
+        ->skip($start)
+        ->take($length)
+        ->get();
+
+      $total_results_after_filtered = $customers->count();
+
+    }
+    
 
     return response()->json([
-      'data' => $customers
+      'data' => $customers,
+      'recordsTotal' => $total_results,
+      'recordsFiltered' => $total_results_after_filtered,
+      'draw' => (int) $draw
     ]);
   }
 

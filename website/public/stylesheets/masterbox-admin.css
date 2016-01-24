@@ -516,5 +516,10 @@ table.dataTable {
 .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
   margin-top: 1em; }
 
+.dataTables_processing {
+  height: 3em !important;
+  padding-top: 15px !important;
+  margin-top: 0 !important; }
+
 
 /*# sourceMappingURL=masterbox-admin.css.map*/

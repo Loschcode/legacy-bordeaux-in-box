@@ -22,7 +22,8 @@ class Index extends Controller
       length: false
       language: Config.datatable.language.fr
       ajax: $('table').data('request')
-      deferRender: true
+      processing: true
+      serverSide: true
       order:
         [[1, 'asc']]
       columns: [
