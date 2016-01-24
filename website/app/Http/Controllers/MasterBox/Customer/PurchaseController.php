@@ -170,21 +170,6 @@ class PurchaseController extends BaseController {
 
   }
 
-  public function fill_empty_order_building_destination($customer, $order_building) {
-
-    $customer_attributes = ['first_name', 'last_name', 'address', 'zip', 'city'];
-
-    foreach ($customer_attributes as $attribute) {
-
-      if (empty($order_building->{"destination_$attribute"}))
-        $order_building->{"destination_$attribute"} = $customer->$attribute;
-
-    }
-
-    return $order_building;
-
-  }
-
   public function getBillingAddress()
   {
 
@@ -902,6 +887,21 @@ class PurchaseController extends BaseController {
 
     // Let's redirect depending on the step
     return action("MasterBox\Customer\PurchaseController@".$methods_from_step[$order_building->step]);
+
+  }
+
+  private function fill_empty_order_building_destination($customer, $order_building) {
+
+    $customer_attributes = ['first_name', 'last_name', 'address', 'zip', 'city'];
+
+    foreach ($customer_attributes as $attribute) {
+
+      if (empty($order_building->{"destination_$attribute"}))
+        $order_building->{"destination_$attribute"} = $customer->$attribute;
+
+    }
+
+    return $order_building;
 
   }
 
