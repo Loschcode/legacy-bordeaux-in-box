@@ -169,6 +169,62 @@ Example = (function(superClass) {
 module.exports = Example;
 });
 
+;require.register("controllers/masterbox/admin/customers/index", function(exports, require, module) {
+var Config, Controller, Index,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Config = require('config');
+
+Index = (function(superClass) {
+  extend(Index, superClass);
+
+  function Index() {
+    return Index.__super__.constructor.apply(this, arguments);
+  }
+
+  Index.prototype.before = function() {
+    return $('table').DataTable({
+      length: false,
+      language: Config.datatable.language.fr,
+      ajax: $('table').data('request'),
+      deferRender: true,
+      columns: [
+        {
+          data: "id"
+        }, {
+          data: "full_name"
+        }, {
+          data: "email"
+        }, {
+          data: "phone_format"
+        }, {
+          sortable: false,
+          render: (function(_this) {
+            return function(data, type, full, meta) {
+              var datas;
+              datas = {
+                link_edit: $('table').data('edit') + '/' + full.id
+              };
+              return _this.view('masterbox.admin.customers.actions', datas);
+            };
+          })(this)
+        }
+      ]
+    });
+  };
+
+  Index.prototype.run = function() {};
+
+  return Index;
+
+})(Controller);
+
+module.exports = Index;
+});
+
 ;require.register("controllers/masterbox/customer/purchase/billing-address", function(exports, require, module) {
 var BillingAddress, Controller,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -634,6 +690,69 @@ if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
 Validator.errors;
 
 Validator.attributes;
+});
+
+;require.register("views/masterbox/admin/customers/actions", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<a href="');
+    
+      __out.push(this.link_edit);
+    
+      __out.push('" class="button button__table"><i class="fa fa-pencil"></i></a>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
 });
 
 ;

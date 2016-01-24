@@ -43,6 +43,23 @@ class CustomersController extends BaseController {
 
 	}
 
+  /**
+   * Return json to populate the table of the view 
+   * getIndex()
+   *     
+   * @return json
+   */
+  public function getJsonCustomers()
+  {
+
+    $customers = Customer::orderBy('created_at', 'desc')->get();
+
+    return response()->json([
+      'data' => $customers
+    ]);
+  }
+
+
     /**
      * Focus on a user
      * @return void

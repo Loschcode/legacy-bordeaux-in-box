@@ -1,0 +1,1 @@
+<a href="<%- @link_edit %>" class="button button__table"><i class="fa fa-pencil"></i></a>
