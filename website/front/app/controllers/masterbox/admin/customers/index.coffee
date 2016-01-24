@@ -15,12 +15,20 @@ class Index extends Controller
   ##
   before: ->
 
-    $('table').DataTable
+    @table = $('table').DataTable
       length: false
       language: Config.datatable.language.fr
       ajax: $('table').data('request')
       deferRender: true
+      order:
+        [[1, 'asc']]
       columns: [
+        {
+          orderable: false
+          className: 'more-details'
+          data: null
+          defaultContent: '<a href="#" class="button button__table"><i class="fa fa-plus-square-o"></i></a>'
+        }
         { data: "id" }
         { data: "full_name" }
         { data: "email" }
@@ -30,7 +38,7 @@ class Index extends Controller
           render: (data, type, full, meta) =>
 
             datas = 
-              link_edit: $('table').data('edit') + '/' + full.id
+              link_edit: _.slash($('table').data('edit-customer')) + full.id
 
             return @view('masterbox.admin.customers.actions', datas)
         }
@@ -44,6 +52,28 @@ class Index extends Controller
   #
   ##
   run: ->
+
+    @delayed 'click', '.more-details', @displayMore
+
+  displayMore: (e) =>
+
+    e.preventDefault()
+
+    tr = $(e.currentTarget).closest('tr')
+    row = @table.row(tr)
+
+    if row.child.isShown()
+      row.child.hide()
+      tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o')
+    else
+      datas = row.data()
+      datas['edit_profile'] = $('table').data('edit-profile')
+
+      html = @view 'masterbox.admin.customers.more', datas
+
+      row.child(html).show()
+      tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o')
+
 
 
 

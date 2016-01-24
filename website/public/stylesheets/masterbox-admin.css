@@ -24,19 +24,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: NaNpx;
+  height: 14.4px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: NaNpx;
+  height: 36px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: NaNpx;
+  height: 72px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: NaNpx;
+  height: 180px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -275,6 +275,12 @@ a {
 .meltdown_preview a {
   color: #3498db;
   border-bottom: 1px dotted #3498db; }
+
+.tablechild__title {
+  font-size: 14.4px;
+  font-weight: 700; }
+.tablechild__link {
+  border-bottom: 1px dotted #364347; }
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }

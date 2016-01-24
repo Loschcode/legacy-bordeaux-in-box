@@ -23,6 +23,38 @@ _.mixin getStripeKey: ->
 
   return Config.stripe.testing
 
+##
+# Add slash at the end of a string if needed
+##
+_.mixin slash: (string) ->
+
+  # Get Last char
+  last = string.slice(-1)
+
+  if last is '/'
+    return string
+
+  return string + '/'
+
+##
+# Format a number and suffix with euro symbol
+##
+_.mixin euro: (number) ->
+
+  return number.toFixed(2) + ' &euro;'
+
+##
+# Translate the profile status
+##
+_.mixin profileStatus: (status) ->
+
+  return switch status
+    when 'in-progress' then 'En cours de création'
+    when 'expired' then 'Expiré'
+    when 'not-subscribed' then 'Non abonné'
+    when 'subscribed' then 'Abonné'
+    else status
+
 
 
 

@@ -52,7 +52,7 @@ class CustomersController extends BaseController {
   public function getJsonCustomers()
   {
 
-    $customers = Customer::orderBy('created_at', 'desc')->get();
+    $customers = Customer::with('profiles')->orderBy('created_at', 'desc')->get();
 
     return response()->json([
       'data' => $customers

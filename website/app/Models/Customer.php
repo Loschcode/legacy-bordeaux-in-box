@@ -5,6 +5,7 @@ use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Model;
+use Html;
 
 class Customer extends Model implements AuthenticatableContract, CanResetPasswordContract 
 {
@@ -30,7 +31,7 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
    *
    * @var array
    */
- 	protected $appends = ['phone_format', 'full_name'];
+ 	protected $appends = ['phone_format', 'role_format', 'turnover', 'full_name'];
 
 	/**
 	 * HasOne
@@ -46,7 +47,6 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 	/**
 	 * HasMany
 	 */
-
 	public function profiles()
 	{
 
@@ -94,12 +94,22 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 	 */
 	public function getPhoneFormatAttribute()
 	{
-		return $this->getPhone();
+		return readable_customer_phone($this->phone);
+	}
+
+	public function getRoleFormatAttribute()
+	{
+		return readable_customer_role($this->role);
 	}
 
 	public function getFullNameAttribute()
 	{
 		return $this->getFullName();
+	}
+
+	public function getTurnoverAttribute()
+	{
+		return $this->getTurnover();
 	}
 	
 	/**
@@ -134,27 +144,4 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 
 	}
 
-	/**
-	 * Prettify the phone format
-	 * @return string
-	 */
-	public function getPhone()
-	{
-		$phone = trim($this->phone);
-
-		$formatPhone = str_replace('.', '', $phone);
-		$formatPhone = str_replace(' ', '', $formatPhone);
-		$formatPhone = str_replace('+330', '0', $formatPhone);
-		$formatPhone = str_replace('+33', '0', $formatPhone);
-
-		// Ok it's well formated now, we can split the numbers
-		// for a better display. Else we let the phone as is.
-		if (strlen($formatPhone) === 10) {
-			$formatPhone = join('.', str_split($formatPhone, 2));
-			return $formatPhone;
-		}
-
-		return $phone;
-
-	}
 }

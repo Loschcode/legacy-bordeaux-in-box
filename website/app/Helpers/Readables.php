@@ -76,3 +76,49 @@ function readable_order_status($status) {
   elseif ($status == 'canceled') return 'Annulé';
 
 }
+
+/**
+ * Translate the customer role
+ * @param  string $role The role (ex. user, admin)
+ * @return string
+ */
+function readable_customer_role($role)
+{
+  switch ($role) {
+    case 'admin':
+      return 'Administrateur';
+    break;
+
+    case 'user':
+      return 'Utilisateur';
+    break;
+
+    default:
+      return $role;
+    break;
+  }
+}
+
+/**
+ * Prettify the phone format
+ *
+ * @return string
+ */
+function readable_customer_phone($phone)
+{
+  $phone = trim($phone);
+
+  $formatPhone = str_replace('.', '', $phone);
+  $formatPhone = str_replace(' ', '', $formatPhone);
+  $formatPhone = str_replace('+330', '0', $formatPhone);
+  $formatPhone = str_replace('+33', '0', $formatPhone);
+
+  // Ok it's well formated now, we can split the numbers
+  // for a better display. Else we let the phone as is.
+  if (strlen($formatPhone) === 10) {
+    $formatPhone = join('.', str_split($formatPhone, 2));
+    return $formatPhone;
+  }
+
+  return $phone;
+}

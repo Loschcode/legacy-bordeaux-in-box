@@ -18,10 +18,12 @@
 {{-- Table rendered by ajax --}}
 <table 
 	data-request="{{ action('MasterBox\Admin\CustomersController@getJsonCustomers') }}"
-	data-edit="{{ action('MasterBox\Admin\CustomersController@getFocus') }}"
+	data-edit-customer="{{ action('MasterBox\Admin\CustomersController@getFocus') }}"
+	data-edit-profile="{{ action('MasterBox\Admin\ProfilesController@getEdit') }}"
 >
   <thead>
     <tr>
+    	<th></th>
       <th>Id</th>
       <th>Nom</th>
       <th>Email</th>
