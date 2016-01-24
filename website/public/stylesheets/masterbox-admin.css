@@ -24,19 +24,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 14.4px;
+  height: 13.600000000000001px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 36px;
+  height: 34px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 72px;
+  height: 68px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 180px;
+  height: 170px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -284,6 +284,12 @@ a {
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }
+
+.chosen-container-single .chosen-single div b {
+  background: url(chosen-sprite.png) no-repeat 3px 10px !important; }
+
+.chosen-container-active.chosen-with-drop .chosen-single div b {
+  background: url(chosen-sprite.png) no-repeat -15px 10px !important; }
 
 a.chosen-single {
   padding: 10.799999999999999px !important;
