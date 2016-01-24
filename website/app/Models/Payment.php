@@ -83,15 +83,23 @@ class Payment extends Model {
   public function company_billing_lines()
   {
 
-    return $this->hasOne('App\Models\CompanyBillingLine');
+    return $this->hasMany('App\Models\CompanyBillingLine');
 
   }
 
-  public function company_billing()
+  public function getCompanybillings()
   {
 
-    $middle = $this->hasOne('App\Models\CompanyBillingLine'); 
-    return $middle->getResults()->belongsTo('App\Models\CompanyBilling', 'company_billing_id'); 
+\DB::enableQueryLog();
+
+
+    return $this->where('payments.id', '=', $this->id)
+                ->join('company_billing_lines', 'company_billing_lines.payment_id', '=', 'payments.id')
+                ->join('company_billings', 'company_billing_lines.company_billing_id', '=', 'company_billings.id')
+                ->groupBy('company_billings.id')
+                ->select('company_billings.*')->get();
+
+
 
   }
 
@@ -105,11 +113,11 @@ class Payment extends Model {
 
 	}
 
-  public function getBillEncryptedAccess()
+  /*public function getBillEncryptedAccess()
   {
 
-    return $this->company_billing()->first()->encrypted_access;
+    return $this->company_billings()->first()->encrypted_access;
 
-  }
+  }*/
 	
 }
