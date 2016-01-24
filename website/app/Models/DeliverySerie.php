@@ -98,7 +98,9 @@ class DeliverySerie extends Model {
   public function scopeWithOrdersOnly($query)
   {
 
-    return $query->join('orders', 'delivery_series.id', '=', 'orders.delivery_serie_id');
+    return $query->join('orders', 'delivery_series.id', '=', 'orders.delivery_serie_id')
+                 ->select('delivery_series.*')
+                 ->groupBy('delivery_series.id');
 
   }
 
