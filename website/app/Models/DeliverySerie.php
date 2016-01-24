@@ -95,6 +95,13 @@ class DeliverySerie extends Model {
 
 	}
 
+  public function scopeWithOrdersOnly($query)
+  {
+
+    return $query->join('orders', 'delivery_series.id', '=', 'orders.delivery_serie_id');
+
+  }
+
 	public function serieProductsAreReady()
 	{
 
