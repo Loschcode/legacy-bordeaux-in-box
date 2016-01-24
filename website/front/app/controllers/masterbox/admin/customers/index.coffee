@@ -15,6 +15,9 @@ class Index extends Controller
   ##
   before: ->
 
+    ##
+    # Init datatable
+    ##
     @table = $('table').DataTable
       length: false
       language: Config.datatable.language.fr
