@@ -27,10 +27,13 @@ class BlogController extends BaseController {
     ));
   }
 
-  public function getArticle($id)
+  public function getArticle($slug)
   {
 
-    $blog_article = BlogArticle::findOrFail($id);
+    $blog_article = BlogArticle::where('slug', '=', $slug)->first();
+
+    if ($blog_article === NULL)
+      return redirect()->action('MasterBox\Guest\BlogController@getIndex');
 
     $random_articles = BlogArticle::orderByRaw("RAND()")->whereNotIn('id', [$blog_article->id])->limit(4)->get();
 
@@ -39,27 +42,6 @@ class BlogController extends BaseController {
       'random_articles'
     ));
 
-
-  }
-
-  public function getRedirectContact()
-  {
-    return redirect()->action('MasterBox\Guest\ContactController@getIndex')->with('from_contact', true);
-  }
-
-  public function checkSeoBlog($id, $slug)
-  {
-
-    $blog_article = BlogArticle::findOrFail($id);
-
-    // If not correct slug
-    if ($slug !== $blog_article->slug) {
-
-      return redirect('blog/'.$id.'-'.$blog_article->slug); // SEO Optimized
-      
-    }
-
-    return $this->getArticle($id);
 
   }
 

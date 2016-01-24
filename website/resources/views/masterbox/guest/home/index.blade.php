@@ -165,7 +165,7 @@
 				<div class="grid-3">
 					<div class="partner">
 						<div class="partner__picture-container">
-							<a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['id' => $article->id]) }}">
+							<a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['slug' => $article->slug]) }}">
 								<img class="partner__picture" src="{{ Html::resizeImage('medium', $article->thumbnail->filename) }}" />
 							</a>
 						</div>

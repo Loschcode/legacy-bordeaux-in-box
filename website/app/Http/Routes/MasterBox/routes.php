@@ -87,9 +87,8 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
     /**
      * Blog
      */
-    Route::get('blog/article/{id}', function($id) { return redirect()->to('blog/'.$id.'-redirect'); });
-    Route::get('blog/{id}-{slug}', array('uses' => 'BlogController@checkSeoBlog'));
-    Route::controller('blog', 'BlogController');
+    Route::get('blog', 'BlogController@getIndex');
+    Route::get('blog/{slug}', 'BlogController@getArticle');
 
     /**
      * Illustrations
