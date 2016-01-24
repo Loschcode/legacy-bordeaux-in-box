@@ -25,19 +25,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 14.4px;
+  height: 13.600000000000001px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 36px;
+  height: 34px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 72px;
+  height: 68px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 180px;
+  height: 170px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -113,7 +113,7 @@ a {
   text-align: center;
   font-family: "Lato", sans-serif;
   font-weight: 300;
-  font-size: 27.200000000000003px;
+  font-size: 32.3px;
   color: #364347; }
 
 .button {
@@ -129,15 +129,15 @@ a {
   position: relative; }
   .button__home-action {
     background-color: #D83F66;
-    font-size: 22.1px;
-    padding: 10.2px;
+    font-size: 18.700000000000003px;
+    padding: 6.800000000000001px;
     text-align: center;
-    border-radius: 5px;
+    border-radius: 10px;
     background: color-grey(grey);
     color: white;
     text-transform: uppercase;
-    -webkit-box-shadow: inset 0 -6px #b5254a;
-            box-shadow: inset 0 -6px #b5254a;
+    -webkit-box-shadow: inset 0 -5px #b5254a;
+            box-shadow: inset 0 -5px #b5254a;
     outline: 0;
     color: white;
     width: 100%;
