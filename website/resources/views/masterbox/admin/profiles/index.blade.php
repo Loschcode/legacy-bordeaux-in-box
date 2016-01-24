@@ -55,13 +55,13 @@
 
     <li class="active"><a href="#details" role="tab" data-toggle="tab"><i class="fa fa-list"></i> Résumé ({{$profiles->count()}})</a></li>
 
-    <li><a href="#subscribed" role="tab" data-toggle="tab"><i class="fa fa-thumbs-up"></i> Abonnés ({{App\Models\UserProfile::getSubscribedProfiles()->count()}})</a></li>
+    <li><a href="#subscribed" role="tab" data-toggle="tab"><i class="fa fa-thumbs-up"></i> Abonnés ({{App\Models\CustomerProfile::getSubscribedProfiles()->count()}})</a></li>
 
-    <li><a href="#in-progress" role="tab" data-toggle="tab"><i class="fa fa-question"></i> En création ({{App\Models\UserProfile::getInProgressProfiles()->count()}})</a></li>
+    <li><a href="#in-progress" role="tab" data-toggle="tab"><i class="fa fa-question"></i> En création ({{App\Models\CustomerProfile::getInProgressProfiles()->count()}})</a></li>
 
-    <li><a href="#not-subscribed" role="tab" data-toggle="tab"><i class="fa fa-minus-circle"></i> Non abonnés ({{App\Models\UserProfile::getNotSubscribedProfiles()->count()}})</a></li>
+    <li><a href="#not-subscribed" role="tab" data-toggle="tab"><i class="fa fa-minus-circle"></i> Non abonnés ({{App\Models\CustomerProfile::getNotSubscribedProfiles()->count()}})</a></li>
 
-    <li><a href="#expired" role="tab" data-toggle="tab"><i class="fa fa-thumbs-down"></i> Expirés ({{App\Models\UserProfile::getExpiredProfiles()->count()}})</a></li>
+    <li><a href="#expired" role="tab" data-toggle="tab"><i class="fa fa-thumbs-down"></i> Expirés ({{App\Models\CustomerProfile::getExpiredProfiles()->count()}})</a></li>
 
 
   </ul>
@@ -76,7 +76,7 @@
 			<div class="panel-body">
 		
 			<!-- Single line -->
-			@include('masterbox.admin.partials.graphs.line_chart', ['config' => $config_graph_user_profile_status_progress])
+			@include('masterbox.admin.partials.graphs.line_chart', ['config' => $config_graph_customer_profile_status_progress])
 
 			</div>
 		</div>
@@ -84,10 +84,10 @@
 	{!! Html::info('Ci dessous sont listées les différents abonnements des utilisateurs du site. Les utilisateurs peuvent avoir plusieurs abonnements') !!}
 
 	<div class="filters-profiles">
-		<a data-filter="Abonné" data-toggle="tooltip" title="Filtrer par abonnés" class="spyro-btn spyro-btn-primary spyro-btn-sm no-loader"> <i class="fa fa-check hidden"></i> {{App\Models\UserProfile::getSubscribedProfiles()->count()}} abonnés</a>
-		<a data-filter="En création" data-toggle="tooltip" title="Filtrer ceux en cours de création" class="spyro-btn spyro-btn-success spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{App\Models\UserProfile::getInProgressProfiles()->count()}} en création</a>
-		<a data-filter="Non abonné" data-toggle="tooltip" title="Filtrer par non abonnées" class="spyro-btn spyro-btn-default spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{App\Models\UserProfile::getNotSubscribedProfiles()->count()}} non abonnés</a>
-		<a data-filter="Expiré" data-toggle="tooltip" title="Filtrer ceux expirés" class="spyro-btn spyro-btn-danger spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{App\Models\UserProfile::getExpiredProfiles()->count()}} expirés</a>
+		<a data-filter="Abonné" data-toggle="tooltip" title="Filtrer par abonnés" class="spyro-btn spyro-btn-primary spyro-btn-sm no-loader"> <i class="fa fa-check hidden"></i> {{App\Models\CustomerProfile::getSubscribedProfiles()->count()}} abonnés</a>
+		<a data-filter="En création" data-toggle="tooltip" title="Filtrer ceux en cours de création" class="spyro-btn spyro-btn-success spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{App\Models\CustomerProfile::getInProgressProfiles()->count()}} en création</a>
+		<a data-filter="Non abonné" data-toggle="tooltip" title="Filtrer par non abonnées" class="spyro-btn spyro-btn-default spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{App\Models\CustomerProfile::getNotSubscribedProfiles()->count()}} non abonnés</a>
+		<a data-filter="Expiré" data-toggle="tooltip" title="Filtrer ceux expirés" class="spyro-btn spyro-btn-danger spyro-btn-sm no-loader"><i class="fa fa-check hidden"></i> {{App\Models\CustomerProfile::getExpiredProfiles()->count()}} expirés</a>
 	</div>
 
 	<table id="table-profiles">
@@ -100,7 +100,6 @@
 				<th>Utilisateur</th>
 				<th>Livraisons restantes</th>
 				<th>Paiements effectués</th>
-				<th>Box</th>
 				<th>Statut</th>
 				<th>Priorité</th>
 				<th>Date de création</th>
@@ -123,23 +122,6 @@
 					</th>
 					<th>
 						{{$profile->payments()->where('paid', TRUE)->count()}}
-					</th>
-					<th>
-
-						@if ($profile->box()->first() != NULL)
-
-							<a class="spyro-btn {{Html::getColorFromBoxSlug($profile->box()->first()->slug)}} spyro-btn-sm" href="/admin/profiles/edit/{{$profile->id}}">
-							
-							{{$profile->box()->first()->title}}
-
-							</a>
-
-						@else
-
-							N/A
-
-						@endif
-
 					</th>
 
 					<th>
