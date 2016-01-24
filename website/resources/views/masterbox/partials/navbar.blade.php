@@ -20,6 +20,5 @@
 
     @endif
 
-    <li class="navbar__item"><a href="{{ action('MasterBox\Guest\HomeController@getHelp') }}"><i class="fa fa-question-circle"></i> Aide</a></li>
   </ul>
 </div>
