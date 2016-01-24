@@ -30,31 +30,6 @@ class OrdersController extends BaseController {
     }
 
 
-    /**
-     * Get the listing page of the spots
-     * @return void
-     */
-	public function getIndex()
-	{
-
-		// Orders part
-		$next_series = DeliverySerie::nextOpenSeries();
-
-		//$locked_orders = Order::where('locked', TRUE)->whereNull('date_sent')->orderBy('delivery_serie_id', 'asc')->orderBy('created_at', 'asc')->get();
-
-		$locked_orders = Order::LockedOrders()->where('status', '=', 'packing')->get();
-		$packed_orders = Order::LockedAndPackedOrders()->get();
-
-		$problem_orders = Order::where('status', 'problem')->orderBy('updated_at', 'asc')->get();
-
-		return view('masterbox.admin.orders.index')->with(compact(
-      'locked_orders',
-      'packed_orders',
-      'problem_orders'
-    ));
-
-	}
-
   public function getFocus($id)
   {
 
