@@ -71,8 +71,19 @@ class Payment extends Model {
   public function ScopeWithOrders($query)
   {
 
-    $query->join('order_payments', 'order_payments.payment_id', '=', 'payments.id');
+    $query->join('order_payments', 'order_payments.payment_id', '=', 'payments.id')
+          ->select('payments.*');
+
     
+
+  }
+
+  public function ScopeWithoutOrders($query)
+  {
+
+    return $query->leftJoin('order_payments', 'order_payments.payment_id', '=', 'payments.id')
+                 ->whereNull('order_payments.order_id')
+                 ->select('payments.*');
 
   }
   

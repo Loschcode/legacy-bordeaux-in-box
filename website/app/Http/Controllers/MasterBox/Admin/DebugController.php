@@ -41,10 +41,10 @@ class DebugController extends BaseController {
   public function getIndex()
   {
 
-    $all_transactions = Payment::whereNull('order_id')->orderBy('created_at', 'desc')->get();
-    $refunded_payments = Payment::whereNull('order_id')->orderBy('created_at', 'desc')->where('amount', '<', 0)->get();
-    $series_refunded_payments = Payment::whereNotNull('order_id')->orderBy('created_at', 'desc')->where('amount', '<', 0)->get();
-    $payments = Payment::whereNull('order_id')->where('amount', '>=', 0)->orderBy('created_at', 'desc')->get();
+    $all_transactions = Payment::withoutOrders()->orderBy('created_at', 'desc')->get();
+    $refunded_payments = Payment::withoutOrders()->orderBy('created_at', 'desc')->where('amount', '<', 0)->get();
+    $series_refunded_payments = Payment::withOrders()->orderBy('created_at', 'desc')->where('amount', '<', 0)->get();
+    $payments = Payment::withoutOrders()->where('amount', '>=', 0)->orderBy('created_at', 'desc')->get();
 
     return view('masterbox.admin.debug.index')->with(compact(
       'payments',
