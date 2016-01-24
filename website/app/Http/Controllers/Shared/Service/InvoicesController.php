@@ -38,475 +38,6 @@ class InvoicesController extends BaseController {
   protected $stripe_transaction = [];
   protected $stripe_metadata = FALSE;
 
-  public function log_now($message) {
-
-    Log::info($this->log_num.". $message");
-    $this->log_store .= $this->log_num.". $message\r\n";
-    $this->log_num++;
-
-  }
-
-  public function prepare_callback_reception() {
-
-    $input = @file_get_contents("php://input");
-    $datas = json_decode($input);
-    return $datas;
-
-  }
-
-  public function end_transaction() {
-
-    $this->log_now('Transaction succeeded.');
-    $this->log_now('--------------------------------');
-    return Response::make('Transaction succeeded.', 200);
-
-  }
-
-  public function abort_transaction() {
-
-    $this->log_now('Transaction aborted.');
-    
-    if (isset($this->stripe_environment['event_id']))
-      $this->log_now('Stripe event trace : ' . $this->stripe_environment['event_id']);
-
-    $this->log_now('--------------------------------');
-    return Response::make('Transaction failed.', 500);
-
-  }
-
-  public function setup_stripe_variables($datas) {
-
-    try {
-
-      $this->stripe_raw = $datas->data->object;
-
-      /**
-       * Environmental data
-       */
-      
-      $this->stripe_environment['event_id'] = $datas->id; // stripe event id
-      $this->stripe_environment['charge_id'] = $this->stripe_raw->id; // stripe charge id
-      $this->stripe_environment['card_id'] = $this->stripe_raw->source->id; // stripe card id
-      $this->stripe_environment['customer_id'] = $this->stripe_raw->customer; // customer id
-      $this->stripe_environment['invoice_id'] = $this->stripe_raw->invoice; // invoice id
-
-      $this->log_now("Stripe environment : " . $this->inject_var_dump($this->stripe_environment));
-
-      /**
-       * Transactional data
-       */
-      if ($datas->type === 'charge.refunded') {
-
-        $this->stripe_transaction['refund'] = TRUE;
-        $this->stripe_transaction['amount'] = $this->stripe_raw->amount_refunded;
-
-      } else {
-        
-        $this->stripe_transaction['refund'] = $this->stripe_raw->refunded;
-        $this->stripe_transaction['amount'] = $this->stripe_raw->amount; // amount in 0000
-
-      }
-
-      $this->stripe_transaction['paid'] = $this->stripe_raw->paid; // true or false
-      $this->stripe_transaction['type'] = $datas->type;
-
-      $this->log_now("Stripe transaction : " . $this->inject_var_dump($this->stripe_transaction));
-
-      /**
-       * Metadata
-       */
-      $this->stripe_metadata = $this->stripe_raw->metadata;
-
-      $this->log_now("Stripe metadata : " . $this->inject_var_dump($this->stripe_metadata));
-
-    } catch (Exception $e) {
-
-      $this->log_now("Bad stripe environment|transaction|metadata variable.");
-      return $this->abort_transaction();
-
-    }
-    
-  }
-
-  public function is_order_status_updatable($order) {
-
-    if (!in_array($order->status, $this->no_updatable_order_status))
-      return TRUE;
-    else
-      return FALSE;
-
-  }
-
-  public function is_handlable_transaction($datas) {
-
-    $this->log_now('Transaction type ' . $datas->type);
-
-    if (in_array($datas->type, $this->managed_events))
-      return TRUE;
-    else
-      return FALSE;
-
-  }
-
-  /**
-   * Are the metadata well formatted ? Is it processable afterwards ?
-   */
-  public function has_processable_metadata() {
-
-    if (!isset($this->stripe_metadata->customer_id))
-      return FALSE;
-
-    if (!isset($this->stripe_metadata->customer_profile_id))
-      return FALSE;
-
-    if (!isset($this->stripe_metadata->payment_type))
-      return FALSE;
-
-    return TRUE;
-
-  }
-
-  public function retrieve_subscription_id_from_invoice() {
-
-    $invoice_callback = Payments::getInvoice($this->stripe_environment['invoice_id']);
-
-    if (!$invoice_callback['success']) {
-
-      $this->log_now('Invoice ID doesn\'t match, process aborted');
-      $this->log_now('Stripe event trace : ' . $this->stripe_environment['event_id']);
-      return FALSE;
-
-    }
-
-    // From the charge we got the invoice, from the invoice we got the subscription if there's one
-    // There must be a subscription, because it has no metadata
-    $stripe_subscription_id = $invoice_callback['invoice']['subscription'];
-
-    $this->log_now("We retrieved the subscription id `$stripe_subscription_id`");
-
-    return $stripe_subscription_id;
-
-  }
-
-  public function transaction_already_done() {
-
-    $transaction_already_done = Payment::where('stripe_event', '=', $this->stripe_environment['event_id'])->first();
-
-    if ($transaction_already_done !== NULL) {
-
-      $this->log_now('This transaction we already done.');
-      return TRUE;
-    
-    }
-
-    return FALSE;
-
-  }
-
-  public function associate_orders_from_original_payment($payment) {
-
-    $this->log_now('We will try to recover the order from the original charge of the refund and associate it');
-    
-    $original_payment = Payment::where('stripe_charge', '=', $this->stripe_environment['charge_id'])->withOrders()->first();
-
-    # We associate all the orders to the refund
-    if ($original_payment !== NULL) {
-
-      foreach ($original_payment->orders()->get() as $order) {
-        $payment->orders()->attach($order->id);
-      }
-
-    }
-
-   return NULL;
-
-  }
-
-  public function generate_payment($customer, $customer_profile, $payment_type, $database_amount) {
-
-    /**
-     * Alright, everything seems clean.
-     * Let's process all the payment system
-     */
-    $payment = new Payment;
-    $payment->profile()->associate($customer_profile);
-    $payment->customer()->associate($customer);
-
-    $payment->stripe_event = $this->stripe_environment['event_id'];
-    $payment->stripe_customer = $this->stripe_environment['customer_id'];
-    $payment->stripe_charge = $this->stripe_environment['charge_id'];
-    $payment->stripe_card = $this->stripe_environment['card_id'];
-
-    $payment->type = $payment_type;
-    $payment->paid = $this->stripe_transaction['paid'];
-    $payment->last4 = Payments::getLast4FromCard($this->stripe_environment['customer_id'], $this->stripe_environment['card_id']);
-
-    $this->log_now('We made the payment entry');
-
-    // If it's a stripe refund the debit will be negative
-    if ($this->stripe_transaction['refund']) $payment->amount = -$database_amount;
-    else $payment->amount = +$database_amount;
-
-    $payment->save();
-
-    /**
-     * Refund auto-detect orders
-     * If it's a refund, we might have the same stripe_charge in the database
-     * We can recover it to recover the orders as well
-     */
-    if ($this->stripe_transaction['refund']) {
-
-      $this->associate_orders_from_original_payment($payment);
-
-    }
-
-    /**
-     * We take into consideration the fees
-     */
-    $callback = Payments::getBalanceFeesFromCharge($this->stripe_environment['charge_id']);
-
-    if ($callback['success']) {
-
-      $fees = $callback['fees'];
-
-      if ($this->stripe_transaction['refund']) $payment->fees = -$fees;
-      else $payment->fees = +$fees;
-
-    } else {
-
-      $this->log_now('We could not retrieve the fees for this transaction ; it will be considered 0.');
-
-    }
-
-    $payment->save();
-
-    return $payment;
-
-  }
-
-  public function manage_orders_from_refund($customer, $customer_profile, $payment, $money_left) {
-
-    /**
-     * We will get the refundable orders and fill them successively
-     */
-    $orders = $customer_profile->orders()->onlyRefundable()->orderBy('created_at', 'desc')->orderBy('id', 'desc')->get();
-    $orders_num = $orders->count();
-
-    $this->log_now("$orders_num orders able to be refunded right now");
-
-    // We will calculate for each order until there's no money left to refund
-    foreach ($orders as $order) {
-
-      if ($money_left >= 0)
-        break;
-
-      $this->log_now("Order (`".$order->id."`) is fetching (refund) : $money_left euros left");
-
-      $money_to_debit = $order->already_paid;
-      $money_left = round($money_left + $money_to_debit, 2);
-
-      $order->already_paid -= $money_to_debit;
-
-      if ($money_left > 0)
-        $order->already_paid += $money_left;
-
-      /**
-       * If it's packing, we won't change the status since it's already in packing mode
-       */
-      if ($this->is_order_status_updatable($order)) {
-
-        if ($order->already_paid >= $order->unity_and_fees_price)
-          $order->status = 'paid';
-        elseif ($order->already_paid == 0)
-          $order->status = 'unpaid';
-        else
-          $order->status = 'half-paid';
-
-      }
-
-      $order->payment_way = 'stripe_card';
-      $order->save();
-
-      $payment->orders()->attach($order);
-      $payment->save();
-
-      $this->log_now('The payment has been associated, the order (`'.$order->id.'`) is now paid (refund) : '.$money_left.' euros left)');
-
-    }
-
-  }
-
-  public function manage_orders_from_payment($customer, $customer_profile, $payment, $money_left) {
-
-    /**
-     * We will get the payable orders and fill them successively
-     */
-    
-    $orders = $customer_profile->orders()->onlyPayable()->orderBy('created_at', 'asc')->orderBy('id', 'asc')->get();
-    $orders_num = $orders->count();
-
-    $this->log_now("$orders_num orders able to be filled right now");
-
-    // We will calculate for each order until there's no money left
-    foreach ($orders as $order) {
-
-      /**
-       * On each loop we check the money left
-       * If there's none we don't even touch the orders left
-       */
-      if ($money_left <= 0)
-        break;
-
-      /**
-       * If the payment failed, we will loop the orders anyway
-       * And set to `failed` all the orders concerned by this payment
-       */
-      if (!$payment->paid) {
-
-        $order->status = 'failed';
-        $order->payment_way = 'stripe_card';
-        $order->save();
-
-        $money_to_debit = $order->unity_and_fees_price - $order->already_paid;
-        $money_left = round($money_left - $money_to_debit, 2);
-
-        $payment->orders()->attach($order);
-        $payment->save();
-
-        /**
-         * We skip the rest of the procedure for this one
-         * Since it will never fill anything for real
-         */
-        continue;
-
-      }
-
-      $this->log_now("Order is fetching : $money_left euros left");
-
-      $money_to_debit = $order->unity_and_fees_price - $order->already_paid;
-      $money_left = round($money_left - $money_to_debit, 2);
-
-      $order->already_paid += $money_to_debit;
-
-      if ($money_left < 0)
-          $order->already_paid += $money_left; // eg. money_left -5 and paid 20, will result 15
-
-      /**
-       * If it's packing, we won't change the status since it's already in packing mode
-       */
-      if ($this->is_order_status_updatable($order)) {
-
-        if ($order->already_paid >= $order->unity_and_fees_price)
-          $order->status = 'paid';
-        else
-          $order->status = 'half-paid';
-
-      }
-
-      $order->payment_way = 'stripe_card';
-      $order->save();
-
-      $payment->orders()->attach($order);
-      $payment->save();
-
-      $this->log_now('The payment has been associated, the order is now paid : '.$money_left.' euros left');
-
-      /**
-       * It's an infinite plan so each time someone pays, we generate a new order
-       */
-      if ($customer_profile->order_preference()->first()->frequency == 0) {
-
-        $this->log_now("It's an infinite plan, we will generate a new order for it ...");
-
-        // Only if don't exceed a certain amount of orders in advance (`scheduled`), we add one
-        if ($customer_profile->orders()->where('status', '=', 'scheduled')->count() < $this->infinite_scheduled_orders)
-          generate_new_order($customer, $customer_profile);
-
-      }
-
-    }
-
-  }
-
-  public function calculate_total_unpaid_orders($customer, $customer_profile, $payment) {
-
-    $orders_unpaid_plans_fetch = $payment->profile()->first()->orders()->onlyPayable()->get();
-    $orders_unpaid_plans = 0;
-
-    foreach ($orders_unpaid_plans_fetch as $order) {
-
-      /**
-       * If we are in a special case of packing status
-       * If the guy didn't pay, we add it to the orders unpaid plans
-       */
-        if ($order->status == 'packing') {
-
-          $this->log_now("Packing special case : we will check if it is paid or not and take it out from our selection ...");
-
-          $paid = intval($order->already_paid);
-
-          if ($order->already_paid <= $order->unity_and_fees_price) {
-
-            $orders_unpaid_plans++;
-
-            $this->log_now("It is effectively unpaid / half-paid, while packing, we might not cancel the plan if there is one.");
-            warning_tech_admin('masterbox.emails.admin.packing_order_not_paid_warning', 'Problème de commande en cours de packing non payée', $customer, $customer_profile, $payment, $this->log_store);
-          
-          }
-
-          continue;
-
-        }
-
-        $orders_unpaid_plans++;
-
-    }
-
-    $this->log_now('There is ' . $orders_unpaid_plans . ' unpaid orders left at the end of this transaction.');
-
-    return $orders_unpaid_plans;
-
-  }
-
-  public function cancel_current_subscription($customer, $customer_profile, $payment) {
-
-    $this->log_now('We will cancel the plan ...');
-
-    $order_preference = CustomerOrderPreference::where('customer_profile_id', $customer_profile->id)->first();
-    $plan = $order_preference->stripe_plan;
-
-    // We will cancel the plan if it's not a frequency 1
-    // (means he invoiced only once and doesn't have any plan)
-    // or if it's not a gift (which means he also paid in once)
-
-    if (($plan) && ($order_preference->frequency > 1) && (!$order_preference->gift)) {
-
-      // Update 24/07/2015 -> We need it to cancel subscriptions
-      $payment_profile = $customer_profile->payment_profile()->orderBy('created_at', 'desc')->first(); // Just in case of bug
-      $stripe_subscription_id = $payment_profile->stripe_subscription;
-
-      $this->log_now('Cancelling the subscription : ' . $stripe_subscription_id . ' for the stripe customer : '. $this->stripe_environment['customer_id']);
-      $feedback = Payments::cancelSubscription($this->stripe_environment['customer_id'], $stripe_subscription_id);
-
-      if ($feedback !== FALSE) {
-
-          $this->log_now('The plan has been canceled for this user.');
-
-      } else {
-          
-          $this->log_now('The plan has not been canceled, there is a stripe problem');
-                
-      }
-
-    } else {
-
-      $this->log_now('We cannot cancel the plan, it is defined as an infinite one. The customer might have paid for nothing.');
-      warning_tech_admin('masterbox.emails.admin.trying_to_cancel_infinite_plan_while_paying', 'Tentative d\'annulation automatisée d\'un plan infini', $customer, $customer_profile, $payment, $this->log_store);
-
-    }
-
-  }
-
   /**
    * Home page
    */
@@ -816,5 +347,473 @@ class InvoicesController extends BaseController {
 
   }
 
+  private function log_now($message) {
+
+    Log::info($this->log_num.". $message");
+    $this->log_store .= $this->log_num.". $message\r\n";
+    $this->log_num++;
+
+  }
+
+  private function prepare_callback_reception() {
+
+    $input = @file_get_contents("php://input");
+    $datas = json_decode($input);
+    return $datas;
+
+  }
+
+  private function end_transaction() {
+
+    $this->log_now('Transaction succeeded.');
+    $this->log_now('--------------------------------');
+    return Response::make('Transaction succeeded.', 200);
+
+  }
+
+  private function abort_transaction() {
+
+    $this->log_now('Transaction aborted.');
+    
+    if (isset($this->stripe_environment['event_id']))
+      $this->log_now('Stripe event trace : ' . $this->stripe_environment['event_id']);
+
+    $this->log_now('--------------------------------');
+    return Response::make('Transaction failed.', 500);
+
+  }
+
+  private function setup_stripe_variables($datas) {
+
+    try {
+
+      $this->stripe_raw = $datas->data->object;
+
+      /**
+       * Environmental data
+       */
+      
+      $this->stripe_environment['event_id'] = $datas->id; // stripe event id
+      $this->stripe_environment['charge_id'] = $this->stripe_raw->id; // stripe charge id
+      $this->stripe_environment['card_id'] = $this->stripe_raw->source->id; // stripe card id
+      $this->stripe_environment['customer_id'] = $this->stripe_raw->customer; // customer id
+      $this->stripe_environment['invoice_id'] = $this->stripe_raw->invoice; // invoice id
+
+      $this->log_now("Stripe environment : " . $this->inject_var_dump($this->stripe_environment));
+
+      /**
+       * Transactional data
+       */
+      if ($datas->type === 'charge.refunded') {
+
+        $this->stripe_transaction['refund'] = TRUE;
+        $this->stripe_transaction['amount'] = $this->stripe_raw->amount_refunded;
+
+      } else {
+        
+        $this->stripe_transaction['refund'] = $this->stripe_raw->refunded;
+        $this->stripe_transaction['amount'] = $this->stripe_raw->amount; // amount in 0000
+
+      }
+
+      $this->stripe_transaction['paid'] = $this->stripe_raw->paid; // true or false
+      $this->stripe_transaction['type'] = $datas->type;
+
+      $this->log_now("Stripe transaction : " . $this->inject_var_dump($this->stripe_transaction));
+
+      /**
+       * Metadata
+       */
+      $this->stripe_metadata = $this->stripe_raw->metadata;
+
+      $this->log_now("Stripe metadata : " . $this->inject_var_dump($this->stripe_metadata));
+
+    } catch (Exception $e) {
+
+      $this->log_now("Bad stripe environment|transaction|metadata variable.");
+      return $this->abort_transaction();
+
+    }
+    
+  }
+
+  private function is_order_status_updatable($order) {
+
+    if (!in_array($order->status, $this->no_updatable_order_status))
+      return TRUE;
+    else
+      return FALSE;
+
+  }
+
+  private function is_handlable_transaction($datas) {
+
+    $this->log_now('Transaction type ' . $datas->type);
+
+    if (in_array($datas->type, $this->managed_events))
+      return TRUE;
+    else
+      return FALSE;
+
+  }
+
+  /**
+   * Are the metadata well formatted ? Is it processable afterwards ?
+   */
+  private function has_processable_metadata() {
+
+    if (!isset($this->stripe_metadata->customer_id))
+      return FALSE;
+
+    if (!isset($this->stripe_metadata->customer_profile_id))
+      return FALSE;
+
+    if (!isset($this->stripe_metadata->payment_type))
+      return FALSE;
+
+    return TRUE;
+
+  }
+
+  private function retrieve_subscription_id_from_invoice() {
+
+    $invoice_callback = Payments::getInvoice($this->stripe_environment['invoice_id']);
+
+    if (!$invoice_callback['success']) {
+
+      $this->log_now('Invoice ID doesn\'t match, process aborted');
+      $this->log_now('Stripe event trace : ' . $this->stripe_environment['event_id']);
+      return FALSE;
+
+    }
+
+    // From the charge we got the invoice, from the invoice we got the subscription if there's one
+    // There must be a subscription, because it has no metadata
+    $stripe_subscription_id = $invoice_callback['invoice']['subscription'];
+
+    $this->log_now("We retrieved the subscription id `$stripe_subscription_id`");
+
+    return $stripe_subscription_id;
+
+  }
+
+  private function transaction_already_done() {
+
+    $transaction_already_done = Payment::where('stripe_event', '=', $this->stripe_environment['event_id'])->first();
+
+    if ($transaction_already_done !== NULL) {
+
+      $this->log_now('This transaction we already done.');
+      return TRUE;
+    
+    }
+
+    return FALSE;
+
+  }
+
+  private function associate_orders_from_original_payment($payment) {
+
+    $this->log_now('We will try to recover the order from the original charge of the refund and associate it');
+    
+    $original_payment = Payment::where('stripe_charge', '=', $this->stripe_environment['charge_id'])->withOrders()->first();
+
+    # We associate all the orders to the refund
+    if ($original_payment !== NULL) {
+
+      foreach ($original_payment->orders()->get() as $order) {
+        $payment->orders()->attach($order->id);
+      }
+
+    }
+
+   return NULL;
+
+  }
+
+  private function generate_payment($customer, $customer_profile, $payment_type, $database_amount) {
+
+    /**
+     * Alright, everything seems clean.
+     * Let's process all the payment system
+     */
+    $payment = new Payment;
+    $payment->profile()->associate($customer_profile);
+    $payment->customer()->associate($customer);
+
+    $payment->stripe_event = $this->stripe_environment['event_id'];
+    $payment->stripe_customer = $this->stripe_environment['customer_id'];
+    $payment->stripe_charge = $this->stripe_environment['charge_id'];
+    $payment->stripe_card = $this->stripe_environment['card_id'];
+
+    $payment->type = $payment_type;
+    $payment->paid = $this->stripe_transaction['paid'];
+    $payment->last4 = Payments::getLast4FromCard($this->stripe_environment['customer_id'], $this->stripe_environment['card_id']);
+
+    $this->log_now('We made the payment entry');
+
+    // If it's a stripe refund the debit will be negative
+    if ($this->stripe_transaction['refund']) $payment->amount = -$database_amount;
+    else $payment->amount = +$database_amount;
+
+    $payment->save();
+
+    /**
+     * Refund auto-detect orders
+     * If it's a refund, we might have the same stripe_charge in the database
+     * We can recover it to recover the orders as well
+     */
+    if ($this->stripe_transaction['refund']) {
+
+      $this->associate_orders_from_original_payment($payment);
+
+    }
+
+    /**
+     * We take into consideration the fees
+     */
+    $callback = Payments::getBalanceFeesFromCharge($this->stripe_environment['charge_id']);
+
+    if ($callback['success']) {
+
+      $fees = $callback['fees'];
+
+      if ($this->stripe_transaction['refund']) $payment->fees = -$fees;
+      else $payment->fees = +$fees;
+
+    } else {
+
+      $this->log_now('We could not retrieve the fees for this transaction ; it will be considered 0.');
+
+    }
+
+    $payment->save();
+
+    return $payment;
+
+  }
+
+  private function manage_orders_from_refund($customer, $customer_profile, $payment, $money_left) {
+
+    /**
+     * We will get the refundable orders and fill them successively
+     */
+    $orders = $customer_profile->orders()->onlyRefundable()->orderBy('created_at', 'desc')->orderBy('id', 'desc')->get();
+    $orders_num = $orders->count();
+
+    $this->log_now("$orders_num orders able to be refunded right now");
+
+    // We will calculate for each order until there's no money left to refund
+    foreach ($orders as $order) {
+
+      if ($money_left >= 0)
+        break;
+
+      $this->log_now("Order (`".$order->id."`) is fetching (refund) : $money_left euros left");
+
+      $money_to_debit = $order->already_paid;
+      $money_left = round($money_left + $money_to_debit, 2);
+
+      $order->already_paid -= $money_to_debit;
+
+      if ($money_left > 0)
+        $order->already_paid += $money_left;
+
+      /**
+       * If it's packing, we won't change the status since it's already in packing mode
+       */
+      if ($this->is_order_status_updatable($order)) {
+
+        if ($order->already_paid >= $order->unity_and_fees_price)
+          $order->status = 'paid';
+        elseif ($order->already_paid == 0)
+          $order->status = 'unpaid';
+        else
+          $order->status = 'half-paid';
+
+      }
+
+      $order->payment_way = 'stripe_card';
+      $order->save();
+
+      $payment->orders()->attach($order);
+      $payment->save();
+
+      $this->log_now('The payment has been associated, the order (`'.$order->id.'`) is now paid (refund) : '.$money_left.' euros left)');
+
+    }
+
+  }
+
+  private function manage_orders_from_payment($customer, $customer_profile, $payment, $money_left) {
+
+    /**
+     * We will get the payable orders and fill them successively
+     */
+    
+    $orders = $customer_profile->orders()->onlyPayable()->orderBy('created_at', 'asc')->orderBy('id', 'asc')->get();
+    $orders_num = $orders->count();
+
+    $this->log_now("$orders_num orders able to be filled right now");
+
+    // We will calculate for each order until there's no money left
+    foreach ($orders as $order) {
+
+      /**
+       * On each loop we check the money left
+       * If there's none we don't even touch the orders left
+       */
+      if ($money_left <= 0)
+        break;
+
+      /**
+       * If the payment failed, we will loop the orders anyway
+       * And set to `failed` all the orders concerned by this payment
+       */
+      if (!$payment->paid) {
+
+        $order->status = 'failed';
+        $order->payment_way = 'stripe_card';
+        $order->save();
+
+        $money_to_debit = $order->unity_and_fees_price - $order->already_paid;
+        $money_left = round($money_left - $money_to_debit, 2);
+
+        $payment->orders()->attach($order);
+        $payment->save();
+
+        /**
+         * We skip the rest of the procedure for this one
+         * Since it will never fill anything for real
+         */
+        continue;
+
+      }
+
+      $this->log_now("Order is fetching : $money_left euros left");
+
+      $money_to_debit = $order->unity_and_fees_price - $order->already_paid;
+      $money_left = round($money_left - $money_to_debit, 2);
+
+      $order->already_paid += $money_to_debit;
+
+      if ($money_left < 0)
+          $order->already_paid += $money_left; // eg. money_left -5 and paid 20, will result 15
+
+      /**
+       * If it's packing, we won't change the status since it's already in packing mode
+       */
+      if ($this->is_order_status_updatable($order)) {
+
+        if ($order->already_paid >= $order->unity_and_fees_price)
+          $order->status = 'paid';
+        else
+          $order->status = 'half-paid';
+
+      }
+
+      $order->payment_way = 'stripe_card';
+      $order->save();
+
+      $payment->orders()->attach($order);
+      $payment->save();
+
+      $this->log_now('The payment has been associated, the order is now paid : '.$money_left.' euros left');
+
+      /**
+       * It's an infinite plan so each time someone pays, we generate a new order
+       */
+      if ($customer_profile->order_preference()->first()->frequency == 0) {
+
+        $this->log_now("It's an infinite plan, we will generate a new order for it ...");
+
+        // Only if don't exceed a certain amount of orders in advance (`scheduled`), we add one
+        if ($customer_profile->orders()->where('status', '=', 'scheduled')->count() < $this->infinite_scheduled_orders)
+          generate_new_order($customer, $customer_profile);
+
+      }
+
+    }
+
+  }
+
+  private function calculate_total_unpaid_orders($customer, $customer_profile, $payment) {
+
+    $orders_unpaid_plans_fetch = $payment->profile()->first()->orders()->onlyPayable()->get();
+    $orders_unpaid_plans = 0;
+
+    foreach ($orders_unpaid_plans_fetch as $order) {
+
+      /**
+       * If we are in a special case of packing status
+       * If the guy didn't pay, we add it to the orders unpaid plans
+       */
+        if ($order->status == 'packing') {
+
+          $this->log_now("Packing special case : we will check if it is paid or not and take it out from our selection ...");
+
+          $paid = intval($order->already_paid);
+
+          if ($order->already_paid <= $order->unity_and_fees_price) {
+
+            $orders_unpaid_plans++;
+
+            $this->log_now("It is effectively unpaid / half-paid, while packing, we might not cancel the plan if there is one.");
+            warning_tech_admin('masterbox.emails.admin.packing_order_not_paid_warning', 'Problème de commande en cours de packing non payée', $customer, $customer_profile, $payment, $this->log_store);
+          
+          }
+
+          continue;
+
+        }
+
+        $orders_unpaid_plans++;
+
+    }
+
+    $this->log_now('There is ' . $orders_unpaid_plans . ' unpaid orders left at the end of this transaction.');
+
+    return $orders_unpaid_plans;
+
+  }
+
+  private function cancel_current_subscription($customer, $customer_profile, $payment) {
+
+    $this->log_now('We will cancel the plan ...');
+
+    $order_preference = CustomerOrderPreference::where('customer_profile_id', $customer_profile->id)->first();
+    $plan = $order_preference->stripe_plan;
+
+    // We will cancel the plan if it's not a frequency 1
+    // (means he invoiced only once and doesn't have any plan)
+    // or if it's not a gift (which means he also paid in once)
+
+    if (($plan) && ($order_preference->frequency > 1) && (!$order_preference->gift)) {
+
+      // Update 24/07/2015 -> We need it to cancel subscriptions
+      $payment_profile = $customer_profile->payment_profile()->orderBy('created_at', 'desc')->first(); // Just in case of bug
+      $stripe_subscription_id = $payment_profile->stripe_subscription;
+
+      $this->log_now('Cancelling the subscription : ' . $stripe_subscription_id . ' for the stripe customer : '. $this->stripe_environment['customer_id']);
+      $feedback = Payments::cancelSubscription($this->stripe_environment['customer_id'], $stripe_subscription_id);
+
+      if ($feedback !== FALSE) {
+
+          $this->log_now('The plan has been canceled for this user.');
+
+      } else {
+          
+          $this->log_now('The plan has not been canceled, there is a stripe problem');
+                
+      }
+
+    } else {
+
+      $this->log_now('We cannot cancel the plan, it is defined as an infinite one. The customer might have paid for nothing.');
+      warning_tech_admin('masterbox.emails.admin.trying_to_cancel_infinite_plan_while_paying', 'Tentative d\'annulation automatisée d\'un plan infini', $customer, $customer_profile, $payment, $this->log_store);
+
+    }
+
+  }
 
 }

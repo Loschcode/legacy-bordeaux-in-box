@@ -54,9 +54,6 @@
 				<a class="sidebar__link" href="{{ url('easygo') }}"><i class="fa fa-heart"></i> Easy Go</a>
 			</li>
 			<li class="sidebar__item">
-				<a class="sidebar__link" href="{{ action('MasterBox\Admin\OrdersController@getIndex') }}"><i class="fa fa-truck"></i> Suivi des commandes</a>
-			</li>
-			<li class="sidebar__item">
 				<a class="sidebar__link" href="{{ action('MasterBox\Admin\DeliveriesController@getIndex') }}"><i class="fa fa-bank"></i> Séries &amp; Finances</a>
 			</li>
 			<li class="sidebar__item">
@@ -89,7 +86,6 @@
 		@yield('page')
 		@yield('buttons')
 		@yield('content')
-
 	</div>
 
 	<?php /*>
@@ -105,9 +101,6 @@
 	            </li>
 	            <li>
 	            	<a href="{{ url('easygo') }}"><i class="fa fa-heart"></i> Easy Go</a>
-	            </li>
-	            <li>
-	                <a href="{{ action('MasterBox\Admin\OrdersController@getIndex') }}"><i class="fa fa-truck"></i> Suivi des commandes</a>
 	            </li>
 	            <li>
 	                <a href="{{ action('MasterBox\Admin\DeliveriesController@getIndex') }}"><i class="fa fa-bank"></i> Séries &amp; Finances</a>

@@ -176,6 +176,13 @@ class PurchaseController extends BaseController {
     $customer = Auth::guard('customer')->user();
 
     $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+
+    /**
+     * Order building Addresses auto-filling
+     * If we don't have the data we will try our best to get it
+     */
+    $order_building = $this->fill_empty_order_building_destination($customer, $order_building);
+
     $order_preference = $order_building->order_preference()->first();
 
     return view('masterbox.customer.order.billing_address')->with(compact('customer', 'order_building', 'order_preference'));
@@ -880,6 +887,21 @@ class PurchaseController extends BaseController {
 
     // Let's redirect depending on the step
     return action("MasterBox\Customer\PurchaseController@".$methods_from_step[$order_building->step]);
+
+  }
+
+  private function fill_empty_order_building_destination($customer, $order_building) {
+
+    $customer_attributes = ['first_name', 'last_name', 'address', 'zip', 'city'];
+
+    foreach ($customer_attributes as $attribute) {
+
+      if (empty($order_building->{"destination_$attribute"}))
+        $order_building->{"destination_$attribute"} = $customer->$attribute;
+
+    }
+
+    return $order_building;
 
   }
 

@@ -44,7 +44,7 @@ class DeliveriesController extends BaseController {
     
     # Payment part
     $payments = Payment::orderBy('created_at', 'desc')->get();
-    $series = DeliverySerie::orderBy('delivery', 'asc')->get();
+    $series = DeliverySerie::withOrdersOnly()->orderBy('delivery', 'desc')->get();
     $prices = DeliveryPrice::orderBy('unity_price')->get();
     $settings = DeliverySetting::first();
 
