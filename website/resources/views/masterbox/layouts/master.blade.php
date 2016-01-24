@@ -9,7 +9,7 @@
   <title>Bordeaux In Box</title>
 
   {{-- Favicon --}}
-  <link rel="icon" href="{{ url('assets/images/favicon-bib.ico') }}" />
+  <link rel="icon" href="{{ url('images/global/favicon-bib.ico') }}" />
 
   {{-- Responsive scale --}}
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0" />
