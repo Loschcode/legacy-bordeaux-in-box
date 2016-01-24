@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="section section__wrapper">
-  <h1 class="section__title --page">Foire aux questions</h1>
+  <h1 class="section__title --page">Besoin d'aide ?</h1>
 </div>
 
 <div class="page page__wrapper">

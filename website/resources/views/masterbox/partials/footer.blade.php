@@ -10,7 +10,7 @@
       </div>
       <div class="grid-4">
         <ul>
-          <li><a href="{{ action('MasterBox\Guest\HomeController@getHelp') }}">Foire aux questions</a></li>
+          <li><a href="{{ action('MasterBox\Guest\HomeController@getHelp') }}">Besoin d'aide ?</a></li>
           <li><a href="{{ action('MasterBox\Guest\ContactController@getIndex') }}">Nous contacter</a></li>
         </ul>
       </div>
