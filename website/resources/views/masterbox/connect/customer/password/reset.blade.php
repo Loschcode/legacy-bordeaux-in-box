@@ -20,30 +20,29 @@
         <div class="panel__heading">
           <h2 class="panel__title">Réinitialisation de mot de passe</h2>
         </div>
-        <div class="panel__content">
+        <div class="panel__content --white">
 
           <div class="+spacer-extra-small"></div>
 
           <div class="form">
             
-            <h4 class="form__title">Ton Email</h4>
             <div class="row">
-              {!! Form::text("email", Request::old("email"), ['placeholder' => 'Email', 'class' => 'form__input']) !!}
+              {!! Form::text("email", Request::old("email"), ['placeholder' => 'Ton email', 'class' => 'form__input']) !!}
               {!! Html::checkError('email', $errors) !!}
             </div>
 
             <div class="+spacer-small"></div>
-            
-            <h4 class="form__title">Nouveau mot de passe</h4>
+
             <div class="row">
-              <div class="grid-6 no-gutter">
-                {!! Form::password("password", ['placeholder' => 'Mot de passe', 'class' => 'form__input --grouped-left']) !!}<br />
+                {!! Form::password("password", ['placeholder' => 'Nouveau mot de passe', 'class' => 'form__input']) !!}<br />
                 {!! Html::checkError('password', $errors) !!}
-              </div>
-              <div class="grid-6 no-gutter">
-                {!! Form::password("password_confirmation", ['placeholder' => 'Confirmation de mot de passe', 'class' => 'form__input --grouped-right']) !!}
+            </div>
+
+            <div class="+spacer-small"></div>
+
+            <div class="row">
+                {!! Form::password("password_confirmation", ['placeholder' => 'Confirmation du nouveau mot de passe', 'class' => 'form__input']) !!}
                 {!! Html::checkError('password_confirmation', $errors) !!}
-              </div>
             </div>
 
             <div class="+spacer-small"></div>
