@@ -94,6 +94,7 @@ _.mixin notificationFormErrors: ->
     type: 'error'
     confirmButtonColor: '#D83F66'
     html: true
+    timer: 1800
 
 ##
 # If laravel returned a success message, it displays a sweet alert

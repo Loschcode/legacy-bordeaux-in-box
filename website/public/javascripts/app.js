@@ -634,7 +634,8 @@ _.mixin({
       text: text,
       type: 'error',
       confirmButtonColor: '#D83F66',
-      html: true
+      html: true,
+      timer: 1800
     });
   }
 });
