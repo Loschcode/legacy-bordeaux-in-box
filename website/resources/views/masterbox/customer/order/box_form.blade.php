@@ -122,6 +122,23 @@
       </div>
     </div>
 
+    <!-- Facebook Conversion Code for Paiements -->
+    <script>(function() {
+      var _fbq = window._fbq || (window._fbq = []);
+      if (!_fbq.loaded) {
+        var fbds = document.createElement('script');
+        fbds.async = true;
+        fbds.src = '//connect.facebook.net/en_US/fbds.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(fbds, s);
+        _fbq.loaded = true;
+      }
+    })();
+    window._fbq = window._fbq || [];
+    window._fbq.push(['track', '6022362413870', {'value':'{{ number_format($order_preference->unity_price, 2) }}','currency':'EUR'}]);
+    </script>
+    <noscript><img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?ev=6022362413870&amp;cd[value]={{ number_format($order_preference->unity_price, 2) }}&amp;cd[currency]=EUR&amp;noscript=1" /></noscript>
+
   </div>
 
   <?php /*
