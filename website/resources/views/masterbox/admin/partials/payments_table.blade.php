@@ -40,12 +40,12 @@
               <th>{{$payment->stripe_charge}}</th>
               <th>{{$payment->stripe_card}}</th>
               <th>
-              @if ($payment->order()->first() != NULL)
-              {{
+              @if ($payment->orders()->count() > 0)
 
-                $payment->order()->first()->delivery_serie()->first()->delivery
+              @foreach ($payment->orders()->get() as $order)
+              
+                {{$order->delivery_serie()->first()->delivery}} 
 
-                }}
               @else
               Non disponible
               @endif
