@@ -66,15 +66,10 @@ class CustomersController extends BaseController {
 
     } else {
 
-      $customers = Customer::with('profiles')
-        ->where('id', $search)
-        ->orWhere('first_name', 'like', '%' . $search . '%')
-        ->orWhere('last_name', 'like', '%' . $search . '%')
-        ->orWhere('email', 'like', '%' . $search . '%')
-        ->orWhere('phone', 'like', '%' . $search . '%')
-        ->skip($start)
-        ->take($length)
-        ->get();
+      $customers = Customer::research($search)
+                           ->skip($start)
+                           ->take($length)
+                           ->get();
 
       $total_results_after_filtered = $customers->count();
 

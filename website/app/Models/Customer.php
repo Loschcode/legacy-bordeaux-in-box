@@ -111,6 +111,30 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 	{
 		return $this->getTurnover();
 	}
+
+  /**
+   * Scope
+   */
+  public function scopeResearch($query, $search)
+  {
+
+    $search_words = explode(' ', $search);
+
+    $query->with('profiles')
+          ->where('id', $search);
+
+    foreach ($search_words as $word) {
+
+      $query->orWhere('first_name', 'like', '%' . $word . '%')
+      ->orWhere('last_name', 'like', '%' . $word . '%')
+      ->orWhere('email', 'like', '%' . $word . '%')
+      ->orWhere('phone', 'like', '%' . $word . '%');
+
+    }
+
+    return $query;
+
+  }
 	
 	/**
 	 * Methods
