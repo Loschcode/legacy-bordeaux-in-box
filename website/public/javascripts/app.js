@@ -867,10 +867,10 @@ var __templateData = function (__obj) {
     
       __out.push(_.euro(this.turnover));
     
-      __out.push('<br/>\n\n      ');
+      __out.push('<br/>\n      <strong>Adresse:</strong> \n      ');
     
       if (this.address.length > 0) {
-        __out.push('\n        <strong>Adresse:</strong> ');
+        __out.push('\n        ');
         __out.push(this.address);
         __out.push(', ');
         __out.push(this.city);

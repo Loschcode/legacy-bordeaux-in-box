@@ -86,7 +86,6 @@ class CustomersController extends BaseController {
 
     }
     
-
     return response()->json([
       'data' => $customers,
       'recordsTotal' => $total_results,

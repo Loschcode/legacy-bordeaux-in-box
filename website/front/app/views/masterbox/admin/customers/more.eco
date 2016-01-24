@@ -4,9 +4,9 @@
       <h3 class="tablechild__title">A propos</h3>
       <strong>Role:</strong> <%- @role_format %><br/>
       <strong>Total Payé:</strong> <%- _.euro(@turnover) %><br/>
-
+      <strong>Adresse:</strong> 
       <% if @address.length > 0: %>
-        <strong>Adresse:</strong> <%- @address %>, <%- @city %> (<%- @zip %>)
+        <%- @address %>, <%- @city %> (<%- @zip %>)
       <% else: %>
         N/A
       <% end %>
