@@ -7,6 +7,7 @@
 ##
 #
 AdminSidebar = require 'libraries/admin-sidebar'
+Config = require 'config'
 
 #--------------------------------------------------------------------------
 # Global elements
@@ -47,21 +48,21 @@ $(':radio').labelauty()
 #
 if $('#gotham-layout').data('layout') is 'masterbox-admin'
 
+  ##
   # Manage sidebar hover / unhover
+  ##
   new AdminSidebar()
 
+  ##
   # Datatable 
+  ##
   $('.js-datatable-simple').DataTable
     length: false
-    language:
-      lengthMenu: "Afficher _MENU_ résultats par page"
-      zeroRecords: "Aucun enregistrement trouvé"
-      info: "Page _PAGE_ sur _PAGES_"
-      infoEmpty: "Aucun enregistrement disponible"
-      infoFiltered: "(filtré sur _MAX_ enregistrements)"
-      search: 'Chercher: '
+    language: Config.datatable.language.fr
 
+  ##
   # Delete confirm
+  ##
   $(document).on 'click', '.js-confirm-delete', (e) ->
 
     e.preventDefault();
@@ -79,7 +80,9 @@ if $('#gotham-layout').data('layout') is 'masterbox-admin'
 
       window.location.href = $(this).attr('href')
 
+  ##
   # Markdown
+  ##
   $('.js-markdown').meltdown
     openPreview: true
     sidebyside: true

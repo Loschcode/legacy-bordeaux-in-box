@@ -1,5 +1,40 @@
 @extends('masterbox.layouts.admin')
 
+@section('content')
+
+<div
+	id="gotham"
+	data-controller="masterbox.admin.customers.index"
+></div>
+
+<div class="row">
+	<div class="grid-8">
+		<h1 class="title title__section">Utilisateurs</h1>
+	</div>
+</div>
+
+<div class="divider divider__section"></div>
+
+{{-- Table rendered by ajax --}}
+<table 
+	data-request="{{ action('MasterBox\Admin\CustomersController@getJsonCustomers') }}"
+	data-edit="{{ action('MasterBox\Admin\CustomersController@getFocus') }}"
+>
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Téléphone</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+</table>
+
+
+@stop
+
+<?php /*
 @section('page')
 	<i class="fa fa-user"></i> Utilisateurs ({{$customers->count()}})
 @stop
@@ -92,3 +127,4 @@
       </div>
     </div>
 @stop
+*/ ?>

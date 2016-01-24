@@ -32,13 +32,11 @@ class BlogController extends BaseController {
 
     $blog_article = BlogArticle::findOrFail($id);
 
-    $previous_article = $blog_article->get_previous();
-    $next_article = $blog_article->get_next();
+    $random_articles = BlogArticle::orderByRaw("RAND()")->whereNotIn('id', [$blog_article->id])->limit(4)->get();
 
     return view('masterbox.guest.blog.article')->with(compact(
       'blog_article',
-      'previous_article',
-      'next_article'
+      'random_articles'
     ));
 
 

@@ -114,6 +114,32 @@ module.exports = {
   stripe: {
     testing: 'pk_test_HNPpbWh3FV4Lw4RmIQqirqsj',
     production: 'pk_live_EhCVbntIqph3ppfNCiN6wq3x'
+  },
+  datatable: {
+    language: {
+      fr: {
+        sProcessing: 'Traitement en cours...',
+        sSearch: 'Rechercher&nbsp;:',
+        sLengthMenu: 'Afficher _MENU_ &eacute;l&eacute;ments',
+        sInfo: 'Affichage de l\'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments',
+        sInfoEmpty: 'Affichage de l\'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment',
+        sInfoFiltered: '(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)',
+        sInfoPostFix: '',
+        sLoadingRecords: 'Chargement en cours...',
+        sZeroRecords: 'Aucun &eacute;l&eacute;ment &agrave; afficher',
+        sEmptyTable: 'Aucune donn&eacute;e disponible dans le tableau',
+        oPaginate: {
+          sFirst: 'Premier',
+          sPrevious: 'Pr&eacute;c&eacute;dent',
+          sNext: 'Suivant',
+          sLast: 'Dernier'
+        },
+        oAria: {
+          sSortAscending: ': activer pour trier la colonne par ordre croissant',
+          sSortDescending: ': activer pour trier la colonne par ordre d&eacute;croissant'
+        }
+      }
+    }
   }
 };
 });
@@ -141,6 +167,62 @@ Example = (function(superClass) {
 })(Controller);
 
 module.exports = Example;
+});
+
+;require.register("controllers/masterbox/admin/customers/index", function(exports, require, module) {
+var Config, Controller, Index,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Config = require('config');
+
+Index = (function(superClass) {
+  extend(Index, superClass);
+
+  function Index() {
+    return Index.__super__.constructor.apply(this, arguments);
+  }
+
+  Index.prototype.before = function() {
+    return $('table').DataTable({
+      length: false,
+      language: Config.datatable.language.fr,
+      ajax: $('table').data('request'),
+      deferRender: true,
+      columns: [
+        {
+          data: "id"
+        }, {
+          data: "full_name"
+        }, {
+          data: "email"
+        }, {
+          data: "phone_format"
+        }, {
+          sortable: false,
+          render: (function(_this) {
+            return function(data, type, full, meta) {
+              var datas;
+              datas = {
+                link_edit: $('table').data('edit') + '/' + full.id
+              };
+              return _this.view('masterbox.admin.customers.actions', datas);
+            };
+          })(this)
+        }
+      ]
+    });
+  };
+
+  Index.prototype.run = function() {};
+
+  return Index;
+
+})(Controller);
+
+module.exports = Index;
 });
 
 ;require.register("controllers/masterbox/customer/purchase/billing-address", function(exports, require, module) {
@@ -554,9 +636,11 @@ module.exports = AdminSidebar;
 });
 
 ;require.register("start", function(exports, require, module) {
-var AdminSidebar;
+var AdminSidebar, Config;
 
 AdminSidebar = require('libraries/admin-sidebar');
+
+Config = require('config');
 
 $('input, textarea').placeholder();
 
@@ -576,14 +660,7 @@ if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
   new AdminSidebar();
   $('.js-datatable-simple').DataTable({
     length: false,
-    language: {
-      lengthMenu: "Afficher _MENU_ résultats par page",
-      zeroRecords: "Aucun enregistrement trouvé",
-      info: "Page _PAGE_ sur _PAGES_",
-      infoEmpty: "Aucun enregistrement disponible",
-      infoFiltered: "(filtré sur _MAX_ enregistrements)",
-      search: 'Chercher: '
-    }
+    language: Config.datatable.language.fr
   });
   $(document).on('click', '.js-confirm-delete', function(e) {
     e.preventDefault();
@@ -613,6 +690,69 @@ if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
 Validator.errors;
 
 Validator.attributes;
+});
+
+;require.register("views/masterbox/admin/customers/actions", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<a href="');
+    
+      __out.push(this.link_edit);
+    
+      __out.push('" class="button button__table"><i class="fa fa-pencil"></i></a>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
 });
 
 ;

@@ -23,7 +23,14 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 	 *
 	 * @var array
 	 */
-	protected $hidden = array('password', 'remember_token');
+	protected $hidden = ['password', 'remember_token'];
+
+	/**
+ 	 * The accessors to append to the model's array form.
+   *
+   * @var array
+   */
+ 	protected $appends = ['phone_format', 'full_name'];
 
 	/**
 	 * HasOne
@@ -83,6 +90,19 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 	}
 
 	/**
+	 * Accessors
+	 */
+	public function getPhoneFormatAttribute()
+	{
+		return $this->getPhone();
+	}
+
+	public function getFullNameAttribute()
+	{
+		return $this->getFullName();
+	}
+	
+	/**
 	 * Methods
 	 */
 	public function hasBillingAddress()
@@ -111,6 +131,30 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 	{
 
 		return $this->address . ", " . $this->city . " (" . $this->zip . ")";
+
+	}
+
+	/**
+	 * Prettify the phone format
+	 * @return string
+	 */
+	public function getPhone()
+	{
+		$phone = trim($this->phone);
+
+		$formatPhone = str_replace('.', '', $phone);
+		$formatPhone = str_replace(' ', '', $formatPhone);
+		$formatPhone = str_replace('+330', '0', $formatPhone);
+		$formatPhone = str_replace('+33', '0', $formatPhone);
+
+		// Ok it's well formated now, we can split the numbers
+		// for a better display. Else we let the phone as is.
+		if (strlen($formatPhone) === 10) {
+			$formatPhone = join('.', str_split($formatPhone, 2));
+			return $formatPhone;
+		}
+
+		return $phone;
 
 	}
 }
