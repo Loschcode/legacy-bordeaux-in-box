@@ -18,7 +18,7 @@
 
       <div class="panel">
         <div class="panel__heading">
-          <h2 class="panel__title">Réinitialisation mot de passe</h2>
+          <h2 class="panel__title">Réinitialisation de mot de passe</h2>
         </div>
         <div class="panel__content">
 
@@ -26,7 +26,7 @@
 
           <div class="form">
             
-            <h4 class="form__title">Votre Email</h4>
+            <h4 class="form__title">Ton Email</h4>
             <div class="row">
               {!! Form::text("email", Request::old("email"), ['placeholder' => 'Email', 'class' => 'form__input']) !!}
               {!! Html::checkError('email', $errors) !!}
@@ -41,7 +41,7 @@
                 {!! Html::checkError('password', $errors) !!}
               </div>
               <div class="grid-6 no-gutter">
-                {!! Form::password("password_confirmation", ['placeholder' => 'Confirmation mot de passe', 'class' => 'form__input --grouped-right']) !!}
+                {!! Form::password("password_confirmation", ['placeholder' => 'Confirmation de mot de passe', 'class' => 'form__input --grouped-right']) !!}
                 {!! Html::checkError('password_confirmation', $errors) !!}
               </div>
             </div>
