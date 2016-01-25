@@ -270,10 +270,11 @@ Index = (function(superClass) {
   Index.prototype.before = function() {};
 
   Index.prototype.run = function() {
-    return this.on('submit', '#form-edit-email', this.submitFormEmail);
+    this.on('submit', '#form-edit-email', this.askPassword);
+    return this.on('submit', '#form-edit-password', this.askPassword);
   };
 
-  Index.prototype.submitFormEmail = function(e) {
+  Index.prototype.askPassword = function(e) {
     e.preventDefault();
     return swal({
       title: 'Mot de passe',

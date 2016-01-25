@@ -23,9 +23,10 @@ class Index extends Controller
   ##
   run: ->
 
-    @on 'submit', '#form-edit-email', @submitFormEmail
+    @on 'submit', '#form-edit-email', @askPassword
+    @on 'submit', '#form-edit-password', @askPassword
 
-  submitFormEmail: (e) ->
+  askPassword: (e) ->
 
     # Catch default action
     e.preventDefault()

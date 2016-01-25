@@ -11,7 +11,7 @@ use App\Models\Payment;
 use App\Models\CustomerProfile;
 
 use App\Libraries\Payments;
-
+use Hash;
 
 
 class ProfileController extends BaseController {
@@ -233,7 +233,7 @@ class ProfileController extends BaseController {
 
       }
 
-      session()->flash('message', 'Vos informations ont bien été mises à jour');
+      session()->flash('message', 'Votre email à été mis à jour');
       
       return redirect()->back()
       ->withInput();
@@ -243,8 +243,44 @@ class ProfileController extends BaseController {
     // We return the same page with the error and saving the input datas
     return redirect()->back()
     ->withInput()
-    ->withErrors($validator);
+    ->withErrors($validator, 'edit_email');
 
+  }
+
+  public function postEditPassword()
+  {
+
+    $rules = [
+      'password' => 'required|min:5',
+      'old_password' => 'required|match_password'
+    ];
+
+    $fields = Request::all();
+
+    $validator = Validator::make($fields, $rules);
+
+    if ($validator->passes()) {
+      
+      $customer = Auth::guard('customer')->user();
+
+      if ($customer !== NULL) {
+
+        $customer->password = Hash::make($fields['password']);
+        $customer->save();
+
+      }
+
+      session()->flash('message', 'Votre mot de passe à été mis à jour');
+      
+      return redirect()->back()
+      ->withInput();
+
+    } 
+
+    // We return the same page with the error and saving the input datas
+    return redirect()->back()
+    ->withInput()
+    ->withErrors($validator, 'edit_password');
   }
 
 	/**

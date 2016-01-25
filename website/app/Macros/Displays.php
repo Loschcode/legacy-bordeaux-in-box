@@ -5,9 +5,21 @@ use App\Models\Customer;
 /**
  * If we find an error for the label given, we output a text error
  */
-Html::macro('checkError', function($label, $errors)
+Html::macro('checkError', function($label, $errors, $message_bag = '')
 {
 
+  // Case message bag
+  if ( ! empty($message_bag)) {
+
+    if ($errors->{$message_bag}->has($label)) {
+      return '<p class="form__error">' . $errors->{$message_bag}->first($label) . '</p>'; 
+    }
+
+    return;
+
+  }
+
+  // Case without message bag
   if ($errors->has($label)) {
     return '<p class="form__error">' . $errors->first($label) . '</p>'; 
   }

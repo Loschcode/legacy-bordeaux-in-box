@@ -5,7 +5,7 @@
   <div
     id="gotham"
     data-controller="masterbox.customer.profile."
-    data-form-errors="{{ $errors->has() }}"
+    data-form-errors="{{ $errors->edit_email->has() }} {{ $errors->edit_password->has() }}"
     data-success-message="{{ session()->get('message') }}"
   ></div>
 
@@ -43,26 +43,33 @@
                     <button type="submit" class="button button__submit --profile">Mettre à jour</button>
                   </div>
                 </div>
-                {!! Html::checkError('email', $errors) !!}
-                {!! Html::checkError('old_password', $errors) !!}
+                {!! Html::checkError('email', $errors, 'edit_email') !!}
+                {!! Html::checkError('old_password', $errors, 'edit_email') !!}
               </div>
             {{ Form::close() }}
 
             {{-- Security --}}
-            <div class="profile__section">
-              <h3 class="profile__title">Sécurité</h3>
-              <p>Le mot de passe permet de protéger ton compte.</p>
-              {!! Form::label("new_password", "Nouveau mot de passe", ['class' => 'form__label']) !!}
+            {{ Form::open(['action' => 'MasterBox\Customer\ProfileController@postEditPassword', 'id' => 'form-edit-password']) }}
 
-              <div class="row">
-                <div class="grid-9">
-                  {!! Form::password("new_password", ['class' => 'form__input']) !!}
+              {{ Form::hidden('old_password', null, ['id' => 'old-password']) }}
+
+              <div class="profile__section">
+                <h3 class="profile__title">Sécurité</h3>
+                <p>Le mot de passe permet de protéger ton compte.</p>
+                {!! Form::label("password", "Nouveau mot de passe", ['class' => 'form__label']) !!}
+
+                <div class="row">
+                  <div class="grid-9">
+                    {!! Form::password("password", ['class' => 'form__input']) !!}
+                  </div>
+                  <div class="grid-3">
+                    <button type="submit" class="button button__submit --profile">Mettre à jour</button>
+                  </div>
                 </div>
-                <div class="grid-3">
-                  <button type="submit" class="button button__submit --profile">Mettre à jour</button>
-                </div>
+                {!! Html::checkError('password', $errors, 'edit_password') !!}
+                {!! Html::checkError('old_password', $errors, 'edit_password') !!}
               </div>
-            </div>
+            {{ Form::close() }}
             
             {{-- Billing --}}
             <div class="profile__section">
