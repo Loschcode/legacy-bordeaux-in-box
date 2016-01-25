@@ -33,17 +33,20 @@
   <div class="grid-7 grid-centered labelauty-choose-frequency">
     {!! Form::open() !!}
       @if ($order_preference->isGift())
-
+  
         @foreach ($delivery_prices as $key => $delivery_price)
-          {!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencyGiftText()]) !!}
+          <div class="{{ $delivery_price->getLabelautyFocusClass() }}">
+            {!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencyGiftText()]) !!}
+          </div>
           <div class="+spacer-extra-small"></div>
         @endforeach
 
       @else
 
         @foreach ($delivery_prices as $key => $delivery_price)
-
-          {!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencySubscriptionText()]) !!}
+          <div class="{{ $delivery_price->getLabelautyFocusClass() }}">
+            {!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencySubscriptionText()]) !!}
+          </div>
           <div class="+spacer-extra-small"></div>
 
         @endforeach

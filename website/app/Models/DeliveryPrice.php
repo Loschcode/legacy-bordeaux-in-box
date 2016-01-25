@@ -11,6 +11,47 @@ class DeliveryPrice extends Model {
 	 */
 	protected $table = 'delivery_prices';
 
+	/**
+	 * Guess if we need to focus that offer
+	 * - For a gift, we focus the middle offer
+	 * @return string/void The css class to focus
+	 */
+	public function getLabelautyFocusClass()
+	{
+
+		// Fetch delivery prices ordered by price low to high
+		$delivery_prices = DeliveryPrice::where('gift', $this->gift)->orderBy('unity_price', 'asc')->get();
+
+		// Gift case
+		if ($this->gift) {
+
+			// What's the middle offer ?
+			$id_middle_offer = round($delivery_prices->count() / 2, 0, PHP_ROUND_HALF_DOWN);
+
+			// Check if the current offer is the "middle" offer
+			if ($delivery_prices[$id_middle_offer]->id == $this->id) {
+
+				// We focus it.
+				return 'labelauty-choose-frequency-focus-big';
+			}
+
+			return;
+			// End
+		
+		} else {
+
+			// We check if the lowest offer
+			if ($delivery_prices[0]->id == $this->id) {
+				return 'labelauty-choose-frequency-focus-big';
+			}
+
+			return;
+			// End
+		
+		}
+
+	}
+
 	public function readableFrequency()
 	{
 
@@ -22,10 +63,11 @@ class DeliveryPrice extends Model {
 	}
 
 	public function getCheckboxFrequencyGiftText()
-	{
+	{		
+
 		return 
 			'<span class="labelauty-title">' . $this->title . '</span><br/>' .
-			'<span class="labelauty-description">' . $this->readableFrequency() . '</span>';
+			'<span class="labelauty-description">' . $this->readableFrequency() . ' (' . number_format($this->unity_price, 2) . '&euro;)</span>';
 	}
 
 	public function getCheckboxFrequencySubscriptionText()

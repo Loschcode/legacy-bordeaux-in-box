@@ -108,7 +108,7 @@ class PurchaseController extends BaseController {
     $order_preference = $order_building->order_preference()->first();
 
     $delivery_prices = DeliveryPrice::where('gift', $order_preference->gift)->orderBy('unity_price', 'asc')->get();
-
+    
     return view('masterbox.customer.order.choose_frequency')->with(compact('next_series', 'delivery_prices', 'order_preference'));
 
   }
