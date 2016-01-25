@@ -4,6 +4,7 @@
 
 <div 
   id="gotham"
+  data-controller="masterbox.customer.purchase.choose-frequency"
   data-form-errors="{{ $errors->has() }}"
   data-form-errors-text="Tu dois choisir l'offre que tu souhaites"
 ></div>
@@ -53,7 +54,7 @@
 
       @endif
 
-      <button class="button button__submit --big" type="submit"><i class="fa fa-check"></i> Valider</button>
+      <button id="commit" class="button button__submit --big" type="submit"><i class="fa fa-check"></i> Valider</button>
 
     {!! Form::close() !!}
 
@@ -61,6 +62,6 @@
 
 </div>
 
-<div class="+spacer-large"></div>
+<div class="+spacer"></div>
 
 @stop

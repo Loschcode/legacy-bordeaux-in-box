@@ -293,6 +293,37 @@ BillingAddress = (function(superClass) {
 module.exports = BillingAddress;
 });
 
+;require.register("controllers/masterbox/customer/purchase/choose-frequency", function(exports, require, module) {
+var ChooseFrequency, Controller,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+ChooseFrequency = (function(superClass) {
+  extend(ChooseFrequency, superClass);
+
+  function ChooseFrequency() {
+    return ChooseFrequency.__super__.constructor.apply(this, arguments);
+  }
+
+  ChooseFrequency.prototype.before = function() {};
+
+  ChooseFrequency.prototype.run = function() {
+    return this.on('click', 'label', this.smoothScroll);
+  };
+
+  ChooseFrequency.prototype.smoothScroll = function(e) {
+    return smoothScroll.animateScroll(null, '#commit');
+  };
+
+  return ChooseFrequency;
+
+})(Controller);
+
+module.exports = ChooseFrequency;
+});
+
 ;require.register("controllers/masterbox/customer/purchase/choose-spot", function(exports, require, module) {
 var ChooseSpot, Controller,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
