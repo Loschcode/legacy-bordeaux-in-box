@@ -378,6 +378,8 @@ Payment = (function(superClass) {
     return Payment.__super__.constructor.apply(this, arguments);
   }
 
+  Payment.prototype.afterPaymentProcessing = false;
+
   Payment.prototype.before = function() {
     return this.initStripe();
   };
@@ -409,7 +411,16 @@ Payment = (function(superClass) {
       allowRememberMe: true,
       opened: (function(_this) {
         return function() {
-          return _this.displayDefault();
+          return _this.displayLoading('Saisie en cours');
+        };
+      })(this),
+      closed: (function(_this) {
+        return function() {
+          return setTimeout(function() {
+            if (!_this.afterPaymentProcessing) {
+              return _this.displayDefault();
+            }
+          }, 1500);
         };
       })(this)
     });
@@ -418,6 +429,7 @@ Payment = (function(superClass) {
   Payment.prototype.afterPayment = function(token) {
     var secret;
     secret = token.id;
+    this.afterPaymentProcessing = true;
     this.displayLoading('En cours de redirection');
     $('#stripe-token').val(secret);
     return $('#payment-form').submit();

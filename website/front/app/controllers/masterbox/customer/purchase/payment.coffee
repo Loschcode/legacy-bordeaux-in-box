@@ -3,6 +3,8 @@ Controller = require 'core/controller'
 
 
 class Payment extends Controller
+  
+  afterPaymentProcessing: false
 
   ##
   # Before
@@ -56,10 +58,19 @@ class Payment extends Controller
       
       opened: =>
 
-        @displayDefault()
+        @displayLoading('Saisie en cours')
+
+      closed: =>
+
+        setTimeout =>
+          unless @afterPaymentProcessing
+            @displayDefault()
+        , 1500
 
   afterPayment: (token) =>
     secret = token.id
+
+    @afterPaymentProcessing = true
 
     @displayLoading('En cours de redirection')
 
