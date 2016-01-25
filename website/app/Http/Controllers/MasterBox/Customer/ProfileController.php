@@ -369,10 +369,88 @@ class ProfileController extends BaseController {
 
   }
 
-	/**
-	 * Subscribe to the website
-	 * @return redirect process
-	 */
+
+  public function postEditDestination()
+  {
+
+    $rules = [
+
+      'destination_first_name' => 'required',
+      'destination_last_name' => 'required', 
+
+      'destination_address' => 'required',
+      'destination_zip' => 'required',
+      'destination_city' => 'required',
+
+      'old_password' => 'required|match_password'
+    ];
+
+    $fields = Request::all();
+
+    $validator = Validator::make($fields, $rules);
+
+    if ($validator->passes()) {
+      
+      $customer = Auth::guard('customer')->user();
+
+      if ($customer !== NULL) {
+
+        // If the customer got profiles we will edit the next deliveries
+        if ($customer->profiles()->first() != NULL) {
+
+          $profiles = $customer->profiles()->get();
+          
+          foreach ($profiles as $profile) {
+
+            if ($profile->orders()->first() != NULL) {
+
+              // Only for editable orders
+              $profile_orders = $profile->orders()->where('locked', FALSE)->get();
+
+              foreach ($profile_orders as $profile_order) {
+                
+                // Not a take away, it means we will update the destination
+                if ($profile_order->take_away == FALSE) {
+
+                  $destination = $profile_order->destination()->first();
+                  $destination->first_name = $fields['destination_first_name'];
+                  $destination->last_name = $fields['destination_last_name'];
+                  $destination->zip = $fields['destination_zip'];
+                  $destination->city = $fields['destination_city'];
+                  $destination->address = $fields['destination_address'];
+
+                  // We save everything
+                  $destination->save();
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+      session()->flash('message', 'Vos informations de facturation ont été mises à jour');
+      
+      return redirect()->back()
+      ->withInput();
+
+    }
+
+    // We return the same page with the error and saving the input datas
+    return redirect()->to(URL::previous() . '#destination')
+    ->withInput()
+    ->withErrors($validator, 'edit_destination');
+
+  }
+
+
+
+  /* Old post edit 
 	public function postEdit()
 	{
 
@@ -512,8 +590,7 @@ class ProfileController extends BaseController {
 
 		}
 
-
-
 	}
+  */
 
 }

@@ -5,7 +5,7 @@
   <div
     id="gotham"
     data-controller="masterbox.customer.profile."
-    data-form-errors="{{ $errors->edit_email->has() }} {{ $errors->edit_password->has() }} {{ $errors->edit_billing->has() }}"
+    data-form-errors="{{ $errors->edit_email->has() }} {{ $errors->edit_password->has() }} {{ $errors->edit_billing->has() }} {{ $errors->edit_destination->has() }}"
     data-success-message="{{ session()->get('message') }}"
   ></div>
 
@@ -129,48 +129,59 @@
               </div>
 
             {{ Form::close() }}
-          
-          <?php /*
-          <div class="profile__section">
-
-            <h3 class="profile__title">Livraison</h3>
-            <p>Les différents changement effectués sur cette partie seront effectifs  {{ strtolower(Html::diffHumans(App\Models\DeliverySerie::nextOpenSeries()->first()->delivery)) }}</p>
-
-            <div class="row">
-              <div class="grid-6">
-                {!! Form::label("destination_first_name", "Prénom", ['class' => 'form__label']) !!}
-                {!! Form::text("destination_first_name", ($destination->first_name) ? $destination->first_name : Request::old("destination_first_name"), ['class' => 'form__input']) !!}
-              </div>
-
-              <div class="grid-6">
-                {!! Form::label("destination_last_name", "Nom", ['class' => 'form__label']) !!}
-                {!! Form::text("destination_last_name", ($destination->last_name) ? $destination->last_name : Request::old("destination_last_name"), ['class' => 'form__input']) !!}
-              </div>
-            </div>
             
-            <div class="+spacer-extra-small"></div>
+            {{ Form::open(['action' => 'MasterBox\Customer\ProfileController@postEditDestination', 'id' => 'form-edit-destination']) }}
+              <div id="destination-block" class="profile__section">
+                
+                {{ Form::hidden('old_password', null, ['id' => 'old-password']) }}
 
-            <div class="row">
-              <div class="grid-6">
-                {!! Form::label("destination_city", "Ville", ['class' => 'form__label']) !!}
-                {!! Form::text("destination_city", ($destination->city) ? $destination->city : Request::old("destination_city"), ['class' => 'form__input']) !!}
+                <h3 class="profile__title">Livraison</h3>
+                <p class="typography">Met à jour globalement les informations de livraison pour tes différents abonnements qui ne sont pas en points relais. Les différents changement effectués sur cette partie seront effectifs <strong>{{ strtolower(Html::diffHumans(App\Models\DeliverySerie::nextOpenSeries()->first()->delivery)) }} (prochaine série)</strong>.</p>
+
+                <div class="row">
+                  <div class="grid-6">
+                    {!! Form::label("destination_first_name", "Prénom", ['class' => 'form__label']) !!}
+                    {!! Form::text("destination_first_name", ($destination->first_name) ? $destination->first_name : Request::old("destination_first_name"), ['class' => 'form__input']) !!}
+                    {!! Html::checkError('destination_first_name', $errors, 'edit_destination') !!}
+
+                  </div>
+
+                  <div class="grid-6">
+                    {!! Form::label("destination_last_name", "Nom", ['class' => 'form__label']) !!}
+                    {!! Form::text("destination_last_name", ($destination->last_name) ? $destination->last_name : Request::old("destination_last_name"), ['class' => 'form__input']) !!}
+                    {!! Html::checkError('destination_last_name', $errors, 'edit_destination') !!}
+                  </div>
+                </div>
+                
+                <div class="+spacer-extra-small"></div>
+
+                <div class="row">
+                  <div class="grid-6">
+                    {!! Form::label("destination_city", "Ville", ['class' => 'form__label']) !!}
+                    {!! Form::text("destination_city", ($destination->city) ? $destination->city : Request::old("destination_city"), ['class' => 'form__input']) !!}
+                    {!! Html::checkError('destination_city', $errors, 'edit_destination') !!}
+
+                  </div>
+
+                  <div class="grid-6">
+                    {!! Form::label("destination_zip", "Code postal", ['class' => 'form__label']) !!}
+                    {!! Form::text("destination_zip", ($destination->zip) ? $destination->zip : Request::old("destination_zip"), ['class' => 'form__input']) !!}
+                    {!! Html::checkError('destination_zip', $errors, 'edit_destination') !!}
+                  </div>
+                </div>
+
+                <div class="+spacer-extra-small"></div>
+          
+                {!! Form::label("destination_address", "Adresse", ['class' => 'form__label']) !!}
+                {!! Form::textarea("destination_address", ($destination->address) ? $destination->address : Request::old("destination_address"), ['class' => 'form__input --small-textarea']) !!}
+                {!! Html::checkError('destination_address', $errors, 'edit_destination') !!}
+
+                {!! Html::checkError('old_password', $errors, 'edit_destination') !!}
+
+                <button class="button button__submit">Mettre à jour</button>
+
               </div>
-
-              <div class="grid-6">
-                {!! Form::label("destination_zip", "Code postal", ['class' => 'form__label']) !!}
-                {!! Form::text("destination_zip", ($destination->zip) ? $destination->zip : Request::old("destination_zip"), ['class' => 'form__input']) !!}
-              </div>
-            </div>
-
-            <div class="+spacer-extra-small"></div>
-      
-            {!! Form::label("destination_address", "Adresse", ['class' => 'form__label']) !!}
-            {!! Form::textarea("destination_address", ($destination->address) ? $destination->address : Request::old("destination_address"), ['class' => 'form__input --small-textarea']) !!}
-
-            <button class="button button__submit">Mettre à jour</button>
-
-          </div>
-          */ ?>
+            {{ Form::close() }}
         </div>
       </div>
     </div>

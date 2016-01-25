@@ -30,6 +30,7 @@ class Index extends Controller
     @on 'submit', '#form-edit-email', @askPassword
     @on 'submit', '#form-edit-password', @askPassword
     @on 'submit', '#form-edit-billing', @askPassword
+    @on 'submit', '#form-edit-destination', @askPassword
 
   askPassword: (e) ->
 
