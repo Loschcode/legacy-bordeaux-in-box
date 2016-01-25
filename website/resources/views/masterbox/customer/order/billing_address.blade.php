@@ -231,9 +231,7 @@
                 {!! Html::checkError('billing_address', $errors) !!}
 
               </div>
-              <div class="panel__footer">
-                <button type="submit" class="button button__submit --panel"><i class="fa fa-check"></i> Valider</button>
-              </div>
+              <button type="submit" class="button button__submit --panel"><i class="fa fa-check"></i> Valider</button>
             </div>
 
           @endif
