@@ -8,10 +8,6 @@ data-success-message="{{ session()->get('message') }}"
 ></div>
 
 
-<div class="section section__wrapper">
-  <h1 class="section__title --page">Nous contacter</h1>
-</div>
-<div class="+spacer-small"></div>
 
 <div class="container">
   <div class="grid-8 grid-centered">
