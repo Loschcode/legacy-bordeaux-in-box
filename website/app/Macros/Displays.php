@@ -58,7 +58,7 @@ Html::macro('pipelineStepCompleted', function($step_pipeline, $current_step) {
 Html::macro('pipelinePaymentStepDone', function($current_step) {
 
 
-  if ($current_step >= 3) {
+  if ($current_step > 3) {
     return true;
   }
 
