@@ -611,7 +611,7 @@ a {
   font-weight: 400;
   padding-top: 47.599999999999994px;
   padding-bottom: 3.4000000000000004px;
-  font-size: 15.3px;
+  font-size: 15.979999999999999px;
   display: block; }
 .custombox__input {
   border: 0;
@@ -623,6 +623,10 @@ a {
   font-family: "Lato", sans-serif;
   font-weight: 300;
   padding: 10.2px; }
+.custombox__label {
+  display: inline-block;
+  margin-left: 6.800000000000001px;
+  font-size: 14.28px; }
 
 .article__wrapper {
   padding-top: 34px; }
@@ -1017,6 +1021,79 @@ select + .chosen-container-multi .chosen-results li.result-selected {
     background-image: url(images/input-unchecked.png); }
   .labelauty-default input.labelauty + label > span.labelauty-checked-image {
     background-image: url(images/input-checked.png); }
+
+.labelauty-no-label .labelauty-checked {
+  display: none !important; }
+.labelauty-no-label .labelauty-unchecked {
+  display: none !important; }
+.labelauty-no-label input.labelauty {
+  display: none !important; }
+  .labelauty-no-label input.labelauty + label {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+    text-align: left;
+    font-size: 17px;
+    vertical-align: middle;
+    margin: 0;
+    background-color: #efefef;
+    color: #b3b3b3;
+    cursor: pointer;
+    -webkit-transition: background-color 0.25s;
+            transition: background-color 0.25s;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    margin-bottom: 3.4000000000000004px;
+    padding: 0; }
+    .labelauty-no-label input.labelauty + label ::-moz-selection, .labelauty-no-label input.labelauty + label ::-moz-selection {
+      background-color: rgba(255, 255, 255, 0); }
+    .labelauty-no-label input.labelauty + label ::selection, .labelauty-no-label input.labelauty + label ::-moz-selection {
+      background-color: rgba(255, 255, 255, 0); }
+    .labelauty-no-label input.labelauty + label > span.labelauty-unchecked, .labelauty-no-label input.labelauty + label > span.labelauty-checked {
+      display: inline-block; }
+    .labelauty-no-label input.labelauty + label > span.labelauty-unchecked-image, .labelauty-no-label input.labelauty + label > span.labelauty-checked-image {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      background-repeat: no-repeat;
+      background-position: left center;
+      transition: background-image 0.5s linear;
+      -moz-transition: background-image 0.5s linear;
+      -webkit-transition: background-image 0.5s linear;
+      -o-transition: background-image 0.5s linear; }
+    .labelauty-no-label input.labelauty + label > span.labelauty-unchecked-image + span.labelauty-unchecked, .labelauty-no-label input.labelauty + label > span.labelauty-checked-image + span.labelauty-checked {
+      margin-left: 7px; }
+  .labelauty-no-label input.labelauty:not(:checked):not([disabled]) + label:hover {
+    background-color: #ffd147;
+    color: white; }
+  .labelauty-no-label input.labelauty:not(:checked) + label > span.labelauty-checked-image, .labelauty-no-label input.labelauty:not(:checked) + label > span.labelauty-checked {
+    display: none; }
+  .labelauty-no-label input.labelauty:checked + label {
+    background-color: #FFC414;
+    color: #ffffff; }
+  .labelauty-no-label input.labelauty:checked:not([disabled]) + label:hover {
+    background-color: #FFC414; }
+  .labelauty-no-label input.labelauty:checked + label > span.labelauty-unchecked-image, .labelauty-no-label input.labelauty:checked + label > span.labelauty-unchecked {
+    display: none; }
+  .labelauty-no-label input.labelauty:checked + label > span.labelauty-checked {
+    display: inline-block; }
+  .labelauty-no-label input.labelauty.no-label:checked + label > span.labelauty-checked {
+    display: block; }
+  .labelauty-no-label input.labelauty[disabled] + label {
+    opacity: 0.5; }
+  .labelauty-no-label input.labelauty + label > span.labelauty-unchecked-image {
+    background-image: url(images/input-unchecked.png);
+    margin-left: 7px;
+    margin-top: 6px;
+    display: block; }
+  .labelauty-no-label input.labelauty + label > span.labelauty-checked-image {
+    background-image: url(images/input-checked.png);
+    margin-left: 7px;
+    margin-top: 6px;
+    display: block; }
 
 
 /*# sourceMappingURL=masterbox.css.map*/

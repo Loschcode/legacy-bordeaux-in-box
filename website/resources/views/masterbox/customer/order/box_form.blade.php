@@ -70,7 +70,8 @@
               {!! Form::textarea($question->id.'-0', ($old_reply->first() !== NULL) ? $old_reply->first()->answer : Request::old($question->id), ['class' => 'custombox__input']) !!}
             
             @else
-
+              
+              <div class="labelauty-no-label">
                 @foreach ($question->answers()->get() as $answer)
 
                 <?php $answers = $profile->answers(); ?>
@@ -82,11 +83,15 @@
                       @if ($old_reply->first() != NULL)
                         
               
-                      {!! Form::radio($question->id.'-0', $answer->content, ($old_reply->first()->answer == $answer->content) ? true : Request::old($question->id.'-0'), array('id' => $answer->id, 'data-labelauty' => $answer->content)) !!}
-
+                      {!! Form::radio($question->id.'-0', $answer->content, ($old_reply->first()->answer == $answer->content) ? true : Request::old($question->id.'-0'), array('id' => $answer->id, 'data-labelauty' => '')) !!}
+                        <div class="custombox__label">{{ $answer->content }}</div>
+                        <div class="+spacer-extra-small"></div>
                       @else
                       
-                        {!! Form::radio($question->id.'-0', $answer->content, Request::old($question->id.'-0'), array('id' => $answer->id, 'data-labelauty' => $answer->content)) !!}
+                        {!! Form::radio($question->id.'-0', $answer->content, Request::old($question->id.'-0'), array('id' => $answer->id, 'data-labelauty' => '')) !!}
+                        <div class="custombox__label">{{ $answer->content }}</div>
+                        <div class="+spacer-extra-small"></div>
+
                       @endif
 
 
@@ -95,12 +100,18 @@
 
                       @if ($old_reply === NULL)
 
-                        {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, Request::old($question->id.'-'.$answer->id), array('id' => $answer->id, 'data-labelauty' => $answer->content)) !!}
+                        {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, Request::old($question->id.'-'.$answer->id), array('id' => $answer->id, 'data-labelauty' => '')) !!}
+                        <div class="custombox__label">{{ $answer->content }}</div>
+                        <div class="+spacer-extra-small"></div>
+
 
                       @else
 
               
-                        {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, ($old_reply->where('answer', $answer->content)->first()) ? true : Request::old($question->id.'-'.$answer->id), array('id' => $answer->id, 'data-labelauty' => $answer->content)) !!}
+                        {!! Form::checkbox($question->id.'-'.$answer->id, $answer->content, ($old_reply->where('answer', $answer->content)->first()) ? true : Request::old($question->id.'-'.$answer->id), array('id' => $answer->id, 'data-labelauty' => '')) !!}
+                        <div class="custombox__label">{{ $answer->content }}</div>
+                        <div class="+spacer-extra-small"></div>
+
 
                       @endif
 
@@ -109,6 +120,7 @@
                     @endif
 
                 @endforeach
+              </div>
 
             @endif
 
