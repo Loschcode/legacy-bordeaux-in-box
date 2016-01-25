@@ -8,6 +8,10 @@
 html
   box-sizing: border-box
 
+html, body
+  height: 100%
+  
+
 *, *:before, *:after
   box-sizing: inherit
 
@@ -31,6 +35,17 @@ a
   text-decoration: none
   color: $default-color
 
+#page-wrapper
+  min-height: 100%
+  // equal to footer height
+  margin-bottom: -6vr
+  
+  &:after
+    content: ""
+    display: block
+
+#footer-wrapper, #page-wrapper:after
+  height: 6vr
 
 // ===========================================================
 // Components

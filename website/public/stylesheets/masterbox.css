@@ -47,6 +47,9 @@ html {
   -webkit-box-sizing: border-box;
           box-sizing: border-box; }
 
+html, body {
+  height: 100%; }
+
 *, *:before, *:after {
   -webkit-box-sizing: inherit;
           box-sizing: inherit; }
@@ -61,6 +64,16 @@ body {
 a {
   text-decoration: none;
   color: #364347; }
+
+#page-wrapper {
+  min-height: 100%;
+  margin-bottom: -204px; }
+  #page-wrapper:after {
+    content: "";
+    display: block; }
+
+#footer-wrapper, #page-wrapper:after {
+  height: 204px; }
 
 .header__item {
   width: 20%;
@@ -365,7 +378,7 @@ a {
 .footer {
   text-align: center;
   color: white;
-  min-height: 204px;
+  height: 100%;
   width: 100%;
   font-family: "Montserrat", sans-serif;
   font-weight: 400;

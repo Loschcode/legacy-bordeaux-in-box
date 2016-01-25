@@ -38,30 +38,33 @@
 </head>
 
 <body id="csstyle" data-environment="{{ app()->environment() }}">
-  
-  <div class="header">
-    <div class="header__item --first"></div>
-    <div class="header__item --second"></div>
-    <div class="header__item --third"></div>
-    <div class="header__item --fourth"></div>
-    <div class="header__item --fifth"></div>
+  <div id="page-wrapper">
+
+    <div class="header">
+      <div class="header__item --first"></div>
+      <div class="header__item --second"></div>
+      <div class="header__item --third"></div>
+      <div class="header__item --fourth"></div>
+      <div class="header__item --fifth"></div>
+    </div>
+
+    {{-- Logo --}}
+    <div class="logo">
+      <a href="{{ action('MasterBox\Guest\HomeController@getIndex') }}" class="logo__link">
+        <img class="logo__picture" src="{{ url('images/logo.png') }}" />
+      </a>
+    </div>
+
+    {{-- Navbar --}}
+    @include('masterbox.partials.navbar')
+    
+    @yield('content')
+
+    <div class="+spacer"></div>
   </div>
-
-  {{-- Logo --}}
-  <div class="logo">
-    <a href="{{ action('MasterBox\Guest\HomeController@getIndex') }}" class="logo__link">
-      <img class="logo__picture" src="{{ url('images/logo.png') }}" />
-    </a>
-  </div>
-
-  {{-- Navbar --}}
-  @include('masterbox.partials.navbar')
-
-  @yield('content')
 
   {{-- Footer --}}
   @section('footer')
-    <div class="+spacer"></div>
     @include('masterbox.partials.footer')
   @show
 
