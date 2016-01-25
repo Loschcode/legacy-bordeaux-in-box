@@ -77,6 +77,19 @@
       font-size: 0.65vr
       padding: 0.3vr
 
+    +option(profile)
+      box-shadow: none
+      transition: background 0.3s
+      padding-top: 0.2vr
+      padding-bottom: 0.2vr
+
+      &:hover
+        background-color: color-dark(pink-fluo, 13%)
+
+      &:active
+        top: 0px
+        
+
   +part(copy-delivery)
     display: inline-block
     background-color: color-get(pink-fluo)

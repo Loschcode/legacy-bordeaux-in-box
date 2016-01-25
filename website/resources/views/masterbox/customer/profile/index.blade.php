@@ -1,6 +1,163 @@
 @extends('masterbox.layouts.master')
 
 @section('content')
+  
+  <div
+    id="gotham"
+    data-controller="masterbox.customer.profile."
+    data-form-errors="{{ $errors->has() }}"
+    data-success-message="{{ session()->get('message') }}"
+  ></div>
+
+  <div class="container">
+    <div class="row">
+      <div class="grid-2">
+        <div class="sidebar">
+          <ul class="sidebar__list">
+            <li class="sidebar__item"><a class="sidebar__link" href="#">Mon compte</a></li>
+            <li class="sidebar__item"><a class="sidebar__link" href="#">Abonnements</a></li>
+            <li class="sidebar__item"><a class="sidebar__link" href="#">Contact</a></li>
+            <li class="sidebar__item --last"><a class="sidebar__link" href="#">Déconnexion</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="grid-9">
+        <div class="profile">
+          <div class="profile__wrapper">
+            
+            {{-- Contact --}}
+            {{ Form::open(['action' => 'MasterBox\Customer\ProfileController@postEditEmail', 'id' => 'form-edit-email']) }}
+
+              {{ Form::hidden('old_password', null, ['id' => 'old-password']) }}
+
+              <div class="profile__section">
+                <h3 class="profile__title">Contact</h3>
+                <p>Nous utilisons cette adresse email pour toutes informations relatives à ton compte.</p>
+                {!! Form::label("email", "Email", ['class' => 'form__label']) !!}
+
+                <div class="row">
+                  <div class="grid-9">
+                    {!! Form::email("email", ($customer->email) ? $customer->email : Request::old("email"), ['class' => 'form__input']) !!}
+                  </div>
+                  <div class="grid-3">
+                    <button type="submit" class="button button__submit --profile">Mettre à jour</button>
+                  </div>
+                </div>
+                {!! Html::checkError('email', $errors) !!}
+                {!! Html::checkError('old_password', $errors) !!}
+              </div>
+            {{ Form::close() }}
+
+            {{-- Security --}}
+            <div class="profile__section">
+              <h3 class="profile__title">Sécurité</h3>
+              <p>Le mot de passe permet de protéger ton compte.</p>
+              {!! Form::label("new_password", "Nouveau mot de passe", ['class' => 'form__label']) !!}
+
+              <div class="row">
+                <div class="grid-9">
+                  {!! Form::password("new_password", ['class' => 'form__input']) !!}
+                </div>
+                <div class="grid-3">
+                  <button type="submit" class="button button__submit --profile">Mettre à jour</button>
+                </div>
+              </div>
+            </div>
+            
+            {{-- Billing --}}
+            <div class="profile__section">
+              <h3 class="profile__title">Facturation</h3>
+              <p>Ces informations sont utilisées pour générer les factures de tes abonnements.</p>
+              
+              <div class="row">
+                <div class="grid-6">
+                  {!! Form::label("first_name", "Prénom", ['class' => 'form__label']) !!}
+                  {!! Form::text("first_name", ($customer->first_name) ? $customer->first_name : Request::old("first_name"), ['class' => 'form__input']) !!}
+                </div>
+
+                <div class="grid-6">
+                  {!! Form::label("last_name", "Nom", ['class' => 'form__label']) !!}
+                  {!! Form::text("last_name", ($customer->last_name) ? $customer->last_name : Request::old("last_name"), ['class' => 'form__input']) !!}
+                </div>
+              </div>
+
+              <div class="+spacer-extra-small"></div>
+              
+              {!! Form::label("phone", "Téléphone", ['class' => 'form__label']) !!}
+              {!! Form::text("phone", ($customer->phone) ? $customer->phone : Request::old("phone"), ['class' => 'form__input']) !!}
+              
+              <div class="+spacer-extra-small"></div>
+
+              <div class="row">
+                <div class="grid-6">
+                  {!! Form::label("city", "Ville", ['class' => 'form__label']) !!}
+                  {!! Form::text("city", ($customer->city) ? $customer->city : Request::old("city"), ['class' => 'form__input']) !!}
+                </div>
+
+                <div class="grid-6">
+                  {!! Form::label("zip", "Code postal", ['class' => 'form__label']) !!}
+                  {!! Form::text("zip", ($customer->zip) ? $customer->zip : Request::old("zip"), ['class' => 'form__input']) !!}
+                </div>
+              </div>
+
+              <div class="+spacer-extra-small"></div>
+            
+              {!! Form::label("address", "Adresse", ['class' => 'form__label']) !!}
+              {!! Form::textarea("address", ($customer->address) ? $customer->address : Request::old("address"), ['class' => 'form__input --small-textarea']) !!}
+
+              <button class="button button__submit">Mettre à jour</button>
+
+          </div>
+
+          <div class="profile__section">
+
+            <h3 class="profile__title">Livraison</h3>
+            <p>Les différents changement effectués sur cette partie seront effectifs  {{ strtolower(Html::diffHumans(App\Models\DeliverySerie::nextOpenSeries()->first()->delivery)) }}</p>
+
+            <div class="row">
+              <div class="grid-6">
+                {!! Form::label("destination_first_name", "Prénom", ['class' => 'form__label']) !!}
+                {!! Form::text("destination_first_name", ($destination->first_name) ? $destination->first_name : Request::old("destination_first_name"), ['class' => 'form__input']) !!}
+              </div>
+
+              <div class="grid-6">
+                {!! Form::label("destination_last_name", "Nom", ['class' => 'form__label']) !!}
+                {!! Form::text("destination_last_name", ($destination->last_name) ? $destination->last_name : Request::old("destination_last_name"), ['class' => 'form__input']) !!}
+              </div>
+            </div>
+            
+            <div class="+spacer-extra-small"></div>
+
+            <div class="row">
+              <div class="grid-6">
+                {!! Form::label("destination_city", "Ville", ['class' => 'form__label']) !!}
+                {!! Form::text("destination_city", ($destination->city) ? $destination->city : Request::old("destination_city"), ['class' => 'form__input']) !!}
+              </div>
+
+              <div class="grid-6">
+                {!! Form::label("destination_zip", "Code postal", ['class' => 'form__label']) !!}
+                {!! Form::text("destination_zip", ($destination->zip) ? $destination->zip : Request::old("destination_zip"), ['class' => 'form__input']) !!}
+              </div>
+            </div>
+
+            <div class="+spacer-extra-small"></div>
+      
+            {!! Form::label("destination_address", "Adresse", ['class' => 'form__label']) !!}
+            {!! Form::textarea("destination_address", ($destination->address) ? $destination->address : Request::old("destination_address"), ['class' => 'form__input --small-textarea']) !!}
+
+            <button class="button button__submit">Mettre à jour</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@stop
+
+<?php /*
+@section('content')
 
   <div class="spacer20"></div>
   <div class="container profile-section">
@@ -278,3 +435,4 @@
 
   </div>
 @stop
+*/ ?>

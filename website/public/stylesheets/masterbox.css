@@ -208,6 +208,17 @@ a {
     .button__submit.\--big {
       font-size: 22.1px;
       padding: 10.2px; }
+    .button__submit.\--profile {
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      -webkit-transition: background 0.3s;
+              transition: background 0.3s;
+      padding-top: 6.800000000000001px;
+      padding-bottom: 6.800000000000001px; }
+      .button__submit.\--profile:hover {
+        background-color: #b12448; }
+      .button__submit.\--profile:active {
+        top: 0px; }
   .button__copy-delivery {
     display: inline-block;
     background-color: #D83F66;
@@ -645,6 +656,33 @@ a {
   font-weight: 400;
   text-align: left;
   font-size: 34px; }
+
+.sidebar__list {
+  border-radius: 5px;
+  margin-top: 34px; }
+.sidebar__link {
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding-left: 13.600000000000001px;
+  color: #a0b4b9;
+  font-family: "Lato", sans-serif;
+  font-weight: 400; }
+  .sidebar__link:hover {
+    color: #495d62; }
+
+.profile__wrapper {
+  margin-top: 34px;
+  margin-left: 34px; }
+.profile__title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 23.799999999999997px; }
+.profile__section {
+  margin-bottom: 34px;
+  padding: 34px;
+  padding-top: 17px;
+  border: 2px solid #ECF0F1; }
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }
@@ -1094,6 +1132,12 @@ select + .chosen-container-multi .chosen-results li.result-selected {
     margin-left: 7px;
     margin-top: 6px;
     display: block; }
+
+.sweet-alert input:focus {
+  border: 1px solid #cdcdcd; }
+
+.sweet-alert .sa-input-error {
+  top: 22px; }
 
 
 /*# sourceMappingURL=masterbox.css.map*/

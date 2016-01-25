@@ -253,6 +253,60 @@ Index = (function(superClass) {
 module.exports = Index;
 });
 
+;require.register("controllers/masterbox/customer/profile/index", function(exports, require, module) {
+var Controller, Index,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Index = (function(superClass) {
+  extend(Index, superClass);
+
+  function Index() {
+    return Index.__super__.constructor.apply(this, arguments);
+  }
+
+  Index.prototype.before = function() {};
+
+  Index.prototype.run = function() {
+    return this.on('submit', '#form-edit-email', this.submitFormEmail);
+  };
+
+  Index.prototype.submitFormEmail = function(e) {
+    e.preventDefault();
+    return swal({
+      title: 'Mot de passe',
+      text: 'Veuillez renseigner votre mot de passe',
+      type: 'input',
+      confirmButtonColor: '#D83F66',
+      showCancelButton: true,
+      cancelButtonText: 'Annuler',
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true,
+      inputType: 'password'
+    }, (function(_this) {
+      return function(value) {
+        if (value === false) {
+          return false;
+        }
+        if (value === "") {
+          swal.showInputError('Le mot de passe est requis');
+          return false;
+        }
+        $(_this).find('[name=old_password]').val(value);
+        return $(_this).off('submit').submit();
+      };
+    })(this));
+  };
+
+  return Index;
+
+})(Controller);
+
+module.exports = Index;
+});
+
 ;require.register("controllers/masterbox/customer/purchase/billing-address", function(exports, require, module) {
 var BillingAddress, Controller,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -683,7 +737,7 @@ _.mixin({
       type: 'error',
       confirmButtonColor: '#D83F66',
       html: true,
-      timer: 1800
+      timer: 1750
     });
   }
 });

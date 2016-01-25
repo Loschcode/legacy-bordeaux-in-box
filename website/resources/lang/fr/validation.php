@@ -92,7 +92,7 @@ return array(
             'not_in' => 'Veuillez sélectionner un métier',
         ),
         'old_password' => array(
-            'match_password' => 'Votre mot de passe actuel n\'a pas été rempli ou ne correspond pas',
+            'match_password' => 'Votre mot de passe actuel ne correspond pas',
         ),
 
     ),

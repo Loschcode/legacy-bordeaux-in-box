@@ -210,6 +210,43 @@ class ProfileController extends BaseController {
 
   }
 
+  public function postEditEmail()
+  {
+
+    $rules = [
+      'email' => 'required|email|unique:customers,email,'. Auth::guard('customer')->user()->id,
+      'old_password' => 'required|match_password'
+    ];
+
+    $fields = Request::all();
+
+    $validator = Validator::make($fields, $rules);
+
+    if ($validator->passes()) {
+      
+      $customer = Auth::guard('customer')->user();
+
+      if ($customer !== NULL) {
+
+        $customer->email = $fields['email'];
+        $customer->save();
+
+      }
+
+      session()->flash('message', 'Vos informations ont bien été mises à jour');
+      
+      return redirect()->back()
+      ->withInput();
+
+    } 
+
+    // We return the same page with the error and saving the input datas
+    return redirect()->back()
+    ->withInput()
+    ->withErrors($validator);
+
+  }
+
 	/**
 	 * Subscribe to the website
 	 * @return redirect process
