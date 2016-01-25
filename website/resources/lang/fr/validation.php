@@ -158,7 +158,8 @@ return array(
         "billing_first_name" => "prénom",
         "billing_city" => "ville",
         "billing_zip" => "zip",
-        "billing_address" => "adresse"
+        "billing_address" => "adresse",
+        "zip" => "Code postal"
     ),
 
 );

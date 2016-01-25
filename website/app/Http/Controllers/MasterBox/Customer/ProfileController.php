@@ -11,8 +11,7 @@ use App\Models\Payment;
 use App\Models\CustomerProfile;
 
 use App\Libraries\Payments;
-use Hash;
-
+use Hash, URL;
 
 class ProfileController extends BaseController {
 
@@ -241,7 +240,7 @@ class ProfileController extends BaseController {
     } 
 
     // We return the same page with the error and saving the input datas
-    return redirect()->back()
+    return redirect()->to(URL::previous() . '#email')
     ->withInput()
     ->withErrors($validator, 'edit_email');
 
@@ -272,7 +271,7 @@ class ProfileController extends BaseController {
 
       session()->flash('message', 'Votre mot de passe à été mis à jour');
       
-      return redirect()->back()
+    return redirect()->to(URL::previous() . '#password')
       ->withInput();
 
     } 
@@ -281,6 +280,93 @@ class ProfileController extends BaseController {
     return redirect()->back()
     ->withInput()
     ->withErrors($validator, 'edit_password');
+  }
+
+  public function postEditBilling()
+  {
+
+    $rules = [
+
+      'phone' => 'required',
+      'first_name' => 'required',
+      'last_name' => 'required', 
+      'address' => 'required',
+      'zip' => 'required',
+      'city' => 'required',
+
+      'old_password' => 'required|match_password'
+    ];
+
+    $fields = Request::all();
+
+    $validator = Validator::make($fields, $rules);
+
+    if ($validator->passes()) {
+      
+      $customer = Auth::guard('customer')->user();
+
+      if ($customer !== NULL) {
+
+        $customer->first_name = $fields['first_name'];
+        $customer->last_name = $fields['last_name'];
+        $customer->phone = $fields['phone'];
+        $customer->zip = $fields['zip'];
+        $customer->city = $fields['city'];
+        $customer->address = $fields['address'];
+
+        $customer->save();
+
+        // If the customer got profiles we will edit the next deliveries
+        if ($customer->profiles()->first() != NULL) {
+
+          $profiles = $customer->profiles()->get();
+          
+          foreach ($profiles as $profile) {
+
+            if ($profile->orders()->first() != NULL) {
+
+              // Only for editable orders
+              $profile_orders = $profile->orders()->where('locked', FALSE)->get();
+
+              foreach ($profile_orders as $profile_order) {
+
+                if ($profile_order->billing()->first() != NULL) {
+
+                  $billing = $profile_order->billing()->first();
+
+                  $billing->first_name = $customer->first_name;
+                  $billing->last_name = $customer->last_name;
+                  $billing->zip = $customer->zip;
+                  $billing->city = $customer->city;
+                  $billing->address = $customer->address;
+
+                  // We save everything
+                  $billing->save();
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+      session()->flash('message', 'Vos informations de facturation ont été mises à jour');
+      
+      return redirect()->back()
+      ->withInput();
+
+    }
+
+    // We return the same page with the error and saving the input datas
+    return redirect()->to(URL::previous() . '#billing')
+    ->withInput()
+    ->withErrors($validator, 'edit_billing');
+
   }
 
 	/**
@@ -337,7 +423,6 @@ class ProfileController extends BaseController {
 				$customer->last_name = $fields['last_name'];
 
 				$customer->phone = $fields['phone'];
-
 				$customer->zip = $fields['zip'];
 				$customer->city = $fields['city'];
 				$customer->address = $fields['address'];

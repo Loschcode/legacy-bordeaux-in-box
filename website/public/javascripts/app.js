@@ -271,7 +271,8 @@ Index = (function(superClass) {
 
   Index.prototype.run = function() {
     this.on('submit', '#form-edit-email', this.askPassword);
-    return this.on('submit', '#form-edit-password', this.askPassword);
+    this.on('submit', '#form-edit-password', this.askPassword);
+    return this.on('submit', '#form-edit-billing', this.askPassword);
   };
 
   Index.prototype.askPassword = function(e) {

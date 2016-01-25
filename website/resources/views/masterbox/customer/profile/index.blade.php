@@ -5,7 +5,7 @@
   <div
     id="gotham"
     data-controller="masterbox.customer.profile."
-    data-form-errors="{{ $errors->edit_email->has() }} {{ $errors->edit_password->has() }}"
+    data-form-errors="{{ $errors->edit_email->has() }} {{ $errors->edit_password->has() }} {{ $errors->edit_billing->has() }}"
     data-success-message="{{ session()->get('message') }}"
   ></div>
 
@@ -72,50 +72,65 @@
             {{ Form::close() }}
             
             {{-- Billing --}}
-            <div class="profile__section">
-              <h3 class="profile__title">Facturation</h3>
-              <p>Ces informations sont utilisées pour générer les factures de tes abonnements.</p>
+            {{ Form::open(['action' => 'MasterBox\Customer\ProfileController@postEditBilling', 'id' => 'form-edit-billing']) }}
               
-              <div class="row">
-                <div class="grid-6">
-                  {!! Form::label("first_name", "Prénom", ['class' => 'form__label']) !!}
-                  {!! Form::text("first_name", ($customer->first_name) ? $customer->first_name : Request::old("first_name"), ['class' => 'form__input']) !!}
+              {{ Form::hidden('old_password', null, ['id' => 'old-password']) }}
+
+              <div class="profile__section">
+                <h3 class="profile__title">Facturation</h3>
+                <p>Ces informations sont utilisées pour générer les factures de tes abonnements.</p>
+                
+                <div class="row">
+                  <div class="grid-6">
+                    {!! Form::label("first_name", "Prénom", ['class' => 'form__label']) !!}
+                    {!! Form::text("first_name", ($customer->first_name) ? $customer->first_name : Request::old("first_name"), ['class' => 'form__input']) !!}
+                    {!! Html::checkError('first_name', $errors, 'edit_billing') !!}
+                  </div>
+
+                  <div class="grid-6">
+                    {!! Form::label("last_name", "Nom", ['class' => 'form__label']) !!}
+                    {!! Form::text("last_name", ($customer->last_name) ? $customer->last_name : Request::old("last_name"), ['class' => 'form__input']) !!}
+                    {!! Html::checkError('last_name', $errors, 'edit_billing') !!}
+                  </div>
                 </div>
 
-                <div class="grid-6">
-                  {!! Form::label("last_name", "Nom", ['class' => 'form__label']) !!}
-                  {!! Form::text("last_name", ($customer->last_name) ? $customer->last_name : Request::old("last_name"), ['class' => 'form__input']) !!}
+                <div class="+spacer-extra-small"></div>
+                
+                {!! Form::label("phone", "Téléphone", ['class' => 'form__label']) !!}
+                {!! Form::text("phone", ($customer->phone) ? $customer->phone : Request::old("phone"), ['class' => 'form__input']) !!}
+                {!! Html::checkError('phone', $errors, 'edit_billing') !!}
+
+                <div class="+spacer-extra-small"></div>
+
+                <div class="row">
+                  <div class="grid-6">
+                    {!! Form::label("city", "Ville", ['class' => 'form__label']) !!}
+                    {!! Form::text("city", ($customer->city) ? $customer->city : Request::old("city"), ['class' => 'form__input']) !!}
+                    {!! Html::checkError('city', $errors, 'edit_billing') !!}
+                  </div>
+
+                  <div class="grid-6">
+                    {!! Form::label("zip", "Code postal", ['class' => 'form__label']) !!}
+                    {!! Form::text("zip", ($customer->zip) ? $customer->zip : Request::old("zip"), ['class' => 'form__input']) !!}
+                    {!! Html::checkError('zip', $errors, 'edit_billing') !!}
+                  </div>
                 </div>
+
+                <div class="+spacer-extra-small"></div>
+              
+                {!! Form::label("address", "Adresse", ['class' => 'form__label']) !!}
+                {!! Form::textarea("address", ($customer->address) ? $customer->address : Request::old("address"), ['class' => 'form__input --small-textarea']) !!}
+                {!! Html::checkError('address', $errors, 'edit_billing') !!}
+
+                {!! Html::checkError('old_password', $errors, 'edit_billing') !!}
+
+                <button class="button button__submit">Mettre à jour</button>
+
               </div>
 
-              <div class="+spacer-extra-small"></div>
-              
-              {!! Form::label("phone", "Téléphone", ['class' => 'form__label']) !!}
-              {!! Form::text("phone", ($customer->phone) ? $customer->phone : Request::old("phone"), ['class' => 'form__input']) !!}
-              
-              <div class="+spacer-extra-small"></div>
-
-              <div class="row">
-                <div class="grid-6">
-                  {!! Form::label("city", "Ville", ['class' => 'form__label']) !!}
-                  {!! Form::text("city", ($customer->city) ? $customer->city : Request::old("city"), ['class' => 'form__input']) !!}
-                </div>
-
-                <div class="grid-6">
-                  {!! Form::label("zip", "Code postal", ['class' => 'form__label']) !!}
-                  {!! Form::text("zip", ($customer->zip) ? $customer->zip : Request::old("zip"), ['class' => 'form__input']) !!}
-                </div>
-              </div>
-
-              <div class="+spacer-extra-small"></div>
-            
-              {!! Form::label("address", "Adresse", ['class' => 'form__label']) !!}
-              {!! Form::textarea("address", ($customer->address) ? $customer->address : Request::old("address"), ['class' => 'form__input --small-textarea']) !!}
-
-              <button class="button button__submit">Mettre à jour</button>
-
-          </div>
-
+            {{ Form::close() }}
+          
+          <?php /*
           <div class="profile__section">
 
             <h3 class="profile__title">Livraison</h3>
@@ -155,6 +170,7 @@
             <button class="button button__submit">Mettre à jour</button>
 
           </div>
+          */ ?>
         </div>
       </div>
     </div>
