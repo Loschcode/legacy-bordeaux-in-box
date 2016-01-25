@@ -30,7 +30,7 @@
 
               {{ Form::hidden('old_password', null, ['id' => 'old-password']) }}
 
-              <div class="profile__section">
+              <div id="email-block" class="profile__section">
                 <h3 class="profile__title">Contact</h3>
                 <p>Nous utilisons cette adresse email pour toutes informations relatives à ton compte.</p>
                 {!! Form::label("email", "Email", ['class' => 'form__label']) !!}
@@ -53,7 +53,7 @@
 
               {{ Form::hidden('old_password', null, ['id' => 'old-password']) }}
 
-              <div class="profile__section">
+              <div id="password-block" class="profile__section">
                 <h3 class="profile__title">Sécurité</h3>
                 <p>Le mot de passe permet de protéger ton compte.</p>
                 {!! Form::label("password", "Nouveau mot de passe", ['class' => 'form__label']) !!}
@@ -76,7 +76,7 @@
               
               {{ Form::hidden('old_password', null, ['id' => 'old-password']) }}
 
-              <div class="profile__section">
+              <div id="billing-block" class="profile__section">
                 <h3 class="profile__title">Facturation</h3>
                 <p>Ces informations sont utilisées pour générer les factures de tes abonnements.</p>
                 

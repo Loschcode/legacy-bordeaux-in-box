@@ -267,7 +267,11 @@ Index = (function(superClass) {
     return Index.__super__.constructor.apply(this, arguments);
   }
 
-  Index.prototype.before = function() {};
+  Index.prototype.before = function() {
+    if (window.location.hash) {
+      return smoothScroll.animateScroll(null, window.location.hash + '-block');
+    }
+  };
 
   Index.prototype.run = function() {
     this.on('submit', '#form-edit-email', this.askPassword);

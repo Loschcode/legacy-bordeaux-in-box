@@ -14,6 +14,10 @@ class Index extends Controller
   ##
   before: ->
 
+    if window.location.hash
+      
+      smoothScroll.animateScroll(null, window.location.hash + '-block')
+
   ##
   # Run
   #

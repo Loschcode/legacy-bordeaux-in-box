@@ -271,13 +271,13 @@ class ProfileController extends BaseController {
 
       session()->flash('message', 'Votre mot de passe à été mis à jour');
       
-    return redirect()->to(URL::previous() . '#password')
+    return redirect()->back()
       ->withInput();
 
     } 
 
     // We return the same page with the error and saving the input datas
-    return redirect()->back()
+    return redirect()->to(URL::previous() . '#password')
     ->withInput()
     ->withErrors($validator, 'edit_password');
   }
