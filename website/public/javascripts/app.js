@@ -372,6 +372,7 @@ Payment = (function(superClass) {
   extend(Payment, superClass);
 
   function Payment() {
+    this.displayWriting = bind(this.displayWriting, this);
     this.displayDefault = bind(this.displayDefault, this);
     this.afterPayment = bind(this.afterPayment, this);
     this.initStripe = bind(this.initStripe, this);
@@ -411,7 +412,7 @@ Payment = (function(superClass) {
       allowRememberMe: true,
       opened: (function(_this) {
         return function() {
-          return _this.displayLoading('Saisie en cours');
+          return _this.displayWriting();
         };
       })(this),
       closed: (function(_this) {
@@ -441,6 +442,10 @@ Payment = (function(superClass) {
 
   Payment.prototype.displayDefault = function() {
     return $('#trigger-payment').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-credit-card"></i> Procéder au paiement sécurisé');
+  };
+
+  Payment.prototype.displayWriting = function() {
+    return $('#trigger-payment').prop('disabled', true).addClass('--disabled').html('Saisie en cours');
   };
 
   return Payment;

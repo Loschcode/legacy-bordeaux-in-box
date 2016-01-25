@@ -58,7 +58,7 @@ class Payment extends Controller
       
       opened: =>
 
-        @displayLoading('Saisie en cours')
+        @displayWriting()
 
       closed: =>
 
@@ -85,7 +85,9 @@ class Payment extends Controller
 
     $('#trigger-payment').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-credit-card"></i> Procéder au paiement sécurisé')
 
+  displayWriting: =>
 
+    $('#trigger-payment').prop('disabled', true).addClass('--disabled').html('Saisie en cours')
 
 # Export
 module.exports = Payment
