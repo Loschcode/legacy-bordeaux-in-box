@@ -240,7 +240,7 @@ class ProfileController extends BaseController {
     } 
 
     // We return the same page with the error and saving the input datas
-    return redirect()->to(URL::previous() . '#email')
+    return redirect()->to(URL::previous() . '#email-block')
     ->withInput()
     ->withErrors($validator, 'edit_email');
 
@@ -277,7 +277,7 @@ class ProfileController extends BaseController {
     } 
 
     // We return the same page with the error and saving the input datas
-    return redirect()->to(URL::previous() . '#password')
+    return redirect()->to(URL::previous() . '#password-block')
     ->withInput()
     ->withErrors($validator, 'edit_password');
   }
@@ -363,7 +363,7 @@ class ProfileController extends BaseController {
     }
 
     // We return the same page with the error and saving the input datas
-    return redirect()->to(URL::previous() . '#billing')
+    return redirect()->to(URL::previous() . '#billing-block')
     ->withInput()
     ->withErrors($validator, 'edit_billing');
 
@@ -434,7 +434,7 @@ class ProfileController extends BaseController {
 
       }
 
-      session()->flash('message', 'Vos informations de facturation ont été mises à jour');
+      session()->flash('message', 'Vos informations de destination ont été mises à jour');
       
       return redirect()->back()
       ->withInput();
@@ -442,11 +442,85 @@ class ProfileController extends BaseController {
     }
 
     // We return the same page with the error and saving the input datas
-    return redirect()->to(URL::previous() . '#destination')
+    return redirect()->to(URL::previous() . '#destination-block')
     ->withInput()
     ->withErrors($validator, 'edit_destination');
 
   }
+
+  public function postEditSpot()
+  {
+
+    $rules = [
+
+      'chosen_spot' => 'integer',
+
+      'old_password' => 'required|match_password'
+    ];
+
+    $fields = Request::all();
+
+    $validator = Validator::make($fields, $rules);
+
+    if ($validator->passes()) {
+      
+      $customer = Auth::guard('customer')->user();
+
+      if ($customer !== NULL) {
+
+        // If the customer got profiles we will edit the next deliveries
+        if ($customer->profiles()->first() != NULL) {
+
+          $profiles = $customer->profiles()->get();
+          
+          foreach ($profiles as $profile) {
+
+            if ($profile->orders()->first() != NULL) {
+
+              // Only for editable orders
+              $profile_orders = $profile->orders()->where('locked', FALSE)->get();
+
+              foreach ($profile_orders as $profile_order) {
+                
+                $spot = DeliverySpot::find($fields['chosen_spot']);
+                
+                if ($profile_order->take_away == TRUE) {
+
+                  if ($spot != NULL) {
+
+                    // We save the new spot
+                    $profile_order->delivery_spot()->associate($spot);
+                    $profile_order->save();
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+      session()->flash('message', 'Votre point relais à été mis à jour');
+      
+      return redirect()->back()
+      ->withInput();
+
+    }
+
+    // We return the same page with the error and saving the input datas
+    return redirect()->to(URL::previous() . '#spot-block')
+    ->withInput()
+    ->withErrors($validator, 'edit_spot');
+
+  }
+
+
 
 
 

@@ -269,7 +269,9 @@ Index = (function(superClass) {
 
   Index.prototype.before = function() {
     if (window.location.hash) {
-      return smoothScroll.animateScroll(null, window.location.hash + '-block');
+      if ($(window.location.hash).length > 0) {
+        return smoothScroll.animateScroll(null, window.location.hash);
+      }
     }
   };
 
@@ -277,7 +279,18 @@ Index = (function(superClass) {
     this.on('submit', '#form-edit-email', this.askPassword);
     this.on('submit', '#form-edit-password', this.askPassword);
     this.on('submit', '#form-edit-billing', this.askPassword);
-    return this.on('submit', '#form-edit-destination', this.askPassword);
+    this.on('submit', '#form-edit-destination', this.askPassword);
+    this.on('submit', '#form-edit-spot', this.askPassword);
+    return this.on('click', 'label', this.displayGoogleMap);
+  };
+
+  Index.prototype.displayGoogleMap = function() {
+    var id;
+    $('[id^=gmap]').addClass('+hidden');
+    id = $(this).attr('for');
+    if ($('#gmap-' + id).hasClass('+hidden')) {
+      return $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn();
+    }
   };
 
   Index.prototype.askPassword = function(e) {

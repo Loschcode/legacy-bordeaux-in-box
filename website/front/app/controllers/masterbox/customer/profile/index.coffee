@@ -16,7 +16,8 @@ class Index extends Controller
 
     if window.location.hash
       
-      smoothScroll.animateScroll(null, window.location.hash + '-block')
+      if $(window.location.hash).length > 0
+        smoothScroll.animateScroll(null, window.location.hash)
 
   ##
   # Run
@@ -31,6 +32,21 @@ class Index extends Controller
     @on 'submit', '#form-edit-password', @askPassword
     @on 'submit', '#form-edit-billing', @askPassword
     @on 'submit', '#form-edit-destination', @askPassword
+    @on 'submit', '#form-edit-spot', @askPassword
+    @on 'click', 'label', @displayGoogleMap
+
+  displayGoogleMap: ->
+
+    # Hide each google map buttons
+    $('[id^=gmap]').addClass('+hidden')
+
+    id = $(this).attr('for')
+
+    # If it's not already displayed
+    if $('#gmap-' + id).hasClass('+hidden')
+
+      # Display it
+      $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn()
 
   askPassword: (e) ->
 
