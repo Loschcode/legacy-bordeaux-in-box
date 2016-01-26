@@ -25,19 +25,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 14.4px;
+  height: 13.600000000000001px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 36px;
+  height: 34px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 72px;
+  height: 68px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 180px;
+  height: 170px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -219,6 +219,9 @@ a {
         background-color: #b12448; }
       .button__submit.\--profile:active {
         top: 0px; }
+    .button__submit.\--disabled {
+      opacity: 0.7;
+      cursor: not-allowed; }
   .button__copy-delivery {
     display: inline-block;
     background-color: #D83F66;
@@ -706,7 +709,10 @@ a {
   text-align: left; }
 .table__body-items {
   text-align: left;
-  border-bottom: 1px solid #ECF0F1; }
+  border-bottom: 1px solid #ECF0F1;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 14.96px; }
 .table__item.\--status-active {
   font-size: 13.600000000000001px;
   padding-right: 10.2px;

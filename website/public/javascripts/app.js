@@ -327,6 +327,176 @@ Index = (function(superClass) {
 module.exports = Index;
 });
 
+;require.register("controllers/masterbox/customer/profile/order", function(exports, require, module) {
+var Controller, Order,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Order = (function(superClass) {
+  extend(Order, superClass);
+
+  function Order() {
+    this.askPassword = bind(this.askPassword, this);
+    this.generateStripeToken = bind(this.generateStripeToken, this);
+    this.submitCard = bind(this.submitCard, this);
+    return Order.__super__.constructor.apply(this, arguments);
+  }
+
+  Order.prototype.before = function() {
+    this.initCard();
+    Stripe.setPublishableKey(_.getStripeKey());
+    if (window.location.hash) {
+      if ($(window.location.hash).length > 0) {
+        return smoothScroll.animateScroll(null, window.location.hash);
+      }
+    }
+  };
+
+  Order.prototype.run = function() {
+    return this.on('submit', '#form-edit-card', this.submitCard);
+  };
+
+  Order.prototype.initCard = function() {
+    var lastDigits, number;
+    lastDigits = _.trim($('#gotham').data('card-last-digits'));
+    if (_.isEmpty(lastDigits)) {
+      number = '**** **** **** ****';
+    } else {
+      number = '**** **** **** ' + lastDigits;
+    }
+    return new Card({
+      form: '#form-edit-card',
+      container: '.card',
+      debug: false,
+      formSelectors: {
+        numberInput: '[name=card]',
+        expiryInput: '[name=expiration]',
+        cvcInput: '[name=ccv]'
+      },
+      messages: {
+        validDate: 'EXPIRE\nA FIN',
+        monthYear: 'MM/AA'
+      },
+      placeholders: {
+        name: '',
+        number: number
+      }
+    });
+  };
+
+  Order.prototype.submitCard = function(e) {
+    var card, rules, syphon, validation;
+    e.preventDefault();
+    syphon = new Syphon();
+    card = syphon.exclude('_token').get('#form-edit-card');
+    this.cleanErrors(card);
+    this.cleanErrorStripe();
+    rules = {
+      card: 'required|valid_card_number',
+      expiration: 'required|valid_card_expiry',
+      ccv: 'required|valid_card_cvc'
+    };
+    validation = new Validator();
+    validation.make(card, rules);
+    if (validation.fails()) {
+      return this.displayErrors(card, validation);
+    } else {
+      return this.generateStripeToken();
+    }
+  };
+
+  Order.prototype.generateStripeToken = function() {
+    var card, syphon;
+    syphon = new Syphon();
+    card = syphon.exclude('_token').get('#form-edit-card');
+    this.displayLoader();
+    return Stripe.card.createToken({
+      number: card.card,
+      cvc: card.ccv,
+      exp_month: _.trim(card.expiration.split('/')[0]),
+      exp_year: _.trim(card.expiration.split('/')[1])
+    }, (function(_this) {
+      return function(status, response) {
+        console.log(response);
+        _this.hideLoader();
+        if (status !== 200) {
+          _this.displayErrorStripe(response);
+          return;
+        }
+        $('[name=stripeToken]').val(response.id);
+        return _this.askPassword();
+      };
+    })(this));
+  };
+
+  Order.prototype.askPassword = function() {
+    return swal({
+      title: 'Mot de passe',
+      text: 'Veuillez renseigner votre mot de passe',
+      type: 'input',
+      confirmButtonColor: '#D83F66',
+      showCancelButton: true,
+      cancelButtonText: 'Annuler',
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true,
+      inputType: 'password'
+    }, (function(_this) {
+      return function(value) {
+        if (value === false) {
+          return false;
+        }
+        if (value === "") {
+          swal.showInputError('Le mot de passe est requis');
+          return false;
+        }
+        $('#form-edit-card').find('[name=old_password]').val(value);
+        return $('#form-edit-card').get(0).submit();
+      };
+    })(this));
+  };
+
+  Order.prototype.displayLoader = function() {
+    return $('#commit').prop('disabled', true).addClass('--disabled');
+  };
+
+  Order.prototype.hideLoader = function() {
+    return $('#commit').prop('disabled', false).removeClass('--disabled');
+  };
+
+  Order.prototype.displayErrorStripe = function(response) {
+    return $('#error-stripe').text('Un problème est survenue, veuillez vérifier votre saisie.');
+  };
+
+  Order.prototype.cleanErrorStripe = function() {
+    return $('#error-stripe').text('');
+  };
+
+  Order.prototype.displayErrors = function(inputs, validation) {
+    return _.forEach(inputs, function(value, key) {
+      if (validation.errors.has(key) && $('#errors-' + key).length > 0) {
+        return $('#errors-' + key).text(validation.errors.first(key));
+      }
+    });
+  };
+
+  Order.prototype.cleanErrors = function(inputs) {
+    return _.forEach(inputs, function(value, key) {
+      if ($('#errors-' + key).length > 0) {
+        return $('#errors-' + key).text('');
+      }
+    });
+  };
+
+  return Order;
+
+})(Controller);
+
+module.exports = Order;
+});
+
 ;require.register("controllers/masterbox/customer/purchase/billing-address", function(exports, require, module) {
 var BillingAddress, Controller,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -874,9 +1044,41 @@ if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
 });
 
 ;require.register("validators", function(exports, require, module) {
-Validator.errors;
+Validator.errors({
+  required: 'Le champ :attribute est requis',
+  valid_card_number: 'Numéro de carte invalide',
+  valid_card_expiry: 'Date d\'expiration invalide',
+  valid_card_cvc: 'Code de vérification invalide'
+});
 
-Validator.attributes;
+Validator.attributes({
+  card: 'numéro de carte',
+  expiration: 'date d\expiration',
+  ccv: 'cvv'
+});
+
+Validator.rule('valid_card_number', function(attribute, value, params) {
+  if ($.payment.validateCardNumber(value)) {
+    return true;
+  }
+  return false;
+});
+
+Validator.rule('valid_card_expiry', function(attribute, value, params) {
+  var expiry;
+  expiry = value.split('/');
+  if ($.payment.validateCardExpiry(expiry[0], expiry[1])) {
+    return true;
+  }
+  return false;
+});
+
+Validator.rule('valid_card_cvc', function(attribute, value, params) {
+  if ($.payment.validateCardCVC(value)) {
+    return true;
+  }
+  return false;
+});
 });
 
 ;require.register("views/masterbox/admin/customers/actions", function(exports, require, module) {

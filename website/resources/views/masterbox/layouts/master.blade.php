@@ -30,6 +30,14 @@
     </script>
 
   @endif
+  
+  {{-- Display the stripe checkout heren if needed --}}
+  @section('stripe-checkout')
+  @show
+  
+  {{-- Display the stripe library here, if needed --}}
+  @section('stripe')
+  @show
 
   <script src="{{ url('javascripts/vendor.js') }}"></script>
   <script src="{{ url('javascripts/app.js') }}"></script>
@@ -69,9 +77,6 @@
   @show
 
 </body>
-
-@section('stripe-checkout')
-@show
 
 {{-- Facebook Conversion Code for Impressions --}}
 @include('masterbox.partials.facebook_conversions')

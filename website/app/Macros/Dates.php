@@ -20,7 +20,11 @@ Html::macro('diffHumans', function($date, $diff=0) {
 /**
  * Format english date to french
  */
-Html::macro('dateFrench', function($date) {
+Html::macro('dateFrench', function($date, $month_text = false) {
+
+  if ($month_text) {
+    return Date::parse($date)->format('d F Y');
+  }
 
   return Date::parse($date)->format('d-m-Y');
 

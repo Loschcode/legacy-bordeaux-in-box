@@ -125,20 +125,22 @@ class ProfileController extends BaseController {
 
     	// Small protection to be sure it's the correct user
     	if ($customer->profiles()->where('id', '=', $id)->first() == NULL) {
-    		return redirect()->to('/profile');
+    		return redirect()->action('MasterBox\Customer\ProfileController@getIndex');
     	}
 
     	$profile = CustomerProfile::find($id);
     	$orders = $profile->orders()->get();
     	$payments = $profile->payments()->get();
       $payment_profile = $profile->payment_profile()->first();
+      $active_menu = 'orders';
 
-		  return view('masterbox.customer.profile.orders')->with(compact(
+		  return view('masterbox.customer.profile.order')->with(compact(
         'customer',
         'profile',
         'payment_profile',
         'orders',
-        'payments'
+        'payments',
+        'active_menu'
       ));
 
 
@@ -157,7 +159,7 @@ class ProfileController extends BaseController {
 
       'old_password' => 'required|match_password', // Check the old password
       'profile_id' => 'required|integer',
-      //'stripeToken' => 'required',
+      'stripeToken' => 'required'
 
       ];
 
@@ -219,7 +221,7 @@ class ProfileController extends BaseController {
     } else {
 
       // We return the same page with the error and saving the input datas
-      return redirect()->back()
+      return redirect()->to(URL::previous() . '#credit-card')
       ->withInput()
       ->withErrors($validator);
 

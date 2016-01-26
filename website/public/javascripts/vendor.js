@@ -40925,6 +40925,2046 @@ this.MarkdownExtra_Parser = MarkdownExtra_Parser;
 
 }(jQuery, window, document));
 
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.card = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+module.exports = _dereq_('./lib/extend');
+
+
+},{"./lib/extend":2}],2:[function(_dereq_,module,exports){
+/*!
+ * node.extend
+ * Copyright 2011, John Resig
+ * Dual licensed under the MIT or GPL Version 2 licenses.
+ * http://jquery.org/license
+ *
+ * @fileoverview
+ * Port of jQuery.extend that actually works on node.js
+ */
+var is = _dereq_('is');
+
+function extend() {
+  var target = arguments[0] || {};
+  var i = 1;
+  var length = arguments.length;
+  var deep = false;
+  var options, name, src, copy, copy_is_array, clone;
+
+  // Handle a deep copy situation
+  if (typeof target === 'boolean') {
+    deep = target;
+    target = arguments[1] || {};
+    // skip the boolean and the target
+    i = 2;
+  }
+
+  // Handle case when target is a string or something (possible in deep copy)
+  if (typeof target !== 'object' && !is.fn(target)) {
+    target = {};
+  }
+
+  for (; i < length; i++) {
+    // Only deal with non-null/undefined values
+    options = arguments[i]
+    if (options != null) {
+      if (typeof options === 'string') {
+          options = options.split('');
+      }
+      // Extend the base object
+      for (name in options) {
+        src = target[name];
+        copy = options[name];
+
+        // Prevent never-ending loop
+        if (target === copy) {
+          continue;
+        }
+
+        // Recurse if we're merging plain objects or arrays
+        if (deep && copy && (is.hash(copy) || (copy_is_array = is.array(copy)))) {
+          if (copy_is_array) {
+            copy_is_array = false;
+            clone = src && is.array(src) ? src : [];
+          } else {
+            clone = src && is.hash(src) ? src : {};
+          }
+
+          // Never move original objects, clone them
+          target[name] = extend(deep, clone, copy);
+
+        // Don't bring in undefined values
+        } else if (typeof copy !== 'undefined') {
+          target[name] = copy;
+        }
+      }
+    }
+  }
+
+  // Return the modified object
+  return target;
+};
+
+/**
+ * @public
+ */
+extend.version = '1.1.3';
+
+/**
+ * Exports module.
+ */
+module.exports = extend;
+
+
+},{"is":3}],3:[function(_dereq_,module,exports){
+/* globals window, HTMLElement */
+/**!
+ * is
+ * the definitive JavaScript type testing library
+ *
+ * @copyright 2013-2014 Enrico Marino / Jordan Harband
+ * @license MIT
+ */
+
+var objProto = Object.prototype;
+var owns = objProto.hasOwnProperty;
+var toStr = objProto.toString;
+var symbolValueOf;
+if (typeof Symbol === 'function') {
+  symbolValueOf = Symbol.prototype.valueOf;
+}
+var isActualNaN = function (value) {
+  return value !== value;
+};
+var NON_HOST_TYPES = {
+  'boolean': 1,
+  number: 1,
+  string: 1,
+  undefined: 1
+};
+
+var base64Regex = /^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{4}|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{2}==)$/;
+var hexRegex = /^[A-Fa-f0-9]+$/;
+
+/**
+ * Expose `is`
+ */
+
+var is = module.exports = {};
+
+/**
+ * Test general.
+ */
+
+/**
+ * is.type
+ * Test if `value` is a type of `type`.
+ *
+ * @param {Mixed} value value to test
+ * @param {String} type type
+ * @return {Boolean} true if `value` is a type of `type`, false otherwise
+ * @api public
+ */
+
+is.a = is.type = function (value, type) {
+  return typeof value === type;
+};
+
+/**
+ * is.defined
+ * Test if `value` is defined.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if 'value' is defined, false otherwise
+ * @api public
+ */
+
+is.defined = function (value) {
+  return typeof value !== 'undefined';
+};
+
+/**
+ * is.empty
+ * Test if `value` is empty.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is empty, false otherwise
+ * @api public
+ */
+
+is.empty = function (value) {
+  var type = toStr.call(value);
+  var key;
+
+  if (type === '[object Array]' || type === '[object Arguments]' || type === '[object String]') {
+    return value.length === 0;
+  }
+
+  if (type === '[object Object]') {
+    for (key in value) {
+      if (owns.call(value, key)) { return false; }
+    }
+    return true;
+  }
+
+  return !value;
+};
+
+/**
+ * is.equal
+ * Test if `value` is equal to `other`.
+ *
+ * @param {Mixed} value value to test
+ * @param {Mixed} other value to compare with
+ * @return {Boolean} true if `value` is equal to `other`, false otherwise
+ */
+
+is.equal = function equal(value, other) {
+  if (value === other) {
+    return true;
+  }
+
+  var type = toStr.call(value);
+  var key;
+
+  if (type !== toStr.call(other)) {
+    return false;
+  }
+
+  if (type === '[object Object]') {
+    for (key in value) {
+      if (!is.equal(value[key], other[key]) || !(key in other)) {
+        return false;
+      }
+    }
+    for (key in other) {
+      if (!is.equal(value[key], other[key]) || !(key in value)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  if (type === '[object Array]') {
+    key = value.length;
+    if (key !== other.length) {
+      return false;
+    }
+    while (--key) {
+      if (!is.equal(value[key], other[key])) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  if (type === '[object Function]') {
+    return value.prototype === other.prototype;
+  }
+
+  if (type === '[object Date]') {
+    return value.getTime() === other.getTime();
+  }
+
+  return false;
+};
+
+/**
+ * is.hosted
+ * Test if `value` is hosted by `host`.
+ *
+ * @param {Mixed} value to test
+ * @param {Mixed} host host to test with
+ * @return {Boolean} true if `value` is hosted by `host`, false otherwise
+ * @api public
+ */
+
+is.hosted = function (value, host) {
+  var type = typeof host[value];
+  return type === 'object' ? !!host[value] : !NON_HOST_TYPES[type];
+};
+
+/**
+ * is.instance
+ * Test if `value` is an instance of `constructor`.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is an instance of `constructor`
+ * @api public
+ */
+
+is.instance = is['instanceof'] = function (value, constructor) {
+  return value instanceof constructor;
+};
+
+/**
+ * is.nil / is.null
+ * Test if `value` is null.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is null, false otherwise
+ * @api public
+ */
+
+is.nil = is['null'] = function (value) {
+  return value === null;
+};
+
+/**
+ * is.undef / is.undefined
+ * Test if `value` is undefined.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is undefined, false otherwise
+ * @api public
+ */
+
+is.undef = is.undefined = function (value) {
+  return typeof value === 'undefined';
+};
+
+/**
+ * Test arguments.
+ */
+
+/**
+ * is.args
+ * Test if `value` is an arguments object.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is an arguments object, false otherwise
+ * @api public
+ */
+
+is.args = is.arguments = function (value) {
+  var isStandardArguments = toStr.call(value) === '[object Arguments]';
+  var isOldArguments = !is.array(value) && is.arraylike(value) && is.object(value) && is.fn(value.callee);
+  return isStandardArguments || isOldArguments;
+};
+
+/**
+ * Test array.
+ */
+
+/**
+ * is.array
+ * Test if 'value' is an array.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is an array, false otherwise
+ * @api public
+ */
+
+is.array = Array.isArray || function (value) {
+  return toStr.call(value) === '[object Array]';
+};
+
+/**
+ * is.arguments.empty
+ * Test if `value` is an empty arguments object.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is an empty arguments object, false otherwise
+ * @api public
+ */
+is.args.empty = function (value) {
+  return is.args(value) && value.length === 0;
+};
+
+/**
+ * is.array.empty
+ * Test if `value` is an empty array.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is an empty array, false otherwise
+ * @api public
+ */
+is.array.empty = function (value) {
+  return is.array(value) && value.length === 0;
+};
+
+/**
+ * is.arraylike
+ * Test if `value` is an arraylike object.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is an arguments object, false otherwise
+ * @api public
+ */
+
+is.arraylike = function (value) {
+  return !!value && !is.bool(value)
+    && owns.call(value, 'length')
+    && isFinite(value.length)
+    && is.number(value.length)
+    && value.length >= 0;
+};
+
+/**
+ * Test boolean.
+ */
+
+/**
+ * is.bool
+ * Test if `value` is a boolean.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is a boolean, false otherwise
+ * @api public
+ */
+
+is.bool = is['boolean'] = function (value) {
+  return toStr.call(value) === '[object Boolean]';
+};
+
+/**
+ * is.false
+ * Test if `value` is false.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is false, false otherwise
+ * @api public
+ */
+
+is['false'] = function (value) {
+  return is.bool(value) && Boolean(Number(value)) === false;
+};
+
+/**
+ * is.true
+ * Test if `value` is true.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is true, false otherwise
+ * @api public
+ */
+
+is['true'] = function (value) {
+  return is.bool(value) && Boolean(Number(value)) === true;
+};
+
+/**
+ * Test date.
+ */
+
+/**
+ * is.date
+ * Test if `value` is a date.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is a date, false otherwise
+ * @api public
+ */
+
+is.date = function (value) {
+  return toStr.call(value) === '[object Date]';
+};
+
+/**
+ * Test element.
+ */
+
+/**
+ * is.element
+ * Test if `value` is an html element.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is an HTML Element, false otherwise
+ * @api public
+ */
+
+is.element = function (value) {
+  return value !== undefined
+    && typeof HTMLElement !== 'undefined'
+    && value instanceof HTMLElement
+    && value.nodeType === 1;
+};
+
+/**
+ * Test error.
+ */
+
+/**
+ * is.error
+ * Test if `value` is an error object.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is an error object, false otherwise
+ * @api public
+ */
+
+is.error = function (value) {
+  return toStr.call(value) === '[object Error]';
+};
+
+/**
+ * Test function.
+ */
+
+/**
+ * is.fn / is.function (deprecated)
+ * Test if `value` is a function.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is a function, false otherwise
+ * @api public
+ */
+
+is.fn = is['function'] = function (value) {
+  var isAlert = typeof window !== 'undefined' && value === window.alert;
+  return isAlert || toStr.call(value) === '[object Function]';
+};
+
+/**
+ * Test number.
+ */
+
+/**
+ * is.number
+ * Test if `value` is a number.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is a number, false otherwise
+ * @api public
+ */
+
+is.number = function (value) {
+  return toStr.call(value) === '[object Number]';
+};
+
+/**
+ * is.infinite
+ * Test if `value` is positive or negative infinity.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is positive or negative Infinity, false otherwise
+ * @api public
+ */
+is.infinite = function (value) {
+  return value === Infinity || value === -Infinity;
+};
+
+/**
+ * is.decimal
+ * Test if `value` is a decimal number.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is a decimal number, false otherwise
+ * @api public
+ */
+
+is.decimal = function (value) {
+  return is.number(value) && !isActualNaN(value) && !is.infinite(value) && value % 1 !== 0;
+};
+
+/**
+ * is.divisibleBy
+ * Test if `value` is divisible by `n`.
+ *
+ * @param {Number} value value to test
+ * @param {Number} n dividend
+ * @return {Boolean} true if `value` is divisible by `n`, false otherwise
+ * @api public
+ */
+
+is.divisibleBy = function (value, n) {
+  var isDividendInfinite = is.infinite(value);
+  var isDivisorInfinite = is.infinite(n);
+  var isNonZeroNumber = is.number(value) && !isActualNaN(value) && is.number(n) && !isActualNaN(n) && n !== 0;
+  return isDividendInfinite || isDivisorInfinite || (isNonZeroNumber && value % n === 0);
+};
+
+/**
+ * is.integer
+ * Test if `value` is an integer.
+ *
+ * @param value to test
+ * @return {Boolean} true if `value` is an integer, false otherwise
+ * @api public
+ */
+
+is.integer = is['int'] = function (value) {
+  return is.number(value) && !isActualNaN(value) && value % 1 === 0;
+};
+
+/**
+ * is.maximum
+ * Test if `value` is greater than 'others' values.
+ *
+ * @param {Number} value value to test
+ * @param {Array} others values to compare with
+ * @return {Boolean} true if `value` is greater than `others` values
+ * @api public
+ */
+
+is.maximum = function (value, others) {
+  if (isActualNaN(value)) {
+    throw new TypeError('NaN is not a valid value');
+  } else if (!is.arraylike(others)) {
+    throw new TypeError('second argument must be array-like');
+  }
+  var len = others.length;
+
+  while (--len >= 0) {
+    if (value < others[len]) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+/**
+ * is.minimum
+ * Test if `value` is less than `others` values.
+ *
+ * @param {Number} value value to test
+ * @param {Array} others values to compare with
+ * @return {Boolean} true if `value` is less than `others` values
+ * @api public
+ */
+
+is.minimum = function (value, others) {
+  if (isActualNaN(value)) {
+    throw new TypeError('NaN is not a valid value');
+  } else if (!is.arraylike(others)) {
+    throw new TypeError('second argument must be array-like');
+  }
+  var len = others.length;
+
+  while (--len >= 0) {
+    if (value > others[len]) {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+/**
+ * is.nan
+ * Test if `value` is not a number.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is not a number, false otherwise
+ * @api public
+ */
+
+is.nan = function (value) {
+  return !is.number(value) || value !== value;
+};
+
+/**
+ * is.even
+ * Test if `value` is an even number.
+ *
+ * @param {Number} value value to test
+ * @return {Boolean} true if `value` is an even number, false otherwise
+ * @api public
+ */
+
+is.even = function (value) {
+  return is.infinite(value) || (is.number(value) && value === value && value % 2 === 0);
+};
+
+/**
+ * is.odd
+ * Test if `value` is an odd number.
+ *
+ * @param {Number} value value to test
+ * @return {Boolean} true if `value` is an odd number, false otherwise
+ * @api public
+ */
+
+is.odd = function (value) {
+  return is.infinite(value) || (is.number(value) && value === value && value % 2 !== 0);
+};
+
+/**
+ * is.ge
+ * Test if `value` is greater than or equal to `other`.
+ *
+ * @param {Number} value value to test
+ * @param {Number} other value to compare with
+ * @return {Boolean}
+ * @api public
+ */
+
+is.ge = function (value, other) {
+  if (isActualNaN(value) || isActualNaN(other)) {
+    throw new TypeError('NaN is not a valid value');
+  }
+  return !is.infinite(value) && !is.infinite(other) && value >= other;
+};
+
+/**
+ * is.gt
+ * Test if `value` is greater than `other`.
+ *
+ * @param {Number} value value to test
+ * @param {Number} other value to compare with
+ * @return {Boolean}
+ * @api public
+ */
+
+is.gt = function (value, other) {
+  if (isActualNaN(value) || isActualNaN(other)) {
+    throw new TypeError('NaN is not a valid value');
+  }
+  return !is.infinite(value) && !is.infinite(other) && value > other;
+};
+
+/**
+ * is.le
+ * Test if `value` is less than or equal to `other`.
+ *
+ * @param {Number} value value to test
+ * @param {Number} other value to compare with
+ * @return {Boolean} if 'value' is less than or equal to 'other'
+ * @api public
+ */
+
+is.le = function (value, other) {
+  if (isActualNaN(value) || isActualNaN(other)) {
+    throw new TypeError('NaN is not a valid value');
+  }
+  return !is.infinite(value) && !is.infinite(other) && value <= other;
+};
+
+/**
+ * is.lt
+ * Test if `value` is less than `other`.
+ *
+ * @param {Number} value value to test
+ * @param {Number} other value to compare with
+ * @return {Boolean} if `value` is less than `other`
+ * @api public
+ */
+
+is.lt = function (value, other) {
+  if (isActualNaN(value) || isActualNaN(other)) {
+    throw new TypeError('NaN is not a valid value');
+  }
+  return !is.infinite(value) && !is.infinite(other) && value < other;
+};
+
+/**
+ * is.within
+ * Test if `value` is within `start` and `finish`.
+ *
+ * @param {Number} value value to test
+ * @param {Number} start lower bound
+ * @param {Number} finish upper bound
+ * @return {Boolean} true if 'value' is is within 'start' and 'finish'
+ * @api public
+ */
+is.within = function (value, start, finish) {
+  if (isActualNaN(value) || isActualNaN(start) || isActualNaN(finish)) {
+    throw new TypeError('NaN is not a valid value');
+  } else if (!is.number(value) || !is.number(start) || !is.number(finish)) {
+    throw new TypeError('all arguments must be numbers');
+  }
+  var isAnyInfinite = is.infinite(value) || is.infinite(start) || is.infinite(finish);
+  return isAnyInfinite || (value >= start && value <= finish);
+};
+
+/**
+ * Test object.
+ */
+
+/**
+ * is.object
+ * Test if `value` is an object.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is an object, false otherwise
+ * @api public
+ */
+
+is.object = function (value) {
+  return toStr.call(value) === '[object Object]';
+};
+
+/**
+ * is.hash
+ * Test if `value` is a hash - a plain object literal.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is a hash, false otherwise
+ * @api public
+ */
+
+is.hash = function (value) {
+  return is.object(value) && value.constructor === Object && !value.nodeType && !value.setInterval;
+};
+
+/**
+ * Test regexp.
+ */
+
+/**
+ * is.regexp
+ * Test if `value` is a regular expression.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is a regexp, false otherwise
+ * @api public
+ */
+
+is.regexp = function (value) {
+  return toStr.call(value) === '[object RegExp]';
+};
+
+/**
+ * Test string.
+ */
+
+/**
+ * is.string
+ * Test if `value` is a string.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if 'value' is a string, false otherwise
+ * @api public
+ */
+
+is.string = function (value) {
+  return toStr.call(value) === '[object String]';
+};
+
+/**
+ * Test base64 string.
+ */
+
+/**
+ * is.base64
+ * Test if `value` is a valid base64 encoded string.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if 'value' is a base64 encoded string, false otherwise
+ * @api public
+ */
+
+is.base64 = function (value) {
+  return is.string(value) && (!value.length || base64Regex.test(value));
+};
+
+/**
+ * Test base64 string.
+ */
+
+/**
+ * is.hex
+ * Test if `value` is a valid hex encoded string.
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if 'value' is a hex encoded string, false otherwise
+ * @api public
+ */
+
+is.hex = function (value) {
+  return is.string(value) && (!value.length || hexRegex.test(value));
+};
+
+/**
+ * is.symbol
+ * Test if `value` is an ES6 Symbol
+ *
+ * @param {Mixed} value value to test
+ * @return {Boolean} true if `value` is a Symbol, false otherise
+ * @api public
+ */
+
+is.symbol = function (value) {
+  return typeof Symbol === 'function' && toStr.call(value) === '[object Symbol]' && typeof symbolValueOf.call(value) === 'symbol';
+};
+
+},{}],4:[function(_dereq_,module,exports){
+(function (global){
+var Payment, QJ, cardFromNumber, cardFromType, cards, defaultFormat, formatBackCardNumber, formatBackExpiry, formatCardNumber, formatExpiry, formatForwardExpiry, formatForwardSlash, formatMonthExpiry, hasTextSelected, luhnCheck, reFormatCardNumber, restrictCVC, restrictCardNumber, restrictCombinedExpiry, restrictExpiry, restrictMonthExpiry, restrictNumeric, restrictYearExpiry, setCardType,
+  indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+QJ = _dereq_('qj/src/qj.coffee');
+
+defaultFormat = /(\d{1,4})/g;
+
+cards = [
+  {
+    type: 'amex',
+    pattern: /^3[47]/,
+    format: /(\d{1,4})(\d{1,6})?(\d{1,5})?/,
+    length: [15],
+    cvcLength: [4],
+    luhn: true
+  }, {
+    type: 'dankort',
+    pattern: /^5019/,
+    format: defaultFormat,
+    length: [16],
+    cvcLength: [3],
+    luhn: true
+  }, {
+    type: 'dinersclub',
+    pattern: /^(36|38|30[0-5])/,
+    format: defaultFormat,
+    length: [14],
+    cvcLength: [3],
+    luhn: true
+  }, {
+    type: 'discover',
+    pattern: /^(6011|65|64[4-9]|622)/,
+    format: defaultFormat,
+    length: [16],
+    cvcLength: [3],
+    luhn: true
+  }, {
+    type: 'jcb',
+    pattern: /^35/,
+    format: defaultFormat,
+    length: [16],
+    cvcLength: [3],
+    luhn: true
+  }, {
+    type: 'laser',
+    pattern: /^(6706|6771|6709)/,
+    format: defaultFormat,
+    length: [16, 17, 18, 19],
+    cvcLength: [3],
+    luhn: true
+  }, {
+    type: 'maestro',
+    pattern: /^(5018|5020|5038|6304|6703|6759|676[1-3])/,
+    format: defaultFormat,
+    length: [12, 13, 14, 15, 16, 17, 18, 19],
+    cvcLength: [3],
+    luhn: true
+  }, {
+    type: 'mastercard',
+    pattern: /^5[1-5]/,
+    format: defaultFormat,
+    length: [16],
+    cvcLength: [3],
+    luhn: true
+  }, {
+    type: 'unionpay',
+    pattern: /^62/,
+    format: defaultFormat,
+    length: [16, 17, 18, 19],
+    cvcLength: [3],
+    luhn: false
+  }, {
+    type: 'visaelectron',
+    pattern: /^4(026|17500|405|508|844|91[37])/,
+    format: defaultFormat,
+    length: [16],
+    cvcLength: [3],
+    luhn: true
+  }, {
+    type: 'elo',
+    pattern: /^4011|438935|45(1416|76)|50(4175|6699|67|90[4-7])|63(6297|6368)/,
+    format: defaultFormat,
+    length: [16],
+    cvcLength: [3],
+    luhn: true
+  }, {
+    type: 'visa',
+    pattern: /^4/,
+    format: defaultFormat,
+    length: [13, 16],
+    cvcLength: [3],
+    luhn: true
+  }
+];
+
+cardFromNumber = function(num) {
+  var card, i, len;
+  num = (num + '').replace(/\D/g, '');
+  for (i = 0, len = cards.length; i < len; i++) {
+    card = cards[i];
+    if (card.pattern.test(num)) {
+      return card;
+    }
+  }
+};
+
+cardFromType = function(type) {
+  var card, i, len;
+  for (i = 0, len = cards.length; i < len; i++) {
+    card = cards[i];
+    if (card.type === type) {
+      return card;
+    }
+  }
+};
+
+luhnCheck = function(num) {
+  var digit, digits, i, len, odd, sum;
+  odd = true;
+  sum = 0;
+  digits = (num + '').split('').reverse();
+  for (i = 0, len = digits.length; i < len; i++) {
+    digit = digits[i];
+    digit = parseInt(digit, 10);
+    if ((odd = !odd)) {
+      digit *= 2;
+    }
+    if (digit > 9) {
+      digit -= 9;
+    }
+    sum += digit;
+  }
+  return sum % 10 === 0;
+};
+
+hasTextSelected = function(target) {
+  var ref;
+  if ((target.selectionStart != null) && target.selectionStart !== target.selectionEnd) {
+    return true;
+  }
+  if ((typeof document !== "undefined" && document !== null ? (ref = document.selection) != null ? ref.createRange : void 0 : void 0) != null) {
+    if (document.selection.createRange().text) {
+      return true;
+    }
+  }
+  return false;
+};
+
+reFormatCardNumber = function(e) {
+  return setTimeout((function(_this) {
+    return function() {
+      var target, value;
+      target = e.target;
+      value = QJ.val(target);
+      value = Payment.fns.formatCardNumber(value);
+      return QJ.val(target, value);
+    };
+  })(this));
+};
+
+formatCardNumber = function(e) {
+  var card, digit, length, re, target, upperLength, value;
+  digit = String.fromCharCode(e.which);
+  if (!/^\d+$/.test(digit)) {
+    return;
+  }
+  target = e.target;
+  value = QJ.val(target);
+  card = cardFromNumber(value + digit);
+  length = (value.replace(/\D/g, '') + digit).length;
+  upperLength = 16;
+  if (card) {
+    upperLength = card.length[card.length.length - 1];
+  }
+  if (length >= upperLength) {
+    return;
+  }
+  if ((target.selectionStart != null) && target.selectionStart !== value.length) {
+    return;
+  }
+  if (card && card.type === 'amex') {
+    re = /^(\d{4}|\d{4}\s\d{6})$/;
+  } else {
+    re = /(?:^|\s)(\d{4})$/;
+  }
+  if (re.test(value)) {
+    e.preventDefault();
+    return QJ.val(target, value + ' ' + digit);
+  } else if (re.test(value + digit)) {
+    e.preventDefault();
+    return QJ.val(target, value + digit + ' ');
+  }
+};
+
+formatBackCardNumber = function(e) {
+  var target, value;
+  target = e.target;
+  value = QJ.val(target);
+  if (e.meta) {
+    return;
+  }
+  if (e.which !== 8) {
+    return;
+  }
+  if ((target.selectionStart != null) && target.selectionStart !== value.length) {
+    return;
+  }
+  if (/\d\s$/.test(value)) {
+    e.preventDefault();
+    return QJ.val(target, value.replace(/\d\s$/, ''));
+  } else if (/\s\d?$/.test(value)) {
+    e.preventDefault();
+    return QJ.val(target, value.replace(/\s\d?$/, ''));
+  }
+};
+
+formatExpiry = function(e) {
+  var digit, target, val;
+  digit = String.fromCharCode(e.which);
+  if (!/^\d+$/.test(digit)) {
+    return;
+  }
+  target = e.target;
+  val = QJ.val(target) + digit;
+  if (/^\d$/.test(val) && (val !== '0' && val !== '1')) {
+    e.preventDefault();
+    return QJ.val(target, "0" + val + " / ");
+  } else if (/^\d\d$/.test(val)) {
+    e.preventDefault();
+    return QJ.val(target, val + " / ");
+  }
+};
+
+formatMonthExpiry = function(e) {
+  var digit, target, val;
+  digit = String.fromCharCode(e.which);
+  if (!/^\d+$/.test(digit)) {
+    return;
+  }
+  target = e.target;
+  val = QJ.val(target) + digit;
+  if (/^\d$/.test(val) && (val !== '0' && val !== '1')) {
+    e.preventDefault();
+    return QJ.val(target, "0" + val);
+  } else if (/^\d\d$/.test(val)) {
+    e.preventDefault();
+    return QJ.val(target, "" + val);
+  }
+};
+
+formatForwardExpiry = function(e) {
+  var digit, target, val;
+  digit = String.fromCharCode(e.which);
+  if (!/^\d+$/.test(digit)) {
+    return;
+  }
+  target = e.target;
+  val = QJ.val(target);
+  if (/^\d\d$/.test(val)) {
+    return QJ.val(target, val + " / ");
+  }
+};
+
+formatForwardSlash = function(e) {
+  var slash, target, val;
+  slash = String.fromCharCode(e.which);
+  if (slash !== '/') {
+    return;
+  }
+  target = e.target;
+  val = QJ.val(target);
+  if (/^\d$/.test(val) && val !== '0') {
+    return QJ.val(target, "0" + val + " / ");
+  }
+};
+
+formatBackExpiry = function(e) {
+  var target, value;
+  if (e.metaKey) {
+    return;
+  }
+  target = e.target;
+  value = QJ.val(target);
+  if (e.which !== 8) {
+    return;
+  }
+  if ((target.selectionStart != null) && target.selectionStart !== value.length) {
+    return;
+  }
+  if (/\d(\s|\/)+$/.test(value)) {
+    e.preventDefault();
+    return QJ.val(target, value.replace(/\d(\s|\/)*$/, ''));
+  } else if (/\s\/\s?\d?$/.test(value)) {
+    e.preventDefault();
+    return QJ.val(target, value.replace(/\s\/\s?\d?$/, ''));
+  }
+};
+
+restrictNumeric = function(e) {
+  var input;
+  if (e.metaKey || e.ctrlKey) {
+    return true;
+  }
+  if (e.which === 32) {
+    return e.preventDefault();
+  }
+  if (e.which === 0) {
+    return true;
+  }
+  if (e.which < 33) {
+    return true;
+  }
+  input = String.fromCharCode(e.which);
+  if (!/[\d\s]/.test(input)) {
+    return e.preventDefault();
+  }
+};
+
+restrictCardNumber = function(e) {
+  var card, digit, target, value;
+  target = e.target;
+  digit = String.fromCharCode(e.which);
+  if (!/^\d+$/.test(digit)) {
+    return;
+  }
+  if (hasTextSelected(target)) {
+    return;
+  }
+  value = (QJ.val(target) + digit).replace(/\D/g, '');
+  card = cardFromNumber(value);
+  if (card) {
+    if (!(value.length <= card.length[card.length.length - 1])) {
+      return e.preventDefault();
+    }
+  } else {
+    if (!(value.length <= 16)) {
+      return e.preventDefault();
+    }
+  }
+};
+
+restrictExpiry = function(e, length) {
+  var digit, target, value;
+  target = e.target;
+  digit = String.fromCharCode(e.which);
+  if (!/^\d+$/.test(digit)) {
+    return;
+  }
+  if (hasTextSelected(target)) {
+    return;
+  }
+  value = QJ.val(target) + digit;
+  value = value.replace(/\D/g, '');
+  if (value.length > length) {
+    return e.preventDefault();
+  }
+};
+
+restrictCombinedExpiry = function(e) {
+  return restrictExpiry(e, 6);
+};
+
+restrictMonthExpiry = function(e) {
+  return restrictExpiry(e, 2);
+};
+
+restrictYearExpiry = function(e) {
+  return restrictExpiry(e, 4);
+};
+
+restrictCVC = function(e) {
+  var digit, target, val;
+  target = e.target;
+  digit = String.fromCharCode(e.which);
+  if (!/^\d+$/.test(digit)) {
+    return;
+  }
+  if (hasTextSelected(target)) {
+    return;
+  }
+  val = QJ.val(target) + digit;
+  if (!(val.length <= 4)) {
+    return e.preventDefault();
+  }
+};
+
+setCardType = function(e) {
+  var allTypes, card, cardType, target, val;
+  target = e.target;
+  val = QJ.val(target);
+  cardType = Payment.fns.cardType(val) || 'unknown';
+  if (!QJ.hasClass(target, cardType)) {
+    allTypes = (function() {
+      var i, len, results;
+      results = [];
+      for (i = 0, len = cards.length; i < len; i++) {
+        card = cards[i];
+        results.push(card.type);
+      }
+      return results;
+    })();
+    QJ.removeClass(target, 'unknown');
+    QJ.removeClass(target, allTypes.join(' '));
+    QJ.addClass(target, cardType);
+    QJ.toggleClass(target, 'identified', cardType !== 'unknown');
+    return QJ.trigger(target, 'payment.cardType', cardType);
+  }
+};
+
+Payment = (function() {
+  function Payment() {}
+
+  Payment.fns = {
+    cardExpiryVal: function(value) {
+      var month, prefix, ref, year;
+      value = value.replace(/\s/g, '');
+      ref = value.split('/', 2), month = ref[0], year = ref[1];
+      if ((year != null ? year.length : void 0) === 2 && /^\d+$/.test(year)) {
+        prefix = (new Date).getFullYear();
+        prefix = prefix.toString().slice(0, 2);
+        year = prefix + year;
+      }
+      month = parseInt(month, 10);
+      year = parseInt(year, 10);
+      return {
+        month: month,
+        year: year
+      };
+    },
+    validateCardNumber: function(num) {
+      var card, ref;
+      num = (num + '').replace(/\s+|-/g, '');
+      if (!/^\d+$/.test(num)) {
+        return false;
+      }
+      card = cardFromNumber(num);
+      if (!card) {
+        return false;
+      }
+      return (ref = num.length, indexOf.call(card.length, ref) >= 0) && (card.luhn === false || luhnCheck(num));
+    },
+    validateCardExpiry: function(month, year) {
+      var currentTime, expiry, prefix, ref;
+      if (typeof month === 'object' && 'month' in month) {
+        ref = month, month = ref.month, year = ref.year;
+      }
+      if (!(month && year)) {
+        return false;
+      }
+      month = QJ.trim(month);
+      year = QJ.trim(year);
+      if (!/^\d+$/.test(month)) {
+        return false;
+      }
+      if (!/^\d+$/.test(year)) {
+        return false;
+      }
+      if (!(parseInt(month, 10) <= 12)) {
+        return false;
+      }
+      if (year.length === 2) {
+        prefix = (new Date).getFullYear();
+        prefix = prefix.toString().slice(0, 2);
+        year = prefix + year;
+      }
+      expiry = new Date(year, month);
+      currentTime = new Date;
+      expiry.setMonth(expiry.getMonth() - 1);
+      expiry.setMonth(expiry.getMonth() + 1, 1);
+      return expiry > currentTime;
+    },
+    validateCardCVC: function(cvc, type) {
+      var ref, ref1;
+      cvc = QJ.trim(cvc);
+      if (!/^\d+$/.test(cvc)) {
+        return false;
+      }
+      if (type && cardFromType(type)) {
+        return ref = cvc.length, indexOf.call((ref1 = cardFromType(type)) != null ? ref1.cvcLength : void 0, ref) >= 0;
+      } else {
+        return cvc.length >= 3 && cvc.length <= 4;
+      }
+    },
+    cardType: function(num) {
+      var ref;
+      if (!num) {
+        return null;
+      }
+      return ((ref = cardFromNumber(num)) != null ? ref.type : void 0) || null;
+    },
+    formatCardNumber: function(num) {
+      var card, groups, ref, upperLength;
+      card = cardFromNumber(num);
+      if (!card) {
+        return num;
+      }
+      upperLength = card.length[card.length.length - 1];
+      num = num.replace(/\D/g, '');
+      num = num.slice(0, +upperLength + 1 || 9e9);
+      if (card.format.global) {
+        return (ref = num.match(card.format)) != null ? ref.join(' ') : void 0;
+      } else {
+        groups = card.format.exec(num);
+        if (groups != null) {
+          groups.shift();
+        }
+        return groups != null ? groups.join(' ') : void 0;
+      }
+    }
+  };
+
+  Payment.restrictNumeric = function(el) {
+    return QJ.on(el, 'keypress', restrictNumeric);
+  };
+
+  Payment.cardExpiryVal = function(el) {
+    return Payment.fns.cardExpiryVal(QJ.val(el));
+  };
+
+  Payment.formatCardCVC = function(el) {
+    Payment.restrictNumeric(el);
+    QJ.on(el, 'keypress', restrictCVC);
+    return el;
+  };
+
+  Payment.formatCardExpiry = function(el) {
+    var month, year;
+    Payment.restrictNumeric(el);
+    if (el.length && el.length === 2) {
+      month = el[0], year = el[1];
+      this.formatCardExpiryMultiple(month, year);
+    } else {
+      QJ.on(el, 'keypress', restrictCombinedExpiry);
+      QJ.on(el, 'keypress', formatExpiry);
+      QJ.on(el, 'keypress', formatForwardSlash);
+      QJ.on(el, 'keypress', formatForwardExpiry);
+      QJ.on(el, 'keydown', formatBackExpiry);
+    }
+    return el;
+  };
+
+  Payment.formatCardExpiryMultiple = function(month, year) {
+    QJ.on(month, 'keypress', restrictMonthExpiry);
+    QJ.on(month, 'keypress', formatMonthExpiry);
+    return QJ.on(year, 'keypress', restrictYearExpiry);
+  };
+
+  Payment.formatCardNumber = function(el) {
+    Payment.restrictNumeric(el);
+    QJ.on(el, 'keypress', restrictCardNumber);
+    QJ.on(el, 'keypress', formatCardNumber);
+    QJ.on(el, 'keydown', formatBackCardNumber);
+    QJ.on(el, 'keyup', setCardType);
+    QJ.on(el, 'paste', reFormatCardNumber);
+    return el;
+  };
+
+  Payment.getCardArray = function() {
+    return cards;
+  };
+
+  Payment.setCardArray = function(cardArray) {
+    cards = cardArray;
+    return true;
+  };
+
+  Payment.addToCardArray = function(cardObject) {
+    return cards.push(cardObject);
+  };
+
+  Payment.removeFromCardArray = function(type) {
+    var key, value;
+    for (key in cards) {
+      value = cards[key];
+      if (value.type === type) {
+        cards.splice(key, 1);
+      }
+    }
+    return true;
+  };
+
+  return Payment;
+
+})();
+
+module.exports = Payment;
+
+global.Payment = Payment;
+
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"qj/src/qj.coffee":5}],5:[function(_dereq_,module,exports){
+var QJ, rreturn, rtrim;
+
+QJ = function(selector) {
+  if (QJ.isDOMElement(selector)) {
+    return selector;
+  }
+  return document.querySelectorAll(selector);
+};
+
+QJ.isDOMElement = function(el) {
+  return el && (el.nodeName != null);
+};
+
+rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+
+QJ.trim = function(text) {
+  if (text === null) {
+    return "";
+  } else {
+    return (text + "").replace(rtrim, "");
+  }
+};
+
+rreturn = /\r/g;
+
+QJ.val = function(el, val) {
+  var ret;
+  if (arguments.length > 1) {
+    return el.value = val;
+  } else {
+    ret = el.value;
+    if (typeof ret === "string") {
+      return ret.replace(rreturn, "");
+    } else {
+      if (ret === null) {
+        return "";
+      } else {
+        return ret;
+      }
+    }
+  }
+};
+
+QJ.preventDefault = function(eventObject) {
+  if (typeof eventObject.preventDefault === "function") {
+    eventObject.preventDefault();
+    return;
+  }
+  eventObject.returnValue = false;
+  return false;
+};
+
+QJ.normalizeEvent = function(e) {
+  var original;
+  original = e;
+  e = {
+    which: original.which != null ? original.which : void 0,
+    target: original.target || original.srcElement,
+    preventDefault: function() {
+      return QJ.preventDefault(original);
+    },
+    originalEvent: original,
+    data: original.data || original.detail
+  };
+  if (e.which == null) {
+    e.which = original.charCode != null ? original.charCode : original.keyCode;
+  }
+  return e;
+};
+
+QJ.on = function(element, eventName, callback) {
+  var el, i, j, len, len1, multEventName, originalCallback, ref;
+  if (element.length) {
+    for (i = 0, len = element.length; i < len; i++) {
+      el = element[i];
+      QJ.on(el, eventName, callback);
+    }
+    return;
+  }
+  if (eventName.match(" ")) {
+    ref = eventName.split(" ");
+    for (j = 0, len1 = ref.length; j < len1; j++) {
+      multEventName = ref[j];
+      QJ.on(element, multEventName, callback);
+    }
+    return;
+  }
+  originalCallback = callback;
+  callback = function(e) {
+    e = QJ.normalizeEvent(e);
+    return originalCallback(e);
+  };
+  if (element.addEventListener) {
+    return element.addEventListener(eventName, callback, false);
+  }
+  if (element.attachEvent) {
+    eventName = "on" + eventName;
+    return element.attachEvent(eventName, callback);
+  }
+  element['on' + eventName] = callback;
+};
+
+QJ.addClass = function(el, className) {
+  var e;
+  if (el.length) {
+    return (function() {
+      var i, len, results;
+      results = [];
+      for (i = 0, len = el.length; i < len; i++) {
+        e = el[i];
+        results.push(QJ.addClass(e, className));
+      }
+      return results;
+    })();
+  }
+  if (el.classList) {
+    return el.classList.add(className);
+  } else {
+    return el.className += ' ' + className;
+  }
+};
+
+QJ.hasClass = function(el, className) {
+  var e, hasClass, i, len;
+  if (el.length) {
+    hasClass = true;
+    for (i = 0, len = el.length; i < len; i++) {
+      e = el[i];
+      hasClass = hasClass && QJ.hasClass(e, className);
+    }
+    return hasClass;
+  }
+  if (el.classList) {
+    return el.classList.contains(className);
+  } else {
+    return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+  }
+};
+
+QJ.removeClass = function(el, className) {
+  var cls, e, i, len, ref, results;
+  if (el.length) {
+    return (function() {
+      var i, len, results;
+      results = [];
+      for (i = 0, len = el.length; i < len; i++) {
+        e = el[i];
+        results.push(QJ.removeClass(e, className));
+      }
+      return results;
+    })();
+  }
+  if (el.classList) {
+    ref = className.split(' ');
+    results = [];
+    for (i = 0, len = ref.length; i < len; i++) {
+      cls = ref[i];
+      results.push(el.classList.remove(cls));
+    }
+    return results;
+  } else {
+    return el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+  }
+};
+
+QJ.toggleClass = function(el, className, bool) {
+  var e;
+  if (el.length) {
+    return (function() {
+      var i, len, results;
+      results = [];
+      for (i = 0, len = el.length; i < len; i++) {
+        e = el[i];
+        results.push(QJ.toggleClass(e, className, bool));
+      }
+      return results;
+    })();
+  }
+  if (bool) {
+    if (!QJ.hasClass(el, className)) {
+      return QJ.addClass(el, className);
+    }
+  } else {
+    return QJ.removeClass(el, className);
+  }
+};
+
+QJ.append = function(el, toAppend) {
+  var e;
+  if (el.length) {
+    return (function() {
+      var i, len, results;
+      results = [];
+      for (i = 0, len = el.length; i < len; i++) {
+        e = el[i];
+        results.push(QJ.append(e, toAppend));
+      }
+      return results;
+    })();
+  }
+  return el.insertAdjacentHTML('beforeend', toAppend);
+};
+
+QJ.find = function(el, selector) {
+  if (el instanceof NodeList || el instanceof Array) {
+    el = el[0];
+  }
+  return el.querySelectorAll(selector);
+};
+
+QJ.trigger = function(el, name, data) {
+  var e, error, ev;
+  try {
+    ev = new CustomEvent(name, {
+      detail: data
+    });
+  } catch (error) {
+    e = error;
+    ev = document.createEvent('CustomEvent');
+    if (ev.initCustomEvent) {
+      ev.initCustomEvent(name, true, true, data);
+    } else {
+      ev.initEvent(name, true, true, data);
+    }
+  }
+  return el.dispatchEvent(ev);
+};
+
+module.exports = QJ;
+
+
+},{}],6:[function(_dereq_,module,exports){
+module.exports = _dereq_('cssify');
+},{"cssify":7}],7:[function(_dereq_,module,exports){
+module.exports = function (css, customDocument) {
+  var doc = customDocument || document;
+  if (doc.createStyleSheet) {
+    var sheet = doc.createStyleSheet()
+    sheet.cssText = css;
+    return sheet.ownerNode;
+  } else {
+    var head = doc.getElementsByTagName('head')[0],
+        style = doc.createElement('style');
+
+    style.type = 'text/css';
+
+    if (style.styleSheet) {
+      style.styleSheet.cssText = css;
+    } else {
+      style.appendChild(doc.createTextNode(css));
+    }
+
+    head.appendChild(style);
+    return style;
+  }
+};
+
+module.exports.byUrl = function(url) {
+  if (document.createStyleSheet) {
+    return document.createStyleSheet(url).ownerNode;
+  } else {
+    var head = document.getElementsByTagName('head')[0],
+        link = document.createElement('link');
+
+    link.rel = 'stylesheet';
+    link.href = url;
+
+    head.appendChild(link);
+    return link;
+  }
+};
+
+},{}],8:[function(_dereq_,module,exports){
+(function (global){
+var Card, QJ, extend, payment;
+
+_dereq_('../scss/card.scss');
+
+QJ = _dereq_('qj/src/qj.coffee');
+
+payment = _dereq_('payment/src/payment');
+
+extend = _dereq_('node.extend');
+
+Card = (function() {
+  var bindVal;
+
+  Card.prototype.cardTemplate = '' + '<div class="jp-card-container">' + '<div class="jp-card">' + '<div class="jp-card-front">' + '<div class="jp-card-logo jp-card-elo">' + '<div class="e">e</div>' + '<div class="l">l</div>' + '<div class="o">o</div>' + '</div>' + '<div class="jp-card-logo jp-card-visa">visa</div>' + '<div class="jp-card-logo jp-card-mastercard">MasterCard</div>' + '<div class="jp-card-logo jp-card-maestro">Maestro</div>' + '<div class="jp-card-logo jp-card-amex"></div>' + '<div class="jp-card-logo jp-card-discover">discover</div>' + '<div class="jp-card-logo jp-card-dankort"><div class="dk"><div class="d"></div><div class="k"></div></div></div>' + '<div class="jp-card-lower">' + '<div class="jp-card-shiny"></div>' + '<div class="jp-card-cvc jp-card-display">{{cvc}}</div>' + '<div class="jp-card-number jp-card-display">{{number}}</div>' + '<div class="jp-card-name jp-card-display">{{name}}</div>' + '<div class="jp-card-expiry jp-card-display" data-before="{{monthYear}}" data-after="{{validDate}}">{{expiry}}</div>' + '</div>' + '</div>' + '<div class="jp-card-back">' + '<div class="jp-card-bar"></div>' + '<div class="jp-card-cvc jp-card-display">{{cvc}}</div>' + '<div class="jp-card-shiny"></div>' + '</div>' + '</div>' + '</div>';
+
+  Card.prototype.template = function(tpl, data) {
+    return tpl.replace(/\{\{(.*?)\}\}/g, function(match, key, str) {
+      return data[key];
+    });
+  };
+
+  Card.prototype.cardTypes = ['jp-card-amex', 'jp-card-dankort', 'jp-card-dinersclub', 'jp-card-discover', 'jp-card-jcb', 'jp-card-laser', 'jp-card-maestro', 'jp-card-mastercard', 'jp-card-unionpay', 'jp-card-visa', 'jp-card-visaelectron', 'jp-card-elo'];
+
+  Card.prototype.defaults = {
+    formatting: true,
+    formSelectors: {
+      numberInput: 'input[name="number"]',
+      expiryInput: 'input[name="expiry"]',
+      cvcInput: 'input[name="cvc"]',
+      nameInput: 'input[name="name"]'
+    },
+    cardSelectors: {
+      cardContainer: '.jp-card-container',
+      card: '.jp-card',
+      numberDisplay: '.jp-card-number',
+      expiryDisplay: '.jp-card-expiry',
+      cvcDisplay: '.jp-card-cvc',
+      nameDisplay: '.jp-card-name'
+    },
+    messages: {
+      validDate: 'valid\nthru',
+      monthYear: 'month/year'
+    },
+    placeholders: {
+      number: '&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;',
+      cvc: '&bull;&bull;&bull;',
+      expiry: '&bull;&bull;/&bull;&bull;',
+      name: 'Full Name'
+    },
+    classes: {
+      valid: 'jp-card-valid',
+      invalid: 'jp-card-invalid'
+    },
+    debug: false
+  };
+
+  function Card(opts) {
+    this.options = extend(true, this.defaults, opts);
+    if (!this.options.form) {
+      console.log("Please provide a form");
+      return;
+    }
+    this.$el = QJ(this.options.form);
+    if (!this.options.container) {
+      console.log("Please provide a container");
+      return;
+    }
+    this.$container = QJ(this.options.container);
+    this.render();
+    this.attachHandlers();
+    this.handleInitialPlaceholders();
+  }
+
+  Card.prototype.render = function() {
+    var $cardContainer, baseWidth, name, obj, ref, ref1, selector, ua;
+    QJ.append(this.$container, this.template(this.cardTemplate, extend({}, this.options.messages, this.options.placeholders)));
+    ref = this.options.cardSelectors;
+    for (name in ref) {
+      selector = ref[name];
+      this["$" + name] = QJ.find(this.$container, selector);
+    }
+    ref1 = this.options.formSelectors;
+    for (name in ref1) {
+      selector = ref1[name];
+      selector = this.options[name] ? this.options[name] : selector;
+      obj = QJ.find(this.$el, selector);
+      if (!obj.length && this.options.debug) {
+        console.error("Card can't find a " + name + " in your form.");
+      }
+      this["$" + name] = obj;
+    }
+    if (this.options.formatting) {
+      Payment.formatCardNumber(this.$numberInput);
+      Payment.formatCardCVC(this.$cvcInput);
+      Payment.formatCardExpiry(this.$expiryInput);
+    }
+    if (this.options.width) {
+      $cardContainer = QJ(this.options.cardSelectors.cardContainer)[0];
+      baseWidth = parseInt($cardContainer.clientWidth);
+      $cardContainer.style.transform = "scale(" + (this.options.width / baseWidth) + ")";
+    }
+    if (typeof navigator !== "undefined" && navigator !== null ? navigator.userAgent : void 0) {
+      ua = navigator.userAgent.toLowerCase();
+      if (ua.indexOf('safari') !== -1 && ua.indexOf('chrome') === -1) {
+        QJ.addClass(this.$card, 'jp-card-safari');
+      }
+    }
+    if (/MSIE 10\./i.test(navigator.userAgent)) {
+      QJ.addClass(this.$card, 'jp-card-ie-10');
+    }
+    if (/rv:11.0/i.test(navigator.userAgent)) {
+      return QJ.addClass(this.$card, 'jp-card-ie-11');
+    }
+  };
+
+  Card.prototype.attachHandlers = function() {
+    var expiryFilters;
+    bindVal(this.$numberInput, this.$numberDisplay, {
+      fill: false,
+      filters: this.validToggler('cardNumber')
+    });
+    QJ.on(this.$numberInput, 'payment.cardType', this.handle('setCardType'));
+    expiryFilters = [
+      function(val) {
+        return val.replace(/(\s+)/g, '');
+      }
+    ];
+    expiryFilters.push(this.validToggler('cardExpiry'));
+    bindVal(this.$expiryInput, this.$expiryDisplay, {
+      join: function(text) {
+        if (text[0].length === 2 || text[1]) {
+          return "/";
+        } else {
+          return "";
+        }
+      },
+      filters: expiryFilters
+    });
+    bindVal(this.$cvcInput, this.$cvcDisplay, {
+      filters: this.validToggler('cardCVC')
+    });
+    QJ.on(this.$cvcInput, 'focus', this.handle('flipCard'));
+    QJ.on(this.$cvcInput, 'blur', this.handle('unflipCard'));
+    return bindVal(this.$nameInput, this.$nameDisplay, {
+      fill: false,
+      filters: this.validToggler('cardHolderName'),
+      join: ' '
+    });
+  };
+
+  Card.prototype.handleInitialPlaceholders = function() {
+    var el, name, ref, results, selector;
+    ref = this.options.formSelectors;
+    results = [];
+    for (name in ref) {
+      selector = ref[name];
+      el = this["$" + name];
+      if (QJ.val(el)) {
+        QJ.trigger(el, 'paste');
+        results.push(setTimeout(function() {
+          return QJ.trigger(el, 'keyup');
+        }));
+      } else {
+        results.push(void 0);
+      }
+    }
+    return results;
+  };
+
+  Card.prototype.handle = function(fn) {
+    return (function(_this) {
+      return function(e) {
+        var args;
+        args = Array.prototype.slice.call(arguments);
+        args.unshift(e.target);
+        return _this.handlers[fn].apply(_this, args);
+      };
+    })(this);
+  };
+
+  Card.prototype.validToggler = function(validatorName) {
+    var isValid;
+    if (validatorName === "cardExpiry") {
+      isValid = function(val) {
+        var objVal;
+        objVal = Payment.fns.cardExpiryVal(val);
+        return Payment.fns.validateCardExpiry(objVal.month, objVal.year);
+      };
+    } else if (validatorName === "cardCVC") {
+      isValid = (function(_this) {
+        return function(val) {
+          return Payment.fns.validateCardCVC(val, _this.cardType);
+        };
+      })(this);
+    } else if (validatorName === "cardNumber") {
+      isValid = function(val) {
+        return Payment.fns.validateCardNumber(val);
+      };
+    } else if (validatorName === "cardHolderName") {
+      isValid = function(val) {
+        return val !== "";
+      };
+    }
+    return (function(_this) {
+      return function(val, $in, $out) {
+        var result;
+        result = isValid(val);
+        _this.toggleValidClass($in, result);
+        _this.toggleValidClass($out, result);
+        return val;
+      };
+    })(this);
+  };
+
+  Card.prototype.toggleValidClass = function(el, test) {
+    QJ.toggleClass(el, this.options.classes.valid, test);
+    return QJ.toggleClass(el, this.options.classes.invalid, !test);
+  };
+
+  Card.prototype.handlers = {
+    setCardType: function($el, e) {
+      var cardType;
+      cardType = e.data;
+      if (!QJ.hasClass(this.$card, cardType)) {
+        QJ.removeClass(this.$card, 'jp-card-unknown');
+        QJ.removeClass(this.$card, this.cardTypes.join(' '));
+        QJ.addClass(this.$card, "jp-card-" + cardType);
+        QJ.toggleClass(this.$card, 'jp-card-identified', cardType !== 'unknown');
+        return this.cardType = cardType;
+      }
+    },
+    flipCard: function() {
+      return QJ.addClass(this.$card, 'jp-card-flipped');
+    },
+    unflipCard: function() {
+      return QJ.removeClass(this.$card, 'jp-card-flipped');
+    }
+  };
+
+  bindVal = function(el, out, opts) {
+    var joiner, o, outDefaults;
+    if (opts == null) {
+      opts = {};
+    }
+    opts.fill = opts.fill || false;
+    opts.filters = opts.filters || [];
+    if (!(opts.filters instanceof Array)) {
+      opts.filters = [opts.filters];
+    }
+    opts.join = opts.join || "";
+    if (!(typeof opts.join === "function")) {
+      joiner = opts.join;
+      opts.join = function() {
+        return joiner;
+      };
+    }
+    outDefaults = (function() {
+      var j, len, results;
+      results = [];
+      for (j = 0, len = out.length; j < len; j++) {
+        o = out[j];
+        results.push(o.textContent);
+      }
+      return results;
+    })();
+    QJ.on(el, 'focus', function() {
+      return QJ.addClass(out, 'jp-card-focused');
+    });
+    QJ.on(el, 'blur', function() {
+      return QJ.removeClass(out, 'jp-card-focused');
+    });
+    QJ.on(el, 'keyup change paste', function(e) {
+      var elem, filter, i, j, join, k, len, len1, outEl, outVal, ref, results, val;
+      val = (function() {
+        var j, len, results;
+        results = [];
+        for (j = 0, len = el.length; j < len; j++) {
+          elem = el[j];
+          results.push(QJ.val(elem));
+        }
+        return results;
+      })();
+      join = opts.join(val);
+      val = val.join(join);
+      if (val === join) {
+        val = "";
+      }
+      ref = opts.filters;
+      for (j = 0, len = ref.length; j < len; j++) {
+        filter = ref[j];
+        val = filter(val, el, out);
+      }
+      results = [];
+      for (i = k = 0, len1 = out.length; k < len1; i = ++k) {
+        outEl = out[i];
+        if (opts.fill) {
+          outVal = val + outDefaults[i].substring(val.length);
+        } else {
+          outVal = val || outDefaults[i];
+        }
+        results.push(outEl.textContent = outVal);
+      }
+      return results;
+    });
+    return el;
+  };
+
+  return Card;
+
+})();
+
+module.exports = Card;
+
+global.Card = Card;
+
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"../scss/card.scss":9,"node.extend":1,"payment/src/payment":4,"qj/src/qj.coffee":5}],9:[function(_dereq_,module,exports){
+module.exports = _dereq_('sassify')('.jp-card.jp-card-safari.jp-card-identified .jp-card-front:before, .jp-card.jp-card-safari.jp-card-identified .jp-card-back:before {   background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 1px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.03) 4px), repeating-linear-gradient(90deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(210deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), -webkit-linear-gradient(-245deg, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 70%, rgba(255, 255, 255, 0) 90%);   background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 1px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.03) 4px), repeating-linear-gradient(90deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(210deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), linear-gradient(-25deg, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 70%, rgba(255, 255, 255, 0) 90%); }  .jp-card.jp-card-ie-10.jp-card-flipped, .jp-card.jp-card-ie-11.jp-card-flipped {   -webkit-transform: 0deg;   -moz-transform: 0deg;   -ms-transform: 0deg;   -o-transform: 0deg;   transform: 0deg; }   .jp-card.jp-card-ie-10.jp-card-flipped .jp-card-front, .jp-card.jp-card-ie-11.jp-card-flipped .jp-card-front {     -webkit-transform: rotateY(0deg);     -moz-transform: rotateY(0deg);     -ms-transform: rotateY(0deg);     -o-transform: rotateY(0deg);     transform: rotateY(0deg); }   .jp-card.jp-card-ie-10.jp-card-flipped .jp-card-back, .jp-card.jp-card-ie-11.jp-card-flipped .jp-card-back {     -webkit-transform: rotateY(0deg);     -moz-transform: rotateY(0deg);     -ms-transform: rotateY(0deg);     -o-transform: rotateY(0deg);     transform: rotateY(0deg); }     .jp-card.jp-card-ie-10.jp-card-flipped .jp-card-back:after, .jp-card.jp-card-ie-11.jp-card-flipped .jp-card-back:after {       left: 18%; }     .jp-card.jp-card-ie-10.jp-card-flipped .jp-card-back .jp-card-cvc, .jp-card.jp-card-ie-11.jp-card-flipped .jp-card-back .jp-card-cvc {       -webkit-transform: rotateY(180deg);       -moz-transform: rotateY(180deg);       -ms-transform: rotateY(180deg);       -o-transform: rotateY(180deg);       transform: rotateY(180deg);       left: 5%; }     .jp-card.jp-card-ie-10.jp-card-flipped .jp-card-back .jp-card-shiny, .jp-card.jp-card-ie-11.jp-card-flipped .jp-card-back .jp-card-shiny {       left: 84%; }       .jp-card.jp-card-ie-10.jp-card-flipped .jp-card-back .jp-card-shiny:after, .jp-card.jp-card-ie-11.jp-card-flipped .jp-card-back .jp-card-shiny:after {         left: -480%;         -webkit-transform: rotateY(180deg);         -moz-transform: rotateY(180deg);         -ms-transform: rotateY(180deg);         -o-transform: rotateY(180deg);         transform: rotateY(180deg); }  .jp-card.jp-card-ie-10.jp-card-amex .jp-card-back, .jp-card.jp-card-ie-11.jp-card-amex .jp-card-back {   display: none; }  .jp-card-logo {   height: 36px;   width: 60px;   font-style: italic; }   .jp-card-logo, .jp-card-logo:before, .jp-card-logo:after {     box-sizing: border-box; }  .jp-card-logo.jp-card-amex {   text-transform: uppercase;   font-size: 4px;   font-weight: bold;   color: white;   background-image: repeating-radial-gradient(circle at center, #FFF 1px, #999 2px);   background-image: repeating-radial-gradient(circle at center, #FFF 1px, #999 2px);   border: 1px solid #EEE; }   .jp-card-logo.jp-card-amex:before, .jp-card-logo.jp-card-amex:after {     width: 28px;     display: block;     position: absolute;     left: 16px; }   .jp-card-logo.jp-card-amex:before {     height: 28px;     content: "american";     top: 3px;     text-align: left;     padding-left: 2px;     padding-top: 11px;     background: #267AC3; }   .jp-card-logo.jp-card-amex:after {     content: "express";     bottom: 11px;     text-align: right;     padding-right: 2px; }  .jp-card.jp-card-amex.jp-card-flipped {   -webkit-transform: none;   -moz-transform: none;   -ms-transform: none;   -o-transform: none;   transform: none; }  .jp-card.jp-card-amex.jp-card-identified .jp-card-front:before, .jp-card.jp-card-amex.jp-card-identified .jp-card-back:before {   background-color: #108168; }  .jp-card.jp-card-amex.jp-card-identified .jp-card-front .jp-card-logo.jp-card-amex {   opacity: 1; }  .jp-card.jp-card-amex.jp-card-identified .jp-card-front .jp-card-cvc {   visibility: visible; }  .jp-card.jp-card-amex.jp-card-identified .jp-card-front:after {   opacity: 1; }  .jp-card-logo.jp-card-discover {   background: #FF6600;   color: #111;   text-transform: uppercase;   font-style: normal;   font-weight: bold;   font-size: 10px;   text-align: center;   overflow: hidden;   z-index: 1;   padding-top: 9px;   letter-spacing: .03em;   border: 1px solid #EEE; }   .jp-card-logo.jp-card-discover:before, .jp-card-logo.jp-card-discover:after {     content: " ";     display: block;     position: absolute; }   .jp-card-logo.jp-card-discover:before {     background: white;     width: 200px;     height: 200px;     border-radius: 200px;     bottom: -5%;     right: -80%;     z-index: -1; }   .jp-card-logo.jp-card-discover:after {     width: 8px;     height: 8px;     border-radius: 4px;     top: 10px;     left: 27px;     background-color: #FF6600;     background-image: -webkit-radial-gradient(#FF6600, #fff);     background-image: radial-gradient(  #FF6600, #fff);     content: "network";     font-size: 4px;     line-height: 24px;     text-indent: -7px; }  .jp-card .jp-card-front .jp-card-logo.jp-card-discover {   right: 12%;   top: 18%; }  .jp-card.jp-card-discover.jp-card-identified .jp-card-front:before, .jp-card.jp-card-discover.jp-card-identified .jp-card-back:before {   background-color: #86B8CF; }  .jp-card.jp-card-discover.jp-card-identified .jp-card-logo.jp-card-discover {   opacity: 1; }  .jp-card.jp-card-discover.jp-card-identified .jp-card-front:after {   -webkit-transition: 400ms;   -moz-transition: 400ms;   transition: 400ms;   content: " ";   display: block;   background-color: #FF6600;   background-image: -webkit-linear-gradient(#FF6600, #ffa366, #FF6600);   background-image: linear-gradient(#FF6600, #ffa366, #FF6600);   height: 50px;   width: 50px;   border-radius: 25px;   position: absolute;   left: 100%;   top: 15%;   margin-left: -25px;   box-shadow: inset 1px 1px 3px 1px rgba(0, 0, 0, 0.5); }  .jp-card-logo.jp-card-visa {   background: white;   text-transform: uppercase;   color: #1A1876;   text-align: center;   font-weight: bold;   font-size: 15px;   line-height: 18px; }   .jp-card-logo.jp-card-visa:before, .jp-card-logo.jp-card-visa:after {     content: " ";     display: block;     width: 100%;     height: 25%; }   .jp-card-logo.jp-card-visa:before {     background: #1A1876; }   .jp-card-logo.jp-card-visa:after {     background: #E79800; }  .jp-card.jp-card-visa.jp-card-identified .jp-card-front:before, .jp-card.jp-card-visa.jp-card-identified .jp-card-back:before {   background-color: #191278; }  .jp-card.jp-card-visa.jp-card-identified .jp-card-logo.jp-card-visa {   opacity: 1; }  .jp-card-logo.jp-card-mastercard {   color: white;   font-weight: bold;   text-align: center;   font-size: 9px;   line-height: 36px;   z-index: 1;   text-shadow: 1px 1px rgba(0, 0, 0, 0.6); }   .jp-card-logo.jp-card-mastercard:before, .jp-card-logo.jp-card-mastercard:after {     content: " ";     display: block;     width: 36px;     top: 0;     position: absolute;     height: 36px;     border-radius: 18px; }   .jp-card-logo.jp-card-mastercard:before {     left: 0;     background: #FF0000;     z-index: -1; }   .jp-card-logo.jp-card-mastercard:after {     right: 0;     background: #FFAB00;     z-index: -2; }  .jp-card.jp-card-mastercard.jp-card-identified .jp-card-front .jp-card-logo.jp-card-mastercard, .jp-card.jp-card-mastercard.jp-card-identified .jp-card-back .jp-card-logo.jp-card-mastercard {   box-shadow: none; }  .jp-card.jp-card-mastercard.jp-card-identified .jp-card-front:before, .jp-card.jp-card-mastercard.jp-card-identified .jp-card-back:before {   background-color: #0061A8; }  .jp-card.jp-card-mastercard.jp-card-identified .jp-card-logo.jp-card-mastercard {   opacity: 1; }  .jp-card-logo.jp-card-maestro {   color: white;   font-weight: bold;   text-align: center;   font-size: 14px;   line-height: 36px;   z-index: 1;   text-shadow: 1px 1px rgba(0, 0, 0, 0.6); }   .jp-card-logo.jp-card-maestro:before, .jp-card-logo.jp-card-maestro:after {     content: " ";     display: block;     width: 36px;     top: 0;     position: absolute;     height: 36px;     border-radius: 18px; }   .jp-card-logo.jp-card-maestro:before {     left: 0;     background: #0064CB;     z-index: -1; }   .jp-card-logo.jp-card-maestro:after {     right: 0;     background: #CC0000;     z-index: -2; }  .jp-card.jp-card-maestro.jp-card-identified .jp-card-front .jp-card-logo.jp-card-maestro, .jp-card.jp-card-maestro.jp-card-identified .jp-card-back .jp-card-logo.jp-card-maestro {   box-shadow: none; }  .jp-card.jp-card-maestro.jp-card-identified .jp-card-front:before, .jp-card.jp-card-maestro.jp-card-identified .jp-card-back:before {   background-color: #0B2C5F; }  .jp-card.jp-card-maestro.jp-card-identified .jp-card-logo.jp-card-maestro {   opacity: 1; }  .jp-card-logo.jp-card-dankort {   width: 60px;   height: 36px;   padding: 3px;   border-radius: 8px;   border: #000000 1px solid;   background-color: #FFFFFF; }   .jp-card-logo.jp-card-dankort .dk {     position: relative;     width: 100%;     height: 100%;     overflow: hidden; }     .jp-card-logo.jp-card-dankort .dk:before {       background-color: #ED1C24;       content: \'\';       position: absolute;       width: 100%;       height: 100%;       display: block;       border-radius: 6px; }     .jp-card-logo.jp-card-dankort .dk:after {       content: \'\';       position: absolute;       top: 50%;       margin-top: -7.7px;       right: 0;       width: 0;       height: 0;       border-style: solid;       border-width: 7px 7px 10px 0;       border-color: transparent #ED1C24 transparent transparent;       z-index: 1; }   .jp-card-logo.jp-card-dankort .d, .jp-card-logo.jp-card-dankort .k {     position: absolute;     top: 50%;     width: 50%;     display: block;     height: 15.4px;     margin-top: -7.7px;     background: white; }   .jp-card-logo.jp-card-dankort .d {     left: 0;     border-radius: 0 8px 10px 0; }     .jp-card-logo.jp-card-dankort .d:before {       content: \'\';       position: absolute;       top: 50%;       left: 50%;       display: block;       background: #ED1C24;       border-radius: 2px 4px 6px 0px;       height: 5px;       width: 7px;       margin: -3px 0 0 -4px; }   .jp-card-logo.jp-card-dankort .k {     right: 0; }     .jp-card-logo.jp-card-dankort .k:before, .jp-card-logo.jp-card-dankort .k:after {       content: \'\';       position: absolute;       right: 50%;       width: 0;       height: 0;       border-style: solid;       margin-right: -1px; }     .jp-card-logo.jp-card-dankort .k:before {       top: 0;       border-width: 8px 5px 0 0;       border-color: #ED1C24 transparent transparent transparent; }     .jp-card-logo.jp-card-dankort .k:after {       bottom: 0;       border-width: 0 5px 8px 0;       border-color: transparent transparent #ED1C24 transparent; }  .jp-card.jp-card-dankort.jp-card-identified .jp-card-front:before, .jp-card.jp-card-dankort.jp-card-identified .jp-card-back:before {   background-color: #0055C7; }  .jp-card.jp-card-dankort.jp-card-identified .jp-card-logo.jp-card-dankort {   opacity: 1; }  .jp-card-logo.jp-card-elo {   height: 50px;   width: 50px;   border-radius: 100%;   background: black;   color: white;   text-align: center;   text-transform: lowercase;   font-size: 21px;   font-style: normal;   letter-spacing: 1px;   font-weight: bold;   padding-top: 13px; }   .jp-card-logo.jp-card-elo .e, .jp-card-logo.jp-card-elo .l, .jp-card-logo.jp-card-elo .o {     display: inline-block;     position: relative; }   .jp-card-logo.jp-card-elo .e {     -webkit-transform: rotate(-15deg);     -moz-transform: rotate(-15deg);     -ms-transform: rotate(-15deg);     -o-transform: rotate(-15deg);     transform: rotate(-15deg); }   .jp-card-logo.jp-card-elo .o {     position: relative;     display: inline-block;     width: 12px;     height: 12px;     right: 0;     top: 7px;     border-radius: 100%;     background-image: -webkit-linear-gradient( yellow 50%, red 50%);     background-image: linear-gradient( yellow 50%, red 50%);     -webkit-transform: rotate(40deg);     -moz-transform: rotate(40deg);     -ms-transform: rotate(40deg);     -o-transform: rotate(40deg);     transform: rotate(40deg);     text-indent: -9999px; }     .jp-card-logo.jp-card-elo .o:before {       content: "";       position: absolute;       width: 49%;       height: 49%;       background: black;       border-radius: 100%;       text-indent: -99999px;       top: 25%;       left: 25%; }  .jp-card.jp-card-elo.jp-card-identified .jp-card-front:before, .jp-card.jp-card-elo.jp-card-identified .jp-card-back:before {   background-color: #6F6969; }  .jp-card.jp-card-elo.jp-card-identified .jp-card-logo.jp-card-elo {   opacity: 1; }  .jp-card-container {   -webkit-perspective: 1000px;   -moz-perspective: 1000px;   perspective: 1000px;   width: 350px;   max-width: 100%;   height: 200px;   margin: auto;   z-index: 1;   position: relative; }  .jp-card {   font-family: "Helvetica Neue";   line-height: 1;   position: relative;   width: 100%;   height: 100%;   min-width: 315px;   border-radius: 10px;   -webkit-transform-style: preserve-3d;   -moz-transform-style: preserve-3d;   -ms-transform-style: preserve-3d;   -o-transform-style: preserve-3d;   transform-style: preserve-3d;   -webkit-transition: all 400ms linear;   -moz-transition: all 400ms linear;   transition: all 400ms linear; }   .jp-card > *, .jp-card > *:before, .jp-card > *:after {     -moz-box-sizing: border-box;     -webkit-box-sizing: border-box;     box-sizing: border-box;     font-family: inherit; }   .jp-card.jp-card-flipped {     -webkit-transform: rotateY(180deg);     -moz-transform: rotateY(180deg);     -ms-transform: rotateY(180deg);     -o-transform: rotateY(180deg);     transform: rotateY(180deg); }   .jp-card .jp-card-front, .jp-card .jp-card-back {     -webkit-backface-visibility: hidden;     backface-visibility: hidden;     -webkit-transform-style: preserve-3d;     -moz-transform-style: preserve-3d;     -ms-transform-style: preserve-3d;     -o-transform-style: preserve-3d;     transform-style: preserve-3d;     -webkit-transition: all 400ms linear;     -moz-transition: all 400ms linear;     transition: all 400ms linear;     width: 100%;     height: 100%;     position: absolute;     top: 0;     left: 0;     overflow: hidden;     border-radius: 10px;     background: #DDD; }     .jp-card .jp-card-front:before, .jp-card .jp-card-back:before {       content: " ";       display: block;       position: absolute;       width: 100%;       height: 100%;       top: 0;       left: 0;       opacity: 0;       border-radius: 10px;       -webkit-transition: all 400ms ease;       -moz-transition: all 400ms ease;       transition: all 400ms ease; }     .jp-card .jp-card-front:after, .jp-card .jp-card-back:after {       content: " ";       display: block; }     .jp-card .jp-card-front .jp-card-display, .jp-card .jp-card-back .jp-card-display {       color: white;       font-weight: normal;       opacity: 0.5;       -webkit-transition: opacity 400ms linear;       -moz-transition: opacity 400ms linear;       transition: opacity 400ms linear; }       .jp-card .jp-card-front .jp-card-display.jp-card-focused, .jp-card .jp-card-back .jp-card-display.jp-card-focused {         opacity: 1;         font-weight: 700; }     .jp-card .jp-card-front .jp-card-cvc, .jp-card .jp-card-back .jp-card-cvc {       font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;       font-size: 14px; }     .jp-card .jp-card-front .jp-card-shiny, .jp-card .jp-card-back .jp-card-shiny {       width: 50px;       height: 35px;       border-radius: 5px;       background: #CCC;       position: relative; }       .jp-card .jp-card-front .jp-card-shiny:before, .jp-card .jp-card-back .jp-card-shiny:before {         content: " ";         display: block;         width: 70%;         height: 60%;         border-top-right-radius: 5px;         border-bottom-right-radius: 5px;         background: #d9d9d9;         position: absolute;         top: 20%; }   .jp-card .jp-card-front .jp-card-logo {     position: absolute;     opacity: 0;     right: 5%;     top: 8%;     -webkit-transition: 400ms;     -moz-transition: 400ms;     transition: 400ms; }   .jp-card .jp-card-front .jp-card-lower {     width: 80%;     position: absolute;     left: 10%;     bottom: 30px; }     @media only screen and (max-width: 480px) {       .jp-card .jp-card-front .jp-card-lower {         width: 90%;         left: 5%; } }     .jp-card .jp-card-front .jp-card-lower .jp-card-cvc {       visibility: hidden;       float: right;       position: relative;       bottom: 5px; }     .jp-card .jp-card-front .jp-card-lower .jp-card-number {       font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;       font-size: 24px;       clear: both;       margin-bottom: 30px; }     .jp-card .jp-card-front .jp-card-lower .jp-card-expiry {       font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;       letter-spacing: 0em;       position: relative;       float: right;       width: 25%; }       .jp-card .jp-card-front .jp-card-lower .jp-card-expiry:before, .jp-card .jp-card-front .jp-card-lower .jp-card-expiry:after {         font-family: "Helvetica Neue";         font-weight: bold;         font-size: 7px;         white-space: pre;         display: block;         opacity: .5; }       .jp-card .jp-card-front .jp-card-lower .jp-card-expiry:before {         content: attr(data-before);         margin-bottom: 2px;         font-size: 7px;         text-transform: uppercase; }       .jp-card .jp-card-front .jp-card-lower .jp-card-expiry:after {         position: absolute;         content: attr(data-after);         text-align: right;         right: 100%;         margin-right: 5px;         margin-top: 2px;         bottom: 0; }     .jp-card .jp-card-front .jp-card-lower .jp-card-name {       text-transform: uppercase;       font-family: "Bitstream Vera Sans Mono", Consolas, Courier, monospace;       font-size: 20px;       max-height: 45px;       position: absolute;       bottom: 0;       width: 190px;       display: -webkit-box;       -webkit-line-clamp: 2;       -webkit-box-orient: horizontal;       overflow: hidden;       text-overflow: ellipsis; }   .jp-card .jp-card-back {     -webkit-transform: rotateY(180deg);     -moz-transform: rotateY(180deg);     -ms-transform: rotateY(180deg);     -o-transform: rotateY(180deg);     transform: rotateY(180deg); }     .jp-card .jp-card-back .jp-card-bar {       background-color: #444;       background-image: -webkit-linear-gradient(#444, #333);       background-image: linear-gradient(#444, #333);       width: 100%;       height: 20%;       position: absolute;       top: 10%; }     .jp-card .jp-card-back:after {       content: " ";       display: block;       background-color: #FFF;       background-image: -webkit-linear-gradient(#FFF, #FFF);       background-image: linear-gradient(#FFF, #FFF);       width: 80%;       height: 16%;       position: absolute;       top: 40%;       left: 2%; }     .jp-card .jp-card-back .jp-card-cvc {       position: absolute;       top: 40%;       left: 85%;       -webkit-transition-delay: 600ms;       -moz-transition-delay: 600ms;       transition-delay: 600ms; }     .jp-card .jp-card-back .jp-card-shiny {       position: absolute;       top: 66%;       left: 2%; }       .jp-card .jp-card-back .jp-card-shiny:after {         content: "This card has been issued by Jesse Pollak and is licensed for anyone to use anywhere for free.\AIt comes with no warranty.\A For support issues, please visit: github.com/jessepollak/card.";         position: absolute;         left: 120%;         top: 5%;         color: white;         font-size: 7px;         width: 230px;         opacity: .5; }   .jp-card.jp-card-identified {     box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); }     .jp-card.jp-card-identified .jp-card-front, .jp-card.jp-card-identified .jp-card-back {       background-color: #000;       background-color: rgba(0, 0, 0, 0.5); }       .jp-card.jp-card-identified .jp-card-front:before, .jp-card.jp-card-identified .jp-card-back:before {         -webkit-transition: all 400ms ease;         -moz-transition: all 400ms ease;         transition: all 400ms ease;         background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 1px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.03) 4px), repeating-linear-gradient(90deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(210deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-radial-gradient(circle at 15% 80%, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), -webkit-linear-gradient(-245deg, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 70%, rgba(255, 255, 255, 0) 90%);         background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 1px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.03) 4px), repeating-linear-gradient(90deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(210deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-radial-gradient(circle at 90% 20%, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-radial-gradient(circle at 15% 80%, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), linear-gradient(-25deg, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 70%, rgba(255, 255, 255, 0) 90%);         opacity: 1; }       .jp-card.jp-card-identified .jp-card-front .jp-card-logo, .jp-card.jp-card-identified .jp-card-back .jp-card-logo {         box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3); }     .jp-card.jp-card-identified.no-radial-gradient .jp-card-front:before, .jp-card.jp-card-identified.no-radial-gradient .jp-card-back:before {       background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 1px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.03) 4px), repeating-linear-gradient(90deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(210deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), -webkit-linear-gradient(-245deg, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 70%, rgba(255, 255, 255, 0) 90%);       background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.05) 1px, rgba(255, 255, 255, 0) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.03) 4px), repeating-linear-gradient(90deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), repeating-linear-gradient(210deg, rgba(255, 255, 255, 0) 1px, rgba(255, 255, 255, 0.03) 2px, rgba(255, 255, 255, 0.04) 3px, rgba(255, 255, 255, 0.05) 4px), linear-gradient(-25deg, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.2) 70%, rgba(255, 255, 255, 0) 90%); } ');;
+},{"sassify":6}]},{},[8])(8)
+});
 /* Chosen v1.4.2 | (c) 2011-2015 by Harvest | MIT License, https://github.com/harvesthq/chosen/blob/master/LICENSE.md */
 (function(){var a,AbstractChosen,Chosen,SelectParser,b,c={}.hasOwnProperty,d=function(a,b){function d(){this.constructor=a}for(var e in b)c.call(b,e)&&(a[e]=b[e]);return d.prototype=b.prototype,a.prototype=new d,a.__super__=b.prototype,a};SelectParser=function(){function SelectParser(){this.options_index=0,this.parsed=[]}return SelectParser.prototype.add_node=function(a){return"OPTGROUP"===a.nodeName.toUpperCase()?this.add_group(a):this.add_option(a)},SelectParser.prototype.add_group=function(a){var b,c,d,e,f,g;for(b=this.parsed.length,this.parsed.push({array_index:b,group:!0,label:this.escapeExpression(a.label),title:a.title?a.title:void 0,children:0,disabled:a.disabled,classes:a.className}),f=a.childNodes,g=[],d=0,e=f.length;e>d;d++)c=f[d],g.push(this.add_option(c,b,a.disabled));return g},SelectParser.prototype.add_option=function(a,b,c){return"OPTION"===a.nodeName.toUpperCase()?(""!==a.text?(null!=b&&(this.parsed[b].children+=1),this.parsed.push({array_index:this.parsed.length,options_index:this.options_index,value:a.value,text:a.text,html:a.innerHTML,title:a.title?a.title:void 0,selected:a.selected,disabled:c===!0?c:a.disabled,group_array_index:b,group_label:null!=b?this.parsed[b].label:null,classes:a.className,style:a.style.cssText})):this.parsed.push({array_index:this.parsed.length,options_index:this.options_index,empty:!0}),this.options_index+=1):void 0},SelectParser.prototype.escapeExpression=function(a){var b,c;return null==a||a===!1?"":/[\&\<\>\"\'\`]/.test(a)?(b={"<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#x27;","`":"&#x60;"},c=/&(?!\w+;)|[\<\>\"\'\`]/g,a.replace(c,function(a){return b[a]||"&amp;"})):a},SelectParser}(),SelectParser.select_to_array=function(a){var b,c,d,e,f;for(c=new SelectParser,f=a.childNodes,d=0,e=f.length;e>d;d++)b=f[d],c.add_node(b);return c.parsed},AbstractChosen=function(){function AbstractChosen(a,b){this.form_field=a,this.options=null!=b?b:{},AbstractChosen.browser_is_supported()&&(this.is_multiple=this.form_field.multiple,this.set_default_text(),this.set_default_values(),this.setup(),this.set_up_html(),this.register_observers(),this.on_ready())}return AbstractChosen.prototype.set_default_values=function(){var a=this;return this.click_test_action=function(b){return a.test_active_click(b)},this.activate_action=function(b){return a.activate_field(b)},this.active_field=!1,this.mouse_on_container=!1,this.results_showing=!1,this.result_highlighted=null,this.allow_single_deselect=null!=this.options.allow_single_deselect&&null!=this.form_field.options[0]&&""===this.form_field.options[0].text?this.options.allow_single_deselect:!1,this.disable_search_threshold=this.options.disable_search_threshold||0,this.disable_search=this.options.disable_search||!1,this.enable_split_word_search=null!=this.options.enable_split_word_search?this.options.enable_split_word_search:!0,this.group_search=null!=this.options.group_search?this.options.group_search:!0,this.search_contains=this.options.search_contains||!1,this.single_backstroke_delete=null!=this.options.single_backstroke_delete?this.options.single_backstroke_delete:!0,this.max_selected_options=this.options.max_selected_options||1/0,this.inherit_select_classes=this.options.inherit_select_classes||!1,this.display_selected_options=null!=this.options.display_selected_options?this.options.display_selected_options:!0,this.display_disabled_options=null!=this.options.display_disabled_options?this.options.display_disabled_options:!0,this.include_group_label_in_selected=this.options.include_group_label_in_selected||!1},AbstractChosen.prototype.set_default_text=function(){return this.default_text=this.form_field.getAttribute("data-placeholder")?this.form_field.getAttribute("data-placeholder"):this.is_multiple?this.options.placeholder_text_multiple||this.options.placeholder_text||AbstractChosen.default_multiple_text:this.options.placeholder_text_single||this.options.placeholder_text||AbstractChosen.default_single_text,this.results_none_found=this.form_field.getAttribute("data-no_results_text")||this.options.no_results_text||AbstractChosen.default_no_result_text},AbstractChosen.prototype.choice_label=function(a){return this.include_group_label_in_selected&&null!=a.group_label?"<b class='group-name'>"+a.group_label+"</b>"+a.html:a.html},AbstractChosen.prototype.mouse_enter=function(){return this.mouse_on_container=!0},AbstractChosen.prototype.mouse_leave=function(){return this.mouse_on_container=!1},AbstractChosen.prototype.input_focus=function(){var a=this;if(this.is_multiple){if(!this.active_field)return setTimeout(function(){return a.container_mousedown()},50)}else if(!this.active_field)return this.activate_field()},AbstractChosen.prototype.input_blur=function(){var a=this;return this.mouse_on_container?void 0:(this.active_field=!1,setTimeout(function(){return a.blur_test()},100))},AbstractChosen.prototype.results_option_build=function(a){var b,c,d,e,f;for(b="",f=this.results_data,d=0,e=f.length;e>d;d++)c=f[d],b+=c.group?this.result_add_group(c):this.result_add_option(c),(null!=a?a.first:void 0)&&(c.selected&&this.is_multiple?this.choice_build(c):c.selected&&!this.is_multiple&&this.single_set_selected_text(this.choice_label(c)));return b},AbstractChosen.prototype.result_add_option=function(a){var b,c;return a.search_match&&this.include_option_in_results(a)?(b=[],a.disabled||a.selected&&this.is_multiple||b.push("active-result"),!a.disabled||a.selected&&this.is_multiple||b.push("disabled-result"),a.selected&&b.push("result-selected"),null!=a.group_array_index&&b.push("group-option"),""!==a.classes&&b.push(a.classes),c=document.createElement("li"),c.className=b.join(" "),c.style.cssText=a.style,c.setAttribute("data-option-array-index",a.array_index),c.innerHTML=a.search_text,a.title&&(c.title=a.title),this.outerHTML(c)):""},AbstractChosen.prototype.result_add_group=function(a){var b,c;return(a.search_match||a.group_match)&&a.active_options>0?(b=[],b.push("group-result"),a.classes&&b.push(a.classes),c=document.createElement("li"),c.className=b.join(" "),c.innerHTML=a.search_text,a.title&&(c.title=a.title),this.outerHTML(c)):""},AbstractChosen.prototype.results_update_field=function(){return this.set_default_text(),this.is_multiple||this.results_reset_cleanup(),this.result_clear_highlight(),this.results_build(),this.results_showing?this.winnow_results():void 0},AbstractChosen.prototype.reset_single_select_options=function(){var a,b,c,d,e;for(d=this.results_data,e=[],b=0,c=d.length;c>b;b++)a=d[b],e.push(a.selected?a.selected=!1:void 0);return e},AbstractChosen.prototype.results_toggle=function(){return this.results_showing?this.results_hide():this.results_show()},AbstractChosen.prototype.results_search=function(){return this.results_showing?this.winnow_results():this.results_show()},AbstractChosen.prototype.winnow_results=function(){var a,b,c,d,e,f,g,h,i,j,k,l;for(this.no_results_clear(),d=0,f=this.get_search_text(),a=f.replace(/[-[\]{}()*+?.,\\^$|#\s]/g,"\\$&"),i=new RegExp(a,"i"),c=this.get_search_regex(a),l=this.results_data,j=0,k=l.length;k>j;j++)b=l[j],b.search_match=!1,e=null,this.include_option_in_results(b)&&(b.group&&(b.group_match=!1,b.active_options=0),null!=b.group_array_index&&this.results_data[b.group_array_index]&&(e=this.results_data[b.group_array_index],0===e.active_options&&e.search_match&&(d+=1),e.active_options+=1),b.search_text=b.group?b.label:b.html,(!b.group||this.group_search)&&(b.search_match=this.search_string_match(b.search_text,c),b.search_match&&!b.group&&(d+=1),b.search_match?(f.length&&(g=b.search_text.search(i),h=b.search_text.substr(0,g+f.length)+"</em>"+b.search_text.substr(g+f.length),b.search_text=h.substr(0,g)+"<em>"+h.substr(g)),null!=e&&(e.group_match=!0)):null!=b.group_array_index&&this.results_data[b.group_array_index].search_match&&(b.search_match=!0)));return this.result_clear_highlight(),1>d&&f.length?(this.update_results_content(""),this.no_results(f)):(this.update_results_content(this.results_option_build()),this.winnow_results_set_highlight())},AbstractChosen.prototype.get_search_regex=function(a){var b;return b=this.search_contains?"":"^",new RegExp(b+a,"i")},AbstractChosen.prototype.search_string_match=function(a,b){var c,d,e,f;if(b.test(a))return!0;if(this.enable_split_word_search&&(a.indexOf(" ")>=0||0===a.indexOf("["))&&(d=a.replace(/\[|\]/g,"").split(" "),d.length))for(e=0,f=d.length;f>e;e++)if(c=d[e],b.test(c))return!0},AbstractChosen.prototype.choices_count=function(){var a,b,c,d;if(null!=this.selected_option_count)return this.selected_option_count;for(this.selected_option_count=0,d=this.form_field.options,b=0,c=d.length;c>b;b++)a=d[b],a.selected&&(this.selected_option_count+=1);return this.selected_option_count},AbstractChosen.prototype.choices_click=function(a){return a.preventDefault(),this.results_showing||this.is_disabled?void 0:this.results_show()},AbstractChosen.prototype.keyup_checker=function(a){var b,c;switch(b=null!=(c=a.which)?c:a.keyCode,this.search_field_scale(),b){case 8:if(this.is_multiple&&this.backstroke_length<1&&this.choices_count()>0)return this.keydown_backstroke();if(!this.pending_backstroke)return this.result_clear_highlight(),this.results_search();break;case 13:if(a.preventDefault(),this.results_showing)return this.result_select(a);break;case 27:return this.results_showing&&this.results_hide(),!0;case 9:case 38:case 40:case 16:case 91:case 17:break;default:return this.results_search()}},AbstractChosen.prototype.clipboard_event_checker=function(){var a=this;return setTimeout(function(){return a.results_search()},50)},AbstractChosen.prototype.container_width=function(){return null!=this.options.width?this.options.width:""+this.form_field.offsetWidth+"px"},AbstractChosen.prototype.include_option_in_results=function(a){return this.is_multiple&&!this.display_selected_options&&a.selected?!1:!this.display_disabled_options&&a.disabled?!1:a.empty?!1:!0},AbstractChosen.prototype.search_results_touchstart=function(a){return this.touch_started=!0,this.search_results_mouseover(a)},AbstractChosen.prototype.search_results_touchmove=function(a){return this.touch_started=!1,this.search_results_mouseout(a)},AbstractChosen.prototype.search_results_touchend=function(a){return this.touch_started?this.search_results_mouseup(a):void 0},AbstractChosen.prototype.outerHTML=function(a){var b;return a.outerHTML?a.outerHTML:(b=document.createElement("div"),b.appendChild(a),b.innerHTML)},AbstractChosen.browser_is_supported=function(){return"Microsoft Internet Explorer"===window.navigator.appName?document.documentMode>=8:/iP(od|hone)/i.test(window.navigator.userAgent)?!1:/Android/i.test(window.navigator.userAgent)&&/Mobile/i.test(window.navigator.userAgent)?!1:!0},AbstractChosen.default_multiple_text="Select Some Options",AbstractChosen.default_single_text="Select an Option",AbstractChosen.default_no_result_text="No results match",AbstractChosen}(),a=jQuery,a.fn.extend({chosen:function(b){return AbstractChosen.browser_is_supported()?this.each(function(){var c,d;c=a(this),d=c.data("chosen"),"destroy"===b&&d instanceof Chosen?d.destroy():d instanceof Chosen||c.data("chosen",new Chosen(this,b))}):this}}),Chosen=function(c){function Chosen(){return b=Chosen.__super__.constructor.apply(this,arguments)}return d(Chosen,c),Chosen.prototype.setup=function(){return this.form_field_jq=a(this.form_field),this.current_selectedIndex=this.form_field.selectedIndex,this.is_rtl=this.form_field_jq.hasClass("chosen-rtl")},Chosen.prototype.set_up_html=function(){var b,c;return b=["chosen-container"],b.push("chosen-container-"+(this.is_multiple?"multi":"single")),this.inherit_select_classes&&this.form_field.className&&b.push(this.form_field.className),this.is_rtl&&b.push("chosen-rtl"),c={"class":b.join(" "),style:"width: "+this.container_width()+";",title:this.form_field.title},this.form_field.id.length&&(c.id=this.form_field.id.replace(/[^\w]/g,"_")+"_chosen"),this.container=a("<div />",c),this.container.html(this.is_multiple?'<ul class="chosen-choices"><li class="search-field"><input type="text" value="'+this.default_text+'" class="default" autocomplete="off" style="width:25px;" /></li></ul><div class="chosen-drop"><ul class="chosen-results"></ul></div>':'<a class="chosen-single chosen-default" tabindex="-1"><span>'+this.default_text+'</span><div><b></b></div></a><div class="chosen-drop"><div class="chosen-search"><input type="text" autocomplete="off" /></div><ul class="chosen-results"></ul></div>'),this.form_field_jq.hide().after(this.container),this.dropdown=this.container.find("div.chosen-drop").first(),this.search_field=this.container.find("input").first(),this.search_results=this.container.find("ul.chosen-results").first(),this.search_field_scale(),this.search_no_results=this.container.find("li.no-results").first(),this.is_multiple?(this.search_choices=this.container.find("ul.chosen-choices").first(),this.search_container=this.container.find("li.search-field").first()):(this.search_container=this.container.find("div.chosen-search").first(),this.selected_item=this.container.find(".chosen-single").first()),this.results_build(),this.set_tab_index(),this.set_label_behavior()},Chosen.prototype.on_ready=function(){return this.form_field_jq.trigger("chosen:ready",{chosen:this})},Chosen.prototype.register_observers=function(){var a=this;return this.container.bind("touchstart.chosen",function(b){return a.container_mousedown(b),b.preventDefault()}),this.container.bind("touchend.chosen",function(b){return a.container_mouseup(b),b.preventDefault()}),this.container.bind("mousedown.chosen",function(b){a.container_mousedown(b)}),this.container.bind("mouseup.chosen",function(b){a.container_mouseup(b)}),this.container.bind("mouseenter.chosen",function(b){a.mouse_enter(b)}),this.container.bind("mouseleave.chosen",function(b){a.mouse_leave(b)}),this.search_results.bind("mouseup.chosen",function(b){a.search_results_mouseup(b)}),this.search_results.bind("mouseover.chosen",function(b){a.search_results_mouseover(b)}),this.search_results.bind("mouseout.chosen",function(b){a.search_results_mouseout(b)}),this.search_results.bind("mousewheel.chosen DOMMouseScroll.chosen",function(b){a.search_results_mousewheel(b)}),this.search_results.bind("touchstart.chosen",function(b){a.search_results_touchstart(b)}),this.search_results.bind("touchmove.chosen",function(b){a.search_results_touchmove(b)}),this.search_results.bind("touchend.chosen",function(b){a.search_results_touchend(b)}),this.form_field_jq.bind("chosen:updated.chosen",function(b){a.results_update_field(b)}),this.form_field_jq.bind("chosen:activate.chosen",function(b){a.activate_field(b)}),this.form_field_jq.bind("chosen:open.chosen",function(b){a.container_mousedown(b)}),this.form_field_jq.bind("chosen:close.chosen",function(b){a.input_blur(b)}),this.search_field.bind("blur.chosen",function(b){a.input_blur(b)}),this.search_field.bind("keyup.chosen",function(b){a.keyup_checker(b)}),this.search_field.bind("keydown.chosen",function(b){a.keydown_checker(b)}),this.search_field.bind("focus.chosen",function(b){a.input_focus(b)}),this.search_field.bind("cut.chosen",function(b){a.clipboard_event_checker(b)}),this.search_field.bind("paste.chosen",function(b){a.clipboard_event_checker(b)}),this.is_multiple?this.search_choices.bind("click.chosen",function(b){a.choices_click(b)}):this.container.bind("click.chosen",function(a){a.preventDefault()})},Chosen.prototype.destroy=function(){return a(this.container[0].ownerDocument).unbind("click.chosen",this.click_test_action),this.search_field[0].tabIndex&&(this.form_field_jq[0].tabIndex=this.search_field[0].tabIndex),this.container.remove(),this.form_field_jq.removeData("chosen"),this.form_field_jq.show()},Chosen.prototype.search_field_disabled=function(){return this.is_disabled=this.form_field_jq[0].disabled,this.is_disabled?(this.container.addClass("chosen-disabled"),this.search_field[0].disabled=!0,this.is_multiple||this.selected_item.unbind("focus.chosen",this.activate_action),this.close_field()):(this.container.removeClass("chosen-disabled"),this.search_field[0].disabled=!1,this.is_multiple?void 0:this.selected_item.bind("focus.chosen",this.activate_action))},Chosen.prototype.container_mousedown=function(b){return this.is_disabled||(b&&"mousedown"===b.type&&!this.results_showing&&b.preventDefault(),null!=b&&a(b.target).hasClass("search-choice-close"))?void 0:(this.active_field?this.is_multiple||!b||a(b.target)[0]!==this.selected_item[0]&&!a(b.target).parents("a.chosen-single").length||(b.preventDefault(),this.results_toggle()):(this.is_multiple&&this.search_field.val(""),a(this.container[0].ownerDocument).bind("click.chosen",this.click_test_action),this.results_show()),this.activate_field())},Chosen.prototype.container_mouseup=function(a){return"ABBR"!==a.target.nodeName||this.is_disabled?void 0:this.results_reset(a)},Chosen.prototype.search_results_mousewheel=function(a){var b;return a.originalEvent&&(b=a.originalEvent.deltaY||-a.originalEvent.wheelDelta||a.originalEvent.detail),null!=b?(a.preventDefault(),"DOMMouseScroll"===a.type&&(b=40*b),this.search_results.scrollTop(b+this.search_results.scrollTop())):void 0},Chosen.prototype.blur_test=function(){return!this.active_field&&this.container.hasClass("chosen-container-active")?this.close_field():void 0},Chosen.prototype.close_field=function(){return a(this.container[0].ownerDocument).unbind("click.chosen",this.click_test_action),this.active_field=!1,this.results_hide(),this.container.removeClass("chosen-container-active"),this.clear_backstroke(),this.show_search_field_default(),this.search_field_scale()},Chosen.prototype.activate_field=function(){return this.container.addClass("chosen-container-active"),this.active_field=!0,this.search_field.val(this.search_field.val()),this.search_field.focus()},Chosen.prototype.test_active_click=function(b){var c;return c=a(b.target).closest(".chosen-container"),c.length&&this.container[0]===c[0]?this.active_field=!0:this.close_field()},Chosen.prototype.results_build=function(){return this.parsing=!0,this.selected_option_count=null,this.results_data=SelectParser.select_to_array(this.form_field),this.is_multiple?this.search_choices.find("li.search-choice").remove():this.is_multiple||(this.single_set_selected_text(),this.disable_search||this.form_field.options.length<=this.disable_search_threshold?(this.search_field[0].readOnly=!0,this.container.addClass("chosen-container-single-nosearch")):(this.search_field[0].readOnly=!1,this.container.removeClass("chosen-container-single-nosearch"))),this.update_results_content(this.results_option_build({first:!0})),this.search_field_disabled(),this.show_search_field_default(),this.search_field_scale(),this.parsing=!1},Chosen.prototype.result_do_highlight=function(a){var b,c,d,e,f;if(a.length){if(this.result_clear_highlight(),this.result_highlight=a,this.result_highlight.addClass("highlighted"),d=parseInt(this.search_results.css("maxHeight"),10),f=this.search_results.scrollTop(),e=d+f,c=this.result_highlight.position().top+this.search_results.scrollTop(),b=c+this.result_highlight.outerHeight(),b>=e)return this.search_results.scrollTop(b-d>0?b-d:0);if(f>c)return this.search_results.scrollTop(c)}},Chosen.prototype.result_clear_highlight=function(){return this.result_highlight&&this.result_highlight.removeClass("highlighted"),this.result_highlight=null},Chosen.prototype.results_show=function(){return this.is_multiple&&this.max_selected_options<=this.choices_count()?(this.form_field_jq.trigger("chosen:maxselected",{chosen:this}),!1):(this.container.addClass("chosen-with-drop"),this.results_showing=!0,this.search_field.focus(),this.search_field.val(this.search_field.val()),this.winnow_results(),this.form_field_jq.trigger("chosen:showing_dropdown",{chosen:this}))},Chosen.prototype.update_results_content=function(a){return this.search_results.html(a)},Chosen.prototype.results_hide=function(){return this.results_showing&&(this.result_clear_highlight(),this.container.removeClass("chosen-with-drop"),this.form_field_jq.trigger("chosen:hiding_dropdown",{chosen:this})),this.results_showing=!1},Chosen.prototype.set_tab_index=function(){var a;return this.form_field.tabIndex?(a=this.form_field.tabIndex,this.form_field.tabIndex=-1,this.search_field[0].tabIndex=a):void 0},Chosen.prototype.set_label_behavior=function(){var b=this;return this.form_field_label=this.form_field_jq.parents("label"),!this.form_field_label.length&&this.form_field.id.length&&(this.form_field_label=a("label[for='"+this.form_field.id+"']")),this.form_field_label.length>0?this.form_field_label.bind("click.chosen",function(a){return b.is_multiple?b.container_mousedown(a):b.activate_field()}):void 0},Chosen.prototype.show_search_field_default=function(){return this.is_multiple&&this.choices_count()<1&&!this.active_field?(this.search_field.val(this.default_text),this.search_field.addClass("default")):(this.search_field.val(""),this.search_field.removeClass("default"))},Chosen.prototype.search_results_mouseup=function(b){var c;return c=a(b.target).hasClass("active-result")?a(b.target):a(b.target).parents(".active-result").first(),c.length?(this.result_highlight=c,this.result_select(b),this.search_field.focus()):void 0},Chosen.prototype.search_results_mouseover=function(b){var c;return c=a(b.target).hasClass("active-result")?a(b.target):a(b.target).parents(".active-result").first(),c?this.result_do_highlight(c):void 0},Chosen.prototype.search_results_mouseout=function(b){return a(b.target).hasClass("active-result")?this.result_clear_highlight():void 0},Chosen.prototype.choice_build=function(b){var c,d,e=this;return c=a("<li />",{"class":"search-choice"}).html("<span>"+this.choice_label(b)+"</span>"),b.disabled?c.addClass("search-choice-disabled"):(d=a("<a />",{"class":"search-choice-close","data-option-array-index":b.array_index}),d.bind("click.chosen",function(a){return e.choice_destroy_link_click(a)}),c.append(d)),this.search_container.before(c)},Chosen.prototype.choice_destroy_link_click=function(b){return b.preventDefault(),b.stopPropagation(),this.is_disabled?void 0:this.choice_destroy(a(b.target))},Chosen.prototype.choice_destroy=function(a){return this.result_deselect(a[0].getAttribute("data-option-array-index"))?(this.show_search_field_default(),this.is_multiple&&this.choices_count()>0&&this.search_field.val().length<1&&this.results_hide(),a.parents("li").first().remove(),this.search_field_scale()):void 0},Chosen.prototype.results_reset=function(){return this.reset_single_select_options(),this.form_field.options[0].selected=!0,this.single_set_selected_text(),this.show_search_field_default(),this.results_reset_cleanup(),this.form_field_jq.trigger("change"),this.active_field?this.results_hide():void 0},Chosen.prototype.results_reset_cleanup=function(){return this.current_selectedIndex=this.form_field.selectedIndex,this.selected_item.find("abbr").remove()},Chosen.prototype.result_select=function(a){var b,c;return this.result_highlight?(b=this.result_highlight,this.result_clear_highlight(),this.is_multiple&&this.max_selected_options<=this.choices_count()?(this.form_field_jq.trigger("chosen:maxselected",{chosen:this}),!1):(this.is_multiple?b.removeClass("active-result"):this.reset_single_select_options(),b.addClass("result-selected"),c=this.results_data[b[0].getAttribute("data-option-array-index")],c.selected=!0,this.form_field.options[c.options_index].selected=!0,this.selected_option_count=null,this.is_multiple?this.choice_build(c):this.single_set_selected_text(this.choice_label(c)),(a.metaKey||a.ctrlKey)&&this.is_multiple||this.results_hide(),this.search_field.val(""),(this.is_multiple||this.form_field.selectedIndex!==this.current_selectedIndex)&&this.form_field_jq.trigger("change",{selected:this.form_field.options[c.options_index].value}),this.current_selectedIndex=this.form_field.selectedIndex,a.preventDefault(),this.search_field_scale())):void 0},Chosen.prototype.single_set_selected_text=function(a){return null==a&&(a=this.default_text),a===this.default_text?this.selected_item.addClass("chosen-default"):(this.single_deselect_control_build(),this.selected_item.removeClass("chosen-default")),this.selected_item.find("span").html(a)},Chosen.prototype.result_deselect=function(a){var b;return b=this.results_data[a],this.form_field.options[b.options_index].disabled?!1:(b.selected=!1,this.form_field.options[b.options_index].selected=!1,this.selected_option_count=null,this.result_clear_highlight(),this.results_showing&&this.winnow_results(),this.form_field_jq.trigger("change",{deselected:this.form_field.options[b.options_index].value}),this.search_field_scale(),!0)},Chosen.prototype.single_deselect_control_build=function(){return this.allow_single_deselect?(this.selected_item.find("abbr").length||this.selected_item.find("span").first().after('<abbr class="search-choice-close"></abbr>'),this.selected_item.addClass("chosen-single-with-deselect")):void 0},Chosen.prototype.get_search_text=function(){return a("<div/>").text(a.trim(this.search_field.val())).html()},Chosen.prototype.winnow_results_set_highlight=function(){var a,b;return b=this.is_multiple?[]:this.search_results.find(".result-selected.active-result"),a=b.length?b.first():this.search_results.find(".active-result").first(),null!=a?this.result_do_highlight(a):void 0},Chosen.prototype.no_results=function(b){var c;return c=a('<li class="no-results">'+this.results_none_found+' "<span></span>"</li>'),c.find("span").first().html(b),this.search_results.append(c),this.form_field_jq.trigger("chosen:no_results",{chosen:this})},Chosen.prototype.no_results_clear=function(){return this.search_results.find(".no-results").remove()},Chosen.prototype.keydown_arrow=function(){var a;return this.results_showing&&this.result_highlight?(a=this.result_highlight.nextAll("li.active-result").first())?this.result_do_highlight(a):void 0:this.results_show()},Chosen.prototype.keyup_arrow=function(){var a;return this.results_showing||this.is_multiple?this.result_highlight?(a=this.result_highlight.prevAll("li.active-result"),a.length?this.result_do_highlight(a.first()):(this.choices_count()>0&&this.results_hide(),this.result_clear_highlight())):void 0:this.results_show()},Chosen.prototype.keydown_backstroke=function(){var a;return this.pending_backstroke?(this.choice_destroy(this.pending_backstroke.find("a").first()),this.clear_backstroke()):(a=this.search_container.siblings("li.search-choice").last(),a.length&&!a.hasClass("search-choice-disabled")?(this.pending_backstroke=a,this.single_backstroke_delete?this.keydown_backstroke():this.pending_backstroke.addClass("search-choice-focus")):void 0)},Chosen.prototype.clear_backstroke=function(){return this.pending_backstroke&&this.pending_backstroke.removeClass("search-choice-focus"),this.pending_backstroke=null},Chosen.prototype.keydown_checker=function(a){var b,c;switch(b=null!=(c=a.which)?c:a.keyCode,this.search_field_scale(),8!==b&&this.pending_backstroke&&this.clear_backstroke(),b){case 8:this.backstroke_length=this.search_field.val().length;break;case 9:this.results_showing&&!this.is_multiple&&this.result_select(a),this.mouse_on_container=!1;break;case 13:this.results_showing&&a.preventDefault();break;case 32:this.disable_search&&a.preventDefault();break;case 38:a.preventDefault(),this.keyup_arrow();break;case 40:a.preventDefault(),this.keydown_arrow()}},Chosen.prototype.search_field_scale=function(){var b,c,d,e,f,g,h,i,j;if(this.is_multiple){for(d=0,h=0,f="position:absolute; left: -1000px; top: -1000px; display:none;",g=["font-size","font-style","font-weight","font-family","line-height","text-transform","letter-spacing"],i=0,j=g.length;j>i;i++)e=g[i],f+=e+":"+this.search_field.css(e)+";";return b=a("<div />",{style:f}),b.text(this.search_field.val()),a("body").append(b),h=b.width()+25,b.remove(),c=this.container.outerWidth(),h>c-10&&(h=c-10),this.search_field.css({width:h+"px"})}},Chosen}(AbstractChosen)}).call(this);
 // Console-polyfill. MIT license.
@@ -41938,6 +43978,642 @@ if (jQuery) (function ($) {
         } catch (exception) {}
     }
 }));
+
+// Generated by CoffeeScript 1.7.1
+(function() {
+  var $, cardFromNumber, cardFromType, cards, defaultFormat, formatBackCardNumber, formatBackExpiry, formatCardNumber, formatExpiry, formatForwardExpiry, formatForwardSlashAndSpace, hasTextSelected, luhnCheck, reFormatCVC, reFormatCardNumber, reFormatExpiry, reFormatNumeric, replaceFullWidthChars, restrictCVC, restrictCardNumber, restrictExpiry, restrictNumeric, safeVal, setCardType,
+    __slice = [].slice,
+    __indexOf = [].indexOf || function(item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; };
+
+  $ = window.jQuery || window.Zepto || window.$;
+
+  $.payment = {};
+
+  $.payment.fn = {};
+
+  $.fn.payment = function() {
+    var args, method;
+    method = arguments[0], args = 2 <= arguments.length ? __slice.call(arguments, 1) : [];
+    return $.payment.fn[method].apply(this, args);
+  };
+
+  defaultFormat = /(\d{1,4})/g;
+
+  $.payment.cards = cards = [
+    {
+      type: 'visaelectron',
+      pattern: /^4(026|17500|405|508|844|91[37])/,
+      format: defaultFormat,
+      length: [16],
+      cvcLength: [3],
+      luhn: true
+    }, {
+      type: 'maestro',
+      pattern: /^(5(018|0[23]|[68])|6(39|7))/,
+      format: defaultFormat,
+      length: [12, 13, 14, 15, 16, 17, 18, 19],
+      cvcLength: [3],
+      luhn: true
+    }, {
+      type: 'forbrugsforeningen',
+      pattern: /^600/,
+      format: defaultFormat,
+      length: [16],
+      cvcLength: [3],
+      luhn: true
+    }, {
+      type: 'dankort',
+      pattern: /^5019/,
+      format: defaultFormat,
+      length: [16],
+      cvcLength: [3],
+      luhn: true
+    }, {
+      type: 'visa',
+      pattern: /^4/,
+      format: defaultFormat,
+      length: [13, 16],
+      cvcLength: [3],
+      luhn: true
+    }, {
+      type: 'mastercard',
+      pattern: /^(5[1-5]|2[2-7])/,
+      format: defaultFormat,
+      length: [16],
+      cvcLength: [3],
+      luhn: true
+    }, {
+      type: 'amex',
+      pattern: /^3[47]/,
+      format: /(\d{1,4})(\d{1,6})?(\d{1,5})?/,
+      length: [15],
+      cvcLength: [3, 4],
+      luhn: true
+    }, {
+      type: 'dinersclub',
+      pattern: /^3[0689]/,
+      format: /(\d{1,4})(\d{1,6})?(\d{1,4})?/,
+      length: [14],
+      cvcLength: [3],
+      luhn: true
+    }, {
+      type: 'discover',
+      pattern: /^6([045]|22)/,
+      format: defaultFormat,
+      length: [16],
+      cvcLength: [3],
+      luhn: true
+    }, {
+      type: 'unionpay',
+      pattern: /^(62|88)/,
+      format: defaultFormat,
+      length: [16, 17, 18, 19],
+      cvcLength: [3],
+      luhn: false
+    }, {
+      type: 'jcb',
+      pattern: /^35/,
+      format: defaultFormat,
+      length: [16],
+      cvcLength: [3],
+      luhn: true
+    }
+  ];
+
+  cardFromNumber = function(num) {
+    var card, _i, _len;
+    num = (num + '').replace(/\D/g, '');
+    for (_i = 0, _len = cards.length; _i < _len; _i++) {
+      card = cards[_i];
+      if (card.pattern.test(num)) {
+        return card;
+      }
+    }
+  };
+
+  cardFromType = function(type) {
+    var card, _i, _len;
+    for (_i = 0, _len = cards.length; _i < _len; _i++) {
+      card = cards[_i];
+      if (card.type === type) {
+        return card;
+      }
+    }
+  };
+
+  luhnCheck = function(num) {
+    var digit, digits, odd, sum, _i, _len;
+    odd = true;
+    sum = 0;
+    digits = (num + '').split('').reverse();
+    for (_i = 0, _len = digits.length; _i < _len; _i++) {
+      digit = digits[_i];
+      digit = parseInt(digit, 10);
+      if ((odd = !odd)) {
+        digit *= 2;
+      }
+      if (digit > 9) {
+        digit -= 9;
+      }
+      sum += digit;
+    }
+    return sum % 10 === 0;
+  };
+
+  hasTextSelected = function($target) {
+    var _ref;
+    if (($target.prop('selectionStart') != null) && $target.prop('selectionStart') !== $target.prop('selectionEnd')) {
+      return true;
+    }
+    if ((typeof document !== "undefined" && document !== null ? (_ref = document.selection) != null ? _ref.createRange : void 0 : void 0) != null) {
+      if (document.selection.createRange().text) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  safeVal = function(value, $target) {
+    var cursor, error, last;
+    try {
+      cursor = $target.prop('selectionStart');
+    } catch (_error) {
+      error = _error;
+      cursor = null;
+    }
+    last = $target.val();
+    $target.val(value);
+    if (cursor !== null && $target.is(":focus")) {
+      if (cursor === last.length) {
+        cursor = value.length;
+      }
+      $target.prop('selectionStart', cursor);
+      return $target.prop('selectionEnd', cursor);
+    }
+  };
+
+  replaceFullWidthChars = function(str) {
+    var char, chars, fullWidth, halfWidth, idx, value, _i, _len;
+    if (str == null) {
+      str = '';
+    }
+    fullWidth = '\uff10\uff11\uff12\uff13\uff14\uff15\uff16\uff17\uff18\uff19';
+    halfWidth = '0123456789';
+    value = '';
+    chars = str.split('');
+    for (_i = 0, _len = chars.length; _i < _len; _i++) {
+      char = chars[_i];
+      idx = fullWidth.indexOf(char);
+      if (idx > -1) {
+        char = halfWidth[idx];
+      }
+      value += char;
+    }
+    return value;
+  };
+
+  reFormatNumeric = function(e) {
+    return setTimeout(function() {
+      var $target, value;
+      $target = $(e.currentTarget);
+      value = $target.val();
+      value = replaceFullWidthChars(value);
+      value = value.replace(/\D/g, '');
+      return safeVal(value, $target);
+    });
+  };
+
+  reFormatCardNumber = function(e) {
+    return setTimeout(function() {
+      var $target, value;
+      $target = $(e.currentTarget);
+      value = $target.val();
+      value = replaceFullWidthChars(value);
+      value = $.payment.formatCardNumber(value);
+      return safeVal(value, $target);
+    });
+  };
+
+  formatCardNumber = function(e) {
+    var $target, card, digit, length, re, upperLength, value;
+    digit = String.fromCharCode(e.which);
+    if (!/^\d+$/.test(digit)) {
+      return;
+    }
+    $target = $(e.currentTarget);
+    value = $target.val();
+    card = cardFromNumber(value + digit);
+    length = (value.replace(/\D/g, '') + digit).length;
+    upperLength = 16;
+    if (card) {
+      upperLength = card.length[card.length.length - 1];
+    }
+    if (length >= upperLength) {
+      return;
+    }
+    if (($target.prop('selectionStart') != null) && $target.prop('selectionStart') !== value.length) {
+      return;
+    }
+    if (card && card.type === 'amex') {
+      re = /^(\d{4}|\d{4}\s\d{6})$/;
+    } else {
+      re = /(?:^|\s)(\d{4})$/;
+    }
+    if (re.test(value)) {
+      e.preventDefault();
+      return setTimeout(function() {
+        return $target.val(value + ' ' + digit);
+      });
+    } else if (re.test(value + digit)) {
+      e.preventDefault();
+      return setTimeout(function() {
+        return $target.val(value + digit + ' ');
+      });
+    }
+  };
+
+  formatBackCardNumber = function(e) {
+    var $target, value;
+    $target = $(e.currentTarget);
+    value = $target.val();
+    if (e.which !== 8) {
+      return;
+    }
+    if (($target.prop('selectionStart') != null) && $target.prop('selectionStart') !== value.length) {
+      return;
+    }
+    if (/\d\s$/.test(value)) {
+      e.preventDefault();
+      return setTimeout(function() {
+        return $target.val(value.replace(/\d\s$/, ''));
+      });
+    } else if (/\s\d?$/.test(value)) {
+      e.preventDefault();
+      return setTimeout(function() {
+        return $target.val(value.replace(/\d$/, ''));
+      });
+    }
+  };
+
+  reFormatExpiry = function(e) {
+    return setTimeout(function() {
+      var $target, value;
+      $target = $(e.currentTarget);
+      value = $target.val();
+      value = replaceFullWidthChars(value);
+      value = $.payment.formatExpiry(value);
+      return safeVal(value, $target);
+    });
+  };
+
+  formatExpiry = function(e) {
+    var $target, digit, val;
+    digit = String.fromCharCode(e.which);
+    if (!/^\d+$/.test(digit)) {
+      return;
+    }
+    $target = $(e.currentTarget);
+    val = $target.val() + digit;
+    if (/^\d$/.test(val) && (val !== '0' && val !== '1')) {
+      e.preventDefault();
+      return setTimeout(function() {
+        return $target.val("0" + val + " / ");
+      });
+    } else if (/^\d\d$/.test(val)) {
+      e.preventDefault();
+      return setTimeout(function() {
+        return $target.val("" + val + " / ");
+      });
+    }
+  };
+
+  formatForwardExpiry = function(e) {
+    var $target, digit, val;
+    digit = String.fromCharCode(e.which);
+    if (!/^\d+$/.test(digit)) {
+      return;
+    }
+    $target = $(e.currentTarget);
+    val = $target.val();
+    if (/^\d\d$/.test(val)) {
+      return $target.val("" + val + " / ");
+    }
+  };
+
+  formatForwardSlashAndSpace = function(e) {
+    var $target, val, which;
+    which = String.fromCharCode(e.which);
+    if (!(which === '/' || which === ' ')) {
+      return;
+    }
+    $target = $(e.currentTarget);
+    val = $target.val();
+    if (/^\d$/.test(val) && val !== '0') {
+      return $target.val("0" + val + " / ");
+    }
+  };
+
+  formatBackExpiry = function(e) {
+    var $target, value;
+    $target = $(e.currentTarget);
+    value = $target.val();
+    if (e.which !== 8) {
+      return;
+    }
+    if (($target.prop('selectionStart') != null) && $target.prop('selectionStart') !== value.length) {
+      return;
+    }
+    if (/\d\s\/\s$/.test(value)) {
+      e.preventDefault();
+      return setTimeout(function() {
+        return $target.val(value.replace(/\d\s\/\s$/, ''));
+      });
+    }
+  };
+
+  reFormatCVC = function(e) {
+    return setTimeout(function() {
+      var $target, value;
+      $target = $(e.currentTarget);
+      value = $target.val();
+      value = replaceFullWidthChars(value);
+      value = value.replace(/\D/g, '').slice(0, 4);
+      return safeVal(value, $target);
+    });
+  };
+
+  restrictNumeric = function(e) {
+    var input;
+    if (e.metaKey || e.ctrlKey) {
+      return true;
+    }
+    if (e.which === 32) {
+      return false;
+    }
+    if (e.which === 0) {
+      return true;
+    }
+    if (e.which < 33) {
+      return true;
+    }
+    input = String.fromCharCode(e.which);
+    return !!/[\d\s]/.test(input);
+  };
+
+  restrictCardNumber = function(e) {
+    var $target, card, digit, value;
+    $target = $(e.currentTarget);
+    digit = String.fromCharCode(e.which);
+    if (!/^\d+$/.test(digit)) {
+      return;
+    }
+    if (hasTextSelected($target)) {
+      return;
+    }
+    value = ($target.val() + digit).replace(/\D/g, '');
+    card = cardFromNumber(value);
+    if (card) {
+      return value.length <= card.length[card.length.length - 1];
+    } else {
+      return value.length <= 16;
+    }
+  };
+
+  restrictExpiry = function(e) {
+    var $target, digit, value;
+    $target = $(e.currentTarget);
+    digit = String.fromCharCode(e.which);
+    if (!/^\d+$/.test(digit)) {
+      return;
+    }
+    if (hasTextSelected($target)) {
+      return;
+    }
+    value = $target.val() + digit;
+    value = value.replace(/\D/g, '');
+    if (value.length > 6) {
+      return false;
+    }
+  };
+
+  restrictCVC = function(e) {
+    var $target, digit, val;
+    $target = $(e.currentTarget);
+    digit = String.fromCharCode(e.which);
+    if (!/^\d+$/.test(digit)) {
+      return;
+    }
+    if (hasTextSelected($target)) {
+      return;
+    }
+    val = $target.val() + digit;
+    return val.length <= 4;
+  };
+
+  setCardType = function(e) {
+    var $target, allTypes, card, cardType, val;
+    $target = $(e.currentTarget);
+    val = $target.val();
+    cardType = $.payment.cardType(val) || 'unknown';
+    if (!$target.hasClass(cardType)) {
+      allTypes = (function() {
+        var _i, _len, _results;
+        _results = [];
+        for (_i = 0, _len = cards.length; _i < _len; _i++) {
+          card = cards[_i];
+          _results.push(card.type);
+        }
+        return _results;
+      })();
+      $target.removeClass('unknown');
+      $target.removeClass(allTypes.join(' '));
+      $target.addClass(cardType);
+      $target.toggleClass('identified', cardType !== 'unknown');
+      return $target.trigger('payment.cardType', cardType);
+    }
+  };
+
+  $.payment.fn.formatCardCVC = function() {
+    this.on('keypress', restrictNumeric);
+    this.on('keypress', restrictCVC);
+    this.on('paste', reFormatCVC);
+    this.on('change', reFormatCVC);
+    this.on('input', reFormatCVC);
+    return this;
+  };
+
+  $.payment.fn.formatCardExpiry = function() {
+    this.on('keypress', restrictNumeric);
+    this.on('keypress', restrictExpiry);
+    this.on('keypress', formatExpiry);
+    this.on('keypress', formatForwardSlashAndSpace);
+    this.on('keypress', formatForwardExpiry);
+    this.on('keydown', formatBackExpiry);
+    this.on('change', reFormatExpiry);
+    this.on('input', reFormatExpiry);
+    return this;
+  };
+
+  $.payment.fn.formatCardNumber = function() {
+    this.on('keypress', restrictNumeric);
+    this.on('keypress', restrictCardNumber);
+    this.on('keypress', formatCardNumber);
+    this.on('keydown', formatBackCardNumber);
+    this.on('keyup', setCardType);
+    this.on('paste', reFormatCardNumber);
+    this.on('change', reFormatCardNumber);
+    this.on('input', reFormatCardNumber);
+    this.on('input', setCardType);
+    return this;
+  };
+
+  $.payment.fn.restrictNumeric = function() {
+    this.on('keypress', restrictNumeric);
+    this.on('paste', reFormatNumeric);
+    this.on('change', reFormatNumeric);
+    this.on('input', reFormatNumeric);
+    return this;
+  };
+
+  $.payment.fn.cardExpiryVal = function() {
+    return $.payment.cardExpiryVal($(this).val());
+  };
+
+  $.payment.cardExpiryVal = function(value) {
+    var month, prefix, year, _ref;
+    _ref = value.split(/[\s\/]+/, 2), month = _ref[0], year = _ref[1];
+    if ((year != null ? year.length : void 0) === 2 && /^\d+$/.test(year)) {
+      prefix = (new Date).getFullYear();
+      prefix = prefix.toString().slice(0, 2);
+      year = prefix + year;
+    }
+    month = parseInt(month, 10);
+    year = parseInt(year, 10);
+    return {
+      month: month,
+      year: year
+    };
+  };
+
+  $.payment.validateCardNumber = function(num) {
+    var card, _ref;
+    num = (num + '').replace(/\s+|-/g, '');
+    if (!/^\d+$/.test(num)) {
+      return false;
+    }
+    card = cardFromNumber(num);
+    if (!card) {
+      return false;
+    }
+    return (_ref = num.length, __indexOf.call(card.length, _ref) >= 0) && (card.luhn === false || luhnCheck(num));
+  };
+
+  $.payment.validateCardExpiry = function(month, year) {
+    var currentTime, expiry, _ref;
+    if (typeof month === 'object' && 'month' in month) {
+      _ref = month, month = _ref.month, year = _ref.year;
+    }
+    if (!(month && year)) {
+      return false;
+    }
+    month = $.trim(month);
+    year = $.trim(year);
+    if (!/^\d+$/.test(month)) {
+      return false;
+    }
+    if (!/^\d+$/.test(year)) {
+      return false;
+    }
+    if (!((1 <= month && month <= 12))) {
+      return false;
+    }
+    if (year.length === 2) {
+      if (year < 70) {
+        year = "20" + year;
+      } else {
+        year = "19" + year;
+      }
+    }
+    if (year.length !== 4) {
+      return false;
+    }
+    expiry = new Date(year, month);
+    currentTime = new Date;
+    expiry.setMonth(expiry.getMonth() - 1);
+    expiry.setMonth(expiry.getMonth() + 1, 1);
+    return expiry > currentTime;
+  };
+
+  $.payment.validateCardCVC = function(cvc, type) {
+    var card, _ref;
+    cvc = $.trim(cvc);
+    if (!/^\d+$/.test(cvc)) {
+      return false;
+    }
+    card = cardFromType(type);
+    if (card != null) {
+      return _ref = cvc.length, __indexOf.call(card.cvcLength, _ref) >= 0;
+    } else {
+      return cvc.length >= 3 && cvc.length <= 4;
+    }
+  };
+
+  $.payment.cardType = function(num) {
+    var _ref;
+    if (!num) {
+      return null;
+    }
+    return ((_ref = cardFromNumber(num)) != null ? _ref.type : void 0) || null;
+  };
+
+  $.payment.formatCardNumber = function(num) {
+    var card, groups, upperLength, _ref;
+    num = num.replace(/\D/g, '');
+    card = cardFromNumber(num);
+    if (!card) {
+      return num;
+    }
+    upperLength = card.length[card.length.length - 1];
+    num = num.slice(0, upperLength);
+    if (card.format.global) {
+      return (_ref = num.match(card.format)) != null ? _ref.join(' ') : void 0;
+    } else {
+      groups = card.format.exec(num);
+      if (groups == null) {
+        return;
+      }
+      groups.shift();
+      groups = $.grep(groups, function(n) {
+        return n;
+      });
+      return groups.join(' ');
+    }
+  };
+
+  $.payment.formatExpiry = function(expiry) {
+    var mon, parts, sep, year;
+    parts = expiry.match(/^\D*(\d{1,2})(\D+)?(\d{1,4})?/);
+    if (!parts) {
+      return '';
+    }
+    mon = parts[1] || '';
+    sep = parts[2] || '';
+    year = parts[3] || '';
+    if (year.length > 0) {
+      sep = ' / ';
+    } else if (sep === ' /') {
+      mon = mon.substring(0, 1);
+      sep = '';
+    } else if (mon.length === 2 || sep.length > 0) {
+      sep = ' / ';
+    } else if (mon.length === 1 && (mon !== '0' && mon !== '1')) {
+      mon = "0" + mon;
+      sep = ' / ';
+    }
+    return mon + sep + year;
+  };
+
+}).call(this);
 
 /*!
  * smooth-scroll v7.1.1: Animate scrolling to anchor links
