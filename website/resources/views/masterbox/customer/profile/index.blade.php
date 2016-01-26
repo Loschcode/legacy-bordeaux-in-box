@@ -14,7 +14,7 @@
       <div class="grid-2">
         <div class="sidebar">
           <ul class="sidebar__list">
-            <li class="sidebar__item"><a class="sidebar__link" href="#">Mon compte</a></li>
+            <li class="sidebar__item"><a class="sidebar__link" href="{{ action('MasterBox\Customer\ProfileController@getIndex') }}">Mon compte</a></li>
             <li class="sidebar__item"><a class="sidebar__link" href="#">Abonnements</a></li>
             <li class="sidebar__item"><a class="sidebar__link" href="#">Contact</a></li>
             <li class="sidebar__item --last"><a class="sidebar__link" href="#">Déconnexion</a></li>
