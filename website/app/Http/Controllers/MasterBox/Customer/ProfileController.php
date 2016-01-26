@@ -64,12 +64,15 @@ class ProfileController extends BaseController {
     	if ($spot == NULL) $delivery_spots = [];
     	else $delivery_spots = DeliverySpot::where('active', TRUE)->orWhere('id', $spot->id)->get();
 		  
+      $active_menu = 'account';
+
   		return view('masterbox.customer.profile.index')->with(compact(
         'delivery_spots',
         'customer',
         'profiles',
         'destination',
-        'spot'
+        'spot',
+        'active_menu'
       ));
 
     }
@@ -98,6 +101,11 @@ class ProfileController extends BaseController {
 		return redirect()->to('/profile');
 
     }
+
+    /*public function getOrders()
+    {
+      //$customer = Auth::guard('')
+    }*/
 
     // Get the orders details from one profile
     public function getOrders($id)

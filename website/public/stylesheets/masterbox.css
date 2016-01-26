@@ -670,6 +670,8 @@ a {
   font-weight: 400; }
   .sidebar__link:hover {
     color: #495d62; }
+  .sidebar__link.\--active {
+    color: #ffbc05; }
 
 .profile__wrapper {
   margin-top: 34px;

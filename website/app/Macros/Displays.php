@@ -29,6 +29,20 @@ Html::macro('checkError', function($label, $errors, $message_bag = '')
 });
 
 /**
+ * Check which link in the profile's menu is active. Returns the right css class
+ */
+Html::macro('cssLinkProfileMenuActive', function($label, $current) {
+
+  if ($label === $current)
+  {
+    return '--active';
+  }
+
+  return false;
+
+});
+
+/**
  * Return the html to set in the spot checkbox
  */
 Html::macro('getTextCheckboxSpot', function($delivery_spot) 
