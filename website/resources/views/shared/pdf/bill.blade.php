@@ -98,7 +98,8 @@ th {
 </head>
 
 <body>
-<img src=" url('assets/img/logo-text.png')" width="200" />
+
+<img src="images/logo.png" width="200" />
 
 <br />
 
