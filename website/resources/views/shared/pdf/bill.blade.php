@@ -94,117 +94,152 @@ table, th, td {
 th {
     height: 50px;
 }
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  color: #666666;
+  font-size: 12px;
+}
+
+.footer__name {
+  margin-top: 30px;
+}
+
+.footer__signature {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.footer__contact {
+  text-align: left;
+}
 </style>
 </head>
 
 <body>
 
-<img src="images/logo.png" width="200" />
+  <img src="images/logo.png" width="200" />
 
-<br />
+  <br />
 
-<div class="right w50">
-&nbsp;
-</div>
-<div class="right w50">
-  <table>
-    <tr>
-      <td><strong>Facture du</strong></td>
-      <td><strong>{{$company_billing->created_at->format('d.m.Y')}}</strong></td>
-    </tr>
-    <tr>
-      <td>N° de facture</td>
-      <td>{{$company_billing->bill_id}}</td>
-    </tr>
-    <tr>
-      <td>N° d'abonnement</td>
-      <td>{{$company_billing->contract_id}}</td>
-    </tr>
-    <tr class="customer-number">
-      <td>N° client</td>
-      <td>{{$company_billing->customer_id}}</td>
-    </tr>
-  </table>
-</div>
-
-<div class="clearfix"></div>
-<br />
-
-
-<div class="customer">
-<strong>
-Madame, Monsieur<br />
-
-{{$company_billing->first_name}} {{$company_billing->last_name}}<br />
-
-@if ($company_billing->address !== NULL)
-
-{{$company_billing->address}}<br/>
-{{$company_billing->zip}} {{$company_billing->city}}<br />
-
-@endif
-
-FRANCE
-</strong>
-</div>
-
-<br />
-
-<h2>{{$company_billing->title}}</h2>
-
-  <table>
-
-    <thead>
-
+  <div class="right w50">
+  &nbsp;
+  </div>
+  <div class="right w50">
+    <table>
       <tr>
-        <th>Transaction</th>
-        <th>Prestation</th>
-        <th>Montant à payer</th>
+        <td><strong>Facture du</strong></td>
+        <td><strong>{{$company_billing->created_at->format('d.m.Y')}}</strong></td>
       </tr>
+      <tr>
+        <td>N° de facture</td>
+        <td>{{$company_billing->bill_id}}</td>
+      </tr>
+      <tr>
+        <td>N° d'abonnement</td>
+        <td>{{$company_billing->contract_id}}</td>
+      </tr>
+      <tr class="customer-number">
+        <td>N° client</td>
+        <td>{{$company_billing->customer_id}}</td>
+      </tr>
+    </table>
+  </div>
 
-    </thead>
+  <div class="clearfix"></div>
+  <br />
 
-    <tbody>
 
-        @foreach ($company_billing_lines as $company_billing_line)
+  <div class="customer">
+  <strong>
+  Madame, Monsieur<br />
+
+  {{$company_billing->first_name}} {{$company_billing->last_name}}<br />
+
+  @if ($company_billing->address !== NULL)
+
+  {{$company_billing->address}}<br/>
+  {{$company_billing->zip}} {{$company_billing->city}}<br />
+
+  @endif
+
+  FRANCE
+  </strong>
+  </div>
+
+  <br />
+
+  <h2>{{$company_billing->title}}</h2>
+
+    <table>
+
+      <thead>
 
         <tr>
-
-          <th>
-          <strong>#{{$company_billing_line->payment_id}}</strong>
-          </th>
-          <th>
-          {{$company_billing_line->label}}
-          </th>
-          <th>
-          {{euros($company_billing_line->amount)}}
-          </th>
-
+          <th>Transaction</th>
+          <th>Prestation</th>
+          <th>Montant à payer</th>
         </tr>
 
-        @endforeach
+      </thead>
 
-        <tr>
-        <th>
-        </th>
-        <th>
-        <h1>Total</h1>
-        </th>
-        <th>
-        <h1>{{euros($total)}}</h1>
-        </th>
-        </tr>
+      <tbody>
 
-    </tbody>
+          @foreach ($company_billing_lines as $company_billing_line)
 
-  </table>
-<h2></h2>
-<div align="right"><span class="micro">TVA non applicable, article 293 B du Code général des impôts</span>
-</div>
+          <tr>
 
-<br />
+            <th>
+            <strong>#{{$company_billing_line->payment_id}}</strong>
+            </th>
+            <th>
+            {{$company_billing_line->label}}
+            </th>
+            <th>
+            {{euros($company_billing_line->amount)}}
+            </th>
 
-{!! HTML::page('bill') !!}
+          </tr>
 
-</body></html>
+          @endforeach
+
+          <tr>
+          <th>
+          </th>
+          <th>
+          <h1>Total</h1>
+          </th>
+          <th>
+          <h1>{{euros($total)}}</h1>
+          </th>
+          </tr>
+
+      </tbody>
+
+    </table>
+  <h2></h2>
+  <div align="right"><span class="micro">TVA non applicable, article 293 B du Code général des impôts</span>
+
+  <div class="clear"></div>
+  
+  <div class="footer">
+    <div class="footer__name">Laurent Schaffner, Président</div>
+    <div class="footer__signature">
+      <img src="images/signatures/laurent.png" />
+    </div>
+    <div class="footer__address">
+      La Petite Box SAS<br/>
+      SIRET 811 767 532 00013<br/>
+      18 avenue Gustave Eiffel<br/>
+      33600 Pessac<br/>
+    </div>
+    <div class="footer__contact w50 left">
+      Support technique : jeremie@bordeauxinbox.com<br/>
+      Support commercial : hugo@bordeauxinbox.com<br/>
+    </div>
+  </div>
+
+</body>
+</html>
 
