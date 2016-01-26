@@ -1,5 +1,5 @@
 <?php
-
+/*
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -9,7 +9,6 @@ use Faker\Factory as Faker;
 class PurchaseMasterBoxTest extends TestCase
 {
 
-  /** @test */
   public function try_to_purchase_a_box_as_a_guest_subscribe_then_go_to_purchase()
   {
 
@@ -35,7 +34,6 @@ class PurchaseMasterBoxTest extends TestCase
 
   }
 
-  /** @test */
   public function purchase_a_one_shot_box_with_regional_address()
   {
 
@@ -99,6 +97,6 @@ class PurchaseMasterBoxTest extends TestCase
         // Sent to the admin
         $this->assertEmailReceiverEquals(Config::get('bsb.admin.mail'), $message);
 
-        */
 
 }
+*/ ?>

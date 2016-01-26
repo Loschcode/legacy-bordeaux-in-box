@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -18,4 +17,19 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
     ];
+});
+
+/**
+ * Customer with user role and no address informations
+ */
+$factory->defineAs(App\Models\Customer::class, 'basic-user', function(Faker\Generator $faker) {
+  return [
+      'email' => $faker->email,
+      'password' => bcrypt(str_random(10)),
+      'remember_token' => str_random(10),
+      'role' => 'user',
+      'first_name' => $faker->firstName,
+      'last_name' => $faker->lastName,
+      'phone' => $faker->phoneNumber
+  ];
 });
