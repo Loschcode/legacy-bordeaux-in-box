@@ -41,6 +41,10 @@ $('.js-chosen').chosen
 $(':checkbox').labelauty()
 $(':radio').labelauty()
 
+##
+# Tooltipster
+##
+$('.js-tooltip').tooltipster()
 
 #--------------------------------------------------------------------------
 # MasterBox admin elements

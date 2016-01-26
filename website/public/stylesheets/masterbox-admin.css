@@ -24,19 +24,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: NaNpx;
+  height: 13.600000000000001px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: NaNpx;
+  height: 34px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: NaNpx;
+  height: 68px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: NaNpx;
+  height: 170px;
   content: " "; }
 
 #csstyle .\+hidden {

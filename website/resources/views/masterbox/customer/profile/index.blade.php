@@ -12,14 +12,7 @@
   <div class="container">
     <div class="row">
       <div class="grid-2">
-        <div class="sidebar">
-          <ul class="sidebar__list">
-            <li class="sidebar__item"><a class="sidebar__link {{ Html::cssLinkProfileMenuActive('account', $active_menu) }}" href="{{ action('MasterBox\Customer\ProfileController@getIndex') }}">Mon compte</a></li>
-            <li class="sidebar__item"><a class="sidebar__link" href="#">Abonnements</a></li>
-            <li class="sidebar__item"><a class="sidebar__link" href="#">Contact</a></li>
-            <li class="sidebar__item --last"><a class="sidebar__link" href="#">Déconnexion</a></li>
-          </ul>
-        </div>
+        @include('masterbox.partials.sidebar_profile')
       </div>
       <div class="grid-9">
         <div class="profile">

@@ -1,187 +1,72 @@
 @extends('masterbox.layouts.master')
 
 @section('content')
-  
-  <div id="js-page-card"></div>
 
-  <div class="container profile-orders-section">
+<div class="container">
+  <div class="row">
+    <div class="grid-2">
+      @include('masterbox.partials.sidebar_profile')
+    </div>
+    <div class="grid-9">
+      <div class="profile profile__wrapper">
+        <div class="profile__section">
+          <h3 class="profile__title">Abonnements</h3>
+          <p>Ci-dessous les abonnements auxquelles tu as souscris.<br/></p>
+          <table class="table table__wrapper">
+            <thead class="table__head">
+              <tr class="table__head-items">
+                <th></th>
+                <th>Abonnement</th>
+                <th>Durée</th>
+                <th>Livraisons restantes</th>
+                <th></th>
+              </tr>
+            </thead>
 
-    <ul class="nav-tabs tabs col-md-2">
-      <li class=""><a href="{{ action('MasterBox\Customer\ProfileController@getIndex') }}#account"><i class="fa fa-cog"></i>Mon compte</a></li>
+            <tbody class="table__body">
 
-      <li><a href="{{ action('MasterBox\Customer\ProfileController@getIndex') }}#contracts">
-        <i class="fa fa-shopping-cart"></i> Abonnements
-      </a></li>
-            <li>
-        <a href="{{ url('contact') }}"><i class="fa fa-envelope-o"></i> Contact</a>
-      </li>
-      <li>
-        <a href="{{ action('MasterBox\Connect\CustomerController@getLogout') }}"><i class="fa fa-unlock"></i> Déconnexion</a>
-      </li>
-    </ul>
+              @foreach ($profiles as $profile)
 
-    <div class="col-md-10">
+                @if ($profile->orders()->first() != NULL)
 
-
-      @if (session()->has('message'))
-        <div class="js-alert-remove spyro-alert spyro-alert-success">{{ session()->get('message') }}</div>
-      @endif
-
-      @if (session()->has('error'))
-        <div class="js-alert-remove spyro-alert spyro-alert-danger">{{ session()->get('error') }}</div>
-      @endif
-
-      @if ($errors->any())
-        <div class="js-alert-remove spyro-alert spyro-alert-danger">Des erreurs sont présentes dans le formulaire</div>
-      @endif
-      
-      <h3>Mes commandes planifiées</h3>
-
-      <table class="table">
-
-        <thead>
-
-          <tr>
-            <th>Livraison</th>
-            <th>Statut de la commande</th>
-            <th>Date prévue</th>
-            <th>Adresse de livraison</th>
-          </tr>
-
-        </thead>
-
-        <tbody>
-
-          @foreach ($orders as $order)
-
-            <tr>
-
-              <th>N°{{$order->id}}</th>
-              <th>
-              {!! Html::getReadableOrderStatus($order->status) !!}
-
-              @if ($order->status == 'delivered')
-                ({{$order->date_sent}})
-              @endif
-
-              </th>
-              <th>{{$order->delivery_serie()->first()->delivery}}</th>
-              <th>{!! Html::getOrderSpotOrDestination($order) !!}</th>
-              
-
-            </tr>
-
-          @endforeach
-
-        </tbody>
-
-      </table>
-
-      <h3>Mes paiements</h3>
-
-      @if ($payments->count() > 0)
-
-        <table class="table">
-
-          <thead>
-
-            <tr>
-              <th>Numéro de transaction</th>
-              <th>Prélévement</th>
-              <th>Date</th>
-              <th>Facture(s)</th>
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            @foreach ($payments as $payment)
-
-              <tr>
-
-                <th>N°{{$payment->id}}</th>
-                <th>{{$payment->amount}}€</th>
-                <th>{{$payment->created_at}}</th>
-                <th>
-                @if ($payment->amount > 0)
-
-                  @foreach ($payment->getCompanyBillings() as $company_billing)
-
-                  <a class="spyro-btn spyro-btn-primary upper spyro-btn-sm" href="{{ action('Company\Guest\BillingController@getWatch', ['encrypted_access' => $company_billing->encrypted_access]) }}" target="_blank">{{$company_billing->bill_id}}</a>
-                  <a class="spyro-btn spyro-btn-green upper spyro-btn-sm" href="{{ action('Company\Guest\BillingController@getDownload', ['encrypted_access' => $company_billing->encrypted_access]) }}" target="_blank">Télécharger</a>
-
-                  <br />
-
-                  
-
-                  @endforeach
-
+                <tr class="table__body-items">
+                  @if ($profile->status == 'subscribed')
+                    <th class="table__item --status-active"><i class="fa fa-circle"></i> {{ Html::getReadableProfileStatus($profile->status) }}</th>
+                  @else
+                    <th class="table__item --status-unactive"><i class="fa fa-circle"></i> {{ Html::getReadableProfileStatus($profile->status) }}</th>
+                  @endif
+                  <th>N°{{$profile->id}}</th>
+                  <th>
+                  @if ($profile->order_preference()->first()->frequency == 0)
+                    Non précisée
+                  @else
+                    {{$profile->orders()->notCanceledOrders()->count()}} mois
+                  @endif
+                  </th>
+                  <th>
+                  @if ($profile->order_preference()->first()->frequency == 0)
+                    Non indiqué
+                  @else
+                    {{$profile->orders()->whereNull('date_sent')->count()}}
+                  @endif
+                  </th>
+           
+                  <th>
+                    <a class="button button__table" href="{{action('MasterBox\Customer\ProfileController@getOrder', ['id' => $profile->id])}}"><i class="fa fa-search"></i></a>
+                  </th>
+                </tr>
 
                 @endif
-                </th>
 
-              </tr>
+              @endforeach
 
-            @endforeach
+            </tbody>
 
-          </tbody>
-
-        </table>
-
-      @else
-        <div class="spyro-alert spyro-alert-inverse">Aucun paiement effectué pour le moment</div>
-      @endif
-      
-      <div class="spacer20"></div>
-
-      <h3>Ma carte bancaire</h3>
-    
-      @if (!empty($payment_profile->last4))
-        <div class="spyro-alert spyro-alert-default">Ma carte actuelle : **** **** **** {{$payment_profile->last4}}</div>
-      @endif
-      
-      <div class="spyro-alert spyro-alert-default">
-        Si vous souhaitez utiliser une autre carte bancaire pour cet abonnement, il vous suffit de remplir le formulaire ci-dessous.
+          </table>
+        </div>
       </div>
-
-      <div id="errors"></div>
-
-
-      {!! Form::open(['action' => 'MasterBox\Customer\ProfileController@postChangeCard', 'id' => 'payment-form', 'class' => 'form-component']) !!}
-      {!! Form::hidden('stripeToken', null, ['id' => 'stripe-token']) !!}
-
-      {!! Form::hidden('profile_id', $profile->id) !!}
-
-      {!! Form::label('Numéro de carte') !!}
-      {!! Form::text('card', null, ['id' => 'card', 'autocomplete' => 'off']) !!}
-
-      {!! Form::label('Date d\'expiration') !!}
-      {!! Form::text('expiration', null, ['id' => 'expiration', 'placeholder' => 'Format : MM/AA', 'autocomplete' => 'off']) !!}
-
-      {!! Form::label('CCV') !!}
-      {!! Form::text('ccv', null, ['id' => 'cvc', 'placeholder' => 'Exemple : 585', 'autocomplete' => 'off']) !!}
-
-     
-
-      {!! Form::label("old_password", "Mot de passe actuel") !!}
-      {!! Form::password("old_password", ['id' => 'password', 'autocomplete' => 'off']) !!}
-
-      @if ($errors->first('old_password'))
-        <span class="error"><i class="fa fa-times"></i> {{{ $errors->first('old_password') }}}</span>
-      @endif
-
-      <div class="spyro-well spyro-well-sm">Le mot de passe actuel est requis pour tout changement de carte bancaire</div>
-      
-      <button id="trigger-update" type="submit">Mettre à jour</button>
-
-      {!! Form::close() !!}
-
     </div>
+  </div>
+</div>
 
-    <div class="clearfix"></div>
-    <div class="spacer100"></div> 
-  </div>
-    @include('masterbox.partials.footer')
-  </div>
 @stop

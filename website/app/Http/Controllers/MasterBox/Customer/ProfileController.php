@@ -102,13 +102,23 @@ class ProfileController extends BaseController {
 
     }
 
-    /*public function getOrders()
+    public function getOrders()
     {
-      //$customer = Auth::guard('')
-    }*/
+      $customer = Auth::guard('customer')->user();
+      $profiles = $customer->profiles()->orderBy('created_at', 'desc')->get();
+      $active_menu = 'orders';
+
+      return view('masterbox.customer.profile.orders')->with(compact(
+        'customer',
+        'profiles',
+        'active_menu'
+      ));
+
+
+    }
 
     // Get the orders details from one profile
-    public function getOrders($id)
+    public function getOrder($id)
     {
 
     	$customer = Auth::guard('customer')->user();

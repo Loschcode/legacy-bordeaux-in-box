@@ -841,6 +841,8 @@ $(':checkbox').labelauty();
 
 $(':radio').labelauty();
 
+$('.js-tooltip').tooltipster();
+
 if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
   new AdminSidebar();
   $('.js-datatable-simple').DataTable({

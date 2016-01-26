@@ -1,0 +1,27 @@
++component(table)
+  
+  +part(wrapper)
+    width: 100%
+
+  +part(head)
+    border-bottom: 2px solid color-get(grey)
+
+  +part(head-items)
+    font-weight: bold
+    text-align: left
+  
+  +part(body-items)
+    text-align: left
+    border-bottom: 1px solid color-get(grey)
+
+  +part(item)
+
+    +option(status-active)
+      font-size: 0.4vr
+      padding-right: 0.3vr
+      color: color-dark(green, 15%)
+
+    +option(status-unactive)
+      font-size: 0.4vr
+      padding-right: 0.3vr
+      color: color-get(red)
