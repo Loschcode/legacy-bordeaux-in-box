@@ -127,7 +127,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
 
      $this->call('POST', '/connect/customer/login', [
        'email' => $email,
-       'password' => 'jeremielol'
+       'password' => 'wrongpassword'
      ]);
 
      $this->assertEquals(false, Auth::guard('customer')->check());

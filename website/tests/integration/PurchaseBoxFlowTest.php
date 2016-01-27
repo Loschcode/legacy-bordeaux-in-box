@@ -3,13 +3,14 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Stripe\Stripe;
 
 class PurchaseBoxFlowTest extends TestCase
 {
 
   use DatabaseTransactions;
 
-  /** @test */
+  /*
   public function as_a_guest_i_buy_a_gift_box_for_5_months_and_i_deliver_it_to_a_regional_address()
   {
 
@@ -120,9 +121,44 @@ class PurchaseBoxFlowTest extends TestCase
     $this->press('test-commit')
       ->seePageIs('customer/purchase/payment');
 
-    $this->click('#trigger-payment');
-    
+    // Create stripe token
+    $request = $this->generateStripeToken();
 
+    $token = $request['id'];
+
+    // Call next step
+    $this->call('POST', '/customer/purchase/payment', [
+      '_token' => csrf_token(),
+      'email' => $this->getInputOrTextAreaValue('email'),
+      'stripeToken' => $token
+    ]);
+
+    $this->followRedirects();
+
+    $this->seePageIs('/customer/purchase/box-form');
+
+  }
+  */
+
+  /**
+   * Generate a card token
+   * @return array
+   */
+  private function generateStripeToken($overrides = [])
+  {
+
+    \Stripe\Stripe::setApiKey(getenv('STRIPE_API_KEY'));
+
+    $token = \Stripe\Token::create([
+      'card' => array_merge([
+        "number" => "4242424242424242",
+        "exp_month" => 1,
+        "exp_year" => 2027,
+        "cvc" => "314"
+      ], $overrides)
+    ]);
+
+    return $token;
   }
 
 }

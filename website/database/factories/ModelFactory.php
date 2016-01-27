@@ -20,9 +20,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 /**
- * Customer which just subscribed 
+ * Mock subscribed customer
  */
-$factory->defineAs(App\Models\Customer::class, 'basic-customer', function(Faker\Generator $faker) {
+$factory->defineAs(App\Models\Customer::class, 'subscribed-customer', function(Faker\Generator $faker) {
   return [
       'email' => $faker->email,
       'password' => bcrypt(str_random(10)),

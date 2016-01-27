@@ -5,7 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 /**
- * Need to have MORE tests.
+ * NOT ENOUGH. IT'S RIDICULOUS. WE NEED A SHIT LOAD OF TESTS HERE.
  */
 class MasterBox_Customer_PurchaseControllerTest extends TestCase
 {
