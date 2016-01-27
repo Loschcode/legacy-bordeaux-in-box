@@ -6,3 +6,4 @@ was the web request successful?
 was the user redirected to the right page?
 was the user successfully authenticated?
 was the correct object stored in the response template?
+was the user can be found in the database?
