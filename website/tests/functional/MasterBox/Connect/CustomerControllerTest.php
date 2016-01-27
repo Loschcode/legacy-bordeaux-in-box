@@ -26,7 +26,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
   /** @test */
   public function should_logout_me_when_i_am_connected()
   {
-    $customer = factory(App\Models\Customer::class, 'basic-user')->create();
+    $customer = factory(App\Models\Customer::class, 'basic-customer')->create();
 
     $this->actingAs($customer, 'customer')
       ->visit('/connect/customer/logout')
@@ -77,7 +77,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
   {
     $email = $this->faker->email;
 
-    $customer = factory(App\Models\Customer::class, 'basic-user')->create([
+    $customer = factory(App\Models\Customer::class, 'basic-customer')->create([
       'email' => $email
     ]);
 
@@ -99,7 +99,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     $email = $this->faker->email;
     $password = str_random(10);
 
-    $customer = factory(App\Models\Customer::class, 'basic-user')->create([
+    $customer = factory(App\Models\Customer::class, 'basic-customer')->create([
       'email' => $email,
       'password' => bcrypt($password)
     ]);
@@ -119,7 +119,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
   { 
      $email = $this->faker->email;
 
-     $customer = factory(App\Models\Customer::class, 'basic-user')->create([
+     $customer = factory(App\Models\Customer::class, 'basic-customer')->create([
        'email' => $email,
        'password' => 'jeremie'
      ]);
@@ -140,7 +140,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     $email = $this->faker->email;
     $password = str_random(10);
 
-    $customer = factory(App\Models\Customer::class, 'basic-user')->create([
+    $customer = factory(App\Models\Customer::class, 'basic-customer')->create([
       'email' => $email,
       'password' => bcrypt($password)
     ]);
@@ -162,7 +162,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     $email = $this->faker->email;
     $password = str_random(10);
 
-    $customer = factory(App\Models\Customer::class, 'basic-user')->create([
+    $customer = factory(App\Models\Customer::class, 'basic-customer')->create([
       'email' => $email,
       'password' => bcrypt($password)
     ]);

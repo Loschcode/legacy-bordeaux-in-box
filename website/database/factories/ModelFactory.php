@@ -20,14 +20,14 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 });
 
 /**
- * Customer with user role and no address informations
+ * Customer which just subscribed 
  */
-$factory->defineAs(App\Models\Customer::class, 'basic-user', function(Faker\Generator $faker) {
+$factory->defineAs(App\Models\Customer::class, 'basic-customer', function(Faker\Generator $faker) {
   return [
       'email' => $faker->email,
       'password' => bcrypt(str_random(10)),
       'remember_token' => str_random(10),
-      'role' => 'user',
+      'role' => 'customer',
       'first_name' => $faker->firstName,
       'last_name' => $faker->lastName,
       'phone' => $faker->phoneNumber
