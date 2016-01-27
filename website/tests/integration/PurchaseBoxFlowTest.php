@@ -88,18 +88,39 @@ class PurchaseBoxFlowTest extends TestCase
     $this->type(csrf_token(), '_token');
 
     $this->press('test-commit');
-    
+
     // Can choose by spot or delivery
     $this->seePageIs('/customer/purchase/delivery-mode');
 
     // I can go to the previous step
-    $this->visit('/customer/purchase/billing-address')
+    $this->click('test-step-billing-address')
       ->seePageIs('/customer/purchase/billing-address');
 
     // Everything must be populated, so i can submit it
     // again and go back to the current step
     $this->press('test-commit')
       ->seePageIs('/customer/purchase/delivery-mode');
+
+    // I can go back to the very first step
+    $this->click('test-step-choose-frequency')
+      ->seePageIs('/customer/purchase/choose-frequency');
+
+    // The frequency is already populated 
+    // id 6 = 5 months
+    $this->seeIsSelected('delivery_price', 6);
+
+    // Go back to the current step
+    $this->press('commit');
+    $this->press('test-commit');
+
+    // Choose no take away
+    $this->select(0, 'take_away');
+
+    // Submit form
+    $this->press('test-commit')
+      ->seePageIs('customer/purchase/payment');
+
+    $this->click('#trigger-payment');
     
 
   }

@@ -40,7 +40,7 @@
         
         <div class="+spacer-extra-small"></div>
 
-        <button class="button button__submit --big" type="submit"><i class="fa fa-check"></i> Valider</button>
+        <button id="test-commit" class="button button__submit --big" type="submit"><i class="fa fa-check"></i> Valider</button>
         
         <div class="+spacer-small"></div>
         <div class="+text-right typography">
