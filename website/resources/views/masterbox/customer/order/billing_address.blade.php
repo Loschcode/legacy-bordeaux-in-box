@@ -63,7 +63,12 @@
                     {!! Form::label('destination_first_name', 'Prénom') !!}
                   </div>
                   
-                  {!! Form::text("destination_first_name", ($order_building->destination_first_name) ? $order_building->destination_first_name : Request::old("destination_first_name"), ['class' => 'billing__input']) !!}
+                  @if ($order_preference->isGift())
+                    {!! Form::text("destination_first_name", ($order_building->destination_first_name != $customer->first_name) ? $order_building->destination_first_name : Request::old("destination_first_name"), ['class' => 'billing__input']) !!}
+                  @else
+                    {!! Form::text("destination_first_name", ($order_building->destination_first_name) ? $order_building->destination_first_name : Request::old("destination_first_name"), ['class' => 'billing__input']) !!}
+                  @endif
+
                   {!! Html::checkError('destination_first_name', $errors) !!}
 
                 </div>
@@ -71,7 +76,13 @@
                   <div class="billing__label">
                     {!! Form::label('destination_last_name', 'Nom de famille') !!}
                   </div>
-                  {!! Form::text("destination_last_name", ($order_building->destination_last_name) ? $order_building->destination_last_name : Request::old("destination_last_name"), ['class' => 'billing__input']) !!}
+
+                  @if ($order_preference->isGift())
+                    {!! Form::text("destination_last_name", ($order_building->destination_last_name != $customer->last_name) ? $order_building->destination_last_name : Request::old("destination_last_name"), ['class' => 'billing__input']) !!}
+                  @else
+                    {!! Form::text("destination_last_name", ($order_building->destination_last_name) ? $order_building->destination_last_name : Request::old("destination_last_name"), ['class' => 'billing__input']) !!}
+                  @endif
+
                   {!! Html::checkError('destination_last_name', $errors) !!}
 
                 </div>
@@ -169,7 +180,7 @@
             </div>
             </div>
           @else
-
+            
             {{-- Billing informations (address not given yet) --}}
             <div class="panel">
               <div class="panel__heading">
@@ -209,7 +220,7 @@
                       {!! Form::label('billing_city', 'Ville') !!}
                     </div>
                     
-                    {!! Form::text("billing_city", ($order_building->billing_city) ? $order_building->billing_city : Request::old("billing_city"), ['class' => 'billing__input']) !!}
+                    {!! Form::text("billing_city", (Request::old("billing_city")) ? Request::old("billing_city") : $customer->city, ['class' => 'billing__input']) !!}
                     {!! Html::checkError('billing_city', $errors) !!}
 
 
@@ -218,7 +229,7 @@
                     <div class="billing__label">
                       {!! Form::label('billing_zip', 'Code postal') !!}
                     </div>
-                    {!! Form::text("billing_zip", ($order_building->billing_zip) ? $order_building->billing_zip : Request::old("billing_zip"), ['class' => 'billing__input']) !!}
+                    {!! Form::text("billing_zip", (Request::old("billing_zip")) ? Request::old("billing_zip") : $customer->zip, ['class' => 'billing__input']) !!}
                     {!! Html::checkError('billing_zip', $errors) !!}
 
                   </div>
@@ -227,11 +238,11 @@
                 <div class="billing__label">
                   {!! Form::label('billing_address', 'Adresse') !!}
                 </div>
-                {!! Form::textarea("billing_address", ($order_building->billing_address) ? $order_building->billing_address : Request::old("billing_address"), ['class' => 'billing__input --textarea']) !!}
+                {!! Form::textarea("billing_address", (Request::old("billing_address")) ? Request::old("billing_address") : $customer->address, ['class' => 'billing__input --textarea']) !!}
                 {!! Html::checkError('billing_address', $errors) !!}
 
               </div>
-              <button type="submit" class="button button__submit --panel"><i class="fa fa-check"></i> Valider</button>
+              <button id="test-commit" type="submit" class="button button__submit --panel"><i class="fa fa-check"></i> Valider</button>
             </div>
 
           @endif

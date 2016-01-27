@@ -11,7 +11,7 @@
 					@if (Html::pipelineStepCompleted(1, $step) && Html::pipelinePaymentStepDone($step))
 						<span class="pipeline__dot --complete"></span>
 					@elseif (Html::pipelineStepCompleted(1, $step))
-						<a href="{{ action('MasterBox\Customer\PurchaseController@getChooseFrequency') }}" class="pipeline__dot --complete"></a>
+						<a id="test-step-choose-frequency" href="{{ action('MasterBox\Customer\PurchaseController@getChooseFrequency') }}" class="pipeline__dot --complete"></a>
 					@else
 						<span class="pipeline__dot"></span>
 					@endif
@@ -27,7 +27,7 @@
 					@if (Html::pipelineStepCompleted(2, $step) && Html::pipelinePaymentStepDone($step))
 						<span class="pipeline__dot --complete"></span>
 					@elseif (Html::pipelineStepCompleted(2, $step))
-						<a href="{{ action('MasterBox\Customer\PurchaseController@getBillingAddress') }}" class="pipeline__dot --complete"></a>
+						<a id="test-step-billing-address" href="{{ action('MasterBox\Customer\PurchaseController@getBillingAddress') }}" class="pipeline__dot --complete"></a>
 					@else
 						<span class="pipeline__dot"></span>
 					@endif
@@ -43,7 +43,7 @@
 					@if (Html::pipelineStepCompleted(3, $step) && Html::pipelinePaymentStepDone($step))
 						<span class="pipeline__dot --complete"></span>
 					@elseif (Html::pipelineStepCompleted(3, $step))
-						<a href="{{ action('MasterBox\Customer\PurchaseController@getPayment') }}" class="pipeline__dot --complete"></a>
+						<a id="test-step-destination" href="{{ action('MasterBox\Customer\PurchaseController@getPayment') }}" class="pipeline__dot --complete"></a>
 					@else
 						<span class="pipeline__dot"></span>
 					@endif
@@ -59,7 +59,7 @@
 					@if (Html::pipelineStepCompleted(4, $step) && Html::pipelinePaymentStepDone($step))
 						<span class="pipeline__dot --complete"></span>
 					@elseif (Html::pipelineStepCompleted(4, $step))
-						<a href="{{ action('MasterBox\Customer\PurchaseController@getBoxForm') }}" class="pipeline__dot --complete"></a>
+						<a id="test-step-payment" href="{{ action('MasterBox\Customer\PurchaseController@getBoxForm') }}" class="pipeline__dot --complete"></a>
 					@else
 						<span class="pipeline__dot"></span>
 					@endif

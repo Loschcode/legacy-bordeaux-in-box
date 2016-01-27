@@ -55,7 +55,7 @@
 
           </div>
       </div>
-        <button type="submit" class="button button__submit --panel">M'inscrire</button>
+        <button id="test-subscribe" type="submit" class="button button__submit --panel">M'inscrire</button>
     </div>
     {!! Form::close() !!}
 

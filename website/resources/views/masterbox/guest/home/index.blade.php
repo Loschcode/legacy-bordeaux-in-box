@@ -22,10 +22,10 @@
 		
 		<div class="row">
 			<div class="grid-3 push-3">
-				<a class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getGift') }}"><i class="fa fa-gift"></i>L'offrir</a>
+				<a id="test-pick-gift" class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getGift') }}"><i class="fa fa-gift"></i>L'offrir</a>
 			</div>
 			<div class="grid-3 push-3">
-				<a class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+				<a id="test-pick-classic" class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
 			</div>
 		</div>
 
