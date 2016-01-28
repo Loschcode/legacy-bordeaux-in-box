@@ -52,6 +52,8 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
 
     $this->assertSessionHas('message');
 
+    $this->seeEmailsSent(1)->seeEmailTo($customer['email']);
+
     // I'm logged.
     $this->assertEquals(true, Auth::guard('customer')->check());
 
