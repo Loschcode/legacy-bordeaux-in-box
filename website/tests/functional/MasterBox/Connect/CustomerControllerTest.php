@@ -4,6 +4,8 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
+use App\Models\Customer;
+
 class MasterBox_Connect_CustomerControllerTest extends TestCase
 {
 
@@ -26,7 +28,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
   /** @test */
   public function should_logout_me_when_i_am_connected()
   {
-    $customer = factory(App\Models\Customer::class, 'basic-customer')->create();
+    $customer = factory(Customer::class, 'subscribed-customer')->create();
 
     $this->actingAs($customer, 'customer')
       ->visit('/connect/customer/logout')
@@ -37,17 +39,16 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
   /** @test */
   public function should_subscribe_me_when_i_provide_right_informations()
   {
-    $email = $this->faker->email;
-    $password = str_random(10);
+    
+    // Make valid subscribing customer
+    $customer = $this->mockCustomer();
 
-    $this->postSubscribe([
-      'email' => $email,
-      'password' => $password,
-      'password_confirmation' => $password
-    ]);
+    // Subscribe
+    $this->call('POST', 'connect/customer/subscribe', $customer);
 
-    $this->seeInDatabase('customers', ['email' => $email])
-      ->assertRedirectedToAction('MasterBox\Customer\PurchaseController@getIndex');
+    $this->assertRedirectedToAction('MasterBox\Customer\PurchaseController@getIndex');
+
+    $this->seeInDatabase('customers', ['email' => $customer['email']]);
 
     $this->assertSessionHas('message');
 
@@ -62,11 +63,12 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     $email = $this->faker->email;
     $password = str_random(3);
 
-    $this->postSubscribe([
-      'email' => $email,
+    $customer = $this->mockCustomer([
       'password' => $password,
       'password_confirmation' => $password
     ]);
+
+    $this->call('POST', 'connect/customer/subscribe', $customer);
 
     $this->missingFromDatabase('customers', ['email' => $email]);
     $this->assertSessionHasErrors('password');
@@ -77,20 +79,26 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
   {
     $email = $this->faker->email;
 
-    $customer = factory(App\Models\Customer::class, 'basic-customer')->create([
+    // Add a record in the database
+    factory(Customer::class, 'subscribed-customer')->create([
       'email' => $email
     ]);
 
-    $this->postSubscribe(['email' => $email]);
+    // Make a new customer with the same email added
+    $customer = $this->mockCustomer(['email' => $email]);
 
+    // Subscribe
+    $this->call('POST', 'connect/customer/subscribe', $customer);
+
+    // Fails
     $this->assertSessionHasErrors('email');
   }
 
   /** @test */
   public function should_see_the_login_page()
   {
-    $this->visit('/connect/customer/login')
-      ->seePageIs('/connect/customer/login');
+    $this->visit('connect/customer/login')
+      ->seePageIs('connect/customer/login');
   }
 
   /** @test */
@@ -99,17 +107,19 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     $email = $this->faker->email;
     $password = str_random(10);
 
-    $customer = factory(App\Models\Customer::class, 'basic-customer')->create([
+    // Add a new record in the database
+    $customer = factory(Customer::class, 'subscribed-customer')->create([
       'email' => $email,
       'password' => bcrypt($password)
     ]);
 
-
-    $this->call('POST', '/connect/customer/login', [
+    // Try to connect with the same email / password
+    $this->call('POST', 'connect/customer/login', [
       'email' => $email,
       'password' => $password
     ]);
 
+    // Should works
     $this->assertEquals(true, Auth::guard('customer')->check());
 
   }
@@ -119,19 +129,23 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
   { 
      $email = $this->faker->email;
 
-     $customer = factory(App\Models\Customer::class, 'basic-customer')->create([
+     // Create new customer in the database
+     $customer = factory(Customer::class, 'subscribed-customer')->create([
        'email' => $email,
        'password' => 'jeremie'
      ]);
 
-
-     $this->call('POST', '/connect/customer/login', [
+     // Try to connect with wrong password
+     $this->call('POST', 'connect/customer/login', [
        'email' => $email,
        'password' => 'wrongpassword'
      ]);
 
+     // Should not connect
      $this->assertEquals(false, Auth::guard('customer')->check());
-     $this->assertSessionHasErrors('email'); // Wrong combination email/password
+
+     // Wrong combination email/password
+     $this->assertSessionHasErrors('email');
   }
 
   /** @test */
@@ -140,14 +154,14 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     $email = $this->faker->email;
     $password = str_random(10);
 
-    $customer = factory(App\Models\Customer::class, 'basic-customer')->create([
+    $customer = factory(Customer::class, 'subscribed-customer')->create([
       'email' => $email,
       'password' => bcrypt($password)
     ]);
 
     $this->withSession(['isOrdering' => true, 'isGift' => true]);
 
-    $this->call('POST', '/connect/customer/login', [
+    $this->call('POST', 'connect/customer/login', [
       'email' => $email,
       'password' => $password
     ]);
@@ -162,14 +176,14 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     $email = $this->faker->email;
     $password = str_random(10);
 
-    $customer = factory(App\Models\Customer::class, 'basic-customer')->create([
+    $customer = factory(Customer::class, 'subscribed-customer')->create([
       'email' => $email,
       'password' => bcrypt($password)
     ]);
 
     $this->withSession(['isOrdering' => true, 'isGift' => false]);
 
-    $this->call('POST', '/connect/customer/login', [
+    $this->call('POST', 'connect/customer/login', [
       'email' => $email,
       'password' => $password
     ]);
@@ -179,24 +193,23 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
   }
 
   /**
-   * Perform a POST request on subscribe
-   * @param  array  $datas Datas to merge with the defaults provided
-   * @return void
+   * Mock a raw customer
+   * @param  array  $overrides Entries to overrides
+   * @return array
    */
-  private function postSubscribe($datas = [])
+  private function mockCustomer($overrides = [])
   {
     $password = str_random(10);
-
-    $default = array_merge([
-      'first_name' => $this->faker->firstName,
-      'last_name' => $this->faker->lastName,
+    
+    return array_merge([
       'email' => $this->faker->email,
       'password' => $password,
       'password_confirmation' => $password,
+      'first_name' => $this->faker->firstName,
+      'last_name' => $this->faker->lastName,
       'phone' => $this->faker->phoneNumber
-    ], $datas);
+    ], $overrides);
 
-    $this->call('POST', '/connect/customer/subscribe', $default);
   }
 
 }

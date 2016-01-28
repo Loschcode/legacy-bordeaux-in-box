@@ -6,6 +6,8 @@ use Faker\Factory as Faker;
 class TestCase extends Illuminate\Foundation\Testing\TestCase
 {
 
+    use MailTracking;
+    
     public function __construct()
     {
       parent::__construct();

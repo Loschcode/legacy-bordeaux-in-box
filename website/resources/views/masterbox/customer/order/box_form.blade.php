@@ -40,7 +40,7 @@
     <div class="grid-8 grid-centered">
       
       <div class="+text-center">
-        <a href="{{ action('MasterBox\Customer\PurchaseController@getConfirmed') }}" class="button button__skip-custom-box">Je ne veux pas personnaliser la box</a>
+        <a id="test-no-customization" href="{{ action('MasterBox\Customer\PurchaseController@getConfirmed') }}" class="button button__skip-custom-box">Je ne veux pas personnaliser la box</a>
       </div>
 
       <div class="custombox labelauty-default">

@@ -10,15 +10,6 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->email,
-        'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
-    ];
-});
-
 /**
  * Mock subscribed customer
  */
@@ -33,3 +24,4 @@ $factory->defineAs(App\Models\Customer::class, 'subscribed-customer', function(F
       'phone' => $faker->phoneNumber
   ];
 });
+

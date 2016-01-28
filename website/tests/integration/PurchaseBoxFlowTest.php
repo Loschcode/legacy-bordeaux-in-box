@@ -5,143 +5,187 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Stripe\Stripe;
 
+use App\Models\Customer;
+
 class PurchaseBoxFlowTest extends TestCase
 {
 
   use DatabaseTransactions;
 
-  /*
-  public function as_a_guest_i_buy_a_gift_box_for_5_months_and_i_deliver_it_to_a_regional_address()
+  /** @test */
+  public function as_a_guest_i_buy_a_gift_box_and_i_deliver_it_to_a_regional_address_without_customization()
   {
 
     // Choose type gift, must be redirected to subscribe
     $this->visit('/')
-      ->click('test-pick-gift')
-      ->seePageIs('/connect/customer/subscribe');
+      ->click('#test-pick-gift')
+      ->seePageIs('connect/customer/subscribe');
 
-    // Fill form
+    // Fill subscribe form
     $email = $this->faker->email;
-    $password = str_random(10);
-    $first_name = $this->faker->firstName;
-    $last_name = $this->faker->lastName;
 
-    $this->type($first_name, 'first_name')
-      ->type($last_name, 'last_name')
-      ->type($email, 'email')
-      ->type($this->faker->phoneNumber, 'phone')
-      ->type($password, 'password')
-      ->type($password, 'password_confirmation')
-      ->type(csrf_token(), '_token');
+    $this->fillFormSubscribeAndSubmit([
+      'email' => $email
+    ]);
 
-    // Submit form
-    $this->press('test-subscribe');
-
-    // New customer created
+    // Should create a customer
     $this->seeInDatabase('customers', ['email' => $email]);
 
-    // Redirect to the step choose frequency of the pipeline purchase
-    $this->seePageIs('/customer/purchase/choose-frequency');
+    // Fetch customer created
+    $customer = Customer::where('email', $email)->first();
+
+    // Should sent an email to the user
+    $this->seeEmailsSent(1)
+      ->seeEmailTo($customer->email);
+
+    // Should land on choose frequency
+    $this->seePageIs('customer/purchase/choose-frequency');
 
     // Pick frequency 5 months
-    // id 6 = 5 months
-    $this->select(6, 'delivery_price');
+    // (id = 6)
+    $this->fillFormFrequencyAndSubmit([
+      'delivery_price' => 6
+    ]);
 
-    // Submit form
-    $this->press('commit');
+    // Should land on billing address step
+    $this->seePageIs('customer/purchase/billing-address');
 
-    // Step billing address 
-    $this->seePageIs('/customer/purchase/billing-address');
-
-    // Check if I can come back to the step choose frequency
-    $this->click('test-step-choose-frequency')
-      ->seePageIs('/customer/purchase/choose-frequency');
-
-    // Go back to the current step
-    $this->visit('/customer/purchase/billing-address')
-      ->seePageIs('/customer/purchase/billing-address');
-
-    // Check if destination first name and last name 
+     // Check if destination first name and last name 
     // are not populated (it's a gift case)
-    $this->seeInField('destination_first_name', null);
-    $this->seeInField('destination_last_name', null);
-
-    // Fill destination
-    $this->type('Gujan-Mestras', 'destination_city');
-    $this->type('33470', 'destination_zip');
-    $this->type('23 allée jacques bossuet', 'destination_address');
-    $this->type($this->faker->firstName, 'destination_first_name');
-    $this->type($this->faker->lastName, 'destination_last_name');
-
-    // Check if fake inputs billing first name and last name
-    // are already populated
-    $this->seeInField('fake_billing_first_name', $first_name);
-    $this->seeInField('fake_billing_last_name', $last_name);
+    $this->seeNotPopulatedDestinationFirstNameLastName();
 
     // Check if hidden inputs billing first name and last name
     // are already populated
-    $this->seeInField('billing_first_name', $first_name);
-    $this->seeInField('billing_last_name', $last_name);
+    $this->seeInField('billing_first_name', $customer->first_name);
+    $this->seeInField('billing_last_name', $customer->last_name);
 
-    // Fill form billing
-    $this->type($this->faker->city, 'billing_city');
-    $this->type($this->faker->postcode, 'billing_zip');
-    $this->type($this->faker->address, 'billing_address');
-    $this->type(csrf_token(), '_token');
+    // Fill form destination
+    // with a regionnal address
+    $this->fillFormDestinationBillingAndSubmit([
+      'destination_city' => 'Bordeaux',
+      'destination_zip' => '33000',
+      'destination_address' => '18 porte soleil',
+      'billing_first_name' => $customer->first_name,
+      'billing_last_name' => $customer->last_name
+    ]);
 
-    $this->press('test-commit');
+    // Sould land on the page to choose by spot or delivery because it's a regionnal address
+    $this->seePageIs('customer/purchase/delivery-mode');
 
-    // Can choose by spot or delivery
-    $this->seePageIs('/customer/purchase/delivery-mode');
+    // Fill form delivery mode
+    $this->fillFormDeliveryMode([
+      'take_away' => 0
+    ]);
 
-    // I can go to the previous step
-    $this->click('test-step-billing-address')
-      ->seePageIs('/customer/purchase/billing-address');
+    // Should land on the page to fill my credit card
+    $this->seePageIs('customer/purchase/payment');
 
-    // Everything must be populated, so i can submit it
-    // again and go back to the current step
-    $this->press('test-commit')
-      ->seePageIs('/customer/purchase/delivery-mode');
+    // Create stripe token (card)
+    $token = $this->generateStripeToken()['id'];
 
-    // I can go back to the very first step
-    $this->click('test-step-choose-frequency')
-      ->seePageIs('/customer/purchase/choose-frequency');
-
-    // The frequency is already populated 
-    // id 6 = 5 months
-    $this->seeIsSelected('delivery_price', 6);
-
-    // Go back to the current step
-    $this->press('commit');
-    $this->press('test-commit');
-
-    // Choose no take away
-    $this->select(0, 'take_away');
-
-    // Submit form
-    $this->press('test-commit')
-      ->seePageIs('customer/purchase/payment');
-
-    // Create stripe token
-    $request = $this->generateStripeToken();
-
-    $token = $request['id'];
-
-    // Call next step
-    $this->call('POST', '/customer/purchase/payment', [
-      '_token' => csrf_token(),
+    // Submit the payment form
+    $this->call('POST', 'customer/purchase/payment', [
       'email' => $this->getInputOrTextAreaValue('email'),
       'stripeToken' => $token
     ]);
 
     $this->followRedirects();
 
-    $this->seePageIs('/customer/purchase/box-form');
+    $this->seePageIs('customer/purchase/box-form');
+
+    // No customization
+    $this->click('test-no-customization');
+
+    $this->seePageIs('customer/purchase/confirmed');
 
   }
-  */
+
+  /**
+   * Check if destination_first_name and destination_last_name is not
+   * populate
+   * @return void
+   */
+  private function seeNotPopulatedDestinationFirstNameLastName()
+  {
+    $this->seeInField('destination_first_name', null);
+    $this->seeInField('destination_last_name', null);
+  }
+
+  /**
+   * Fill the form delivery mode and submit it
+   * @param  array  $overrides Overrides entries
+   * @return void
+   */
+  private function fillFormDeliveryMode($overrides = [])
+  { 
+    $this->submitForm('test-commit', array_merge([
+      'take_away' => 0
+    ], $overrides));
+  }
+
+  /**
+   * Fill the form destination / billing and submit it
+   * @param  array  $overrides Overrides entries
+   * @return void
+   */
+  private function fillFormDestinationBillingAndSubmit($overrides = [])
+  {
+
+    $this->submitForm('test-commit', array_merge([
+
+      'destination_first_name' => $this->faker->firstName,
+      'destination_last_name' => $this->faker->lastName,
+      'destination_address' => $this->faker->address,
+      'destination_city' => $this->faker->city,
+      'destination_zip' => $this->faker->postcode,
+
+      'billing_first_name' => $this->faker->firstName,
+      'billing_last_name' => $this->faker->lastName,
+      'billing_address' => $this->faker->address,
+      'billing_city' => $this->faker->city,
+      'billing_zip' => $this->faker->postCode,
+
+    ], $overrides));
+
+  }
+
+  /**
+   * Fill the form frequency and submit it
+   * @param  array  $overrides Overrides entries
+   * @return void
+   */
+  private function fillFormFrequencyAndSubmit($overrides = [])
+  {
+    $this->submitForm('commit', array_merge([
+      'delivery_price' => 6
+    ], $overrides));
+
+  }
+
+  /**
+   * Fill the form subscribe and submit it 
+   * @param  array  $overrides Overrides entries
+   * @return void
+   */
+  private function fillFormSubscribeAndSubmit($overrides = [])
+  {
+
+    $password = str_random(10);
+
+    $this->submitForm('test-subscribe', array_merge([
+      'first_name' => $this->faker->firstName,
+      'last_name' => $this->faker->lastName,
+      'email' => $this->faker->email,
+      'phone' => $this->faker->phoneNumber,
+      'password' => $password,
+      'password_confirmation' => $password
+    ], $overrides));
+
+  }
 
   /**
    * Generate a card token
+   * @param  array Overrides entries
    * @return array
    */
   private function generateStripeToken($overrides = [])
