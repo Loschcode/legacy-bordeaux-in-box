@@ -12,6 +12,8 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
       parent::__construct();
 
+      ini_set('memory_limit', '512M');
+
       $this->baseUrl = env('BASE_URL');
 
       \Stripe\Stripe::setApiKey(getenv('STRIPE_API_KEY'));
