@@ -17,126 +17,312 @@ class PurchaseBoxFlowTest extends TestCase
   use DatabaseTransactions;
 
   /** @test */
-  public function as_a_guest_i_buy_a_gift_box_for_5_months_and_i_deliver_it_to_a_regional_address_without_customization()
+  public function pick_gift_and_subscribe()
+  {
+    $this->pickGift()
+      ->seePageIs('connect/customer/subscribe')
+      ->subscribe(['email' => 'jeremieges@test.com'])
+      ->seePageIs('customer/purchase/choose-frequency')
+      ->seeInDatabase('customers', ['email' => 'jeremieges@test.com']);
+  }
+
+  /** @test */
+  public function pick_classic_and_subscribe()
+  {
+    $this->pickClassic()
+      ->seePageIs('connect/customer/subscribe')
+      ->subscribe(['email' => 'jeremieges@test.com'])
+      ->seePageIs('customer/purchase/choose-frequency')
+      ->seeInDatabase('customers', ['email' => 'jeremieges@test.com']);
+  }
+
+  /** @test */
+  public function pick_5_months_frequency_for_a_gift()
+  {
+    $this->pickGift()
+      ->subscribe(['email' => 'jeremieges@test.com'])
+      ->pickFrequency(6) // id 6 = 5 months
+      ->seePageIs('customer/purchase/billing-address');
+    
+    // Fetch customer created
+    $customer = Customer::where('email', 'jeremieges@test.com')->first();
+
+    $this->seeInDatabase('customer_order_buildings', ['customer_id' => $customer->id, 'step' => 'billing-address']);
+
+    $this->assertEquals(5, $customer->order_building()->first()->order_preference()->first()->frequency);
+  }
+
+  /** @test */
+  public function pick_3_months_frequency_for_a_gift()
+  {
+    $this->pickGift()
+      ->subscribe(['email' => 'jeremieges@test.com'])
+      ->pickFrequency(5) // id 5 = 3 months
+      ->seePageIs('customer/purchase/billing-address');
+    
+    // Fetch customer created
+    $customer = Customer::where('email', 'jeremieges@test.com')->first();
+
+    $this->seeInDatabase('customer_order_buildings', ['customer_id' => $customer->id, 'step' => 'billing-address']);
+
+    $this->assertEquals(3, $customer->order_building()->first()->order_preference()->first()->frequency);
+
+  }
+
+  /** @test */
+  public function pick_1_month_frequency_for_a_gift()
+  {
+    $this->pickGift()
+      ->subscribe(['email' => 'jeremieges@test.com'])
+      ->pickFrequency(4) // id 4 = 1 month
+      ->seePageIs('customer/purchase/billing-address');
+    
+    // Fetch customer created
+    $customer = Customer::where('email', 'jeremieges@test.com')->first();
+
+    $this->seeInDatabase('customer_order_buildings', ['customer_id' => $customer->id, 'step' => 'billing-address']);
+
+    $this->assertEquals(1, $customer->order_building()->first()->order_preference()->first()->frequency);
+
+  }
+
+  /** @test */
+  public function pick_1_month_frequency_for_a_classic_box()
+  {
+    $this->pickClassic()
+      ->subscribe(['email' => 'jeremieges@test.com'])
+      ->pickFrequency(7) // id 7 = 1 month
+      ->seePageIs('customer/purchase/billing-address');
+    
+    // Fetch customer created
+    $customer = Customer::where('email', 'jeremieges@test.com')->first();
+
+    $this->seeInDatabase('customer_order_buildings', ['customer_id' => $customer->id, 'step' => 'billing-address']);
+
+    $this->assertEquals(1, $customer->order_building()->first()->order_preference()->first()->frequency);
+  }
+
+  /** @test */
+  public function pick_unlimited_months_frequency_for_a_classic_box()
+  {
+    $this->pickClassic()
+      ->subscribe(['email' => 'jeremieges@test.com'])
+      ->pickFrequency(3) // id 3 = unlimited
+      ->seePageIs('customer/purchase/billing-address');
+    
+    // Fetch customer created
+    $customer = Customer::where('email', 'jeremieges@test.com')->first();
+
+    $this->seeInDatabase('customer_order_buildings', ['customer_id' => $customer->id, 'step' => 'billing-address']);
+
+    $this->assertEquals(0, $customer->order_building()->first()->order_preference()->first()->frequency);
+  }
+
+  /** @test */
+  public function do_not_populate_firstname_lastname_destination_when_gift()
+  {
+    $this->pickGift()
+      ->subscribe()
+      ->pickFrequencyGift();
+
+    $this->seeInField('destination_first_name', null);
+    $this->seeInField('destination_last_name', null);
+
+  }
+
+  /** @test */
+  public function populate_firstname_lastname_destination_when_classic()
+  {
+    $this->pickClassic()
+      ->subscribe(['first_name' => 'jeremie', 'last_name' => 'ges'])
+      ->pickFrequencyClassic();
+
+    $this->seeInField('destination_first_name', 'jeremie');
+    $this->seeInField('destination_last_name', 'ges');
+  }
+
+  /** @test */
+  public function must_not_display_delivery_mode_if_not_regional_when_classic()
+  {
+    $this->pickClassic()
+      ->subscribe()
+      ->pickFrequencyClassic()
+      ->fillFormDestinationBillingAndSubmit([
+        'destination_zip' => '95000'
+      ])
+      ->seePageIs('customer/purchase/payment');
+  }
+
+
+  /** @test */
+  public function must_not_display_delivery_mode_if_not_regional_when_gift()
+  {
+    $this->pickGift()
+      ->subscribe()
+      ->pickFrequencyGift()
+      ->fillFormDestinationBillingAndSubmit([
+        'destination_zip' => '95000'
+      ])
+      ->seePageIs('customer/purchase/payment');
+  }
+
+  /** @test */
+  public function must_display_delivery_mode_if_regional_when_classic()
+  {
+    $this->pickClassic()
+      ->subscribe()
+      ->pickFrequencyClassic()
+      ->fillFormDestinationBillingAndSubmit([
+        'destination_zip' => '33470'
+      ])
+      ->seePageIs('customer/purchase/delivery-mode');
+  }
+
+  /** @test */
+  public function must_display_delivery_mode_if_regional_when_gift()
+  {
+    $this->pickGift()
+      ->subscribe()
+      ->pickFrequencyGift()
+      ->fillFormDestinationBillingAndSubmit([
+        'destination_zip' => '33470'
+      ])
+      ->seePageIs('customer/purchase/delivery-mode');
+  }
+
+  /** @test */
+  public function can_pay_when_gift()
+  {
+    $this->pickGift()
+      ->subscribe(['email' => 'jeremieges@test.com'])
+      ->pickFrequencyGift()
+      ->fillFormDestinationBillingAndSubmit([
+        'destination_zip' => '95000'
+      ])
+      ->pay()
+      ->seePageIs('customer/purchase/box-form');
+
+      // Fetch customer created
+      $customer = Customer::where('email', 'jeremieges@test.com')->first();
+
+      // Fetch customer stripe id
+      $stripe_customer = CustomerProfile::where('customer_id', $customer->id)->first()->stripe_customer;
+
+      // Retrieve charge
+      $charge = \Stripe\Charge::all(['customer' => $stripe_customer, 'limit' => 1])['data'][0];
+
+      // Check paid
+      $this->assertEquals(true, $charge->paid);
+  }
+
+  /** @test */
+  public function can_pay_when_classic()
+  {
+    $this->pickClassic()
+      ->subscribe(['email' => 'jeremieges@test.com'])
+      ->pickFrequencyClassic()
+      ->fillFormDestinationBillingAndSubmit([
+        'destination_zip' => '95000'
+      ])
+      ->pay()
+      ->seePageIs('customer/purchase/box-form');
+
+      // Fetch customer created
+      $customer = Customer::where('email', 'jeremieges@test.com')->first();
+
+      // Fetch customer stripe id
+      $stripe_customer = CustomerProfile::where('customer_id', $customer->id)->first()->stripe_customer;
+
+      // Retrieve charge
+      $charge = \Stripe\Charge::all(['customer' => $stripe_customer, 'limit' => 1])['data'][0];
+
+      // Check paid
+      $this->assertEquals(true, $charge->paid);
+  }
+
+  /** @test */
+  public function display_success_page_after_payment_without_customization()
+  {
+    $this->pickClassic()
+      ->subscribe()
+      ->pickFrequencyClassic()
+      ->fillFormDestinationBillingAndSubmit()
+      ->pay()
+      ->pickNoCustomization()
+      ->seePageIs('customer/purchase/confirmed');
+  }
+
+  /**
+   * Generate a stripe token, and submit form payment
+   * @param  array  $overrides Overrides entries for card
+   * @return self
+   */
+  private function pay($overrides = [])
   {
 
-    // Choose type gift
-    $this->pickGift();
-    
-    // Should see customer subscribe
-    $this->seePageIs('connect/customer/subscribe');
+    $token_id = $this->generateStripeToken($overrides)['id'];
 
-    // Subscribe
-    $email = $this->faker->email;
-    $this->subscribe(['email' => $email]);
-
-    // Should create a customer
-    $this->seeInDatabase('customers', ['email' => $email]);
-
-    // Fetch customer created
-    $customer = Customer::where('email', $email)->first();
-
-    // Should sent an email to the user
-    $this->seeEmailsSent(1)->seeEmailTo($customer->email);
-
-    // Should land on choose frequency
-    $this->seePageIs('customer/purchase/choose-frequency');
-
-    // Pick frequency 5 months
-    // (id = 6)
-    $this->pickFrequency(6);
-
-    // Should land on billing address step
-    $this->seePageIs('customer/purchase/billing-address');
-
-     // Check if destination first name and last name 
-    // are not populated (it's a gift case)
-    $this->seeNotPopulatedDestinationFirstNameLastName();
-
-    // Check if hidden inputs billing first name and last name
-    // are already populated
-    $this->seeInField('billing_first_name', $customer->first_name);
-    $this->seeInField('billing_last_name', $customer->last_name);
-
-    // Fill form destination
-    // with a regionnal address
-    $this->fillFormDestinationBillingAndSubmit([
-      'destination_city' => 'Bordeaux',
-      'destination_zip' => '33000',
-      'destination_address' => '18 porte soleil',
-      'billing_first_name' => $customer->first_name,
-      'billing_last_name' => $customer->last_name
-    ]);
-
-    // Sould land on the page to choose by spot or delivery because it's a regionnal address
-    $this->seePageIs('customer/purchase/delivery-mode');
-
-    $this->pickNoTakeAway();
-
-    // Should land on the page to fill my credit card
-    $this->seePageIs('customer/purchase/payment');
-
-    // Create stripe token (card)
-    $token = $this->generateStripeToken();
-
-    // Submit the payment form
     $this->call('POST', 'customer/purchase/payment', [
       'email' => $this->getInputOrTextAreaValue('email'),
-      'stripeToken' => $token
+      'stripeToken' => $token_id
     ]);
 
     $this->followRedirects();
 
-    $this->seePageIs('customer/purchase/box-form');
-
-    $this->pickNoCustomization();
-
-    $this->seePageIs('customer/purchase/confirmed');
-
-    // Fetch customer stripe id
-    $stripe_customer = CustomerProfile::where('customer_id', $customer->id)->first()->stripe_customer;
-
-    // Fetch total amount for that frequency (id 6 = 5 months)
-    $total_amount = number_format(DeliveryPrice::find(6)->unity_price + (DeliverySetting::first()->regional_delivery_fees) * 5, 2);
-
-    // Retrieve charge
-    $charge = \Stripe\Charge::all(['customer' => $stripe_customer, 'limit' => 1])['data'][0];
-
-    $this->assertEquals(true, $charge->paid);
-    $this->assertEquals($total_amount, number_format($charge->amount/100, 2));
-
+    return $this;
   }
 
+  /**
+   * Alias of click to pick no customization
+   * @return self
+   */
   private function pickNoCustomization()
   {
     $this->click('test-no-customization');
+
+    return $this;
   }
 
+  /**
+   * Fill form delivery mode with take away and submit it
+   * @return self
+   */
   private function pickTakeAway()
   {
-    $this->fillFormDeliveryMode([
+    $this->fillFormDeliveryModeAndSubmit([
       'take_away' => 1
     ]);
 
     return $this;
   }
 
+  /**
+   * Fill form delivery mode with no take away and submit it
+   * @return self
+   */
   private function pickNoTakeAway()
   {
-    $this->fillFormDeliveryMode([
+    $this->fillFormDeliveryModeAndSubmit([
       'take_away' => 0
     ]);
 
     return $this;
   }
 
+  /**
+   * Visit page gift
+   * @return self
+   */
   private function pickGift()
   {
     $this->visit('customer/purchase/gift');
 
     return $this;
   }
-
+  /**
+   * Visit page classic
+   * @return self
+   */
   private function pickClassic()
   {
     $this->visit('customer/purchase/classic');
@@ -144,7 +330,11 @@ class PurchaseBoxFlowTest extends TestCase
     return $this;
   }
 
-  private function subscribe($datas)
+  /**
+   * Visit page subscribe, fill form, submit
+   * @return self
+   */
+  private function subscribe($datas = [])
   {
     $this->visit('connect/customer/subscribe');
 
@@ -153,6 +343,33 @@ class PurchaseBoxFlowTest extends TestCase
     return $this;
   }
 
+  /**
+   * Visit page frequency and pick frequency id of a gift
+   * @return self
+   */
+  private function pickFrequencyGift()
+  {
+    $this->pickFrequency(6);
+
+    return $this;
+  }
+
+  /**
+   * Visit page frequency and pick frequency id of a classic box
+   * @return self
+   */
+  private function pickFrequencyClassic()
+  {
+    $this->pickFrequency(3);
+
+    return $this;
+  }
+
+  /**
+   * Visit page frequency and pick the frequency wanted
+   * @param  int $id Frequency id wanted
+   * @return self
+   */
   private function pickFrequency($id)
   {
     $this->visit('customer/purchase/choose-frequency');
@@ -162,32 +379,23 @@ class PurchaseBoxFlowTest extends TestCase
   }
 
   /**
-   * Check if destination_first_name and destination_last_name is not
-   * populate
-   * @return void
-   */
-  private function seeNotPopulatedDestinationFirstNameLastName()
-  {
-    $this->seeInField('destination_first_name', null);
-    $this->seeInField('destination_last_name', null);
-  }
-
-  /**
    * Fill the form delivery mode and submit it
    * @param  array  $overrides Overrides entries
    * @return void
    */
-  private function fillFormDeliveryMode($overrides = [])
+  private function fillFormDeliveryModeAndSubmit($overrides = [])
   { 
     $this->submitForm('test-commit', array_merge([
       'take_away' => 0
     ], $overrides));
+
+    return $this;
   }
 
   /**
    * Fill the form destination / billing and submit it
    * @param  array  $overrides Overrides entries
-   * @return void
+   * @return self
    */
   private function fillFormDestinationBillingAndSubmit($overrides = [])
   {
@@ -208,12 +416,13 @@ class PurchaseBoxFlowTest extends TestCase
 
     ], $overrides));
 
+    return $this;
   }
 
   /**
    * Fill the form frequency and submit it
    * @param  array  $overrides Overrides entries
-   * @return void
+   * @return self
    */
   private function fillFormFrequencyAndSubmit($overrides = [])
   {
@@ -221,12 +430,14 @@ class PurchaseBoxFlowTest extends TestCase
       'delivery_price' => 6
     ], $overrides));
 
+    return $this;
+
   }
 
   /**
    * Fill the form subscribe and submit it 
    * @param  array  $overrides Overrides entries
-   * @return void
+   * @return self
    */
   private function fillFormSubscribeAndSubmit($overrides = [])
   {
@@ -241,6 +452,8 @@ class PurchaseBoxFlowTest extends TestCase
       'password' => $password,
       'password_confirmation' => $password
     ], $overrides));
+
+    return $this;
 
   }
 

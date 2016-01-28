@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-use App\Customer;
+use App\Models\Customer;
 
 /**
  * NOT ENOUGH. IT'S RIDICULOUS. WE NEED A SHIT LOAD OF TESTS HERE.
