@@ -10,11 +10,21 @@ use App\Models\Payment;
 use App\Models\CustomerProfile;
 use App\Models\DeliveryPrice;
 use App\Models\DeliverySetting;
+use App\Models\DeliverySerie;
 
 class PurchaseBoxFlowTest extends TestCase
 {
 
   use DatabaseTransactions;
+
+  public function setUp()
+  {
+    parent::setUp();
+
+    // We need at least a next serie to purchase
+    factory(DeliverySerie::class)->create();
+
+  }
 
   /** @test */
   public function pick_gift_and_subscribe()

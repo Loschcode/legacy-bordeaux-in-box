@@ -18,29 +18,31 @@
 
 <div class="container">
 	{{-- Buttons to order --}}
-	@if ($next_series->first()->getCounter() !== 0 || $next_series->first()->getCounter() === FALSE)
-		
-		<div class="row">
-			<div class="grid-3 push-3">
-				<a id="test-pick-gift" class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getGift') }}"><i class="fa fa-gift"></i>L'offrir</a>
+	@if ($next_series->first() !== NULL)
+		@if ($next_series->first()->getCounter() !== 0 || $next_series->first()->getCounter() === FALSE)
+			
+			<div class="row">
+				<div class="grid-3 push-3">
+					<a id="test-pick-gift" class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getGift') }}"><i class="fa fa-gift"></i>L'offrir</a>
+				</div>
+				<div class="grid-3 push-3">
+					<a id="test-pick-classic" class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+				</div>
 			</div>
-			<div class="grid-3 push-3">
-				<a id="test-pick-classic" class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+
+			<div class="counter">
+				<div class="counter__content">
+					Il ne reste que {{$next_series->first()->getCounter()}} box(s) et {{ str_replace('dans', '', strtolower(Html::diffHumans($next_series->first()->delivery, 5
+					))) }} pour commander la box de {!! Html::convertMonth($next_series->first()->delivery) !!}
+				</div>
 			</div>
-		</div>
-
-		<div class="counter">
-			<div class="counter__content">
-				Il ne reste que {{$next_series->first()->getCounter()}} box(s) et {{ str_replace('dans', '', strtolower(Html::diffHumans($next_series->first()->delivery, 5
-				))) }} pour commander la box de {!! Html::convertMonth($next_series->first()->delivery) !!}
-			</div>
-		</div>
 
 
+		@endif
 	@endif
 
 	{{-- No more boxes to order --}}
-	@if ($next_series->first()->getCounter() === 0)
+	@if ($next_series->first() === NULL or $next_series->first()->getCounter() === 0)
 
 		<div class="row">
 			<div class="grid-3 push-3">

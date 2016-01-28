@@ -73,6 +73,7 @@ class HomeController extends BaseController {
   /**
    * Spots page
    */
+  /*
   public function getSpots()
   {
     $delivery_spots = DeliverySpot::get();
@@ -80,5 +81,6 @@ class HomeController extends BaseController {
       'delivery_spots'
     ));
   }
+  */
 
 }
