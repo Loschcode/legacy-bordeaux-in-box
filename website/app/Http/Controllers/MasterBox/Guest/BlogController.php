@@ -29,7 +29,6 @@ class BlogController extends BaseController {
 
   public function getArticle($slug)
   {
-
     $blog_article = BlogArticle::where('slug', '=', $slug)->first();
 
     if ($blog_article === NULL)
