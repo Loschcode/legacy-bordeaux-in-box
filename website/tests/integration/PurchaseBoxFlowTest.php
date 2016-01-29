@@ -287,7 +287,18 @@ class PurchaseBoxFlowTest extends TestCase
       ])
       ->seePageIs('customer/purchase/payment');
   }
-  
+
+  /** @test */
+  public function should_be_possible_to_go_back_to_current_step_when_i_browse_outside_of_the_pipeline()
+  {
+    $this->pickClassic()
+      ->subscribe()
+      ->pickFrequencyClassic()
+      ->visit('/')
+      ->pickClassic()
+      ->seePageIs('customer/purchase/billing-address');
+  }
+
   /**
    * Generate a stripe token, and submit form payment
    * @param  array  $overrides Overrides entries for card
