@@ -276,6 +276,18 @@ class PurchaseBoxFlowTest extends TestCase
       ->seePageIs('customer/purchase/payment');
   }
 
+  /** @test */
+  public function should_not_be_possible_to_pick_a_spot_when_not_regional()
+  {
+    $this->pickClassic()
+      ->subscribe()
+      ->pickFrequencyClassic()
+      ->fillFormDestinationBillingAndSubmit([
+        'destination_zip' => '95000'
+      ])
+      ->seePageIs('customer/purchase/payment');
+  }
+  
   /**
    * Generate a stripe token, and submit form payment
    * @param  array  $overrides Overrides entries for card
