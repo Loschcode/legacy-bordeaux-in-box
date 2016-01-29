@@ -222,6 +222,15 @@ a {
     .button__submit.\--disabled {
       opacity: 0.7;
       cursor: not-allowed; }
+    .button__submit.\--grey {
+      background-color: #c0cdd1;
+      color: white;
+      -webkit-box-shadow: inset 0 -6px #a3b6bb;
+              box-shadow: inset 0 -6px #a3b6bb; }
+      .button__submit.\--grey:active {
+        top: 1px;
+        -webkit-box-shadow: none;
+                box-shadow: none; }
   .button__copy-delivery {
     display: inline-block;
     background-color: #D83F66;

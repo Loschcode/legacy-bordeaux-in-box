@@ -793,7 +793,7 @@ class PurchaseController extends BaseController {
   public function getConfirmed()
   {
     // We will delete the user building system because we don't need it anymore
-    //Auth::guard('customer')->user()->order_building()->orderBy('created_at', 'desc')->first()->delete();
+    $customer_building = Auth::guard('customer')->user()->order_building()->orderBy('created_at', 'desc')->firstOrFail()->delete();
 
     return view('masterbox.customer.order.confirmed');
   }
