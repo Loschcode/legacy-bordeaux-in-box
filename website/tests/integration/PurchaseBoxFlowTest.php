@@ -262,6 +262,20 @@ class PurchaseBoxFlowTest extends TestCase
       ->seePageIs('customer/purchase/confirmed');
   }
 
+  /** @test */
+  public function should_be_possible_to_pick_a_spot_when_regional()
+  {
+    $this->pickClassic()
+      ->subscribe()
+      ->pickFrequencyClassic()
+      ->fillFormDestinationBillingAndSubmit([
+        'destination_zip' => '33000'
+      ])
+      ->pickTakeAway()
+      ->pickSpot()
+      ->seePageIs('customer/purchase/payment');
+  }
+
   /**
    * Generate a stripe token, and submit form payment
    * @param  array  $overrides Overrides entries for card
@@ -278,6 +292,17 @@ class PurchaseBoxFlowTest extends TestCase
     ]);
 
     $this->followRedirects();
+
+    return $this;
+  }
+
+  /**
+   * Will pick a stop and submit the form
+   * @return self
+   */
+  private function pickSpot()
+  {
+    $this->fillFormSpotAndSubmit();
 
     return $this;
   }
@@ -384,6 +409,20 @@ class PurchaseBoxFlowTest extends TestCase
   {
     $this->visit('customer/purchase/choose-frequency');
     $this->fillFormFrequencyAndSubmit(['delivery_price' => $id]);
+
+    return $this;
+  }
+
+  /**
+   * Fill the form choose spot and submit it
+   * @param  array  $overrides Overrides entries
+   * @return self
+   */
+  private function fillFormSpotAndSubmit($overrides = [])
+  {
+    $this->submitForm(array_merge([
+      'chosen_spot' => 8 // Victoire - Dreamcatchers
+    ], $overrides));
 
     return $this;
   }
