@@ -15,7 +15,7 @@ class BoxForm extends Controller
   before: ->
    
     # Display the first question
-    @showQuestion(1)
+    @showQuestion(1, false)
     @currentQuestion = 1
 
 
@@ -28,16 +28,35 @@ class BoxForm extends Controller
   ##
   run: ->
 
-    @on 'click', 'button', @buttonClicked
-    @on 'click', 'label', @labelClicked
+    @on 'submit', 'form', @formSubmited
+    @on 'click', ':radio', @labelClicked
 
-  buttonClicked: =>
+  formSubmited: (e) =>
 
-    @showNextQuestion()
+    e.preventDefault()
 
-  labelClicked: =>
+    @postAddAnswer()
 
-    #console.log @isQuestionRadioButton(@currentQuestion)
+  labelClicked: (e) =>
+
+    if @isQuestionRadioButton(@currentQuestion)
+
+      @postAddAnswer()
+
+  postAddAnswer: =>
+
+    #@showLoading()
+
+    datas = @fetchDatasCurrentQuestion()
+
+    console.log datas
+
+    $.post '/customer/purchase/box-form', datas, (response) ->
+
+      console.log response
+
+
+    #@showNextQuestion()
 
 
   showNextQuestion: =>
@@ -52,9 +71,13 @@ class BoxForm extends Controller
       alert "no more questions"
 
 
-  showQuestion: (position) =>
+  showQuestion: (position, fadeIn) =>
 
-    $('[id=question-' + position + ']').removeClass('+hidden')
+    if fadeIn is false
+      $('[id=question-' + position + ']').removeClass('+hidden')
+    else
+      $('[id=question-' + position + ']').fadeIn().removeClass('+hidden')
+
 
   hideQuestion: (position) =>
 
@@ -71,9 +94,28 @@ class BoxForm extends Controller
 
     return false
 
-  isQuestionRadioButton: =>
+  isQuestionRadioButton: (question) =>
 
+    type = $('#question-' + question).data('type')
 
+    if type is 'radiobutton'
+      return true
+
+    return false
+
+  showLoading: =>
+
+    $('#question-' + @currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer')
+
+  fetchDatasCurrentQuestion: =>
+
+    return @fetchDatasQuestion(@currentQuestion)
+
+  fetchDatasQuestion: (question) =>
+
+    syphon = new Syphon()
+
+    return syphon.get('#question-' + question + ' form')
 
     
 

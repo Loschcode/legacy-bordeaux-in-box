@@ -38,7 +38,7 @@
     
     <div class="grid-7 grid-centered labelauty-default-small">
             
-      @foreach ($questions as $key => $question)}
+      @foreach ($questions as $key => $question)
 
           <div id="question-{{ $key+1 }}" class="+hidden" data-type="{{ $question->type }}">
             {{ Form::open() }}
@@ -56,9 +56,9 @@
 
                 <div class="custombox__choices">
                   @if (in_array($question->type, ['date', 'member_email', 'text']))
-                    <input type="text" class="form__input" />
+                    {!! Form::text('answer', '', ['class' => 'form__input']) !!}
                   @elseif ($question->type == 'textarea')
-                    <textarea class="form__input"></textarea>
+                    {!! Form::textarea('answer', '', ['class' => 'form__input']) !!}
                   @else
                     @foreach ($question->answers as $answer)
 
@@ -76,9 +76,8 @@
                   @endif
                 </div>
                 <div class="custombox__footer">
-
                   @if ($question->type !== 'radiobutton')
-                    <button class="custombox__button" href="#"><i class="fa fa-check"></i> Enregistrer</button>
+                    <button type="submit" class="custombox__button" href="#"><i class="fa fa-check"></i> Enregistrer</button>
                   @endif
                 </div>
               </div>
@@ -88,8 +87,10 @@
             {{ Form::close() }}
           </div>
       @endforeach
-
-      <a class="custombox__button --skip" href="#"><i class="fa fa-times-circle"></i> Je souhaite arrêter la personnalisation ici</a>
+      
+      <div class="+text-center">
+        <a class="custombox__button --skip" href="#"><i class="fa fa-times-circle"></i> Je souhaite arrêter la personnalisation ici</a>
+      </div>
 
     </div>
 

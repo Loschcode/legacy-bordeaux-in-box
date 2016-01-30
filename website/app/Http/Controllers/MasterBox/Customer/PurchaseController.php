@@ -723,6 +723,7 @@ class PurchaseController extends BaseController {
     $profile = $order_building->profile()->first();
 
     $inputs = request()->all();
+
     $rules = $this->getRulesBoxForm($inputs['type'], $customer->email);
 
     $validator = Validator::make($inputs, $rules);
@@ -731,7 +732,7 @@ class PurchaseController extends BaseController {
       return response()->json(['success' => true]);
     }
 
-    return response()->json(['success' => false]);
+    return response()->json(['success' => false, 'errors' => $validator->errors()->first('answer')]);
 
   }
 
@@ -744,10 +745,10 @@ class PurchaseController extends BaseController {
   private function getRulesBoxForm($question_type, $customer_email)
   {
     if ($question_type == 'checkbox') return [];
-    if ($question_type == 'date') return ['question' => ['required', 'regex:#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#']];
-    if ($question_type == 'member_email') return ['question' => ['email', 'exists:users,email', 'not_in:'.$customer_email]];
+    if ($question_type == 'date') return ['answer' => ['required', 'regex:#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#']];
+    if ($question_type == 'member_email') return ['answer' => ['email', 'exists:users,email', 'not_in:'.$customer_email]];
 
-    return ['question' => 'required'];
+    return ['answer' => 'required'];
   }
 
 
