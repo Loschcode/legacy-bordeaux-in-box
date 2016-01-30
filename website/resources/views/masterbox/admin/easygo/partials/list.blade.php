@@ -3,7 +3,6 @@
     <tr class="listing__heading">
       <th>Numéro</th>
       <th>Nom</th>
-      <th>Box</th>
       <th>Marraine ?</th>
       <th>Anniversaire ?</th>
     </tr>
@@ -15,7 +14,6 @@
       <tr>
         <td>@if ($order->already_paid == 0) <i class="fa fa-exclamation-triangle" style="color: red"></i> @endif {{ $i }}</td>
         <td>{{ $order->customer()->first()->getFullName() }}</td>
-        <td>{{ $order->box()->first()->title }}</td>
         <td>
           @if ($order->customer_profile()->first()->isSponsor())
             <i class="fa fa-check" style="color: green"></i>

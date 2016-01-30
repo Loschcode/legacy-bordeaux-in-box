@@ -1,4 +1,4 @@
-@extends('masterbox.layouts.master')
+@extends('masterbox.layouts.easygo')
 
 @section('content')
   <div class="header">
@@ -28,7 +28,6 @@
       <table class="listing">
         <thead>
           <tr class="listing__heading">
-            <th>Box</th>
             <th>Nom</th>
             <th>Téléphone</th>
             <th>Email</th>
@@ -38,11 +37,10 @@
         <tbody class="listing__content">
           @foreach ($unpaid as $order)
             <tr>
-              <td>{{ $order->box()->first()->title }}</td>
               <td>{{ $order->customer()->first()->getFullName() }}</td>
               <td>{{ $order->customer()->first()->phone }}</td>
               <td>{{ $order->customer()->first()->email }}</td>
-              <td><a target="_blank" class="button --sm --default" href="{{ url('/admin/profiles/edit/' . $order->customer_profile()->first()->id) }}">En savoir plus</a></td>
+              <td><a target="_blank" class="button --sm --default" href="{{ action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a></td>
             </tr>
           @endforeach
         </tbody>
@@ -60,15 +58,13 @@
         <table class="listing">
           <thead>
             <tr class="listing__heading">
-              <th>Box</th>
               <th>Nombre de commandes</th>
             </tr>
           </thead>
           <tbody class="listing__content">
           @foreach ($boxes as $box)
             <tr>
-              <td>{{ Box::find($box)->title }}</td>
-              <td>{{ DeliverySerie::nextOpenSeries()->first()->orders()->notCanceledOrders()->where('box_id', $box)->count() }}</td>
+              <td>{{ App\Models\DeliverySerie::nextOpenSeries()->first()->orders()->notCanceledOrders()->count() }}</td>
             </tr>
           @endforeach
           </tbody>
@@ -119,11 +115,11 @@
 
         @foreach ($spots as $spot)
 
-          <?php $count = DeliverySerie::nextOpenSeries()->first()->orders()->notCanceledOrders()->where('take_away', true)->where('delivery_spot_id', $spot)->count() ?>
+          <?php $count = App\Models\DeliverySerie::nextOpenSeries()->first()->orders()->notCanceledOrders()->where('take_away', true)->where('delivery_spot_id', $spot)->count() ?>
           <?php $i = $i + $count ?>
           <tr>
             <td>
-              {{ DeliverySpot::find($spot)->name}}
+              {{ App\Models\DeliverySpot::find($spot)->name}}
             </td>
             <td>
               {{ $count }}

@@ -19,7 +19,7 @@ class IsNotSerieReady {
 
     if (count($orders) == 0)
     {
-      return redirect('/easygo/locked');
+      return redirect()->action('MasterBox\Admin\EasyGoController@getLocked');
     }
     
     return $next($request);

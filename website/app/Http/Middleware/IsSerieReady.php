@@ -2,6 +2,8 @@
 
 use Closure;
 
+use App\Models\Order;
+
 class IsSerieReady {
 
   /**
@@ -17,7 +19,7 @@ class IsSerieReady {
 
     if (count($orders) > 0)
     {
-      return redirect()->to('/easygo/index');
+      return redirect()->action('MasterBox\Admin\EasyGoController@getIndex');
     }
     
     return $next($request);

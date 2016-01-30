@@ -32,19 +32,16 @@
               <th>{{$payment->stripe_charge}}</th>
               <th>{{$payment->stripe_card}}</th>
               <th>
-              @if ($payment->order()->first() != NULL)
+              @foreach ($payment->orders()->get() as $order)
               
-              <a href="{{ url('/admin/deliveries/focus/' . $payment->order()->first()->delivery_serie()->first()->id) }}">
+              <a href="{{ action('MasterBox\Admin\DeliveriesController@getFocus', ['id' => $order->delivery_serie()->first()->id]) }}"> 
 
-              {{$payment->order()->first()->delivery_serie()->first()->delivery}}
+              {{$order->delivery_serie()->first()->delivery}}
 
               </a>
 
-              @else
-
-                N/A
-                
-              @endif
+              @endforeach
+              
               </th>
               <th>{!! Html::getReadablePaymentType($payment->type) !!}</th>
               <th>{{$payment->amount}}€</th>

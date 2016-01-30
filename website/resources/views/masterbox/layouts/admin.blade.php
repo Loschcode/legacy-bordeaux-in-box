@@ -51,7 +51,7 @@
 				</a>
 			</li>
 			<li class="sidebar__item">
-				<a class="sidebar__link" href="{{ url('easygo') }}"><i class="fa fa-heart"></i> Easy Go</a>
+				<a class="sidebar__link" href="{{ action('MasterBox\Admin\EasyGoController@getIndex') }}"><i class="fa fa-heart"></i> Easy Go</a>
 			</li>
 			<li class="sidebar__item">
 				<a class="sidebar__link" href="{{ action('MasterBox\Admin\DeliveriesController@getIndex') }}"><i class="fa fa-bank"></i> Séries &amp; Finances</a>

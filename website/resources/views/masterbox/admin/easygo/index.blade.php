@@ -1,4 +1,4 @@
-@extends('layouts.easygo')
+@extends('masterbox.layouts.easygo')
 
 @section('content')
 
@@ -47,47 +47,33 @@
             <h1 class="title">Dépôts</h1>
 
             <?php ( ! Request::has('spot') && ! Request::has('to_send')) ? $class = '--primary' : $class = '' ?>
-            <a class="button --default --lg --block center {{ $class }}" href="{{ URL::route('easygo', array_merge($current_query, ['spot' => '', 'to_send' => ''])) }}">Tout</a>
+            <a class="button --default --lg --block center {{ $class }}" href="{{ action('MasterBox\Admin\EasyGoController@getIndex', array_merge($current_query, ['spot' => '', 'to_send' => ''])) }}">Tout</a>
 
             <div class="spacer --xs"></div>
 
 
             @foreach ($spots as $spot)
               <?php (Request::has('spot') && Request::get('spot') == $spot) ? $class = '--primary' : $class = '' ?>
-              <a class="button --default --lg --block center {{ $class }}" href="{{ URL::route('easygo', array_merge($current_query, ['spot' => $spot, 'to_send' => ''])) }}">{{ App\Models\DeliverySpot::find($spot)->name }}</a>
+              <a class="button --default --lg --block center {{ $class }}" href="{{ action('MasterBox\Admin\EasyGoController@getIndex', array_merge($current_query, ['spot' => $spot, 'to_send' => ''])) }}">{{ App\Models\DeliverySpot::find($spot)->name }}</a>
               <div class="spacer --xs"></div>
             @endforeach
 
             <?php (Request::has('to_send')) ? $class = '--primary' : $class = '' ?>
-            <a class="button --default --lg --block center {{ $class }}" href="{{ URL::route('easygo', array_merge($current_query, ['to_send' => 'true', 'spot' => ''])) }}">La Poste</a><br/>
+            <a class="button --default --lg --block center {{ $class }}" href="{{ action('MasterBox\Admin\EasyGoController@getIndex', array_merge($current_query, ['to_send' => 'true', 'spot' => ''])) }}">La Poste</a><br/>
 
           </div>
           <div class="col-md-9">
 
             <?php ( ! Request::has('show') || (Request::has('show') && Request::get('show') == 'list')) ? $class = '--primary' : $class = '' ?>
-            <a href="{{ URL::route('easygo', array_merge($current_query, ['show' => 'list'])) }}" class="button --default --xl {{ $class }}"><i class="fa fa-list"></i> Résumé</a>
+            <a href="{{ action('MasterBox\Admin\EasyGoController@getIndex', array_merge($current_query, ['show' => 'list'])) }}" class="button --default --xl {{ $class }}"><i class="fa fa-list"></i> Résumé</a>
 
             <?php (Request::has('show') && Request::get('show') == 'grid') ? $class = '--primary' : $class = '' ?>
-            <a href="{{ URL::route('easygo', array_merge($current_query, ['show' => 'grid'])) }}" class="button --default --xl {{ $class }}"><i class="fa fa-th-large"></i> Détails</a>
+            <a href="{{ action('MasterBox\Admin\EasyGoController@getIndex', array_merge($current_query, ['show' => 'grid'])) }}" class="button --default --xl {{ $class }}"><i class="fa fa-th-large"></i> Détails</a>
 
             <div class="spacer --sm"></div>
 
             <h1 class="title">{{ count($orders_filtered) }} Commandes</h1>
 
-            <p>
-              @foreach ($kind_boxes as $box)
-
-                <a class="button --disabled --default --sm" style="margin-right: 5px">
-                  {{ App\Models\Box::find($box)->title }}:
-
-                  {{ $orders_filtered->filter(function($item) use($box) {
-                    return $item->box_id == $box;
-                  })->count() }}&nbsp;&nbsp;
-                </a>
-
-              @endforeach
-
-            </p>
 
             <!-- Ready button-->
             @if (count($orders_filtered) > 0)
@@ -111,9 +97,9 @@
             @endif
 
             @if (Request::has('show') && Request::get('show') == 'list')
-              @include('easygo.partials.list', array('orders_filtered' => $orders_filtered))
+              @include('masterbox.admin.easygo.partials.list', array('orders_filtered' => $orders_filtered))
             @else
-              @include('easygo.partials.grid', array('orders_filtered' => $orders_filtered))
+              @include('masterbox.admin.easygo.partials.grid', array('orders_filtered' => $orders_filtered))
             @endif
 
 

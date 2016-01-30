@@ -161,9 +161,9 @@ Html::macro('getOrderQuestionsAndAnswers', function($box, $profile)
 /**
  * Macro to display in the dashboard answers of the "quizz"
  */
-Html::macro('displayQuizz', function ($box, $profile, $spacer=" ", $long=false) {
+Html::macro('displayQuizz', function ($profile, $spacer=" ", $long=false) {
 
-  $questions = BoxQuestion::get();
+  $questions = App\Models\BoxQuestion::get();
   $output = '<div class="well">';
 
   foreach ($questions as $question) {

@@ -2,6 +2,8 @@
 
 use Closure;
 
+use App\Models\Order;
+
 class SkipUnpaidOrdersWithFailCard {
 
   /**
@@ -29,7 +31,7 @@ class SkipUnpaidOrdersWithFailCard {
 
     if ($counter == 0)
     {
-      return redirect()->to('/easygo/index');
+      return redirect()->action('MasterBox\Admin\EasyGoController@getIndex');
     }
     
     return $next($request);

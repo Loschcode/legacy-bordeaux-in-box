@@ -9,7 +9,7 @@
 
   <div class="order">
     <div class="order__header">
-      <img title="{{$order->customer_profile()->first()->box()->first()->title}}" class="order__image" src="{{ url($order->box()->first()->image->full) }}">
+      <img title="Box Principale" class="order__image" src="{{ url('images/macaron-masterbox.png') }}">
       <p class="order__title">
         @if ($order->already_paid == 0)
           <i class="fa fa-exclamation-triangle" style="color: red"></i>
@@ -63,18 +63,18 @@
           </span>
         @endif
 
-        <a target="_blank" class="button --lg --primary" href="{{ url('/admin/profiles/edit/' . $order->customer_profile()->first()->id) }}">En savoir plus</a>
+        <a target="_blank" class="button --lg --primary" href="{{ action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a>
 
       </div>
 
       <div class="spacer"></div>
 
-      {!! Html::displayQuizz($order->box()->first(), $order->customer_profile()->first()) !!}
+      {!! Html::displayQuizz($order->customer_profile()->first()) !!}
 
       <div class="spacer"></div>
 
       <div class="center">
-        <a href="{{ url('admin/orders/confirm-ready/' . $order->id) }}" class="button --success --xl">La box est prête</a>
+        <a href="{{ action('MasterBox\Admin\OrdersController@getConfirmReady', ['id' => $order->id]) }}" class="button --success --xl">La box est prête</a>
 
       </div>
 
