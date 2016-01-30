@@ -595,7 +595,7 @@ ChooseFrequency = (function(superClass) {
   };
 
   ChooseFrequency.prototype.smoothScroll = function(e) {
-    return smoothScroll.animateScroll(null, '#commit');
+    return smoothScroll.animateScroll(null, '#section');
   };
 
   return ChooseFrequency;

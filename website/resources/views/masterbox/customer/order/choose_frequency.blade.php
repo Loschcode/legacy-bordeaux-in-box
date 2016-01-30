@@ -18,7 +18,7 @@
   <div class="grid-9 grid-centered">
     <div class="section">
       <h2 class="section__title --choose-frequency">Fréquence de livraison</h2>
-      <p class="section__description --choose-frequency">
+      <p id="section" class="section__description --choose-frequency">
         @if ($order_preference->isGift())
           Envie de faire plaisir sur la durée ?
         @else

@@ -30,7 +30,7 @@ class ChooseFrequency extends Controller
   ##
   smoothScroll: (e) ->
 
-    smoothScroll.animateScroll(null, '#commit')
+    smoothScroll.animateScroll null, '#section'
     
 
 # Export
