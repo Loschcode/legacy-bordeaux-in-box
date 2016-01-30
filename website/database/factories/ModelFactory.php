@@ -28,7 +28,7 @@ $factory->defineAs(App\Models\Customer::class, 'subscribed-customer', function(F
 /**
  * Mock customer
  */
-$factory->defineAs(App\Models\Customer::class, function(Faker\Generator $faker) {
+$factory->define(App\Models\Customer::class, function(Faker\Generator $faker) {
 
   return [
     'email' => $faker->email,

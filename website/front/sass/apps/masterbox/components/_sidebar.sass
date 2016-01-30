@@ -9,11 +9,28 @@
     height: 100%
     display: block
     padding-left: 0.4vr
-    color: color-dark(grey, 26%)
-    +font-lato(400)
+    +font-lato(700)
+    font-size: 0.45vr
+    background: linear-gradient(to bottom,#fff 0,#f8f9f9 100%)
+    border: 1px solid #e2e4e6
+    border-bottom-color: #cdd2d4
+    padding: 0
+    padding-top: 0.1vr
+    padding-bottom: 0.1vr
+    padding-left: 0.2vr
+    border-radius: 3px
+    margin-bottom: 0.3vr
 
     &:hover
       color: color-dark(grey, 60%)
 
     +option(active)
-      color: color-dark(grey, 60%)
+      color: inherit
+
+  +part(icon)
+    font-size: 0.4vr
+    color: #999
+    padding-left: 0.1vr
+    display: inline-block
+    width: 18%
+    text-align: center

@@ -688,13 +688,31 @@ a {
   height: 100%;
   display: block;
   padding-left: 13.600000000000001px;
-  color: #a0b4b9;
   font-family: "Lato", sans-serif;
-  font-weight: 400; }
+  font-weight: 700;
+  font-size: 15.3px;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), to(#f8f9f9));
+  background: -webkit-linear-gradient(top, #fff 0, #f8f9f9 100%);
+  background: linear-gradient(to bottom, #fff 0, #f8f9f9 100%);
+  border: 1px solid #e2e4e6;
+  border-bottom-color: #cdd2d4;
+  padding: 0;
+  padding-top: 3.4000000000000004px;
+  padding-bottom: 3.4000000000000004px;
+  padding-left: 6.800000000000001px;
+  border-radius: 3px;
+  margin-bottom: 10.2px; }
   .sidebar__link:hover {
     color: #495d62; }
   .sidebar__link.\--active {
-    color: #495d62; }
+    color: inherit; }
+.sidebar__icon {
+  font-size: 13.600000000000001px;
+  color: #999;
+  padding-left: 3.4000000000000004px;
+  display: inline-block;
+  width: 18%;
+  text-align: center; }
 
 .profile__wrapper {
   margin-top: 34px;

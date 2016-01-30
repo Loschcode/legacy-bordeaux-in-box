@@ -15,7 +15,7 @@
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=2.0" />
 
   {{-- FontAwesome (icons) (we use CDN to load the icons faster) --}}
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.css" rel="stylesheet">
 
   {{-- SASS app --}}
   <link href="{{ url('stylesheets/vendor.css') }}" rel="stylesheet">
