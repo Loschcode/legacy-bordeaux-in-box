@@ -641,6 +641,37 @@ ChooseSpot = (function(superClass) {
 module.exports = ChooseSpot;
 });
 
+;require.register("controllers/masterbox/customer/purchase/delivery-mode", function(exports, require, module) {
+var Controller, DeliveryMode,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+DeliveryMode = (function(superClass) {
+  extend(DeliveryMode, superClass);
+
+  function DeliveryMode() {
+    return DeliveryMode.__super__.constructor.apply(this, arguments);
+  }
+
+  DeliveryMode.prototype.before = function() {};
+
+  DeliveryMode.prototype.run = function() {
+    return this.on('click', 'label', this.smoothScroll);
+  };
+
+  DeliveryMode.prototype.smoothScroll = function(e) {
+    return smoothScroll.animateScroll(null, '#section');
+  };
+
+  return DeliveryMode;
+
+})(Controller);
+
+module.exports = DeliveryMode;
+});
+
 ;require.register("controllers/masterbox/customer/purchase/payment", function(exports, require, module) {
 var Controller, Payment,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },

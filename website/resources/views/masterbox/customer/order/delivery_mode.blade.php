@@ -4,6 +4,7 @@
   
   <div 
     id="gotham"
+    data-controller="masterbox.customer.purchase.delivery-mode"
     data-form-errors="{{ $errors->has() }}"
     data-form-errors-text="Tu dois choisir la méthode de livraison que tu préfères"
   ></div>
@@ -17,7 +18,7 @@
     <div class="grid-9 grid-centered">
       <div class="section">
         <h2 class="section__title --choose-frequency">En livraison ou à emporter</h2>
-        <p class="section__description --choose-frequency">
+        <p id="section" class="section__description --choose-frequency">
           @if ($order_preference->isGift())
             Tu préfères que le facteur s'occupe de tout ou que la personne aille chercher directement sa box dans un point relais ?
           @else
