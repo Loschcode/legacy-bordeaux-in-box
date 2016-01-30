@@ -16,8 +16,8 @@ class EasyGoController extends BaseController {
     $this->middleware('is.admin');
     $this->middleware('is.not.serie.ready', ['except' => 'getLocked']);
     $this->middleware('is.serie.ready', ['only' => 'getLocked']);
-    $this->middleware('still.unpaid.orders.with.fail.card', ['except' => array('getLocked', 'getUnpaidOrders')]);
-    $this->middleware('skip.unpaid.orders.with.fail.card', ['only' => 'getUnpaidOrders']);
+    $this->middleware('still.unpaid.orders.with.fail.card', ['except' => array('getLocked', 'getUnpaid')]);
+    $this->middleware('skip.unpaid.orders.with.fail.card', ['only' => 'getUnpaid']);
   }
 
   private function _fetch_boxes_ordered($orders)
@@ -149,7 +149,7 @@ class EasyGoController extends BaseController {
 
   }
 
-  public function getUnpaidOrders()
+  public function getUnpaid()
   {
     // Fetch unpaid orders
     $unpaid = Order::with('customer_profile', 'customer')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('already_paid', 0)->get();

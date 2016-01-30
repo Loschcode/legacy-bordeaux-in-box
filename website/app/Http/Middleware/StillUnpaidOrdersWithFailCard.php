@@ -31,7 +31,7 @@ class StillUnpaidOrdersWithFailCard {
 
     if ($counter > 0)
     {
-      return redirect()->action('MasterBox\Admin\EasyGoController@getUnpaidOrders');
+      return redirect()->action('MasterBox\Admin\EasyGoController@getUnpaid');
     }
     
     return $next($request);
