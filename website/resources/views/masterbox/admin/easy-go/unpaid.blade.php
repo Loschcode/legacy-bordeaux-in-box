@@ -34,7 +34,6 @@
     <table class="listing">
         <thead>
           <tr class="listing__heading">
-            <th>Box</th>
             <th>Utilisateur</th>
             <th>Téléphone</th>
             <th>Paiement</th>
@@ -47,12 +46,11 @@
 
             @if ($order->payments->count() > 0)
               <tr>
-                <td>{{ $order->box()->first()->title }}</td>
                 <td>{{ $order->customer()->first()->getFullName() }}</td>
                 <td>{{ $order->customer()->first()->phone }}</td>
                 <td>{{ $order->already_paid }}&euro; / {{ $order->unity_and_fees_price }}&euro; <br/> {{ $order->payments()->count() }} tentative(s) de paiement</td>
                 <td>
-                  <a target="_blank" class="button --default --sm" href="{ action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a>
+                  <a target="_blank" class="button --default --sm" href="{{ action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a>
                   <div class="spacer --sm"></div>
                   <a class="button --danger --sm" href="{{ url('/admin/orders/confirm-cancel/' . $order->id) }}">Annuler Commande</a>
                 </td>
