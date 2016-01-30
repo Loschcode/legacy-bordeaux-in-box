@@ -129,18 +129,6 @@ class PurchaseBoxFlowTest extends TestCase
   }
 
   /** @test */
-  public function do_not_populate_firstname_lastname_destination_when_gift()
-  {
-    $this->pickGift()
-      ->subscribe()
-      ->pickFrequencyGift();
-
-    $this->seeInField('destination_first_name', null);
-    $this->seeInField('destination_last_name', null);
-
-  }
-
-  /** @test */
   public function populate_firstname_lastname_destination_when_classic()
   {
     $this->pickClassic()

@@ -37,7 +37,7 @@
         {!! Form::hidden("billing_first_name", $customer->first_name) !!}
         {!! Form::hidden("billing_last_name", $customer->last_name) !!}
 
-        <!-- If the user already filled an address and it's not his first order -->
+        {{-- If the user already filled an address and it's not his first order --}}
         @if ($customer->hasBillingAddress() && ($customer->profiles()->count() > 1))
 
           {!! Form::hidden("billing_city", $customer->city, ['id' => 'billing_city']) !!}
@@ -49,6 +49,7 @@
         <div class="grid-8 grid-centered">
             
           {{-- Delivery informations --}}
+
           <div class="panel">
             <div class="panel__heading">
               <h2 class="panel__title">Informations de livraison</h2>
@@ -63,12 +64,7 @@
                     {!! Form::label('destination_first_name', 'Prénom') !!}
                   </div>
                   
-                  @if ($order_preference->isGift())
-                    {!! Form::text("destination_first_name", ($order_building->destination_first_name != $customer->first_name) ? $order_building->destination_first_name : Request::old("destination_first_name"), ['class' => 'billing__input']) !!}
-                  @else
-                    {!! Form::text("destination_first_name", ($order_building->destination_first_name) ? $order_building->destination_first_name : Request::old("destination_first_name"), ['class' => 'billing__input']) !!}
-                  @endif
-
+                  {!! Form::text("destination_first_name", ($order_building->destination_first_name) ? $order_building->destination_first_name : Request::old("destination_first_name"), ['class' => 'billing__input']) !!}
                   {!! Html::checkError('destination_first_name', $errors) !!}
 
                 </div>
@@ -77,11 +73,7 @@
                     {!! Form::label('destination_last_name', 'Nom de famille') !!}
                   </div>
 
-                  @if ($order_preference->isGift())
-                    {!! Form::text("destination_last_name", ($order_building->destination_last_name != $customer->last_name) ? $order_building->destination_last_name : Request::old("destination_last_name"), ['class' => 'billing__input']) !!}
-                  @else
-                    {!! Form::text("destination_last_name", ($order_building->destination_last_name) ? $order_building->destination_last_name : Request::old("destination_last_name"), ['class' => 'billing__input']) !!}
-                  @endif
+                  {!! Form::text("destination_last_name", ($order_building->destination_last_name) ? $order_building->destination_last_name : Request::old("destination_last_name"), ['class' => 'billing__input']) !!}
 
                   {!! Html::checkError('destination_last_name', $errors) !!}
 
@@ -116,7 +108,6 @@
               {!! Html::checkError('destination_address', $errors) !!}
             </div>
           </div>
-          
           <div class="+spacer-small"></div>
           
           <!-- If the user already filled an address and it's not his first order -->

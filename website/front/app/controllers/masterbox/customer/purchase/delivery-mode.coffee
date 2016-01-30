@@ -2,7 +2,7 @@
 Controller = require 'core/controller'
 
 
-class ChooseFrequency extends Controller
+class DeliveryMode extends Controller
 
   ##
   # Before
@@ -34,4 +34,4 @@ class ChooseFrequency extends Controller
     
 
 # Export
-module.exports = ChooseFrequency
+module.exports = DeliveryMode
