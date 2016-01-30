@@ -22,7 +22,7 @@
           @endif
         </td>
         <td>
-          @if (Html::isBirthday($order->customer_profile()->first()->getAnswer('birthday')))
+          @if ($order->customer_profile()->first()->isBirthday())
             <i class="fa fa-check" style="color: green"></i>
           @else
             <i class="fa fa-times" style="color: grey"></i>

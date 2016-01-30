@@ -24,15 +24,12 @@
       <div class="center">
         <span class="button --lg --disabled --inverse">
           Anniversaire:
-          @if (Html::getAge($order->customer_profile()->first()->getAnswer('birthday')) != 0)
-            @if (Html::isBirthday($order->customer_profile()->first()->getAnswer('birthday')))
-              <i class="fa fa-check" style="color: green"></i>
-            @else
-              <i class="fa fa-times"></i>
-            @endif
+          @if ($order->customer_profile()->first()->isBirthday())
+            <i class="fa fa-check" style="color: green"></i>
           @else
-            <i class="fa fa-times"></i>
+           <i class="fa fa-times"></i>
           @endif
+
         </span>
 
         <span class="button --lg --disabled --default">

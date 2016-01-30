@@ -5,13 +5,7 @@
  */
 Html::macro('getAge', function($dateBirthday) {
 
-  // It's an european date
-  $dateBirthday = str_replace('/', '-', $dateBirthday);
-
-  $birthday = \Carbon\Carbon::parse($dateBirthday);
-  $now = \Carbon\Carbon::now('Europe/Paris');
-
-  return $now->diffInYears($birthday);
+  return get_age($dateBirthday);
 
 });
 
