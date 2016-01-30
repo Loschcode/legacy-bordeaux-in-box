@@ -58,6 +58,8 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
     Route::controller('email-manager', 'EmailManagerController');
     Route::controller('content', 'ContentController');
 
+    Route::controller('easy-go', 'EasyGoController');
+
     Route::controller('', 'DashboardController');
 
   });
@@ -113,11 +115,5 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
     Route::get('', 'HomeController@getIndex');
 
   });
-
-  /**
-   * EasyGo
-   */
-  Route::controller('easygo', 'Easygo\HomeController');
-  Route::get('easygo/index', array('as' => 'easygo'));
 
 });

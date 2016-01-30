@@ -1,4 +1,4 @@
-<?php namespace App\Http\Controllers\MasterBox\Easygo;
+<?php namespace App\Http\Controllers\MasterBox\Admin;
 
 use App\Http\Controllers\MasterBox\BaseController;
 use Request;
@@ -7,7 +7,7 @@ use App\Models\DeliverySerie;
 use App\Models\DeliverySpot;
 use App\Models\Order;
 
-class HomeController extends BaseController {
+class EasyGoController extends BaseController {
 
   public function __construct()
   {
@@ -62,7 +62,7 @@ class HomeController extends BaseController {
 
     foreach ($orders as $order)
     {
-      if (Html::isBirthday($order->customer_profile()->first()->getAnswer('birthday')))
+      if (is_birthday($order->customer_profile()->first()->getAnswer('birthday')))
       {
         $birthdays++;
       }
@@ -123,15 +123,15 @@ class HomeController extends BaseController {
     $count_not_take_away_not_33 = DeliverySerie::nextOpenSeries()->first()->orders()->notCanceledOrders()->join('order_destinations', 'order_destinations.order_id', '=', 'orders.id')->whereNested(function($query) {
 
       $query->where('order_destinations.zip', 'NOT LIKE', '33%');
-			$query->where('orders.take_away', '=', false);
+      $query->where('orders.take_away', '=', false);
 
-		})->count();
+    })->count();
 
     // Spots (array with ID of spots for the orders)
     $spots = $this->_fetch_spots($orders);
 
     // Render view
-    return view('masterbox.easygo.locked')->with(compact(
+    return view('masterbox.admin.easy-go.locked')->with(compact(
 
       'serie',
       'orders',
@@ -154,7 +154,7 @@ class HomeController extends BaseController {
     // Fetch unpaid orders
     $unpaid = Order::with('customer_profile', 'customer', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('already_paid', 0)->get();
 
-    $this->layout->content = view()->make('easygo.unpaid')->with(compact(
+    $this->layout->content = view()->make('masterbox.admin.easy-go.unpaid')->with(compact(
 
       'unpaid'
 
@@ -198,7 +198,7 @@ class HomeController extends BaseController {
 
     $current_query = Request::query();
 
-    return view('masterbox.easygo.index')->with(compact(
+    return view('masterbox.admin.easy-go.index')->with(compact(
 
       'raw_orders',
       'orders_completed',

@@ -2,6 +2,8 @@
 
 use Closure;
 
+use App\Models\Order;
+
 class IsSerieReady {
 
   /**
