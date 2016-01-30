@@ -88,9 +88,9 @@ class AdministratorController extends BaseController {
       {
 
         // If there's an after login redirection
-        if (session()->get('after-login-redirection')) 
+        if (session()->get('after-login-admin-redirection')) 
         {
-          return redirect(session()->get('after-login-redirection'));
+          return redirect(session()->get('after-login-admin-redirection'));
         }
 
         return redirect()->back();

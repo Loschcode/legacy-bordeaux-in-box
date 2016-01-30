@@ -15,6 +15,7 @@ class IsAdmin {
   {
     if (Auth::guard('administrator')->guest()) {
 
+      session()->put('after-login-admin-redirection', Request::url());
       return redirect()->action('MasterBox\Connect\AdministratorController@getLogin');
 
     } else {
