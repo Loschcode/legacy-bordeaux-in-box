@@ -58,7 +58,7 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
     Route::controller('email-manager', 'EmailManagerController');
     Route::controller('content', 'ContentController');
 
-    Route::controller('easy-go', 'EasyGoController');
+    Route::controller('easygo', 'EasyGoController');
 
     Route::controller('', 'DashboardController');
 

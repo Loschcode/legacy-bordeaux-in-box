@@ -388,7 +388,7 @@ class OrdersController extends BaseController {
 
     }
 
-    return redirect()->to('/easygo/index');
+    return redirect()->action('MasterBox\Admin\EasyGoController@getIndex');
   }
 
   public function getReadyNoTakeAway()
@@ -405,7 +405,7 @@ class OrdersController extends BaseController {
 
     }
 
-    return redirect()->to('/easygo/index');
+    return redirect()->action('MasterBox\Admin\EasyGoController@getIndex');
   }
 
 

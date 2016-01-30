@@ -1,4 +1,4 @@
-@extends('masterbox.layouts.master')
+@extends('masterbox.layouts.easygo')
 
 @section('content')
   <div class="header">

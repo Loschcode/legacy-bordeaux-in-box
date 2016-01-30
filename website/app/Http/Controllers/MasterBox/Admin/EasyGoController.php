@@ -20,75 +20,6 @@ class EasyGoController extends BaseController {
     $this->middleware('skip.unpaid.orders.with.fail.card', ['only' => 'getUnpaid']);
   }
 
-  private function _fetch_boxes_ordered($orders)
-  {
-    $boxes = [];
-
-    foreach ($orders as $order)
-    {
-      if ( ! in_array($order->box_id, $boxes))
-      {
-        array_push($boxes, $order->box_id);
-      }
-    }
-
-    return $boxes;
-  }
-
-  private function _fetch_sponsors($orders)
-  {
-
-    $sponsors = ['sponsors' => 0, 'has_sponsors' => 0];
-
-    foreach ($orders as $order)
-    {
-      if ($order->customer_profile()->first()->isSponsor())
-      {
-        $sponsors['sponsors']++;
-      }
-
-      if ($order->customer_profile()->first()->hasSponsor())
-      {
-        $sponsors['has_sponsors']++;
-      }
-    }
-
-    return $sponsors;
-  }
-
-  private function _fetch_birthdays($orders)
-  {
-    $birthdays = 0;
-
-    foreach ($orders as $order)
-    {
-      if (is_birthday($order->customer_profile()->first()->getAnswer('birthday')))
-      {
-        $birthdays++;
-      }
-    }
-
-    return $birthdays;
-  }
-
-  private function _fetch_spots($orders)
-  {
-    $spots = [];
-
-    foreach ($orders as $order)
-    {
-      if ( ! empty($order->delivery_spot_id))
-      {
-        if ( ! in_array($order->delivery_spot_id, $spots))
-        {
-          array_push($spots, $order->delivery_spot_id);
-        }
-      }
-    }
-
-    return $spots;
-  }
-
   public function getLocked()
   {
 
@@ -131,7 +62,7 @@ class EasyGoController extends BaseController {
     $spots = $this->_fetch_spots($orders);
 
     // Render view
-    return view('masterbox.admin.easy-go.locked')->with(compact(
+    return view('masterbox.admin.easygo.locked')->with(compact(
 
       'serie',
       'orders',
@@ -154,7 +85,7 @@ class EasyGoController extends BaseController {
     // Fetch unpaid orders
     $unpaid = Order::with('customer_profile', 'customer')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('already_paid', 0)->get();
 
-    return view('masterbox.admin.easy-go.unpaid')->with(compact('unpaid'));
+    return view('masterbox.admin.easygo.unpaid')->with(compact('unpaid'));
 
   }
 
@@ -162,29 +93,29 @@ class EasyGoController extends BaseController {
   {
 
     // Fetch all orders (with no constraints)
-    $raw_orders =  Order::with('customer_profile', 'customer', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->orderBy('box_id', 'ASC')->get();
+    $raw_orders =  Order::with('customer_profile', 'customer')->LockedOrdersWithoutOrder()->notCanceledOrders()->get();
 
     // Fetch all kind of boxes from raw
     $kind_boxes = $this->_fetch_boxes_ordered($raw_orders);
 
-    $orders_completed = Order::with('customer_profile', 'customer', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->whereNotNull('date_completed')->orderBy('box_id', 'ASC')->get();
+    $orders_completed = Order::with('customer_profile', 'customer')->LockedOrdersWithoutOrder()->notCanceledOrders()->whereNotNull('date_completed')->get();
 
-    $orders_not_completed = Order::with('customer_profile', 'customer', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
+    $orders_not_completed = Order::with('customer_profile', 'customer')->LockedOrdersWithoutOrder()->notCanceledOrders()->whereNull('date_completed')->get();
 
     // Fetch all spots based on the orders (Return an array with all the spots id)
     $spots = $this->_fetch_spots($orders_not_completed);
 
-    if (Request::has('spot'))
-    {
+    if (Request::has('spot')) {
+
       // Fetch orders based on the filter spot
-      $orders_filtered = Order::with('customer_profile', 'customer', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('take_away', true)->where('delivery_spot_id', Request::get('spot'))->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
-    }
-    elseif (Request::has('to_send'))
-    {
-      $orders_filtered = Order::with('customer_profile', 'customer', 'box')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('take_away', false)->whereNull('date_completed')->orderBy('box_id', 'ASC')->get();
-    }
-    else
-    {
+      $orders_filtered = Order::with('customer_profile', 'customer')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('take_away', true)->where('delivery_spot_id', Request::get('spot'))->whereNull('date_completed')->get();
+    
+    } elseif (Request::has('to_send')) {
+
+      $orders_filtered = Order::with('customer_profile', 'customer')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('take_away', false)->whereNull('date_completed')->get();
+    
+    } else {
+
       // Fetch orders
       $orders_filtered = $orders_not_completed;
     }
@@ -194,7 +125,7 @@ class EasyGoController extends BaseController {
 
     $current_query = Request::query();
 
-    return view('masterbox.admin.easy-go.index')->with(compact(
+    return view('masterbox.admin.easygo.index')->with(compact(
 
       'raw_orders',
       'orders_completed',
@@ -207,5 +138,72 @@ class EasyGoController extends BaseController {
     ));
   }
 
+  private function _fetch_boxes_ordered($orders) {
+    
+    $boxes = [];
+
+    foreach ($orders as $order)
+    {
+      if ( ! in_array($order->box_id, $boxes))
+      {
+        array_push($boxes, $order->box_id);
+      }
+    }
+
+    return $boxes;
+  }
+
+  private function _fetch_sponsors($orders) {
+
+    $sponsors = ['sponsors' => 0, 'has_sponsors' => 0];
+
+    foreach ($orders as $order)
+    {
+      if ($order->customer_profile()->first()->isSponsor())
+      {
+        $sponsors['sponsors']++;
+      }
+
+      if ($order->customer_profile()->first()->hasSponsor())
+      {
+        $sponsors['has_sponsors']++;
+      }
+    }
+
+    return $sponsors;
+  }
+
+  private function _fetch_birthdays($orders) {
+
+    $birthdays = 0;
+
+    foreach ($orders as $order)
+    {
+      if (is_birthday($order->customer_profile()->first()->getAnswer('birthday')))
+      {
+        $birthdays++;
+      }
+    }
+
+    return $birthdays;
+  }
+
+  private function _fetch_spots($orders) {
+
+    $spots = [];
+
+    foreach ($orders as $order)
+    {
+      if ( ! empty($order->delivery_spot_id))
+      {
+        if ( ! in_array($order->delivery_spot_id, $spots))
+        {
+          array_push($spots, $order->delivery_spot_id);
+        }
+      }
+    }
+
+    return $spots;
+  }
 
 }

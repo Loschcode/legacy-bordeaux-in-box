@@ -9,7 +9,7 @@
 
   <div class="order">
     <div class="order__header">
-      <img title="{{$order->customer_profile()->first()->box()->first()->title}}" class="order__image" src="{{ url($order->box()->first()->image->full) }}">
+      <img title="Box Principale" class="order__image" src="{{ url('images/macaron-masterbox.png') }}">
       <p class="order__title">
         @if ($order->already_paid == 0)
           <i class="fa fa-exclamation-triangle" style="color: red"></i>
@@ -69,7 +69,7 @@
 
       <div class="spacer"></div>
 
-      {!! Html::displayQuizz($order->box()->first(), $order->customer_profile()->first()) !!}
+      {!! Html::displayQuizz($order->customer_profile()->first()) !!}
 
       <div class="spacer"></div>
 

@@ -31,7 +31,7 @@ class SkipUnpaidOrdersWithFailCard {
 
     if ($counter == 0)
     {
-      return redirect()->to('/easygo/index');
+      return redirect()->action('MasterBox\Admin\EasyGoController@getIndex');
     }
     
     return $next($request);
