@@ -256,10 +256,10 @@ a {
   .button__skip-custom-box {
     display: inline-block;
     background-color: #D83F66;
-    font-size: 20.4px;
+    font-size: 17px;
     text-align: center;
     border-radius: 5px;
-    padding: 13.600000000000001px;
+    padding: 10.2px;
     color: white;
     -webkit-box-shadow: none;
             box-shadow: none;
@@ -273,6 +273,8 @@ a {
       top: 0;
       -webkit-box-shadow: none;
               box-shadow: none; }
+    .button__skip-custom-box i {
+      padding-left: 6.800000000000001px; }
   .button__google-map {
     background-color: #D83F66;
     font-size: 17px;
@@ -645,27 +647,56 @@ a {
 .payment__description {
   font-size: 15.3px; }
 
-.custombox__question {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  padding-top: 47.599999999999994px;
-  padding-bottom: 3.4000000000000004px;
-  font-size: 15.979999999999999px;
-  display: block; }
-.custombox__input {
-  border: 0;
-  outline: 0;
+.custombox__wrapper {
+  border: 2px solid #ECF0F1;
   border-radius: 5px;
-  border: 1px solid #D6DBDF;
-  width: 100%;
-  font-size: 17px;
-  font-family: "Lato", sans-serif;
-  font-weight: 300;
-  padding: 10.2px; }
-.custombox__label {
+  padding: 17px;
+  padding-top: 0;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), to(#f8f9f9));
+  background: -webkit-linear-gradient(top, #fff 0, #f8f9f9 100%);
+  background: linear-gradient(to bottom, #fff 0, #f8f9f9 100%); }
+.custombox__multiple {
+  color: #77939a;
+  font-style: italic; }
+.custombox__question {
+  text-align: left;
+  font-family: "Amatic SC", cursive;
+  font-weight: 700;
+  font-size: 40.8px; }
+.custombox__choices {
+  margin-top: 10.2px; }
+.custombox__footer {
+  text-align: left;
+  margin-top: 10.2px;
+  padding-top: 6.800000000000001px;
+  padding-bottom: 6.800000000000001px; }
+.custombox__skip {
+  text-align: center;
+  padding-top: 34px; }
+.custombox__button {
   display: inline-block;
-  margin-left: 6.800000000000001px;
-  font-size: 14.28px; }
+  border: 0;
+  font: inherit;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+  background-color: #ffbc05;
+  font-size: 13.600000000000001px;
+  padding: 10.2px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  text-transform: uppercase;
+  outline: 0;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400; }
+  .custombox__button.\--skip {
+    background-color: #D83F66; }
 
 .article__wrapper {
   padding-top: 34px; }
@@ -1209,7 +1240,7 @@ select + .chosen-container-multi .chosen-results li.result-selected {
   .labelauty-no-label input.labelauty[disabled] + label {
     opacity: 0.5; }
   .labelauty-no-label input.labelauty + label > span.labelauty-unchecked-image {
-    background-image: url(images/input-unchecked.png);
+    background-image: none;
     margin-left: 7px;
     margin-top: 6px;
     display: block; }
@@ -1218,6 +1249,65 @@ select + .chosen-container-multi .chosen-results li.result-selected {
     margin-left: 7px;
     margin-top: 6px;
     display: block; }
+
+.labelauty-default-small input.labelauty {
+  display: none !important; }
+  .labelauty-default-small input.labelauty + label {
+    display: inline-block;
+    text-align: left;
+    font-size: 17px;
+    vertical-align: middle;
+    margin: 0;
+    background-color: #efefef;
+    color: #b3b3b3;
+    cursor: pointer;
+    -webkit-transition: background-color 0.25s;
+            transition: background-color 0.25s;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    text-align: center;
+    border-radius: 5px;
+    padding-left: 10.2px;
+    padding-right: 10.2px;
+    margin-bottom: 10.2px; }
+    .labelauty-default-small input.labelauty + label ::-moz-selection, .labelauty-default-small input.labelauty + label ::-moz-selection {
+      background-color: rgba(255, 255, 255, 0); }
+    .labelauty-default-small input.labelauty + label ::selection, .labelauty-default-small input.labelauty + label ::-moz-selection {
+      background-color: rgba(255, 255, 255, 0); }
+    .labelauty-default-small input.labelauty + label > span.labelauty-unchecked, .labelauty-default-small input.labelauty + label > span.labelauty-checked {
+      display: inline-block; }
+    .labelauty-default-small input.labelauty + label > span.labelauty-unchecked-image, .labelauty-default-small input.labelauty + label > span.labelauty-checked-image {
+      display: inline-block;
+      background-repeat: no-repeat;
+      background-position: left center;
+      transition: background-image 0.5s linear;
+      -moz-transition: background-image 0.5s linear;
+      -webkit-transition: background-image 0.5s linear;
+      -o-transition: background-image 0.5s linear; }
+  .labelauty-default-small input.labelauty:not(:checked):not([disabled]) + label:hover {
+    background-color: #ffd147;
+    color: white; }
+  .labelauty-default-small input.labelauty:not(:checked) + label > span.labelauty-checked-image, .labelauty-default-small input.labelauty:not(:checked) + label > span.labelauty-checked {
+    display: none; }
+  .labelauty-default-small input.labelauty:checked + label {
+    background-color: #FFC414;
+    color: #ffffff; }
+  .labelauty-default-small input.labelauty:checked:not([disabled]) + label:hover {
+    background-color: #FFC414; }
+  .labelauty-default-small input.labelauty:checked + label > span.labelauty-unchecked-image, .labelauty-default-small input.labelauty:checked + label > span.labelauty-unchecked {
+    display: none; }
+  .labelauty-default-small input.labelauty:checked + label > span.labelauty-checked {
+    display: inline-block; }
+  .labelauty-default-small input.labelauty.no-label:checked + label > span.labelauty-checked {
+    display: block; }
+  .labelauty-default-small input.labelauty[disabled] + label {
+    opacity: 0.5; }
+  .labelauty-default-small input.labelauty + label > span.labelauty-unchecked-image {
+    background-image: none; }
+  .labelauty-default-small input.labelauty + label > span.labelauty-checked-image {
+    background-image: none; }
 
 .sweet-alert input:focus {
   border: 1px solid #cdcdcd; }
