@@ -26,6 +26,27 @@ $factory->defineAs(App\Models\Customer::class, 'subscribed-customer', function(F
 });
 
 /**
+ * Mock customer
+ */
+$factory->defineAs(App\Models\Customer::class, function(Faker\Generator $faker) {
+
+  return [
+    'email' => $faker->email,
+    'password' => bcrypt(str_random(10)),
+    'remember_token' => str_random(10),
+    'role' => 'customer',
+    'first_name' => $faker->firstName,
+    'last_name' => $faker->lastName,
+    'phone' => $faker->phoneNumber,
+    'address' => $faker->address,
+    'zip' => $faker->postcode,
+    'city' => $faker->city,
+    'emails_fully_authorized' => date('Y-m-d H:i:s', strtotime("+7 day"))
+  ];
+
+});
+
+/**
  * Mock blog article
  */
 $factory->define(App\Models\BlogArticle::class, function(Faker\Generator $faker) {
@@ -59,3 +80,4 @@ $factory->define(App\Models\DeliverySerie::class, function(Faker\Generator $fake
   ];
 
 });
+

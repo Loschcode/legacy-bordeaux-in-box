@@ -67,7 +67,7 @@ class DeliveryPrice extends Model {
 
 		return 
 			'<span class="labelauty-title">' . $this->title . '</span><br/>' .
-			'<span class="labelauty-description">' . $this->readableFrequency() . ' (' . number_format($this->unity_price, 2) . '&euro;)</span>';
+			'<span class="labelauty-description">' . strtoupper($this->readableFrequency()) . ' (' . number_format($this->unity_price, 2) . '&euro;)</span>';
 	}
 
 	public function getCheckboxFrequencySubscriptionText()
@@ -81,7 +81,7 @@ class DeliveryPrice extends Model {
 
 		return 
 			'<span class="labelauty-title">' . $title . '</span><br/>' .
-			'<span class="labelauty-description">' . $this->readableFrequency() . '</span>';
+			'<span class="labelauty-description">' . strtoupper($this->readableFrequency()) . '</span>';
 	}
 
 }
