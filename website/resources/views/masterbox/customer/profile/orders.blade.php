@@ -1,6 +1,10 @@
 @extends('masterbox.layouts.master')
 
 @section('content')
+<div 
+  id="gotham"
+  data-controller="masterbox.customer.profile.orders"
+></div>
 
 <div class="container">
   <div class="row">
@@ -29,31 +33,31 @@
 
                 @if ($profile->orders()->first() != NULL)
 
-                <tr class="table__body-items">
+                <tr data-href="{{ action('MasterBox\Customer\ProfileController@getOrder', ['id' => $profile->id])}}" class="table__body-items --orders" title="En savoir plus">
                   @if ($profile->status == 'subscribed')
-                    <th class="table__item --status-active"><i class="fa fa-circle"></i> {{ Html::getReadableProfileStatus($profile->status) }}</th>
+                    <td class="table__item --status-active --space-left"><i class="fa fa-circle"></i> {{ Html::getReadableProfileStatus($profile->status) }}</td>
                   @else
-                    <th class="table__item --status-unactive"><i class="fa fa-circle"></i> {{ Html::getReadableProfileStatus($profile->status) }}</th>
+                    <td class="table__item --status-unactive --space-left"><i class="fa fa-circle"></i> {{ Html::getReadableProfileStatus($profile->status) }}</td>
                   @endif
-                  <th>N°{{$profile->id}}</th>
-                  <th>
+                  <td class="table__item --orders">N°{{$profile->id}}</td>
+                  <td>
                   @if ($profile->order_preference()->first()->frequency == 0)
                     Non précisée
                   @else
                     {{$profile->orders()->notCanceledOrders()->count()}} mois
                   @endif
-                  </th>
-                  <th>
+                  </td>
+                  <td>
                   @if ($profile->order_preference()->first()->frequency == 0)
                     Non indiqué
                   @else
                     {{$profile->orders()->whereNull('date_sent')->count()}}
                   @endif
-                  </th>
+                  </td>
            
-                  <th>
-                    <a class="button button__table" href="{{action('MasterBox\Customer\ProfileController@getOrder', ['id' => $profile->id])}}"><i class="fa fa-search"></i></a>
-                  </th>
+                  <td>
+                    <!-- <a class="button button__table" href="{{action('MasterBox\Customer\ProfileController@getOrder', ['id' => $profile->id])}}"><i class="fa fa-search"></i></a> -->
+                  </td>
                 </tr>
 
                 @endif

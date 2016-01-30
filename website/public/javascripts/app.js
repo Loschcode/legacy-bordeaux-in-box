@@ -497,6 +497,43 @@ Order = (function(superClass) {
 module.exports = Order;
 });
 
+;require.register("controllers/masterbox/customer/profile/orders", function(exports, require, module) {
+var Controller, Orders,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Orders = (function(superClass) {
+  extend(Orders, superClass);
+
+  function Orders() {
+    return Orders.__super__.constructor.apply(this, arguments);
+  }
+
+  Orders.prototype.before = function() {
+    return $('tr[data-href]').tooltipster({
+      position: 'right',
+      theme: 'tooltipster-default'
+    });
+  };
+
+  Orders.prototype.run = function() {
+    return this.on('click', 'tr[data-href]', this.rowClicked);
+  };
+
+  Orders.prototype.rowClicked = function(e) {
+    e.preventDefault();
+    return window.location.href = $(this).data('href');
+  };
+
+  return Orders;
+
+})(Controller);
+
+module.exports = Orders;
+});
+
 ;require.register("controllers/masterbox/customer/purchase/billing-address", function(exports, require, module) {
 var BillingAddress, Controller,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
