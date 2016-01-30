@@ -160,6 +160,15 @@ class CustomerProfile extends Model {
 		}
 
 	}
+  
+  public function isBirthday() {
+
+    if (get_age($this->getAnswer('birthday')) == 0)
+      return FALSE;
+
+    return is_birthday($this->getAnswer('birthday'));
+
+  }
 
 	/**
 	 * Check if the user is sponsor or has a sponsor
