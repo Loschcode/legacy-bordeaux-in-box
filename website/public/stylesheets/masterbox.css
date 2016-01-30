@@ -25,19 +25,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 13.600000000000001px;
+  height: 14.4px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 34px;
+  height: 36px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 68px;
+  height: 72px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 170px;
+  height: 180px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -319,6 +319,10 @@ a {
     color: #a0b4b9;
     font-family: "Lato", sans-serif;
     font-weight: 400; }
+    .button__table.\--bill {
+      background-color: #298fca;
+      color: white;
+      text-transform: uppercase; }
 
 .counter__content {
   text-align: center;
@@ -616,8 +620,8 @@ a {
 .typography strong {
   font-weight: bold; }
 .typography a {
-  color: #3498db;
-  border-bottom: 1px dotted #3498db; }
+  color: #298fca;
+  border-bottom: 1px dotted #298fca; }
 
 .payment__container {
   border: 1px solid #ECF0F1;

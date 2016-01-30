@@ -97,7 +97,7 @@
 
                       @foreach ($payment->getCompanyBillings() as $company_billing)
                         
-                        <a class="button button__table" data-jq-dropdown="#jq-dropdown-{{ $company_billing->id }}" href="#">{{ $company_billing->bill_id }} <i class="fa fa-angle-down"></i></a>
+                        <a class="button button__table --bill" data-jq-dropdown="#jq-dropdown-{{ $company_billing->id }}" href="#">{{ $company_billing->bill_id }} <i class="fa fa-angle-down"></i></a>
                         <div id="jq-dropdown-{{ $company_billing->id }}" class="jq-dropdown jq-dropdown-tip">
                             <ul class="jq-dropdown-menu">
                                 <li><a target="_blank" href="{{ action('Company\Guest\BillingController@getWatch', ['encrypted_access' => $company_billing->encrypted_access]) }}">Voir la facture</a></li>
