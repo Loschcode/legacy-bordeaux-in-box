@@ -574,6 +574,31 @@ BillingAddress = (function(superClass) {
 module.exports = BillingAddress;
 });
 
+;require.register("controllers/masterbox/customer/purchase/box-form", function(exports, require, module) {
+var BoxForm, Controller,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+BoxForm = (function(superClass) {
+  extend(BoxForm, superClass);
+
+  function BoxForm() {
+    return BoxForm.__super__.constructor.apply(this, arguments);
+  }
+
+  BoxForm.prototype.before = function() {};
+
+  BoxForm.prototype.run = function() {};
+
+  return BoxForm;
+
+})(Controller);
+
+module.exports = BoxForm;
+});
+
 ;require.register("controllers/masterbox/customer/purchase/choose-frequency", function(exports, require, module) {
 var ChooseFrequency, Controller,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },

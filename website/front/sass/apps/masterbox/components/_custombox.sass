@@ -1,23 +1,58 @@
 +component(custombox)
   
-  +part(question)
-    +font-montserrat
-    padding-top: 1.4vr
-    padding-bottom: 0.1vr
-    font-size: 0.47vr
-    display: block
+    +part(wrapper)
+        border: 2px solid color-get(grey)
+        border-radius: 5px
+        padding: 0.5vr
+        padding-top: 0
+        background: linear-gradient(to bottom,#fff 0,#f8f9f9 100%)
 
-  +part(input)
-    border: 0
-    outline: 0
-    border-radius: 5px
-    border: 1px solid #D6DBDF
-    width: 100%
-    font-size: 0.5vr
-    +font-lato(300)
-    padding: 0.3vr
+    +part(description)
 
-  +part(label)
-    display: inline-block
-    margin-left: 0.2vr
-    font-size: 0.42vr
+    +part(multiple)
+        color: color-dark(grey, 40%)
+        font-style: italic
+
+    +part(question)
+        text-align: left
+        +font-amatic(700)
+        font-size: 1.2vr
+
+    +part(choices)
+        margin-top: 0.3vr
+    
+    +part(footer)
+        text-align: left
+        margin-top: 0.3vr
+        padding-top: 0.2vr
+        padding-bottom: 0.2vr
+
+    +part(skip)
+        text-align: center
+        padding-top: 1vr
+
+
+    +part(button)
+        // Reset <button>, <a>, <submit> to be ready
+        // to be styled.
+        display: inline-block
+        border: 0
+        font: inherit
+        display: inline-block
+        cursor: pointer
+        user-select: none
+        position: relative
+        
+        background-color: color-dark(yellow, 30%)
+        font-size: 0.4vr
+        padding: 0.3vr
+        text-align: center
+        border-radius: 5px
+        color: white
+        text-transform: uppercase
+        outline: 0
+        color: white
+        +font-montserrat(400)
+        
+        +option(skip)
+            background-color: color-get(pink-fluo)

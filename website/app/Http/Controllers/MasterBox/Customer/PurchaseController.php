@@ -695,7 +695,7 @@ class PurchaseController extends BaseController {
     $order_building = $customer->order_building()->orderBy('created_at', 'desc')->onlyPaid()->first();
     $profile = $order_building->profile()->first();
 
-    $questions = BoxQuestion::orderBy('position', 'asc')->get();
+    $questions = BoxQuestion::with('answers')->orderBy('position', 'asc')->get();
 
     $order_preference = $order_building->order_preference()->first();
 
@@ -788,7 +788,6 @@ class PurchaseController extends BaseController {
 
     }
   }
-
 
   public function getConfirmed()
   {
