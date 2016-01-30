@@ -425,14 +425,24 @@ class ProfileController extends BaseController {
             if ($profile->orders()->first() != NULL) {
 
               // Only for editable orders
-              $profile_orders = $profile->orders()->where('locked', FALSE)->get();
+              $profile_orders = $profile->orders()->where('locked', FALSE)->notGift()->get();
 
               foreach ($profile_orders as $profile_order) {
                 
                 // Not a take away, it means we will update the destination
-                if ($profile_order->take_away == FALSE) {
+                if ($profile_order->take_away === FALSE) {
 
                   $destination = $profile_order->destination()->first();
+
+                  /**
+                   * If the destination for some reason doesn't exist, we generate one
+                   * NOTE : Shouldn't happen but it's all about data consistency
+                   */
+                  if ($destination === NULL) {
+                    $destination = new OrderDestination;
+                    $destination->order_id = $profile_order->id;
+                  }
+
                   $destination->first_name = $fields['destination_first_name'];
                   $destination->last_name = $fields['destination_last_name'];
                   $destination->zip = $fields['destination_zip'];

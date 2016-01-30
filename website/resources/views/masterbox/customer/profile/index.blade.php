@@ -130,7 +130,7 @@
                   {{ Form::hidden('old_password', null, ['id' => 'old-password']) }}
 
                   <h3 class="profile__title">Livraison</h3>
-                  <p class="typography">Met à jour globalement les informations de livraison pour tes différents abonnements qui ne sont pas en points relais. Les différents changement effectués sur cette partie seront effectifs <strong>{{ strtolower(Html::diffHumans(App\Models\DeliverySerie::nextOpenSeries()->first()->delivery)) }} (prochaine série)</strong>.</p>
+                  <p class="typography">Met à jour globalement les informations de livraison pour tes abonnements qui ne sont pas en points relais ou en cadeau. Les changement effectués sur cette partie seront effectifs <strong>{{ strtolower(Html::diffHumans(App\Models\DeliverySerie::nextOpenSeries()->first()->delivery)) }} (prochaine série)</strong>.</p>
 
                   <div class="row">
                     <div class="grid-6">
