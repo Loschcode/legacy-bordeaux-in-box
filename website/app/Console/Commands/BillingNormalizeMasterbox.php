@@ -86,7 +86,7 @@ class BillingNormalizeMasterbox extends Command {
 
         $this->info('A payment was found for this entry');
 
-        $order = $payment->order()->first();
+        $order = $payment->orders()->first();
 
         if ($order !== NULL) {
           $unity_price = $order->unity_price;

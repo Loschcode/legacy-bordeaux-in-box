@@ -62,7 +62,10 @@ class Kernel extends HttpKernel
       'has.paid.order.building' => \App\Http\Middleware\HasPaidOrderBuilding::class,
       'is.admin' => \App\Http\Middleware\IsAdmin::class,
       'is.connected' => \App\Http\Middleware\IsConnected::class,
-      'is.not.connected' => \App\Http\Middleware\IsNotConnected::class,
+
+      'is.not.connected.as.customer' => \App\Http\Middleware\IsNotConnectedAsCustomer::class,
+      'is.not.connected.as.administrator' => \App\Http\Middleware\IsNotConnectedAsAdministrator::class,
+
       'is.not.regional' => \App\Http\Middleware\IsNotRegional::class,
       'is.not.regional.or.take.away' => \App\Http\Middleware\IsNotRegional::class,
       'is.not.serie.ready' => \App\Http\Middleware\IsNotSerieReady::class,

@@ -22,7 +22,7 @@ class CustomerController extends BaseController {
    */
   public function __construct()
   {
-    $this->middleware('is.not.connected', array('except' => 'getLogout'));
+    $this->middleware('is.not.connected.as.customer', array('except' => 'getLogout'));
   }
 
   public function getIndex()
@@ -82,7 +82,6 @@ class CustomerController extends BaseController {
       $customer->phone = $fields['phone'];
 
       // We add/change some specific fields
-      $customer->role = 'customer';
       $customer->password = Hash::make($customer->password);
 
       $customer->save();
