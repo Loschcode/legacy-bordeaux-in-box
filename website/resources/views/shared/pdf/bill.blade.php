@@ -235,7 +235,7 @@ th {
       33600 Pessac<br/>
     </div>
     <div class="footer__contact w50 left">
-      Support technique : jeremie@bordeauxinbox.com<br/>
+      Support technique : bonjour@bordeauxinbox.com<br/>
       Support commercial : hugo@bordeauxinbox.com<br/>
     </div>
   </div>
