@@ -550,151 +550,21 @@ class ProfileController extends BaseController {
 
   }
 
+  /**
+   * Display form contact
+   * @return Illuminate\View\View
+   */
+  public function getContact()
+  {
 
+    $customer = Auth::guard('customer')->user();
+    $active_menu = 'contact';
 
+    return view('masterbox.customer.profile.contact')->with(compact(
+      'customer',
+      'active_menu'
+    ));
 
-
-  /* Old post edit 
-	public function postEdit()
-	{
-
-		// New article rules
-		$rules = [
-
-			'old_password' => 'required|match_password', // Check the old password (check on internet.)
-			'new_password' => '',
-
-			'phone' => 'required',
-
-			'email' => 'required|email|unique:customers,email,'. Auth::guard('customer')->user()->id,
-
-			'first_name' => 'required',
-			'last_name' => 'required', 
-
-			'address' => '',
-			'zip' => 'required',
-			'city' => 'required',
-
-			'chosen_spot' => 'integer', // In case it's a spot
-
-			'destination_first_name' => '', // In case it's a delivery
-			'destination_last_name' => '', 
-
-			'destination_address' => '',
-			'destination_zip' => '',
-			'destination_city' => '',
-
-
-			];
-
-		$fields = Request::all();
-
-		$validator = Validator::make($fields, $rules);
-
-		// The form validation was good
-		if ($validator->passes()) {
-
-			$customer = Auth::guard('customer')->user();
-
-			if ($customer !== NULL)
-			{
-
-				$customer->email = $fields['email'];
-
-				$customer->first_name = $fields['first_name'];
-				$customer->last_name = $fields['last_name'];
-
-				$customer->phone = $fields['phone'];
-				$customer->zip = $fields['zip'];
-				$customer->city = $fields['city'];
-				$customer->address = $fields['address'];
-
-				$customer->save();
-
-				// If the customer got profiles we will edit the next deliveries
-				if ($customer->profiles()->first() != NULL) {
-
-					$profiles = $customer->profiles()->get();
-
-					foreach ($profiles as $profile) {
-
-						if ($profile->orders()->first() != NULL) {
-
-							// Only for editable orders
-							$profile_orders = $profile->orders()->where('locked', FALSE)->get();
-
-							foreach ($profile_orders as $profile_order) {
-
-								if ($profile_order->billing()->first() != NULL) {
-
-									$billing = $profile_order->billing()->first();
-
-									$billing->first_name = $customer->first_name;
-									$billing->last_name = $customer->last_name;
-									$billing->zip = $customer->zip;
-									$billing->city = $customer->city;
-									$billing->address = $customer->address;
-
-									// We save everything
-									$billing->save();
-
-								}
-
-								// Not a take away, it means we will update the destination
-								if (($profile_order->take_away == FALSE) && (isset($fields['destination_first_name']))) {
-
-
-
-									$destination = $profile_order->destination()->first();
-									$destination->first_name = $fields['destination_first_name'];
-									$destination->last_name = $fields['destination_last_name'];
-									$destination->zip = $fields['destination_zip'];
-									$destination->city = $fields['destination_city'];
-									$destination->address = $fields['destination_address'];
-
-									// We save everything
-									$destination->save();
-
-								// Take away, it means we will update the spot choice
-								} elseif ($profile_order->take_away == TRUE) {
-
-									$spot = DeliverySpot::find($fields['chosen_spot']);
-
-									if ($spot != NULL) {
-
-										// We save the new spot
-										$profile_order->delivery_spot()->associate($spot);
-										$profile_order->save();
-
-									}
-
-								}
-
-							}
-
-						}
-
-					}
-
-				}
-
-			}
-
-      session()->flash('message', 'Vos informations ont bien été mises à jour');
-      
-			return redirect()->back()
-			->withInput();
-
-		} else {
-
-			// We return the same page with the error and saving the input datas
-			return redirect()->back()
-			->withInput()
-			->withErrors($validator);
-
-		}
-
-	}
-  */
+  }
 
 }

@@ -703,9 +703,17 @@ a {
   border-radius: 3px;
   margin-bottom: 10.2px; }
   .sidebar__link:hover {
-    color: #495d62; }
+    color: white;
+    background: #298fca;
+    border-color: #298fca #298fca #026aa7; }
+    .sidebar__link:hover i {
+      color: white; }
   .sidebar__link.\--active {
-    color: inherit; }
+    color: white;
+    background: #298fca;
+    border-color: #298fca #298fca #026aa7; }
+    .sidebar__link.\--active i {
+      color: white; }
 .sidebar__icon {
   font-size: 13.600000000000001px;
   color: #999;
