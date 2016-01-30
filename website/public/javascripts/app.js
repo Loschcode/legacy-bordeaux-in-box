@@ -576,6 +576,7 @@ module.exports = BillingAddress;
 
 ;require.register("controllers/masterbox/customer/purchase/box-form", function(exports, require, module) {
 var BoxForm, Controller,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -585,12 +586,60 @@ BoxForm = (function(superClass) {
   extend(BoxForm, superClass);
 
   function BoxForm() {
+    this.isQuestionRadioButton = bind(this.isQuestionRadioButton, this);
+    this.hasNextQuestion = bind(this.hasNextQuestion, this);
+    this.hideQuestion = bind(this.hideQuestion, this);
+    this.showQuestion = bind(this.showQuestion, this);
+    this.showNextQuestion = bind(this.showNextQuestion, this);
+    this.labelClicked = bind(this.labelClicked, this);
+    this.buttonClicked = bind(this.buttonClicked, this);
     return BoxForm.__super__.constructor.apply(this, arguments);
   }
 
-  BoxForm.prototype.before = function() {};
+  BoxForm.prototype.before = function() {
+    this.showQuestion(1);
+    return this.currentQuestion = 1;
+  };
 
-  BoxForm.prototype.run = function() {};
+  BoxForm.prototype.run = function() {
+    this.on('click', 'button', this.buttonClicked);
+    return this.on('click', 'label', this.labelClicked);
+  };
+
+  BoxForm.prototype.buttonClicked = function() {
+    return this.showNextQuestion();
+  };
+
+  BoxForm.prototype.labelClicked = function() {};
+
+  BoxForm.prototype.showNextQuestion = function() {
+    if (this.hasNextQuestion(this.currentQuestion)) {
+      this.hideQuestion(this.currentQuestion);
+      this.showQuestion(this.currentQuestion + 1);
+      return this.currentQuestion = this.currentQuestion + 1;
+    } else {
+      return alert("no more questions");
+    }
+  };
+
+  BoxForm.prototype.showQuestion = function(position) {
+    return $('[id=question-' + position + ']').removeClass('+hidden');
+  };
+
+  BoxForm.prototype.hideQuestion = function(position) {
+    return $('[id=question-' + position + ']').addClass('+hidden');
+  };
+
+  BoxForm.prototype.hasNextQuestion = function(currentQuestion) {
+    var nextQuestion;
+    nextQuestion = currentQuestion + 1;
+    if ($('[id=question-' + nextQuestion + ']').length > 0) {
+      return true;
+    }
+    return false;
+  };
+
+  BoxForm.prototype.isQuestionRadioButton = function() {};
 
   return BoxForm;
 

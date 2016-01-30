@@ -13,6 +13,11 @@ class BoxForm extends Controller
   #
   ##
   before: ->
+   
+    # Display the first question
+    @showQuestion(1)
+    @currentQuestion = 1
+
 
   ##
   # Run
@@ -22,6 +27,53 @@ class BoxForm extends Controller
   #
   ##
   run: ->
+
+    @on 'click', 'button', @buttonClicked
+    @on 'click', 'label', @labelClicked
+
+  buttonClicked: =>
+
+    @showNextQuestion()
+
+  labelClicked: =>
+
+    #console.log @isQuestionRadioButton(@currentQuestion)
+
+
+  showNextQuestion: =>
+
+    if @hasNextQuestion(@currentQuestion)
+
+      @hideQuestion(@currentQuestion)
+      @showQuestion(@currentQuestion+1)
+      @currentQuestion = @currentQuestion + 1
+
+    else 
+      alert "no more questions"
+
+
+  showQuestion: (position) =>
+
+    $('[id=question-' + position + ']').removeClass('+hidden')
+
+  hideQuestion: (position) =>
+
+    $('[id=question-' + position + ']').addClass('+hidden')
+
+
+  hasNextQuestion: (currentQuestion) =>
+
+    nextQuestion = currentQuestion + 1
+
+    if $('[id=question-' + nextQuestion + ']').length > 0
+
+      return true
+
+    return false
+
+  isQuestionRadioButton: =>
+
+
 
     
 
