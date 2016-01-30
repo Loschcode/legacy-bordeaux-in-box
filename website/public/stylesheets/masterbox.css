@@ -753,6 +753,14 @@ a {
   font-family: "Lato", sans-serif;
   font-weight: 400;
   font-size: 14.96px; }
+  .table__body-items.\--orders:hover {
+    background-color: #ECF0F1;
+    cursor: pointer; }
+.table__item.\--orders {
+  padding-top: 6.800000000000001px;
+  padding-bottom: 6.800000000000001px; }
+.table__item.\--space-left {
+  padding-left: 6.800000000000001px; }
 .table__item.\--status-active {
   font-size: 13.600000000000001px;
   padding-right: 10.2px;
@@ -1224,6 +1232,19 @@ select + .chosen-container-multi .chosen-results li.result-selected {
 
 .jp-card .jp-card-back .jp-card-shiny:after {
   content: "IMPORTANT: Carte strictement personnelle, propriété de la banque émettrice qui peut la retirer à tout moment. Toute personne trouvant cette carte est priée de bien vouloir l'adresser sous pli non affranchi à l'adresse ci-dessous." !important; }
+
+.tooltipster-blue {
+  border-radius: 5px;
+  border: 1px solid #cccccc;
+  border-color: #298fca #298fca #026aa7;
+  background: #298fca;
+  color: white; }
+
+.tooltipster-blue .tooltipster-content {
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 8px 10px; }
 
 
 /*# sourceMappingURL=masterbox.css.map*/
