@@ -42,12 +42,13 @@ return [
             'provider' => 'customer',
         ],
 
-        /*
-        'admin' => [
+
+        'administrator' => [
             'driver' => 'session',
-            'provider' => 'admin',
+            'provider' => 'administrator',
         ],
 
+        /*
         'partner' => [
             'driver' => 'session',
             'provider' => 'partner',
@@ -81,13 +82,14 @@ return [
              'table' => 'customers',
         ],
 
-        /*
-        'admin' => [
+        
+        'administrator' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Admin::class,
-             'table' => 'admins',
+            'model' => App\Models\Administrator::class,
+             'table' => 'administrators',
         ],
 
+        /*
         'partner' => [
             'driver' => 'eloquent',
             'model' => App\Models\Customer::class,
@@ -125,14 +127,15 @@ return [
             'expire' => 60,
         ],
 
-        /*
-        'admin' => [
-            'provider' => 'admin',
+        
+        'administrator' => [
+            'provider' => 'administrator',
             'email' => 'shared.emails.connect.reminder',
             'table' => 'password_resets',
             'expire' => 60,
         ],
 
+        /*
         'partner' => [
             'provider' => 'partner',
             'email' => 'shared.emails.connect.reminder',

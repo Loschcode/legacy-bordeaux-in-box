@@ -104,15 +104,7 @@ class CustomersController extends BaseController {
 
 		$customer = Customer::findOrFail($id);
 
-		$roles_list = [
-
-			'admin' => 'Administrateur',
-			'customer' => 'Utilisateur'
-
-		];
-
 		return view('masterbox.admin.customers.focus')->with(compact(
-      'roles_list',
       'customer'
     ));
 
@@ -127,8 +119,6 @@ class CustomersController extends BaseController {
 			'customer_id' => 'required|integer',
 			'email' => 'required',
 			'password' => '',
-			'role' => 'required',
-
 			'phone' => 'required',
 
 			'first_name' => 'required',
@@ -158,8 +148,6 @@ class CustomersController extends BaseController {
        $customer->password = Hash::make($fields['password']);
 
       }
-
-      $customer->role = $fields['role'];
 
       $customer->phone = $fields['phone'];
 

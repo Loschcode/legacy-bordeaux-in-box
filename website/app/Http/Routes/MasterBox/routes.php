@@ -19,6 +19,11 @@ Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'
     Route::controller('customer', 'CustomerController');
     Route::controller('password-reminders', 'PasswordRemindersController');
 
+    /**
+     * Administrator
+     */
+    Route::controller('administrator', 'AdministratorController');
+
   });
 
   /**

@@ -68,17 +68,6 @@
       @endif
     </div>
 
-    <!-- Role -->
-    <div class="form-group @if ($errors->first('role')) has-error has-feedback @endif">
-      {!! Form::label("role", "Rôle", ['class' => 'control-label']) !!}
-      {!! Form::select('role', $roles_list, $customer->role, ['class' => 'form-control']) !!}
-
-      @if ($errors->first('role'))
-        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
-        <span class="help-block">{{ $errors->first('role') }}</span>
-      @endif
-    </div>
-
     <!-- Firstname -->
     <div class="form-group @if ($errors->first('first_name')) has-error has-feedback @endif">
       {!! Form::label("first_name", "Prénom", ['class' => 'control-label']) !!}

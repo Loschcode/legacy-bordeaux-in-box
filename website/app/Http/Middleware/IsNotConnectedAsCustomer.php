@@ -1,8 +1,8 @@
 <?php namespace App\Http\Middleware;
 
-use Closure, Auth;
+use Closure, Auth, Request;
 
-class IsAdmin {
+class IsNotConnectedAsCustomer {
 
   /**
    * Handle an incoming request.
@@ -13,15 +13,14 @@ class IsAdmin {
    */
   public function handle($request, Closure $next)
   {
-    if (Auth::guard('administrator')->guest()) {
+    
+    if (Auth::guard('customer')->check()) {
 
-      return redirect()->action('MasterBox\Connect\AdministratorController@getLogin');
-
-    } else {
-
-      return $next($request);
+      return redirect()->action('MasterBox\Guest\HomeController@getIndex');
 
     }
+
+    return $next($request);
   }
 
 }

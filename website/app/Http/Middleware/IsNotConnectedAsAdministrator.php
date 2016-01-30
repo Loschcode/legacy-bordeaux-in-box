@@ -2,7 +2,7 @@
 
 use Closure, Auth, Request;
 
-class IsNotConnected {
+class IsNotConnectedAsAdministrator {
 
   /**
    * Handle an incoming request.
@@ -14,7 +14,7 @@ class IsNotConnected {
   public function handle($request, Closure $next)
   {
     
-    if (Auth::guard('customer')->check()) {
+    if (Auth::guard('administrator')->check()) {
 
       return redirect()->action('MasterBox\Guest\HomeController@getIndex');
 
