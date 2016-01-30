@@ -33,7 +33,17 @@
 
               <th><a class="simple" href="{{url('/admin/payments/focus/'.$payment->id)}}">{{$payment->id}}</a></th>
 
-          <th><a class="spyro-btn spyro-btn-primary spyro-btn-sm" href="{{ url('/admin/users/focus/'.$payment->profile()->first()->customer()->first()->id)}}">{{$payment->customer()->first()->getFullName()}}</a></th>
+            <th>
+            @if ($payment->profile()->first() !== NULL)
+
+              <a class="spyro-btn spyro-btn-primary spyro-btn-sm" href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $payment->profile()->first()->customer()->first()->id]) }}">{{$payment->profile()->first()->customer()->first()->getFullName()}}</a>
+
+            @else
+              
+              N/A
+
+            @endif
+            </th>
 
               <th>{{$payment->stripe_customer}}</th>
               <th>{{$payment->stripe_event}}</th>

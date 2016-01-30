@@ -37,6 +37,37 @@
 
   </ul>
 
+    <!-- Tab List -->
+    <div class="tab-content">
+
+
+    <div class="tab-pane active" id="payments">
+
+      @include('masterbox.admin.partials.payments_table', array('payments' => $payments))
+
+    </div>
+
+    <!-- Tab List -->
+    <div class="tab-pane" id="refund">
+
+      @include('masterbox.admin.partials.payments_table', array('payments' => $refunded_payments))
+
+    </div>
+
+    <!-- Tab List -->
+    <div class="tab-pane" id="series_refund">
+
+      @include('masterbox.admin.partials.payments_table', array('payments' => $series_refunded_payments))
+
+    </div>
+
+    <div class="tab-pane" id="all">
+
+      @include('masterbox.admin.partials.payments_table', array('payments' => $all_transactions))
+
+    </div>
+
+  </div>
 
 
 @stop
