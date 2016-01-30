@@ -1,6 +1,6 @@
 <?php namespace App\Http\Middleware;
 
-use Closure, Auth;
+use Closure, Auth, Request;
 
 class IsAdmin {
 
