@@ -63,7 +63,7 @@
           </span>
         @endif
 
-        <a target="_blank" class="button --lg --primary" href="{ action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a>
+        <a target="_blank" class="button --lg --primary" href="{{ action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a>
 
       </div>
 
@@ -74,7 +74,7 @@
       <div class="spacer"></div>
 
       <div class="center">
-        <a href="{{ url('admin/orders/confirm-ready/' . $order->id) }}" class="button --success --xl">La box est prête</a>
+        <a href="{{ action('MasterBox\Admin\OrdersController@getConfirmReady', ['id' => $order->id]) }}" class="button --success --xl">La box est prête</a>
 
       </div>
 
