@@ -22,6 +22,6 @@ class Administrator extends Model implements AuthenticatableContract
    *
    * @var array
    */
-  protected $hidden = ['password'];
+  protected $hidden = ['password', 'remember_token'];
 
 }
