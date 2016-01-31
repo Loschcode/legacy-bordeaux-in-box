@@ -27,34 +27,30 @@ class ProfilesController extends BaseController {
 	|
 	*/
 
-    /**
-     * Filters
-     */
-    public function __construct()
-    {
-
-    	$this->beforeMethod();
-
-    }
+  /**
+   * Filters
+   */
+  public function __construct()
+  {
+    $this->beforeMethod();
+  }
     
 
-    /**
-     * Get the listing page of the spots
-     * @return void
-     */
-	public function getIndex()
-	{
-		
+  /**
+   * Get the listing page of the spots
+   * @return void
+   */
+  public function getIndex()
+  {
 		//$config_graph_customer_profile_status_progress = $this->customer_profile_status_progress_graph_config();
 
-	  return view('masterbox.admin.profiles.index');
+    return view('masterbox.admin.profiles.index');
 
     //->with(compact(
       //'profiles',
       //'config_graph_customer_profile_status_progress'
     //));
-
-	}
+  }
 
   /**
    * We update the priority of the profile
@@ -124,9 +120,70 @@ class ProfilesController extends BaseController {
 
 	}
 
+  /**
+   * Display a profile
+   * @param  string $id The id of the profile
+   * @return \Illuminate\View\View
+   */
+  public function getFocus($id)
+  {
+    $profile = CustomerProfile::findOrFail($id);
+    $customer = $profile->customer()->first();
+    $order_preference = $profile->order_preference()->first();
+
+    return view('masterbox.admin.profiles.focus')->with(compact(
+      'profile',
+      'customer',
+      'order_preference'
+    ));
+  }
+
+  /**
+   * Display deliveries
+   * @param string $id The id of the profile 
+   * @return \Illuminate\View\View
+   */
+  public function getDeliveries($id)
+  {
+    $profile = CustomerProfile::findOrFail($id);
+
+    return view('masterbox.admin.profiles.deliveries')->with(compact(
+      'profile'
+    ));
+  }
+
+  /**
+   * Display payments
+   * @param  string $id The id of the profile
+   * @return \Illuminate\View\View
+   */
+  public function getPayments($id)
+  {
+    $profile = CustomerProfile::findOrFail($id);
+
+    return view('masterbox.admin.profiles.payments')->with(compact(
+      'profile'
+    ));
+  }
+
+  /**
+   * Display questions/answers
+   * @param  string $id The id of the profile
+   * @return \Illuminate\View\View
+   */
+  public function getQuestions($id)
+  {
+    $profile = CustomerProfile::findOrFail($id);
+
+    return view('masterbox.admin.profiles.questions')->with(compact(
+      'profile'
+    ));
+  }
+
 	/**
 	 * We a edit a profile
 	 */
+  /*
 	public function getEdit($id)
 	{
 
@@ -168,6 +225,7 @@ class ProfilesController extends BaseController {
       ));
 
 	}
+  */
 
 	/**
 	 * Cancel stripe subscription and all the orders that aren't delivered yet

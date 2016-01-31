@@ -284,6 +284,20 @@ a {
 .tablechild__link {
   border-bottom: 1px dotted #364347; }
 
+.panel__wrapper {
+  border: 2px solid #ECF0F1;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px; }
+.panel__header {
+  background-color: #ECF0F1;
+  padding: 7.2px;
+  padding-left: 18px; }
+.panel__title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400; }
+.panel__content {
+  padding: 18px; }
+
 .chosen-container.chosen-container-single {
   width: 100% !important; }
 

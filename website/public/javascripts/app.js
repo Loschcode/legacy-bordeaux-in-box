@@ -303,7 +303,7 @@ Index = (function(superClass) {
             return function(data, type, full, meta) {
               var datas;
               datas = {
-                link_edit: _.slash($('table').data('edit-profile')) + full.id,
+                link_focus: _.slash($('table').data('focus-profile')) + full.id,
                 link_delete: _.slash($('table').data('delete-profile')) + full.id
               };
               return _this.view('masterbox.admin.profiles.actions', datas);
@@ -1658,9 +1658,9 @@ var __templateData = function (__obj) {
     (function() {
       __out.push('<a href="');
     
-      __out.push(this.link_edit);
+      __out.push(this.link_focus);
     
-      __out.push('" class="button button__table"><i class="fa fa-pencil"></i></a>\n<a href="');
+      __out.push('" class="button button__table"><i class="fa fa-eye"></i></a>\n<a href="');
     
       __out.push(this.link_delete);
     

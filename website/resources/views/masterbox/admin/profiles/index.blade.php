@@ -20,7 +20,7 @@ data-success-message="{{ session()->get('message') }}"
 {{-- Table rendered by ajax --}}
 <table 
 data-request="{{ action('MasterBox\Service\ApiController@getProfiles') }}"
-data-edit-profile="{{ action('MasterBox\Admin\ProfilesController@getEdit') }}"
+data-focus-profile="{{ action('MasterBox\Admin\ProfilesController@getFocus') }}"
 data-delete-profile="{{ action('MasterBox\Admin\ProfilesController@getDelete') }}"
 data-focus-customer="{{ action('MasterBox\Admin\CustomersController@getFocus') }}"
 >

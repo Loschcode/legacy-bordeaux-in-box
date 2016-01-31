@@ -37,7 +37,7 @@ class Index extends Controller
           render: (data, type, full, meta) =>
             
             datas =
-              link_edit: _.slash($('table').data('edit-profile')) + full.id
+              link_focus: _.slash($('table').data('focus-profile')) + full.id
               link_delete: _.slash($('table').data('delete-profile')) + full.id
 
             return @view('masterbox.admin.profiles.actions', datas)
