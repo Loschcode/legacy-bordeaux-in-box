@@ -90,7 +90,7 @@ function readable_customer_role($role)
     break;
 
     case 'user':
-      return 'Utilisateur';
+      return 'Client';
     break;
 
     default:

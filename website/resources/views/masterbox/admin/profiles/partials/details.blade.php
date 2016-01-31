@@ -4,7 +4,7 @@
 
       <div class="panel-body">
 
-        <strong>Utilisateur :</strong> <a href="{{action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id])}}">{{ ucfirst(mb_strtolower($profile->customer()->first()->getFullName())) }}</a><br />
+        <strong>Client :</strong> <a href="{{action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id])}}">{{ ucfirst(mb_strtolower($profile->customer()->first()->getFullName())) }}</a><br />
 
         <strong>Marraine :</strong> {!! Html::generateAdminLinkFromUserEmail($profile->getAnswer('sponsor')) !!}<br />
         <strong>Naissance :</strong> {{$profile->getAnswer('birthday')}} ({{$profile->getAge()}} ans)<br />

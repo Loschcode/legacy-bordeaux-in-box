@@ -9,7 +9,7 @@
 
 <div class="row">
 	<div class="grid-8">
-		<h1 class="title title__section">Utilisateurs</h1>
+		<h1 class="title title__section">Clients</h1>
 	</div>
 </div>
 
@@ -38,7 +38,7 @@
 
 <?php /*
 @section('page')
-	<i class="fa fa-user"></i> Utilisateurs ({{$customers->count()}})
+	<i class="fa fa-user"></i> Clients ({{$customers->count()}})
 @stop
 
 @section('content')

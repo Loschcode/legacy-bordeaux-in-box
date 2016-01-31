@@ -4,7 +4,7 @@
 
 					<tr>
 						<th>ID</th>
-						<th>Utilisateur</th>
+						<th>Client</th>
 						<th>Abonnement</th>
 						<th>Dernière étape</th>
 						<th>Dernière mise à jour</th>

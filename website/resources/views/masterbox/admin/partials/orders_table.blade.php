@@ -6,7 +6,7 @@
 					<tr>
 						<th>ID</th>
 						<th>Série</th>
-						<th>Utilisateur</th>
+						<th>Client</th>
 						<th>Adresse utilisateur</th>
 						<th>Téléphone utilisateur</th>
 						<th>Email utilisateur</th>

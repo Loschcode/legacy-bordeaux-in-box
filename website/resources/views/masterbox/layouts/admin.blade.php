@@ -66,7 +66,7 @@
 				<a class="sidebar__link" href="{{ action('MasterBox\Admin\ContentController@getBlog') }}"><i class="fa fa-picture-o"></i> Contenus</a>
 			</li>
 			<li class="sidebar__item">
-				<a class="sidebar__link" href="{{ action('MasterBox\Admin\CustomersController@getIndex') }}"><i class="fa fa-group"></i> Utilisateurs</a>
+				<a class="sidebar__link" href="{{ action('MasterBox\Admin\CustomersController@getIndex') }}"><i class="fa fa-group"></i> Clients</a>
 			</li>
 			<li class="sidebar__item">
 				<a class="sidebar__link" href="{{ action('MasterBox\Admin\ProfilesController@getIndex') }}"><i class="fa fa-suitcase"></i> Abonnements</a>
@@ -115,7 +115,7 @@
 	                <a href="{{ action('MasterBox\Admin\ContentController@getIndex') }}"><i class="fa fa-picture-o"></i> Contenus</a>
 	            </li>
 	            <li>
-	            	<a href="{{ action('MasterBox\Admin\CustomersController@getIndex') }}"><i class="fa fa-group"></i> Utilisateurs</a>
+	            	<a href="{{ action('MasterBox\Admin\CustomersController@getIndex') }}"><i class="fa fa-group"></i> Clients</a>
 	            </li>
 	            <li>
 	            	<a href="{{ action('MasterBox\Admin\ProfilesController@getIndex') }}"><i class="fa fa-suitcase"></i> Abonnements</a>

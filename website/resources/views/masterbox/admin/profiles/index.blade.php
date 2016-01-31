@@ -97,7 +97,7 @@
 			<tr>
 				<th>ID</th>
 				<th>Contrat</th>
-				<th>Utilisateur</th>
+				<th>Client</th>
 				<th>Livraisons restantes</th>
 				<th>Paiements effectués</th>
 				<th>Statut</th>

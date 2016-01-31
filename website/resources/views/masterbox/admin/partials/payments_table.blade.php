@@ -6,7 +6,7 @@
           <tr>
 
             <th>ID</th>
-            <th>Utilisateur</th>
+            <th>Client</th>
             <th>Stripe Customer</th>
             <th>Stripe Event</th>
             <th>Stripe Charge</th>

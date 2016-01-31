@@ -112,7 +112,7 @@
 
 					<tr>
 						<th>ID</th>
-						<th>Utilisateur</th>
+						<th>Client</th>
 						<th>Abonnement</th>
 						<th>Auteur de la note</th>
 						<th>Note</th>
@@ -185,7 +185,7 @@
 
 					<tr>
 						<th>ID</th>
-						<th>Utilisateur</th>
+						<th>Client</th>
 						<th>Abonnement</th>
 						<th>MailGun Message ID</th>
 						<th>Email destinataire</th>

@@ -34,7 +34,7 @@
     <table class="listing">
         <thead>
           <tr class="listing__heading">
-            <th>Utilisateur</th>
+            <th>Client</th>
             <th>Téléphone</th>
             <th>Paiement</th>
             <th>Actions</th>

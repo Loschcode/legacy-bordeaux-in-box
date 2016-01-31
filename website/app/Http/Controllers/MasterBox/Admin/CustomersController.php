@@ -78,6 +78,7 @@ class CustomersController extends BaseController {
 
     } else {
 
+    //
     //\DB::enableQueryLog();
 
       $query = Customer::research($search);

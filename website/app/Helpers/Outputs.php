@@ -253,7 +253,7 @@ function generate_csv_payments($file_name, $payments)
     'Stripe Event',
     'Stripe Charge',
     'Stripe Card',
-    'Utilisateur',
+    'Client',
     'ID Abonnement',
     'Série',
     'Type',
@@ -322,7 +322,7 @@ function generate_csv_order($file_name, $orders, $short=false)
   // We make up the titles
     $output[0] = [
 
-    'Utilisateur',
+    'Client',
     'Téléphone utilisateur',
     'Email utilisateur',
     'Destination / Spot',
@@ -337,7 +337,7 @@ function generate_csv_order($file_name, $orders, $short=false)
 
     'ID',
     'Série',
-    'Utilisateur',
+    'Client',
     'Adresse utilisateur',
     'Téléphone utilisateur',
     'Email utilisateur',

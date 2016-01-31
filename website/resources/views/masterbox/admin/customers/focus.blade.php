@@ -1,7 +1,7 @@
 @extends('masterbox.layouts.admin')
 
 @section('page')
-  <i class="fa fa-user"></i> Utilisateur {{$customer->getFullName()}} (#{{$customer->id}})
+  <i class="fa fa-user"></i> Client {{$customer->getFullName()}} (#{{$customer->id}})
 @stop
 
 @section('buttons')
