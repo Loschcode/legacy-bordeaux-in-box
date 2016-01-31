@@ -4,6 +4,7 @@ use App\Http\Controllers\MasterBox\BaseController;
 
 use Request, Validator;
 use App\Models\Customer;
+use App\Models\Coordinate;
 
 
 class CustomersController extends BaseController {
@@ -161,9 +162,7 @@ class CustomersController extends BaseController {
       $customer->first_name = $fields['first_name'];
       $customer->last_name = $fields['last_name'];
 
-      $customer->zip = $fields['zip'];
-      $customer->city = $fields['city'];
-      $customer->address = $fields['address'];
+      $customer->coordinate_id = Coordinate::getMatchingOrGenerate($fields['address'], $fields['zip'], $fields['city'])->id;
 
       $customer->save();
 

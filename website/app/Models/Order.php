@@ -19,8 +19,7 @@ class Order extends Model {
   /**
    * Create / Update
    */
-  public static function boot()
-    {
+  public static function boot() {
 
         parent::boot();
 
@@ -38,7 +37,7 @@ class Order extends Model {
 
         });
 
-    }
+  }
 
 	/**
 	 * Belongs To

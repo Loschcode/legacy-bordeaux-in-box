@@ -9,6 +9,7 @@ use App\Models\DeliverySpot;
 use App\Models\DeliverySerie;
 use App\Models\Payment;
 use App\Models\CustomerProfile;
+use App\Models\Coordinate;
 
 use App\Libraries\Payments;
 use Hash, URL;
@@ -330,9 +331,7 @@ class ProfileController extends BaseController {
         $customer->first_name = $fields['first_name'];
         $customer->last_name = $fields['last_name'];
         $customer->phone = $fields['phone'];
-        $customer->zip = $fields['zip'];
-        $customer->city = $fields['city'];
-        $customer->address = $fields['address'];
+        $customer->coordinate_id = Coordinate::getMatchingOrGenerate($fields['address'], $fields['zip'], $fields['city'])->id;
 
         $customer->save();
 

@@ -33,6 +33,8 @@ class GoogleGeocoding {
               'success' => TRUE,
               'latitude' => $location->lat,
               'longitude' => $location->lng,
+              'formatted_address' => $result->formatted_address,
+              'place_id' => $result->place_id,
 
               ];
 
