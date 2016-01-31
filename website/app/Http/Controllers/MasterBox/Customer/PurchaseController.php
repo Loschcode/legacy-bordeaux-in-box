@@ -18,6 +18,7 @@ use App\Models\OrderBilling;
 use App\Models\OrderDestination;
 use App\Models\BoxQuestion;
 use App\Models\BoxQuestionCustomerAnswer;
+use App\Models\Coordinate;
 
 use App\Libraries\Payments;
 
@@ -228,9 +229,7 @@ class PurchaseController extends BaseController {
       if ((!$customer->hasBillingAddress()) || ($customer->profiles()->count() <= 1)) {
 
         // We refresh the billing informations
-        $customer->city = $fields['billing_city'];
-        $customer->zip = $fields['billing_zip'];
-        $customer->address = $fields['billing_address'];
+        $customer->coordinate_id = Coordinate::getMatchingOrGenerate($fields['billing_address'], $fields['billing_zip'], $fields['billing_city'])->id;
         $customer->save();
 
       }

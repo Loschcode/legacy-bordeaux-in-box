@@ -25,6 +25,11 @@ class ChangeCustomersCoordinatesTable extends Migration
       /**
        * We also convert it
        */
+      
+      /**
+       * WARNING :
+       * If this blow up, comment the getAddressAttributr accessors and equivalents
+       */
       $customers = Customer::get();
       foreach ($customers as $customer) {
         $customer->coordinate_id = Coordinate::getMatchingOrGenerate($customer->address, $customer->zip, $customer->city)->id;
@@ -55,6 +60,11 @@ class ChangeCustomersCoordinatesTable extends Migration
       {
         // WE CANNOT REALLY ROLLBACK BUT I PUT IT HERE ANYWAY BY PRINCIPLE
         $table->dropColumn('coordinate_id');
+
+        $table->string('address');
+        $table->string('zip');
+        $table->string('city');
+        
       });
 
     }
