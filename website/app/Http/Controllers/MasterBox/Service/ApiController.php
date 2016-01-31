@@ -7,6 +7,7 @@ use App\Models\PartnerProduct;
 use App\Models\DeliverySerie;
 use App\Models\BoxQuestionCustomerAnswer;
 use App\Models\CustomerProfile;
+use App\Models\Customer;
 
 use Auth, Validator;
 
@@ -22,8 +23,59 @@ class ApiController extends BaseController {
   */
   public function __construct()
   {
-    $this->middleware('is.admin', ['only' => ['getContacts', 'getOrdersCount', 'getProfiles']]);
+    $this->middleware('is.admin', ['only' => ['getContacts', 'getOrdersCount', 'getProfiles', 'getCustomers']]);
     $this->middleware('is.customer', ['only' => ['postBoxQuestionCustomerAnswer']]);
+  }
+
+  public function getCustomers()
+  {
+    $draw = request()->input('draw');
+    $start = request()->input('start');
+    $search = request()->input('search')['value'];
+    $length = request()->input('length');
+    $order_column = request()->input('order')[0]['column'];
+    $order_sort = request()->input('order')[0]['dir'];
+
+    $columns = [
+      '1' => 'id',
+      '2' => 'first_name',
+      '3' => 'email',
+      '4' => 'phone'
+    ];
+
+    // Translate the order column
+    $order_column = $columns[$order_column];
+
+    $total_results = Customer::count();
+
+    if (empty($search)) {
+
+      $customers = Customer::with('profiles')->orderBy($order_column, $order_sort)->skip($start)->take($length)->get();
+      $total_results_after_filtered = $total_results;
+
+    } else {
+
+    //
+    //\DB::enableQueryLog();
+
+      $query = Customer::research($search);
+
+
+      $total_results_after_filtered = $query->count();
+      $customers = $query->orderBy($order_column, $order_sort)->skip($start)->take($length)->get();
+
+
+    }
+
+         // dd(\DB::getQueryLog());
+      
+    
+    return response()->json([
+      'data' => $customers,
+      'recordsTotal' => $total_results,
+      'recordsFiltered' => $total_results_after_filtered,
+      'draw' => (int) $draw
+    ]);
   }
 
   /**

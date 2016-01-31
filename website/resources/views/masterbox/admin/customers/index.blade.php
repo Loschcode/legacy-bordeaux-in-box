@@ -17,7 +17,7 @@
 
 {{-- Table rendered by ajax --}}
 <table 
-	data-request="{{ action('MasterBox\Admin\CustomersController@getJsonCustomers') }}"
+	data-request="{{ action('MasterBox\Service\ApiController@getCustomers') }}"
 	data-edit-customer="{{ action('MasterBox\Admin\CustomersController@getFocus') }}"
 	data-edit-profile="{{ action('MasterBox\Admin\ProfilesController@getEdit') }}"
 >
