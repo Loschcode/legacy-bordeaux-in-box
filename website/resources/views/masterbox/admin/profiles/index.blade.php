@@ -5,6 +5,7 @@
 <div
 id="gotham"
 data-controller="masterbox.admin.profiles.index"
+data-success-message="{{ session()->get('message') }}"
 ></div>
 
 <div class="row">
@@ -19,13 +20,16 @@ data-controller="masterbox.admin.profiles.index"
 {{-- Table rendered by ajax --}}
 <table 
 data-request="{{ action('MasterBox\Service\ApiController@getProfiles') }}"
+data-edit-profile="{{ action('MasterBox\Admin\ProfilesController@getEdit') }}"
+data-delete-profile="{{ action('MasterBox\Admin\ProfilesController@getDelete') }}"
+data-focus-customer="{{ action('MasterBox\Admin\CustomersController@getFocus') }}"
 >
 <thead>
 	<tr>
 		<th></th>
 		<th>Id</th>
 		<th>Contrat</th>
-		<th>Utilisateur</th>
+		<th>Client</th>
 		<th>Livraisons Restantes</th>
 		<th>Paiements Effectués</th>
 		<th>Statut</th>

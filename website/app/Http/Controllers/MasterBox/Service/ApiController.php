@@ -31,10 +31,34 @@ class ApiController extends BaseController {
    */
   public function getProfiles()
   {
-    $profiles = CustomerProfile::with(['customer', 'orders', 'payments'])->orderBy('created_at', 'desc')->limit(10)->get();
+    $draw = request()->input('draw');
+    $start = request()->input('start');
+    $search = request()->input('search')['value'];
+    $length = request()->input('length');
+    $order_column = request()->input('order')[0]['column'];
+    $order_sort = request()->input('order')[0]['dir'];
 
+    $total_results = CustomerProfile::count();
+
+    if (empty($search)) {
+      
+      $profiles = CustomerProfile::with(['customer', 'orders', 'payments'])->skip($start)->take($length)->get();
+      $total_results_after_filtered = $total_results;
+
+    } else {
+
+      $query = CustomerProfile::research($search);
+
+      $total_results_after_filtered = $query->count();
+      $customers = $query->skip($start)->take($length)->get();
+
+    }
+          
     return response()->json([
-      'data' => $profiles
+      'data' => $profiles,
+      'recordsTotal' => $total_results,
+      'recordsFiltered' => $total_results_after_filtered,
+      'draw' => (int) $draw
     ]);
 
   }

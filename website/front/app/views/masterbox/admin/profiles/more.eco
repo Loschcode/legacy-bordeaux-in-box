@@ -1,0 +1,25 @@
+<div class="tablechild">
+  <div class="row">
+    <div class="grid-3">
+      <h3 class="tablechild__title">Abonnement</h3>
+      <strong>Date de création:</strong> <%- @created_at %><br/>
+    </div>
+    <div class="grid-6">
+      <h3 class="tablechild__title">Client</h3>
+      <strong>Total Payé:</strong> <%- _.euro(@customer.turnover) %><br/>
+      <strong>Téléphone:</strong> 
+      <% if @customer.phone_format.length > 0: %>
+        <%- @customer.phone_format %>
+      <% else: %>
+        N/A
+      <% end %>
+      <br/>
+      <strong>Email:</strong> <%- @customer.email %><br/>
+      <strong>Adresse:</strong> 
+      <% if @customer.address.length > 0: %>
+        <%- @customer.address %>, <%- @customer.city %> (<%- @customer.zip %>)
+      <% else: %>
+        N/A
+      <% end %>
+    </div>
+</div>
