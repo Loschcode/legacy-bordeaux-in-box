@@ -736,7 +736,7 @@ class PurchaseController extends BaseController {
       /**
        * We remove all the linked old answers
        */
-      $answer = $profile->question_answers()->where('box_question_id', '=', $inputs['question_id'])->get();
+      $answers = $profile->answers()->where('box_question_id', '=', $inputs['question_id'])->get();
       foreach ($answers as $answer) {
         $answer->delete();
       }
