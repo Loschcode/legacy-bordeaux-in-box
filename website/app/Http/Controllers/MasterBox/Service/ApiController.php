@@ -6,6 +6,7 @@ use App\Models\Contact;
 use App\Models\PartnerProduct;
 use App\Models\DeliverySerie;
 use App\Models\BoxQuestionCustomerAnswer;
+use App\Models\CustomerProfile;
 
 use Auth, Validator;
 
@@ -21,8 +22,21 @@ class ApiController extends BaseController {
   */
   public function __construct()
   {
-    $this->middleware('is.admin', ['only' => ['getContacts', 'getOrdersCount']]);
+    $this->middleware('is.admin', ['only' => ['getContacts', 'getOrdersCount', 'getProfiles']]);
     $this->middleware('is.customer', ['only' => ['postBoxQuestionCustomerAnswer']]);
+  }
+
+  /**
+   * Get profiles for the data table admin profiles
+   */
+  public function getProfiles()
+  {
+    $profiles = CustomerProfile::with(['customer', 'orders', 'payments'])->orderBy('created_at', 'desc')->limit(10)->get();
+
+    return response()->json([
+      'data' => $profiles
+    ]);
+
   }
 
   /**

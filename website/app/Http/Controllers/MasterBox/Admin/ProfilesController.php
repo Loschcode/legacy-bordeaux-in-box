@@ -45,14 +45,14 @@ class ProfilesController extends BaseController {
 	public function getIndex()
 	{
 		
-		$profiles = CustomerProfile::orderBy('created_at', 'desc')->get();
+		//$config_graph_customer_profile_status_progress = $this->customer_profile_status_progress_graph_config();
 
-		$config_graph_customer_profile_status_progress = $this->customer_profile_status_progress_graph_config();
+	  return view('masterbox.admin.profiles.index');
 
-	  return view('masterbox.admin.profiles.index')->with(compact(
-      'profiles',
-      'config_graph_customer_profile_status_progress'
-    ));
+    //->with(compact(
+      //'profiles',
+      //'config_graph_customer_profile_status_progress'
+    //));
 
 	}
 

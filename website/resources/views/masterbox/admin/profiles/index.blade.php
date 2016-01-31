@@ -1,5 +1,43 @@
 @extends('masterbox.layouts.admin')
 
+@section('content')
+
+<div
+id="gotham"
+data-controller="masterbox.admin.profiles.index"
+></div>
+
+<div class="row">
+	<div class="grid-8">
+		<h1 class="title title__section">Abonnements</h1>
+	</div>
+</div>
+
+<div class="divider divider__section"></div>
+
+
+{{-- Table rendered by ajax --}}
+<table 
+data-request="{{ action('MasterBox\Service\ApiController@getProfiles') }}"
+>
+<thead>
+	<tr>
+		<th></th>
+		<th>Id</th>
+		<th>Contrat</th>
+		<th>Utilisateur</th>
+		<th>Livraisons Restantes</th>
+		<th>Paiements Effectués</th>
+		<th>Statut</th>
+		<th>Action</th>
+	</tr>
+</thead>
+</table>
+
+@stop
+<?php /*
+@extends('masterbox.layouts.admin')
+
 @section('page')
 	<i class="fa fa-suitcase"></i> Abonnements
 @stop
@@ -199,3 +237,4 @@
 
 
 @stop
+*/ ?>
