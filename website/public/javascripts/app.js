@@ -575,157 +575,26 @@ module.exports = BillingAddress;
 });
 
 ;require.register("controllers/masterbox/customer/purchase/box-form", function(exports, require, module) {
-var BoxForm, Controller,
-  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+var BoxForm, Controller, CustomBox,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
 Controller = require('core/controller');
 
+CustomBox = require('libraries/custom-box');
+
 BoxForm = (function(superClass) {
   extend(BoxForm, superClass);
 
   function BoxForm() {
-    this.cleanError = bind(this.cleanError, this);
-    this.showError = bind(this.showError, this);
-    this.fetchDatasQuestion = bind(this.fetchDatasQuestion, this);
-    this.fetchDatasCurrentQuestion = bind(this.fetchDatasCurrentQuestion, this);
-    this.showDefault = bind(this.showDefault, this);
-    this.showLoading = bind(this.showLoading, this);
-    this.isQuestionRadioButton = bind(this.isQuestionRadioButton, this);
-    this.hasNextQuestion = bind(this.hasNextQuestion, this);
-    this.hideQuestion = bind(this.hideQuestion, this);
-    this.showQuestion = bind(this.showQuestion, this);
-    this.showNextQuestion = bind(this.showNextQuestion, this);
-    this.postAddAnswer = bind(this.postAddAnswer, this);
-    this.labelClicked = bind(this.labelClicked, this);
-    this.formSubmited = bind(this.formSubmited, this);
     return BoxForm.__super__.constructor.apply(this, arguments);
   }
 
-  BoxForm.prototype.processingAjax = false;
-
   BoxForm.prototype.before = function() {
-    this.showQuestion(1, false);
-    return this.currentQuestion = 1;
+    return new CustomBox();
   };
 
-  BoxForm.prototype.run = function() {
-    this.on('submit', 'form', this.formSubmited);
-    return this.on('click', ':radio', this.labelClicked);
-  };
-
-  BoxForm.prototype.formSubmited = function(e) {
-    e.preventDefault();
-    return this.postAddAnswer();
-  };
-
-  BoxForm.prototype.labelClicked = function(e) {
-    if (this.isQuestionRadioButton(this.currentQuestion)) {
-      if (!this.processingAjax) {
-        return this.postAddAnswer();
-      } else {
-        return e.preventDefault();
-      }
-    }
-  };
-
-  BoxForm.prototype.postAddAnswer = function() {
-    var datas;
-    if (!this.processingAjax) {
-      this.showLoading();
-      this.cleanError();
-      datas = this.fetchDatasCurrentQuestion();
-      console.log(datas);
-      this.processingAjax = true;
-      return $.post('/customer/purchase/box-form', datas, (function(_this) {
-        return function(response) {
-          _this.processingAjax = false;
-          _this.showDefault();
-          if (!response.success) {
-            return _this.showError(response.errors);
-          } else {
-            return _this.showNextQuestion();
-          }
-        };
-      })(this));
-    }
-  };
-
-  BoxForm.prototype.showNextQuestion = function() {
-    if (this.hasNextQuestion(this.currentQuestion)) {
-      this.hideQuestion(this.currentQuestion);
-      this.showQuestion(this.currentQuestion + 1);
-      return this.currentQuestion = this.currentQuestion + 1;
-    } else {
-      return alert("no more questions");
-    }
-  };
-
-  BoxForm.prototype.showQuestion = function(position, fadeIn) {
-    if (fadeIn === false) {
-      return $('[id=question-' + position + ']').removeClass('+hidden');
-    } else {
-      return $('[id=question-' + position + ']').fadeIn().removeClass('+hidden');
-    }
-  };
-
-  BoxForm.prototype.hideQuestion = function(position) {
-    return $('[id=question-' + position + ']').addClass('+hidden');
-  };
-
-  BoxForm.prototype.hasNextQuestion = function(currentQuestion) {
-    var nextQuestion;
-    nextQuestion = currentQuestion + 1;
-    if ($('[id=question-' + nextQuestion + ']').length > 0) {
-      return true;
-    }
-    return false;
-  };
-
-  BoxForm.prototype.isQuestionRadioButton = function(question) {
-    var type;
-    type = $('#question-' + question).data('type');
-    if (type === 'radiobutton') {
-      return true;
-    }
-    return false;
-  };
-
-  BoxForm.prototype.showLoading = function() {
-    if (this.isQuestionRadioButton(this.currentQuestion)) {
-      return $('#question-' + this.currentQuestion).find('#loader').html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement');
-    } else {
-      return $('#question-' + this.currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer');
-    }
-  };
-
-  BoxForm.prototype.showDefault = function() {
-    if (this.isQuestionRadioButton(this.currentQuestion)) {
-      return $('#question-' + this.currentQuestion).find('#loader').html('');
-    } else {
-      return $('#question-' + this.currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-check"></i> Enregistrer');
-    }
-  };
-
-  BoxForm.prototype.fetchDatasCurrentQuestion = function() {
-    return this.fetchDatasQuestion(this.currentQuestion);
-  };
-
-  BoxForm.prototype.fetchDatasQuestion = function(question) {
-    var syphon;
-    syphon = new Syphon();
-    return syphon.get('#question-' + question + ' form');
-  };
-
-  BoxForm.prototype.showError = function(error) {
-    console.log(error);
-    return $('#question-' + this.currentQuestion).find('#error').html(error);
-  };
-
-  BoxForm.prototype.cleanError = function() {
-    return $('#question-' + this.currentQuestion).find('#error').html('');
-  };
+  BoxForm.prototype.run = function() {};
 
   return BoxForm;
 
@@ -1216,6 +1085,156 @@ AdminSidebar = (function() {
 })();
 
 module.exports = AdminSidebar;
+});
+
+;require.register("libraries/custom-box", function(exports, require, module) {
+var CustomBox,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+CustomBox = (function() {
+  CustomBox.prototype.processingAjax = false;
+
+  function CustomBox() {
+    this.cleanError = bind(this.cleanError, this);
+    this.showError = bind(this.showError, this);
+    this.fetchDatasQuestion = bind(this.fetchDatasQuestion, this);
+    this.fetchDatasCurrentQuestion = bind(this.fetchDatasCurrentQuestion, this);
+    this.showDefault = bind(this.showDefault, this);
+    this.showLoading = bind(this.showLoading, this);
+    this.isQuestionRadioButton = bind(this.isQuestionRadioButton, this);
+    this.hasNextQuestion = bind(this.hasNextQuestion, this);
+    this.hideQuestion = bind(this.hideQuestion, this);
+    this.showQuestion = bind(this.showQuestion, this);
+    this.showNextQuestion = bind(this.showNextQuestion, this);
+    this.postAddAnswer = bind(this.postAddAnswer, this);
+    this.labelClicked = bind(this.labelClicked, this);
+    this.formSubmited = bind(this.formSubmited, this);
+    this.showQuestion(1, false);
+    this.currentQuestion = 1;
+    this.events();
+  }
+
+  CustomBox.prototype.events = function() {
+    $('form').on('submit', this.formSubmited);
+    return $(':radio').on('click', this.labelClicked);
+  };
+
+  CustomBox.prototype.formSubmited = function(e) {
+    e.preventDefault();
+    return this.postAddAnswer();
+  };
+
+  CustomBox.prototype.labelClicked = function(e) {
+    if (this.isQuestionRadioButton(this.currentQuestion)) {
+      if (!this.processingAjax) {
+        return this.postAddAnswer();
+      } else {
+        return e.preventDefault();
+      }
+    }
+  };
+
+  CustomBox.prototype.postAddAnswer = function() {
+    var datas;
+    if (!this.processingAjax) {
+      this.showLoading();
+      this.cleanError();
+      datas = this.fetchDatasCurrentQuestion();
+      console.log(datas);
+      this.processingAjax = true;
+      return $.post('/customer/purchase/box-form', datas, (function(_this) {
+        return function(response) {
+          _this.processingAjax = false;
+          _this.showDefault();
+          if (!response.success) {
+            return _this.showError(response.errors);
+          } else {
+            return _this.showNextQuestion();
+          }
+        };
+      })(this));
+    }
+  };
+
+  CustomBox.prototype.showNextQuestion = function() {
+    if (this.hasNextQuestion(this.currentQuestion)) {
+      this.hideQuestion(this.currentQuestion);
+      this.showQuestion(this.currentQuestion + 1);
+      return this.currentQuestion = this.currentQuestion + 1;
+    } else {
+      return alert("no more questions");
+    }
+  };
+
+  CustomBox.prototype.showQuestion = function(position, fadeIn) {
+    if (fadeIn === false) {
+      return $('[id=question-' + position + ']').removeClass('+hidden');
+    } else {
+      return $('[id=question-' + position + ']').fadeIn().removeClass('+hidden');
+    }
+  };
+
+  CustomBox.prototype.hideQuestion = function(position) {
+    return $('[id=question-' + position + ']').addClass('+hidden');
+  };
+
+  CustomBox.prototype.hasNextQuestion = function(currentQuestion) {
+    var nextQuestion;
+    nextQuestion = currentQuestion + 1;
+    if ($('[id=question-' + nextQuestion + ']').length > 0) {
+      return true;
+    }
+    return false;
+  };
+
+  CustomBox.prototype.isQuestionRadioButton = function(question) {
+    var type;
+    type = $('#question-' + question).data('type');
+    if (type === 'radiobutton') {
+      return true;
+    }
+    return false;
+  };
+
+  CustomBox.prototype.showLoading = function() {
+    if (this.isQuestionRadioButton(this.currentQuestion)) {
+      return $('#question-' + this.currentQuestion).find('#loader').html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement');
+    } else {
+      return $('#question-' + this.currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer');
+    }
+  };
+
+  CustomBox.prototype.showDefault = function() {
+    if (this.isQuestionRadioButton(this.currentQuestion)) {
+      return $('#question-' + this.currentQuestion).find('#loader').html('');
+    } else {
+      return $('#question-' + this.currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-check"></i> Enregistrer');
+    }
+  };
+
+  CustomBox.prototype.fetchDatasCurrentQuestion = function() {
+    return this.fetchDatasQuestion(this.currentQuestion);
+  };
+
+  CustomBox.prototype.fetchDatasQuestion = function(question) {
+    var syphon;
+    syphon = new Syphon();
+    return syphon.get('#question-' + question + ' form');
+  };
+
+  CustomBox.prototype.showError = function(error) {
+    return $('#question-' + this.currentQuestion).find('#error').html(error);
+  };
+
+  CustomBox.prototype.cleanError = function() {
+    return $('#question-' + this.currentQuestion).find('#error').html('');
+  };
+
+  return CustomBox;
+
+})();
+
+module.exports = CustomBox;
 });
 
 ;require.register("start", function(exports, require, module) {
