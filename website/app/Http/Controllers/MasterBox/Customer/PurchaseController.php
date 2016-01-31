@@ -733,19 +733,33 @@ class PurchaseController extends BaseController {
 
     if ($validator->passes()) {
 
-      $answer = $profile->question_answers()->where('box_question_id', '=', $inputs['question_id'])->first();
+      /**
+       * We remove all the linked old answers
+       */
+      $answer = $profile->question_answers()->where('box_question_id', '=', $inputs['question_id'])->get();
+      foreach ($answers as $answer) {
+        $answer->delete();
+      }
+    
+      /**
+       * We convert to an array to norm it
+       */
+      if (!is_array($inputs['answer']))
+        $answers = [$inputs['answer']];
 
-      if ($answer === NULL) {
+      /**
+       * We add them in a row
+       */
+      foreach ($answers as $answer) {
 
         $answer = new BoxQuestionCustomerAnswer;
         $answer->box_question_id = $inputs['question_id'];
         $answer->customer_profile_id = $profile->id;
+        $answer->answer = $answer;
+        $answer->save();
 
       }
 
-      $answer->answer = $inputs['answer'];
-      $answer->save();
-      
       return response()->json(['success' => true]);
     }
 
