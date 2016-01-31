@@ -18,7 +18,6 @@ $factory->defineAs(App\Models\Customer::class, 'subscribed-customer', function(F
       'email' => $faker->email,
       'password' => bcrypt(str_random(10)),
       'remember_token' => str_random(10),
-      'role' => 'customer',
       'first_name' => $faker->firstName,
       'last_name' => $faker->lastName,
       'phone' => $faker->phoneNumber
@@ -34,7 +33,6 @@ $factory->define(App\Models\Customer::class, function(Faker\Generator $faker) {
     'email' => $faker->email,
     'password' => bcrypt(str_random(10)),
     'remember_token' => str_random(10),
-    'role' => 'customer',
     'first_name' => $faker->firstName,
     'last_name' => $faker->lastName,
     'phone' => $faker->phoneNumber,
