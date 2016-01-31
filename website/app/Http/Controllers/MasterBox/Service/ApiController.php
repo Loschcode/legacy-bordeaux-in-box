@@ -22,6 +22,7 @@ class ApiController extends BaseController {
   public function __construct()
   {
     $this->middleware('is.admin', ['only' => ['getContacts', 'getOrdersCount']]);
+    $this->middleware('is.customer', ['only' => ['postBoxQuestionCustomerAnswer']]);
   }
 
   /**
