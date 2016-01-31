@@ -697,6 +697,9 @@ a {
   font-weight: 400; }
   .custombox__button.\--skip {
     background-color: #D83F66; }
+  .custombox__button.\--disabled {
+    cursor: not-allowed;
+    opacity: 0.6; }
 
 .article__wrapper {
   padding-top: 34px; }

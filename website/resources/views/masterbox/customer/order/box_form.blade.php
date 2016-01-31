@@ -39,45 +39,58 @@
     <div class="grid-7 grid-centered labelauty-default-small">
             
       @foreach ($questions as $key => $question)
-        <div class="custombox">
-          <div class="custombox__wrapper">
-            <h3 class="custombox__question">Question n°{{ $key+1 }}</h3>
-            <p class="custombox__description">{{ $question->question }}</p>
-            @if ($question->type == 'checkbox')
-              <p class="custombox__multiple">(Plusieurs choix sont possibles)</p>
-            @endif
-            
-            <div class="custombox__choices">
-              @if (in_array($question->type, ['date', 'member_email', 'text']))
-                <input type="text" class="form__input" />
-              @elseif ($question->type == 'textarea')
-                <textarea class="form__input"></textarea>
-              @else
-                @foreach ($question->answers as $answer)
 
-                  @if ($question->type === 'radiobutton')
+          <div id="question-{{ $key+1 }}" class="+hidden" data-type="{{ $question->type }}">
+            {{ Form::open() }}
 
-                    {!! Form::radio($question->id, $answer->content, '', ['id' => $answer->id, 'data-labelauty' => $answer->content]) !!}
+            {{ Form::hidden('type', $question->type) }}
+            {{ Form::hidden('question_id', $question->id) }}
 
+            <div class="custombox">
+              <div class="custombox__wrapper">
+                <h3 class="custombox__question">Question n°{{ $key+1 }}</h3>
+                <p class="custombox__description">{{ $question->question }}</p>
+                @if ($question->type == 'checkbox')
+                  <p class="custombox__multiple">(Plusieurs choix sont possibles)</p>
+                @endif
+
+                <div class="custombox__choices">
+                  @if (in_array($question->type, ['date', 'member_email', 'text']))
+                    {!! Form::text('answer', '', ['class' => 'form__input']) !!}
+                  @elseif ($question->type == 'textarea')
+                    {!! Form::textarea('answer', '', ['class' => 'form__input']) !!}
                   @else
+                    @foreach ($question->answers as $answer)
 
-                    {!! Form::checkbox($question->id, $answer->content, '', ['id' => $answer->id, 'data-labelauty' => $answer->content]) !!}
+                      @if ($question->type === 'radiobutton')
 
+                        {!! Form::radio('answer', $answer->content, '', ['id' => $answer->id, 'data-labelauty' => $answer->content]) !!}
+
+                      @else
+
+                        {!! Form::checkbox('answer', $answer->content, '', ['id' => $answer->id, 'data-labelauty' => $answer->content]) !!}
+
+                      @endif
+
+                    @endforeach
                   @endif
-
-                @endforeach
-              @endif
+                </div>
+                <div class="custombox__footer">
+                  @if ($question->type !== 'radiobutton')
+                    <button type="submit" class="custombox__button" href="#"><i class="fa fa-check"></i> Enregistrer</button>
+                  @endif
+                </div>
+              </div>
+              <div class="custombox__skip">
+              </div>
             </div>
-            <div class="custombox__footer">
-              <a class="custombox__button" href="#"><i class="fa fa-check"></i> Enregistrer</a>
-            </div>
+            {{ Form::close() }}
           </div>
-          <div class="custombox__skip">
-          </div>
-        </div>
       @endforeach
-
-      <a class="custombox__button --skip" href="#"><i class="fa fa-times-circle"></i> Je souhaite arrêter la personnalisation ici</a>
+      
+      <div class="+text-center">
+        <a class="custombox__button --skip" href="#"><i class="fa fa-times-circle"></i> Je souhaite arrêter la personnalisation ici</a>
+      </div>
 
     </div>
 

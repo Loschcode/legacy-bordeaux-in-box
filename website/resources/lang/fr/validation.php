@@ -94,6 +94,7 @@ return array(
         'old_password' => array(
             'match_password' => 'Votre mot de passe actuel ne correspond pas',
         ),
+        'answer.regex' => 'La date est invalide'
 
     ),
 

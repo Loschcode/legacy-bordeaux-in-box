@@ -717,6 +717,47 @@ class PurchaseController extends BaseController {
    */
   public function postBoxForm()
   {
+    $customer = Auth::guard('customer')->user();
+
+    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->onlyPaid()->first();
+    $profile = $order_building->profile()->first();
+
+    $inputs = request()->all();
+
+    $rules = $this->getRulesBoxForm($inputs['type'], $customer->email);
+
+    $validator = Validator::make($inputs, $rules);
+
+    if ($validator->passes()) {
+      return response()->json(['success' => true]);
+    }
+
+    return response()->json(['success' => false, 'errors' => $validator->errors()->first('answer')]);
+
+  }
+
+  /**
+   * Fetch the valid rules for the question type given
+   * @param  string $question_type  Type of the question
+   * @param  string $customer_email Email of the customer
+   * @return array
+   */
+  private function getRulesBoxForm($question_type, $customer_email)
+  {
+    if ($question_type == 'checkbox') return [];
+    if ($question_type == 'date') return ['answer' => ['required', 'regex:#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#']];
+    if ($question_type == 'member_email') return ['answer' => ['email', 'exists:users,email', 'not_in:'.$customer_email]];
+
+    return ['answer' => 'required'];
+  }
+
+
+  /**
+   * We add the answer to the profile of the user
+   */
+  /*
+  public function postBoxForm()
+  {
 
     // Set a flag to know if we already passed by the validation
     session()->flash('flag-box-form', true);
@@ -748,10 +789,10 @@ class PurchaseController extends BaseController {
         {
           $rules[$question->id.'-0'] = ['email', 'exists:users,email', 'not_in:'.$customer->email];
         } 
-        /*elseif ($question->type == 'children_details') 
-        {
-          $rules[$question->id.'-0'] = ['array'];
-        }*/
+        //elseif ($question->type == 'children_details') 
+        //{
+          //$rules[$question->id.'-0'] = ['array'];
+        //}
         else 
         {
           $rules[$question->id.'-0'] = ['required'];
@@ -788,6 +829,7 @@ class PurchaseController extends BaseController {
 
     }
   }
+  */
 
   public function getConfirmed()
   {
