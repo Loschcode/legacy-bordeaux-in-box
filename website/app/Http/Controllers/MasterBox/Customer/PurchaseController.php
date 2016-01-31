@@ -701,6 +701,11 @@ class PurchaseController extends BaseController {
 
     $questions = $profile->unansweredQuestions()->with('answers')->orderBy('position', 'asc')->get();
     
+    // If no more questions, redirect.
+    if ($questions->count() == 0) {
+      return redirect()->action('MasterBox\Customer\PurchaseController@getConfirmed');
+    }
+
     $order_preference = $order_building->order_preference()->first();
 
     // Back case
