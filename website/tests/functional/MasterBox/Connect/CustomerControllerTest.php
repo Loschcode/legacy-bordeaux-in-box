@@ -150,50 +150,6 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
      $this->assertSessionHasErrors('email');
   }
 
-  /** @test */
-  public function should_redirect_me_to_the_pipeline_after_the_login_page_if_i_was_buying_a_gift()
-  {
-    $email = $this->faker->email;
-    $password = str_random(10);
-
-    $customer = factory(Customer::class, 'subscribed-customer')->create([
-      'email' => $email,
-      'password' => bcrypt($password)
-    ]);
-
-    $this->withSession(['isOrdering' => true, 'isGift' => true]);
-
-    $this->call('POST', 'connect/customer/login', [
-      'email' => $email,
-      'password' => $password
-    ]);
-
-    $this->assertRedirectedToAction('MasterBox\Customer\PurchaseController@getGift');
-
-  }
-
-  /** @test */
-  public function should_redirect_me_to_the_pipeline_after_the_login_page_if_i_was_buying_a_classic_box()
-  {
-    $email = $this->faker->email;
-    $password = str_random(10);
-
-    $customer = factory(Customer::class, 'subscribed-customer')->create([
-      'email' => $email,
-      'password' => bcrypt($password)
-    ]);
-
-    $this->withSession(['isOrdering' => true, 'isGift' => false]);
-
-    $this->call('POST', 'connect/customer/login', [
-      'email' => $email,
-      'password' => $password
-    ]);
-
-    $this->assertRedirectedToAction('MasterBox\Customer\PurchaseController@getClassic');
-
-  }
-
   /**
    * Mock a raw customer
    * @param  array  $overrides Entries to overrides

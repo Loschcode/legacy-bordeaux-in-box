@@ -1109,6 +1109,7 @@ CustomBox = (function() {
     this.postAddAnswer = bind(this.postAddAnswer, this);
     this.labelClicked = bind(this.labelClicked, this);
     this.formSubmited = bind(this.formSubmited, this);
+    this.skipClicked = bind(this.skipClicked, this);
     this.showQuestion(1, false);
     this.currentQuestion = 1;
     this.events();
@@ -1116,7 +1117,15 @@ CustomBox = (function() {
 
   CustomBox.prototype.events = function() {
     $('form').on('submit', this.formSubmited);
-    return $(':radio').on('click', this.labelClicked);
+    $(':radio').on('click', this.labelClicked);
+    return $('.js-skip').on('click', this.skipClicked);
+  };
+
+  CustomBox.prototype.skipClicked = function(e) {
+    e.preventDefault();
+    if (!this.processingAjax) {
+      return this.showNextQuestion();
+    }
   };
 
   CustomBox.prototype.formSubmited = function(e) {
@@ -1142,7 +1151,7 @@ CustomBox = (function() {
       datas = this.fetchDatasCurrentQuestion();
       console.log(datas);
       this.processingAjax = true;
-      return $.post('/customer/purchase/box-form', datas, (function(_this) {
+      return $.post('/service/api/box-question-customer-answer', datas, (function(_this) {
         return function(response) {
           _this.processingAjax = false;
           _this.showDefault();
@@ -1162,7 +1171,8 @@ CustomBox = (function() {
       this.showQuestion(this.currentQuestion + 1);
       return this.currentQuestion = this.currentQuestion + 1;
     } else {
-      return alert("no more questions");
+      this.showLoading();
+      return window.location.href = '/customer/purchase/confirmed';
     }
   };
 
@@ -1198,18 +1208,20 @@ CustomBox = (function() {
 
   CustomBox.prototype.showLoading = function() {
     if (this.isQuestionRadioButton(this.currentQuestion)) {
-      return $('#question-' + this.currentQuestion).find('#loader').html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement');
+      $('#question-' + this.currentQuestion).find('#loader').html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement');
     } else {
-      return $('#question-' + this.currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer');
+      $('#question-' + this.currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer');
     }
+    return $('#question-' + this.currentQuestion).find('.js-skip').addClass('--disabled');
   };
 
   CustomBox.prototype.showDefault = function() {
     if (this.isQuestionRadioButton(this.currentQuestion)) {
-      return $('#question-' + this.currentQuestion).find('#loader').html('');
+      $('#question-' + this.currentQuestion).find('#loader').html('');
     } else {
-      return $('#question-' + this.currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-check"></i> Enregistrer');
+      $('#question-' + this.currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-check"></i> Enregistrer');
     }
+    return $('#question-' + this.currentQuestion).find('.js-skip').removeClass('--disabled');
   };
 
   CustomBox.prototype.fetchDatasCurrentQuestion = function() {
