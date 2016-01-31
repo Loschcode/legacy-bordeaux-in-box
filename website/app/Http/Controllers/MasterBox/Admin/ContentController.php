@@ -178,7 +178,7 @@ class ContentController extends BaseController {
 
 			// We manage the thumbnail
 			$file = Request::file('thumbnail');
-			$destinationPath = 'public/uploads/blog/';
+			$destinationPath = 'uploads/blog/';
 
 			$filename = value(function() use ($file, $blog_article) {
 
@@ -197,7 +197,7 @@ class ContentController extends BaseController {
 
 			$blog_article->save();
 
-			session()->flash('message', 'Nouveau article ajouté');
+			session()->flash('message', 'Nouvel article ajouté');
 
 			return redirect()->to('/admin/content/blog')
 			->withInput();
@@ -355,13 +355,12 @@ class ContentController extends BaseController {
 			$image_article->customer()->associate(Auth::guard('customer')->user());
 
 			if ( ! empty($fields['image'])) {
-			 $image_article->image = $this->_prepare_image($fields, $image_article);
+			 $image_article->image = $this->_prepare_image('image', $image_article, 'illustrations');
 			}
 
 			$image_article->save();
 
-
-			return redirect()->to('/admin/content/illustrations')
+			return redirect()->action('MasterBox\Admin\ContentController@getIllustrations')
 			->with('message', 'L\'illustration à été édité avec succès')
 			->withInput();
 
@@ -420,7 +419,7 @@ class ContentController extends BaseController {
 
 			$image_article->title = $fields['title'];
 			$image_article->description = $fields['description'];
-			$image_article->image = $this->_prepare_image($fields, $image_article);
+			$image_article->image = $this->_prepare_image('image', $image_article, 'illustrations');
 
 			$image_article->save();
 
@@ -440,23 +439,25 @@ class ContentController extends BaseController {
 
 	}
 
-	private function _prepare_image($fields, $image_article)
+	private function _prepare_image($field_name, $image_article, $path)
 	{
 
 		// We manage the image
-		$file = Request::file('image');
-		$destinationPath = public_path('uploads/illustrations/');
+		$file = Request::file($field_name);
+		$destinationPath = public_path('uploads/'.$path.'/');
 
 		$filename = value(function() use ($file, $image_article) {
 
-			$filename = Str::slug($image_article->title) . '.' . $file->getClientOriginalExtension();
+			$filename = time() . '-' . Str::slug($image_article->title) . '.' . $file->getClientOriginalExtension();
 			return $filename;
 
 		});
 
-		Request::file('image')->move($destinationPath, $filename);
+    delete_file($path, $filename);
 
-		$image = ['folder' => 'illustrations', 'filename' => $filename];
+		Request::file($field_name)->move($destinationPath, $filename);
+
+		$image = ['folder' => $path, 'filename' => $filename];
 
 		return json_encode($image);
 

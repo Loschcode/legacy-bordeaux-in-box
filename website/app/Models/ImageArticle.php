@@ -32,9 +32,26 @@ class ImageArticle extends Model {
 
         });
 
-        static::updating(function($image_article)
+        static::updated(function($image_article)
         {
 
+          $old_image = $image_article['original']['image'];
+          $new_image = $image_article['attributes']['image'];
+
+          if ($old_image !== $new_image) {
+
+            $image = json_decode($old_image);
+            delete_file($image->folder, $image->filename);
+
+          }
+
+        });
+
+        static::deleting(function($image_article)
+        {
+
+          $image = $image_article->image;
+          delete_file($image->folder, $image->filename);
 
         });
 
@@ -55,14 +72,14 @@ class ImageArticle extends Model {
 	 * Accessors
 	 */
 		
-    public function getImageAttribute($value)
-    {
+  public function getImageAttribute($value)
+  {
 
-    	$image = json_decode($value);
-    	$image->full = '/public/uploads/' . $image->folder . '/' . $image->filename;
-    	return $image;
+    $image = json_decode($value);
+    $image->full = '/public/uploads/' . $image->folder . '/' . $image->filename;
+    return $image;
 
-    }
+  }
 
 	public function get_next()
 	{

@@ -12,7 +12,7 @@
   <div class="row">
     <div class="grid-8">
       <h1 class="title title__section">Blog</h1>
-      <h2 class="title title__subsection">Nouveau article</h2>
+      <h2 class="title title__subsection">Nouvel article</h2>
     </div>
     <div class="grid-4">
       <div class="+text-right">

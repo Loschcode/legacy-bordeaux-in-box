@@ -6,9 +6,9 @@
  * @param  string $folder 
  * @return void  
  */
-function delete_file($file, $folder) {
+function delete_file($folder, $file) {
 
-  $file_path = public_path().'/uploads/'.$folder.$file;
+  $file_path = public_path().'/uploads/'.$folder.'/'.$file;
   if (File::exists($file_path)) File::delete($file_path);
 
 }
@@ -19,7 +19,7 @@ function upload_image($file, $folder, $table_class, $name, $attributes) {
 
   $filename = value(function() use ($file, $name) {
 
-    $filename = uniqid() . Str::slug($name) . '.' . $file->getClientOriginalExtension();
+    $filename = time() . Str::slug($name) . '.' . $file->getClientOriginalExtension();
     return $filename;
 
   });
