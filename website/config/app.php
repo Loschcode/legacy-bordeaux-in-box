@@ -189,6 +189,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         GrahamCampbell\Markdown\MarkdownServiceProvider::class,
 
+        Artdarek\OAuth\OAuthServiceProvider::class,
+
 
     ],
 
@@ -239,21 +241,22 @@ return [
         /*
          * App
          */
-        'Date' => Jenssegers\Date\Date::class,
-
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
-        //'Form' => Illuminate\Html\FormFacade::class,
-        //'Html' => Illuminate\Html\HtmlFacade::class,
-
-        'PDF' => Barryvdh\DomPDF\Facade::class,
+        
+        'Date'      => Jenssegers\Date\Date::class,
+        
+        'Form'      => Collective\Html\FormFacade::class,
+        'Html'      => Collective\Html\HtmlFacade::class,
+        
+        'PDF'       => Barryvdh\DomPDF\Facade::class,
         'Formatter' => SoapBox\Formatter\Formatter::class,
-        'Zipper' => Chumper\Zipper\Zipper::class,
-        'Dumper' => Symfony\Component\VarDumper\VarDumper::class,
-        'Str' => Illuminate\Support\Str::class,
-        'Image' => Intervention\Image\Facades\Image::class,
-        'Markdown' => GrahamCampbell\Markdown\Facades\Markdown::class,
-
+        'Zipper'    => Chumper\Zipper\Zipper::class,
+        'Dumper'    => Symfony\Component\VarDumper\VarDumper::class,
+        'Str'       => Illuminate\Support\Str::class,
+        'Image'     => Intervention\Image\Facades\Image::class,
+        'Markdown'  => GrahamCampbell\Markdown\Facades\Markdown::class,
+        
+        'OAuth'     => Artdarek\OAuth\Facade\OAuth::class,
+        
 
     ],
 

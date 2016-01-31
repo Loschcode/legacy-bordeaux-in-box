@@ -36,7 +36,7 @@ class PurchaseController extends BaseController {
    */
   public function __construct()
   {
-    $this->middleware('is.customer', array('except' => ['getClassic', 'getGift']));
+    $this->middleware('is.customer', array('except' => ['getIndex', 'getClassic', 'getGift']));
     $this->middleware('has.unpaid.order.building', array('except' => ['getClassic', 'getGift', 'getBoxForm', 'postBoxForm', 'getConfirmed']));
     $this->middleware('has.paid.order.building', array('only' => ['getBoxForm', 'postBoxForm']));
     $this->middleware('below.serie.counter', array('except' => ['postPayment']));
@@ -58,8 +58,6 @@ class PurchaseController extends BaseController {
   public function getClassic()
   {
 
-
-    session()->put('isOrdering', TRUE);
     session()->put('isGift', FALSE);
 
     if (Auth::guard('customer')->guest()) {
@@ -79,13 +77,14 @@ class PurchaseController extends BaseController {
    */
   public function getGift()
   {
-    session()->put('isOrdering', TRUE);
+
     session()->put('isGift', TRUE);
 
-    if (Auth::guard('customer')->guest()) 
-    {
+    if (Auth::guard('customer')->guest())  {
+
       session()->put('after-login-redirection', Request::url());
       return redirect()->action('MasterBox\Connect\CustomerController@getSubscribe');
+
     }
 
     $redirect = $this->guessStepFromUser();

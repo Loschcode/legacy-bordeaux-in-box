@@ -16,6 +16,7 @@
         "barryvdh/laravel-dompdf": "0.6.*",
         "stripe/stripe-php": "^3.5",
 
+        "oriceon/oauth-5-laravel": "dev-master",
 
         "guzzlehttp/guzzle": "~6.0",
         "guzzlehttp/psr7": "~1.2",

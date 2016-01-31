@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\MasterBox\BaseController;
 
-use Request, Validator, Redirect, Hash, Auth;
+use Request, Validator, Redirect, Hash, Auth, OAuth, Input;
 
 use App\Models\Customer;
 
@@ -158,37 +158,16 @@ class CustomerController extends BaseController {
     $validator = Validator::make(Request::all(), $rules);
 
     // The form validation was good
-    if ($validator->passes()) 
-    {
+    if ($validator->passes()) {
+
       $authAttempt = $this->getLoginCredentials();
 
       // We try our credentials
-      if (Auth::guard('customer')->attempt($authAttempt)) 
-      {
+      if (Auth::guard('customer')->attempt($authAttempt)) {
+
         // If there's an after login redirection
         if (session()->get('after-login-redirection')) 
-        {
           return redirect(session()->get('after-login-redirection'));
-        }
-
-        // In case the customer is already building an order
-        /*if (Auth::guard('customer')->user()->order_building()->first() != NULL) 
-        {
-          return redirect()->action('MasterBox\Customer\PurchaseController@getIndex');
-        }*/
-
-        // If the customer has clicked on the correct button
-        if (session()->get('isOrdering')) 
-        {
-          if (session()->get('isGift')) 
-          {
-            return redirect()->action('MasterBox\Customer\PurchaseController@getGift');
-          } 
-          else 
-          {
-            return redirect()->action('MasterBox\Customer\PurchaseController@getClassic');
-          }
-        }
 
         return redirect()->back();
 
@@ -198,9 +177,8 @@ class CustomerController extends BaseController {
         "email" => ["Identifiants invalides."]
         ]);
 
-    } 
-    else 
-    {
+    } else {
+
       // We return the same page with the error and saving the input datas
       return redirect()->back()
       ->withInput()
@@ -218,6 +196,211 @@ class CustomerController extends BaseController {
       "email" => Request::get("email"),
       "password" => Request::get("password"),
     ];
+  }
+
+
+  public function getLoginWithTwitter()
+  {
+
+    $token = Request::input('oauth_token');
+    $verify = Request::input('oauth_verifier');
+
+    // get twitter service
+    $twitter = OAuth::consumer('Twitter');
+
+    // Sign-in engaged
+    if (!empty($token) && !empty($verify)) {
+
+        // This was a callback request from Twitter, get the token
+        $token = $twitter->requestAccessToken($token, $verify);
+
+        // Send a request with it
+        $result = json_decode($twitter->request('account/verify_credentials.json'), TRUE);
+
+        // We get some datas
+        $twitter_id = $result['id'];
+        $twitter_email = Str::slug($result['name']) . '-' . $result['id'] . '@twitter.com'; // Twitter doesn't provide any email, fuckers
+        $twitter_first_name = $result['name'];
+        $twitter_last_name = "";
+
+        // We create the account or try to get it
+        $callback = $this->autologin_or_generate('twitter', $twitter_id, $twitter_email, $twitter_first_name, $twitter_last_name);
+      
+        if ($callback['success']) {
+
+          // If there's an after login redirection
+          if (session()->get('after-login-redirection')) 
+            return redirect(session()->get('after-login-redirection'));
+
+          return redirect()->back();
+
+        } else {
+
+          session()->flash('error', $callback['error']);
+          return redirect()->action('MasterBox\Connect\CustomerController@getLogin');
+
+        }
+
+    } else {
+
+        $reqToken = $twitter->requestRequestToken();
+        $url = $twitter->getAuthorizationUri(array('oauth_token' => $reqToken->getRequestToken()));
+        return Redirect::to((string)$url);
+    }
+
+  }
+
+  public function getLoginWithGoogle()
+  {
+
+    // Google service class
+    $google = OAuth::consumer('Google');
+
+    // Code returned from Google
+    $code = Request::input('code');
+
+    // Sign-in engaged
+    if (!empty($code)) {
+
+      // This was a callback request from google, get the token
+      $token = $google->requestAccessToken($code);
+
+      // We recover some infos
+      $result = json_decode( $google->request('https://www.googleapis.com/oauth2/v1/userinfo'), TRUE);
+
+      // We get some datas
+      $google_id = $result['id'];
+      $google_email = $result['email'];
+      $google_first_name = "";
+      $google_last_name = "";
+
+      // We recover the first_name and last_name if we can
+      if (isset($result['name'])) {
+
+        $complete_name = explode(" ", $result['name']);
+
+        if (isset($complete_name[0]))
+          $google_first_name = $complete_name[0];
+
+        if (isset($complete_name[1]))
+          $google_last_name = $complete_name[1];
+
+      }
+
+      // We create the account or try to get it
+      $callback = $this->autologin_or_generate('google', $google_id, $google_email, $google_first_name, $google_last_name);
+      
+      if ($callback['success']) {
+
+        // If there's an after login redirection
+        if (session()->get('after-login-redirection')) 
+          return redirect(session()->get('after-login-redirection'));
+
+        return redirect()->back();
+
+      } else {
+
+        session()->flash('error', $callback['error']);
+        return redirect()->action('MasterBox\Connect\CustomerController@getLogin');
+
+      }
+
+    // Sign-in not engaged
+    } else {
+
+      // Ask for an authorization
+      $url = $google->getAuthorizationUri();
+      return redirect()->to((string)$url);
+    }
+
+
+  }
+
+  public function getLoginWithFacebook()
+  {
+
+    // Facebook service class
+    $facebook = OAuth::consumer('Facebook');
+
+    // Code returned from Facebook
+    $code = Request::input('code');
+
+    // Sign-in engaged
+    if (!empty($code)) {
+
+      // This was a callback request from facebook, get the token
+      $token = $facebook->requestAccessToken($code);
+
+      // We recover some infos
+      $result = json_decode($facebook->request('/me?fields=name,email,first_name,last_name'), TRUE);
+
+      // We get some datas
+      $facebook_id = $result['id'];
+      $facebook_email = $result['email'];
+      $facebook_first_name = $result['first_name'];
+      $facebook_last_name = $result['last_name'];
+
+      // We create the account or try to get it
+      $callback = $this->autologin_or_generate('facebook', $facebook_id, $facebook_email, $facebook_first_name, $facebook_last_name);
+      
+      if ($callback['success']) {
+
+        // If there's an after login redirection
+        if (session()->get('after-login-redirection')) 
+          return redirect(session()->get('after-login-redirection'));
+
+        return redirect()->back();
+
+      } else {
+
+        session()->flash('error', $callback['error']);
+        return redirect()->action('MasterBox\Connect\CustomerController@getLogin');
+
+      }
+
+    // Sign-in not engaged
+    } else {
+
+      // Ask for an authorization
+      $url = $facebook->getAuthorizationUri();
+      return redirect()->to((string)$url);
+    }
+
+
+  }
+
+  private function autologin_or_generate($provider, $provider_id, $email, $first_name, $last_name)
+  {
+
+      $customer = Customer::where('provider', $provider)->where('provider_id', $provider_id)->first();
+
+      // If the account doesn't exist we will create it
+      if ($customer === NULL) {
+
+        /**
+         * We make sure this address email isn't already used
+         */
+        $customer = Customer::where('email', '=', $email)->first();
+
+        if ($customer !== NULL)
+          return ['success' => FALSE, 'error' => "L'email $email est déjà utilisé par un de nos comptes enregistrés."];
+
+        $customer = new Customer;
+        $customer->email = $email;
+        $customer->password = '';
+        $customer->first_name = $first_name;
+        $customer->last_name = $last_name;
+
+        $customer->provider = $provider;
+        $customer->provider_id = $provider_id;
+
+        $customer->save();
+
+      }
+
+      Auth::guard('customer')->login($customer);
+      return ['success' => TRUE, 'customer' => $customer];
+
   }
 
 
