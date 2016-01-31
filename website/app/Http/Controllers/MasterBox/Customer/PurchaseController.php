@@ -497,8 +497,12 @@ class PurchaseController extends BaseController {
 
       // Then we come back to our payment process
       $profile->stripe_customer = $stripe_customer;
+
       $payment_profile->stripe_customer = $stripe_customer;
-      $payment_profile->stripe_card = Payments::retrieveLastCard($stripe_customer);
+
+      $stripe_card = Payments::retrieveLastCard($stripe_customer);
+      $payment_profile->stripe_card = $stripe_card;
+      $payment_profile->last4 = Payments::getLast4FromCard($stripe_customer, $stripe_card);
 
       $profile->save();
       $payment_profile->save();

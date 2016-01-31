@@ -94,7 +94,7 @@ class Payments {
         try {
 
         $customer = \Stripe\Customer::retrieve($stripe_customer);
-        $callback = $customer->cards->retrieve($stripe_card)->delete();
+        $callback = $customer->sources->retrieve($stripe_card)->delete();
 
         } catch (Exception $e) {
 
@@ -118,7 +118,7 @@ class Payments {
         try {
 
           $cu = \Stripe\Customer::retrieve($stripe_customer);
-          $callback = $cu->cards->create(array("card" => $stripe_token));
+          $callback = $cu->sources->create(array("card" => $stripe_token));
 
         } catch(Stripe_CardError $e) {
 
@@ -309,9 +309,9 @@ class Payments {
         self::prepare_stripe();
 
         $cu = \Stripe\Customer::retrieve($stripe_customer);
-        $cards = $cu->sources;
+        $sources = $cu->sources;
 
-        $last_card = $cards->data[count($cards->data)-1];
+        $last_card = $sources->data[count($sources->data)-1];
 
         return $last_card->id;
 
@@ -332,9 +332,9 @@ class Payments {
         try {
 
         $cu = \Stripe\Customer::retrieve($stripe_customer_id);
-        $cards = $cu->sources;
+        $sources = $cu->sources;
 
-        $last_card = $cards->data[count($cards->data)-1];
+        $last_card = $sources->data[count($sources->data)-1];
 
         } catch (Exception $e) {
 
