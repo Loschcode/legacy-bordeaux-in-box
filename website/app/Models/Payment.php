@@ -101,8 +101,6 @@ class Payment extends Model {
   public function getCompanybillings()
   {
 
-\DB::enableQueryLog();
-
 
     return $this->where('payments.id', '=', $this->id)
                 ->join('company_billing_lines', 'company_billing_lines.payment_id', '=', 'payments.id')

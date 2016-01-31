@@ -120,16 +120,25 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 
     $search_words = explode(' ', $search);
 
-    $query->with('profiles')
-          ->where('id', $search);
+    $query->with('profiles');
+
+    /**
+     * If it's an ID
+     */
+
+    if (intVal($search) !== 0)
+      return $query->where('id', $search);
 
     foreach ($search_words as $word) {
 
-      $query->orWhere('first_name', 'like', '%' . $word . '%')
-      ->orWhere('last_name', 'like', '%' . $word . '%')
-      ->orWhere('email', 'like', '%' . $word . '%')
-      ->orWhere('phone', 'like', '%' . $word . '%');
+      $query->where(function ($query) use ($word) {
 
+        $query->orWhere('first_name', 'like', '%' . $word . '%')
+        ->orWhere('last_name', 'like', '%' . $word . '%')
+        ->orWhere('email', 'like', '%' . $word . '%')
+        ->orWhere('phone', 'like', '%' . $word . '%');
+
+      });
     }
 
     return $query;
