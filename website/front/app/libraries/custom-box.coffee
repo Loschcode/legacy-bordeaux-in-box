@@ -27,8 +27,8 @@ class CustomBox
 
     e.preventDefault()
 
-    @showNextQuestion()
-
+    unless @processingAjax
+      @showNextQuestion()
 
   ##
   # When we submit the form
@@ -94,7 +94,9 @@ class CustomBox
       @currentQuestion = @currentQuestion + 1
 
     else 
-      alert "no more questions"
+      
+      @showLoading()
+      window.location.href = '/customer/purchase/confirmed'
 
   ##
   # Show the question wanted
@@ -155,6 +157,8 @@ class CustomBox
     else
       $('#question-' + @currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer')
 
+    $('#question-' + @currentQuestion).find('.js-skip').addClass('--disabled')
+
   ##
   # Back to the default state 
   ## 
@@ -163,6 +167,8 @@ class CustomBox
       $('#question-' + @currentQuestion).find('#loader').html ''
     else
       $('#question-' + @currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-check"></i> Enregistrer')
+    
+    $('#question-' + @currentQuestion).find('.js-skip').removeClass('--disabled')
 
   ##
   # Fetch the form datas of the current question

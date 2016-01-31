@@ -1123,7 +1123,9 @@ CustomBox = (function() {
 
   CustomBox.prototype.skipClicked = function(e) {
     e.preventDefault();
-    return this.showNextQuestion();
+    if (!this.processingAjax) {
+      return this.showNextQuestion();
+    }
   };
 
   CustomBox.prototype.formSubmited = function(e) {
@@ -1169,7 +1171,8 @@ CustomBox = (function() {
       this.showQuestion(this.currentQuestion + 1);
       return this.currentQuestion = this.currentQuestion + 1;
     } else {
-      return alert("no more questions");
+      this.showLoading();
+      return window.location.href = '/customer/purchase/confirmed';
     }
   };
 
@@ -1205,18 +1208,20 @@ CustomBox = (function() {
 
   CustomBox.prototype.showLoading = function() {
     if (this.isQuestionRadioButton(this.currentQuestion)) {
-      return $('#question-' + this.currentQuestion).find('#loader').html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement');
+      $('#question-' + this.currentQuestion).find('#loader').html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement');
     } else {
-      return $('#question-' + this.currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer');
+      $('#question-' + this.currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer');
     }
+    return $('#question-' + this.currentQuestion).find('.js-skip').addClass('--disabled');
   };
 
   CustomBox.prototype.showDefault = function() {
     if (this.isQuestionRadioButton(this.currentQuestion)) {
-      return $('#question-' + this.currentQuestion).find('#loader').html('');
+      $('#question-' + this.currentQuestion).find('#loader').html('');
     } else {
-      return $('#question-' + this.currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-check"></i> Enregistrer');
+      $('#question-' + this.currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-check"></i> Enregistrer');
     }
+    return $('#question-' + this.currentQuestion).find('.js-skip').removeClass('--disabled');
   };
 
   CustomBox.prototype.fetchDatasCurrentQuestion = function() {

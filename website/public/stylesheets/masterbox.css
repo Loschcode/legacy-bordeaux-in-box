@@ -701,14 +701,16 @@ a {
     cursor: not-allowed;
     opacity: 0.6; }
   .custombox__button.\--next {
-    background-color: #b1c2c6; }
+    background-color: #b1c2c6;
+    display: inline-block; }
 .custombox__error {
   display: block;
   font-weight: bold;
   font-size: 15.3px;
   color: #CF0F40; }
 .custombox__loader {
-  color: #a3b6bb; }
+  color: #a3b6bb;
+  display: inline-block; }
 
 .article__wrapper {
   padding-top: 34px; }
