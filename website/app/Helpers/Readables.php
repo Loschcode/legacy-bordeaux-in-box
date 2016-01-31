@@ -15,6 +15,22 @@ function readable_question_type($slug) {
 }
 
 /**
+ * Get the customer profile status in human 
+ * readable format.
+ * @param  string $status The status
+ * @return string
+ */
+function readable_profile_status($status) {
+
+  if ($status === 'subscribed') return 'Abonné';
+  elseif ($status === 'not-subscribed') return 'Non abonné';
+  elseif ($status === 'in-progress') return 'En création';
+  elseif ($status == 'expired') return 'Expiré';
+  
+  return $status;
+}
+
+/**
  * Get the slug from the service contact and output a readable label
  * @param  string $slug e.g. tech-idea, tech-bug
  * @return string

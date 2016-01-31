@@ -253,6 +253,159 @@ Index = (function(superClass) {
 module.exports = Index;
 });
 
+;require.register("controllers/masterbox/admin/profiles/index", function(exports, require, module) {
+var Config, Controller, Index,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Config = require('config');
+
+Index = (function(superClass) {
+  extend(Index, superClass);
+
+  function Index() {
+    return Index.__super__.constructor.apply(this, arguments);
+  }
+
+  Index.prototype.before = function() {
+    return this.table = $('table').DataTable({
+      length: false,
+      language: Config.datatable.language.fr,
+      ajax: $('table').data('request'),
+      order: [[1, 'asc']],
+      columns: [
+        {
+          orderable: false,
+          className: 'more-details',
+          data: null,
+          defaultContent: '<a href="#" class="button button__table"><i class="fa fa-plus-square-o"></i></a>'
+        }, {
+          data: "id"
+        }, {
+          data: "contract_id"
+        }, {
+          data: "customer.full_name"
+        }, {
+          data: this.dataCountOrdersNotSent
+        }, {
+          data: this.dataCountPaymentsDone
+        }, {
+          data: "status_format"
+        }, {
+          sortable: false,
+          render: (function(_this) {
+            return function(data, type, full, meta) {
+              return 'lol';
+            };
+          })(this)
+        }
+      ]
+    });
+  };
+
+  Index.prototype.run = function() {};
+
+  Index.prototype.dataCountOrdersNotSent = function(row, type, val, meta) {
+    var orders, orders_not_sent;
+    orders = row.orders;
+    orders_not_sent = 0;
+    _.forEach(orders, function(value, key) {
+      if (value.date_sent === null) {
+        return orders_not_sent++;
+      }
+    });
+    return orders_not_sent;
+  };
+
+  Index.prototype.dataCountPaymentsDone = function(row, type, val, meta) {
+    return row.payments.length;
+  };
+
+
+  /*
+  ##
+   * Before
+   *
+   * Executed before the run action. You can use
+   * @stop() in this method to stop the execution
+   * of the controller
+   *
+  ##
+  before: ->
+  
+    ##
+     * Init datatable
+    ##
+    @table = $('table').DataTable
+      length: false
+      language: Config.datatable.language.fr
+      ajax: $('table').data('request')
+      processing: true
+      serverSide: true
+      order:
+        [[1, 'asc']]
+      columns: [
+        {
+          orderable: false
+          className: 'more-details'
+          data: null
+          defaultContent: '<a href="#" class="button button__table"><i class="fa fa-plus-square-o"></i></a>'
+        }
+        { data: "id" }
+        { data: "full_name" }
+        { data: "email" }
+        { data: "phone_format" }
+        {
+          sortable: false,
+          render: (data, type, full, meta) =>
+  
+            datas = 
+              link_edit: _.slash($('table').data('edit-customer')) + full.id
+  
+            return @view('masterbox.admin.customers.actions', datas)
+        }
+      ]
+  
+  ##
+   * Run
+   *
+   * The main entry of the controller.
+   * Your code start here
+   *
+  ##
+  run: ->
+  
+    @delayed 'click', '.more-details', @displayMore
+  
+  displayMore: (e) =>
+  
+    e.preventDefault()
+  
+    tr = $(e.currentTarget).closest('tr')
+    row = @table.row(tr)
+  
+    if row.child.isShown()
+      row.child.hide()
+      tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o')
+    else
+      datas = row.data()
+      datas['edit_profile'] = $('table').data('edit-profile')
+  
+      html = @view 'masterbox.admin.customers.more', datas
+  
+      row.child(html).show()
+      tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o')
+   */
+
+  return Index;
+
+})(Controller);
+
+module.exports = Index;
+});
+
 ;require.register("controllers/masterbox/customer/profile/index", function(exports, require, module) {
 var Controller, Index,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },

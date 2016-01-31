@@ -17,6 +17,13 @@ class CustomerProfile extends Model {
 	protected $table = 'customer_profiles';
 
 	/**
+ 	 * The accessors to append to the model's array form.
+   *
+   * @var array
+   */
+	protected $appends = ['status_format'];
+
+	/**
 	 * Create / Update
 	 */
 	public static function boot()
@@ -140,6 +147,14 @@ class CustomerProfile extends Model {
   /**
    * Scopes
    */
+  
+  /**
+   * Accessors
+   */
+  public function getStatusFormatAttribute()
+  {
+  	return readable_profile_status($this->status);
+  }
 
 	/**
 	 * Others

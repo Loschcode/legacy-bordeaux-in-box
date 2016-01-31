@@ -123,13 +123,7 @@ Html::macro('getReadableQuestionType', function($slug)
  */
 Html::macro('getReadableProfileStatus', function($status)
 {
-
-  if ($status === 'subscribed') return 'Abonné';
-  elseif ($status === 'not-subscribed') return 'Non abonné';
-  elseif ($status === 'in-progress') return 'En création';
-  elseif ($status == 'expired') return 'Expiré';
-  else return $status;
-
+  return readable_profile_status($status);
 });
 
 /**
