@@ -21,6 +21,14 @@ class CustomBox
 
     $('form').on 'submit', @formSubmited
     $(':radio').on 'click', @labelClicked
+    $('.js-skip').on 'click', @skipClicked
+
+  skipClicked: (e) =>
+
+    e.preventDefault()
+
+    @showNextQuestion()
+
 
   ##
   # When we submit the form
@@ -61,7 +69,7 @@ class CustomBox
 
       @processingAjax = true
 
-      $.post '/customer/purchase/box-form', datas, (response) =>
+      $.post '/service/api/box-question-customer-answer', datas, (response) =>
 
         @processingAjax = false
         @showDefault()

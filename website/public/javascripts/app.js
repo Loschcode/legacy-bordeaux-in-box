@@ -1109,6 +1109,7 @@ CustomBox = (function() {
     this.postAddAnswer = bind(this.postAddAnswer, this);
     this.labelClicked = bind(this.labelClicked, this);
     this.formSubmited = bind(this.formSubmited, this);
+    this.skipClicked = bind(this.skipClicked, this);
     this.showQuestion(1, false);
     this.currentQuestion = 1;
     this.events();
@@ -1116,7 +1117,13 @@ CustomBox = (function() {
 
   CustomBox.prototype.events = function() {
     $('form').on('submit', this.formSubmited);
-    return $(':radio').on('click', this.labelClicked);
+    $(':radio').on('click', this.labelClicked);
+    return $('.js-skip').on('click', this.skipClicked);
+  };
+
+  CustomBox.prototype.skipClicked = function(e) {
+    e.preventDefault();
+    return this.showNextQuestion();
   };
 
   CustomBox.prototype.formSubmited = function(e) {
@@ -1142,7 +1149,7 @@ CustomBox = (function() {
       datas = this.fetchDatasCurrentQuestion();
       console.log(datas);
       this.processingAjax = true;
-      return $.post('/customer/purchase/box-form', datas, (function(_this) {
+      return $.post('/service/api/box-question-customer-answer', datas, (function(_this) {
         return function(response) {
           _this.processingAjax = false;
           _this.showDefault();

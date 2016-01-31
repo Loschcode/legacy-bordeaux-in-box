@@ -700,6 +700,8 @@ a {
   .custombox__button.\--disabled {
     cursor: not-allowed;
     opacity: 0.6; }
+  .custombox__button.\--next {
+    background-color: #b1c2c6; }
 .custombox__error {
   display: block;
   font-weight: bold;

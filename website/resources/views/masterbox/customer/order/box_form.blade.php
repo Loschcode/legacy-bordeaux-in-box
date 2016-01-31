@@ -82,15 +82,15 @@
                   @else
                     <div id="loader" class="custombox__loader"></div>
                   @endif
+                  <a href="#" class="custombox__button --next js-skip"><i class="fa fa-arrow-circle-o-right"></i> Passer à la question suivante</a>
                 </div>
-              </div>
-              <div class="custombox__skip">
               </div>
             </div>
             {{ Form::close() }}
           </div>
       @endforeach
       
+      <div class="+spacer-small"></div>
       <div class="+text-center">
         <a class="custombox__button --skip" href="#"><i class="fa fa-times-circle"></i> Je souhaite arrêter la personnalisation ici</a>
       </div>
