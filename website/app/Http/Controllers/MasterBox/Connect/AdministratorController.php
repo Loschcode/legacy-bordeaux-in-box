@@ -22,7 +22,7 @@ class AdministratorController extends BaseController {
    */
   public function __construct()
   {
-    $this->middleware('is.not.connected.as.administrator', array('except' => 'getLogout'));
+    $this->middleware('is.not.admin', array('except' => 'getLogout'));
   }
 
   public function getIndex()

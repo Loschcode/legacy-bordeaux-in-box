@@ -22,7 +22,7 @@ class CustomerController extends BaseController {
    */
   public function __construct()
   {
-    $this->middleware('is.not.connected.as.customer', array('except' => 'getLogout'));
+    $this->middleware('is.not.customer', array('except' => 'getLogout'));
   }
 
   public function getIndex()

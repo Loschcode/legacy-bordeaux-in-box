@@ -2,7 +2,7 @@
 
 use Closure, Auth, Request;
 
-class IsConnected {
+class IsCustomer {
 
   /**
    * Handle an incoming request.
@@ -15,7 +15,6 @@ class IsConnected {
   {
     if (Auth::guard('customer')->guest()) {
 
-      // We register the URL where the user tried to go before
       session()->put('after-login-redirection', Request::url());
       return redirect()->action('MasterBox\Connect\CustomerController@getLogin');
 

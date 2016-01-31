@@ -40,7 +40,7 @@ class PasswordRemindersController extends BaseController {
      */
     public function __construct()
     {
-      $this->middleware('is.not.connected.as.customer');
+      $this->middleware('is.not.customer');
     }
 
     /**

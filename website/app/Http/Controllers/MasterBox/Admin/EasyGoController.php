@@ -13,7 +13,6 @@ class EasyGoController extends BaseController {
   {
 
     $this->beforeMethod();
-    $this->middleware('is.admin');
     $this->middleware('is.not.serie.ready', ['except' => 'getLocked']);
     $this->middleware('is.serie.ready', ['only' => 'getLocked']);
     $this->middleware('still.unpaid.orders.with.fail.card', ['except' => array('getLocked', 'getUnpaid')]);
