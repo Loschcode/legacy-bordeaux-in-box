@@ -28,16 +28,16 @@ return [
 
     'Google' => [
 
-      'client_id'     => 'Your Google client ID',
-      'client_secret' => 'Your Google Client Secret',
+      'client_id'     => env('GOOGLE_LOGIN_ID'),
+      'client_secret' => env('GOOGLE_LOGIN_SECRET'),
       'scope'         => ['userinfo_email', 'userinfo_profile'],
 
     ],  
 
     'Twitter' => [
 
-      'client_id'     => 'Your Twitter client ID',
-      'client_secret' => 'Your Twitter Client Secret',
+      'client_id'     => env('TWITTER_LOGIN_ID'),
+      'client_secret' => env('TWITTER_LOGIN_SECRET'),
 
     ],
 

@@ -46,9 +46,11 @@ data-form-errors="{{ $errors->has() }}"
 
         {{ HTML::linkAction("MasterBox\Connect\CustomerController@getLoginWithFacebook", "Se connecter via Facebook", null, ['class' => 'btn btn-bg btn-facebook']) }}
         
+        <!--
         {{ HTML::linkAction("MasterBox\Connect\CustomerController@getLoginWithGoogle", "Se connecter via Google", null, ['class' => 'btn btn-bg btn-google']) }}
 
         {{ HTML::linkAction("MasterBox\Connect\CustomerController@getLoginWithTwitter", "Se connecter via Twitter", null, ['class' => 'btn btn-bg btn-twitter']) }}
+        -->
 
   </div>
 
