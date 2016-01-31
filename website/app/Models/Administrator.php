@@ -24,4 +24,11 @@ class Administrator extends Model implements AuthenticatableContract
    */
   protected $hidden = ['password', 'remember_token'];
 
+  public function getFullName()
+  {
+
+    return ucwords(mb_strtolower($this->first_name . ' ' . $this->last_name));
+
+  }
+
 }
