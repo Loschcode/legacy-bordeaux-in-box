@@ -33,11 +33,28 @@ class BlogArticle extends Model {
 
         });
 
-        static::updating(function($blog_article)
+        static::updated(function($blog_article)
         {
+
+          $old_image = $blog_article['original']['thumbnail'];
+          $new_image = $blog_article['attributes']['thumbnail'];
+
+          if ($old_image !== $new_image) {
+
+            $image = json_decode($old_image);
+            delete_file($image->folder, $image->filename);
+
+          }
 
         });
 
+        static::deleting(function($blog_article)
+        {
+
+          $image = $blog_article->thumbnail;
+          delete_file($image->folder, $image->filename);
+
+        });
     }
 
 	/**

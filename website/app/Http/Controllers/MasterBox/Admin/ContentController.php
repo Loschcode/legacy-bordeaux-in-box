@@ -95,26 +95,8 @@ class ContentController extends BaseController {
 			$blog_article->content = $fields['content'];
 			$blog_article->customer()->associate(Auth::guard('customer')->user());
 			
-			if ( ! empty($fields['thumbnail']))
-			{
-
-				// We manage the thumbnail
-				$file = Request::file('thumbnail');
-				$destinationPath = public_path('uploads/blog/');
-
-				$filename = value(function() use ($file, $blog_article) {
-
-					$filename = Str::slug($blog_article->title) . '.' . $file->getClientOriginalExtension();
-					return $filename;
-
-				});
-
-				Request::file('thumbnail')->move($destinationPath, $filename);
-
-				$thumbnail = ['folder' => 'blog', 'filename' => $filename];
-				$blog_article->thumbnail = json_encode($thumbnail);
-
-			}
+			if (!empty($fields['thumbnail']))
+				$blog_article->thumbnail = $this->prepare_and_upload_image('thumbnail', $blog_article, 'blog');
 
 			$blog_article->save();
 
@@ -176,24 +158,7 @@ class ContentController extends BaseController {
 			$blog_article->url = $fields['url'];
 			$blog_article->customer()->associate(Auth::guard('customer')->user());
 
-			// We manage the thumbnail
-			$file = Request::file('thumbnail');
-			$destinationPath = 'uploads/blog/';
-
-			$filename = value(function() use ($file, $blog_article) {
-
-				$filename = Str::slug($blog_article->title) . '.' . $file->getClientOriginalExtension();
-				return $filename;
-
-			});
-
-			Request::file('thumbnail')->move($destinationPath, $filename);
-
-			// We remove public for the array
-			//$destinationPath = str_replace('public/', '', $destinationPath);
-
-			$thumbnail = ['folder' => 'blog', 'filename' => $filename];
-			$blog_article->thumbnail = json_encode($thumbnail);
+			$blog_article->thumbnail = $this->prepare_and_upload_image('thumbnail', $blog_article, 'blog');
 
 			$blog_article->save();
 
@@ -354,9 +319,8 @@ class ContentController extends BaseController {
 			$image_article->description = $fields['description'];
 			$image_article->customer()->associate(Auth::guard('customer')->user());
 
-			if ( ! empty($fields['image'])) {
-			 $image_article->image = $this->_prepare_image('image', $image_article, 'illustrations');
-			}
+			if (!empty($fields['image']))
+			 $image_article->image = $this->prepare_and_upload_image('image', $image_article, 'illustrations');
 
 			$image_article->save();
 
@@ -419,7 +383,7 @@ class ContentController extends BaseController {
 
 			$image_article->title = $fields['title'];
 			$image_article->description = $fields['description'];
-			$image_article->image = $this->_prepare_image('image', $image_article, 'illustrations');
+			$image_article->image = $this->prepare_and_upload_image('image', $image_article, 'illustrations');
 
 			$image_article->save();
 
@@ -439,7 +403,7 @@ class ContentController extends BaseController {
 
 	}
 
-	private function _prepare_image($field_name, $image_article, $path)
+	private function prepare_and_upload_image($field_name, $image_article, $path)
 	{
 
 		// We manage the image

@@ -13,6 +13,9 @@ function delete_file($folder, $file) {
 
 }
 
+/**
+ * Not currently in use
+ */
 function upload_image($file, $folder, $table_class, $name, $attributes) {
 
   $destinationPath = 'public/uploads/'.$folder.'/';
