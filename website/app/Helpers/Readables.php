@@ -132,7 +132,7 @@ function readable_customer_phone($phone)
   // Ok it's well formated now, we can split the numbers
   // for a better display. Else we let the phone as is.
   if (strlen($formatPhone) === 10) {
-    $formatPhone = join('.', str_split($formatPhone, 2));
+    $formatPhone = join(' ', str_split($formatPhone, 2));
     return $formatPhone;
   }
 

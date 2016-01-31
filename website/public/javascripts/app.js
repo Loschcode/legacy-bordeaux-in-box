@@ -239,7 +239,7 @@ Index = (function(superClass) {
       return tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
     } else {
       datas = row.data();
-      datas['edit_profile'] = $('table').data('edit-profile');
+      datas['focus_profile'] = $('table').data('focus-profile');
       html = this.view('masterbox.admin.customers.more', datas);
       row.child(html).show();
       return tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
@@ -1555,11 +1555,7 @@ var __templateData = function (__obj) {
     (function() {
       var i, len, profile, ref;
     
-      __out.push('<div class="tablechild">\n  <div class="row">\n    <div class="grid-6">\n      <h3 class="tablechild__title">A propos</h3>\n      <strong>Role:</strong> ');
-    
-      __out.push(this.role_format);
-    
-      __out.push('<br/>\n      <strong>Total Payé:</strong> ');
+      __out.push('<div class="tablechild">\n  <div class="row">\n    <div class="grid-6">\n      <h3 class="tablechild__title">A propos</h3>\n      <strong>Total Payé:</strong> ');
     
       __out.push(_.euro(this.turnover));
     
@@ -1585,7 +1581,7 @@ var __templateData = function (__obj) {
         for (i = 0, len = ref.length; i < len; i++) {
           profile = ref[i];
           __out.push('\n          <a class="tablechild__link" href="');
-          __out.push(_.slash(this.edit_profile) + profile.id);
+          __out.push(_.slash(this.focus_profile) + profile.id);
           __out.push('">Abonnement #');
           __out.push(__sanitize(profile.id));
           __out.push(' (');

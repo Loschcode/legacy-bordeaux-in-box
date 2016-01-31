@@ -2,7 +2,6 @@
   <div class="row">
     <div class="grid-6">
       <h3 class="tablechild__title">A propos</h3>
-      <strong>Role:</strong> <%- @role_format %><br/>
       <strong>Total Payé:</strong> <%- _.euro(@turnover) %><br/>
       <strong>Adresse:</strong> 
       <% if @address.length > 0: %>
@@ -15,7 +14,7 @@
       <h3 class="tablechild__title">Abonnements</h3>
       <% if @profiles.length > 0: %>
         <% for profile in @profiles: %>
-          <a class="tablechild__link" href="<%- _.slash(@edit_profile) + profile.id %>">Abonnement #<%= profile.id %> (<%- _.profileStatus(profile.status) %>)</a><br/>
+          <a class="tablechild__link" href="<%- _.slash(@focus_profile) + profile.id %>">Abonnement #<%= profile.id %> (<%- _.profileStatus(profile.status) %>)</a><br/>
         <% end %>
       <% else: %>
         Aucun abonnement

@@ -71,7 +71,7 @@ class Index extends Controller
       tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o')
     else
       datas = row.data()
-      datas['edit_profile'] = $('table').data('edit-profile')
+      datas['focus_profile'] = $('table').data('focus-profile')
 
       html = @view 'masterbox.admin.customers.more', datas
 

@@ -19,7 +19,7 @@
 <table 
 	data-request="{{ action('MasterBox\Service\ApiController@getCustomers') }}"
 	data-edit-customer="{{ action('MasterBox\Admin\CustomersController@getFocus') }}"
-	data-edit-profile="{{ action('MasterBox\Admin\ProfilesController@getEdit') }}"
+	data-focus-profile="{{ action('MasterBox\Admin\ProfilesController@getFocus') }}"
 >
   <thead>
     <tr>
