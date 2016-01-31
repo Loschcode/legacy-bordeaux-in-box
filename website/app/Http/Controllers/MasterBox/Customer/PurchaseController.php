@@ -17,6 +17,7 @@ use App\Models\Order;
 use App\Models\OrderBilling;
 use App\Models\OrderDestination;
 use App\Models\BoxQuestion;
+use App\Models\BoxQuestionCustomerAnswer;
 
 use App\Libraries\Payments;
 
@@ -733,30 +734,30 @@ class PurchaseController extends BaseController {
 
     if ($validator->passes()) {
 
-      /**
-       * We remove all the linked old answers
-       */
+    
+      // We remove all the linked old answers
       $answers = $profile->answers()->where('box_question_id', '=', $inputs['question_id'])->get();
       foreach ($answers as $answer) {
         $answer->delete();
       }
+
     
-      /**
-       * We convert to an array to norm it
-       */
+      // We convert to an array to norm it
       if (!is_array($inputs['answer']))
         $answers = [$inputs['answer']];
 
-      /**
-       * We add them in a row
-       */
+      // We add them in a row
       foreach ($answers as $answer) {
 
-        $answer = new BoxQuestionCustomerAnswer;
-        $answer->box_question_id = $inputs['question_id'];
-        $answer->customer_profile_id = $profile->id;
-        $answer->answer = $answer;
-        $answer->save();
+        if ( ! empty($answer)) {
+
+          $customer_answer = new BoxQuestionCustomerAnswer;
+          $customer_answer->box_question_id = $inputs['question_id'];
+          $customer_answer->customer_profile_id = $profile->id;
+          $customer_answer->answer = $answer;
+          $customer_answer->save();
+
+        }
 
       }
 

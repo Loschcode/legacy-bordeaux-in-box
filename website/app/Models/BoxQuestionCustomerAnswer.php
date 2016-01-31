@@ -25,7 +25,6 @@ class BoxQuestionCustomerAnswer extends Model {
 
         	if (empty($customer_answer->slug))
         	{
-
            	  $customer_answer->slug = Str::slug($customer_answer->answer);
 
        		}
@@ -38,7 +37,7 @@ class BoxQuestionCustomerAnswer extends Model {
         	if (empty($customer_answer->slug))
         	{
 
-           		$customer_answer->slug = Str::slug($customer_answer->answer);
+           	$customer_answer->slug = Str::slug($customer_answer->answer);
 
        		}
 

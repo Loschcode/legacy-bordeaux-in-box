@@ -1,3 +1,6 @@
+##
+# Manage the module to answer some questions
+##
 class CustomBox
 
   processingAjax: false
