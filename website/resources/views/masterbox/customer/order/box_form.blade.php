@@ -74,10 +74,13 @@
 
                     @endforeach
                   @endif
+                  <p id="error" class="custombox__error"></p>
                 </div>
                 <div class="custombox__footer">
                   @if ($question->type !== 'radiobutton')
                     <button type="submit" class="custombox__button" href="#"><i class="fa fa-check"></i> Enregistrer</button>
+                  @else
+                    <div id="loader" class="custombox__loader"></div>
                   @endif
                 </div>
               </div>

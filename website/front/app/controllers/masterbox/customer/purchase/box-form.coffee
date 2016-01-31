@@ -4,6 +4,8 @@ Controller = require 'core/controller'
 
 class BoxForm extends Controller
 
+  processingAjax: false
+
   ##
   # Before
   #
@@ -17,7 +19,6 @@ class BoxForm extends Controller
     # Display the first question
     @showQuestion(1, false)
     @currentQuestion = 1
-
 
   ##
   # Run
@@ -41,22 +42,38 @@ class BoxForm extends Controller
 
     if @isQuestionRadioButton(@currentQuestion)
 
-      @postAddAnswer()
+      unless @processingAjax
+        @postAddAnswer()
+      else
+
+        # Block the selection
+        e.preventDefault()
 
   postAddAnswer: =>
 
-    #@showLoading()
+    unless @processingAjax
 
-    datas = @fetchDatasCurrentQuestion()
+      @showLoading()
+      @cleanError()
 
-    console.log datas
+      datas = @fetchDatasCurrentQuestion()
 
-    $.post '/customer/purchase/box-form', datas, (response) ->
+      console.log datas
 
-      console.log response
+      @processingAjax = true
 
+      $.post '/customer/purchase/box-form', datas, (response) =>
 
-    #@showNextQuestion()
+        @processingAjax = false
+        @showDefault()
+
+        unless response.success
+
+          @showError(response.errors) 
+
+        else
+          
+          @showNextQuestion()
 
 
   showNextQuestion: =>
@@ -105,7 +122,16 @@ class BoxForm extends Controller
 
   showLoading: =>
 
-    $('#question-' + @currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer')
+    if @isQuestionRadioButton(@currentQuestion)
+      $('#question-' + @currentQuestion).find('#loader').html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement')
+    else
+      $('#question-' + @currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer')
+
+  showDefault: =>
+    if @isQuestionRadioButton(@currentQuestion)
+      $('#question-' + @currentQuestion).find('#loader').html ''
+    else
+      $('#question-' + @currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-check"></i> Enregistrer')
 
   fetchDatasCurrentQuestion: =>
 
@@ -116,6 +142,18 @@ class BoxForm extends Controller
     syphon = new Syphon()
 
     return syphon.get('#question-' + question + ' form')
+
+  showError: (error) => 
+
+    console.log error
+
+    $('#question-' + @currentQuestion).find('#error').html(error)
+
+  cleanError: =>
+    
+    $('#question-' + @currentQuestion).find('#error').html ''
+
+
 
     
 

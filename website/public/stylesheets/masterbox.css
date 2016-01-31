@@ -700,6 +700,13 @@ a {
   .custombox__button.\--disabled {
     cursor: not-allowed;
     opacity: 0.6; }
+.custombox__error {
+  display: block;
+  font-weight: bold;
+  font-size: 15.3px;
+  color: #CF0F40; }
+.custombox__loader {
+  color: #a3b6bb; }
 
 .article__wrapper {
   padding-top: 34px; }

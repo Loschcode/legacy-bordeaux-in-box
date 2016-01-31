@@ -85,17 +85,19 @@ return array(
     */
 
     'custom' => array(
-        'domain_search' => array(
+        'domain_search' => [
             'not_in' => 'Veuillez sélectionner un domaine',
-        ),
-        'job_search' => array(
+        ],
+        'job_search' => [
             'not_in' => 'Veuillez sélectionner un métier',
-        ),
-        'old_password' => array(
+        ],
+        'old_password' => [
             'match_password' => 'Votre mot de passe actuel ne correspond pas',
-        ),
-        'answer.regex' => 'La date est invalide'
-
+        ],
+        'answer' => [
+            'regex' => 'La date est invalide',
+            'required' => 'Le champ est requis'
+        ]
     ),
 
     /*

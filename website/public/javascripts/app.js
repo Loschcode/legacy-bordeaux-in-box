@@ -586,8 +586,11 @@ BoxForm = (function(superClass) {
   extend(BoxForm, superClass);
 
   function BoxForm() {
+    this.cleanError = bind(this.cleanError, this);
+    this.showError = bind(this.showError, this);
     this.fetchDatasQuestion = bind(this.fetchDatasQuestion, this);
     this.fetchDatasCurrentQuestion = bind(this.fetchDatasCurrentQuestion, this);
+    this.showDefault = bind(this.showDefault, this);
     this.showLoading = bind(this.showLoading, this);
     this.isQuestionRadioButton = bind(this.isQuestionRadioButton, this);
     this.hasNextQuestion = bind(this.hasNextQuestion, this);
@@ -599,6 +602,8 @@ BoxForm = (function(superClass) {
     this.formSubmited = bind(this.formSubmited, this);
     return BoxForm.__super__.constructor.apply(this, arguments);
   }
+
+  BoxForm.prototype.processingAjax = false;
 
   BoxForm.prototype.before = function() {
     this.showQuestion(1, false);
@@ -617,17 +622,34 @@ BoxForm = (function(superClass) {
 
   BoxForm.prototype.labelClicked = function(e) {
     if (this.isQuestionRadioButton(this.currentQuestion)) {
-      return this.postAddAnswer();
+      if (!this.processingAjax) {
+        return this.postAddAnswer();
+      } else {
+        return e.preventDefault();
+      }
     }
   };
 
   BoxForm.prototype.postAddAnswer = function() {
     var datas;
-    datas = this.fetchDatasCurrentQuestion();
-    console.log(datas);
-    return $.post('/customer/purchase/box-form', datas, function(response) {
-      return console.log(response);
-    });
+    if (!this.processingAjax) {
+      this.showLoading();
+      this.cleanError();
+      datas = this.fetchDatasCurrentQuestion();
+      console.log(datas);
+      this.processingAjax = true;
+      return $.post('/customer/purchase/box-form', datas, (function(_this) {
+        return function(response) {
+          _this.processingAjax = false;
+          _this.showDefault();
+          if (!response.success) {
+            return _this.showError(response.errors);
+          } else {
+            return _this.showNextQuestion();
+          }
+        };
+      })(this));
+    }
   };
 
   BoxForm.prototype.showNextQuestion = function() {
@@ -671,7 +693,19 @@ BoxForm = (function(superClass) {
   };
 
   BoxForm.prototype.showLoading = function() {
-    return $('#question-' + this.currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer');
+    if (this.isQuestionRadioButton(this.currentQuestion)) {
+      return $('#question-' + this.currentQuestion).find('#loader').html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement');
+    } else {
+      return $('#question-' + this.currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer');
+    }
+  };
+
+  BoxForm.prototype.showDefault = function() {
+    if (this.isQuestionRadioButton(this.currentQuestion)) {
+      return $('#question-' + this.currentQuestion).find('#loader').html('');
+    } else {
+      return $('#question-' + this.currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-check"></i> Enregistrer');
+    }
   };
 
   BoxForm.prototype.fetchDatasCurrentQuestion = function() {
@@ -682,6 +716,15 @@ BoxForm = (function(superClass) {
     var syphon;
     syphon = new Syphon();
     return syphon.get('#question-' + question + ' form');
+  };
+
+  BoxForm.prototype.showError = function(error) {
+    console.log(error);
+    return $('#question-' + this.currentQuestion).find('#error').html(error);
+  };
+
+  BoxForm.prototype.cleanError = function() {
+    return $('#question-' + this.currentQuestion).find('#error').html('');
   };
 
   return BoxForm;
