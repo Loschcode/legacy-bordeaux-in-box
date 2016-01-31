@@ -123,13 +123,10 @@ class CustomerProfile extends Model {
 
 	}
 
-  /**
-   * Scopes
-   */
-  public function UnansweredQuestions()
+  public function unansweredQuestions()
   {
 
-    $box_question_customer_answers = $this->answers();
+    $box_question_customer_answers = $this->answers()->get();
     $already_answered_questions = [];
 
     foreach ($box_question_customer_answers as $box_question_customer_answer) {
@@ -139,6 +136,10 @@ class CustomerProfile extends Model {
     return BoxQuestion::whereNotIn('id', $already_answered_questions);
 
   }
+
+  /**
+   * Scopes
+   */
 
 	/**
 	 * Others

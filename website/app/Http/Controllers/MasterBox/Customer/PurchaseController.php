@@ -736,15 +736,17 @@ class PurchaseController extends BaseController {
 
     
       // We remove all the linked old answers
-      $answers = $profile->answers()->where('box_question_id', '=', $inputs['question_id'])->get();
-      foreach ($answers as $answer) {
-        $answer->delete();
+      $old_answers = $profile->answers()->where('box_question_id', '=', $inputs['question_id'])->get();
+      foreach ($old_answers as $old_answer) {
+        $old_answer->delete();
       }
 
-    
+      $answers = $inputs['answer'];
+
       // We convert to an array to norm it
-      if (!is_array($inputs['answer']))
+      if ( ! is_array($answers)) {
         $answers = [$inputs['answer']];
+      }
 
       // We add them in a row
       foreach ($answers as $answer) {
