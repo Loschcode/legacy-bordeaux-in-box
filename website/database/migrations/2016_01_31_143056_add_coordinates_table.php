@@ -28,6 +28,7 @@ class AddCoordinatesTable extends Migration
       $table->float('latitude');
       $table->float('longitude');
       $table->text('formatted_address');
+      $table->text('raw');
       
       // Indexes
       $table->index('place_id');

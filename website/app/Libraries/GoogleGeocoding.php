@@ -35,6 +35,7 @@ class GoogleGeocoding {
               'longitude' => $location->lng,
               'formatted_address' => $result->formatted_address,
               'place_id' => $result->place_id,
+              'raw' => serialize($result),
 
               ];
 

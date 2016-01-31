@@ -24,9 +24,9 @@ class Coordinate extends Model {
     static::creating(function($coordinate)
     {
 
-      $coordinate->address = trim($coordinate->address);
-      $coordinate->zip = trim($coordinate->zip);
-      $coordinate->city = trim($coordinate->city);
+      $coordinate->address = trim(ucfirst($coordinate->address));
+      $coordinate->zip = trim(ucfirst($coordinate->zip));
+      $coordinate->city = trim(ucfirst($coordinate->city));
 
       $callback = GoogleGeocoding::getCoordinates($coordinate->address, $coordinate->city, $coordinate->zip);
 
@@ -36,6 +36,7 @@ class Coordinate extends Model {
         $coordinate->latitude = $callback['latitude'];
         $coordinate->longitude = $callback['longitude'];
         $coordinate->formatted_address = $callback['formatted_address'];
+        $coordinate->raw = $callback['raw'];
 
       } else {
 
@@ -51,9 +52,9 @@ class Coordinate extends Model {
     static::updating(function($coordinate)
     {
 
-      $coordinate->address = trim($coordinate->address);
-      $coordinate->zip = trim($coordinate->zip);
-      $coordinate->city = trim($coordinate->city);
+      $coordinate->address = trim(ucfirst($coordinate->address));
+      $coordinate->zip = trim(ucfirst($coordinate->zip));
+      $coordinate->city = trim(ucfirst($coordinate->city));
 
       $callback = GoogleGeocoding::getCoordinates($coordinate->address, $coordinate->city, $coordinate->zip);
 
@@ -63,7 +64,8 @@ class Coordinate extends Model {
         $coordinate->latitude = $callback['latitude'];
         $coordinate->longitude = $callback['longitude'];
         $coordinate->formatted_address = $callback['formatted_address'];
-
+        $coordinate->raw = $callback['raw'];
+        
       } else {
 
         $coordinate->place_id = '';
