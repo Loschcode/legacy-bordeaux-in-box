@@ -132,7 +132,7 @@
           {{$customer->city}}, {{$customer->zip}}<br />
           {{$customer->address}}<br />
         @endif
-        <a class="spyro-btn spyro-btn-warning spyro-btn-sm" href="{{url('/admin/users/focus/'.$customer->id)}}">Editer</a><br />
+        <a class="spyro-btn spyro-btn-warning spyro-btn-sm" href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id]) }}">Editer</a><br />
 
       </div>
 

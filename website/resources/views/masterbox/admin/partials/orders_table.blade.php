@@ -37,7 +37,7 @@
 
 							<th>{{$order->id}}</th>
 							<th>{{$order->delivery_serie()->first()->delivery}}</th>
-							<th><a href="{{ url('/admin/users/focus/'.$order->customer_profile()->first()->customer()->first()->id)}}">{{$order->customer_profile()->first()->customer()->first()->getFullName()}}</a></th>
+							<th><a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $order->customer_profile()->first()->customer()->first()->id]) }}">{{$order->customer_profile()->first()->customer()->first()->getFullName()}}</a></th>
 
 							<th>{{ $order->customer_profile()->first()->customer()->first()->getFullAddress()}} </th>
 							<th>{{ $order->customer_profile()->first()->customer()->first()->phone}} </th>

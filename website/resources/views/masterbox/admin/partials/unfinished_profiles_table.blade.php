@@ -26,7 +26,7 @@
 
 							<th>
 							@if ($profile != NULL)
-							<a href="/admin/users/focus/{{$profile->customer()->first()->id}}">{{$profile->customer()->first()->getFullName()}}</a>
+							<a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $profile->customer()->first()->id]) }}">{{$profile->customer()->first()->getFullName()}}</a>
 							@endif
 							</th>
 

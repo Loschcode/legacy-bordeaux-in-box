@@ -132,7 +132,7 @@
 							@if ($profile_note->customer_profile()->first() === NULL)
 							N/A
 							@else
-							<a href="{{ url('/admin/users/focus/'.$profile_note->customer_profile()->first()->customer()->first()->id)}}">{{$profile_note->customer_profile()->first()->customer()->first()->getFullName()}}</a>
+							<a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $profile_note->customer_profile()->first()->customer()->first()->id]) }}">{{$profile_note->customer_profile()->first()->customer()->first()->getFullName()}}</a>
 							@endif
 
 							</th>
@@ -157,7 +157,7 @@
 							@if ($profile_note->customer()->first() === NULL)
 							N/A
 							@else
-							<a href="{{ url('/admin/users/focus/'.$profile_note->customer()->first()->id)}}">{{$profile_note->customer()->first()->getFullName()}}</a>
+							<a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $profile_note->customer()->first()->id]) }}">{{$profile_note->customer()->first()->getFullName()}}</a>
 							@endif
 
 							</th>
@@ -211,7 +211,7 @@
 							@if ($email_trace->customer()->first() === NULL)
 							N/A
 							@else
-							<a href="{{ url('/admin/users/focus/'.$email_trace->customer()->first()->id)}}">{{$email_trace->customer()->first()->getFullName()}}</a>
+							<a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $email_trace->customer()->first()->id]) }}">{{$email_trace->customer()->first()->getFullName()}}</a>
 							@endif
 
 							</th>
