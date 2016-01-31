@@ -145,7 +145,7 @@ class BillingNormalizeMasterbox extends Command {
 
     $this->info('We will create billing for orphan payments ...');
 
-    $payments = Payment::whereNull('order_id')->get();
+    $payments = Payment::withoutOrders()->get();
 
     foreach ($payments as $payment) {
 
