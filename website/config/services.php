@@ -36,4 +36,14 @@ return [
         'version' => env('STRIPE_API_VERSION'),
     ],
 
+    'google' => [
+
+      'geocoding' => [
+
+        'key' => env('GOOGLE_GEOCODING_KEY')
+
+      ],
+
+    ],
+
 ];

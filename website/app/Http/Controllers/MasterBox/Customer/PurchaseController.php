@@ -733,8 +733,19 @@ class PurchaseController extends BaseController {
 
     if ($validator->passes()) {
 
-      // Add the new answer in the database.
+      $answer = $profile->question_answers()->where('box_question_id', '=', $inputs['question_id'])->first();
 
+      if ($answer === NULL) {
+
+        $answer = new BoxQuestionCustomerAnswer;
+        $answer->box_question_id = $inputs['question_id'];
+        $answer->customer_profile_id = $profile->id;
+
+      }
+
+      $answer->answer = $inputs['answer'];
+      $answer->save();
+      
       return response()->json(['success' => true]);
     }
 
@@ -750,11 +761,11 @@ class PurchaseController extends BaseController {
    */
   private function getRulesBoxForm($question_type, $customer_email)
   {
-    if ($question_type === 'checkbox') return ['answer' => 'required'];
-    if ($question_type === 'date') return ['answer' => ['required', 'regex:#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#']];
-    if ($question_type === 'member_email') return ['answer' => ['email', 'required', 'exists:users,email', 'not_in:'.$customer_email]];
+    if ($question_type === 'checkbox') return ['answer' => ''];
+    if ($question_type === 'date') return ['answer' => ['', 'regex:#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#']];
+    if ($question_type === 'member_email') return ['answer' => ['email', '', 'exists:users,email', 'not_in:'.$customer_email]];
 
-    return ['answer' => 'required'];
+    return ['answer' => ''];
 
   }
 

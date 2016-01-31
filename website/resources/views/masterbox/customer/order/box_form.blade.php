@@ -24,10 +24,10 @@
         </h2>
         <p class="section__description --choose-frequency">
           @if ($order_preference->isGift())
-            <p class="+text-center">Pour que la box soit la plus personnalisée possible, réponds à ces quelques questions à la place de ton amie !</p>
+            <p class="+text-center">Pour que la box soit la plus personnalisée possible, il te suffit de répondre à ces quelques questions à la place de ton amie !</p>
           @else
             <p class="+text-center">
-              Pour que la box soit la plus personnalisée possible, répondez à ces quelques questions !
+              Pour que la box soit la plus personnalisée possible, il te suffit de répondre à ces quelques questions !
             </p>
           @endif
         </p>
