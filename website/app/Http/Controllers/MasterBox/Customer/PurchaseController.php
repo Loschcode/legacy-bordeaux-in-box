@@ -698,8 +698,8 @@ class PurchaseController extends BaseController {
     $order_building = $customer->order_building()->orderBy('created_at', 'desc')->onlyPaid()->first();
     $profile = $order_building->profile()->first();
 
-    $questions = BoxQuestion::with('answers')->orderBy('position', 'asc')->get();
-
+    $questions = $profile->unansweredQuestions()->with('answers')->orderBy('position', 'asc')->get();
+    
     $order_preference = $order_building->order_preference()->first();
 
     // Back case
