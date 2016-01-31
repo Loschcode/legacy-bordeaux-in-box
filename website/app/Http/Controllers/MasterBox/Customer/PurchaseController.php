@@ -748,11 +748,12 @@ class PurchaseController extends BaseController {
    */
   private function getRulesBoxForm($question_type, $customer_email)
   {
-    if ($question_type == 'checkbox') return [];
-    if ($question_type == 'date') return ['answer' => ['required', 'regex:#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#']];
-    if ($question_type == 'member_email') return ['answer' => ['email', 'exists:users,email', 'not_in:'.$customer_email]];
+    if ($question_type === 'checkbox') return [];
+    if ($question_type === 'date') return ['answer' => ['regex:#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#']];
+    if ($question_type === 'member_email') return ['answer' => ['email', 'exists:users,email', 'not_in:'.$customer_email]];
 
-    return ['answer' => 'required'];
+    return ['answer' => ''];
+
   }
 
 
