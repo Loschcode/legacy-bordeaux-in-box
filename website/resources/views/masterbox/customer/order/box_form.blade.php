@@ -93,7 +93,7 @@
       
       <div class="+spacer-small"></div>
       <div class="+text-center">
-        <a class="custombox__button --skip" href="#"><i class="fa fa-times-circle"></i> Je souhaite arrêter la personnalisation ici</a>
+        <a class="custombox__button --skip" href="{{ action('MasterBox\Customer\PurchaseController@getConfirmed') }}"><i class="fa fa-times-circle"></i> Je souhaite arrêter la personnalisation ici</a>
       </div>
 
     </div>
