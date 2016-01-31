@@ -126,7 +126,7 @@ class CustomerProfile extends Model {
   /**
    * Scopes
    */
-  public function UnansweredQuestions()
+  public function unansweredQuestions()
   {
 
     $box_question_customer_answers = $this->answers();
