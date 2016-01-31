@@ -1,13 +1,15 @@
 @extends('masterbox.layouts.admin')
 
+@section('navbar')
+  @include('masterbox.admin.partials.navbar_content')
+@stop
+
 @section('content')
   
   <div
     id="gotham"
     data-success-message="{{ session('message') }}"
   ></div>
-
-  @include('masterbox.admin.partials.navbar_content')
 
   <div class="row">
     <div class="grid-8">

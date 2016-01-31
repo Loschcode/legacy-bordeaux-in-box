@@ -1,5 +1,9 @@
 @extends('masterbox.layouts.admin')
 
+@section('navbar')
+  @include('masterbox.admin.partials.navbar_profiles')
+@stop
+
 @section('content')
 
 <div
@@ -7,8 +11,6 @@
   data-form-errors="{{ $errors->has() }}"
   data-success-message="{{ session()->get('message') }}"
 ></div>
-
-@include('masterbox.admin.partials.navbar_profiles')
 
 
 <div class="row">

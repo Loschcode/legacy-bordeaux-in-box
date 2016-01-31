@@ -1,5 +1,9 @@
 @extends('masterbox.layouts.admin')
 
+@section('navbar')
+  @include('masterbox.admin.partials.navbar_profiles')
+@stop
+
 @section('content')
     
   @include('masterbox.admin.partials.navbar_profiles')
