@@ -1,4 +1,4 @@
-
+<?php /* Not used anymore, I let that here for the memories.
     <div class="panel panel-default">
       <div class="panel-heading"><i class="fa fa-list-alt"></i> Abonnement de {{$profile->customer()->first()->getFullName()}} (#{{$profile->customer()->first()->id}})</div>
 
@@ -102,3 +102,5 @@
           {!! Form::close() !!}
 
       </div>
+
+*/ ?>

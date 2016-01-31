@@ -1,3 +1,4 @@
+<?php /*
 @extends('masterbox.layouts.admin')
 
 @section('page')
@@ -78,3 +79,4 @@
 
 
 @stop
+*/ ?>

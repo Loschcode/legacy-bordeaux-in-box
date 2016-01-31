@@ -183,6 +183,15 @@ a {
       top: 1px;
       -webkit-box-shadow: none;
               box-shadow: none; }
+    .button__submit.\--small {
+      font-size: 12.6px;
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      padding: 7.2px;
+      padding-right: 14.4px;
+      padding-left: 14.4px;
+      width: auto;
+      margin: 0; }
   .button__link {
     color: #2580b5; }
 
@@ -229,6 +238,8 @@ a {
   width: 100%;
   padding: 12.6px;
   outline: 0; }
+  .form__input.\--small-textarea {
+    height: 108px; }
 .form__error {
   color: #D83F66;
   font-size: 16.2px;
@@ -297,6 +308,16 @@ a {
   font-weight: 400; }
 .panel__content {
   padding: 18px; }
+
+.note__wrapper {
+  background-color: #298fca;
+  color: white;
+  padding: 14.4px;
+  border-radius: 5px;
+  margin-bottom: 7.2px; }
+.note__title {
+  font-family: "Lato", sans-serif;
+  font-weight: 700; }
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }

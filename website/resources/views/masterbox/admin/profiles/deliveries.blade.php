@@ -13,6 +13,7 @@
   </div>
   
   <div class="divider divider__section"></div>
-
+  
+  en cours de dev.
 
 @stop

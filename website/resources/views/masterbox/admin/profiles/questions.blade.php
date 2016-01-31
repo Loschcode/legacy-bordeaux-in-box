@@ -14,5 +14,5 @@
   
   <div class="divider divider__section"></div>
 
-
+  En cours de dev.
 @stop

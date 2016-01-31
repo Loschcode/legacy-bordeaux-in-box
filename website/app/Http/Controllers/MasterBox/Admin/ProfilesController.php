@@ -284,12 +284,9 @@ class ProfilesController extends BaseController {
 	{
 
 		$rules = [
-
 			'customer_profile_id' => 'required|numeric',
-
 			'note' => 'required',
-
-			];
+		];
 
 		$fields = Request::all();
 		$validator = Validator::make($fields, $rules);
@@ -298,10 +295,9 @@ class ProfilesController extends BaseController {
 		if ($validator->passes()) {
 
 			$profile = CustomerProfile::findOrFail($fields['customer_profile_id']);
-			
 			$note = new CustomerProfileNote;
 			$note->customer_profile_id = $profile->id;
-			$note->customer_id = Auth::guard('customer')->user()->id;
+			$note->customer_id = Auth::guard('administrator')->user()->id; // Need to change here.
 			$note->note = $fields['note'];
 
 			$note->save();
