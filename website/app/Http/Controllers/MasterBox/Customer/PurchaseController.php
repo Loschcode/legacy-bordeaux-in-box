@@ -376,8 +376,12 @@ class PurchaseController extends BaseController {
     $delivery_spots = DeliverySpot::where('active', TRUE)->get();
 
     return view('masterbox.customer.order.choose_spot')->with(compact(
+
       'chosen_delivery_spot',
-      'delivery_spots'
+      'delivery_spots',
+      'order_building',
+      'order_preference'
+
     ));
 
   }

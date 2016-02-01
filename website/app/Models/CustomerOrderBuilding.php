@@ -11,9 +11,9 @@ class CustomerOrderBuilding extends Model {
 	 */
 	protected $table = 'customer_order_buildings';
 
-  public function getDestinationAddressAttribute() { return $this->coordinate()->first()->address; }
-  public function getDestinationCityAttribute() { return $this->coordinate()->first()->city; }
-  public function getDestinationZipAttribute() { return $this->coordinate()->first()->zip; }
+  public function getDestinationAddressAttribute() { return $this->destination_coordinate()->first()->address; }
+  public function getDestinationCityAttribute() { return $this->destination_coordinate()->first()->city; }
+  public function getDestinationZipAttribute() { return $this->destination_coordinate()->first()->zip; }
 
 	/**
 	 * Belongs To
