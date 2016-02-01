@@ -1,5 +1,87 @@
 @extends('masterbox.layouts.admin')
 
+@section('navbar')
+@stop
+
+@section('content')
+
+<div class="row">
+  <div class="grid-8">
+    <h1 class="title title__section">Client</h1>
+    <h2 class="title title__subsection">{{ $customer->getFullName() }}</h2>
+  </div>
+  <div class="grid-4">
+    <div class="+text-right">
+      <a href="{{ action('MasterBox\Admin\CustomersController@getIndex') }}" class="button button__section"><i class="fa fa-list"></i> Voir les clients</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider divider__section"></div>
+
+<div class="row">
+  <div class="grid-6">
+    <div class="panel">
+      <div class="panel__wrapper">
+        <div class="panel__header">
+          <h3 class="panel__title">Résumé</h3>
+        </div>
+        <div class="panel__content typography">
+          <strong>Prénom:</strong> {{$customer->first_name}}<br />
+          <strong>Nom:</strong> {{$customer->last_name}}<br />
+          <div class="+spacer-extra-small"></div>
+          <strong>Email:</strong> {{$customer->email}}<br />
+          <strong>Téléphone:</strong> {{ readable_customer_phone($customer->phone) }}<br />
+          <div class="+spacer-extra-small"></div>
+          <strong>Ville:</strong> {!! Html::getReadableEmpty($customer->city) !!}<br />
+          <strong>Code postal:</strong> {!! Html::getReadableEmpty($customer->zip) !!}<br />
+          <strong>Adresse:</strong> {!! Html::getReadableEmpty($customer->address) !!}<br />
+          <div class="+spacer-extra-small"></div>
+          <strong>Emails totalement autorisés depuis le:</strong> {!! Html::getReadableEmpty($customer->emails_fully_authorized) !!}<br/>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="grid-6">
+    <div class="panel">
+      <div class="panel__wrapper">
+        <div class="panel__header">
+          <h3 class="panel__title">Abonnements</h3>
+        </div>
+        <div class="panel__content">
+          @if ($customer->profiles()->count() > 0)
+            <table class="js-datatable-simple">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Contrat</th>
+                <th>Statut</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($customer->profiles()->get() as $profile)
+                <tr>
+                <td>{{ $profile->id }}</td>
+                <td>{{ $profile->contract_id }}</td>
+                <td>{!! Html::getReadableProfileStatus($profile->status) !!}</td>
+                <td><a class="button button__table" href="{{action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $profile->id])}}"><i class="fa fa-eye"></i></a></td>
+                </tr>
+              @endforeach
+            </tbody>
+            </table>
+          @else
+            Aucun abonnement pour le moment
+          @endif
+        </div>
+      </div>
+    </div>
+  </div>
+
+@stop
+<?php /*
+@extends('masterbox.layouts.admin')
+
 @section('page')
   <i class="fa fa-user"></i> Client {{$customer->getFullName()}} (#{{$customer->id}})
 @stop
@@ -198,3 +280,4 @@
     </div>
 
 @stop
+*/ ?>
