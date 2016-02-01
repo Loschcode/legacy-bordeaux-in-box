@@ -24,19 +24,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 13.600000000000001px;
+  height: 14.4px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 34px;
+  height: 36px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 68px;
+  height: 72px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 170px;
+  height: 180px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -407,6 +407,48 @@ a {
   display: block;
   width: 150px;
   margin: 0 auto; }
+
+.dashboard__wrapper {
+  border-radius: 5px;
+  background-color: #1baf8a;
+  color: white;
+  padding: 21.599999999999998px;
+  text-align: center;
+  min-height: 252px; }
+  .dashboard__wrapper.\--grey {
+    background-color: #77939a; }
+.dashboard__title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 25.2px; }
+.dashboard__button {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  position: relative;
+  border: 2px solid white;
+  border-radius: 5px;
+  padding: 7.2px;
+  padding-right: 72px;
+  padding-left: 72px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  margin-top: 18px;
+  display: inline-block;
+  -webkit-transition: background-color 0.4s;
+          transition: background-color 0.4s; }
+  .dashboard__button:hover {
+    background-color: white;
+    color: #1baf8a; }
+.dashboard__active {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  margin-top: 18px; }
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }

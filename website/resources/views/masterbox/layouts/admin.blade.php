@@ -87,23 +87,26 @@
 		</ul>
 	</div>
 	<div class="page page__wrapper">
-		<div class="navbar">
-			<div class="navbar__wrapper">
-				<div class="row">
-					<div class="grid-10">
-						<ul class="navbar__list">
-							<!-- Navbar content -->
-							@yield('navbar')
-						</ul>
-					</div>
-					<div class="grid-2">
-						<div class="navbar__logout">
-							<a class="navbar__link --logout" href="{{ action('MasterBox\Connect\AdministratorController@getLogout') }}">{{ Auth::guard('administrator')->user()->getFullName() }} <i class="fa fa-remove"></i></a>
+
+		@section('navbar-container')
+			<div class="navbar">
+				<div class="navbar__wrapper">
+					<div class="row">
+						<div class="grid-10">
+							<ul class="navbar__list">
+								<!-- Navbar content -->
+								@yield('navbar')
+							</ul>
+						</div>
+						<div class="grid-2">
+							<div class="navbar__logout">
+								<a class="navbar__link --logout" href="{{ action('MasterBox\Connect\AdministratorController@getLogout') }}">{{ Auth::guard('administrator')->user()->getFullName() }} <i class="fa fa-remove"></i></a>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		@show
 
 		@yield('content')
 

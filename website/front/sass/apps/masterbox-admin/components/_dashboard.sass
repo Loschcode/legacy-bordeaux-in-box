@@ -1,0 +1,44 @@
++component(dashboard)
+  
+  +part(wrapper)
+    border-radius: 5px
+    background-color: color-dark(green, 20%)
+    color: white
+    padding: 0.6vr
+    text-align: center
+    min-height: 7vr
+
+    +option(grey)
+      background-color: color-dark(grey, 40%)
+
+  +part(title)
+    +font-montserrat
+    font-size: 0.7vr
+
+  +part(button)
+    // Reset <button>, <a>, <submit> to be ready
+    // to be styled.
+    border: 0
+    font: inherit
+    cursor: pointer
+    user-select: none
+    position: relative
+    border: 2px solid white
+    border-radius: 5px
+    padding: 0.2vr
+    padding-right: 2vr
+    padding-left: 2vr
+    color: white
+    +font-montserrat
+    margin-top: 0.5vr
+    display: inline-block
+    transition: background-color 0.4s
+
+    &:hover
+      background-color: white
+      color: color-dark(green, 20%)
+  
+  +part(active)
+    +font-montserrat
+    margin-top: 0.5vr
+

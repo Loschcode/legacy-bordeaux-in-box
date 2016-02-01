@@ -14,7 +14,7 @@
         <img class="connect__thumbnail" src="{{ url('images/macaron-masterbox.png') }}" />
       </div>
       {!! Form::open() !!}
-      {!! Form::text("email", Request::old("email"), ['placeholder' => 'Email', 'class' => 'form__input']) !!}
+      {!! Form::text("email", Request::old("email"), ['placeholder' => 'Email', 'class' => 'form__input', 'autofocus']) !!}
       <div class="+spacer-extra-small"></div> 
       {!! Form::password("password", ['placeholder' => 'Mot de passe', 'class' => 'form__input']) !!}
       <div class="+spacer-extra-small"></div>
