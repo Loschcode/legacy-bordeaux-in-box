@@ -7,7 +7,7 @@ class Order extends Model {
 
   use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+  protected $dates = ['deleted_at'];
 
 	/**
 	 * The database table used by the model.
@@ -15,6 +15,13 @@ class Order extends Model {
 	 * @var string
 	 */
 	protected $table = 'orders';
+
+  protected $casts = [
+      
+      'take_away' => 'boolean',
+      'locked' => 'boolean',
+      'gift' => 'boolean',
+  ];
 
   /**
    * Create / Update

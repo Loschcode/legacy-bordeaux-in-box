@@ -88,4 +88,14 @@ class CustomerOrderBuilding extends Model {
 
   }
 
+  /**
+   * Get last paid order building
+   */
+  public function scopeGetLastPaid($query)
+  {
+
+    return $this->orderBy('created_at', 'desc')->onlyPaid()->first();
+
+  }
+
 }

@@ -42,7 +42,7 @@ class PurchaseController extends BaseController {
     $this->middleware('has.unpaid.order.building', array('except' => ['getClassic', 'getGift', 'getBoxForm', 'postBoxForm', 'getConfirmed']));
     $this->middleware('has.paid.order.building', array('only' => ['getBoxForm', 'postBoxForm']));
     $this->middleware('below.serie.counter', array('except' => ['postPayment']));
-    
+
     $this->middleware('is.not.take.away', array('only' => ['getChooseSpot', 'postChooseSpot']));
     $this->middleware('is.not.regional', array('only' => ['getChooseSpot', 'postChooseSpot']));
 
@@ -273,7 +273,8 @@ class PurchaseController extends BaseController {
     // Back
     view()->share('order_preference', $order_preference);
 
-    if ( ! $order_building->isRegionalAddress()) {
+    if (!$order_building->isRegionalAddress()) {
+
       // He's not from Gironde, then he has imposed fees and no other choice
       $delivery_fees_per_delivery = DeliverySetting::first()->national_delivery_fees;
 
@@ -696,7 +697,7 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->onlyPaid()->first();
+    $order_building = $customer->order_building()->getLastPaid();
     $profile = $order_building->profile()->first();
 
     $questions = $profile->unansweredQuestions()->with('answers')->orderBy('position', 'asc')->get();
@@ -733,7 +734,7 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->onlyPaid()->first();
+    $order_building = $customer->order_building()->getLastPaid();
     $profile = $order_building->profile()->first();
 
     // We auto trim everything

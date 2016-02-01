@@ -14,6 +14,11 @@ class Payment extends Model {
 	 */
 	protected $table = 'payments';
 
+  protected $casts = [
+      
+      'paid' => 'boolean',
+  ];
+
   /**
    * Create / Update
    */
