@@ -13,7 +13,7 @@ use App\Models\CustomerProfileNote;
 use App\Models\DeliverySpot;
 use App\Models\OrderDestination;
 use App\Models\BoxQuestion;
-
+use App\Models\Coordinate;
 use App\Libraries\Payments;
 
 class ProfilesController extends BaseController {
@@ -148,9 +148,24 @@ class ProfilesController extends BaseController {
     $profile = CustomerProfile::findOrFail($id);
     $customer = $profile->customer()->first();
 
+    $next_delivery_order = $profile->orders()->whereNull('date_completed')->orderBy('orders.created_at', 'DESC')->first();
+
+    $order_destination = NULL;
+    $order_delivery_spot = NULL;
+
+    if ($next_delivery_order != NULL) {
+      $order_destination = $next_delivery_order->destination()->first();
+      $order_delivery_spot = $next_delivery_order->delivery_spot()->first();
+    } 
+
+    $delivery_spots = DeliverySpot::where('active', TRUE)->orderBy('created_at', 'desc')->get();
+
     return view('masterbox.admin.profiles.deliveries')->with(compact(
       'profile',
-      'customer'
+      'customer',
+      'order_destination',
+      'order_delivery_spot',
+      'delivery_spots'
     ));
   }
 
@@ -442,14 +457,14 @@ class ProfilesController extends BaseController {
 
 			// Then we redirect
 			session()->flash('message', "L'adresse de livraison de l'utilisateur a été correctement mise à jour");
-			return redirect()->to(URL::previous() . '#deliveries');
+			return redirect()->back();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return redirect()->to(URL::previous() . '#deliveries')
+			return redirect()->back()
 			->withInput()
-			->withErrors($validator, 'delivery');
+			->withErrors($validator);
 
 		}
 
