@@ -12,6 +12,10 @@ class DeliverySpot extends Model {
 	 */
 	protected $table = 'delivery_spots';
 
+  public function getAddressAttribute() { return $this->coordinate()->first()->address; }
+  public function getCityAttribute() { return $this->coordinate()->first()->city; }
+  public function getZipAttribute() { return $this->coordinate()->first()->zip; }
+
 	/**
 	 * Create / Update
 	 */
@@ -41,10 +45,21 @@ class DeliverySpot extends Model {
 
     }
 
+  /**
+   * Belongs To
+   */
+  
+  public function coordinate()
+  {
+
+    return $this->belongsTo('App\Models\Coordinate', 'coordinate_id');
+
+  }
+
 	/**
 	 * HasMany
 	 */
-	
+  
 	public function orders()
 	{
 

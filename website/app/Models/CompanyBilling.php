@@ -53,6 +53,13 @@ class CompanyBilling extends Model {
    * Belongs To
    */
 
+  public function coordinate()
+  {
+
+    return $this->belongsTo('App\Models\Coordinate', 'coordinate_id');
+
+  }
+  
   /**
    * Has Many
    */
