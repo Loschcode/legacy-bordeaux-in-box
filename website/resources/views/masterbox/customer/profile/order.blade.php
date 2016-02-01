@@ -4,15 +4,14 @@
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 @stop
 
+@section('gotham')
+  {!! Html::gotham([
+    'controller' => 'masterbox.customer.profile.order',
+    'card-last-digits' => $payment_profile->last4
+  ]) !!}
+@stop
+
 @section('content')
-
-
-<div
-  id="gotham"
-  data-controller="masterbox.customer.profile.order"
-  data-card-last-digits="{{$payment_profile->last4}}"
-  data-form-errors="{{ $errors->has() }} {{ session()->has('error') }}"
-></div>
 
 <div class="container">
   <div class="row">

@@ -37,6 +37,10 @@
 
 </head>
 <body id="csstyle" data-environment="{{ app()->environment() }}">
+	
+	@section('gotham')
+		{!! Html::gotham() !!}
+	@show
 
 	<div
 	id="gotham-layout"

@@ -1,10 +1,13 @@
 @extends('masterbox.layouts.master')
 
+@section('gotham')
+  {!! Html::gotham([
+    'controller' => 'masterbox.customer.profile.orders',
+  ]) !!}
+@stop
+
+
 @section('content')
-<div 
-  id="gotham"
-  data-controller="masterbox.customer.profile.orders"
-></div>
 
 <div class="container">
   <div class="row">

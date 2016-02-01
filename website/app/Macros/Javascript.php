@@ -19,6 +19,8 @@ Html::macro('gotham', function($overrides = [])
     $output .= ' data-' . $key . '="' . $data . '"';
   }
 
+  $output .= ' />';
+
   return $output;
 
 });

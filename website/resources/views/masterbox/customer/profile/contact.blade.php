@@ -1,13 +1,6 @@
 @extends('masterbox.layouts.master')
 
 @section('content')
-  
-  <div
-    id="gotham"
-    data-controller="masterbox.customer.profile."
-    data-form-errors="{{ $errors->edit_email->has() }} {{ $errors->edit_password->has() }} {{ $errors->edit_billing->has() }} {{ $errors->edit_destination->has() }} {{ $errors->edit_spot->has() }}"
-    data-success-message="{{ session()->get('message') }}"
-  ></div>
 
   <div class="container">
     <div class="row">
