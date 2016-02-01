@@ -54,9 +54,8 @@ function generate_new_company_billing_from_order($order, $associate=TRUE) {
 
     $company_billing->first_name = $billing->first_name;
     $company_billing->last_name = $billing->last_name;
-    $company_billing->city = $billing->city;
-    $company_billing->address = $billing->address;
-    $company_billing->zip = $billing->zip;
+    $company_billing->coordinate_id = Coordinate::getMatchingOrGenerate($billing->address, $billing->zip, $billing->city)->id;
+
 
   }
 
