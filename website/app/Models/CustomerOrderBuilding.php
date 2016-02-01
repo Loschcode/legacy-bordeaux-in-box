@@ -75,9 +75,13 @@ class CustomerOrderBuilding extends Model {
 	}
 
   /**
+   * Scope
+   */
+
+  /**
    * Get current unpaid order building
    */
-  public function getCurrent()
+  public function scopeGetCurrent($query)
   {
 
     return $this->orderBy('created_at', 'desc')->notPaidYet()->first();

@@ -67,7 +67,7 @@ class Kernel extends HttpKernel
       'is.not.admin' => \App\Http\Middleware\IsNotAdmin::class,
 
       'is.not.regional' => \App\Http\Middleware\IsNotRegional::class,
-      'is.not.regional.or.take.away' => \App\Http\Middleware\IsNotRegional::class,
+      'is.not.take.away' => \App\Http\Middleware\IsNotTakeAway::class,
       'is.not.serie.ready' => \App\Http\Middleware\IsNotSerieReady::class,
       'is.serie.ready' => \App\Http\Middleware\IsSerieReady::class,
       'skip.unpaid.orders.with.fail.card' => \App\Http\Middleware\SkipUnpaidOrdersWithFailCard::class,

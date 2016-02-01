@@ -42,7 +42,10 @@ class PurchaseController extends BaseController {
     $this->middleware('has.unpaid.order.building', array('except' => ['getClassic', 'getGift', 'getBoxForm', 'postBoxForm', 'getConfirmed']));
     $this->middleware('has.paid.order.building', array('only' => ['getBoxForm', 'postBoxForm']));
     $this->middleware('below.serie.counter', array('except' => ['postPayment']));
-    $this->middleware('is.not.regional.or.take.away', array('only' => ['getChooseSpot', 'postChooseSpot']));
+    
+    $this->middleware('is.not.take.away', array('only' => ['getChooseSpot', 'postChooseSpot']));
+    $this->middleware('is.not.regional', array('only' => ['getChooseSpot', 'postChooseSpot']));
+
   }
 
   /**

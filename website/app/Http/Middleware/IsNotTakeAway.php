@@ -2,7 +2,7 @@
 
 use Closure, Auth;
 
-class IsNotRegional {
+class IsNotTakeAway {
 
   /**
    * Handle an incoming request.
@@ -13,8 +13,8 @@ class IsNotRegional {
    */
   public function handle($request, Closure $next)
   {
-    // If it's not regional, we can't access this part
-    if (!Auth::guard('customer')->user()->order_building()->getCurrent()->isRegionalAddress())
+    // If we didn't choose take away, it's the same we redirect
+    if (!Auth::guard('customer')->user()->order_building()->getCurrent()->order_preference()->first()->take_away)
       return redirect()->action('MasterBox\Customer\PurchaseController@getIndex');
 
     return $next($request);
