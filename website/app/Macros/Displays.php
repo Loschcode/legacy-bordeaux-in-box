@@ -143,7 +143,7 @@ Html::macro('getColorFromBoxSlug', function($slug)
  */
 Html::macro('info', function($info) {
 
-  return '<p>' . $info . '</p>';
+  return '<div class="info info__wrapper"><i class="fa fa-info-circle"></i> ' . $info . '</div>';
 
 });
 

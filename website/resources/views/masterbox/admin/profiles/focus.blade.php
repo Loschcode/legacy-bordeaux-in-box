@@ -34,52 +34,59 @@
         <div class="panel__header">
           <h3 class="panel__title">Abonnement #{{ $profile->id }}</h3>
         </div>
-        <div class="panel__content typography">
-
-          <strong>Client:</strong> <a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id]) }}">{{ $profile->customer()->first()->getFullName() }}</a><br />
-
-          <strong>Naissance:</strong> {{$profile->getAnswer('birthday')}} ({{$profile->getAge()}} ans)<br />
+        <div class="panel__content">
           
-          <div class="+spacer-extra-small"></div>
+          <div class="typography">
+            <strong>Client:</strong> <a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id]) }}">{{ $profile->customer()->first()->getFullName() }}</a><br />
 
-          <strong>Abonnement:</strong> {{$profile->contract_id}}<br />
-          <strong>Statut:</strong> {!! Html::getReadableProfileStatus($profile->status) !!}<br/> 
+            <strong>Naissance:</strong> {{$profile->getAnswer('birthday')}} ({{$profile->getAge()}} ans)<br />
+            
+            <div class="+spacer-extra-small"></div>
 
-          <div class="+spacer-extra-small"></div>
+            <strong>Abonnement:</strong> {{$profile->contract_id}}<br />
+            <strong>Statut:</strong> {!! Html::getReadableProfileStatus($profile->status) !!}<br/> 
 
-          @if ($order_preference != NULL)
+            <div class="+spacer-extra-small"></div>
 
-          <strong>A offrir:</strong> {{ ($order_preference->gift) ? 'Oui' : 'Non' }}<br />
-          <strong>Zone (prochaines livraisons):</strong>
+            @if ($order_preference != NULL)
 
-          @if ($profile->orders()->orderBy('id', 'desc')->first() !== NULL)
+            <strong>A offrir:</strong> {{ ($order_preference->gift) ? 'Oui' : 'Non' }}<br />
+            <strong>Zone (prochaines livraisons):</strong>
 
-          {{ ($profile->orders()->orderBy('id', 'desc')->first()->isRegionalOrder()) ? 'Régional' : 'Non régional'}}
+            @if ($profile->orders()->orderBy('id', 'desc')->first() !== NULL)
 
-          @else
+            {{ ($profile->orders()->orderBy('id', 'desc')->first()->isRegionalOrder()) ? 'Régional' : 'Non régional'}}
 
-          N/A
+            @else
+
+            N/A
+
+            @endif
+
+            <div class="+spacer-extra-small"></div>
+
+            <strong>Durée :</strong> 
+
+            @if ($order_preference->frequency == 0)
+            Sans expiration
+            @else
+            {{ $order_preference->frequency }} mois
+            @endif
+
+            <br />
+            <strong>Prix total :</strong> {{$order_preference->totalPricePerMonth()}} &euro; (unité : {{$order_preference->unity_price}} &euro;, livraison : {{$order_preference->delivery_fees}} &euro;)
+            @endif
+            
+            <div class="+spacer-extra-small"></div>
+            <strong>Créé le:</strong> {{ Html::dateFrench($profile->created_at, true) }}<br />
+            <strong>Dernière mise à jour le: </strong> {{ Html::dateFrench($profile->updated_at, true) }}<br/> 
+          </div>
+
+          @if ($profile->status == 'subscribed')
+
+           <a class="button button__default --red js-confirm-delete" href="{{ action('MasterBox\Admin\ProfilesController@getCancelSubscription', ['id' => $profile->id]) }}"><i class="fa fa-times-circle"></i> Annuler cet abonnement</a>
 
           @endif
-
-          <div class="+spacer-extra-small"></div>
-
-          <strong>Durée :</strong> 
-
-          @if ($order_preference->frequency == 0)
-          Sans expiration
-          @else
-          {{ $order_preference->frequency }} mois
-          @endif
-
-          <br />
-          <strong>Prix total :</strong> {{$order_preference->totalPricePerMonth()}} &euro; (unité : {{$order_preference->unity_price}} &euro;, livraison : {{$order_preference->delivery_fees}} &euro;)
-          @endif
-          
-          <div class="+spacer-extra-small"></div>
-          <strong>Créé le:</strong> {{ Html::dateFrench($profile->created_at, true) }}<br />
-          <strong>Dernière mise à jour le: </strong> {{ Html::dateFrench($profile->updated_at, true) }}<br/> 
-
 
         </div>
       </div>
@@ -125,7 +132,7 @@
 
             {!! Html::checkError('note', $errors) !!}
 
-            {!! Form::submit("Ajouter cette note", ['class' => 'button button__submit --small']) !!}
+            {!! Form::submit("Ajouter cette note", ['class' => 'button button__default']) !!}
 
           {!! Form::close() !!}
         </div>

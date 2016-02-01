@@ -26,6 +26,13 @@
 
 <div class="divider divider__section"></div>
 
+{!! Html::info("L'utilisateur peut lui-même changer son adresse de facturation, le changement côté administrateur est prévu en cas de bug quelconque.") !!}
+
+{!! Html::info("Un changement de région implique un changement de prix de livraison, le formulaire côté administrateur a été laissé libre (celui côté utilisateur est bloqué) ; il faudra manuellement donner ou récupérer la différence avec l'utilisateur via Stripe.") !!}
+
+{!! Html::info("Si l'utilisateur possède des abonnements, l'adresse de facturation des abonnements éditables sera également modifiée
+") !!}
+
 <div class="form">
   {!! Form::open(array('action' => 'MasterBox\Admin\CustomersController@postEdit', 'class' => 'form-inline')) !!}
   

@@ -146,9 +146,11 @@ class ProfilesController extends BaseController {
   public function getDeliveries($id)
   {
     $profile = CustomerProfile::findOrFail($id);
+    $customer = $profile->customer()->first();
 
     return view('masterbox.admin.profiles.deliveries')->with(compact(
-      'profile'
+      'profile',
+      'customer'
     ));
   }
 
