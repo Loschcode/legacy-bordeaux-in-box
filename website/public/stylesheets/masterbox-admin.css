@@ -24,19 +24,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 14.4px;
+  height: 13.600000000000001px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 36px;
+  height: 34px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 72px;
+  height: 68px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 180px;
+  height: 170px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -307,42 +307,42 @@ a {
   min-height: 252px; }
 
 .typography h1,
-.meltdown_preview h1 {
+.editor-preview h1 {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 28.8px;
   padding-bottom: 14.4px;
   padding-top: 21.599999999999998px; }
 .typography h2,
-.meltdown_preview h2 {
+.editor-preview h2 {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 21.599999999999998px;
   padding-bottom: 14.4px;
   padding-top: 21.599999999999998px; }
 .typography h3,
-.meltdown_preview h3 {
+.editor-preview h3 {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   font-size: 18px;
   padding-bottom: 14.4px;
   padding-top: 21.599999999999998px; }
 .typography p,
-.meltdown_preview p {
+.editor-preview p {
   font-size: 18px;
   text-align: justify; }
 .typography a,
-.meltdown_preview a {
+.editor-preview a {
   border-bottom: 1px dotted #364347;
   padding-bottom: 3.6px; }
 .typography em,
-.meltdown_preview em {
+.editor-preview em {
   font-style: italic; }
 .typography strong,
-.meltdown_preview strong {
+.editor-preview strong {
   font-weight: bold; }
 .typography a,
-.meltdown_preview a {
+.editor-preview a {
   color: #298fca;
   border-bottom: 1px dotted #298fca; }
 

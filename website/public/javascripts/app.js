@@ -1484,10 +1484,12 @@ if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
       };
     })(this));
   });
-  $('.js-markdown').meltdown({
-    openPreview: true,
-    sidebyside: true
-  });
+  if ($('.js-markdown').length > 0) {
+    new SimpleMDE({
+      element: $('.js-markdown')[0],
+      spellChecker: false
+    });
+  }
 }
 });
 
