@@ -105,10 +105,8 @@
               <h3 class="panel__title">Forcer un paiement</h3>
             </div>
             <div class="panel__content">
-
               {!! Html::info("Prélève sur la carte de l'abonnement un montant du prix de l'abonnement (type transfert unique)") !!}
               <a class="button button__default" href="{{ action('MasterBox\Admin\ProfilesController@getForcePay', ['id' => $profile->id]) }}">Forcer le paiement</a>
-
             </div>
           </div>
         </div>

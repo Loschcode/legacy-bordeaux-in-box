@@ -193,9 +193,11 @@ class ProfilesController extends BaseController {
   public function getQuestions($id)
   {
     $profile = CustomerProfile::findOrFail($id);
+    $questions = BoxQuestion::get();
 
     return view('masterbox.admin.profiles.questions')->with(compact(
-      'profile'
+      'profile',
+      'questions'
     ));
   }
 
@@ -602,12 +604,11 @@ class ProfilesController extends BaseController {
       refresh_answers_from_dynamic_questions_form($fields, $profile);
 
 			session()->flash('message', "Les réponses de l'utilisateur ont été correctement mises à jour");
-			return redirect()->to(URL::previous() . '#questions');
-
+			return redirect()->back();
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return redirect()->to(URL::previous() . '#questions')
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
