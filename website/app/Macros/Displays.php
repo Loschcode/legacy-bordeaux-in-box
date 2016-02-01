@@ -2,6 +2,16 @@
 
 use App\Models\Customer;
 
+/** 
+ * Renders html structure to add a button in the navbar of admin section
+ */
+Html::macro('addButtonNavbar', function($title, $url) {
+
+  return '<li class="navbar__item"><a class="navbar__link" href="' . $url . '">' . $title . '</a></li>';
+
+});
+
+
 /**
  * If we find an error for the label given, we output a text error
  */

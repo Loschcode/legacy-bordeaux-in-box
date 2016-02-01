@@ -24,19 +24,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 13.600000000000001px;
+  height: 14.4px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 34px;
+  height: 36px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 68px;
+  height: 72px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 170px;
+  height: 180px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -183,6 +183,17 @@ a {
       top: 1px;
       -webkit-box-shadow: none;
               box-shadow: none; }
+    .button__submit.\--small {
+      font-size: 12.6px;
+      -webkit-box-shadow: none;
+              box-shadow: none;
+      padding: 7.2px;
+      padding-right: 14.4px;
+      padding-left: 14.4px;
+      width: auto;
+      margin: 0; }
+  .button__link {
+    color: #2580b5; }
 
 .navbar__wrapper {
   background-color: #ECF0F1;
@@ -203,11 +214,19 @@ a {
     opacity: 0.7; }
 .navbar__link {
   color: white;
-  display: block;
+  display: inline-block;
   padding-top: 7.2px;
   padding-bottom: 7.2px;
   padding-left: 14.4px;
   padding-right: 14.4px; }
+  .navbar__link.\--logout {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 14.4px; }
+.navbar__logout {
+  display: inline-block;
+  float: right;
+  padding-right: 10.799999999999999px; }
 
 .divider__section {
   width: 100%;
@@ -227,6 +246,8 @@ a {
   width: 100%;
   padding: 12.6px;
   outline: 0; }
+  .form__input.\--small-textarea {
+    height: 108px; }
 .form__error {
   color: #D83F66;
   font-size: 16.2px;
@@ -281,6 +302,30 @@ a {
   font-weight: 700; }
 .tablechild__link {
   border-bottom: 1px dotted #364347; }
+
+.panel__wrapper {
+  border: 2px solid #ECF0F1;
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px; }
+.panel__header {
+  background-color: #ECF0F1;
+  padding: 7.2px;
+  padding-left: 18px; }
+.panel__title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400; }
+.panel__content {
+  padding: 18px; }
+
+.note__wrapper {
+  background-color: #298fca;
+  color: white;
+  padding: 14.4px;
+  border-radius: 5px;
+  margin-bottom: 7.2px; }
+.note__title {
+  font-family: "Lato", sans-serif;
+  font-weight: 700; }
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }

@@ -15,8 +15,8 @@ class Index extends Controller
       length: false
       language: Config.datatable.language.fr
       ajax: $('table').data('request')
-      #processing: true
-      #serverSide: true
+      processing: true
+      serverSide: true
       order:
         [[1, 'asc']]
       columns: [
@@ -28,20 +28,57 @@ class Index extends Controller
         }
         { data: "id" }
         { data: "contract_id" }
-        { data: "customer.full_name" }
+        { data: @dataCustomer }
         { data: @dataCountOrdersNotSent }
         { data: @dataCountPaymentsDone }
-        { data: "status_format" }
+        { data: "readable_status" }
         {
           sortable: false
           render: (data, type, full, meta) =>
-            return 'lol'
+            
+            datas =
+              link_focus: _.slash($('table').data('focus-profile')) + full.id
+              link_delete: _.slash($('table').data('delete-profile')) + full.id
+
+            return @view('masterbox.admin.profiles.actions', datas)
+
+
         }
       ]
 
-
-
   run: ->
+    @delayed 'click', '.more-details', @displayMore
+
+  ##
+  # Display more datas in the table
+  ##
+  displayMore: (e) =>
+
+    e.preventDefault()
+
+    tr = $(e.currentTarget).closest('tr')
+    row = @table.row(tr)
+
+    if row.child.isShown()
+      row.child.hide()
+      tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o')
+    else
+      datas = row.data()
+
+      html = @view('masterbox.admin.profiles.more', datas)
+
+      row.child(html).show()
+      tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o')
+
+  ##
+  # Fetch the data customer
+  ##
+  dataCustomer: (row, type, val, meta) ->
+
+    link = _.slash($('table').data('focus-customer')) + row.customer.id
+
+    return '<a class="button button__link" href="' + link + '">' + row.customer.full_name + '</a>'
+
 
   ##
   # Fetch the number of orders not sent
@@ -66,85 +103,6 @@ class Index extends Controller
   dataCountPaymentsDone: (row, type, val, meta) ->
 
     return row.payments.length
-
-
-
-  ###
-  ##
-  # Before
-  #
-  # Executed before the run action. You can use
-  # @stop() in this method to stop the execution
-  # of the controller
-  #
-  ##
-  before: ->
-
-    ##
-    # Init datatable
-    ##
-    @table = $('table').DataTable
-      length: false
-      language: Config.datatable.language.fr
-      ajax: $('table').data('request')
-      processing: true
-      serverSide: true
-      order:
-        [[1, 'asc']]
-      columns: [
-        {
-          orderable: false
-          className: 'more-details'
-          data: null
-          defaultContent: '<a href="#" class="button button__table"><i class="fa fa-plus-square-o"></i></a>'
-        }
-        { data: "id" }
-        { data: "full_name" }
-        { data: "email" }
-        { data: "phone_format" }
-        {
-          sortable: false,
-          render: (data, type, full, meta) =>
-
-            datas = 
-              link_edit: _.slash($('table').data('edit-customer')) + full.id
-
-            return @view('masterbox.admin.customers.actions', datas)
-        }
-      ]
-
-  ##
-  # Run
-  #
-  # The main entry of the controller.
-  # Your code start here
-  #
-  ##
-  run: ->
-
-    @delayed 'click', '.more-details', @displayMore
-
-  displayMore: (e) =>
-
-    e.preventDefault()
-
-    tr = $(e.currentTarget).closest('tr')
-    row = @table.row(tr)
-
-    if row.child.isShown()
-      row.child.hide()
-      tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o')
-    else
-      datas = row.data()
-      datas['edit_profile'] = $('table').data('edit-profile')
-
-      html = @view 'masterbox.admin.customers.more', datas
-
-      row.child(html).show()
-      tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o')
-
-  ###
-
 
 # Export
 module.exports = Index

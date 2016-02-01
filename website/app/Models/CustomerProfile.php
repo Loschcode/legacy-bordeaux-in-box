@@ -21,7 +21,7 @@ class CustomerProfile extends Model {
    *
    * @var array
    */
-	protected $appends = ['status_format'];
+	protected $appends = ['readable_status'];
 
 	/**
 	 * Create / Update
@@ -147,11 +147,44 @@ class CustomerProfile extends Model {
   /**
    * Scopes
    */
-  
+  /**
+   * Scope
+   */
+  public function scopeResearch($query, $search)
+  {
+
+    $search_words = explode(' ', $search);
+
+    $query->with(['customer', 'orders', 'payments']);
+
+    /**
+     * If it's an ID
+     */
+    if (intVal($search) !== 0)
+      return $query->where('id', $search);
+
+    foreach ($search_words as $word) {
+
+      $query->where(function ($query) use ($word) {
+        /*
+        $query->orWhere('first_name', 'like', '%' . $word . '%')
+        ->orWhere('last_name', 'like', '%' . $word . '%')
+        ->orWhere('email', 'like', '%' . $word . '%')
+        ->orWhere('phone', 'like', '%' . $word . '%');
+        */
+
+      });
+    }
+
+    return $query;
+
+  }
+
+
   /**
    * Accessors
    */
-  public function getStatusFormatAttribute()
+  public function getReadableStatusAttribute()
   {
   	return readable_profile_status($this->status);
   }

@@ -1,6 +1,5 @@
 @extends('masterbox.layouts.admin')
 
-
 @section('content')
   
   <div

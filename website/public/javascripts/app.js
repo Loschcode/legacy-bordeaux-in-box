@@ -239,7 +239,7 @@ Index = (function(superClass) {
       return tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
     } else {
       datas = row.data();
-      datas['edit_profile'] = $('table').data('edit-profile');
+      datas['focus_profile'] = $('table').data('focus-profile');
       html = this.view('masterbox.admin.customers.more', datas);
       row.child(html).show();
       return tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
@@ -255,6 +255,7 @@ module.exports = Index;
 
 ;require.register("controllers/masterbox/admin/profiles/index", function(exports, require, module) {
 var Config, Controller, Index,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -266,6 +267,7 @@ Index = (function(superClass) {
   extend(Index, superClass);
 
   function Index() {
+    this.displayMore = bind(this.displayMore, this);
     return Index.__super__.constructor.apply(this, arguments);
   }
 
@@ -274,6 +276,8 @@ Index = (function(superClass) {
       length: false,
       language: Config.datatable.language.fr,
       ajax: $('table').data('request'),
+      processing: true,
+      serverSide: true,
       order: [[1, 'asc']],
       columns: [
         {
@@ -286,18 +290,23 @@ Index = (function(superClass) {
         }, {
           data: "contract_id"
         }, {
-          data: "customer.full_name"
+          data: this.dataCustomer
         }, {
           data: this.dataCountOrdersNotSent
         }, {
           data: this.dataCountPaymentsDone
         }, {
-          data: "status_format"
+          data: "readable_status"
         }, {
           sortable: false,
           render: (function(_this) {
             return function(data, type, full, meta) {
-              return 'lol';
+              var datas;
+              datas = {
+                link_focus: _.slash($('table').data('focus-profile')) + full.id,
+                link_delete: _.slash($('table').data('delete-profile')) + full.id
+              };
+              return _this.view('masterbox.admin.profiles.actions', datas);
             };
           })(this)
         }
@@ -305,7 +314,31 @@ Index = (function(superClass) {
     });
   };
 
-  Index.prototype.run = function() {};
+  Index.prototype.run = function() {
+    return this.delayed('click', '.more-details', this.displayMore);
+  };
+
+  Index.prototype.displayMore = function(e) {
+    var datas, html, row, tr;
+    e.preventDefault();
+    tr = $(e.currentTarget).closest('tr');
+    row = this.table.row(tr);
+    if (row.child.isShown()) {
+      row.child.hide();
+      return tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+    } else {
+      datas = row.data();
+      html = this.view('masterbox.admin.profiles.more', datas);
+      row.child(html).show();
+      return tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+    }
+  };
+
+  Index.prototype.dataCustomer = function(row, type, val, meta) {
+    var link;
+    link = _.slash($('table').data('focus-customer')) + row.customer.id;
+    return '<a class="button button__link" href="' + link + '">' + row.customer.full_name + '</a>';
+  };
 
   Index.prototype.dataCountOrdersNotSent = function(row, type, val, meta) {
     var orders, orders_not_sent;
@@ -322,82 +355,6 @@ Index = (function(superClass) {
   Index.prototype.dataCountPaymentsDone = function(row, type, val, meta) {
     return row.payments.length;
   };
-
-
-  /*
-  ##
-   * Before
-   *
-   * Executed before the run action. You can use
-   * @stop() in this method to stop the execution
-   * of the controller
-   *
-  ##
-  before: ->
-  
-    ##
-     * Init datatable
-    ##
-    @table = $('table').DataTable
-      length: false
-      language: Config.datatable.language.fr
-      ajax: $('table').data('request')
-      processing: true
-      serverSide: true
-      order:
-        [[1, 'asc']]
-      columns: [
-        {
-          orderable: false
-          className: 'more-details'
-          data: null
-          defaultContent: '<a href="#" class="button button__table"><i class="fa fa-plus-square-o"></i></a>'
-        }
-        { data: "id" }
-        { data: "full_name" }
-        { data: "email" }
-        { data: "phone_format" }
-        {
-          sortable: false,
-          render: (data, type, full, meta) =>
-  
-            datas = 
-              link_edit: _.slash($('table').data('edit-customer')) + full.id
-  
-            return @view('masterbox.admin.customers.actions', datas)
-        }
-      ]
-  
-  ##
-   * Run
-   *
-   * The main entry of the controller.
-   * Your code start here
-   *
-  ##
-  run: ->
-  
-    @delayed 'click', '.more-details', @displayMore
-  
-  displayMore: (e) =>
-  
-    e.preventDefault()
-  
-    tr = $(e.currentTarget).closest('tr')
-    row = @table.row(tr)
-  
-    if row.child.isShown()
-      row.child.hide()
-      tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o')
-    else
-      datas = row.data()
-      datas['edit_profile'] = $('table').data('edit-profile')
-  
-      html = @view 'masterbox.admin.customers.more', datas
-  
-      row.child(html).show()
-      tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o')
-   */
 
   return Index;
 
@@ -1598,11 +1555,7 @@ var __templateData = function (__obj) {
     (function() {
       var i, len, profile, ref;
     
-      __out.push('<div class="tablechild">\n  <div class="row">\n    <div class="grid-6">\n      <h3 class="tablechild__title">A propos</h3>\n      <strong>Role:</strong> ');
-    
-      __out.push(this.role_format);
-    
-      __out.push('<br/>\n      <strong>Total Payé:</strong> ');
+      __out.push('<div class="tablechild">\n  <div class="row">\n    <div class="grid-6">\n      <h3 class="tablechild__title">A propos</h3>\n      <strong>Total Payé:</strong> ');
     
       __out.push(_.euro(this.turnover));
     
@@ -1628,7 +1581,7 @@ var __templateData = function (__obj) {
         for (i = 0, len = ref.length; i < len; i++) {
           profile = ref[i];
           __out.push('\n          <a class="tablechild__link" href="');
-          __out.push(_.slash(this.edit_profile) + profile.id);
+          __out.push(_.slash(this.focus_profile) + profile.id);
           __out.push('">Abonnement #');
           __out.push(__sanitize(profile.id));
           __out.push(' (');
@@ -1641,6 +1594,168 @@ var __templateData = function (__obj) {
       }
     
       __out.push('\n    </div>\n  </div>\n</div>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
+});
+
+;require.register("views/masterbox/admin/profiles/actions", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<a href="');
+    
+      __out.push(this.link_focus);
+    
+      __out.push('" class="button button__table"><i class="fa fa-eye"></i></a>\n<a href="');
+    
+      __out.push(this.link_delete);
+    
+      __out.push('" class="button button__table js-confirm-delete"><i class="fa fa-trash-o"></i></a>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
+});
+
+;require.register("views/masterbox/admin/profiles/more", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<div class="tablechild">\n  <div class="row">\n    <div class="grid-3">\n      <h3 class="tablechild__title">Abonnement</h3>\n      <strong>Date de création:</strong> ');
+    
+      __out.push(this.created_at);
+    
+      __out.push('<br/>\n    </div>\n    <div class="grid-6">\n      <h3 class="tablechild__title">Client</h3>\n      <strong>Total Payé:</strong> ');
+    
+      __out.push(_.euro(this.customer.turnover));
+    
+      __out.push('<br/>\n      <strong>Téléphone:</strong> \n      ');
+    
+      if (this.customer.phone_format.length > 0) {
+        __out.push('\n        ');
+        __out.push(this.customer.phone_format);
+        __out.push('\n      ');
+      } else {
+        __out.push('\n        N/A\n      ');
+      }
+    
+      __out.push('\n      <br/>\n      <strong>Email:</strong> ');
+    
+      __out.push(this.customer.email);
+    
+      __out.push('<br/>\n      <strong>Adresse:</strong> \n      ');
+    
+      if (this.customer.address.length > 0) {
+        __out.push('\n        ');
+        __out.push(this.customer.address);
+        __out.push(', ');
+        __out.push(this.customer.city);
+        __out.push(' (');
+        __out.push(this.customer.zip);
+        __out.push(')\n      ');
+      } else {
+        __out.push('\n        N/A\n      ');
+      }
+    
+      __out.push('\n    </div>\n</div>');
     
     }).call(this);
     
