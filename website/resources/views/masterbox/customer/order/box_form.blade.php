@@ -79,9 +79,13 @@
                 <div class="custombox__footer">
                   @if ($question->type !== 'radiobutton')
                     <button type="submit" class="custombox__button" href="#"><i class="fa fa-check"></i> Enregistrer</button>
+                    <!--
                     <a href="#" class="custombox__button --next js-skip"><i class="fa fa-arrow-circle-o-right"></i> Passer à la question suivante</a>
+                    -->
                   @else
+                  <!--
                    <a href="#" class="custombox__button --next js-skip"><i class="fa fa-arrow-circle-o-right"></i> Passer à la question suivante</a>
+                   -->
                     <div id="loader" class="custombox__loader"></div>
                   @endif
                 </div>

@@ -11,10 +11,21 @@ class OrderDestination extends Model {
 	 */
 	protected $table = 'order_destinations';
 
+  public function getAddressAttribute() { return $this->coordinate()->first()->address; }
+  public function getCityAttribute() { return $this->coordinate()->first()->city; }
+  public function getZipAttribute() { return $this->coordinate()->first()->zip; }
+
 	/**
 	 * Belongs To
 	 */
 	
+  public function coordinate()
+  {
+
+    return $this->belongsTo('App\Models\Coordinate', 'coordinate_id');
+
+  }
+  
 	public function order()
 	{
 

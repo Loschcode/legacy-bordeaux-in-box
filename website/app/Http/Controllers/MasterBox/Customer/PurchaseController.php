@@ -597,9 +597,8 @@ class PurchaseController extends BaseController {
           $order_billing->order()->associate($order);
           $order_billing->first_name = $customer->first_name;
           $order_billing->last_name = $customer->last_name;
-          $order_billing->city = $customer->city;
-          $order_billing->address = $customer->address;
-          $order_billing->zip = $customer->zip;
+          $order_billing->coordinate_id = Coordinate::getMatchingOrGenerate($customer->address, $customer->zip, $customer->city)->id;
+
           $order_billing->save();
 
           // We make the order destination
@@ -607,9 +606,8 @@ class PurchaseController extends BaseController {
           $order_destination->order()->associate($order);
           $order_destination->first_name = $order_building->destination_first_name;
           $order_destination->last_name = $order_building->destination_last_name;
-          $order_destination->city = $order_building->destination_city;
-          $order_destination->address = $order_building->destination_address;
-          $order_destination->zip = $order_building->destination_zip;
+          $order_destination->coordinate_id = Coordinate::getMatchingOrGenerate($order_building->destination_address, $order_building->destination_zip, $order_building->destination_city)->id;
+          
           $order_destination->save();
 
           /**

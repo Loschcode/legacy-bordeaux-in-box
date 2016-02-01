@@ -48,7 +48,7 @@ class ProfileController extends BaseController {
     	$profiles = $customer->profiles()->orderBy('created_at', 'desc')->get();
 
     	// We get the destination (the last editable order destination)
-    	$unlocked_orders = Order::where('customer_id', $customer->id)->where('locked', FALSE)->get();
+    	$unlocked_orders = Order::where('customer_id', $customer->id)->where('locked', FALSE)->orderBy('created_at', 'desc')->get();
 
     	$destination = NULL;
     	$spot = NULL;
@@ -57,10 +57,14 @@ class ProfileController extends BaseController {
     	// To try to get the destination and spot if it exists
     	foreach ($unlocked_orders as $unlocked_order) {
 
-    		if ($destination == NULL) $destination = $unlocked_order->destination()->first();
-    		if ($spot == NULL) $spot = $unlocked_order->delivery_spot()->first();
+    		if (($destination === NULL) && (!$unlocked_order->gift))
+          $destination = $unlocked_order->destination()->first();
+
+    		if ($spot === NULL)
+          $spot = $unlocked_order->delivery_spot()->first();
 
     	}
+
 
     	if ($spot == NULL) $delivery_spots = [];
     	else $delivery_spots = DeliverySpot::where('active', TRUE)->orWhere('id', $spot->id)->get();
@@ -355,9 +359,7 @@ class ProfileController extends BaseController {
 
                   $billing->first_name = $customer->first_name;
                   $billing->last_name = $customer->last_name;
-                  $billing->zip = $customer->zip;
-                  $billing->city = $customer->city;
-                  $billing->address = $customer->address;
+                  $billing->coordinate_id = Coordinate::getMatchingOrGenerate($customer->address, $customer->zip, $customer->city)->id;
 
                   // We save everything
                   $billing->save();
@@ -444,9 +446,8 @@ class ProfileController extends BaseController {
 
                   $destination->first_name = $fields['destination_first_name'];
                   $destination->last_name = $fields['destination_last_name'];
-                  $destination->zip = $fields['destination_zip'];
-                  $destination->city = $fields['destination_city'];
-                  $destination->address = $fields['destination_address'];
+                  $destination->coordinate_id = Coordinate::getMatchingOrGenerate($fields['destination_address'], $fields['destination_zip'], $fields['destination_city'])->id;
+
 
                   // We save everything
                   $destination->save();

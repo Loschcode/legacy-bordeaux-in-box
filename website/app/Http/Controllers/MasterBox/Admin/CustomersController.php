@@ -128,9 +128,7 @@ class CustomersController extends BaseController {
 
                 $billing->first_name = $customer->first_name;
                 $billing->last_name = $customer->last_name;
-                $billing->zip = $customer->zip;
-                $billing->city = $customer->city;
-                $billing->address = $customer->address;
+                $billing->coordinate_id = Coordinate::getMatchingOrGenerate($customer->address, $customer->zip, $customer->city)->id;
 
 								// We save everything
                 $billing->save();

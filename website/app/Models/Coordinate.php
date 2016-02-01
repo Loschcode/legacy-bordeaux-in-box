@@ -24,9 +24,9 @@ class Coordinate extends Model {
     static::creating(function($coordinate)
     {
 
-      $coordinate->address = trim(ucfirst($coordinate->address));
-      $coordinate->zip = trim(ucfirst($coordinate->zip));
-      $coordinate->city = trim(ucfirst($coordinate->city));
+      $coordinate->address = trim(strtolower(ucfirst($coordinate->address)));
+      $coordinate->zip = trim(strtolower(ucfirst($coordinate->zip)));
+      $coordinate->city = trim(strtolower(ucfirst($coordinate->city)));
 
       $callback = GoogleGeocoding::getCoordinates($coordinate->address, $coordinate->city, $coordinate->zip);
 
@@ -52,9 +52,9 @@ class Coordinate extends Model {
     static::updating(function($coordinate)
     {
 
-      $coordinate->address = trim(ucfirst($coordinate->address));
-      $coordinate->zip = trim(ucfirst($coordinate->zip));
-      $coordinate->city = trim(ucfirst($coordinate->city));
+      $coordinate->address = trim(strtolower(ucfirst($coordinate->address)));
+      $coordinate->zip = trim(strtolower(ucfirst($coordinate->zip)));
+      $coordinate->city = trim(strtolower(ucfirst($coordinate->city)));
 
       $callback = GoogleGeocoding::getCoordinates($coordinate->address, $coordinate->city, $coordinate->zip);
 

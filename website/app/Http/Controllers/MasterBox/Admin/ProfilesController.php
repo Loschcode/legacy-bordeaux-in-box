@@ -386,9 +386,7 @@ class ProfilesController extends BaseController {
         $order_destination->order_id = $order->id;
         $order_destination->first_name = $order_billing->first_name;
         $order_destination->last_name = $order_billing->last_name;
-        $order_destination->city = $order_billing->city;
-        $order_destination->zip = $order_billing->zip;
-        $order_destination->address = $order_billing->address;
+        $order_destination->coordinate_id = Coordinate::getMatchingOrGenerate($order_billing->address, $order_billing->zip, $order_billing->city)->id;
 
         $order_destination->save();
 
@@ -434,9 +432,7 @@ class ProfilesController extends BaseController {
 				// We refresh the destination informations
 				$order_destination->first_name = $fields['destination_first_name'];
 				$order_destination->last_name = $fields['destination_last_name'];
-				$order_destination->city = $fields['destination_city'];
-				$order_destination->zip = $fields['destination_zip'];
-				$order_destination->address = $fields['destination_address'];
+        $order_destination->coordinate_id = Coordinate::getMatchingOrGenerate($fields['destination_address'], $fields['destination_zip'], $fields['destination_city'])->id;
 
 				$order_destination->save();
 

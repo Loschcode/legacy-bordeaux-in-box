@@ -126,10 +126,9 @@ function generate_new_order($customer, $profile) {
   $order_billing->order()->associate($order);
   $order_billing->first_name = $customer->first_name;
   $order_billing->last_name = $customer->last_name;
-  $order_billing->city = $customer->city;
-  $order_billing->address = $customer->address;
-  $order_billing->zip = $customer->zip;
+  $order_billing->coordinate_id = \App\Models\Coordinate::getMatchingOrGenerate($customer->address, $customer->zip, $customer->city)->id;
   $order_billing->save();
+
 
   $last_order_destination = $last_order->destination()->first();
 
@@ -140,9 +139,7 @@ function generate_new_order($customer, $profile) {
     $order_destination->order()->associate($order);
     $order_destination->first_name = $last_order_destination->first_name;
     $order_destination->last_name = $last_order_destination->last_name;
-    $order_destination->city = $last_order_destination->city;
-    $order_destination->address = $last_order_destination->address;
-    $order_destination->zip = $last_order_destination->zip;
+    $order_destination->coordinate_id = \App\Models\Coordinate::getMatchingOrGenerate($last_order_destination->address, $last_order_destination->zip, $last_order_destination->city)->id;
     $order_destination->save();
 
   }
