@@ -4,6 +4,7 @@
 <div 
 id="gotham"
 data-form-errors="{{ $errors->has() }}"
+data-error-message="{{ session()->get('error') }}"
 ></div>
 
 <div class="+spacer-small"></div>

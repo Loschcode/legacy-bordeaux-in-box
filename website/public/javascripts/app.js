@@ -1206,11 +1206,29 @@ _.mixin({
       return;
     }
     return swal({
-      title: 'Bravo !',
+      title: 'Succès',
       text: successMessage,
       type: 'success',
       confirmButtonColor: '#A5DC86',
       html: true
+    });
+  }
+});
+
+_.mixin({
+  notificationErrorMessage: function() {
+    var errorMessage;
+    errorMessage = _.trim($('#gotham').data('error-message'));
+    if (_.isEmpty(errorMessage)) {
+      return;
+    }
+    return swal({
+      title: 'Erreur',
+      text: errorMessage,
+      type: 'error',
+      confirmButtonColor: '#D83F66',
+      html: true,
+      timer: 4000
     });
   }
 });
@@ -1430,6 +1448,8 @@ $('input, textarea').placeholder();
 _.notificationFormErrors();
 
 _.notificationSuccessMessage();
+
+_.notificationErrorMessage();
 
 $('.js-chosen').chosen({
   disable_search_threshold: 30

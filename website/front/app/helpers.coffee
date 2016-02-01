@@ -55,9 +55,6 @@ _.mixin profileStatus: (status) ->
     when 'subscribed' then 'Abonné'
     else status
 
-
-
-
 ##
 # If laravel returned a form error, it displays a sweet alert
 ##
@@ -107,8 +104,27 @@ _.mixin notificationSuccessMessage: ->
     return
 
   swal
-    title: 'Bravo !'
+    title: 'Succès'
     text: successMessage
     type: 'success'
     confirmButtonColor: '#A5DC86'
     html: true
+
+##
+# If laravel returned an error message, it displays a sweet alert
+##
+_.mixin notificationErrorMessage: ->
+
+  errorMessage = _.trim($('#gotham').data('error-message'))
+
+  if _.isEmpty(errorMessage)
+    return
+
+  swal
+    title: 'Erreur'
+    text: errorMessage
+    type: 'error'
+    confirmButtonColor: '#D83F66'
+    html: true
+    timer: 4000
+

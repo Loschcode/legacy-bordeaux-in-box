@@ -20,7 +20,7 @@ Config = require 'config'
 $('input, textarea').placeholder()
 
 ##
-# Notify errors from froms validated by Laravel
+# Notify errors from forms validated by Laravel
 ##
 _.notificationFormErrors()
 
@@ -28,6 +28,12 @@ _.notificationFormErrors()
 # Notify success message returned by Laravel
 ##
 _.notificationSuccessMessage()
+
+##
+# Notify error message returned by Laravel
+##
+_.notificationErrorMessage()
+
 
 ##
 # Chosen select form

@@ -126,6 +126,8 @@ class CustomerController extends BaseController {
    */
   public function getLogin()
   {
+    session()->flash('error', 'opregerth ferzgzr');
+
     return view('masterbox.connect.customer.login');
   }
 
