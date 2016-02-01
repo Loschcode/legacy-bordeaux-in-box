@@ -75,7 +75,20 @@ class DeliverySpot extends Model {
 	/**
 	 * Methods
 	 */
+  
+  public function getDistanceFromCustomer($customer) {
+
+    $customer_coordinate = $customer->coordinate()->first();
+    return $this->coordinate()->first()->getDistanceFrom($customer_coordinate);
+
+  }
 	
+  public function getDistanceFromCoordinate($coordinate) {
+
+    return $this->coordinate()->first()->getDistanceFrom($coordinate);
+
+  }
+
 	/**
 	 * Get the orders linked with this spot for a specific series
 	 * @param  object $series
@@ -100,16 +113,10 @@ class DeliverySpot extends Model {
 
 	}
 
-  /**
-   * Fetch the google map url of the spot
-   * @return string
-   */
-  public function getUrlGoogleMap()
+  public function getFullAddress()
   {
 
-    $address = str_slug($this->address . ' ' . $this->city . ' ' . $this->zip, "+");
-
-    return 'https://www.google.com/maps/place/' . $address;
+    return $this->address . ', ' . $this->city . ' ' . $this->zip;
 
   }
 

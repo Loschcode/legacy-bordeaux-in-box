@@ -47,6 +47,17 @@ class Coordinate extends Model {
 
   }*/
 
+  public function getDistanceFrom($to_coordinate) {
+
+    $latitude_from = $this->latitude;
+    $longitude_from = $this->longitude;
+    $latitude_to = $to_coordinate->latitude;
+    $longitude_to = $to_coordinate->longitude;
+
+    return calculate_distance($latitude_from, $longitude_from, $latitude_to, $longitude_to);
+
+  }
+
   public function changeFromGeocoding()
   {
 

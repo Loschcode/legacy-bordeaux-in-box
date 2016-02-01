@@ -1,8 +1,40 @@
 <?php
 
+function gmap_link($from, $to) {
+
+  $from_url = urlencode($from);
+  $to_url = urlencode($to);
+
+  return "https://www.google.com/maps/dir/$from_url/$to_url";
+  
+}
+
 function euros($number) {
 
   return number_format($number, 2, ',', ' ') . ' €';
+
+}
+
+function display_distance($in_meters) {
+
+  if ($in_meters > 1000) {
+
+    $in_kilometers = $in_meters / 1000;
+    return number_format($in_kilometers, 2, ',', ' ') . ' Km';
+
+  } elseif ($in_meters <= 0) {
+
+    return 'Inconnu';
+
+  } elseif ($in_meters < 10) {
+
+    return '< 10 m';
+
+  } else {
+
+    return number_format($in_meters, 0, ',', ' ') . ' m';
+
+  }
 
 }
 

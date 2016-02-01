@@ -240,9 +240,7 @@ class PurchaseController extends BaseController {
       // We refresh the destination informations
       $order_building->destination_first_name = $fields['destination_first_name'];
       $order_building->destination_last_name = $fields['destination_last_name'];
-      $order_building->destination_city = $fields['destination_city'];
-      $order_building->destination_zip = $fields['destination_zip'];
-      $order_building->destination_address = $fields['destination_address'];
+      $order_building->destination_coordinate_id = Coordinate::getMatchingOrGenerate($fields['destination_address'], $fields['destination_zip'], $fields['destination_city'])->id;
 
       // Let's go to the next step
       $order_building->step = 'delivery-mode';
@@ -378,8 +376,12 @@ class PurchaseController extends BaseController {
     $delivery_spots = DeliverySpot::where('active', TRUE)->get();
 
     return view('masterbox.customer.order.choose_spot')->with(compact(
+
       'chosen_delivery_spot',
-      'delivery_spots'
+      'delivery_spots',
+      'order_building',
+      'order_preference'
+
     ));
 
   }
