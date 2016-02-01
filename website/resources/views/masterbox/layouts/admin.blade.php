@@ -102,6 +102,8 @@
 		</div>
 
 		@yield('content')
+
+		<div class="+spacer"></div>
 	</div>
 
 </body>	

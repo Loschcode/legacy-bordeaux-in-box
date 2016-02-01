@@ -1,5 +1,77 @@
 @extends('masterbox.layouts.admin')
 
+@section('navbar')
+  @include('masterbox.admin.partials.navbar_customers_focus')
+@stop
+
+@section('content')
+
+<div 
+  id="gotham"
+  data-form-errors="{{ $errors->has() }}"
+  data-success-message="{{ session()->get('message') }}"
+>
+
+<div class="row">
+  <div class="grid-8">
+    <h1 class="title title__section">Client</h1>
+    <h2 class="title title__subsection">{{ $customer->getFullName() }}</h2>
+  </div>
+  <div class="grid-4">
+    <div class="+text-right">
+      <a href="{{ action('MasterBox\Admin\CustomersController@getIndex') }}" class="button button__section"><i class="fa fa-list"></i> Voir les clients</a>
+    </div>
+  </div>
+</div>
+
+<div class="divider divider__section"></div>
+
+<div class="form">
+  {!! Form::open(array('action' => 'MasterBox\Admin\CustomersController@postEdit', 'class' => 'form-inline')) !!}
+  
+  {!! Form::hidden('customer_id', $customer->id) !!}
+
+  {!! Form::label("email", "Email", ['class' => 'form__label']) !!}
+  {!! Form::text("email", ($customer->email) ? $customer->email : Request::old("email"), ['class' => 'form__input']) !!}
+  {!! Html::checkError('email', $errors) !!}
+
+  {!! Form::label("phone", "Téléphone", ['class' => 'form__label']) !!}
+  {!! Form::text("phone", ($customer->phone) ? $customer->phone : Request::old("phone"), ['class' => 'form__input']) !!}
+  {!! Html::checkError('phone', $errors) !!}
+
+  {!! Form::label("password", "Mot de passe", ['class' => 'form__label']) !!}
+  {!! Form::text('password', '', ['class' => 'form__input']) !!}
+  {!! Html::checkError('password', $errors) !!}
+
+  {!! Form::label("first_name", "Prénom", ['class' => 'form__label']) !!}
+  {!! Form::text("first_name", ($customer->first_name) ? $customer->first_name : Request::old("first_name"), ['class' => 'form__input']) !!}
+  {!! Html::checkError('first_name', $errors) !!}
+
+  {!! Form::label("last_name", "Nom", ['class' => 'form__label']) !!}
+  {!! Form::text("last_name", ($customer->last_name) ? $customer->last_name : Request::old("last_name"), ['class' => 'form__input']) !!}
+  {!! Html::checkError('last_name', $errors) !!}
+
+  {!! Form::label("city", "Ville", ['class' => 'form__label']) !!}
+  {!! Form::text("city", ($customer->city) ? $customer->city : Request::old("city"), ['class' => 'form__input']) !!}
+  {!! Html::checkError('city', $errors) !!}
+
+  {!! Form::label("zip", "Code postal", ['class' => 'form__label']) !!}
+  {!! Form::text("zip", ($customer->zip) ? $customer->zip : Request::old("zip"), ['class' => 'form__input']) !!}
+  {!! Html::checkError('zip', $errors) !!}
+
+  {!! Form::label("address", "Adresse", ['class' => 'form__label']) !!}
+  {!! Form::textarea("address", ($customer->address) ? $customer->address : Request::old("address"), ['class' => 'form__input']) !!}
+  {!! Html::checkError('address', $errors) !!}
+
+  {!! Form::submit("Editer l'article", ['class' => 'button button__submit']) !!}
+  {!! Form::close() !!}
+</div>
+
+@stop
+
+<?php /*
+@extends('masterbox.layouts.admin')
+
 @section('page')
   <i class="fa fa-user"></i> Edition Client #{{ $customer->id }}
 @stop
@@ -33,7 +105,7 @@
   <div class="w80">
     <!-- Email -->
     <div class="form-group @if ($errors->first('email')) has-error has-feedback @endif">
-      {!! Form::label("email", "Email", ['class' => 'control-label']) !!}
+      {!! Form::label("email", "Email", ['class' => 'form__label']) !!}
       {!! Form::text("email", ($customer->email) ? $customer->email : Request::old("email"), ['class' => 'form-control']) !!}
 
       @if ($errors->first('email'))
@@ -130,3 +202,4 @@
   {!! Form::close() !!}
 
 @stop
+*/ ?>

@@ -1,6 +1,7 @@
 @extends('masterbox.layouts.admin')
 
 @section('navbar')
+  @include('masterbox.admin.partials.navbar_customers_focus')
 @stop
 
 @section('content')
