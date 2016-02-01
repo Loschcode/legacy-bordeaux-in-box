@@ -1,14 +1,14 @@
 @extends('masterbox.layouts.master')
 
+@section('gotham')
+  {!! Html::gotham([
+    'controller' => 'masterbox.customer.purchase.delivery-mode',
+    'form-errors-text' => 'Tu dois choisir la méthode de livraison que tu préfères'
+  ]) !!}
+@stop
+
 @section('content')
   
-  <div 
-    id="gotham"
-    data-controller="masterbox.customer.purchase.delivery-mode"
-    data-form-errors="{{ $errors->has() }}"
-    data-form-errors-text="Tu dois choisir la méthode de livraison que tu préfères"
-  ></div>
-
   <div class="container">
     
     {{-- Pipeline --}}

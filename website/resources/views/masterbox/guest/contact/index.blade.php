@@ -1,13 +1,6 @@
 @extends('masterbox.layouts.master')
+
 @section('content')
-
-<div 
-id="gotham"
-data-form-errors="{{ $errors->has() }}"
-data-success-message="{{ session()->get('message') }}"
-></div>
-
-
 
 <div class="container">
   <div class="grid-8 grid-centered">

@@ -1,11 +1,11 @@
 @extends('masterbox.layouts.master')
 @section('content')
 
-<div 
-  id="gotham"
-  data-form-errors="{{ $errors->has() }}"
-  data-success-message="@if (session()->has('status')) {{ session()->get('status') }} @endif"
-></div>
+@section('gotham')
+  {!! Html::gotham([
+    'success-message' => session()->get('status')
+  ]) !!}
+@stop
 
 <div class="+spacer-small"></div>
 

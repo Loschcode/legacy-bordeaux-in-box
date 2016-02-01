@@ -1,11 +1,12 @@
 @extends('masterbox.layouts.master')
 
+@section('gotham')
+  {!! Html::gotham([
+    'controller' => 'masterbox.customer.purchase.box-form'
+  ]) !!}
+@stop
+
 @section('content')
-  
-  <div 
-    id="gotham"
-    data-controller="masterbox.customer.purchase.box-form"
-  ></div>
 
   <div class="container">
     

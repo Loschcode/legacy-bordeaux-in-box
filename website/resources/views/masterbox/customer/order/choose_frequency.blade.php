@@ -1,13 +1,13 @@
 @extends('masterbox.layouts.master')
 
-@section('content')
+@section('gotham')
+  {!! Html::gotham([
+    'controller' => 'masterbox.customer.purchase.choose-frequency',
+    'form-errors-text' => 'Tu dois choisir l\'offre que tu souhaites'
+  ]) !!}
+@stop
 
-<div 
-  id="gotham"
-  data-controller="masterbox.customer.purchase.choose-frequency"
-  data-form-errors="{{ $errors->has() }}"
-  data-form-errors-text="Tu dois choisir l'offre que tu souhaites"
-></div>
+@section('content')
 
 <div class="container">
   

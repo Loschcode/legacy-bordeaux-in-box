@@ -1,13 +1,13 @@
 @extends('masterbox.layouts.master')
 
+@section('gotham')
+  {!! Html::gotham([
+    'controller' => 'masterbox.customer.purchase.billing-address'
+  ]) !!}
+@stop
+
 @section('content')
   
-  <div 
-    id="gotham"
-    data-controller="masterbox.customer.purchase.billing-address"
-    data-form-errors="{{ $errors->has() }}"
-  ></div>
-
   <div class="container">
     
     {{-- Pipeline --}}

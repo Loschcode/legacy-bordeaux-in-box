@@ -1,3 +1,4 @@
+<?php /*
 @section('content')
 	
 	<div class="container illus">
@@ -49,3 +50,4 @@
 		{!! View::make('masterbox.partials.front.footer') !!}
 	@endif
 @stop
+*/ ?>

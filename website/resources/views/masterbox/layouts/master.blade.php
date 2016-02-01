@@ -31,13 +31,11 @@
 
   @endif
   
-  {{-- Display the stripe checkout heren if needed --}}
-  @section('stripe-checkout')
-  @show
+  {{-- Display the javascript stripe checkout here, if needed --}}
+  @yield('stripe-checkout')
   
-  {{-- Display the stripe library here, if needed --}}
-  @section('stripe')
-  @show
+  {{-- Display the javascript stripe library here, if needed --}}
+  @yield('stripe')
 
   <script src="{{ url('javascripts/vendor.js') }}"></script>
   <script src="{{ url('javascripts/app.js') }}"></script>
@@ -46,6 +44,11 @@
 </head>
 
 <body id="csstyle" data-environment="{{ app()->environment() }}">
+  
+  @section('gotham')
+    {!! Html::gotham() !!}
+  @show
+
   <div id="page-wrapper">
 
     <div class="header">

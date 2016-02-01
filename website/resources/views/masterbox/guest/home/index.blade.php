@@ -1,13 +1,14 @@
 @extends('masterbox.layouts.master')
-@section('content')
 
-<div
-	id="gotham"
-	data-controller="masterbox.guest.home.index"
-	data-no-boxes-title="Désolé"
-	data-no-boxes-text="Il ne reste plus aucune box pour ce mois ci !"
-	data-success-message="{{ session()->get('status') }}"
-></div>
+@section('gotham')
+	{!! Html::gotham([
+		'controller' => 'masterbox.guest.home.index',
+		'no-boxes-title' => 'Désolé',
+		'no-boxes-text' => 'Il ne reste plus aucune box pour ce mois ci !',
+	]) !!}
+@stop
+
+@section('content')
 
 
 <div class="artwork artwork__container">

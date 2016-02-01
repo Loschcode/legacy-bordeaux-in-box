@@ -1,3 +1,4 @@
+<?php /*
 @extends('masterbox.layouts.master')
 @section('content')
   
@@ -45,3 +46,4 @@
   {!! View::make('masterbox.partials.front.footer') !!}
 
 @stop
+*/ ?>

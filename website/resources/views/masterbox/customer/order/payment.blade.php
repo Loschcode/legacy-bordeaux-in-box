@@ -1,14 +1,16 @@
 @extends('masterbox.layouts.master')
 
-@section('content')
+@section('gotham')
+  {!! Html::gotham([
+    'controller' => 'masterbox.customer.purchase.payment',
+    'form-errors' => $errors->first('stripeToken'),
+    'customer-email' => $customer->email,
+    'amount' => $order_preference->totalPricePerMonthInCents()
 
-  <div 
-    id="gotham"
-    data-controller="masterbox.customer.purchase.payment"
-    data-form-errors="{{ $errors->first('stripeToken')}}"
-    data-customer-email="{{ $customer->email }}"
-    data-amount="{{ $order_preference->totalPricePerMonthInCents() }}"
-  ></div>
+  ]) !!}
+@stop
+
+@section('content')
 
   {{-- Form to submit payment --}}
   {!! Form::open(['id' => 'payment-form', 'data-price' => $order_preference->totalPricePerMonthInCents()]) !!}
