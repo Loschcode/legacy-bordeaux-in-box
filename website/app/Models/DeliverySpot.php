@@ -113,16 +113,10 @@ class DeliverySpot extends Model {
 
 	}
 
-  /**
-   * Fetch the google map url of the spot
-   * @return string
-   */
-  public function getUrlGoogleMap()
+  public function getFullAddress()
   {
 
-    $address = str_slug($this->address . ' ' . $this->city . ' ' . $this->zip, "+");
-
-    return 'https://www.google.com/maps/place/' . $address;
+    return $this->address . ', ' . $this->city . ' ' . $this->zip;
 
   }
 

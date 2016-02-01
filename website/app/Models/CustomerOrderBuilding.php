@@ -86,6 +86,13 @@ class CustomerOrderBuilding extends Model {
 
 	}
 
+  public function getFullDestinationAddress()
+  {
+
+    return $this->destination_address . ', ' . $this->destination_city . ' ' . $this->destination_zip;
+
+  }
+
   /**
    * Scope
    */

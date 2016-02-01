@@ -32,13 +32,13 @@
     
     @foreach ($delivery_spots as $delivery_spot)
 
-      DISTANCE {{ in_kilometers($delivery_spot->getDistanceFromCoordinate($order_building->destination_coordinate()->first())) }}
+      DISTANCE {{ display_distance($delivery_spot->getDistanceFromCoordinate($order_building->destination_coordinate()->first())) }}
 
       {!! Form::radio('chosen_spot', $delivery_spot->id, ($chosen_delivery_spot == $delivery_spot->id) ? true : Request::old($delivery_spot->id), ['id' => $delivery_spot->id, 'data-labelauty' => Html::getTextCheckboxSpot($delivery_spot)]) !!}
  
       <div class="+spacer-extra-small"></div>
 
-      <a id="gmap-{{ $delivery_spot->id }}" href="{{ $delivery_spot->getUrlGoogleMap() }}" target="_blank" class="button button__google-map +hidden">Voir sur Google map</a>
+      <a id="gmap-{{ $delivery_spot->id }}" href="{{ gmap_link($order_building->getFullDestinationAddress(), $delivery_spot->getFullAddress()) }}" target="_blank" class="button button__google-map +hidden">Voir sur Google map</a>
 
     @endforeach
 
