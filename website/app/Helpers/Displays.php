@@ -6,6 +6,13 @@ function euros($number) {
 
 }
 
+function in_kilometers($in_meters) {
+
+  $in_kilometers = $in_meters / 1000;
+  return number_format($in_kilometers, 2, ',', ' ') . ' Km';
+
+}
+
 function order_spot_or_destination_zip($order) {
 
   if ($order->take_away == TRUE) {

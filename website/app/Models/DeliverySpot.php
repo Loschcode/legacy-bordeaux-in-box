@@ -75,6 +75,13 @@ class DeliverySpot extends Model {
 	/**
 	 * Methods
 	 */
+  
+  public function getDistanceFromCustomer($customer) {
+
+    $customer_coordinate = $customer->coordinate()->first();
+    return $this->coordinate()->first()->getDistanceFrom($customer_coordinate);
+
+  }
 	
 	/**
 	 * Get the orders linked with this spot for a specific series
