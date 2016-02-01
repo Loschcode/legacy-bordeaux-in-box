@@ -10,7 +10,7 @@ class OrderDestination extends Model {
 	 * @var string
 	 */
 	protected $table = 'order_destinations';
-
+  
   public function getAddressAttribute() { return $this->coordinate()->first()->address; }
   public function getCityAttribute() { return $this->coordinate()->first()->city; }
   public function getZipAttribute() { return $this->coordinate()->first()->zip; }

@@ -10,7 +10,7 @@ class CompanyBilling extends Model {
    * @var string
    */
   protected $table = 'company_billings';
-
+  
   public function getAddressAttribute() { return $this->coordinate()->first()->address; }
   public function getCityAttribute() { return $this->coordinate()->first()->city; }
   public function getZipAttribute() { return $this->coordinate()->first()->zip; }
