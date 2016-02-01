@@ -11,6 +11,11 @@ class DeliveryPrice extends Model {
 	 */
 	protected $table = 'delivery_prices';
 
+  protected $casts = [
+      
+      'gift' => 'boolean',
+  ];
+
 	/**
 	 * Guess if we need to focus that offer
 	 * - For a gift, we focus the middle offer

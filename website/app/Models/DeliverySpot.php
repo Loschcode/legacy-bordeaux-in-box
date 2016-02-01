@@ -12,6 +12,11 @@ class DeliverySpot extends Model {
 	 */
 	protected $table = 'delivery_spots';
 
+  protected $casts = [
+      
+      'active' => 'boolean',
+  ];
+
   public function getAddressAttribute() { return $this->coordinate()->first()->address; }
   public function getCityAttribute() { return $this->coordinate()->first()->city; }
   public function getZipAttribute() { return $this->coordinate()->first()->zip; }

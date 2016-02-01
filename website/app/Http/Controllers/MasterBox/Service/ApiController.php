@@ -167,7 +167,7 @@ class ApiController extends BaseController {
   {
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->onlyPaid()->first();
+    $order_building = $customer->order_building()->getLastPaid();
     $profile = $order_building->profile()->first();
 
     $inputs = request()->all();

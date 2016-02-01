@@ -11,6 +11,12 @@ class CustomerOrderPreference extends Model {
 	 */
 	protected $table = 'customer_order_preferences';
 
+  protected $casts = [
+      
+      'take_away' => 'boolean',
+      'gift' => 'boolean',
+  ];
+
 	/**
 	 * Belongs To
 	 */
