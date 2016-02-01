@@ -431,7 +431,7 @@ class ProfileController extends BaseController {
               foreach ($profile_orders as $profile_order) {
                 
                 // Not a take away, it means we will update the destination
-                if ($profile_order->take_away === FALSE) {
+                if ($profile_order->take_away == FALSE) {
 
                   $destination = $profile_order->destination()->first();
 
