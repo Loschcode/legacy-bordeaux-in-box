@@ -1,0 +1,8 @@
+<div class="tablechild">
+  <h3 class="tablechild__title">Stripe</h3>
+  <strong>Customer:</strong> <%- @stripe_customer %><br/>
+  <strong>Event:</strong> <%- @stripe_event %><br/>
+  <strong>Charge:</strong> <%- @stripe_charge %><br/>
+  <strong>Card:</strong> <%- @stripe_card %><br/>
+</div>
+

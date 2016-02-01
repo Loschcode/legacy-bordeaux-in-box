@@ -364,6 +364,64 @@ Index = (function(superClass) {
 module.exports = Index;
 });
 
+;require.register("controllers/masterbox/admin/profiles/payments", function(exports, require, module) {
+var Config, Controller, Payments,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Config = require('config');
+
+Payments = (function(superClass) {
+  extend(Payments, superClass);
+
+  function Payments() {
+    this.displayMore = bind(this.displayMore, this);
+    return Payments.__super__.constructor.apply(this, arguments);
+  }
+
+  Payments.prototype.before = function() {
+    return this.table = $('table').DataTable({
+      length: false,
+      language: Config.datatable.language.fr,
+      order: [[1, 'asc']]
+    });
+  };
+
+  Payments.prototype.run = function() {
+    return this.delayed('click', '.js-more', this.displayMore);
+  };
+
+  Payments.prototype.displayMore = function(e) {
+    var datas, html, row, tr;
+    e.preventDefault();
+    tr = $(e.currentTarget).closest('tr');
+    row = this.table.row(tr);
+    if (row.child.isShown()) {
+      row.child.hide();
+      return tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+    } else {
+      datas = {
+        stripe_customer: tr.data('stripe-customer'),
+        stripe_event: tr.data('stripe-event'),
+        stripe_charge: tr.data('stripe-charge'),
+        stripe_card: tr.data('stripe-card')
+      };
+      html = this.view('masterbox.admin.profiles.payments.more', datas);
+      row.child(html).show();
+      return tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+    }
+  };
+
+  return Payments;
+
+})(Controller);
+
+module.exports = Payments;
+});
+
 ;require.register("controllers/masterbox/customer/profile/index", function(exports, require, module) {
 var Controller, Index,
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
@@ -1761,6 +1819,81 @@ var __templateData = function (__obj) {
       }
     
       __out.push('\n    </div>\n</div>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
+});
+
+;require.register("views/masterbox/admin/profiles/payments/more", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<div class="tablechild">\n  <h3 class="tablechild__title">Stripe</h3>\n  <strong>Customer:</strong> ');
+    
+      __out.push(this.stripe_customer);
+    
+      __out.push('<br/>\n  <strong>Event:</strong> ');
+    
+      __out.push(this.stripe_event);
+    
+      __out.push('<br/>\n  <strong>Charge:</strong> ');
+    
+      __out.push(this.stripe_charge);
+    
+      __out.push('<br/>\n  <strong>Card:</strong> ');
+    
+      __out.push(this.stripe_card);
+    
+      __out.push('<br/>\n</div>\n\n');
     
     }).call(this);
     

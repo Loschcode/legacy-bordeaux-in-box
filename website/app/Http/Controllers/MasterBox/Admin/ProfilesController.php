@@ -177,9 +177,11 @@ class ProfilesController extends BaseController {
   public function getPayments($id)
   {
     $profile = CustomerProfile::findOrFail($id);
+    $payments = $profile->payments()->get();
 
     return view('masterbox.admin.profiles.payments')->with(compact(
-      'profile'
+      'profile',
+      'payments'
     ));
   }
 
