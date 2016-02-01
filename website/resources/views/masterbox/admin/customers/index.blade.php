@@ -22,7 +22,8 @@
 {{-- Table rendered by ajax --}}
 <table 
 	data-request="{{ action('MasterBox\Service\ApiController@getCustomers') }}"
-	data-edit-customer="{{ action('MasterBox\Admin\CustomersController@getFocus') }}"
+	data-edit-customer="{{ action('MasterBox\Admin\CustomersController@getEdit') }}"
+  data-focus-customer="{{ action('MasterBox\Admin\CustomersController@getFocus') }}"
 	data-focus-profile="{{ action('MasterBox\Admin\ProfilesController@getFocus') }}"
 >
   <thead>
