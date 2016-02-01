@@ -42,9 +42,10 @@ data-form-errors="{{ $errors->has() }}"
       <button type="submit" class="button button__submit --panel">Me connecter</button>
     </div>
     {!! Form::close() !!}
+    
+    <div class="divider divider__or">OU</div>
 
-
-        {{ HTML::linkAction("MasterBox\Connect\CustomerController@getLoginWithFacebook", "Se connecter via Facebook", null, ['class' => 'btn btn-bg btn-facebook']) }}
+    <a class="button button__facebook" href="{{ action('MasterBox\Connect\CustomerController@getLoginWithFacebook') }}"><i class="fa fa-facebook-official"></i> Se connecter via Facebook</a>
         
         <!--
         {{ HTML::linkAction("MasterBox\Connect\CustomerController@getLoginWithGoogle", "Se connecter via Google", null, ['class' => 'btn btn-bg btn-google']) }}

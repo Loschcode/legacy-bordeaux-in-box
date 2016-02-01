@@ -1,0 +1,29 @@
++component(divider)
+
+  +part('or')
+    display: table
+    white-space: nowrap
+    width: 100%
+    text-align: center
+    color: color-dark(grey, 20%)
+    vertical-align: top
+    +font-lato
+    margin-bottom: 1vr
+    margin-top: 1vr
+    text-transform: uppercase
+
+    &:before
+      border-top: 3px solid color-dark(grey, 12%)
+      display: table-cell
+      position: relative
+      top: 0.47vr
+      width: 45%
+      content: " "
+
+    &:after
+      content: " "
+      border-top: 3px solid color-dark(grey, 12%)
+      display: table-cell
+      position: relative
+      top: 0.47vr
+      width: 45%

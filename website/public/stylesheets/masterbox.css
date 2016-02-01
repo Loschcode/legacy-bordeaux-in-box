@@ -26,19 +26,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 14.4px;
+  height: 13.600000000000001px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 36px;
+  height: 34px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 72px;
+  height: 68px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 180px;
+  height: 170px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -326,6 +326,28 @@ a {
       background-color: #298fca;
       color: white;
       text-transform: uppercase; }
+  .button__facebook {
+    background-color: #4C66A4;
+    font-size: 18.700000000000003px;
+    padding: 6.800000000000001px;
+    text-align: center;
+    border-radius: 5px;
+    background: color-grey(grey);
+    color: white;
+    text-transform: uppercase;
+    -webkit-box-shadow: inset 0 -5px #41578c;
+            box-shadow: inset 0 -5px #41578c;
+    outline: 0;
+    color: white;
+    width: 100%;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400; }
+    .button__facebook i {
+      padding-right: 10.2px; }
+    .button__facebook:active {
+      top: 1px;
+      -webkit-box-shadow: none;
+              box-shadow: none; }
 
 .counter__content {
   text-align: center;
@@ -814,6 +836,33 @@ a {
   font-size: 13.600000000000001px;
   padding-right: 10.2px;
   color: #CF0F40; }
+
+.divider__or {
+  display: table;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+  color: #b1c2c6;
+  vertical-align: top;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  margin-bottom: 34px;
+  margin-top: 34px;
+  text-transform: uppercase; }
+  .divider__or:before {
+    border-top: 3px solid #c9d4d7;
+    display: table-cell;
+    position: relative;
+    top: 15.979999999999999px;
+    width: 45%;
+    content: " "; }
+  .divider__or:after {
+    content: " ";
+    border-top: 3px solid #c9d4d7;
+    display: table-cell;
+    position: relative;
+    top: 15.979999999999999px;
+    width: 45%; }
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }
