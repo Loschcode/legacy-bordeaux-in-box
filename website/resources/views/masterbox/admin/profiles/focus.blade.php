@@ -84,7 +84,7 @@
 
           @if ($profile->status == 'subscribed')
 
-           <a class="button button__default --red" href="{{ action('MasterBox\Admin\ProfilesController@getCancelSubscription', ['id' => $profile->id]) }}"><i class="fa fa-times-circle"></i> Annuler cet abonnement</a>
+           <a class="button button__default --red js-confirm-delete" href="{{ action('MasterBox\Admin\ProfilesController@getCancelSubscription', ['id' => $profile->id]) }}"><i class="fa fa-times-circle"></i> Annuler cet abonnement</a>
 
           @endif
 
