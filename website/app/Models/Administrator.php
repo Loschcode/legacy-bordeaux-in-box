@@ -31,4 +31,14 @@ class Administrator extends Model implements AuthenticatableContract
 
   }
 
+  /**
+   * HasMany
+   */
+  public function notes()
+  {
+
+    return $this->hasMany('App\Models\CustomerProfileNote');
+
+  }
+
 }

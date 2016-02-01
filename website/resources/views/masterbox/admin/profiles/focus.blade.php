@@ -101,7 +101,15 @@
             
             <div class="note">
               <div class="note__wrapper">
-                <h3 class="note__title">Ecrit par <strong>{{ $note->customer()->first()->getFullName() }}</strong> le <strong>{{$note->created_at->format('d/m/Y')}}</strong></h3>
+                <h3 class="note__title">Ecrit par <strong>
+
+                @if ($note->administrator()->first() === NULL)
+                  {{Config::get('bdxnbx.bot')}}
+                @else
+                  {{ $note->administrator()->first()->getFullName() }}
+                @endif
+
+                </strong> le <strong>{{$note->created_at->format('d/m/Y')}}</strong></h3>
 
                 <p class="note__content">{{ $note->note }}</p>
               </div>

@@ -3,6 +3,16 @@
 return [
 
   /**
+   * BOTS
+   */
+  'bot' => 'Bordeaux in Box',
+
+  /**
+   * SYSTEM
+   */
+  'version' => '2.0.0',
+
+  /**
    * Other
    */
   'facebook' => 'https://www.facebook.com/BordeauxinBox?fref=ts',

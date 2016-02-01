@@ -297,7 +297,7 @@ class ProfilesController extends BaseController {
 			$profile = CustomerProfile::findOrFail($fields['customer_profile_id']);
 			$note = new CustomerProfileNote;
 			$note->customer_profile_id = $profile->id;
-			$note->customer_id = Auth::guard('administrator')->user()->id; // Need to change here.
+			$note->administrator_id = Auth::guard('administrator')->user()->id; // Need to change here.
 			$note->note = $fields['note'];
 
 			$note->save();
