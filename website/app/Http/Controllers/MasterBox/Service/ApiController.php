@@ -60,7 +60,6 @@ class ApiController extends BaseController {
 
       $query = Customer::research($search);
 
-
       $total_results_after_filtered = $query->count();
       $customers = $query->orderBy($order_column, $order_sort)->skip($start)->take($length)->get();
 
@@ -98,14 +97,18 @@ class ApiController extends BaseController {
       $total_results_after_filtered = $total_results;
 
     } else {
-
+    
+    //\DB::enableQueryLog();
       $query = CustomerProfile::research($search);
 
       $total_results_after_filtered = $query->count();
-      $customers = $query->skip($start)->take($length)->get();
+      $profiles = $query->skip($start)->take($length)->get();
+
+         //dd(\DB::getQueryLog());
 
     }
-          
+        
+ 
     return response()->json([
       'data' => $profiles,
       'recordsTotal' => $total_results,

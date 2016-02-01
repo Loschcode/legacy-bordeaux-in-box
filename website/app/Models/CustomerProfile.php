@@ -147,15 +147,14 @@ class CustomerProfile extends Model {
   /**
    * Scopes
    */
-  /**
-   * Scope
-   */
+
   public function scopeResearch($query, $search)
   {
 
     $search_words = explode(' ', $search);
 
     $query->with(['customer', 'orders', 'payments']);
+    $query->join('customers', 'customers.id', '=', 'customer_profiles.customer_id');
 
     /**
      * If it's an ID
@@ -166,12 +165,11 @@ class CustomerProfile extends Model {
     foreach ($search_words as $word) {
 
       $query->where(function ($query) use ($word) {
-        /*
-        $query->orWhere('first_name', 'like', '%' . $word . '%')
-        ->orWhere('last_name', 'like', '%' . $word . '%')
-        ->orWhere('email', 'like', '%' . $word . '%')
-        ->orWhere('phone', 'like', '%' . $word . '%');
-        */
+        
+        $query->orWhere('customers.first_name', 'like', '%' . $word . '%')
+        ->orWhere('customers.last_name', 'like', '%' . $word . '%')
+        ->orWhere('customers.email', 'like', '%' . $word . '%')
+        ->orWhere('customer_profiles.contract_id', 'like', '%' . $word . '%');
 
       });
     }
