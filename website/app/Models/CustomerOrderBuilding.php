@@ -74,10 +74,13 @@ class CustomerOrderBuilding extends Model {
 
 	}
 
+  /**
+   * Get current unpaid order building
+   */
   public function getCurrent()
   {
 
-    return $this->orderBy('created_at', 'desc')->notPaidYet()->first()
+    return $this->orderBy('created_at', 'desc')->notPaidYet()->first();
 
   }
 
