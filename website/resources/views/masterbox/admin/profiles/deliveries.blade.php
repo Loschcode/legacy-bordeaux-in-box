@@ -18,6 +18,86 @@
   
   <div class="divider divider__section"></div>
   
-  en cours de dev.
+  @if ($profile->orders()->first() != NULL)
+    <table class="js-datatable-simple">
+
+      <thead>
+
+        <tr>
+          <th>ID</th>
+          <th>Série</th>
+          <th>Mode de livraison</th>
+          <th>Statut</th>
+          <th>Montant déjà payé</th>
+          <th>Prix total</th>
+          <th>A offrir</th>
+          <th>Etat de la commande</th>
+          <th>Date complétée</th>
+          <th>Date créée</th>
+          <th>Action</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        @foreach ($profile->orders()->get() as $order)
+
+          <tr>
+
+            <th>{{$order->id}}</th>
+            <th>{{ Html::dateFrench($order->delivery_serie()->first()->delivery, true) }}</th>
+            <th>
+              @if ($order->take_away)
+                Point relais ({{$order->delivery_spot()->first()->name}})
+              @else
+                @if ($order->destination()->first() == NULL)
+                En livraison (destination inconnue)
+                @else
+                En livraison ({{$order->destination()->first()->city}})
+                @endif
+              @endif
+            </th>
+            <th>
+              {!! Html::getReadableOrderStatus($order->status) !!}
+            </th>
+            <th>{{ Html::euros($order->already_paid) }}
+            @if ($order->payment_way != NULL)
+              <?php $ways = Config::get('bdxnbx.payment_ways'); ?>
+              ({{$ways[$order->payment_way]}})
+            @endif
+            </th>
+            <th>{{ Html::euros($order->unity_and_fees_price) }}</th>
+            <th>
+              {!! Html::boolYesOrNo($order->gift) !!}
+            </th>
+            <th>
+              {!! Html::getReadableOrderLocked($order->locked) !!}
+            </th>
+            <th>{{ Html::getReadableEmpty(Html::dateFrench($order->date_completed, true)) }}</th>
+            <th>{{ Html::getReadableEmpty(Html::dateFrench($order->created_at, true)) }}</th>
+
+            <th>
+
+            <button data-lightbox data-lightbox-id="lightbox-orders" data-lightbox-url="{{ url('/admin/orders/focus/' . $order->id) }}" class="spyro-btn spyro-btn-primary spyro-btn-sm"><i class="fa fa-search"></i></button>
+
+            @if ($order->status != 'canceled')
+              <a data-toggle="tooltip" title="Annuler" class="spyro-btn spyro-btn-inverse spyro-btn-sm" href="{{url('/admin/orders/confirm-cancel/'.$order->id)}}"><i class="fa fa-gavel"></i></a>
+            @endif
+
+            <a data-toggle="tooltip" title="Supprimer" class="spyro-btn spyro-btn-danger spyro-btn-sm" href="{{url('/admin/orders/delete/'.$order->id)}}"><i class="fa fa-trash"></i></a>
+
+            </th>
+
+          </tr>
+
+        @endforeach
+
+        </tbody>
+
+      </table>
+  @else
+    <p>Aucune livraison</p>
+  @endif
 
 @stop
