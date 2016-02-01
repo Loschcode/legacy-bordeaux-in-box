@@ -74,4 +74,11 @@ class CustomerOrderBuilding extends Model {
 
 	}
 
+  public function getCurrent()
+  {
+
+    return $this->orderBy('created_at', 'desc')->notPaidYet()->first()
+
+  }
+
 }

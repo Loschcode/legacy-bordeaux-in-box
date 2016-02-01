@@ -14,7 +14,7 @@ class IsNotRegional {
   public function handle($request, Closure $next)
   {
     // If it's not regional, we can't access this part
-    if (!Auth::guard('customer')->user()->order_building()->first()->isRegionalAddress()) return redirect()->to('/order');
+    if (!Auth::guard('customer')->user()->order_building()->getCurrent()->isRegionalAddress()) return redirect()->action('MasterBox\Customer\PurchaseController@getIndex');
 
     return $next($request);
   }
