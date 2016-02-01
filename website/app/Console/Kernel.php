@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
         Commands\QuestionsNormalizeMasterbox::class,
         Commands\BlogNormalizeArticles::class,
         Commands\ContentNormalizePages::class,
-        
+        Commands\CoordinateRefresh::class,
     ];
 
     /**
