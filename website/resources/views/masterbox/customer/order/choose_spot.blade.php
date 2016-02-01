@@ -33,6 +33,7 @@
     @foreach ($delivery_spots as $delivery_spot)
 
       DISTANCE {{ in_kilometers($delivery_spot->getDistanceFromCustomer(Auth::guard('customer')->user())) }}
+      
       {!! Form::radio('chosen_spot', $delivery_spot->id, ($chosen_delivery_spot == $delivery_spot->id) ? true : Request::old($delivery_spot->id), ['id' => $delivery_spot->id, 'data-labelauty' => Html::getTextCheckboxSpot($delivery_spot)]) !!}
  
       <div class="+spacer-extra-small"></div>

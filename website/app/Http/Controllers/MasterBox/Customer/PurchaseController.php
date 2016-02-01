@@ -240,9 +240,7 @@ class PurchaseController extends BaseController {
       // We refresh the destination informations
       $order_building->destination_first_name = $fields['destination_first_name'];
       $order_building->destination_last_name = $fields['destination_last_name'];
-      $order_building->destination_city = $fields['destination_city'];
-      $order_building->destination_zip = $fields['destination_zip'];
-      $order_building->destination_address = $fields['destination_address'];
+      $order_building->destination_coordinate_id = Coordinate::getMatchingOrGenerate($fields['destination_address'], $fields['destination_zip'], $fields['destination_city'])->id;
 
       // Let's go to the next step
       $order_building->step = 'delivery-mode';

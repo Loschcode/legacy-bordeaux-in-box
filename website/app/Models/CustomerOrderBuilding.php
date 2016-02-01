@@ -11,6 +11,10 @@ class CustomerOrderBuilding extends Model {
 	 */
 	protected $table = 'customer_order_buildings';
 
+  public function getDestinationAddressAttribute() { return $this->coordinate()->first()->address; }
+  public function getDestinationCityAttribute() { return $this->coordinate()->first()->city; }
+  public function getDestinationZipAttribute() { return $this->coordinate()->first()->zip; }
+
 	/**
 	 * Belongs To
 	 */
@@ -43,6 +47,14 @@ class CustomerOrderBuilding extends Model {
 
 	}
 
+  
+  public function destination_coordinate()
+  {
+
+    return $this->belongsTo('App\Models\Coordinate', 'destination_coordinate_id');
+
+  }
+  
   public function scopeNotPaidYet($query)
   {
 
