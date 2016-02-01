@@ -24,56 +24,14 @@ class Coordinate extends Model {
     static::creating(function($coordinate)
     {
 
-      $coordinate->address = trim(ucfirst(mb_strtolower($coordinate->address)));
-      $coordinate->zip = trim(ucfirst(mb_strtolower($coordinate->zip)));
-      $coordinate->city = trim(ucfirst(mb_strtolower($coordinate->city)));
-
-      $callback = GoogleGeocoding::getCoordinates($coordinate->address, $coordinate->city, $coordinate->zip);
-
-      if ($callback['success']) {
-
-        $coordinate->place_id = $callback['place_id'];
-        $coordinate->latitude = $callback['latitude'];
-        $coordinate->longitude = $callback['longitude'];
-        $coordinate->formatted_address = $callback['formatted_address'];
-        $coordinate->raw = $callback['raw'];
-
-      } else {
-
-        $coordinate->place_id = '';
-        $coordinate->latitude = 0;
-        $coordinate->longitude = 0;
-        $coordinate->formatted_address = '';
-
-      }
+      $coordinate->changeFromGeocoding();
 
     });
 
     static::updating(function($coordinate)
     {
 
-      $coordinate->address = trim(ucfirst(mb_strtolower($coordinate->address)));
-      $coordinate->zip = trim(ucfirst(mb_strtolower($coordinate->zip)));
-      $coordinate->city = trim(ucfirst(mb_strtolower($coordinate->city)));
-
-      $callback = GoogleGeocoding::getCoordinates($coordinate->address, $coordinate->city, $coordinate->zip);
-
-      if ($callback['success']) {
-
-        $coordinate->place_id = $callback['place_id'];
-        $coordinate->latitude = $callback['latitude'];
-        $coordinate->longitude = $callback['longitude'];
-        $coordinate->formatted_address = $callback['formatted_address'];
-        $coordinate->raw = $callback['raw'];
-        
-      } else {
-
-        $coordinate->place_id = '';
-        $coordinate->latitude = 0;
-        $coordinate->longitude = 0;
-        $coordinate->formatted_address = '';
-
-      }
+      $coordinate->changeFromGeocoding();
 
     });
 
@@ -88,6 +46,34 @@ class Coordinate extends Model {
   {
 
   }*/
+
+  public function changeFromGeocoding()
+  {
+
+    $this->address = trim(ucfirst(mb_strtolower($this->address)));
+    $this->zip = trim(ucfirst(mb_strtolower($this->zip)));
+    $this->city = trim(ucfirst(mb_strtolower($this->city)));
+
+    $callback = GoogleGeocoding::getCoordinates($this->address, $this->city, $this->zip);
+
+    if ($callback['success']) {
+
+      $this->place_id = $callback['place_id'];
+      $this->latitude = $callback['latitude'];
+      $this->longitude = $callback['longitude'];
+      $this->formatted_address = $callback['formatted_address'];
+      $this->raw = $callback['raw'];
+
+    } else {
+
+      $this->place_id = '';
+      $this->latitude = 0;
+      $this->longitude = 0;
+      $this->formatted_address = '';
+
+    }
+
+  }
 
   public static function getMatchingOrGenerate($address, $zip, $city)
   {
