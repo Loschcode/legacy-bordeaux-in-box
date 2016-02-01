@@ -61,7 +61,7 @@
 
                 <th>
 
-                <button data-lightbox data-lightbox-id="lightbox-orders" data-lightbox-url="{{ url('/admin/orders/focus/' . $order->id) }}" class="spyro-btn spyro-btn-primary spyro-btn-sm"><i class="fa fa-search"></i></button>
+                <a hef="{{ url('/admin/orders/focus/' . $order->id) }}" class="spyro-btn spyro-btn-primary spyro-btn-sm"><i class="fa fa-search"></i></button>
 
                 @if ($order->status != 'canceled')
                   <a data-toggle="tooltip" title="Annuler" class="spyro-btn spyro-btn-inverse spyro-btn-sm" href="{{url('/admin/orders/confirm-cancel/'.$order->id)}}"><i class="fa fa-gavel"></i></a>
