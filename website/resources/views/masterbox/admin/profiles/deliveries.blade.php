@@ -99,5 +99,34 @@
   @else
     <p>Aucune livraison</p>
   @endif
+  
+  <div class="+spacer-small"></div>
+
+  <div class="panel">
+    <div class="panel__wrapper">
+      <div class="panel__header">
+        <h3 class="panel__title">Adresse de facturation (actuelle)</h3>
+      </div>
+      <div class="panel__content typography">
+
+        <div class="spyro-well">
+
+          <strong>{{$customer->last_name}} {{$customer->first_name}}</strong><br />
+          @if ($customer->city == NULL && $customer->zip == NULL && $customer->address == NULL)
+            Aucun détails sur l'adresse de facturation.<br/>
+          @else
+            {{$customer->city}}, {{$customer->zip}}<br />
+            {{$customer->address}}<br />
+          @endif
+          <a class="spyro-btn spyro-btn-warning spyro-btn-sm" href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id]) }}">Editer</a><br />
+
+        </div>
+
+        <div class="spacer40"></div>
+
+        {!! Html::info("Un changement de région implique un changement de prix de livraison, le formulaire côté administrateur a été laissé libre (celui côté utilisateur est bloqué) ; il faudra manuellement donner ou récupérer la différence avec l'utilisateur via Stripe.") !!}
+      </div>
+    </div>
+  </div>
 
 @stop

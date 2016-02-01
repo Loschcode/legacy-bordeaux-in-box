@@ -354,6 +354,17 @@ a {
   font-family: "Lato", sans-serif;
   font-weight: 700; }
 
+.info__wrapper {
+  background-color: #77939a;
+  border-radius: 5px;
+  color: white;
+  padding: 10.799999999999999px;
+  font-size: 14.4px;
+  margin-top: 10.799999999999999px;
+  margin-bottom: 10.799999999999999px; }
+  .info__wrapper i {
+    padding-right: 7.2px; }
+
 .chosen-container.chosen-container-single {
   width: 100% !important; }
 
