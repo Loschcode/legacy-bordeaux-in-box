@@ -2,11 +2,6 @@
 
 @section('content')
   
-  <div
-    id="gotham"
-    data-form-errors="{{ $errors->has() }}"
-  ></div>
-
   @include('masterbox.admin.partials.navbar_content')
   
   <div class="row">

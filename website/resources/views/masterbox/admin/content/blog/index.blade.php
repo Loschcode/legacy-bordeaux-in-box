@@ -5,11 +5,6 @@
 @stop
 
 @section('content')
-  
-  <div
-    id="gotham"
-    data-success-message="{{ session('message') }}"
-  ></div>
 
   <div class="row">
     <div class="grid-8">

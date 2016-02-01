@@ -6,12 +6,6 @@
 
 @section('content')
 
-<div 
-  id="gotham"
-  data-form-errors="{{ $errors->has() }}"
-  data-success-message="{{ session()->get('message') }}"
->
-
 <div class="row">
   <div class="grid-8">
     <h1 class="title title__section">Client</h1>

@@ -1,7 +1,9 @@
 @extends('masterbox.layouts.admin')
 
-@section('navbar')
-  @include('masterbox.admin.partials.navbar_profiles')
+@section('gotham')
+  {!! Html::gotham([
+    'controller' => 'masterbox.admin.profiles.payments'
+  ]) !!}
 @stop
 
 @section('content')

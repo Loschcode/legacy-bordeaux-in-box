@@ -1,12 +1,12 @@
 @extends('masterbox.layouts.admin')
 
-@section('content')
+@section('gotham')
+	{!! Html::gotham([
+		'controller' => 'masterbox.admin.profiles.index'
+	]) !!}
+@stop
 
-<div
-id="gotham"
-data-controller="masterbox.admin.profiles.index"
-data-success-message="{{ session()->get('message') }}"
-></div>
+@section('content')
 
 <div class="row">
 	<div class="grid-8">

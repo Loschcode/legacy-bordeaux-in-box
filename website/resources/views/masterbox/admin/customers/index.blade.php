@@ -1,15 +1,16 @@
 @extends('masterbox.layouts.admin')
 
+@section('gotham')
+  {!! Html::gotham([
+    'controller' => 'masterbox.admin.customers.index'
+  ]) !!}
+@stop
+
 @section('navbar')
   @include('masterbox.admin.partials.navbar_customers')
 @stop
 
 @section('content')
-
-<div
-	id="gotham"
-	data-controller="masterbox.admin.customers.index"
-></div>
 
 <div class="row">
 	<div class="grid-8">

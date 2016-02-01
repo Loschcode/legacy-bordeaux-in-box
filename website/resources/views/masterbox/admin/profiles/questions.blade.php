@@ -6,12 +6,6 @@
 
 @section('content')
   
-  <div
-    id="gotham"
-    data-success-message="{{ session()->get('message') }}"
-    data-form-errors="{{ $errors->has() }}"
-  ></div>
-
   @include('masterbox.admin.partials.navbar_profiles')
 
 
