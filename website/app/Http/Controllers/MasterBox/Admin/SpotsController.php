@@ -253,9 +253,7 @@ class SpotsController extends BaseController {
 
 
 			$delivery_spot->name = $fields['name'];
-			$delivery_spot->zip = $fields['zip'];
-			$delivery_spot->city = $fields['city'];
-			$delivery_spot->address = $fields['address'];
+      $delivery_spot->coordinate_id = Coordinate::getMatchingOrGenerate($fields['address'], $fields['zip'], $fields['city'])->id;
 			$delivery_spot->schedule = $fields['schedule'];
 
 			$delivery_spot->save();
@@ -316,9 +314,7 @@ class SpotsController extends BaseController {
 			$delivery_spot = new DeliverySpot;
 
 			$delivery_spot->name = $fields['name'];
-			$delivery_spot->zip = $fields['zip'];
-			$delivery_spot->city = $fields['city'];
-			$delivery_spot->address = $fields['address'];
+      $delivery_spot->coordinate_id = Coordinate::getMatchingOrGenerate($fields['address'], $fields['zip'], $fields['city'])->id;
 			$delivery_spot->schedule = $fields['schedule'];
 			$delivery_spot->active = TRUE;
 
