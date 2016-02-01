@@ -60,7 +60,8 @@ class CustomersController extends BaseController {
 
   /**
    * Focus on a user
-   * @return void
+   * @param  string $id Id of the user
+   * @return \Illuminate\View\Viex
    */
   public function getFocus($id)
   {
@@ -71,6 +72,20 @@ class CustomersController extends BaseController {
       'customer'
       ));
 
+  }
+
+  /**
+   * Dislay the form to edit the user
+   * @param  string $id Id of the user
+   * @return \Illuminate\View\View
+   */
+  public function getEdit($id)
+  {
+    $customer = Customer::findOrFail($id);
+
+    return view('masterbox.admin.customers.edit')->with(compact(
+      'customer'
+      ));
   }
 
   public function postEdit()
@@ -155,7 +170,7 @@ class CustomersController extends BaseController {
       }
     }
 
-    return redirect()->action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id])
+    return redirect()->action('MasterBox\Admin\CustomersController@getEdit', ['id' => $customer->id])
     ->withInput()
     ->with('message', 'L\'utilisateur à bien été modifié');
 

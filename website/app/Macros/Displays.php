@@ -2,6 +2,15 @@
 
 use App\Models\Customer;
 
+/**
+ * Display a number formated as euro
+ */
+Html::macro('euros', function($number) {
+
+  return euros($number);
+
+});
+
 /** 
  * Renders html structure to add a button in the navbar of admin section
  */
@@ -134,7 +143,7 @@ Html::macro('getColorFromBoxSlug', function($slug)
  */
 Html::macro('info', function($info) {
 
-  return '<div class="spyro-alert spyro-alert-inverse"><p class="left"><i class="fa fa-info"></i></p><p class="right">' . $info . '</p><div class="clearfix"></div></div>';
+  return '<p>' . $info . '</p>';
 
 });
 

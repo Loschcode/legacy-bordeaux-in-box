@@ -20,7 +20,7 @@
   </div>
   <div class="grid-4">
     <div class="+text-right">
-      <a href="{{ action('MasterBox\Admin\ProfilesController@getIndex') }}" class="button button__section"><i class="fa fa-arrow-left"></i> Retour aux abonnements</a>
+      <a href="{{ action('MasterBox\Admin\ProfilesController@getIndex') }}" class="button button__section"><i class="fa fa-list"></i> Voir les abonnements</a>
     </div>
   </div>
 </div>

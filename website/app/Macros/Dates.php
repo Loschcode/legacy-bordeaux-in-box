@@ -22,6 +22,10 @@ Html::macro('diffHumans', function($date, $diff=0) {
  */
 Html::macro('dateFrench', function($date, $month_text = false) {
 
+  if (empty($date)) {
+    return;
+  }
+
   if ($month_text) {
     return Date::parse($date)->format('d F Y');
   }

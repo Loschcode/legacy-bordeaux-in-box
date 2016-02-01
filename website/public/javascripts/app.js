@@ -215,7 +215,8 @@ Index = (function(superClass) {
             return function(data, type, full, meta) {
               var datas;
               datas = {
-                link_edit: _.slash($('table').data('edit-customer')) + full.id
+                link_edit: _.slash($('table').data('edit-customer')) + full.id,
+                link_focus: _.slash($('table').data('focus-customer')) + full.id
               };
               return _this.view('masterbox.admin.customers.actions', datas);
             };
@@ -1492,9 +1493,13 @@ var __templateData = function (__obj) {
     (function() {
       __out.push('<a href="');
     
+      __out.push(this.link_focus);
+    
+      __out.push('" class="button button__table"><i class="fa fa-eye"></i></a>\n<a href="');
+    
       __out.push(this.link_edit);
     
-      __out.push('" class="button button__table"><i class="fa fa-pencil"></i></a>');
+      __out.push('" class="button button__table"><i class="fa fa-pencil"></i></a>\n');
     
     }).call(this);
     

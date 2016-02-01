@@ -16,6 +16,7 @@ data-success-message="{{ session()->get('message') }}"
 
 <div class="divider divider__section"></div>
 
+{!! Html::info("Ci dessous sont listées les différents abonnements des utilisateurs du site. Les utilisateurs peuvent avoir plusieurs abonnements") !!}
 
 {{-- Table rendered by ajax --}}
 <table 

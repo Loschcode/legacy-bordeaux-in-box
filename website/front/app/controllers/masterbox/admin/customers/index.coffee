@@ -43,7 +43,7 @@ class Index extends Controller
 
             datas = 
               link_edit: _.slash($('table').data('edit-customer')) + full.id
-
+              link_focus: _.slash($('table').data('focus-customer')) + full.id
             return @view('masterbox.admin.customers.actions', datas)
         }
       ]

@@ -15,7 +15,7 @@ class DeliverySpot extends Model {
   public function getAddressAttribute() { return $this->coordinate()->first()->address; }
   public function getCityAttribute() { return $this->coordinate()->first()->city; }
   public function getZipAttribute() { return $this->coordinate()->first()->zip; }
-
+  
 	/**
 	 * Create / Update
 	 */
