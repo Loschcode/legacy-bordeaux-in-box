@@ -52,6 +52,9 @@ class CoordinateRefresh extends Command {
        $coordinate->changeFromGeocoding();
        $coordinate->save();
 
+      // The API has limited access per second
+      sleep(3);
+
       $this->info('Coordinate supposedly refreshed.');
 
 

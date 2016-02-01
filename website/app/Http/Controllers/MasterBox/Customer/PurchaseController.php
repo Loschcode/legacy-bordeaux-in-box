@@ -42,7 +42,10 @@ class PurchaseController extends BaseController {
     $this->middleware('has.unpaid.order.building', array('except' => ['getClassic', 'getGift', 'getBoxForm', 'postBoxForm', 'getConfirmed']));
     $this->middleware('has.paid.order.building', array('only' => ['getBoxForm', 'postBoxForm']));
     $this->middleware('below.serie.counter', array('except' => ['postPayment']));
-    $this->middleware('is.not.regional.or.take.away', array('only' => ['getChooseSpot', 'postChooseSpot']));
+    
+    $this->middleware('is.not.take.away', array('only' => ['getChooseSpot', 'postChooseSpot']));
+    $this->middleware('is.not.regional', array('only' => ['getChooseSpot', 'postChooseSpot']));
+
   }
 
   /**
@@ -105,7 +108,7 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+    $order_building = $customer->order_building()->getCurrent();
     $order_preference = $order_building->order_preference()->first();
 
     $delivery_prices = DeliveryPrice::where('gift', $order_preference->gift)->orderBy('unity_price', 'asc')->get();
@@ -137,7 +140,7 @@ class PurchaseController extends BaseController {
       if ($delivery_price === NULL) return redirect()->back();
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+      $order_building = $customer->order_building()->getCurrent();
       $profile = $order_building->profile()->first();
 
       // We change the profile status (the guy chose something)
@@ -177,7 +180,7 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+    $order_building = $customer->order_building()->getCurrent();
 
     /**
      * Order building Addresses auto-filling
@@ -222,7 +225,7 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+      $order_building = $customer->order_building()->getCurrent();
       $order_preference = $order_building->order_preference()->first();
       
       // If the user hasn't billing address yet
@@ -264,7 +267,7 @@ class PurchaseController extends BaseController {
   {
 
     $customer = Auth::guard('customer')->user();
-    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+    $order_building = $customer->order_building()->getCurrent();
     $order_preference = $order_building->order_preference()->first();
 
     // Back
@@ -316,7 +319,7 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+      $order_building = $customer->order_building()->getCurrent();
       $order_preference = $order_building->order_preference()->first();
 
       $order_preference->take_away = $fields['take_away'];
@@ -362,7 +365,7 @@ class PurchaseController extends BaseController {
   {
 
     $customer = Auth::guard('customer')->user();
-    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+    $order_building = $customer->order_building()->getCurrent();
     $order_preference = $order_building->order_preference()->first();
 
     // In case the user come back
@@ -396,7 +399,7 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+      $order_building = $customer->order_building()->getCurrent();
       $order_preference = $order_building->order_preference()->first();
 
       $delivery_spot = DeliverySpot::find($fields['chosen_spot']);
@@ -428,7 +431,7 @@ class PurchaseController extends BaseController {
   public function getPayment()
   {
     $customer = Auth::guard('customer')->user();
-    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+    $order_building = $customer->order_building()->getCurrent();
     $profile = $order_building->profile()->first();
     $order_preference = $order_building->order_preference()->first();
     $delivery_spot = $order_preference->delivery_spot()->first(); // May be NULL
@@ -461,7 +464,7 @@ class PurchaseController extends BaseController {
       $stripe_token = $fields['stripeToken'];
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+      $order_building = $customer->order_building()->getCurrent();
       $profile = $order_building->profile()->first();
 
       /**
@@ -818,7 +821,7 @@ class PurchaseController extends BaseController {
     
     $customer = Auth::guard('customer')->user();
     $next_series = DeliverySerie::nextOpenSeries()->first();
-    $order_building = $customer->order_building()->orderBy('created_at', 'desc')->notPaidYet()->first();
+    $order_building = $customer->order_building()->getCurrent();
 
     // Means there's no step yet, let's go to the first one
     if ($order_building === NULL) {
