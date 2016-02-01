@@ -79,13 +79,13 @@
 
             <th>
 
-            <button data-lightbox data-lightbox-id="lightbox-orders" data-lightbox-url="{{ url('/admin/orders/focus/' . $order->id) }}" class="spyro-btn spyro-btn-primary spyro-btn-sm"><i class="fa fa-search"></i></button>
+            <a href="{{ action('MasterBox\Admin\OrdersController@getEdit', ['id' => $order->id]) }}" class="button button__table"><i class="fa fa-eye"></i></button>
 
             @if ($order->status != 'canceled')
-              <a data-toggle="tooltip" title="Annuler" class="spyro-btn spyro-btn-inverse spyro-btn-sm" href="{{url('/admin/orders/confirm-cancel/'.$order->id)}}"><i class="fa fa-gavel"></i></a>
+              <a class="button button__table js-tooltip" title="Annuler" href="{{ action('MasterBox\Admin\OrdersController@getConfirmCancel', ['id' => $order->id]) }}"><i class="fa fa-gavel"></i></a>
             @endif
 
-            <a data-toggle="tooltip" title="Supprimer" class="spyro-btn spyro-btn-danger spyro-btn-sm" href="{{url('/admin/orders/delete/'.$order->id)}}"><i class="fa fa-trash"></i></a>
+            <a class="button button__table js-confirm-delete" href="{{ action('MasterBox\Admin\OrdersController@getDelete', ['id' => $order->id]) }}"><i class="fa fa-trash"></i></a>
 
             </th>
 
