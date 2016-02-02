@@ -82,6 +82,7 @@ class ApiController extends BaseController {
    */
   public function getProfiles()
   {
+
     $draw = request()->input('draw');
     $start = request()->input('start');
     $search = request()->input('search')['value'];
@@ -89,17 +90,33 @@ class ApiController extends BaseController {
     $order_column = request()->input('order')[0]['column'];
     $order_sort = request()->input('order')[0]['dir'];
 
+    $column_label = [
+
+      1 => 'id',
+      2 => 'contract_id',
+
+    ];
+
     $total_results = CustomerProfile::count();
 
     if (empty($search)) {
-      
-      $profiles = CustomerProfile::with(['customer', 'orders', 'payments'])->skip($start)->take($length)->get();
+
+      $profiles = CustomerProfile::with(['customer', 'orders', 'payments'])->skip($start)->take($length);
+
+      if (isset($column_label[$order_column]))
+        $profiles = $profiles->orderBy($column_label[$order_column], $order_sort);
+
+      $profiles = $profiles->get();
+
       $total_results_after_filtered = $total_results;
 
     } else {
     
     //\DB::enableQueryLog();
       $query = CustomerProfile::research($search);
+
+      if (isset($column_label[$order_column]))
+        $query = $query->orderBy($column_label[$order_column], $order_sort);
 
       $total_results_after_filtered = $query->count();
       $profiles = $query->skip($start)->take($length)->get();
