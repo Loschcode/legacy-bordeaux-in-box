@@ -1046,7 +1046,8 @@ select + .chosen-container-multi .chosen-results li.result-selected {
     font-family: "Lato", sans-serif;
     font-weight: 300;
     padding-bottom: 34px;
-    display: block; }
+    display: block;
+    text-transform: uppercase; }
   .labelauty-choose-frequency .labelauty-icon {
     padding-right: 10.2px; }
   .labelauty-choose-frequency input.labelauty {
