@@ -6,6 +6,7 @@
 
 use App\Libraries\GoogleGeocoding;
 use App\Models\Customer;
+use App\Models\Coordinate;
 
 class GoogleGeocodingTest extends TestCase
 {
@@ -26,11 +27,11 @@ class GoogleGeocodingTest extends TestCase
      * NOTE : This costs some Google Credits
      */
     $tests = 3;
+    $coordinates = Coordinate::where('latitude', '!=', 0)->where('longitude', '!=', 0)->limit($tests)->get();
     
-    foreach (Customer::orderByRaw("RAND()")->where('address', '!=', '')->limit($tests)->get() as $customer) {
+    foreach ($coordinates as $coordinate) {
 
-      $coords = GoogleGeocoding::getCoordinates($customer->address, $customer->city, $customer->zip);
-
+      $coords = GoogleGeocoding::getCoordinates($coordinate->address, $coordinate->city, $coordinate->zip);
       $this->assertEquals(TRUE, $coords['success']);
 
     }

@@ -187,11 +187,33 @@ class PurchaseController extends BaseController {
      * Order building Addresses auto-filling
      * If we don't have the data we will try our best to get it
      */
-    $order_building = $this->fill_empty_order_building_destination($customer, $order_building);
+    
+    //$order_building = $this->fill_empty_order_building_destination($customer, $order_building);
+    if (!empty($order_building->destination_city)) {
+
+      $destination = new \stdClass();
+      $destination->city = $order_building->destination_city;
+      $destination->address = $order_building->destination_address;
+      $destination->zip = $order_building->destination_zip;
+      $destination->first_name = $order_building->destination_first_name;
+      $destination->last_name = $order_building->destination_last_name;
+
+    } else {
+
+      $destination = new \stdClass();
+      $destination->city = $customer->city;
+      $destination->address = $customer->address;
+      $destination->zip = $customer->zip;
+      $destination->first_name = $customer->first_name;
+      $destination->last_name = $customer->last_name;
+
+    }
+
+    //dd($order_building->city);
 
     $order_preference = $order_building->order_preference()->first();
 
-    return view('masterbox.customer.order.billing_address')->with(compact('customer', 'order_building', 'order_preference'));
+    return view('masterbox.customer.order.billing_address')->with(compact('customer', 'order_building', 'order_preference', 'destination'));
 
   }
 
@@ -833,21 +855,6 @@ class PurchaseController extends BaseController {
     $order_building->order_preference()->associate($order_preference);
 
     return $order_preference;
-
-  }
-
-  private function fill_empty_order_building_destination($customer, $order_building) {
-
-    $customer_attributes = ['first_name', 'last_name', 'address', 'zip', 'city'];
-
-    foreach ($customer_attributes as $attribute) {
-
-      if (empty($order_building->{"destination_$attribute"}))
-        $order_building->{"destination_$attribute"} = $customer->$attribute;
-
-    }
-
-    return $order_building;
 
   }
 

@@ -175,6 +175,15 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
   /**
    * Scope
    */
+  
+  public function scopeWithCoordinateOnly($query)
+  {
+
+    return $query->join('coordinates', 'customers.coordinate_id', '=', 'coordinates.id')
+          ->select('customers.*');
+
+  }
+
   public function scopeResearch($query, $search)
   {
 

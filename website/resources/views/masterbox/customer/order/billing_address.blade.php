@@ -64,7 +64,7 @@
                     {!! Form::label('destination_first_name', 'Prénom') !!}
                   </div>
                   
-                  {!! Form::text("destination_first_name", ($order_building->destination_first_name) ? $order_building->destination_first_name : Request::old("destination_first_name"), ['class' => 'billing__input']) !!}
+                  {!! Form::text("destination_first_name", ($destination->first_name) ? $destination->first_name : Request::old("destination_first_name"), ['class' => 'billing__input']) !!}
                   {!! Html::checkError('destination_first_name', $errors) !!}
 
                 </div>
@@ -73,7 +73,7 @@
                     {!! Form::label('destination_last_name', 'Nom de famille') !!}
                   </div>
 
-                  {!! Form::text("destination_last_name", ($order_building->destination_last_name) ? $order_building->destination_last_name : Request::old("destination_last_name"), ['class' => 'billing__input']) !!}
+                  {!! Form::text("destination_last_name", ($destination->last_name) ? $destination->last_name : Request::old("destination_last_name"), ['class' => 'billing__input']) !!}
 
                   {!! Html::checkError('destination_last_name', $errors) !!}
 
@@ -87,7 +87,7 @@
                     {!! Form::label('destination_city', 'Ville') !!}
                   </div>
                   
-                  {!! Form::text("destination_city", ($order_building->destination_city) ? $order_building->destination_city : Request::old("destination_city"), ['class' => 'billing__input']) !!}
+                  {!! Form::text("destination_city", ($destination->city) ? $destination->city : Request::old("destination_city"), ['class' => 'billing__input']) !!}
                   {!! Html::checkError('destination_city', $errors) !!}
 
 
@@ -96,7 +96,7 @@
                   <div class="billing__label">
                     {!! Form::label('destination_zip', 'Code postal') !!}
                   </div>
-                  {!! Form::text("destination_zip", ($order_building->destination_zip) ? $order_building->destination_zip : Request::old("destination_zip"), ['class' => 'billing__input']) !!}
+                  {!! Form::text("destination_zip", ($destination->zip) ? $destination->zip : Request::old("destination_zip"), ['class' => 'billing__input']) !!}
                   {!! Html::checkError('destination_zip', $errors) !!}
                 </div>
               </div>
@@ -104,7 +104,7 @@
               <div class="billing__label">
                 {!! Form::label('destination_address', 'Adresse') !!}
               </div>
-              {!! Form::textarea("destination_address", ($order_building->destination_address) ? $order_building->destination_address : Request::old("destination_address"), ['class' => 'billing__input --textarea']) !!}
+              {!! Form::textarea("destination_address", ($destination->address) ? $destination->address : Request::old("destination_address"), ['class' => 'billing__input --textarea']) !!}
               {!! Html::checkError('destination_address', $errors) !!}
             </div>
           </div>
@@ -170,6 +170,7 @@
               <button type="submit" class="button button__submit --panel"><i class="fa fa-check"></i> Valider</button>
             </div>
             </div>
+            
           @else
             
             {{-- Billing informations (address not given yet) --}}
@@ -445,7 +446,7 @@
               </div>
               <div class="panel-body">
 
-                {!! Form::text("destination_first_name", ($order_building->destination_first_name) ? $order_building->destination_first_name : Request::old("destination_first_name"), ['id' => 'destination_first_name']) !!}
+                {!! Form::text("destination_first_name", ($destination->first_name) ? $destination->first_name : Request::old("destination_first_name"), ['id' => 'destination_first_name']) !!}
               </div>
             </div>
           </div>
@@ -455,7 +456,7 @@
                 <h3 class="panel-title">Nom de famille</h3><br/>
               </div>
               <div class="panel-body">
-                {!! Form::text("destination_last_name", ($order_building->destination_last_name) ? $order_building->destination_last_name : Request::old("destination_last_name"), ['id' => 'destination_last_name']) !!}
+                {!! Form::text("destination_last_name", ($destination->last_name) ? $destination->last_name : Request::old("destination_last_name"), ['id' => 'destination_last_name']) !!}
               </div>
             </div>
           </div>
@@ -469,7 +470,7 @@
                 <h3 class="panel-title">Ville</h3><br/>
               </div>
               <div class="panel-body">
-                {!! Form::text("destination_city", ($order_building->destination_city) ? $order_building->destination_city : Request::old("destination_city"), ['id' => 'destination_city']) !!}
+                {!! Form::text("destination_city", ($destination->city) ? $destination->city : Request::old("destination_city"), ['id' => 'destination_city']) !!}
               </div>
             </div>
           </div>
@@ -480,7 +481,7 @@
                 <h3 class="panel-title">Code Postal</h3><br/>
               </div>
               <div class="panel-body">
-                {!! Form::text("destination_zip", ($order_building->destination_zip) ? $order_building->destination_zip : Request::old("destination_zip"), ['id' => 'destination_zip']) !!}
+                {!! Form::text("destination_zip", ($destination->zip) ? $destination->zip : Request::old("destination_zip"), ['id' => 'destination_zip']) !!}
               </div>
             </div>
           </div>
@@ -492,7 +493,7 @@
           </div>
           <div class="panel-body">
 
-            {!! Form::textarea("destination_address", ($order_building->destination_address) ? $order_building->destination_address : Request::old("destination_address"), ['id' => 'destination_address']) !!}
+            {!! Form::textarea("destination_address", ($destination->address) ? $destination->address : Request::old("destination_address"), ['id' => 'destination_address']) !!}
           </div>
         </div>
       </div>
