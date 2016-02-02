@@ -109,7 +109,208 @@
   require._cache = cache;
   globals.require = require;
 })();
-require.register("config", function(exports, require, module) {
+require.register("boot", function(exports, require, module) {
+var BootstrapMasterboxAdmin, BootstrapMasterboxDefault;
+
+BootstrapMasterboxDefault = require('bootstrap/masterbox/default');
+
+BootstrapMasterboxAdmin = require('bootstrap/masterbox/admin');
+
+switch (_.getApp()) {
+  case 'masterbox':
+    new BootstrapMasterboxDefault();
+    break;
+  case 'masterbox-admin':
+    new BootstrapMasterboxDefault();
+    new BootstrapMasterboxAdmin();
+}
+});
+
+;require.register("bootstrap/masterbox/admin", function(exports, require, module) {
+var Admin, AdminSidebar, Config;
+
+AdminSidebar = require('libraries/admin-sidebar');
+
+Config = require('config');
+
+Admin = (function() {
+  function Admin() {
+    this.sidebar();
+    this.modal();
+    this.datatable();
+    this.deleteConfirm();
+    this.markdownEditor();
+  }
+
+  Admin.prototype.sidebar = function() {
+    return new AdminSidebar();
+  };
+
+  Admin.prototype.modal = function() {
+    $.modal.defaults = {
+      escapeClose: true,
+      clickClose: true,
+      closeText: 'Close',
+      closeClass: '',
+      showClose: true,
+      modalClass: "modal",
+      spinnerHtml: '<i class="fa fa-refresh fa-spin"></i>',
+      showSpinner: true,
+      fadeDuration: null,
+      fadeDelay: 1.0
+    };
+    return $('[data-modal]').on('click', function(e) {
+      e.preventDefault();
+      return $(this).modal();
+    });
+  };
+
+  Admin.prototype.datatable = function() {
+    return $('.js-datatable-simple').DataTable({
+      length: false,
+      language: Config.datatable.language.fr
+    });
+  };
+
+  Admin.prototype.deleteConfirm = function() {
+    return $(document).on('click', '.js-confirm-delete', function(e) {
+      e.preventDefault();
+      return swal({
+        type: 'warning',
+        title: 'Es-tu sûr ?',
+        text: 'La ressource sera supprimé définitivement',
+        showCancelButton: true,
+        confirmButtonText: "Oui je suis sûr",
+        cancelButtonText: "Annuler",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, (function(_this) {
+        return function() {
+          return window.location.href = $(_this).attr('href');
+        };
+      })(this));
+    });
+  };
+
+  Admin.prototype.markdownEditor = function() {
+    if ($('.js-markdown').length > 0) {
+      return new SimpleMDE({
+        element: $('.js-markdown')[0],
+        spellChecker: false
+      });
+    }
+  };
+
+  return Admin;
+
+})();
+
+module.exports = Admin;
+});
+
+;require.register("bootstrap/masterbox/default", function(exports, require, module) {
+var Default;
+
+Default = (function() {
+  function Default() {
+    this.polyfillPlaceholders();
+    this.notificationFormErrors();
+    this.notificationSuccessMessage();
+    this.notificationErrorMessage();
+    this.chosenSelect();
+    this.labelautyForm();
+    this.tooltipster();
+  }
+
+  Default.prototype.polyfillPlaceholders = function() {
+    return $('input, textarea').placeholder();
+  };
+
+  Default.prototype.notificationFormErrors = function() {
+    var hasErrors, text, textErrors, title, titleErrors;
+    hasErrors = _.trim($('#gotham').data('form-errors'));
+    if (_.isEmpty(hasErrors)) {
+      return;
+    }
+    if (hasErrors !== '1') {
+      return;
+    }
+    titleErrors = _.trim($('#gotham').data('form-errors-title'));
+    textErrors = _.trim($('#gotham').data('form-errors-text'));
+    if (!_.isEmpty(titleErrors)) {
+      title = titleErrors;
+    } else {
+      title = 'Attention';
+    }
+    if (!_.isEmpty(textErrors)) {
+      text = textErrors;
+    } else {
+      text = 'Des erreurs sont présentes dans le formulaire';
+    }
+    return swal({
+      title: title,
+      text: text,
+      type: 'error',
+      confirmButtonColor: '#D83F66',
+      html: true,
+      timer: 1750
+    });
+  };
+
+  Default.prototype.notificationSuccessMessage = function() {
+    var successMessage;
+    successMessage = _.trim($('#gotham').data('success-message'));
+    if (_.isEmpty(successMessage)) {
+      return;
+    }
+    return swal({
+      title: 'Succès',
+      text: successMessage,
+      type: 'success',
+      confirmButtonColor: '#A5DC86',
+      html: true
+    });
+  };
+
+  Default.prototype.notificationErrorMessage = function() {
+    var errorMessage;
+    errorMessage = _.trim($('#gotham').data('error-message'));
+    if (_.isEmpty(errorMessage)) {
+      return;
+    }
+    return swal({
+      title: 'Erreur',
+      text: errorMessage,
+      type: 'error',
+      confirmButtonColor: '#D83F66',
+      html: true,
+      timer: 4000
+    });
+  };
+
+  Default.prototype.chosenSelect = function() {
+    return $('.js-chosen').chosen({
+      disable_search_threshold: 30
+    });
+  };
+
+  Default.prototype.labelautyForm = function() {
+    $(':checkbox').labelauty();
+    return $(':radio').labelauty();
+  };
+
+  Default.prototype.tooltipster = function() {
+    return $('.js-tooltip').tooltipster();
+  };
+
+  return Default;
+
+})();
+
+module.exports = Default;
+});
+
+;require.register("config", function(exports, require, module) {
 module.exports = {
   stripe: {
     testing: 'pk_test_HNPpbWh3FV4Lw4RmIQqirqsj',
@@ -1045,7 +1246,7 @@ Bootstrap = (function() {
     var controller, pathController;
     require('helpers');
     require('validators');
-    require('start');
+    require('boot');
     controller = $('#gotham').data('controller');
     if (controller == null) {
       return;
@@ -1143,10 +1344,20 @@ var Config;
 Config = require('config');
 
 _.mixin({
+  getApp: function() {
+    return $('body').data('app');
+  }
+});
+
+_.mixin({
+  getEnvironment: function() {
+    return $('body').data('environment');
+  }
+});
+
+_.mixin({
   getStripeKey: function() {
-    var environment;
-    environment = $('body').data('environment');
-    if (environment === 'production') {
+    if (_.getEnvironment() === 'production') {
       return Config.stripe.production;
     }
     return Config.stripe.testing;
@@ -1184,74 +1395,6 @@ _.mixin({
       default:
         return status;
     }
-  }
-});
-
-_.mixin({
-  notificationFormErrors: function() {
-    var hasErrors, text, textErrors, title, titleErrors;
-    hasErrors = _.trim($('#gotham').data('form-errors'));
-    if (_.isEmpty(hasErrors)) {
-      return;
-    }
-    if (hasErrors !== '1') {
-      return;
-    }
-    titleErrors = _.trim($('#gotham').data('form-errors-title'));
-    textErrors = _.trim($('#gotham').data('form-errors-text'));
-    if (!_.isEmpty(titleErrors)) {
-      title = titleErrors;
-    } else {
-      title = 'Attention';
-    }
-    if (!_.isEmpty(textErrors)) {
-      text = textErrors;
-    } else {
-      text = 'Des erreurs sont présentes dans le formulaire';
-    }
-    return swal({
-      title: title,
-      text: text,
-      type: 'error',
-      confirmButtonColor: '#D83F66',
-      html: true,
-      timer: 1750
-    });
-  }
-});
-
-_.mixin({
-  notificationSuccessMessage: function() {
-    var successMessage;
-    successMessage = _.trim($('#gotham').data('success-message'));
-    if (_.isEmpty(successMessage)) {
-      return;
-    }
-    return swal({
-      title: 'Succès',
-      text: successMessage,
-      type: 'success',
-      confirmButtonColor: '#A5DC86',
-      html: true
-    });
-  }
-});
-
-_.mixin({
-  notificationErrorMessage: function() {
-    var errorMessage;
-    errorMessage = _.trim($('#gotham').data('error-message'));
-    if (_.isEmpty(errorMessage)) {
-      return;
-    }
-    return swal({
-      title: 'Erreur',
-      text: errorMessage,
-      type: 'error',
-      confirmButtonColor: '#D83F66',
-      html: true,
-      timer: 4000
-    });
   }
 });
 });
@@ -1456,79 +1599,6 @@ CustomBox = (function() {
 })();
 
 module.exports = CustomBox;
-});
-
-;require.register("start", function(exports, require, module) {
-var AdminSidebar, Config;
-
-AdminSidebar = require('libraries/admin-sidebar');
-
-Config = require('config');
-
-$('input, textarea').placeholder();
-
-_.notificationFormErrors();
-
-_.notificationSuccessMessage();
-
-_.notificationErrorMessage();
-
-$('.js-chosen').chosen({
-  disable_search_threshold: 30
-});
-
-$(':checkbox').labelauty();
-
-$(':radio').labelauty();
-
-$('.js-tooltip').tooltipster();
-
-if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
-  $.modal.defaults = {
-    escapeClose: true,
-    clickClose: true,
-    closeText: 'Close',
-    closeClass: '',
-    showClose: true,
-    modalClass: "modal",
-    spinnerHtml: '<i class="fa fa-refresh fa-spin"></i>',
-    showSpinner: true,
-    fadeDuration: null,
-    fadeDelay: 1.0
-  };
-  $('[data-modal]').on('click', function(e) {
-    e.preventDefault();
-    return $(this).modal();
-  });
-  new AdminSidebar();
-  $('.js-datatable-simple').DataTable({
-    length: false,
-    language: Config.datatable.language.fr
-  });
-  $(document).on('click', '.js-confirm-delete', function(e) {
-    e.preventDefault();
-    return swal({
-      type: 'warning',
-      title: 'Es-tu sûr ?',
-      text: 'La ressource sera supprimé définitivement',
-      showCancelButton: true,
-      confirmButtonText: "Oui je suis sûr",
-      cancelButtonText: "Annuler",
-      closeOnConfirm: false,
-      showLoaderOnConfirm: true
-    }, (function(_this) {
-      return function() {
-        return window.location.href = $(_this).attr('href');
-      };
-    })(this));
-  });
-  if ($('.js-markdown').length > 0) {
-    new SimpleMDE({
-      element: $('.js-markdown')[0],
-      spellChecker: false
-    });
-  }
-}
 });
 
 ;require.register("validators", function(exports, require, module) {

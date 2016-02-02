@@ -18,8 +18,8 @@ class Bootstrap
     # Load custom validators
     require 'validators'
 
-    # Load start
-    require 'start'
+    # Load boot
+    require 'boot'
 
     # Fetch the controller to execute
     controller = $('#gotham').data('controller')

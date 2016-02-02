@@ -36,16 +36,11 @@
 	<script>require('initialize');</script>
 
 </head>
-<body id="csstyle" data-environment="{{ app()->environment() }}">
+<body id="csstyle" data-environment="{{ app()->environment() }}" data-app="masterbox-admin">
 	
 	@section('gotham')
 		{!! Html::gotham() !!}
 	@show
-
-	<div
-	id="gotham-layout"
-	data-layout="masterbox-admin"
-	></div>
 	
 	<div id="sidebar" class="sidebar sidebar__wrapper">
 		<ul class="sidebar__list">
