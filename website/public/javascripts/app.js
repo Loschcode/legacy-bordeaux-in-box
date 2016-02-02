@@ -1419,7 +1419,7 @@ CustomBox = (function() {
     if (this.isQuestionRadioButton(this.currentQuestion)) {
       $('#question-' + this.currentQuestion).find('#loader').html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement');
     } else {
-      $('#question-' + this.currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer');
+      $('#question-' + this.currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Suivant');
     }
     return $('#question-' + this.currentQuestion).find('.js-skip').addClass('--disabled');
   };
@@ -1428,7 +1428,7 @@ CustomBox = (function() {
     if (this.isQuestionRadioButton(this.currentQuestion)) {
       $('#question-' + this.currentQuestion).find('#loader').html('');
     } else {
-      $('#question-' + this.currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-check"></i> Enregistrer');
+      $('#question-' + this.currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('Suivant');
     }
     return $('#question-' + this.currentQuestion).find('.js-skip').removeClass('--disabled');
   };

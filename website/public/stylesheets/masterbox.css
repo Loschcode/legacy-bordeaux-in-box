@@ -26,19 +26,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 14.4px;
+  height: 13.600000000000001px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 36px;
+  height: 34px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 72px;
+  height: 68px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 180px;
+  height: 170px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -670,27 +670,29 @@ a {
   font-size: 15.3px; }
 
 .custombox__wrapper {
-  border: 2px solid #ECF0F1;
-  border-radius: 5px;
-  padding: 17px;
-  padding-top: 0;
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0, #fff), to(#f8f9f9));
-  background: -webkit-linear-gradient(top, #fff 0, #f8f9f9 100%);
-  background: linear-gradient(to bottom, #fff 0, #f8f9f9 100%); }
+  border: 1px solid #D1D2D5;
+  border-radius: 25px;
+  padding: 51px;
+  background: white; }
 .custombox__multiple {
   color: #77939a;
-  font-style: italic; }
+  font-style: italic;
+  text-align: center; }
 .custombox__question {
   text-align: left;
-  font-family: "Amatic SC", cursive;
-  font-weight: 700;
-  font-size: 40.8px; }
+  font-family: "Lato", sans-serif;
+  font-weight: 300;
+  font-size: 27.200000000000003px;
+  text-align: center;
+  padding-bottom: 34px; }
 .custombox__choices {
-  margin-top: 10.2px; }
-.custombox__footer {
-  text-align: left;
   margin-top: 10.2px;
-  padding-top: 6.800000000000001px;
+  text-align: center; }
+.custombox__footer {
+  border-top: 1px solid #D1D2D5;
+  text-align: left;
+  margin-top: 51px;
+  padding-top: 23.799999999999997px;
   padding-bottom: 6.800000000000001px; }
 .custombox__skip {
   text-align: center;
@@ -710,13 +712,15 @@ a {
   font-size: 13.600000000000001px;
   padding: 10.2px;
   text-align: center;
-  border-radius: 5px;
+  border-radius: 25px;
   color: white;
   text-transform: uppercase;
   outline: 0;
   color: white;
   font-family: "Montserrat", sans-serif;
-  font-weight: 400; }
+  font-weight: 400;
+  padding-right: 34px;
+  padding-left: 34px; }
   .custombox__button.\--skip {
     background-color: #D83F66; }
   .custombox__button.\--disabled {

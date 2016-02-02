@@ -37,7 +37,7 @@
     
     <div class="+spacer-small"></div>
     
-    <div class="grid-7 grid-centered labelauty-default-small">
+    <div class="grid-8 grid-centered labelauty-default-small">
             
       @foreach ($questions as $key => $question)
 
@@ -49,17 +49,16 @@
 
             <div class="custombox">
               <div class="custombox__wrapper">
-                <h3 class="custombox__question">Question n°{{ $key+1 }}</h3>
-                <p class="custombox__description">{{ $question->question }}</p>
+                <h3 class="custombox__question">{{ $question->question }}</h3>
                 @if ($question->type == 'checkbox')
                   <p class="custombox__multiple">(Plusieurs choix sont possibles)</p>
                 @endif
 
                 <div class="custombox__choices">
                   @if (in_array($question->type, ['date', 'member_email', 'text']))
-                    {!! Form::text('answer', '', ['class' => 'form__input']) !!}
+                    {!! Form::text('answer', '', ['class' => 'form__input', 'autofocus']) !!}
                   @elseif ($question->type == 'textarea')
-                    {!! Form::textarea('answer', '', ['class' => 'form__input']) !!}
+                    {!! Form::textarea('answer', '', ['class' => 'form__input', 'autofocus']) !!}
                   @else
                     @foreach ($question->answers as $answer)
 
@@ -77,9 +76,9 @@
                   @endif
                   <p id="error" class="custombox__error"></p>
                 </div>
-                <div class="custombox__footer">
+                <div class="custombox__footer +text-right">
                   @if ($question->type !== 'radiobutton')
-                    <button type="submit" class="custombox__button" href="#"><i class="fa fa-check"></i> Enregistrer</button>
+                    <button type="submit" class="custombox__button" href="#">Suivant</button>
                     <!--
                     <a href="#" class="custombox__button --next js-skip"><i class="fa fa-arrow-circle-o-right"></i> Passer à la question suivante</a>
                     -->
@@ -98,7 +97,7 @@
       
       <div class="+spacer-small"></div>
       <div class="+text-center">
-        <a id="test-no-customization" class="custombox__button --skip" href="{{ action('MasterBox\Customer\PurchaseController@getConfirmed') }}"><i class="fa fa-times-circle"></i> Je souhaite arrêter la personnalisation ici</a>
+        <a id="test-no-customization" class="custombox__button --skip" href="{{ action('MasterBox\Customer\PurchaseController@getConfirmed') }}">Arrêter la personnalisation</a>
       </div>
 
     </div>
