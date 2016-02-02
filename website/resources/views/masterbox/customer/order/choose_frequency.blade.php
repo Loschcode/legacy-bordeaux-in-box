@@ -31,7 +31,7 @@
   <div class="+spacer"></div>
 
   {{-- Choices --}}
-  <div class="grid-7 grid-centered labelauty-choose-frequency">
+  <div class="grid-7 grid-centered">
     {!! Form::open() !!}
       @if ($order_preference->isGift())
   

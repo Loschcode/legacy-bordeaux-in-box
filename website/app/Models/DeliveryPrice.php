@@ -40,7 +40,7 @@ class DeliveryPrice extends Model {
 				return 'labelauty-choose-frequency-focus-big';
 			}
 
-			return;
+			return 'labelauty-choose-frequency-focus-small';
 			// End
 		
 		} else {
@@ -50,7 +50,7 @@ class DeliveryPrice extends Model {
 				return 'labelauty-choose-frequency-focus-big';
 			}
 
-			return;
+			return 'labelauty-choose-frequency-focus-small';
 			// End
 		
 		}

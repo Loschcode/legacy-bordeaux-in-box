@@ -1,24 +1,22 @@
 .labelauty-choose-frequency
   text-align: center
   span.labelauty-title
-    font-size: 0.7vr
+    font-size: 0.71vr
     +font-lato(300)
     display: block
     text-transform: uppercase
-    padding-top: 0.8vr
-    padding-bottom: 0.3vr
+    padding-top: 0.5vr
+    padding-bottom: 0.25vr
     line-height: 1vr
   span.labelauty-description
-    font-size: 0.5vr
+    font-size: 0.48vr
     +font-lato(300)
     display: block
     padding-bottom: 0.8vr
-  span.labelauty-distance
-    font-size: 0.55vr
-    +font-lato(300)
-    padding-bottom: 1vr
-    display: block
     text-transform: uppercase
+    padding-right: 1.1vr
+    padding-left: 1.1vr
+    line-height: 0.8vr
 
   .labelauty-icon
     padding-right: 0.3vr
@@ -81,8 +79,12 @@
     + label > span
       &.labelauty-unchecked-image
         background-image: none
+        width: 0
+        height: 0
       &.labelauty-checked-image
         background-image: none
+        width: 0
+        height: 0
 
 .labelauty-choose-frequency-focus-big
   text-align: center
@@ -92,7 +94,6 @@
     display: block
     text-transform: uppercase
     padding-top: 0.8vr
-    padding-bottom: 0.3vr
     line-height: 1vr
   span.labelauty-description
     font-size: 0.5vr
@@ -112,6 +113,85 @@
       font-size: 11px
       padding: 10px
       background-color: color-dark(grey, 48%)
+      color: white
+      cursor: pointer
+      border-radius: 3px 3px 3px 3px
+      transition: background-color 0.25s
+      user-select: none
+      > span
+        &.labelauty-unchecked, &.labelauty-checked
+          display: inline-block
+          line-height: 16px
+          vertical-align: bottom
+        &.labelauty-unchecked-image, &.labelauty-checked-image
+          display: inline-block
+          width: 16px
+          height: 16px
+          vertical-align: bottom
+          background-repeat: no-repeat
+          background-position: left center
+          transition: background-image 0.5s linear
+          -moz-transition: background-image 0.5s linear
+          -webkit-transition: background-image 0.5s linear
+          -o-transition: background-image 0.5s linear
+        &.labelauty-unchecked-image + span.labelauty-unchecked, &.labelauty-checked-image + span.labelauty-checked
+          color: inherit
+    display: none !important
+    &:not(:checked)
+      &:not([disabled]) + label:hover
+        background-color: #FFC414
+        color: white
+      + label > span
+        &.labelauty-checked-image, &.labelauty-checked
+          display: none
+    &:checked
+      + label
+        background-color: #FFC414
+        color: #ffffff
+      &:not([disabled]) + label:hover
+        background-color: lighten(#FFC414, 10%)
+      + label > span
+        &.labelauty-unchecked-image, &.labelauty-unchecked
+          display: none
+        &.labelauty-checked
+          display: inline-block
+    &.no-label:checked + label > span.labelauty-checked
+      display: block
+    &[disabled] + label
+      opacity: 0.5
+    + label > span
+      &.labelauty-unchecked-image
+        background-image: none
+      &.labelauty-checked-image
+        background-image: none
+
+
+.labelauty-choose-frequency-focus-small
+  text-align: center
+  span.labelauty-title
+    font-size: 0.8vr
+    +font-lato(300)
+    display: block
+    text-transform: uppercase
+    padding-top: 0.8vr
+  span.labelauty-description
+    font-size: 0.5vr
+    +font-lato(300)
+    display: block
+    padding-bottom: 1vr
+
+  .labelauty-icon
+    padding-right: 0.3vr
+
+  input.labelauty
+    + label
+      \::selection, ::-moz-selection
+        background-color: rgba(255, 255, 255, 0)
+      width: 100%
+      display: table
+      font-size: 11px
+      padding: 10px
+      background-color: #cdcdcd
       color: white
       cursor: pointer
       border-radius: 3px 3px 3px 3px
@@ -362,3 +442,190 @@
         background-image: none
       &.labelauty-checked-image
         background-image: none
+
+.labelauty-delivery-mode
+  text-align: center
+  span.labelauty-title
+    font-size: 0.71vr
+    +font-lato(300)
+    display: block
+    text-transform: uppercase
+    padding-top: 0.5vr
+    line-height: 1vr
+  span.labelauty-description
+    font-size: 0.48vr
+    +font-lato(300)
+    display: block
+    padding-bottom: 0.8vr
+    text-transform: uppercase
+    padding-right: 1.1vr
+    padding-left: 1.1vr
+    line-height: 0.8vr
+  span.labelauty-distance
+    font-size: 0.45vr
+    +font-lato(300)
+    padding-bottom: 0.4vr
+    display: block
+    text-transform: uppercase
+
+  .labelauty-icon
+    padding-right: 0.3vr
+
+  input.labelauty
+    + label
+      \::selection, ::-moz-selection
+        background-color: rgba(255, 255, 255, 0)
+      width: 100%
+      display: table
+      font-size: 11px
+      padding: 10px
+      background-color: #cdcdcd
+      color: white
+      cursor: pointer
+      border-radius: 3px 3px 3px 3px
+      transition: background-color 0.25s
+      user-select: none
+      > span
+        &.labelauty-unchecked, &.labelauty-checked
+          display: inline-block
+          line-height: 16px
+          vertical-align: bottom
+        &.labelauty-unchecked-image, &.labelauty-checked-image
+          display: inline-block
+          width: 16px
+          height: 16px
+          vertical-align: bottom
+          background-repeat: no-repeat
+          background-position: left center
+          transition: background-image 0.5s linear
+          -moz-transition: background-image 0.5s linear
+          -webkit-transition: background-image 0.5s linear
+          -o-transition: background-image 0.5s linear
+        &.labelauty-unchecked-image + span.labelauty-unchecked, &.labelauty-checked-image + span.labelauty-checked
+          color: inherit
+    display: none !important
+    &:not(:checked)
+      &:not([disabled]) + label:hover
+        background-color: #FFC414
+        color: white
+      + label > span
+        &.labelauty-checked-image, &.labelauty-checked
+          display: none
+    &:checked
+      + label
+        background-color: #FFC414
+        color: #ffffff
+      &:not([disabled]) + label:hover
+        background-color: lighten(#FFC414, 10%)
+      + label > span
+        &.labelauty-unchecked-image, &.labelauty-unchecked
+          display: none
+        &.labelauty-checked
+          display: inline-block
+    &.no-label:checked + label > span.labelauty-checked
+      display: block
+    &[disabled] + label
+      opacity: 0.5
+    + label > span
+      &.labelauty-unchecked-image
+        background-image: none
+        width: 0
+        height: 0
+      &.labelauty-checked-image
+        background-image: none
+        width: 0
+        height: 0
+
+.labelauty-choose-spot
+  text-align: center
+  span.labelauty-title
+    font-size: 0.71vr
+    +font-lato(300)
+    display: block
+    text-transform: uppercase
+    padding-top: 0.5vr
+    padding-bottom: 0.25vr
+    line-height: 1vr
+  span.labelauty-description
+    font-size: 0.48vr
+    +font-lato(300)
+    display: block
+    padding-bottom: 0.5vr
+    text-transform: uppercase
+    padding-right: 1.1vr
+    padding-left: 1.1vr
+    line-height: 0.8vr
+  span.labelauty-distance
+    font-size: 0.45vr
+    +font-lato(700)
+    padding-bottom: 0.4vr
+    display: block
+    text-transform: uppercase
+
+  .labelauty-icon
+    padding-right: 0.3vr
+
+  input.labelauty
+    + label
+      \::selection, ::-moz-selection
+        background-color: rgba(255, 255, 255, 0)
+      width: 100%
+      display: table
+      font-size: 11px
+      padding: 10px
+      background-color: #cdcdcd
+      color: white
+      cursor: pointer
+      border-radius: 3px 3px 3px 3px
+      transition: background-color 0.25s
+      user-select: none
+      > span
+        &.labelauty-unchecked, &.labelauty-checked
+          display: inline-block
+          line-height: 16px
+          vertical-align: bottom
+        &.labelauty-unchecked-image, &.labelauty-checked-image
+          display: inline-block
+          width: 16px
+          height: 16px
+          vertical-align: bottom
+          background-repeat: no-repeat
+          background-position: left center
+          transition: background-image 0.5s linear
+          -moz-transition: background-image 0.5s linear
+          -webkit-transition: background-image 0.5s linear
+          -o-transition: background-image 0.5s linear
+        &.labelauty-unchecked-image + span.labelauty-unchecked, &.labelauty-checked-image + span.labelauty-checked
+          color: inherit
+    display: none !important
+    &:not(:checked)
+      &:not([disabled]) + label:hover
+        background-color: #FFC414
+        color: white
+      + label > span
+        &.labelauty-checked-image, &.labelauty-checked
+          display: none
+    &:checked
+      + label
+        background-color: #FFC414
+        color: #ffffff
+      &:not([disabled]) + label:hover
+        background-color: lighten(#FFC414, 10%)
+      + label > span
+        &.labelauty-unchecked-image, &.labelauty-unchecked
+          display: none
+        &.labelauty-checked
+          display: inline-block
+    &.no-label:checked + label > span.labelauty-checked
+      display: block
+    &[disabled] + label
+      opacity: 0.5
+    + label > span
+      &.labelauty-unchecked-image
+        background-image: none
+        width: 0
+        height: 0
+      &.labelauty-checked-image
+        background-image: none
+        width: 0
+        height: 0

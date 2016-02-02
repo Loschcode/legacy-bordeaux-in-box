@@ -43,7 +43,12 @@
             <div class="+spacer-extra-small"></div>
 
             <strong>Abonnement:</strong> {{$profile->contract_id}}<br />
-            <strong>Statut:</strong> {!! Html::getReadableProfileStatus($profile->status) !!}<br/> 
+            <strong>Statut:</strong> {!! Html::getReadableProfileStatus($profile->status) !!}<br/>
+
+            {{ Form::open(array('action' => 'MasterBox\Admin\ProfilesController@postUpdatePriority')) }}
+            {{ Form::hidden('profile_id', $profile->id)}}
+            <strong>Priorité :</strong> {{ Form::select('priority', generate_priority_form(), $profile->priority) }} {{ Form::submit('Valider') }} <br/>
+            {{ Form::close() }}
 
             <div class="+spacer-extra-small"></div>
 

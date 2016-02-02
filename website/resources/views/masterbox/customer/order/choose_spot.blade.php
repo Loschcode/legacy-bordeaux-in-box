@@ -26,7 +26,7 @@
   
   <div class="+spacer"></div>
 
-  <div class="grid-7 grid-centered labelauty-choose-frequency">
+  <div class="grid-7 grid-centered labelauty-choose-spot">
 
     {!! Form::open() !!}
     
@@ -36,7 +36,7 @@
  
       <div class="+spacer-extra-small"></div>
 
-      <a id="gmap-{{ $delivery_spot->id }}" href="{{ gmap_link($order_building->getFullDestinationAddress(), $delivery_spot->getFullAddress()) }}" target="_blank" class="button button__google-map +hidden">Voir sur Google map</a>
+      <a id="gmap-{{ $delivery_spot->id }}" href="{{ gmap_link($order_building->getFullDestinationAddress(), $delivery_spot->getFullAddress()) }}" target="_blank" class="button button__google-map +hidden"><i class="fa fa-google"></i> Voir sur Google maps</a>
 
     @endforeach
 
