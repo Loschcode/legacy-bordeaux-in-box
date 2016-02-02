@@ -17,7 +17,7 @@ class DeliverySpot extends Model {
       'active' => 'boolean',
   ];
 
-    public function getAddressAttribute() {
+  public function getAddressAttribute() {
 
     if ($this->coordinate()->first() === NULL)
       return '';
@@ -25,6 +25,7 @@ class DeliverySpot extends Model {
     return $this->coordinate()->first()->address; 
 
   }
+
   public function getCityAttribute() {
 
     if ($this->coordinate()->first() === NULL)
@@ -33,6 +34,7 @@ class DeliverySpot extends Model {
     return $this->coordinate()->first()->city;
 
   }
+
   public function getZipAttribute() {
 
     if ($this->coordinate()->first() === NULL)
@@ -92,6 +94,19 @@ class DeliverySpot extends Model {
 		return $this->hasMany('App\Models\Order');
 
 	}
+
+  /**
+   * Scope
+   */
+  
+  public function scopeOrderByDistanceFrom($query, $coordinate) {
+
+    $latitude = $coordinate->latitude;
+    $longitude = $coordinate->longitude;
+    
+    return $query->join('coordinates', 'coordinates.id', '=', 'delivery_spots.coordinate_id')->orderByRaw("POW((coordinates.longitude-$longitude),2) + POW((coordinates.latitude-$latitude),2)");
+
+  }
 
 	/**
 	 * Methods
