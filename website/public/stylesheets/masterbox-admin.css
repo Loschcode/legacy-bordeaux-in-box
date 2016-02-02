@@ -717,7 +717,8 @@ table.dataTable {
     font-family: "Lato", sans-serif;
     font-weight: 300;
     padding-bottom: 36px;
-    display: block; }
+    display: block;
+    text-transform: uppercase; }
   .labelauty-choose-frequency .labelauty-icon {
     padding-right: 10.799999999999999px; }
   .labelauty-choose-frequency input.labelauty {

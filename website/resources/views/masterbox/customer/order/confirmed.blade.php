@@ -29,5 +29,6 @@
 
   </div>
 </div>
-
+<div class="clear"></div>
+<div class="+spacer-large"></div>
 @stop

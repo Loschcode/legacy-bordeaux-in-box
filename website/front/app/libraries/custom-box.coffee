@@ -155,7 +155,7 @@ class CustomBox
     if @isQuestionRadioButton(@currentQuestion)
       $('#question-' + @currentQuestion).find('#loader').html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement')
     else
-      $('#question-' + @currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Enregistrer')
+      $('#question-' + @currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Suivant')
 
     $('#question-' + @currentQuestion).find('.js-skip').addClass('--disabled')
 
@@ -166,7 +166,7 @@ class CustomBox
     if @isQuestionRadioButton(@currentQuestion)
       $('#question-' + @currentQuestion).find('#loader').html ''
     else
-      $('#question-' + @currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-check"></i> Enregistrer')
+      $('#question-' + @currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('Suivant')
     
     $('#question-' + @currentQuestion).find('.js-skip').removeClass('--disabled')
 
