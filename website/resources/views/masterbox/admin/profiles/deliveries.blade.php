@@ -11,11 +11,6 @@
     <h1 class="title title__section">Abonnement #{{ $profile->id }}</h1>
     <h2 class="title title__subsection">Livraisons</h2>
   </div>
-  <div class="grid-4">
-    <div class="+text-right">
-      <a href="{{ action('MasterBox\Admin\ProfilesController@getIndex') }}" class="button button__section"><i class="fa fa-list"></i> Voir les abonnements</a>
-    </div>
-  </div>
 </div>
 
 <div class="divider divider__section"></div>
@@ -120,7 +115,7 @@
           @endif
         </div>
 
-        <a class="button button__default" href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id]) }}"><i class="fa fa-pencil"></i> Editer</a>
+        <a class="button button__default" href="{{ action('MasterBox\Admin\CustomersController@getEdit', ['id' => $customer->id]) }}"><i class="fa fa-pencil"></i> Editer</a>
 
       </div>
     </div>
