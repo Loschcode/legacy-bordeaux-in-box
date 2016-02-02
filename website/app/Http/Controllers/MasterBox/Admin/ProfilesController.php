@@ -394,6 +394,14 @@ class ProfilesController extends BaseController {
 
     $next_orders = $profile->orders()->where('locked', FALSE)->get();
 
+    if (count($next_orders) === 0) {
+
+      // Then we redirect
+      session()->flash('error', "Aucune future livraison, génération impossible");
+      return redirect()->back();
+
+    }
+
     foreach ($next_orders as $order) {
 
       $order_billing = $order->billing()->first();
@@ -417,7 +425,7 @@ class ProfilesController extends BaseController {
 
     // Then we redirect
     session()->flash('message', "L'adresse de livraison de l'utilisateur a été correctement générée");
-    return redirect()->to(URL::previous() . '#deliveries');
+    return redirect()->back();
 
   }
 

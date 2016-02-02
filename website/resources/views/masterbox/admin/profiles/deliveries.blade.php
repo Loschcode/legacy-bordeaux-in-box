@@ -8,7 +8,7 @@
 
 <div class="row">
   <div class="grid-8">
-    <h1 class="title title__section">Abonnements</h1>
+    <h1 class="title title__section">Abonnement #{{ $profile->id }}</h1>
     <h2 class="title title__subsection">Livraisons</h2>
   </div>
   <div class="grid-4">
@@ -179,7 +179,7 @@
             Aucun détails disponible
           </div>
           <div class="+spacer-extra-small"></div>
-          <a class="button button__default" href="{{ action('MasterBox\Admin\ProfilesController@getGenerateDeliveryAddress') }}">Générer l'adresse de livraison depuis la facturation</a>
+          <a class="button button__default" href="{{ action('MasterBox\Admin\ProfilesController@getGenerateDeliveryAddress', ['profile_id' => $profile->id]) }}">Générer l'adresse de livraison depuis la facturation</a>
         @endif
         </div>
     </div>
