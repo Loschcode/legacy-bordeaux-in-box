@@ -145,7 +145,7 @@
       padding-left: 0.2vr
 
   +part(google-map)
-    background-color: color-get(pink-fluo)
+    background-color: #3A3F41
     font-size: 0.5vr
     padding: 0.2vr
     text-align: center
@@ -153,12 +153,19 @@
     background: color-grey(grey)
     color: white
     text-transform: uppercase
-    box-shadow: inset 0 -6px color-dark(pink-fluo, 12%)
     outline: 0
     color: white
     width: 100%
     margin-bottom: 0.6vr
     +font-montserrat(400)
+    transition: background-color 0.9s
+
+    i
+      padding-right: 0.2vr
+      vertical-align: middle
+
+    &:hover
+      background-color: darken(#3A3F41, 40%)
 
   +part(payment)
     background-color: color-get(pink-fluo)
