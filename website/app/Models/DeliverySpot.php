@@ -104,7 +104,7 @@ class DeliverySpot extends Model {
     $latitude = $coordinate->latitude;
     $longitude = $coordinate->longitude;
     
-    return $query->join('coordinates', 'coordinates.id', '=', 'delivery_spots.coordinate_id')->orderByRaw("POW((coordinates.longitude-$longitude),2) + POW((coordinates.latitude-$latitude),2)");
+    return $query->join('coordinates', 'coordinates.id', '=', 'delivery_spots.coordinate_id')->orderByRaw("POW((coordinates.longitude-$longitude),2) + POW((coordinates.latitude-$latitude),2)")->select('delivery_spots.*');
 
   }
 
