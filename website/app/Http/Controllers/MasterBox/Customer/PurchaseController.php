@@ -389,6 +389,7 @@ class PurchaseController extends BaseController {
     $customer = Auth::guard('customer')->user();
     $order_building = $customer->order_buildings()->getCurrent()->first();
     $order_preference = $order_building->order_preference()->first();
+    $coordinate = $order_building->destination_coordinate()->first();
 
     // In case the user come back
     $chosen_delivery_spot = $order_preference->delivery_spot()->first();
@@ -396,7 +397,10 @@ class PurchaseController extends BaseController {
     if ($chosen_delivery_spot === NULL) $chosen_delivery_spot = 0;
     else $chosen_delivery_spot = $chosen_delivery_spot->id;
 
-    $delivery_spots = DeliverySpot::where('active', TRUE)->get();
+    /**
+     * 10Km max
+     */
+    $delivery_spots = DeliverySpot::where('active', TRUE)->orderByDistanceFrom($coordinate, 10000)->get();
 
     return view('masterbox.customer.order.choose_spot')->with(compact(
 
@@ -752,7 +756,7 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
     $order_building = $customer->order_buildings()->getLastPaid()->first();
-    
+
     // We remove the last order building as it's useless to keep it now
     if ($order_building !== NULL)
       $order_building->delete();
