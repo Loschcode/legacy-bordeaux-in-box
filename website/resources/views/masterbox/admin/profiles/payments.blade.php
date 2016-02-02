@@ -15,9 +15,7 @@
 @stop
 
 @section('content')
-  
-  @include('masterbox.admin.partials.navbar_profiles')
-    
+      
   <div class="row">
     <div class="grid-8">
       <h1 class="title title__section">Abonnement #{{ $profile->id }}</h1>
