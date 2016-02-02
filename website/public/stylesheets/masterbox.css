@@ -117,6 +117,9 @@ a {
     width: 550px;
     display: block;
     margin: 0 auto; }
+    @media (max-width: 750px) {
+      .artwork__container {
+        width: 100%; } }
   .artwork__picture {
     display: block;
     padding-top: 6.800000000000001px;

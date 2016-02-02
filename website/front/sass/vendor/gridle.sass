@@ -8,7 +8,7 @@
 //
 
 // Import Gridle
-@import '../../node_modules/gridle/sass/gridle/gridle-flex'
+@import '../../node_modules/gridle/sass/gridle/gridle'
 
 // Setting up the grid
 +gridle_setup((context: 12, gutter-width: 10px, direction: ltr, debug: true))
@@ -43,7 +43,6 @@
 .container-fluid
   max-width: 100%
 
-// Shortcut responsive
-[class*="gr-"]
+[class*="grid-"]
   +gridle_state(xs)
     +gridle_grid(12)
