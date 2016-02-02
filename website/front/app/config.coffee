@@ -9,10 +9,16 @@
 
 module.exports =
 
+  ##
+  # Stripe keys
+  ##
   stripe:
     testing: 'pk_test_HNPpbWh3FV4Lw4RmIQqirqsj'
     production: 'pk_live_EhCVbntIqph3ppfNCiN6wq3x'
 
+  ##
+  # Translate datatable
+  ##
   datatable:
     language:
       fr:      
