@@ -26,7 +26,7 @@
   
   <div class="+spacer"></div>
 
-  <div class="grid-7 grid-centered labelauty-choose-frequency">
+  <div class="grid-7 grid-centered labelauty-choose-spot">
 
     {!! Form::open() !!}
     

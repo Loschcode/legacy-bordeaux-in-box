@@ -1045,13 +1045,6 @@ select + .chosen-container-multi .chosen-results li.result-selected {
     padding-right: 37.400000000000006px;
     padding-left: 37.400000000000006px;
     line-height: 27.200000000000003px; }
-  .labelauty-choose-frequency span.labelauty-distance {
-    font-size: 15.3px;
-    font-family: "Lato", sans-serif;
-    font-weight: 300;
-    padding-bottom: 13.600000000000001px;
-    display: block;
-    text-transform: uppercase; }
   .labelauty-choose-frequency .labelauty-icon {
     padding-right: 10.2px; }
   .labelauty-choose-frequency input.labelauty {
@@ -1558,6 +1551,101 @@ select + .chosen-container-multi .chosen-results li.result-selected {
       width: 0;
       height: 0; }
     .labelauty-delivery-mode input.labelauty + label > span.labelauty-checked-image {
+      background-image: none;
+      width: 0;
+      height: 0; }
+
+.labelauty-choose-spot {
+  text-align: center; }
+  .labelauty-choose-spot span.labelauty-title {
+    font-size: 24.14px;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    display: block;
+    text-transform: uppercase;
+    padding-top: 17px;
+    padding-bottom: 8.5px;
+    line-height: 34px; }
+  .labelauty-choose-spot span.labelauty-description {
+    font-size: 16.32px;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    display: block;
+    padding-bottom: 17px;
+    text-transform: uppercase;
+    padding-right: 37.400000000000006px;
+    padding-left: 37.400000000000006px;
+    line-height: 27.200000000000003px; }
+  .labelauty-choose-spot span.labelauty-distance {
+    font-size: 15.3px;
+    font-family: "Lato", sans-serif;
+    font-weight: 700;
+    padding-bottom: 13.600000000000001px;
+    display: block;
+    text-transform: uppercase; }
+  .labelauty-choose-spot .labelauty-icon {
+    padding-right: 10.2px; }
+  .labelauty-choose-spot input.labelauty {
+    display: none !important; }
+    .labelauty-choose-spot input.labelauty + label {
+      width: 100%;
+      display: table;
+      font-size: 11px;
+      padding: 10px;
+      background-color: #cdcdcd;
+      color: white;
+      cursor: pointer;
+      border-radius: 3px 3px 3px 3px;
+      -webkit-transition: background-color 0.25s;
+              transition: background-color 0.25s;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none; }
+      .labelauty-choose-spot input.labelauty + label ::-moz-selection, .labelauty-choose-spot input.labelauty + label ::-moz-selection {
+        background-color: rgba(255, 255, 255, 0); }
+      .labelauty-choose-spot input.labelauty + label ::selection, .labelauty-choose-spot input.labelauty + label ::-moz-selection {
+        background-color: rgba(255, 255, 255, 0); }
+      .labelauty-choose-spot input.labelauty + label > span.labelauty-unchecked, .labelauty-choose-spot input.labelauty + label > span.labelauty-checked {
+        display: inline-block;
+        line-height: 16px;
+        vertical-align: bottom; }
+      .labelauty-choose-spot input.labelauty + label > span.labelauty-unchecked-image, .labelauty-choose-spot input.labelauty + label > span.labelauty-checked-image {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: bottom;
+        background-repeat: no-repeat;
+        background-position: left center;
+        transition: background-image 0.5s linear;
+        -moz-transition: background-image 0.5s linear;
+        -webkit-transition: background-image 0.5s linear;
+        -o-transition: background-image 0.5s linear; }
+      .labelauty-choose-spot input.labelauty + label > span.labelauty-unchecked-image + span.labelauty-unchecked, .labelauty-choose-spot input.labelauty + label > span.labelauty-checked-image + span.labelauty-checked {
+        color: inherit; }
+    .labelauty-choose-spot input.labelauty:not(:checked):not([disabled]) + label:hover {
+      background-color: #FFC414;
+      color: white; }
+    .labelauty-choose-spot input.labelauty:not(:checked) + label > span.labelauty-checked-image, .labelauty-choose-spot input.labelauty:not(:checked) + label > span.labelauty-checked {
+      display: none; }
+    .labelauty-choose-spot input.labelauty:checked + label {
+      background-color: #FFC414;
+      color: #ffffff; }
+    .labelauty-choose-spot input.labelauty:checked:not([disabled]) + label:hover {
+      background-color: #ffd147; }
+    .labelauty-choose-spot input.labelauty:checked + label > span.labelauty-unchecked-image, .labelauty-choose-spot input.labelauty:checked + label > span.labelauty-unchecked {
+      display: none; }
+    .labelauty-choose-spot input.labelauty:checked + label > span.labelauty-checked {
+      display: inline-block; }
+    .labelauty-choose-spot input.labelauty.no-label:checked + label > span.labelauty-checked {
+      display: block; }
+    .labelauty-choose-spot input.labelauty[disabled] + label {
+      opacity: 0.5; }
+    .labelauty-choose-spot input.labelauty + label > span.labelauty-unchecked-image {
+      background-image: none;
+      width: 0;
+      height: 0; }
+    .labelauty-choose-spot input.labelauty + label > span.labelauty-checked-image {
       background-image: none;
       width: 0;
       height: 0; }
