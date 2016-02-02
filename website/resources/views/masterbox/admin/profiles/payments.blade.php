@@ -1,5 +1,9 @@
 @extends('masterbox.layouts.admin')
 
+@section('navbar')
+  @include('masterbox.admin.partials.navbar_profiles')
+@stop
+
 @section('gotham')
   {!! Html::gotham([
     'controller' => 'masterbox.admin.profiles.payments'
@@ -11,21 +15,18 @@
 @stop
 
 @section('content')
-  
-  @include('masterbox.admin.partials.navbar_profiles')
-    
-  <div
-    id="gotham"
-    data-controller="masterbox.admin.profiles.payments"
-  >
-
+      
   <div class="row">
     <div class="grid-8">
       <h1 class="title title__section">Abonnement #{{ $profile->id }}</h1>
       <h2 class="title title__subsection">Historique de paiements</h2>
     </div>
+    <div class="grid-4">
+      <div class="+text-right">
+        <a href="{{ action('MasterBox\Admin\ProfilesController@getIndex') }}" class="button button__section"><i class="fa fa-list"></i> Voir les abonnements</a>
+      </div>
+    </div>
   </div>
-  
   <div class="divider divider__section"></div>
 
 
