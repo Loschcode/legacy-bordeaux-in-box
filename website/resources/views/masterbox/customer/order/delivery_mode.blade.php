@@ -30,7 +30,7 @@
     
     <div class="+spacer"></div>
     
-    <div class="grid-7 grid-centered labelauty-choose-frequency">
+    <div class="grid-7 grid-centered labelauty-delivery-mode">
       {!! Form::open() !!}
 
         {!! Form::radio('take_away', 1, ($order_preference->take_away) ? true : Request::old(1), ['class' => 'big', 'data-labelauty' => '<span class="labelauty-title">A emporter en point relais (Gratuit)</span><span class="labelauty-description"></span>']) !!}
