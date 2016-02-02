@@ -698,25 +698,29 @@ table.dataTable {
 .labelauty-choose-frequency {
   text-align: center; }
   .labelauty-choose-frequency span.labelauty-title {
-    font-size: 25.2px;
+    font-size: 25.56px;
     font-family: "Lato", sans-serif;
     font-weight: 300;
     display: block;
     text-transform: uppercase;
-    padding-top: 28.8px;
-    padding-bottom: 10.799999999999999px;
+    padding-top: 18px;
+    padding-bottom: 9px;
     line-height: 36px; }
   .labelauty-choose-frequency span.labelauty-description {
-    font-size: 18px;
+    font-size: 17.28px;
     font-family: "Lato", sans-serif;
     font-weight: 300;
     display: block;
-    padding-bottom: 28.8px; }
+    padding-bottom: 28.8px;
+    text-transform: uppercase;
+    padding-right: 39.6px;
+    padding-left: 39.6px;
+    line-height: 28.8px; }
   .labelauty-choose-frequency span.labelauty-distance {
-    font-size: 19.8px;
+    font-size: 16.2px;
     font-family: "Lato", sans-serif;
     font-weight: 300;
-    padding-bottom: 36px;
+    padding-bottom: 14.4px;
     display: block;
     text-transform: uppercase; }
   .labelauty-choose-frequency .labelauty-icon {
@@ -778,9 +782,13 @@ table.dataTable {
     .labelauty-choose-frequency input.labelauty[disabled] + label {
       opacity: 0.5; }
     .labelauty-choose-frequency input.labelauty + label > span.labelauty-unchecked-image {
-      background-image: none; }
+      background-image: none;
+      width: 0;
+      height: 0; }
     .labelauty-choose-frequency input.labelauty + label > span.labelauty-checked-image {
-      background-image: none; }
+      background-image: none;
+      width: 0;
+      height: 0; }
 
 .labelauty-choose-frequency-focus-big {
   text-align: center; }
@@ -791,7 +799,6 @@ table.dataTable {
     display: block;
     text-transform: uppercase;
     padding-top: 28.8px;
-    padding-bottom: 10.799999999999999px;
     line-height: 36px; }
   .labelauty-choose-frequency-focus-big span.labelauty-description {
     font-size: 18px;
@@ -860,6 +867,84 @@ table.dataTable {
     .labelauty-choose-frequency-focus-big input.labelauty + label > span.labelauty-unchecked-image {
       background-image: none; }
     .labelauty-choose-frequency-focus-big input.labelauty + label > span.labelauty-checked-image {
+      background-image: none; }
+
+.labelauty-choose-frequency-focus-small {
+  text-align: center; }
+  .labelauty-choose-frequency-focus-small span.labelauty-title {
+    font-size: 28.8px;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    display: block;
+    text-transform: uppercase;
+    padding-top: 28.8px; }
+  .labelauty-choose-frequency-focus-small span.labelauty-description {
+    font-size: 18px;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    display: block;
+    padding-bottom: 36px; }
+  .labelauty-choose-frequency-focus-small .labelauty-icon {
+    padding-right: 10.799999999999999px; }
+  .labelauty-choose-frequency-focus-small input.labelauty {
+    display: none !important; }
+    .labelauty-choose-frequency-focus-small input.labelauty + label {
+      width: 100%;
+      display: table;
+      font-size: 11px;
+      padding: 10px;
+      background-color: #cdcdcd;
+      color: white;
+      cursor: pointer;
+      border-radius: 3px 3px 3px 3px;
+      -webkit-transition: background-color 0.25s;
+              transition: background-color 0.25s;
+      -webkit-user-select: none;
+         -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none; }
+      .labelauty-choose-frequency-focus-small input.labelauty + label ::-moz-selection, .labelauty-choose-frequency-focus-small input.labelauty + label ::-moz-selection {
+        background-color: rgba(255, 255, 255, 0); }
+      .labelauty-choose-frequency-focus-small input.labelauty + label ::selection, .labelauty-choose-frequency-focus-small input.labelauty + label ::-moz-selection {
+        background-color: rgba(255, 255, 255, 0); }
+      .labelauty-choose-frequency-focus-small input.labelauty + label > span.labelauty-unchecked, .labelauty-choose-frequency-focus-small input.labelauty + label > span.labelauty-checked {
+        display: inline-block;
+        line-height: 16px;
+        vertical-align: bottom; }
+      .labelauty-choose-frequency-focus-small input.labelauty + label > span.labelauty-unchecked-image, .labelauty-choose-frequency-focus-small input.labelauty + label > span.labelauty-checked-image {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        vertical-align: bottom;
+        background-repeat: no-repeat;
+        background-position: left center;
+        transition: background-image 0.5s linear;
+        -moz-transition: background-image 0.5s linear;
+        -webkit-transition: background-image 0.5s linear;
+        -o-transition: background-image 0.5s linear; }
+      .labelauty-choose-frequency-focus-small input.labelauty + label > span.labelauty-unchecked-image + span.labelauty-unchecked, .labelauty-choose-frequency-focus-small input.labelauty + label > span.labelauty-checked-image + span.labelauty-checked {
+        color: inherit; }
+    .labelauty-choose-frequency-focus-small input.labelauty:not(:checked):not([disabled]) + label:hover {
+      background-color: #FFC414;
+      color: white; }
+    .labelauty-choose-frequency-focus-small input.labelauty:not(:checked) + label > span.labelauty-checked-image, .labelauty-choose-frequency-focus-small input.labelauty:not(:checked) + label > span.labelauty-checked {
+      display: none; }
+    .labelauty-choose-frequency-focus-small input.labelauty:checked + label {
+      background-color: #FFC414;
+      color: #ffffff; }
+    .labelauty-choose-frequency-focus-small input.labelauty:checked:not([disabled]) + label:hover {
+      background-color: #ffd147; }
+    .labelauty-choose-frequency-focus-small input.labelauty:checked + label > span.labelauty-unchecked-image, .labelauty-choose-frequency-focus-small input.labelauty:checked + label > span.labelauty-unchecked {
+      display: none; }
+    .labelauty-choose-frequency-focus-small input.labelauty:checked + label > span.labelauty-checked {
+      display: inline-block; }
+    .labelauty-choose-frequency-focus-small input.labelauty.no-label:checked + label > span.labelauty-checked {
+      display: block; }
+    .labelauty-choose-frequency-focus-small input.labelauty[disabled] + label {
+      opacity: 0.5; }
+    .labelauty-choose-frequency-focus-small input.labelauty + label > span.labelauty-unchecked-image {
+      background-image: none; }
+    .labelauty-choose-frequency-focus-small input.labelauty + label > span.labelauty-checked-image {
       background-image: none; }
 
 .labelauty-default input.labelauty {
