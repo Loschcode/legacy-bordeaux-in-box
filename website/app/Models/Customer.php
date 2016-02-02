@@ -33,9 +33,32 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
    */
  	protected $appends = ['address', 'city', 'zip', 'phone_format', 'role_format', 'turnover', 'full_name'];
   
-  public function getAddressAttribute() { return $this->coordinate()->first()->address; }
-  public function getCityAttribute() { return $this->coordinate()->first()->city; }
-  public function getZipAttribute() { return $this->coordinate()->first()->zip; }
+  public function getAddressAttribute() {
+
+    if ($this->coordinate()->first() === NULL)
+      return '';
+
+    return $this->coordinate()->first()->address; 
+
+  }
+
+  public function getCityAttribute() {
+
+    if ($this->coordinate()->first() === NULL)
+      return '';
+
+    return $this->coordinate()->first()->city;
+
+  }
+  
+  public function getZipAttribute() {
+
+    if ($this->coordinate()->first() === NULL)
+      return '';
+
+    return $this->coordinate()->first()->zip;
+
+  }
 
   /**
    * Create / Update

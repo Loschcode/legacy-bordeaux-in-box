@@ -40,6 +40,7 @@ class PurchaseController extends BaseController {
   {
     $this->middleware('is.customer', array('except' => ['getIndex', 'getClassic', 'getGift']));
     $this->middleware('has.unpaid.order.building', array('except' => ['getClassic', 'getGift', 'getBoxForm', 'postBoxForm', 'getConfirmed']));
+
     $this->middleware('has.paid.order.building', array('only' => ['getBoxForm', 'postBoxForm']));
     $this->middleware('below.serie.counter', array('except' => ['postPayment']));
 

@@ -11,9 +11,30 @@ class OrderDestination extends Model {
 	 */
 	protected $table = 'order_destinations';
   
-  public function getAddressAttribute() { return $this->coordinate()->first()->address; }
-  public function getCityAttribute() { return $this->coordinate()->first()->city; }
-  public function getZipAttribute() { return $this->coordinate()->first()->zip; }
+  public function getAddressAttribute() {
+
+    if ($this->coordinate()->first() === NULL)
+      return '';
+
+    return $this->coordinate()->first()->address; 
+
+  }
+  public function getCityAttribute() {
+
+    if ($this->coordinate()->first() === NULL)
+      return '';
+
+    return $this->coordinate()->first()->city;
+
+  }
+  public function getZipAttribute() {
+
+    if ($this->coordinate()->first() === NULL)
+      return '';
+
+    return $this->coordinate()->first()->zip;
+
+  }
 
 	/**
 	 * Belongs To
