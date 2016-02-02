@@ -57,25 +57,9 @@ class PurchaseBoxFlowTest extends TestCase
     // Fetch customer created
     $customer = Customer::where('email', 'jeremieges@test.com')->first();
 
-    dd($customer->order_buildings()
-
-    if ($this->coordinate()->first() === NULL)
-      return '';
-
-    return $this->coordinate()->first()->zip;
-
-  }->first());
-
     $this->seeInDatabase('customer_order_buildings', ['customer_id' => $customer->id, 'step' => 'billing-address']);
 
-    $this->assertEquals(5, $customer->order_buildings()
-
-    if ($this->coordinate()->first() === NULL)
-      return '';
-
-    return $this->coordinate()->first()->zip;
-
-  }->first()->order_preference()->first()->frequency);
+    $this->assertEquals(5, $customer->order_buildings()->first()->order_preference()->first()->frequency);
 
   }
 
@@ -92,14 +76,7 @@ class PurchaseBoxFlowTest extends TestCase
 
     $this->seeInDatabase('customer_order_buildings', ['customer_id' => $customer->id, 'step' => 'billing-address']);
 
-    $this->assertEquals(3, $customer->order_buildings()
-
-    if ($this->coordinate()->first() === NULL)
-      return '';
-
-    return $this->coordinate()->first()->zip;
-
-  }->first()->order_preference()->first()->frequency);
+    $this->assertEquals(3, $customer->order_buildings()->first()->order_preference()->first()->frequency);
 
   }
 
@@ -116,14 +93,7 @@ class PurchaseBoxFlowTest extends TestCase
 
     $this->seeInDatabase('customer_order_buildings', ['customer_id' => $customer->id, 'step' => 'billing-address']);
 
-    $this->assertEquals(1, $customer->order_buildings()
-
-    if ($this->coordinate()->first() === NULL)
-      return '';
-
-    return $this->coordinate()->first()->zip;
-
-  }->first()->order_preference()->first()->frequency);
+    $this->assertEquals(1, $customer->order_buildings()->first()->order_preference()->first()->frequency);
 
   }
 
@@ -140,14 +110,7 @@ class PurchaseBoxFlowTest extends TestCase
 
     $this->seeInDatabase('customer_order_buildings', ['customer_id' => $customer->id, 'step' => 'billing-address']);
 
-    $this->assertEquals(1, $customer->order_buildings()
-
-    if ($this->coordinate()->first() === NULL)
-      return '';
-
-    return $this->coordinate()->first()->zip;
-
-  }->first()->order_preference()->first()->frequency);
+    $this->assertEquals(1, $customer->order_buildings()->first()->order_preference()->first()->frequency);
   }
 
   /** @test */
@@ -163,14 +126,7 @@ class PurchaseBoxFlowTest extends TestCase
 
     $this->seeInDatabase('customer_order_buildings', ['customer_id' => $customer->id, 'step' => 'billing-address']);
 
-    $this->assertEquals(0, $customer->order_buildings()
-
-    if ($this->coordinate()->first() === NULL)
-      return '';
-
-    return $this->coordinate()->first()->zip;
-
-  }->first()->order_preference()->first()->frequency);
+    $this->assertEquals(0, $customer->order_buildings()->first()->order_preference()->first()->frequency);
   }
 
   /** @test */
