@@ -433,7 +433,7 @@ class PurchaseBoxFlowTest extends TestCase
   private function fillFormSpotAndSubmit($overrides = [])
   {
     $this->submitForm(array_merge([
-      'chosen_spot' => 8 // Victoire - Dreamcatchers
+      'chosen_spot' => App\Models\DeliverySpot::orderByRaw('RAND()')->limit(1)->first()->id
     ], $overrides));
 
     return $this;
