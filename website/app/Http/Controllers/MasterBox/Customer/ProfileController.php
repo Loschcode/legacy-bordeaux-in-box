@@ -109,6 +109,7 @@ class ProfileController extends BaseController {
 
     public function getOrders()
     {
+      
       $customer = Auth::guard('customer')->user();
       $profiles = $customer->profiles()->orderBy('created_at', 'desc')->get();
       $active_menu = 'orders';

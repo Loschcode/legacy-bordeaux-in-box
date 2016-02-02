@@ -109,7 +109,7 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->getCurrent();
+    $order_building = $customer->order_buildings()->getCurrent()->first();
     $order_preference = $order_building->order_preference()->first();
 
     $delivery_prices = DeliveryPrice::where('gift', $order_preference->gift)->orderBy('unity_price', 'asc')->get();
@@ -141,7 +141,7 @@ class PurchaseController extends BaseController {
       if ($delivery_price === NULL) return redirect()->back();
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->getCurrent();
+      $order_building = $customer->order_buildings()->getCurrent()->first();
       $profile = $order_building->profile()->first();
 
       // We change the profile status (the guy chose something)
@@ -181,7 +181,7 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->getCurrent();
+    $order_building = $customer->order_buildings()->getCurrent()->first();
 
     /**
      * Order building Addresses auto-filling
@@ -226,7 +226,7 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->getCurrent();
+      $order_building = $customer->order_buildings()->getCurrent()->first();
       $order_preference = $order_building->order_preference()->first();
       
       // If the user hasn't billing address yet
@@ -266,7 +266,7 @@ class PurchaseController extends BaseController {
   {
 
     $customer = Auth::guard('customer')->user();
-    $order_building = $customer->order_building()->getCurrent();
+    $order_building = $customer->order_buildings()->getCurrent()->first();
     $order_preference = $order_building->order_preference()->first();
 
     // Back
@@ -319,7 +319,7 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->getCurrent();
+      $order_building = $customer->order_buildings()->getCurrent()->first();
       $order_preference = $order_building->order_preference()->first();
 
       $order_preference->take_away = $fields['take_away'];
@@ -365,7 +365,7 @@ class PurchaseController extends BaseController {
   {
 
     $customer = Auth::guard('customer')->user();
-    $order_building = $customer->order_building()->getCurrent();
+    $order_building = $customer->order_buildings()->getCurrent()->first();
     $order_preference = $order_building->order_preference()->first();
 
     // In case the user come back
@@ -403,7 +403,7 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->getCurrent();
+      $order_building = $customer->order_buildings()->getCurrent()->first();
       $order_preference = $order_building->order_preference()->first();
 
       $delivery_spot = DeliverySpot::find($fields['chosen_spot']);
@@ -435,7 +435,7 @@ class PurchaseController extends BaseController {
   public function getPayment()
   {
     $customer = Auth::guard('customer')->user();
-    $order_building = $customer->order_building()->getCurrent();
+    $order_building = $customer->order_buildings()->getCurrent()->first();
     $profile = $order_building->profile()->first();
     $order_preference = $order_building->order_preference()->first();
     $delivery_spot = $order_preference->delivery_spot()->first(); // May be NULL
@@ -468,7 +468,7 @@ class PurchaseController extends BaseController {
       $stripe_token = $fields['stripeToken'];
 
       $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_building()->getCurrent();
+      $order_building = $customer->order_buildings()->getCurrent()->first();
       $profile = $order_building->profile()->first();
 
       /**
@@ -700,7 +700,7 @@ class PurchaseController extends BaseController {
 
     $customer = Auth::guard('customer')->user();
 
-    $order_building = $customer->order_building()->getLastPaid();
+    $order_building = $customer->order_buildings()->getLastPaid()->first();
     $profile = $order_building->profile()->first();
 
     $questions = $profile->unansweredQuestions()->with('answers')->orderBy('position', 'asc')->get();
@@ -725,91 +725,11 @@ class PurchaseController extends BaseController {
 
   }
 
-  /**
-   * We add the answer to the profile of the user
-   */
-  /*
-  public function postBoxForm()
-  {
-
-    // Set a flag to know if we already passed by the validation
-    session()->flash('flag-box-form', true);
-
-    $customer = Auth::guard('customer')->user();
-
-    $order_building = $customer->order_building()->getLastPaid();
-    $profile = $order_building->profile()->first();
-
-    // We auto trim everything
-    //Request::merge(array_map('trim', Request::all()));
-
-    $fields = Request::all();
-    $rules = [];
-
-    // Let's generate the rules
-    $box_questions = BoxQuestion::orderBy('position', 'asc')->get();
-
-    foreach ($box_questions as $question) 
-    {
-      // Checkbox aren't mandatory
-      if ($question->type != 'checkbox') 
-      {
-        if ($question->type == 'date') 
-        {
-          $rules[$question->id.'-0'] = ['required', 'regex:#^[0-9]{2}\/[0-9]{2}\/[0-9]{4}$#'];
-        } 
-        elseif ($question->type == 'member_email') 
-        {
-          $rules[$question->id.'-0'] = ['email', 'exists:users,email', 'not_in:'.$customer->email];
-        } 
-        //elseif ($question->type == 'children_details') 
-        //{
-          //$rules[$question->id.'-0'] = ['array'];
-        //}
-        else 
-        {
-          $rules[$question->id.'-0'] = ['required'];
-        }
-
-      }
-
-    }
-
-    $validator = Validator::make($fields, $rules);
-
-    // The form validation was good
-    if ($validator->passes()) {
-
-      refresh_answers_from_dynamic_questions_form($fields, $profile);
-      return redirect()->action('MasterBox\Customer\PurchaseController@getConfirmed');
-
-    } else {
-
-      $messages = $validator->messages()->toArray();
-
-      // We get the key
-      foreach ($messages as $tag => $value) {
-
-        $return_tag = $tag;
-        break;
-
-      }
-
-      // We return the same page with the error and saving the input datas
-      return redirect(URL::previous() . '#' . $return_tag)
-      ->withInput()
-      ->withErrors($validator);
-
-    }
-  }
-  */
-
   public function getConfirmed()
   {
-    // We will delete the user building system because we don't need it anymore
-    $customer_building = Auth::guard('customer')->user()->order_building()->orderBy('created_at', 'desc')->firstOrFail()->delete();
 
     return view('masterbox.customer.order.confirmed');
+
   }
 
   private function guessStepFromUser()
@@ -825,7 +745,7 @@ class PurchaseController extends BaseController {
     
     $customer = Auth::guard('customer')->user();
     $next_series = DeliverySerie::nextOpenSeries()->first();
-    $order_building = $customer->order_building()->getCurrent();
+    $order_building = $customer->order_buildings()->getCurrent()->first();
 
     // Means there's no step yet, let's go to the first one
     if ($order_building === NULL) {
@@ -850,16 +770,7 @@ class PurchaseController extends BaseController {
 
       $order_building->profile()->associate($customer_profile);
 
-      $order_preference = new CustomerOrderPreference;
-      $order_preference->customer_profile()->associate($customer_profile);
-
-      if (session()->get('isGift') === NULL)
-        session()->put('isGift', FALSE);
-      
-      $order_preference->gift = session()->get('isGift');
-      $order_preference->save();
-
-      $order_building->order_preference()->associate($order_preference);
+      $order_preference = $this->generate_new_order_preference($customer_profile, $order_building);
 
       // Finally we set the current step
       $order_building->step = 'choose-frequency';
@@ -868,6 +779,9 @@ class PurchaseController extends BaseController {
     } else {
 
       $order_preference = $order_building->order_preference()->first();
+
+      if ($order_preference === NULL)
+        $order_preference = $this->generate_new_order_preference($customer_profile, $order_building);
 
       // We refresh the series in case it doesn't match anymore (only use this for statistics)
       $order_building->delivery_serie_id = $next_series->id;
@@ -902,6 +816,23 @@ class PurchaseController extends BaseController {
 
     // Let's redirect depending on the step
     return action("MasterBox\Customer\PurchaseController@".$methods_from_step[$order_building->step]);
+
+  }
+
+  private function generate_new_order_preference($customer_profile, $order_building) {
+
+    $order_preference = new CustomerOrderPreference;
+    $order_preference->customer_profile()->associate($customer_profile);
+
+    if (session()->get('isGift') === NULL)
+      session()->put('isGift', FALSE);
+
+    $order_preference->gift = session()->get('isGift');
+    $order_preference->save();
+
+    $order_building->order_preference()->associate($order_preference);
+
+    return $order_preference;
 
   }
 

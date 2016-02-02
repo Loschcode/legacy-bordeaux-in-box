@@ -91,10 +91,10 @@ class CustomerProfile extends Model {
 
 	}
 
-	public function order_building()
+	public function order_buildings()
 	{
 
-		return $this->hasOne('App\Models\CustomerOrderBuilding');
+		return $this->hasMany('App\Models\CustomerOrderBuilding');
 
 	}
 

@@ -9,6 +9,14 @@ function gmap_link($from, $to) {
   
 }
 
+function gmap_link_simple($to) {
+
+  $to_url = urlencode($to);
+
+  return "https://www.google.com/maps/search/$to_url";
+  
+}
+
 function euros($number) {
 
   return number_format($number, 2, ',', ' ') . ' €';

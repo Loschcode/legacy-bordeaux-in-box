@@ -193,7 +193,7 @@
                       
                       <div class="+spacer-extra-small"></div>
 
-                      <a id="gmap-{{ $delivery_spot->id }}" href="{{ $delivery_spot->getUrlGoogleMap() }}" target="_blank" class="button button__google-map +hidden">Voir sur Google map</a>
+                        <a id="gmap-{{ $delivery_spot->id }}" href="{{ gmap_link_simple($delivery_spot->getFullAddress()) }}" target="_blank" class="button button__google-map +hidden">Voir sur Google map</a>
 
                     @endforeach
                   </div>

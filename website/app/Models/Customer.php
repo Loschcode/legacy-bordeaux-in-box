@@ -50,7 +50,7 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
     return $this->coordinate()->first()->city;
 
   }
-  
+
   public function getZipAttribute() {
 
     if ($this->coordinate()->first() === NULL)
@@ -84,13 +84,6 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 	/**
 	 * HasOne
 	 */
-	
-	public function order_building()
-	{
-
-		return $this->hasOne('App\Models\CustomerOrderBuilding');
-		
-	}
 
   /**
    * BelongsTo
@@ -106,6 +99,14 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 	/**
 	 * HasMany
 	 */
+
+  public function order_buildings()
+  {
+
+    return $this->hasMany('App\Models\CustomerOrderBuilding');
+    
+  }
+
 	public function profiles()
 	{
 

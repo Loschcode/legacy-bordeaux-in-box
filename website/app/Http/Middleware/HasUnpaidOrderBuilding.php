@@ -16,7 +16,7 @@ class HasUnpaidOrderBuilding {
   {
 
 
-    if (Auth::guard('customer')->user()->order_building()->getCurrent() === NULL)
+    if (Auth::guard('customer')->user()->order_buildings()->getCurrent() === NULL)
       return redirect()->action('MasterBox\Guest\HomeController@getIndex');
 
     return $next($request);

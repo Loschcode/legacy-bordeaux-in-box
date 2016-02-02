@@ -11,9 +11,32 @@ class CustomerOrderBuilding extends Model {
 	 */
 	protected $table = 'customer_order_buildings';
 
-  public function getDestinationAddressAttribute() { return $this->destination_coordinate()->first()->address; }
-  public function getDestinationCityAttribute() { return $this->destination_coordinate()->first()->city; }
-  public function getDestinationZipAttribute() { return $this->destination_coordinate()->first()->zip; }
+  public function getDestinationAddressAttribute() {
+
+    if ($this->destination_coordinate()->first() === NULL)
+      return '';
+    
+    return $this->destination_coordinate()->first()->address;
+
+  }
+
+  public function getDestinationCityAttribute() {
+
+    if ($this->destination_coordinate()->first() === NULL)
+      return '';
+
+    return $this->destination_coordinate()->first()->city;
+
+  }
+
+  public function getDestinationZipAttribute() {
+
+    if ($this->destination_coordinate()->first() === NULL)
+      return '';
+
+    return $this->destination_coordinate()->first()->zip;
+
+  }
 
 	/**
 	 * Belongs To
@@ -103,7 +126,7 @@ class CustomerOrderBuilding extends Model {
   public function scopeGetCurrent($query)
   {
 
-    return $this->orderBy('created_at', 'desc')->notPaidYet()->first();
+    return $query->orderBy('created_at', 'desc')->notPaidYet();
 
   }
 
@@ -113,7 +136,7 @@ class CustomerOrderBuilding extends Model {
   public function scopeGetLastPaid($query)
   {
 
-    return $this->orderBy('created_at', 'desc')->onlyPaid()->first();
+    return $query->orderBy('created_at', 'desc')->onlyPaid();
 
   }
 
