@@ -64,11 +64,18 @@ Html::macro('cssLinkProfileMenuActive', function($label, $current) {
 /**
  * Return the html to set in the spot checkbox
  */
-Html::macro('getTextCheckboxSpot', function($delivery_spot) 
+Html::macro('getTextCheckboxSpot', function($delivery_spot, $order_building = '') 
 {
-  return 
+  $output = 
     '<span class="labelauty-title"><i class="fa fa-map-marker labelauty-icon"></i>' . $delivery_spot->name . '</span>' .
     '<span class="labelauty-description">' . $delivery_spot->address . ', ' . $delivery_spot->city . ' (' . $delivery_spot->zip . ')</span>';
+
+
+  if ( ! empty($order_building)) {
+    $output .= '<span class="labelauty-distance">Distance ' . display_distance($delivery_spot->getDistanceFromCoordinate($order_building->destination_coordinate()->first())) . '</span>';
+  }
+
+  return $output;
 });
 
 /**

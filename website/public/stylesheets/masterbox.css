@@ -1036,7 +1036,13 @@ select + .chosen-container-multi .chosen-results li.result-selected {
     font-family: "Lato", sans-serif;
     font-weight: 300;
     display: block;
-    padding-bottom: 34px; }
+    padding-bottom: 27.200000000000003px; }
+  .labelauty-choose-frequency span.labelauty-distance {
+    font-size: 18.700000000000003px;
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
+    padding-bottom: 34px;
+    display: block; }
   .labelauty-choose-frequency .labelauty-icon {
     padding-right: 10.2px; }
   .labelauty-choose-frequency input.labelauty {

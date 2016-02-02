@@ -805,6 +805,7 @@ module.exports = ChooseFrequency;
 
 ;require.register("controllers/masterbox/customer/purchase/choose-spot", function(exports, require, module) {
 var ChooseSpot, Controller,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
   hasProp = {}.hasOwnProperty;
 
@@ -814,22 +815,43 @@ ChooseSpot = (function(superClass) {
   extend(ChooseSpot, superClass);
 
   function ChooseSpot() {
+    this.hideGoogleMap = bind(this.hideGoogleMap, this);
+    this.showGoogleMap = bind(this.showGoogleMap, this);
     return ChooseSpot.__super__.constructor.apply(this, arguments);
   }
 
-  ChooseSpot.prototype.before = function() {};
+  ChooseSpot.prototype.currentGoogleMap = false;
 
-  ChooseSpot.prototype.run = function() {
-    return this.on('click', 'label', this.displayGoogleMap);
+  ChooseSpot.prototype.before = function() {
+    var id;
+    if ($('input:checked').length > 0) {
+      id = $('input:checked').first().attr('id');
+      return this.showGoogleMap(id);
+    }
   };
 
-  ChooseSpot.prototype.displayGoogleMap = function() {
-    var id;
-    $('[id^=gmap]').addClass('+hidden');
-    id = $(this).attr('for');
-    if ($('#gmap-' + id).hasClass('+hidden')) {
-      return $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn();
+  ChooseSpot.prototype.run = function() {
+    return this.on('click', 'label', (function(_this) {
+      return function(e) {
+        var id;
+        id = $(e.currentTarget).attr('for');
+        return _this.showGoogleMap(id);
+      };
+    })(this));
+  };
+
+  ChooseSpot.prototype.showGoogleMap = function(id) {
+    if (id !== this.currentGoogleMap) {
+      if (this.currentGoogleMapMap !== false) {
+        this.hideGoogleMap(this.currentGoogleMap);
+      }
+      $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn();
+      return this.currentGoogleMap = id;
     }
+  };
+
+  ChooseSpot.prototype.hideGoogleMap = function(id) {
+    return $('#gmap-' + id).addClass('+hidden');
   };
 
   return ChooseSpot;
