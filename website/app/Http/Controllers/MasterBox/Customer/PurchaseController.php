@@ -750,6 +750,13 @@ class PurchaseController extends BaseController {
   public function getConfirmed()
   {
 
+    $customer = Auth::guard('customer')->user();
+    $order_building = $customer->order_buildings()->getLastPaid()->first();
+    
+    // We remove the last order building as it's useless to keep it now
+    if ($order_building !== NULL)
+      $order_building->delete();
+
     return view('masterbox.customer.order.confirmed');
 
   }
