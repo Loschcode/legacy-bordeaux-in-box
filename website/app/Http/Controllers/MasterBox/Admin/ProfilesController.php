@@ -296,7 +296,7 @@ class ProfilesController extends BaseController {
 
 		}
 
-		return redirect(action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $profile->id]).'#deliveries');
+		return redirect()->action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $profile->id]);
 
 	}
 
