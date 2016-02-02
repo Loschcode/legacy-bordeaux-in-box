@@ -85,7 +85,7 @@
           <th>{{ Html::dateFrench($payment->created_at, true) }}</th>
           <th>
 
-            <a class="button button__table" href="{{ url('/admin/payments/focus/' . $payment->id) }}"><i class="fa fa-eye"></i></a>
+           <a data-modal class="button button__table" href="{{ url('/admin/payments/focus/' . $payment->id) }}"><i class="fa fa-eye"></i></a>
 
           </th>
 

@@ -59,6 +59,28 @@ $('.js-tooltip').tooltipster()
 if $('#gotham-layout').data('layout') is 'masterbox-admin'
 
   ##
+  # Jquery Modal
+  ##
+  $.modal.defaults =
+    escapeClose: true
+    clickClose: true
+    closeText: 'Close'
+    closeClass: ''
+    showClose: true
+    modalClass: "modal"
+    spinnerHtml: '<i class="fa fa-refresh fa-spin"></i>'
+    showSpinner: true
+    fadeDuration: null
+    fadeDelay: 1.0
+  
+  $('[data-modal]').on 'click', (e) ->
+    e.preventDefault();
+
+    $(this).modal()
+
+
+
+  ##
   # Manage sidebar hover / unhover
   ##
   new AdminSidebar()

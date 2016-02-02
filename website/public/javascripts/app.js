@@ -1484,6 +1484,22 @@ $(':radio').labelauty();
 $('.js-tooltip').tooltipster();
 
 if ($('#gotham-layout').data('layout') === 'masterbox-admin') {
+  $.modal.defaults = {
+    escapeClose: true,
+    clickClose: true,
+    closeText: 'Close',
+    closeClass: '',
+    showClose: true,
+    modalClass: "modal",
+    spinnerHtml: '<i class="fa fa-refresh fa-spin"></i>',
+    showSpinner: true,
+    fadeDuration: null,
+    fadeDelay: 1.0
+  };
+  $('[data-modal]').on('click', function(e) {
+    e.preventDefault();
+    return $(this).modal();
+  });
   new AdminSidebar();
   $('.js-datatable-simple').DataTable({
     length: false,
