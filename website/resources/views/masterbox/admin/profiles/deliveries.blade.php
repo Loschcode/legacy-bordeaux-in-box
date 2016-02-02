@@ -8,7 +8,14 @@
 
 <div class="row">
   <div class="grid-8">
-    <h1 class="title title__section">Abonnement #{{ $profile->id }}</h1>
+    <h1 class="title title__section">Abonnement #{{ $profile->id }}
+
+    @if ($profile->status === 'expired')
+    ({!! Html::getReadableProfileStatus($profile->status) !!})
+    @endif
+    
+
+    </h1>
     <h2 class="title title__subsection">Livraisons</h2>
   </div>
 </div>
@@ -43,7 +50,13 @@
     <tr>
 
       <th>{{$order->id}}</th>
-      <th>{{ Html::dateFrench($order->delivery_serie()->first()->delivery, true) }}</th>
+      <th>
+      @if ($order->delivery_serie()->first() !== NULL)
+      {{ Html::dateFrench($order->delivery_serie()->first()->delivery, true) }}
+      @else
+      Non assigné
+      @endif
+      </th>
       <th>
         @if ($order->take_away)
         Point relais ({{$order->delivery_spot()->first()->name}})
