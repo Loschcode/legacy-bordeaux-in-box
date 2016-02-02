@@ -4,6 +4,8 @@ Controller = require 'core/controller'
 
 class ChooseSpot extends Controller
 
+  currentGoogleMap: false
+
   ##
   # Before
   #
@@ -14,6 +16,11 @@ class ChooseSpot extends Controller
   ##
   before: ->
 
+    if $('input:checked').length > 0
+
+      id = $('input:checked').first().attr('id')
+      @showGoogleMap(id)
+
   ##
   # Run
   #
@@ -23,20 +30,29 @@ class ChooseSpot extends Controller
   ##
   run: ->
 
-    @on 'click', 'label', @displayGoogleMap
+    @on 'click', 'label', (e) =>
 
-  displayGoogleMap: ->
+      id = $(e.currentTarget).attr('for')
 
-    # Hide each google map buttons
-    $('[id^=gmap]').addClass('+hidden')
+      @showGoogleMap(id)
 
-    id = $(this).attr('for')
 
-    # If it's not already displayed
-    if $('#gmap-' + id).hasClass('+hidden')
+  showGoogleMap: (id) => 
 
-      # Display it
+    if id != @currentGoogleMap
+
+      if @currentGoogleMapMap != false 
+        @hideGoogleMap(@currentGoogleMap)
+
+      # Show
       $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn()
+
+      # Flag
+      @currentGoogleMap = id
+
+  hideGoogleMap: (id) =>
+
+    $('#gmap-' + id).addClass('+hidden')
 
 
 # Export

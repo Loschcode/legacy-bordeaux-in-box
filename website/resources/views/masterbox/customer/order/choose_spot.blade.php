@@ -32,9 +32,7 @@
     
     @foreach ($delivery_spots as $delivery_spot)
 
-      DISTANCE {{ display_distance($delivery_spot->getDistanceFromCoordinate($order_building->destination_coordinate()->first())) }}
-
-      {!! Form::radio('chosen_spot', $delivery_spot->id, ($chosen_delivery_spot == $delivery_spot->id) ? true : Request::old($delivery_spot->id), ['id' => $delivery_spot->id, 'data-labelauty' => Html::getTextCheckboxSpot($delivery_spot)]) !!}
+      {!! Form::radio('chosen_spot', $delivery_spot->id, ($chosen_delivery_spot == $delivery_spot->id) ? true : Request::old($delivery_spot->id), ['id' => $delivery_spot->id, 'data-labelauty' => Html::getTextCheckboxSpot($delivery_spot, $order_building)]) !!}
  
       <div class="+spacer-extra-small"></div>
 
