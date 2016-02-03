@@ -11,6 +11,7 @@ use App\Models\DeliverySetting;
 use App\Models\DeliveryPrice;
 use App\Models\DeliverySpot;
 use App\Models\Order;
+use App\Models\BoxQuestion;
 
 use Illuminate\Support\Str, Config;
 
@@ -96,6 +97,44 @@ class DeliveriesController extends BaseController {
       'series',
       'spots'
     ));
+  }
+
+  /**
+   * Display questions answers for the series X
+   * @param  String $id Series id
+   * @return \Illuminate\View\View
+   */
+  public function getQuestionsAnswers($id)
+  {
+    $series = DeliverySerie::find($id);
+    $box_questions = BoxQuestion::get();
+    $form_stats = $series->getFormStats();
+
+    return view('masterbox.admin.deliveries.questions_answers')->with(compact(
+      'box_questions',
+      'form_stats',
+      'series'
+    ));
+  }
+
+  /**
+   * Display emails for the series X
+   * @param  String $id Series id
+   * @return \Illuminate\View\View
+   */
+  public function getListingEmails($id)
+  {
+    $series = DeliverySerie::find($id);
+
+    $series_email_listing = get_email_listing_from_orders($series->orders()->notCanceledOrders()->get());
+    $series_unfinished_email_listing = get_email_listing_from_unfinished_profiles($series);
+
+    return view('masterbox.admin.deliveries.listing_emails')->with(compact(
+      'series',
+      'series_email_listing',
+      'series_unfinished_email_listing'
+    ));
+    
   }
 
   /**
