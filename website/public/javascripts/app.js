@@ -1188,6 +1188,44 @@ Payment = (function(superClass) {
 module.exports = Payment;
 });
 
+;require.register("controllers/masterbox/guest/blog/article", function(exports, require, module) {
+var Article, Controller,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Article = (function(superClass) {
+  extend(Article, superClass);
+
+  function Article() {
+    return Article.__super__.constructor.apply(this, arguments);
+  }
+
+  Article.prototype.before = function() {
+    return $("#share").jsSocials({
+      shares: ["facebook", "pinterest", "twitter", "email"],
+      showCount: true,
+      showLabel: true,
+      text: $('#gotham').data('text'),
+      facebook: {
+        label: "Partager"
+      },
+      pinterest: {
+        media: $('#gotham').data('pinterest-media')
+      }
+    });
+  };
+
+  Article.prototype.run = function() {};
+
+  return Article;
+
+})(Controller);
+
+module.exports = Article;
+});
+
 ;require.register("controllers/masterbox/guest/home/index", function(exports, require, module) {
 var Controller, Index,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },

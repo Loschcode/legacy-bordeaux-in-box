@@ -1,4 +1,13 @@
 @extends('masterbox.layouts.master')
+
+@section('gotham')
+  {!! Html::gotham([
+    'controller' => 'masterbox.guest.blog.article',
+    'text' => $blog_article->title,
+    'pinterest-media' => $blog_article->thumbnail->full
+  ]) !!}
+@stop
+
 @section('content')
 
 <div class="container">
@@ -14,6 +23,10 @@
         {!! Markdown::convertToHtml($blog_article->content) !!}
       </div>
   
+      <div class="+spacer"></div>
+      
+      <div id="share"></div>
+
       <div class="+spacer"></div>
 
       @foreach ($random_articles->chunk(4) as $chunk)
@@ -33,6 +46,7 @@
       @endforeach
 
       <div class="+spacer-small"></div>
+
 
       <div id="disqus_thread"></div>
       <script type="text/javascript">
