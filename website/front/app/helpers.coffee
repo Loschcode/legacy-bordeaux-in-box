@@ -12,13 +12,26 @@
 Config = require 'config'
 
 ##
+# It returns the current app (masterbox, masterbox-admin, etc ..)
+##
+_.mixin getApp: ->
+
+  return $('body').data('app')
+
+
+##
+# It returns the current environment
+##
+_.mixin getEnvironment: ->
+
+  return $('body').data('environment')
+
+##
 # It returns the stripe key depending the environment
 ##
 _.mixin getStripeKey: ->
 
-  environment = $('body').data('environment')
-
-  if environment is 'production'
+  if _.getEnvironment() is 'production'
     return Config.stripe.production
 
   return Config.stripe.testing
@@ -55,76 +68,4 @@ _.mixin profileStatus: (status) ->
     when 'subscribed' then 'Abonné'
     else status
 
-##
-# If laravel returned a form error, it displays a sweet alert
-##
-_.mixin notificationFormErrors: ->
-
-  hasErrors = _.trim($('#gotham').data('form-errors'))
-
-  if _.isEmpty(hasErrors)
-    return
-
-  unless hasErrors == '1'
-    return
-
-  titleErrors = _.trim($('#gotham').data('form-errors-title'))
-  textErrors = _.trim($('#gotham').data('form-errors-text'))
-
-  # Guess tittle
-  unless _.isEmpty(titleErrors)
-    title = titleErrors
-  else
-    title = 'Attention'
-
-  # Guess text
-  unless _.isEmpty(textErrors)
-    text = textErrors
-  else
-    text = 'Des erreurs sont présentes dans le formulaire'
-
-
-  # Open the modal
-  swal
-    title: title
-    text: text
-    type: 'error'
-    confirmButtonColor: '#D83F66'
-    html: true
-    timer: 1750
-
-##
-# If laravel returned a success message, it displays a sweet alert
-##
-_.mixin notificationSuccessMessage: ->
-
-  successMessage = _.trim($('#gotham').data('success-message'))
-
-  if _.isEmpty(successMessage)
-    return
-
-  swal
-    title: 'Succès'
-    text: successMessage
-    type: 'success'
-    confirmButtonColor: '#A5DC86'
-    html: true
-
-##
-# If laravel returned an error message, it displays a sweet alert
-##
-_.mixin notificationErrorMessage: ->
-
-  errorMessage = _.trim($('#gotham').data('error-message'))
-
-  if _.isEmpty(errorMessage)
-    return
-
-  swal
-    title: 'Erreur'
-    text: errorMessage
-    type: 'error'
-    confirmButtonColor: '#D83F66'
-    html: true
-    timer: 4000
 

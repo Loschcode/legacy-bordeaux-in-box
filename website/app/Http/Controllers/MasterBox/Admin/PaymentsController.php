@@ -57,9 +57,8 @@ class PaymentsController extends BaseController {
 
 		$profile = $payment->profile()->first();
 
-		if ($payment->order()->first() == NULL) $payment_order_id = 0;
-		else $payment_order_id = $payment->order()->first()->id;
-
+		if ($payment->orders()->first() == NULL) $payment_order_id = 0;
+		else $payment_order_id = $payment->orders()->first()->id;
 
 		// We generate the order depending on what the user got
 		$order_series_list = [0 => '-'];

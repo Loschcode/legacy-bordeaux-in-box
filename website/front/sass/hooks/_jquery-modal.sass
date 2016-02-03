@@ -1,0 +1,64 @@
+.blocker
+  position: fixed
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  width: 100%
+  height: 100%
+  overflow: auto
+  z-index: 1
+  padding: 20px
+  box-sizing: border-box
+  background-color: rgb(0, 0, 0)
+  background-color: rgba(0, 0, 0, 0.75)
+  text-align: center
+  &:before
+    content: ""
+    display: inline-block
+    height: 100%
+    vertical-align: middle
+    margin-right: -0.05em
+
+.modal
+  display: inline-block
+  vertical-align: middle
+  position: relative
+  z-index: 2
+  width: 600px
+  background: #fff
+  padding: 15px 30px
+  border-radius: 5px
+  text-align: left
+  a.close-modal
+    position: absolute
+    top: 10.5px
+    right: 5px
+    display: block
+    width: 30px
+    height: 30px
+    text-indent: -9999px
+    color: red
+    content: "\f000"
+    font-family: FontAwesome
+    font-style: normal
+    font-weight: normal
+    text-decoration: inherit
+
+.modal-spinner
+  display: none
+  background: linear-gradient(#364347, #20282a)
+  color: white
+  text-align: center
+  width: 64px
+  height: 64px
+  position: fixed
+  top: 50%
+  left: 50%
+  margin-right: -32px
+  margin-top: -32px
+  border-radius: 8px
+
+  i
+    display: block
+    margin-top: 0.57vr

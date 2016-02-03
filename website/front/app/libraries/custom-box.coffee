@@ -1,10 +1,18 @@
-##
-# Manage the module to answer some questions
+#--------------------------------------------------------------------------
+# CustomBox
+#--------------------------------------------------------------------------
+#
+# Manage the module to answer some questions;
+#
 ##
 class CustomBox
 
+  # @property [Boolean] Flag to know if ajax is processing
   processingAjax: false
 
+  ##
+  # Construct a new CustomBox
+  ##
   constructor: ->
    
     # Display the first question
@@ -23,6 +31,9 @@ class CustomBox
     $(':radio').on 'click', @labelClicked
     $('.js-skip').on 'click', @skipClicked
 
+  ##
+  # When we click on skip
+  ##
   skipClicked: (e) =>
 
     e.preventDefault()
@@ -100,8 +111,8 @@ class CustomBox
 
   ##
   # Show the question wanted
-  # @param integer Which question we want to display
-  # @param boolean Do we want a fadeIn transition
+  # @param [Integer] Which question we want to display
+  # @param [Boolean] Do we want a fadeIn transition
   ##
   showQuestion: (position, fadeIn) =>
 
@@ -179,7 +190,7 @@ class CustomBox
 
   ##
   # Fetch the form datas of the question X
-  # @return object
+  # @return [Object] The datas of the form
   ##
   fetchDatasQuestion: (question) =>
 
@@ -189,6 +200,7 @@ class CustomBox
 
   ##
   # Display the error given
+  # @param [String] The error to show
   ##
   showError: (error) => 
 

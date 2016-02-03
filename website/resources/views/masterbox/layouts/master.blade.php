@@ -43,7 +43,7 @@
 
 </head>
 
-<body id="csstyle" data-environment="{{ app()->environment() }}">
+<body id="csstyle" data-environment="{{ app()->environment() }}" data-app="masterbox">
   
   @section('gotham')
     {!! Html::gotham() !!}

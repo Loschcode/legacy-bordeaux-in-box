@@ -24,7 +24,7 @@ Validator.errors
 ##
 Validator.attributes
   card: 'numéro de carte'
-  expiration: 'date d\expiration'
+  expiration: 'date d\'expiration'
   ccv: 'cvv'
 
 #--------------------------------------------------------------------------

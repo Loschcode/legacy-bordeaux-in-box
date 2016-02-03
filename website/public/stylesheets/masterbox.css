@@ -26,19 +26,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 13.600000000000001px;
+  height: 14.4px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 34px;
+  height: 36px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 68px;
+  height: 72px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 170px;
+  height: 180px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -117,6 +117,9 @@ a {
     width: 550px;
     display: block;
     margin: 0 auto; }
+    @media (max-width: 750px) {
+      .artwork__container {
+        width: 100%; } }
   .artwork__picture {
     display: block;
     padding-top: 6.800000000000001px;

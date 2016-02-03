@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import url(https://fonts.googleapis.com/css?family=Rancho);
 @import url(https://fonts.googleapis.com/css?family=Gudea:400,400italic,700&subset=latin,latin-ext);
 @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
@@ -24,19 +25,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 13.600000000000001px;
+  height: 14.4px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 34px;
+  height: 36px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 68px;
+  height: 72px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 170px;
+  height: 180px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -449,6 +450,16 @@ a {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;
   margin-top: 18px; }
+
+.dialog__title {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 19.8px; }
+.dialog__divider {
+  width: 100%;
+  border-bottom: 1px solid #dde4e6;
+  margin-bottom: 14.4px;
+  margin-top: 14.4px; }
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }
@@ -1320,6 +1331,73 @@ table.dataTable {
       background-image: none;
       width: 0;
       height: 0; }
+
+.blocker {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  z-index: 1;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.75);
+  text-align: center; }
+  .blocker:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+    margin-right: -0.05em; }
+
+.modal {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  z-index: 2;
+  width: 600px;
+  background: #fff;
+  padding: 15px 30px;
+  border-radius: 5px;
+  text-align: left; }
+  .modal a.close-modal {
+    position: absolute;
+    top: 10.5px;
+    right: 5px;
+    display: block;
+    width: 30px;
+    height: 30px;
+    text-indent: -9999px;
+    color: red;
+    content: "";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit; }
+
+.modal-spinner {
+  display: none;
+  background: -webkit-gradient(linear, left top, left bottom, from(#364347), to(#20282a));
+  background: -webkit-linear-gradient(#364347, #20282a);
+  background: linear-gradient(#364347, #20282a);
+  color: white;
+  text-align: center;
+  width: 64px;
+  height: 64px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-right: -32px;
+  margin-top: -32px;
+  border-radius: 8px; }
+  .modal-spinner i {
+    display: block;
+    margin-top: 20.52px; }
 
 
 /*# sourceMappingURL=masterbox-admin.css.map*/

@@ -1,24 +1,14 @@
-<div class="modal-header">
-  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-  <h4 class="modal-title" id="myModalLabel">Paiement N°{{$payment->id}}</h4>
+<div class="dialog">
+  <h4 class="dialog__title">Paiement N°{{$payment->id}}</h4>
+  <div class="dialog__divider"></div>
 </div>
-<div class="modal-body">
 
-
-  <div class="panel panel-default">
-    <div class="panel-heading"><i class="fa fa-user"></i> Client &amp; Abonnement</div>
-
-    <div class="panel-body">
-
-    Rien
-
+  <div class="panel panel__wrapper">
+    <div class="panel__header">
+      <h3 class="panel__title"><i class="fa fa-exchange"></i> Stripe</h3>
     </div>
-  </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading"><i class="fa fa-exchange"></i> Stripe</div>
-
-    <div class="panel-body">
+    <div class="panel__content">
 
       Customer : {{$payment->stripe_customer}}<br />
       Event : {{$payment->stripe_event}}<br />
@@ -28,69 +18,72 @@
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading"><i class="fa fa-bank"></i> Informations bancaires</div>
+  <div class="+spacer-small"></div>
 
-    <div class="panel-body">
+  <div class="panel panel__wrapper">
+    <div class="panel__header">
+      <h3 class="panel__title"><i class="fa fa-bank"></i> Informations bancaires</h3>
+    </div>
 
+    <div class="panel__content">
       Type de paiement : {!! Html::getReadablePaymentType($payment->type) !!}<br />
-      Quantité : {{$payment->amount}} €</br>
+      Prix : {{ Html::euros($payment->amount) }}</br>
       Statut : {!! Html::getReadablePaymentStatus($payment->paid) !!}</br>
       Derniers chiffres de carte : {{$payment->last4}}</br>
-
     </div>
   </div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading"><i class="fa fa-link"></i> Liaisons internes &amp; dates</div>
+  <div class="+spacer-small"></div>
 
-    <div class="panel-body">
+  <div class="panel panel__wrapper">
+    <div class="panel__header">
+      <h3 class="panel__title"><i class="fa fa-link"></i> Liaisons internes &amp; dates</h3>
+    </div>
 
-      {!! Form::open(array('action' => 'MasterBox\Admin\PaymentsController@postUpdatePaymentOrder', 'class' => 'form-inline')) !!}
+    <div class="panel__content">
+
+      {!! Form::open(['action' => 'MasterBox\Admin\PaymentsController@postUpdatePaymentOrder']) !!}
 
       {!! Form::hidden("payment_id", $payment->id) !!}
 
       {!! Form::label("order_id", "Série ") !!}
       {!! Form::select('order_id', $order_series_list, (Request::old("order_id")) ? Request::old("order_id") : $payment_order_id) !!}
 
-      {!! Form::submit("Mettre à jour", ['class' => 'spyro-btn spyro-btn-success spyr-btn-sm']) !!}
+      {!! Form::submit("Mettre à jour") !!}
 
       {!! Form::close() !!}
 
-      <br />
-
       Date création : {{$payment->created_at}}<br />
-
     </div>
   </div>
 
-  
+  <div class="+spacer-small"></div>
 
-  <div class="panel panel-default">
-    <div class="panel-heading"><i class="fa fa-cog"></i> Actions diverses</div>
 
-    <div class="panel-body">
+  <div class="panel panel__wrapper">
+    <div class="panel__header">
+      <h3 class="panel__title"><i class="fa fa-cog"></i> Actions diverses</h3>
+    </div>
+
+    <div class="panel__content">
 
       @if ($payment->paid)
-      <a class="spyro-btn spyro-btn-warning" href="{{url('/admin/payments/make-fail/'.$payment->id)}}">Forcer l'échec</a>
+        <a class="button button__default --red" href="{{url('/admin/payments/make-fail/'.$payment->id)}}">Forcer l'échec</a>
       @else
-      <a class="spro-btn spyro-btn-success" href="{{url('/admin/payments/make-success/'.$payment->id)}}">Considérer comme payé</a>
+        <a class="button button__default" href="{{url('/admin/payments/make-success/'.$payment->id)}}">Considérer comme payé</a>
       @endif
 
-      @if ($payment->order()->first() == NULL)
+      @if ($payment->orders()->first() == NULL)
 
-      <a class="spyro-btn spyro-btn-primary" href="{{url('/admin/payments/link-payment-to-next-series/'.$payment->id)}}">Relier à la prochaine série planifiée</a>
+      <a class="button button__default" href="{{url('/admin/payments/link-payment-to-next-series/'.$payment->id)}}">Relier à la prochaine série planifiée</a>
 
       @endif
 
-      <a class="spyro-btn spyro-btn-danger" href="{{url('/admin/payments/delete/'.$payment->id)}}">Archiver</a>
+      <a class="button button__default" href="{{url('/admin/payments/delete/'.$payment->id)}}">Archiver</a>
 
     </div>
   </div>
 
-</div>
-<div class="modal-footer">
-  <button type="button" class="spyro-btn spyro-btn-default" data-dismiss="modal">Fermer</button>
 </div>
 
 
