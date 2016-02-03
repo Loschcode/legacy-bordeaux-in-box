@@ -220,6 +220,7 @@ Default = (function() {
     this.chosenSelect();
     this.labelautyForm();
     this.tooltipster();
+    this.inputMaskDate();
   }
 
   Default.prototype.polyfillPlaceholders = function() {
@@ -301,6 +302,12 @@ Default = (function() {
 
   Default.prototype.tooltipster = function() {
     return $('.js-tooltip').tooltipster();
+  };
+
+  Default.prototype.inputMaskDate = function() {
+    return $('.js-input-mask-date').inputmask("99/99/9999", {
+      placeholder: 'jj/mm/aaaa'
+    });
   };
 
   return Default;
