@@ -26,19 +26,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 14.4px;
+  height: 13.600000000000001px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 36px;
+  height: 34px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 72px;
+  height: 68px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 180px;
+  height: 170px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -875,6 +875,35 @@ a {
     position: relative;
     top: 15.979999999999999px;
     width: 45%; }
+
+.seen__wrapper {
+  background-color: #ECF0F1; }
+.seen__picture {
+  display: inline-block;
+  text-align: center;
+  width: 100%; }
+  .seen__picture img {
+    max-width: 100%;
+    filter: url("data:image/svg+xml;utf8,&lt;svg xmlns='http://www.w3.org/2000/svg'&gt;&lt;filter id='grayscale'&gt;&lt;feColorMatrix type='matrix' values='0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0'/&gt;&lt;/filter&gt;&lt;/svg&gt;#grayscale");
+    filter: gray;
+    -webkit-filter: grayscale(100%); }
+  .seen__picture.\--elle {
+    padding-top: 10.2px; }
+  .seen__picture.\--direct-matin {
+    padding-top: 23.799999999999997px; }
+    .seen__picture.\--direct-matin img {
+      max-width: 90%; }
+  .seen__picture.\--france-bleu {
+    padding-top: 23.799999999999997px; }
+    .seen__picture.\--france-bleu img {
+      max-width: 90%; }
+  .seen__picture.\--objectif-aquitaine {
+    padding-top: 13.600000000000001px; }
+  .seen__picture.\--vivre-bordeaux {
+    padding-top: 13.600000000000001px; }
+.seen__line {
+  padding-top: 34px;
+  padding-bottom: 34px; }
 
 .chosen-container.chosen-container-single {
   width: 100% !important; }

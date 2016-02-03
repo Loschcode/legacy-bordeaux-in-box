@@ -70,10 +70,10 @@
 			<div class="step">
 				<h2 class="step__title">Etape 1</h2>
 				<div class="step__picture-container">
-					<img class="step__picture --step1" src="{{ url('images/steps/step1.png') }}" />
+					<img class="step__picture --step2" src="{{ url('images/steps/step2.png') }}" />
 				</div>
 				<p class="step__description">
-					Mamoune, poulette ou bichette ? Tu as le choix entre 3 thèmes ! Et pour que ta box te ressemble au mieux, nous te posons en plus quelques petites questions !
+					Je m'abonne sur le site
 				</p>
 			</div>
 		</div>
@@ -81,10 +81,10 @@
 			<div class="step">
 				<h2 class="step__title">Etape 2</h2>
 				<div class="step__picture-container">
-					<img class="step__picture --step2" src="{{ url('images/steps/step2.png') }}" />
+					<img class="step__picture --step3" src="{{ url('images/steps/step3.png') }}" />
 				</div>
 				<p class="step__description">
-					Maintenant qu'on en sait un peu plus sur toi, on te laisse choisir si tu veux t'abonner ou juste tester.
+					Je la reçois chaque mois
 				</p>
 			</div>
 		</div>
@@ -92,10 +92,10 @@
 			<div class="step">
 				<h2 class="step__title">Etape 3</h2>
 				<div class="step__picture-container">
-					<img class="step__picture --step3" src="{{ url('images/steps/step3.png') }}" />
+					<img class="step__picture --step1" src="{{ url('images/steps/step1.png') }}" />
 				</div>
 				<p class="step__description">
-					Et voilà ! Tu n'as plus qu'à attendre le début du mois suivant pour la recevoir chez toi ou la récupérer dans une de nos boutiques complices.
+					Je donne mon avis sur les produits reçus.
 				</p>
 			</div>
 		</div>
@@ -159,6 +159,7 @@
 		<h1 class="section__title">Nos complices</h1>
 	</div>
 </div>
+
 <div class="+spacer-small"></div>
 
 <div class="container-static">
@@ -186,4 +187,44 @@
 
 <div class="+spacer"></div>
 
+
+{{-- Section seen --}}
+<div class="container">
+	<div class="section">
+		<h1 class="section__title">Ils parlent de nous</h1>
+	</div>
+</div>
+
+	<div class="seen seen__wrapper">
+		<div class="container-static">
+			<div class="row seen__line">
+				<div class="grid-2">
+				<div class="seen__picture --elle"><img src="{{ url('images/seen/elle.png') }}" /></div>
+				</div>
+				<div class="grid-2">
+					<div class="seen__picture --direct-matin"><img src="{{ url('images/seen/direct-matin.png') }}" /></div>
+				</div>
+				<div class="grid-2">
+					<div class="seen__picture --france-bleu"><img src="{{ url('images/seen/france-bleu.png') }}" /></div>
+				</div>
+				<div class="grid-1">
+					<div class="seen__picture --blackbox"><img src="{{ url('images/seen/blackbox.png') }}" /></div>
+				</div>
+				<div class="grid-1">
+					<div class="seen__picture --france2"><img src="{{ url('images/seen/france3.png') }}" /></div>
+				</div>
+				<div class="grid-2">
+					<div class="seen__picture --objectif-aquitaine"><img src="{{ url('images/seen/objectif-aquitaine.jpg') }}" /></div>
+				</div>
+				<div class="grid-2">
+					<div class="seen__picture --vivre-bordeaux"><img src="{{ url('images/seen/vivre-bordeaux.png') }}" /></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+@stop
+
+@section('footer-spacer')
 @stop
