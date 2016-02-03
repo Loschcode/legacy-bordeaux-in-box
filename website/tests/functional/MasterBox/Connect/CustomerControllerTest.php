@@ -28,7 +28,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
   /** @test */
   public function should_logout_me_when_i_am_connected()
   {
-    $customer = factory(Customer::class, 'subscribed-customer')->create();
+    $customer = factory(Customer::class, 'customer-subscribed')->create();
 
     $this->actingAs($customer, 'customer')
       ->visit('/connect/customer/logout')
@@ -82,7 +82,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     $email = $this->faker->email;
 
     // Add a record in the database
-    factory(Customer::class, 'subscribed-customer')->create([
+    factory(Customer::class, 'customer-subscribed')->create([
       'email' => $email
     ]);
 
@@ -110,7 +110,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     $password = str_random(10);
 
     // Add a new record in the database
-    $customer = factory(Customer::class, 'subscribed-customer')->create([
+    $customer = factory(Customer::class, 'customer-subscribed')->create([
       'email' => $email,
       'password' => bcrypt($password)
     ]);
@@ -132,7 +132,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
      $email = $this->faker->email;
 
      // Create new customer in the database
-     $customer = factory(Customer::class, 'subscribed-customer')->create([
+     $customer = factory(Customer::class, 'customer-subscribed')->create([
        'email' => $email,
        'password' => 'jeremie'
      ]);
