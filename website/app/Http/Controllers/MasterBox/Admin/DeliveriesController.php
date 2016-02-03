@@ -83,6 +83,22 @@ class DeliveriesController extends BaseController {
   }
 
   /**
+   * Display spots for the serie X
+   * @param  String $id Series id
+   * @return \Illuminate\View\View
+   */
+  public function getSpots($id)
+  {
+    $spots = DeliverySpot::get();
+    $series = DeliverySerie::find($id);
+
+    return view('masterbox.admin.deliveries.spots')->with(compact(
+      'series',
+      'spots'
+    ));
+  }
+
+  /**
    * Get the edit page
    * @return void
    */

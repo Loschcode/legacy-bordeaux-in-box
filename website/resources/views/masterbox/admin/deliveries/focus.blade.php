@@ -1,9 +1,14 @@
 @extends('masterbox.layouts.admin')
 
+@section('navbar')
+	@include('masterbox.admin.partials.navbar_deliveries_focus')
+@stop
+
 @section('content')
 	<div class="row">
-	  <div class="grid-6">
+	  <div class="grid-12">
 	    <h1 class="title title__section">Série {{ Html::dateFrench($series->delivery, true) }} (#{{$series->id}})</h1>
+	    <h3 class="title title__subsection">Commandes</h3>
 	  </div>
 	</div>
 
