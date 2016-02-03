@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\Customer;
 use App\Models\CustomerProfile;
+use App\Models\CustomerPaymentProfile;
+use App\Models\CustomerOrderPreference;
 use App\Libraries\Payments;
 
 class Shared_Service_InvoiceControllerTest extends TestCase
@@ -29,21 +31,41 @@ class Shared_Service_InvoiceControllerTest extends TestCase
 
       ]);
 
-    $email = $customer_payment_profile->customer()->first()->email;
+    $customer_profile = $customer_payment_profile->profile()->first();
+    $customer = $customer_profile->customer()->first();
 
-    $this->post('shared/service/invoices', ['webhook' => $this->fakeCallback($customer_payment_profile->stripe_customer, $stripe_charge, $stripe_card, $stripe_balance_transaction, $amount_in_cents, $email)]);
+    $customer_order_preference = factory(CustomerOrderPreference::class)->create([
 
-    dd($this->dump());
+        'customer_profile_id' => $customer_profile->id,
+        'stripe_plan' => 'plan2490',
+
+      ]);
+
+    $this->post('shared/service/invoices', ['webhook' => $this->fakeCallback($customer, $customer_profile, $customer_payment_profile->stripe_customer, $stripe_charge, $stripe_card, $stripe_balance_transaction, $amount_in_cents)]);
+
     $this->assertResponseOk();
 
 
 
   }
 
-  public function fakeCallback($stripe_customer, $stripe_charge, $stripe_card, $stripe_balance_transaction, $amount_in_cents, $email)
+  public function fakeCallback($customer, $customer_profile, $stripe_customer, $stripe_charge, $stripe_card, $stripe_balance_transaction, $amount_in_cents)
   {
 
-    return '{
+    return '
+
+    {
+    "created": 1326853478,
+    "livemode": false,
+    "id": "evt_'.rand(0,10000000).'",
+    "type": "charge.succeeded",
+    "object": "event",
+    "request": null,
+    "pending_webhooks": 1,
+    "api_version": "2014-09-08",
+    "data": {
+      "object":
+            {
             "id": "'.$stripe_charge.'",
             "object": "charge",
             "amount": '.$amount_in_cents.',
@@ -64,8 +86,9 @@ class Shared_Service_InvoiceControllerTest extends TestCase
             "invoice": null,
             "livemode": false,
             "metadata": {
-              "user_id": "1",
-              "order_id": "4"
+              "customer_id": "'.$customer->id.'",
+              "customer_profile_id": "'.$customer_profile->id.'",
+              "payment_type": "direct_invoices"
             },
             "order": null,
             "paid": true,
@@ -104,12 +127,16 @@ class Shared_Service_InvoiceControllerTest extends TestCase
               "last4": "4242",
               "metadata": {
               },
-              "name": "'.$email.'",
+              "name": "'.$customer->email.'",
               "tokenization_method": null
             },
             "statement_descriptor": null,
             "status": "succeeded"
-          }';
+          }
+
+    }
+
+  }';
 
   }
 
