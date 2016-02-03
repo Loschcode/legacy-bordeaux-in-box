@@ -10,7 +10,7 @@
 /** 
  * Mock customer profile
  */
-$factory->define(App\Models\CustomerProfile::class, function(Faker\Generator $faker) {
+$factory->define(App\Models\CustomerPaymentProfile::class, function(Faker\Generator $faker) {
 
   $customer_profile = factory(App\Models\CustomerProfile::class)->create();
 

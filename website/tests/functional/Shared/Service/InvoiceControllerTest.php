@@ -6,6 +6,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Models\Customer;
 use App\Models\CustomerProfile;
+use App\Libraries\Payments;
 
 class Shared_Service_InvoiceControllerTest extends TestCase
 {
@@ -16,26 +17,44 @@ class Shared_Service_InvoiceControllerTest extends TestCase
   public function subscribed_customer_got_invoice_callback_from_stripe()
   {
 
-    $customer = factory(Customer::class)->create();
-    $this->post('POST', 'service/api/box-question-customer-answer');
+    $stripe_charge = 'ch_'. str_random(8);
+    $stripe_card = 'card_' . str_random(8);
+    $stripe_balance_transaction = 'blx_' . str_random(8);
+    $amount_in_cents = 2490;
+
+    $customer_payment_profile = factory(CustomerPaymentProfile::class)->create([
+
+      'stripe_card' => $stripe_card,
+      'stripe_plan' => 'plan2490'
+
+      ]);
+
+    $email = $customer_payment_profile->customer()->first()->email;
+
+    $this->post('shared/service/invoices', ['webhook' => $this->fakeCallback($customer_payment_profile->stripe_customer, $stripe_charge, $stripe_card, $stripe_balance_transaction, $amount_in_cents, $email)]);
+
+    dd($this->dump());
+    $this->assertResponseOk();
+
+
 
   }
 
-  public function fakeCallback()
+  public function fakeCallback($stripe_customer, $stripe_charge, $stripe_card, $stripe_balance_transaction, $amount_in_cents, $email)
   {
 
     return '{
-            "id": "ch_17H02AJ1e9gLDryLY2BqvH4v",
+            "id": "'.$stripe_charge.'",
             "object": "charge",
-            "amount": 2490,
+            "amount": '.$amount_in_cents.',
             "amount_refunded": 0,
             "application_fee": null,
-            "balance_transaction": "txn_17GyKTJ1e9gLDryLZqtwOIwi",
+            "balance_transaction": "'.$stripe_balance_transaction.'",
             "captured": true,
             "created": 1449875442,
             "currency": "eur",
-            "customer": "cus_7W26GtbzmFaPZp",
-            "description": "Paiement utilisateur `ges.jeremie@gmail.com` (ID `1` / ORDER `4`)",
+            "customer": "'.$stripe_customer.'",
+            "description": "Testing mode",
             "destination": null,
             "dispute": null,
             "failure_code": null,
@@ -64,7 +83,7 @@ class Shared_Service_InvoiceControllerTest extends TestCase
             },
             "shipping": null,
             "source": {
-              "id": "card_17H023J1e9gLDryLpu5LGMz2",
+              "id": "'.$stripe_card.'",
               "object": "card",
               "address_city": null,
               "address_country": null,
@@ -76,7 +95,7 @@ class Shared_Service_InvoiceControllerTest extends TestCase
               "address_zip_check": null,
               "brand": "Visa",
               "country": "US",
-              "customer": "cus_7W26GtbzmFaPZp",
+              "customer": "'.$stripe_customer.'",
               "cvc_check": "pass",
               "dynamic_last4": null,
               "exp_month": 2,
@@ -85,7 +104,7 @@ class Shared_Service_InvoiceControllerTest extends TestCase
               "last4": "4242",
               "metadata": {
               },
-              "name": "ges.jeremie@gmail.com",
+              "name": "'.$email.'",
               "tokenization_method": null
             },
             "statement_descriptor": null,
