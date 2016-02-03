@@ -6,7 +6,7 @@
 |--------------------------------------------------------------------------
 */
 
-Route::group(['namespace' => 'MasterBox', 'domain' => "www.".config('app.domain'), 'middleware' => ['web']], function() {
+Route::group(['namespace' => 'MasterBox', 'prefix' => '', 'middleware' => ['web']], function() {
 
   /**
    *  Connect Service Area

@@ -1,4 +1,11 @@
 <?php
+/*
+|--------------------------------------------------------------------------
+| BlogArticle Model Factories
+|--------------------------------------------------------------------------
+|
+|
+*/
 
 /**
  * Mock blog article
@@ -6,9 +13,10 @@
 $factory->define(App\Models\BlogArticle::class, function(Faker\Generator $faker) {
 
   $title = $faker->sentence;
+  $administrator = factory(App\Models\Administrator::class)->create();
 
   return [
-    'customer_id' => factory(App\Models\Customer::class)->create()->id, // should be administrator
+    'administrator_id' => $administrator->id,
     'title' => $title,
     'slug' => str_slug($title),
     'content' => $faker->paragraph(45),

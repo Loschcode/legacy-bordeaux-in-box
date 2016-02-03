@@ -41,4 +41,18 @@ class Administrator extends Model implements AuthenticatableContract
 
   }
 
+  public function blog_articles()
+  {
+
+    return $this->hasMany('App\Models\BlogArticle');
+
+  }
+
+  public function image_article()
+  {
+
+    return $this->hasMany('App\Models\ImageArticle');
+
+  }
+
 }

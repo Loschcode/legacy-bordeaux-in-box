@@ -6,8 +6,8 @@
 |--------------------------------------------------------------------------
 */
 
-Route::group(['namespace' => 'Shared', 'domain' => "shared.".config('app.domain')], function() {
-
+//Route::group(['namespace' => 'Shared', 'domain' => "shared.".config('app.domain')], function() {
+Route::group(['namespace' => 'Shared', 'prefix' => "shared"], function() {
 
   /**
    * Shared Service Area

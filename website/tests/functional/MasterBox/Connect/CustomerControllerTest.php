@@ -41,18 +41,18 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
   {
     
     // Make valid subscribing customer
-    $customer = $this->mockCustomer();
+    $form_customer = $this->fakeCustomerForm();
 
     // Subscribe
-    $this->call('POST', 'connect/customer/subscribe', $customer);
+    $this->call('POST', 'connect/customer/subscribe', $form_customer);
 
     $this->assertRedirectedToAction('MasterBox\Customer\PurchaseController@getIndex');
 
-    $this->seeInDatabase('customers', ['email' => $customer['email']]);
+    $this->seeInDatabase('customers', ['email' => $form_customer['email']]);
 
     $this->assertSessionHas('message');
 
-    $this->seeEmailsSent(1)->seeEmailTo($customer['email']);
+    $this->seeEmailsSent(1)->seeEmailTo($form_customer['email']);
 
     // I'm logged.
     $this->assertEquals(true, Auth::guard('customer')->check());
@@ -65,12 +65,12 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     $email = $this->faker->email;
     $password = str_random(3);
 
-    $customer = $this->mockCustomer([
+    $form_customer = $this->fakeCustomerForm([
       'password' => $password,
       'password_confirmation' => $password
     ]);
 
-    $this->call('POST', 'connect/customer/subscribe', $customer);
+    $this->call('POST', 'connect/customer/subscribe', $form_customer);
 
     $this->missingFromDatabase('customers', ['email' => $email]);
     $this->assertSessionHasErrors('password');
@@ -87,10 +87,10 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     ]);
 
     // Make a new customer with the same email added
-    $customer = $this->mockCustomer(['email' => $email]);
+    $form_customer = $this->fakeCustomerForm(['email' => $email]);
 
     // Subscribe
-    $this->call('POST', 'connect/customer/subscribe', $customer);
+    $this->call('POST', 'connect/customer/subscribe', $form_customer);
 
     // Fails
     $this->assertSessionHasErrors('email');
@@ -151,11 +151,11 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
   }
 
   /**
-   * Mock a raw customer
+   * Mock a raw customer form
    * @param  array  $overrides Entries to overrides
    * @return array
    */
-  private function mockCustomer($overrides = [])
+  private function fakeCustomerForm($overrides = [])
   {
     $password = str_random(10);
     

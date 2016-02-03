@@ -11,7 +11,7 @@
  * Sandbox Section *
  * *****************
  */
-Route::group(['namespace' => 'Sandbox', 'domain' => "sandbox.{domain}.{tld}", 'middleware' => ['web']], function() {
+Route::group(['namespace' => 'Sandbox', 'prefix' => 'sandbox', 'middleware' => ['web']], function() {
 
   /**
    * Ui Area

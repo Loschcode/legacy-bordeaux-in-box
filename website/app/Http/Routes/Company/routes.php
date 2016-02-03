@@ -6,7 +6,7 @@
 |--------------------------------------------------------------------------
 */
 
-Route::group(['namespace' => 'Company', 'domain' => "company.".config('app.domain'), 'middleware' => ['web']], function() {
+Route::group(['namespace' => 'Company', 'prefix' => 'company', 'middleware' => ['web']], function() {
 
   /**
    * Company Admin Area
