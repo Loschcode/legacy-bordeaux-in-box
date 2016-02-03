@@ -217,6 +217,16 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 	/**
 	 * Methods
 	 */
+  public function hasProvider()
+  {
+
+    if (!empty($this->provider))
+      return TRUE;
+    else
+      return FALSE;
+
+  }
+
 	public function hasBillingAddress()
 	{
 

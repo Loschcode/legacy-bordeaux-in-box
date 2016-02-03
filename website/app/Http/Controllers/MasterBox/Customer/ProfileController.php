@@ -171,12 +171,19 @@ class ProfileController extends BaseController {
 
     $fields = Request::all();
 
+    $customer = Auth::guard('customer')->user();
+
+    /**
+     * If it has a provider such as Facebook, we don't need password confirmation
+     */
+    if ($customer->hasProvider())
+      unset($rules['old_password']);
+
     $validator = Validator::make($fields, $rules);
 
     // The form validation was good
     if ($validator->passes()) {
 
-      $customer = Auth::guard('customer')->user();
       $profile = CustomerProfile::find($fields['profile_id']);
 
       if ($profile !== NULL) {
@@ -245,12 +252,18 @@ class ProfileController extends BaseController {
 
     $fields = Request::all();
 
+    $customer = Auth::guard('customer')->user();
+
+    /**
+     * If it has a provider such as Facebook, we don't need password confirmation
+     */
+    if ($customer->hasProvider())
+      unset($rules['old_password']);
+
     $validator = Validator::make($fields, $rules);
 
     if ($validator->passes()) {
       
-      $customer = Auth::guard('customer')->user();
-
       if ($customer !== NULL) {
 
         $customer->email = $fields['email'];
@@ -279,6 +292,16 @@ class ProfileController extends BaseController {
       'password' => 'required|min:5',
       'old_password' => 'required|match_password'
     ];
+
+
+    $customer = Auth::guard('customer')->user();
+
+    /**
+     * If it has a provider such as Facebook, we can't edit password
+     */
+    if ($customer->hasProvider())
+      return redirect()->back()
+        ->withInput();
 
     $fields = Request::all();
 
@@ -325,12 +348,18 @@ class ProfileController extends BaseController {
 
     $fields = Request::all();
 
+    $customer = Auth::guard('customer')->user();
+
+    /**
+     * If it has a provider such as Facebook, we don't need password confirmation
+     */
+    if ($customer->hasProvider())
+      unset($rules['old_password']);
+
     $validator = Validator::make($fields, $rules);
 
     if ($validator->passes()) {
       
-      $customer = Auth::guard('customer')->user();
-
       if ($customer !== NULL) {
 
         $customer->first_name = $fields['first_name'];
@@ -409,11 +438,17 @@ class ProfileController extends BaseController {
 
     $fields = Request::all();
 
+    $customer = Auth::guard('customer')->user();
+
+    /**
+     * If it has a provider such as Facebook, we don't need password confirmation
+     */
+    if ($customer->hasProvider())
+      unset($rules['old_password']);
+
     $validator = Validator::make($fields, $rules);
 
     if ($validator->passes()) {
-      
-      $customer = Auth::guard('customer')->user();
 
       if ($customer !== NULL) {
 
@@ -491,12 +526,18 @@ class ProfileController extends BaseController {
 
     $fields = Request::all();
 
+    $customer = Auth::guard('customer')->user();
+
+    /**
+     * If it has a provider such as Facebook, we don't need password confirmation
+     */
+    if ($customer->hasProvider())
+      unset($rules['old_password']);
+
     $validator = Validator::make($fields, $rules);
 
     if ($validator->passes()) {
       
-      $customer = Auth::guard('customer')->user();
-
       if ($customer !== NULL) {
 
         // If the customer got profiles we will edit the next deliveries

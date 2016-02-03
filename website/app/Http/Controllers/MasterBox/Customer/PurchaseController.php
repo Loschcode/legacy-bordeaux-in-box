@@ -238,6 +238,12 @@ class PurchaseController extends BaseController {
 
       ];
 
+    /**
+     * It's mandatory if it exists effectively
+     */
+    if (Request::get('customer_phone'))
+      $rules['customer_phone'] = 'required';
+
     // We auto trim everything
     Request::merge(array_map('trim', Request::all()));
 
@@ -248,6 +254,9 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       $customer = Auth::guard('customer')->user();
+      $customer->phone = $fields['customer_phone'];
+      $customer->save();
+
       $order_building = $customer->order_buildings()->getCurrent()->first();
       $order_preference = $order_building->order_preference()->first();
       
