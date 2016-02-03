@@ -25,7 +25,7 @@
                 <th>Abonnement</th>
                 <th>Durée</th>
                 <th>Livraisons restantes</th>
-                <th></th>
+                <th>Prochaine Livraison</th>
               </tr>
             </thead>
 
@@ -53,12 +53,21 @@
                   @if ($profile->order_preference()->first()->frequency == 0)
                     Non indiqué
                   @else
-                    {{$profile->orders()->whereNull('date_sent')->count()}}
+
+                    @if ($profile->status != 'subscribed')
+                      0
+                    @else
+                      {{$profile->orders()->whereNull('date_sent')->count()}}
+                    @endif
                   @endif
                   </td>
            
                   <td>
-                    <!-- <a class="button button__table" href="{{action('MasterBox\Customer\ProfileController@getOrder', ['id' => $profile->id])}}"><i class="fa fa-search"></i></a> -->
+                    @if ($profile->orders()->whereNull('date_sent')->count() > 0 && $profile->status == 'subscribed')
+                      {{ Html::dateFrench($profile->orders()->whereNull('date_sent')->first()->delivery_serie()->first()->delivery, true) }}
+                    @else
+                      
+                    @endif
                   </td>
                 </tr>
 

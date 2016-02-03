@@ -13,10 +13,14 @@
     @if ($profile->status === 'expired')
     ({!! Html::getReadableProfileStatus($profile->status) !!})
     @endif
-    
-
+  
     </h1>
     <h2 class="title title__subsection">Livraisons</h2>
+  </div>
+  <div class="grid-4">
+    <div class="+text-right">
+      <a class="button button__section" href="{{ action('MasterBox\Admin\ProfilesController@getAddDelivery', ['id' => $profile->id]) }}"><i class="fa fa-plus"></i> Ajouter une livraison</a>
+    </div>
   </div>
 </div>
 
@@ -88,8 +92,6 @@
       <th>{{ Html::getReadableEmpty(Html::dateFrench($order->created_at, true)) }}</th>
 
       <th>
-
-        <a href="{{ action('MasterBox\Admin\OrdersController@getEdit', ['id' => $order->id]) }}" class="button button__table"><i class="fa fa-eye"></i></button>
 
           @if ($order->status != 'canceled')
           <a class="button button__table js-tooltip" title="Annuler" href="{{ action('MasterBox\Admin\OrdersController@getConfirmCancel', ['id' => $order->id]) }}"><i class="fa fa-gavel"></i></a>

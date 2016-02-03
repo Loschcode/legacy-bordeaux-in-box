@@ -55,8 +55,10 @@
                 @endif
 
                 <div class="custombox__choices">
-                  @if (in_array($question->type, ['date', 'member_email', 'text']))
+                  @if (in_array($question->type, ['member_email', 'text']))
                     {!! Form::text('answer', '', ['class' => 'form__input', 'autofocus']) !!}
+                  @elseif ($question->type == 'date')
+                    {!! Form::text('answer', '', ['class' => 'form__input js-input-mask-date', 'autofocus']) !!}
                   @elseif ($question->type == 'textarea')
                     {!! Form::textarea('answer', '', ['class' => 'form__input', 'autofocus']) !!}
                   @else

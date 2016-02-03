@@ -24,7 +24,8 @@
     "jquery.payment": "~1.3.2",
     "simplemde": "~1.10.0",
     "jquery-modal": "~0.6.1",
-    "jssocials": "~1.1.0"
+    "jssocials": "~1.1.0",
+    "jquery.inputmask": "~3.2.7"
   },
   "overrides": {
     "reset-css": {
@@ -70,6 +71,11 @@
         "dist/jssocials.js",
         "dist/jssocials.css",
         "dist/jssocials-theme-classic.css"
+      ]
+    },
+    "jquery.inputmask": {
+      "main": [
+        "dist/jquery.inputmask.bundle.js"
       ]
     }
   }

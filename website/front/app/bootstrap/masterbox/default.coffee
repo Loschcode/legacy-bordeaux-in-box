@@ -9,6 +9,7 @@ class Default
     @chosenSelect()
     @labelautyForm()
     @tooltipster()
+    @inputMaskDate()
 
   ##
   # Polyfill placeholders 
@@ -112,6 +113,14 @@ class Default
   tooltipster: ->
 
     $('.js-tooltip').tooltipster()
+
+  ##
+  # Mask date for inputs
+  ##
+  inputMaskDate: ->
+
+    $('.js-input-mask-date').inputmask("99/99/9999", {placeholder: 'jj/mm/aaaa'})
+
 
 
 module.exports = Default
