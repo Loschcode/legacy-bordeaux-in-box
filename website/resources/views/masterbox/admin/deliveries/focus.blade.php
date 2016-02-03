@@ -1,3 +1,134 @@
+@extends('masterbox.layouts.admin')
+
+@section('content')
+	<div class="row">
+	  <div class="grid-6">
+	    <h1 class="title title__section">Série {{ Html::dateFrench($series->delivery, true) }} (#{{$series->id}})</h1>
+	  </div>
+	</div>
+
+	<div class="divider divider__section"></div>
+	
+  {!! Html::info('Voici le détail des commandes pour la box du '. Html::dateFrench($series->delivery, true)) !!}
+	
+	<a class="button button__default" href="{{url('/admin/deliveries/download-csv-orders-from-series/'.$series->id)}}">CSV des commandes de la série</a>
+
+	<a class="button button__default" href="{{url('/admin/deliveries/download-csv-spots-orders-from-series/'.$series->id)}}">CSV des commandes à points relais de la série</a>
+
+
+  <table class="js-datatable-simple">
+
+  	<thead>
+
+  		<tr>
+  			<th>ID</th>
+  			<th>Série</th>
+  			<th>Client</th>
+  			<th>Adresse utilisateur</th>
+  			<th>Téléphone utilisateur</th>
+  			<th>Email utilisateur</th>
+  			<th>Questions</th>
+  			<th>Réponses</th>
+  			<th>Paiement</th>
+  			<th>Status</th>
+  			<th>A offrir</th>
+  			<th>Etat de la commande</th>
+  			<th>Mode</th>
+  			<th>Destination / Spot</th>
+  			<th>Zone</th>
+  			<th>Création</th>
+  			<th>Fin préparation</th>
+  			<th>Statut de la commande</th>
+  			<th>Action</th>
+  		</tr>
+
+  	</thead>
+
+  	<tbody>
+
+  		@foreach ($orders as $order)
+
+  			<?php $profile = $order->customer_profile()->first(); ?>
+
+  			<tr>
+
+  				<th>{{$order->id}}</th>
+  				<th>{{$order->delivery_serie()->first()->delivery}}</th>
+  				<th><a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $order->customer_profile()->first()->customer()->first()->id]) }}">{{$order->customer_profile()->first()->customer()->first()->getFullName()}}</a></th>
+
+  				<th>{{ $order->customer_profile()->first()->customer()->first()->getFullAddress()}} </th>
+  				<th>{{ $order->customer_profile()->first()->customer()->first()->phone}} </th>
+
+  				<th>{{ $order->customer_profile()->first()->customer()->first()->email}} </th>
+
+  				<th>
+  				<!-- Questions -->
+
+  					{!! order_questions($profile, " / ") !!}
+
+
+  				</th>
+  				<th>
+
+  					{!! order_answers($profile, " / ") !!}
+
+
+  				</th>
+  				<th>
+  					{{ Html::euros($order->already_paid) }} / {{ Html::euros($order->unity_and_fees_price) }} <br/>
+
+  					@foreach ($order->payments()->get() as $payment)
+
+  						(<a data-modal href="{{ action('MasterBox\Admin\PaymentsController@getFocus', ['id' => $payment->id]) }}">+</a>)
+
+  					@endforeach
+
+  				</th>
+  				<th>
+  				{!! Html::getReadableOrderStatus($order->status) !!}
+  				</th>
+  				<th>{!! Html::boolYesOrNo($order->gift) !!}</th>
+  				<th>{!! Html::getReadableOrderLocked($order->locked) !!}</th>
+  				<th>{!! Html::getReadableTakeAway($order->take_away) !!}</th>
+  				<th>{!! Html::getOrderSpotOrDestination($order) !!}</th>
+  				<th>
+  				@if ($order->isRegionalOrder())
+  					Régional
+  				@else
+  					Non régional
+  				@endif
+  				</th>
+  				<th>{{$order->created_at}}</th>
+  				<th>{{$order->date_completed}}</th>
+  				<th>{!! Html::getReadableOrderStatus($order->status) !!}</th>
+
+  				<th>
+
+  				@if ($order->date_completed != NULL)
+  					<a href="{{ action('MasterBox\Admin\OrdersController@getConfirmSent', ['id' => $order->id]) }}">Envoi confirmé</a> |
+
+  				@else
+  					<a href="{{ action('MasterBox\Admin\OrdersController@getConfirmReady', ['id' => $order->id]) }}">Prête pour envoi</a> |
+
+  				@endif
+  				
+  				<a href="{{ action('MasterBox\Admin\OrdersController@getConfirmProblem', ['id' => $order->id]) }}">Signaler problème</a> |
+  				<a href="{{ action('MasterBox\Admin\OrdersController@getConfirmCancel', ['id' => $order->id]) }}">Annuler</a> |
+  				<a href="{{ action('MasterBox\Admin\OrdersController@getDelete', ['id' => $order->id]) }}">Archiver</a>
+
+  				</th>
+
+  			</tr>
+
+  		@endforeach
+
+  	</tbody>
+
+  </table>
+
+
+@stop
+
 <?php /*
 @extends('masterbox.layouts.admin')
 
@@ -185,6 +316,5 @@
 		</div>
 
 	</div>
-*/ ?>
-
 @stop
+*/ ?>

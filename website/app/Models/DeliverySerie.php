@@ -137,8 +137,13 @@ class DeliverySerie extends Model {
 
 					if ($box_question->type === 'date') {
 
-						 // We convert the date to a category of people
-	          $real_answer = convert_date_to_age($real_answer) . ' ans';
+						// Hot fix: Sometimes the format of date is incorrect
+						if (strlen($real_answer) === 10) {
+	          	$real_answer = get_age($real_answer) . ' ans';
+						} else {
+							$real_answer = 'N/A';
+						}
+
 
 					} elseif ($box_question->type == 'children_details') {
 
