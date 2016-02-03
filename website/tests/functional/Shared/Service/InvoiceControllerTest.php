@@ -22,13 +22,14 @@ class Shared_Service_InvoiceControllerTest extends TestCase
     $stripe_balance_transaction = 'blx_' . str_random(8);
     $amount_in_cents = 2490;
 
-    $customer_payment_profile = factory(CustomerPaymentProfile::class)->create([
+    $customer_payment_profile = factory(App\Models\CustomerPaymentProfile::class)->create([
 
       'stripe_card' => $stripe_card,
       'stripe_plan' => 'plan2490'
 
       ]);
 
+    
     $email = $customer_payment_profile->customer()->first()->email;
 
     $this->post('shared/service/invoices', ['webhook' => $this->fakeCallback($customer_payment_profile->stripe_customer, $stripe_charge, $stripe_card, $stripe_balance_transaction, $amount_in_cents, $email)]);

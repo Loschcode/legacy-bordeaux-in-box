@@ -21,7 +21,7 @@ $factory->define(App\Models\CustomerPaymentProfile::class, function(Faker\Genera
     'stripe_card' => 'card_' . str_random(8),
     'stripe_customer' => $customer_profile->stripe_customer,
     'stripe_plan' => 'plan' . str_random(2),
-    'stripe_subscription' => 'sub_' . $str_random(8),
+    'stripe_subscription' => 'sub_' . str_random(8),
     'last4' => rand(1000, 4000)
 
   ];
