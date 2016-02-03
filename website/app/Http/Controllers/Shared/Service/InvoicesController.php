@@ -364,16 +364,12 @@ class InvoicesController extends BaseController {
       $input = Request::get('webhook');
       $datas = json_decode($input);
 
-      dd($datas);
-
     } else {
 
       $input = @file_get_contents("php://input");
       $datas = json_decode($input);
 
     }
-
-    dd($datas);
 
     return $datas;
 
@@ -825,7 +821,7 @@ class InvoicesController extends BaseController {
 
     } else {
 
-      if ($payment_type !== 'direct_invoice') {
+      if ($payment->type !== 'direct_invoice') {
 
         $this->log_now('We cannot cancel the plan, it is defined as an infinite one. The customer might have paid for nothing.');
         warning_tech_admin('masterbox.emails.admin.trying_to_cancel_infinite_plan_while_paying', 'Tentative d\'annulation automatisée d\'un plan infini', $customer, $customer_profile, $payment, $this->log_store);

@@ -37,10 +37,10 @@ class ApiController extends BaseController {
     $order_sort = request()->input('order')[0]['dir'];
 
     $columns = [
-      '1' => 'id',
-      '2' => 'first_name',
-      '3' => 'email',
-      '4' => 'phone'
+      '1' => 'customers.id',
+      '2' => 'customers.first_name',
+      '3' => 'customers.email',
+      '4' => 'customers.phone'
     ];
 
     // Translate the order column
@@ -92,8 +92,8 @@ class ApiController extends BaseController {
 
     $column_label = [
 
-      1 => 'id',
-      2 => 'contract_id',
+      1 => 'customer_profiles.id',
+      2 => 'customer_profiles.contract_id',
 
     ];
 
@@ -115,7 +115,7 @@ class ApiController extends BaseController {
     //\DB::enableQueryLog();
       $query = CustomerProfile::research($search);
 
-      if (isset($column_label[$order_column]))
+     if (isset($column_label[$order_column]))
         $query = $query->orderBy($column_label[$order_column], $order_sort);
 
       $total_results_after_filtered = $query->count();

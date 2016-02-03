@@ -196,7 +196,7 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
      */
 
     if (intVal($search) !== 0)
-      return $query->where('id', $search);
+      return $query->where('customers.id', $search);
 
     foreach ($search_words as $word) {
 
