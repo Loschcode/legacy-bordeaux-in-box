@@ -42,27 +42,29 @@
             {{ Form::close() }}
 
             {{-- Security --}}
-            {{ Form::open(['action' => 'MasterBox\Customer\ProfileController@postEditPassword', 'id' => 'form-edit-password']) }}
+            @if (!$customer->hasProvider())
+              {{ Form::open(['action' => 'MasterBox\Customer\ProfileController@postEditPassword', 'id' => 'form-edit-password']) }}
 
-              {{ Form::hidden('old_password', null, ['id' => 'old-password']) }}
+                {{ Form::hidden('old_password', null, ['id' => 'old-password']) }}
 
-              <div id="password-block" class="profile__section">
-                <h3 class="profile__title">Sécurité</h3>
-                <p>Le mot de passe permet de protéger ton compte.</p>
-                {!! Form::label("password", "Nouveau mot de passe", ['class' => 'form__label']) !!}
+                <div id="password-block" class="profile__section">
+                  <h3 class="profile__title">Sécurité</h3>
+                  <p>Le mot de passe permet de protéger ton compte.</p>
+                  {!! Form::label("password", "Nouveau mot de passe", ['class' => 'form__label']) !!}
 
-                <div class="row">
-                  <div class="grid-9">
-                    {!! Form::password("password", ['class' => 'form__input']) !!}
+                  <div class="row">
+                    <div class="grid-9">
+                      {!! Form::password("password", ['class' => 'form__input']) !!}
+                    </div>
+                    <div class="grid-3">
+                      <button type="submit" class="button button__submit --profile">Mettre à jour</button>
+                    </div>
                   </div>
-                  <div class="grid-3">
-                    <button type="submit" class="button button__submit --profile">Mettre à jour</button>
-                  </div>
+                  {!! Html::checkError('password', $errors, 'edit_password') !!}
+                  {!! Html::checkError('old_password', $errors, 'edit_password') !!}
                 </div>
-                {!! Html::checkError('password', $errors, 'edit_password') !!}
-                {!! Html::checkError('old_password', $errors, 'edit_password') !!}
-              </div>
-            {{ Form::close() }}
+              {{ Form::close() }}
+            @endif
             
             {{-- Billing --}}
             {{ Form::open(['action' => 'MasterBox\Customer\ProfileController@postEditBilling', 'id' => 'form-edit-billing']) }}
