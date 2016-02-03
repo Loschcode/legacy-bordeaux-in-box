@@ -31,7 +31,7 @@ class MasterBox_Customer_PurchaseControllerTest extends TestCase
   public function should_not_see_frequency_page_when_i_am_connected_but_i_did_not_choose_the_type_of_order()
   {
     // Create customer
-    $customer = factory(Customer::class, 'subscribed-customer')->create();
+    $customer = factory(Customer::class)->create();
 
     $this->actingAs($customer, 'customer')
       ->visit('customer/purchase/choose-frequency')
