@@ -27,6 +27,7 @@
       <tr>
         <th>Id</th>
         <th>Titre</th>
+        <th>Auteur</th>
         <th>Date</th>
         <th>Action</th>
       </tr>
@@ -37,6 +38,7 @@
       <tr>
         <td>{{ $blog_article->id }}</td>
         <td>{{$blog_article->title}}</td>
+        <td>{{$blog_article->administrator()->first()->getFullName()}}</td>
         <td>{{ Html::dateFrench($blog_article->created_at) }}</td>
         <td>
           <a class="button__table" href="{{ action('MasterBox\Admin\ContentController@getEditBlog', ['id' => $blog_article->id]) }}"><i class="fa fa-pencil"></i></a>

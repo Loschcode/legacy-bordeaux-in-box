@@ -80,7 +80,7 @@ class MasterBox_Connect_ProfileControllerTest extends TestCase
     if (empty($password)) $password = str_random(10);
     if (empty($email)) $email = $this->faker->email;
 
-    $customer = factory(Customer::class, 'customer-subscribed')->create([
+    $customer = factory(Customer::class)->create([
       'password' => bcrypt($password),
       'email' => $email
     ]);

@@ -61,10 +61,10 @@ class ImageArticle extends Model {
 	 * Belongs To
 	 */
 	
-	public function customer()
+	public function administrator()
 	{
 
-		return $this->belongsTo('App\Models\Customer', 'customer_id');
+		return $this->belongsTo('App\Models\Administrator', 'administrator_id');
 
 	}
 
