@@ -7,6 +7,10 @@
     <div>      
 
       Notre service a constaté une tentative de génération de commande alors qu'il n'y a plus de série disponible pour de nouvelles générations liées au profil N°{{$customer_profile_id}} correspondant à {{$customer_full_name}} ({{$customer_email}}).
+
+      <br /><br />
+
+      Une nouvelle série a normalement été générée automatiquement mais devrait être recalibrée.
         
 
       <br /><br /><br /> 

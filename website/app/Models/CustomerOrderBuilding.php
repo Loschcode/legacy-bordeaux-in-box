@@ -11,6 +11,10 @@ class CustomerOrderBuilding extends Model {
 	 */
 	protected $table = 'customer_order_buildings';
 
+  /**
+   * Attributes
+   */
+  
   public function getDestinationAddressAttribute() {
 
     if ($this->destination_coordinate()->first() === NULL)

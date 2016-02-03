@@ -51,7 +51,15 @@
                   @endif
 
                   </th>
-                  <th>{{ Html::dateFrench($order->delivery_serie()->first()->delivery, true) }}</th>
+                  <th>
+
+                  @if ($order->delivery_serie()->first() === NULL)
+                    Non défini
+                  @else
+                    {{ Html::dateFrench($order->delivery_serie()->first()->delivery, true) }}
+                  @endif
+
+                  </th>
                   <th>{!! Html::getOrderSpotOrDestination($order) !!}</th>
                   
 

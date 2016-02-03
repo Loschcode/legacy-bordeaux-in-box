@@ -10,8 +10,12 @@ class CompanyBilling extends Model {
    * @var string
    */
   protected $table = 'company_billings';
+
+  /**
+   * Attributes
+   */
   
-    public function getAddressAttribute() {
+  public function getAddressAttribute() {
 
     if ($this->coordinate()->first() === NULL)
       return '';

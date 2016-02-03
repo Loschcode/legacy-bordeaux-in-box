@@ -4,19 +4,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class DeliverySerie extends Model {
 
-	public function manyThroughMany($related, $through, $firstKey, $secondKey, $pivotKey)
-	{
-		$model = new $related;
-		$table = $model->getTable();
-		$throughModel = new $through;
-		$pivot = $throughModel->getTable();
-
-		return $model
-		->join($pivot, $pivot . '.' . $pivotKey, '=', $table . '.' . $secondKey)
-		->select($table . '.*')
-		->where($pivot . '.' . $firstKey, '=', $this->id);
-	}
-
 	/**
 	 * The database table used by the model.
 	 *

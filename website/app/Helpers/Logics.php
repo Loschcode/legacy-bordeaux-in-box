@@ -93,6 +93,18 @@ function generate_new_order($customer, $profile) {
 
     warning_tech_admin('masterbox.emails.admin.no_more_delivery_serie_to_generate_order', 'Plus assez de séries pour générer des commandes', $customer, $profile);
 
+    /**
+     * We get the very last serie whatever it is
+     */
+    
+    $last_delivery_serie = App\Models\DeliverySerie::orderBy('id', 'desc')->first();
+    $last_delivery = strtotime($last_delivery_serie->delivery);
+
+    $delivery_serie = new App\Models\DeliverySerie;
+    $delivery_serie->delivery = date("Y-m-d", strtotime("+1 month", $last_delivery));
+    $delivery_serie->goal = 0;
+    $delivery_serie->save();
+
   }
 
   // We make the order

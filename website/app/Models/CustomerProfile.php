@@ -1,13 +1,10 @@
 <?php namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class CustomerProfile extends Model {
 
-	use SoftDeletes;
-
-    protected $dates = ['deleted_at', 'status_updated_at'];
+  protected $dates = ['status_updated_at'];
 
 	/**
 	 * The database table used by the model.
