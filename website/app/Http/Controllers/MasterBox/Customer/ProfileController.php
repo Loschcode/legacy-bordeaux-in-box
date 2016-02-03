@@ -77,7 +77,8 @@ class ProfileController extends BaseController {
         'profiles',
         'destination',
         'spot',
-        'active_menu'
+        'active_menu',
+        'has_provider'
       ));
 
     }

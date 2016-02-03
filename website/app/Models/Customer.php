@@ -219,7 +219,6 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 	 */
   public function hasProvider()
   {
-
     if (!empty($this->provider))
       return TRUE;
     else

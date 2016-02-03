@@ -28,11 +28,13 @@ class Index extends Controller
   ##
   run: ->
 
-    @on 'submit', '#form-edit-email', @askPassword
-    @on 'submit', '#form-edit-password', @askPassword
-    @on 'submit', '#form-edit-billing', @askPassword
-    @on 'submit', '#form-edit-destination', @askPassword
-    @on 'submit', '#form-edit-spot', @askPassword
+    unless @hasProvider()
+      @on 'submit', '#form-edit-email', @askPassword
+      @on 'submit', '#form-edit-password', @askPassword
+      @on 'submit', '#form-edit-billing', @askPassword
+      @on 'submit', '#form-edit-destination', @askPassword
+      @on 'submit', '#form-edit-spot', @askPassword
+
     @on 'click', 'label', @displayGoogleMap
 
   displayGoogleMap: ->
@@ -47,6 +49,18 @@ class Index extends Controller
 
       # Display it
       $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn()
+
+  hasProvider: ->
+
+    hasProvider = _.trim($('#gotham').data('has-provider'))
+
+    if _.isEmpty(hasProvider)
+      return false
+
+    if hasProvider is '1'
+      return true
+
+    return false
 
   askPassword: (e) ->
 

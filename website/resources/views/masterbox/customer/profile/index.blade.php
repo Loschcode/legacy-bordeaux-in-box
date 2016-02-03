@@ -3,7 +3,8 @@
 @section('gotham')
   {!! Html::gotham([
     'controller' => 'masterbox.customer.profile.index',
-    'form-errors' => $errors->edit_email->has() . $errors->edit_password->has() . $errors->edit_billing->has() . $errors->edit_destination->has() . $errors->edit_spot->has()
+    'form-errors' => $errors->edit_email->has() . $errors->edit_password->has() . $errors->edit_billing->has() . $errors->edit_destination->has() . $errors->edit_spot->has(),
+    'has-provider' => $customer->hasProvider()
   ]) !!}
 @stop
 

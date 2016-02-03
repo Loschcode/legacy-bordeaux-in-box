@@ -651,11 +651,13 @@ Index = (function(superClass) {
   };
 
   Index.prototype.run = function() {
-    this.on('submit', '#form-edit-email', this.askPassword);
-    this.on('submit', '#form-edit-password', this.askPassword);
-    this.on('submit', '#form-edit-billing', this.askPassword);
-    this.on('submit', '#form-edit-destination', this.askPassword);
-    this.on('submit', '#form-edit-spot', this.askPassword);
+    if (!this.hasProvider()) {
+      this.on('submit', '#form-edit-email', this.askPassword);
+      this.on('submit', '#form-edit-password', this.askPassword);
+      this.on('submit', '#form-edit-billing', this.askPassword);
+      this.on('submit', '#form-edit-destination', this.askPassword);
+      this.on('submit', '#form-edit-spot', this.askPassword);
+    }
     return this.on('click', 'label', this.displayGoogleMap);
   };
 
@@ -666,6 +668,18 @@ Index = (function(superClass) {
     if ($('#gmap-' + id).hasClass('+hidden')) {
       return $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn();
     }
+  };
+
+  Index.prototype.hasProvider = function() {
+    var hasProvider;
+    hasProvider = _.trim($('#gotham').data('has-provider'));
+    if (_.isEmpty(hasProvider)) {
+      return false;
+    }
+    if (hasProvider === '1') {
+      return true;
+    }
+    return false;
   };
 
   Index.prototype.askPassword = function(e) {

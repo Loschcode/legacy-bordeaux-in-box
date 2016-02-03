@@ -64,6 +64,7 @@
 	</div>
 </div>
 
+
 <div class="container-static">
 	<div class="row">
 		<div class="grid-4">
@@ -73,7 +74,7 @@
 					<img class="step__picture --step2" src="{{ url('images/steps/step2.png') }}" />
 				</div>
 				<p class="step__description">
-					Je m'abonne sur le site
+
 				</p>
 			</div>
 		</div>
