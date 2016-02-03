@@ -6,6 +6,11 @@
 
 <div class="container">
 <div class="grid-6 grid-centered">
+
+  <a class="button button__facebook" href="{{ action('MasterBox\Connect\CustomerController@getLoginWithFacebook') }}"><i class="fa fa-facebook-official"></i> Se connecter via Facebook</a>
+
+  <div class="divider divider__or">OU</div>
+
     <div class="panel">
       <div class="panel__heading">
         <h2 class="panel__title">Connexion</h2>
@@ -38,10 +43,6 @@
       <button type="submit" class="button button__submit --panel">Me connecter</button>
     </div>
     {!! Form::close() !!}
-    
-    <div class="divider divider__or">OU</div>
-
-    <a class="button button__facebook" href="{{ action('MasterBox\Connect\CustomerController@getLoginWithFacebook') }}"><i class="fa fa-facebook-official"></i> Se connecter via Facebook</a>
         
         <!--
         {{ HTML::linkAction("MasterBox\Connect\CustomerController@getLoginWithGoogle", "Se connecter via Google", null, ['class' => 'btn btn-bg btn-google']) }}

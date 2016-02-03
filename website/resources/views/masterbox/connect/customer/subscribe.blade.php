@@ -9,6 +9,9 @@
   {!! Form::open(['action' => 'MasterBox\Connect\CustomerController@postSubscribe']) !!}
 
   <div class="grid-6 grid-centered">
+    <a class="button button__facebook" href="{{ action('MasterBox\Connect\CustomerController@getLoginWithFacebook') }}"><i class="fa fa-facebook-official"></i> S'inscrire via Facebook</a>
+    
+    <div class="divider divider__or">OU</div>
 
     <div class="panel__heading">
       <h2 class="panel__title">Inscription</h2>
