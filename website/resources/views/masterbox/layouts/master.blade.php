@@ -70,8 +70,10 @@
     @include('masterbox.partials.navbar')
     
     @yield('content')
-
-    <div class="+spacer"></div>
+    
+    @section('footer-spacer')
+      <div class="+spacer"></div>
+    @show
   </div>
 
   {{-- Footer --}}
