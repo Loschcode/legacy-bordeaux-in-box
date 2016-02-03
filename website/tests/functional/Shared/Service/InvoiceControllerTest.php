@@ -16,17 +16,13 @@ class Shared_Service_InvoiceControllerTest extends TestCase
   use DatabaseTransactions;
 
   /** @test */
-  public function subscribed_customer_got_invoice_callback_from_stripe()
+  public function charged_customer_without_order_got_invoice_callback_from_stripe()
   {
 
-    $stripe_charge = 'ch_'. str_random(8);
-    $stripe_card = 'card_' . str_random(8);
-    $stripe_balance_transaction = 'blx_' . str_random(8);
     $amount_in_cents = 2490;
 
     $customer_payment_profile = factory(CustomerPaymentProfile::class)->create([
 
-      'stripe_card' => $stripe_card,
       'stripe_plan' => 'plan2490'
 
       ]);
@@ -41,16 +37,17 @@ class Shared_Service_InvoiceControllerTest extends TestCase
 
       ]);
 
-    $this->post('shared/service/invoices', ['webhook' => $this->fakeCallback($customer, $customer_profile, $customer_payment_profile->stripe_customer, $stripe_charge, $stripe_card, $stripe_balance_transaction, $amount_in_cents)]);
+    $this->post('shared/service/invoices', ['webhook' => $this->fakeStripeChargeCallback($customer_payment_profile, $amount_in_cents)]);
 
     $this->assertResponseOk();
 
-
-
   }
 
-  public function fakeCallback($customer, $customer_profile, $stripe_customer, $stripe_charge, $stripe_card, $stripe_balance_transaction, $amount_in_cents)
+  public function fakeStripeChargeCallback($customer_payment_profile, $amount_in_cents)
   {
+
+    $customer_profile = $customer_payment_profile->profile()->first();
+    $customer = $customer_profile->customer()->first();
 
     return '
 
@@ -66,16 +63,16 @@ class Shared_Service_InvoiceControllerTest extends TestCase
     "data": {
       "object":
             {
-            "id": "'.$stripe_charge.'",
+            "id": "ch_'.str_random(8).'",
             "object": "charge",
             "amount": '.$amount_in_cents.',
             "amount_refunded": 0,
             "application_fee": null,
-            "balance_transaction": "'.$stripe_balance_transaction.'",
+            "balance_transaction": "blx_'.str_random(8).'",
             "captured": true,
             "created": 1449875442,
             "currency": "eur",
-            "customer": "'.$stripe_customer.'",
+            "customer": "'.$customer_profile->stripe_customer.'",
             "description": "Testing mode",
             "destination": null,
             "dispute": null,
@@ -106,7 +103,7 @@ class Shared_Service_InvoiceControllerTest extends TestCase
             },
             "shipping": null,
             "source": {
-              "id": "'.$stripe_card.'",
+              "id": "'.$customer_payment_profile->stripe_card.'",
               "object": "card",
               "address_city": null,
               "address_country": null,
@@ -118,7 +115,7 @@ class Shared_Service_InvoiceControllerTest extends TestCase
               "address_zip_check": null,
               "brand": "Visa",
               "country": "US",
-              "customer": "'.$stripe_customer.'",
+              "customer": "'.$customer_profile->stripe_customer.'",
               "cvc_check": "pass",
               "dynamic_last4": null,
               "exp_month": 2,
