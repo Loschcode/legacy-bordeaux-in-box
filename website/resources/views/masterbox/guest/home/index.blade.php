@@ -74,7 +74,7 @@
 					<img class="step__picture --step2" src="{{ url('images/steps/step2.png') }}" />
 				</div>
 				<p class="step__description">
-
+					Découvre les précédentes box et abonne-toi en quelques clics.
 				</p>
 			</div>
 		</div>
@@ -85,7 +85,7 @@
 					<img class="step__picture --step3" src="{{ url('images/steps/step3.png') }}" />
 				</div>
 				<p class="step__description">
-					Je la reçois chaque mois
+					Chaque début de mois, on emballe la Gironde et on te l'expédie dans une jolie box.
 				</p>
 			</div>
 		</div>
@@ -96,7 +96,7 @@
 					<img class="step__picture --step1" src="{{ url('images/steps/step1.png') }}" />
 				</div>
 				<p class="step__description">
-					Je donne mon avis sur les produits reçus.
+					Une fois reçue, tu peux donner ton avis sur le site et découvrir les produits et les petites marques derrières !
 				</p>
 			</div>
 		</div>
