@@ -254,8 +254,13 @@ class PurchaseController extends BaseController {
     if ($validator->passes()) {
 
       $customer = Auth::guard('customer')->user();
-      $customer->phone = $fields['customer_phone'];
-      $customer->save();
+      
+      if (isset($fields['customer_phone'])) {
+
+        $customer->phone = $fields['customer_phone'];
+        $customer->save();
+
+      }
 
       $order_building = $customer->order_buildings()->getCurrent()->first();
       $order_preference = $order_building->order_preference()->first();
