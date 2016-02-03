@@ -226,6 +226,16 @@
 
                   </div>
                 </div>
+                
+                @if (empty($customer->phone))
+                  <div class="billing__label">
+                    {!! Form::label('customer_phone', 'Numéro de téléphone') !!}
+                  </div>
+                  {!! Form::text("customer_phone", Request::old("customer_phone"), ['class' => 'billing__input']) !!}
+                  {!! Html::checkError('customer_phone', $errors) !!}
+                @endif
+
+                <div class="+spacer-extra-small"></div>
 
                 <div class="billing__label">
                   {!! Form::label('billing_address', 'Adresse') !!}
@@ -235,12 +245,6 @@
 
               </div>
 
-
-              @if (empty($customer->phone))
-
-              ICI MET LE CHAMPS TELEPHONE AVEC UN BON TRUC (`customer_phone`)
-
-              @endif
 
               <button id="test-commit" type="submit" class="button button__submit --panel"><i class="fa fa-check"></i> Valider</button>
             </div>
