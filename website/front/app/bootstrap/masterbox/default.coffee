@@ -119,7 +119,7 @@ class Default
   ##
   inputMaskDate: ->
 
-    $('.js-input-mask-date').inputmask("99/99/9999", {placeholder: 'jj/mm/aaaa'})
+    $('.js-input-mask-date').inputmask("99/99/9999")
 
 
 

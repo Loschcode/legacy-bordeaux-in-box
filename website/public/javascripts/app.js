@@ -305,9 +305,7 @@ Default = (function() {
   };
 
   Default.prototype.inputMaskDate = function() {
-    return $('.js-input-mask-date').inputmask("99/99/9999", {
-      placeholder: 'jj/mm/aaaa'
-    });
+    return $('.js-input-mask-date').inputmask("99/99/9999");
   };
 
   return Default;

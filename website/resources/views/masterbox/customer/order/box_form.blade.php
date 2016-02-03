@@ -58,7 +58,7 @@
                   @if (in_array($question->type, ['member_email', 'text']))
                     {!! Form::text('answer', '', ['class' => 'form__input', 'autofocus']) !!}
                   @elseif ($question->type == 'date')
-                    {!! Form::text('answer', '', ['class' => 'form__input js-input-mask-date', 'autofocus']) !!}
+                    {!! Form::text('answer', '', ['class' => 'form__input js-input-mask-date', 'autofocus', 'placeholder' => '__/__/____']) !!}
                   @elseif ($question->type == 'textarea')
                     {!! Form::textarea('answer', '', ['class' => 'form__input', 'autofocus']) !!}
                   @else
