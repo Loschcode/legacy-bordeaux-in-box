@@ -222,6 +222,7 @@ Default = (function() {
     this.tooltipster();
     this.inputMaskDate();
     this.responsiveMenu();
+    this.stickyFooter();
   }
 
   Default.prototype.polyfillPlaceholders = function() {
@@ -316,6 +317,16 @@ Default = (function() {
       });
     } else {
       return $('.js-menu').slicknav();
+    }
+  };
+
+  Default.prototype.stickyFooter = function() {
+    var docHeight, footerHeight, footerTop;
+    docHeight = $(window).height();
+    footerHeight = $('.js-footer-stick').height();
+    footerTop = $('.js-footer-stick').position().top + footerHeight;
+    if (footerTop < docHeight) {
+      return $('.js-footer-stick').css('margin-top', 10 + (docHeight - footerTop) + 'px');
     }
   };
 

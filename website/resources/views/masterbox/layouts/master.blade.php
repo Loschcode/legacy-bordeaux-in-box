@@ -24,10 +24,10 @@
   {{-- CoffeeScript App --}}
   @if ( ! $app->environment('production'))
 
-    <script>
-      window.brunch = window.brunch || {};
-      window.brunch.server = 'localhost';
-    </script>
+  <script>
+    window.brunch = window.brunch || {};
+    window.brunch.server = 'localhost';
+  </script>
 
   @endif
   
@@ -46,39 +46,36 @@
 <body id="csstyle" data-environment="{{ app()->environment() }}" data-app="masterbox">
   
   @section('gotham')
-    {!! Html::gotham() !!}
+  {!! Html::gotham() !!}
   @show
 
-  <div id="page-wrapper">
-
-    <div class="header">
-      <div class="header__item --first"></div>
-      <div class="header__item --second"></div>
-      <div class="header__item --third"></div>
-      <div class="header__item --fourth"></div>
-      <div class="header__item --fifth"></div>
-    </div>
-
-    {{-- Logo --}}
-    <div class="logo">
-      <a href="{{ action('MasterBox\Guest\HomeController@getIndex') }}" class="logo__link">
-        <img class="logo__picture" src="{{ url('images/logo.png') }}" />
-      </a>
-    </div>
-
-    {{-- Navbar --}}
-    @include('masterbox.partials.navbar')
-
-    @yield('content')
-    
-    @section('footer-spacer')
-      <div class="+spacer"></div>
-    @show
+  <div class="header">
+    <div class="header__item --first"></div>
+    <div class="header__item --second"></div>
+    <div class="header__item --third"></div>
+    <div class="header__item --fourth"></div>
+    <div class="header__item --fifth"></div>
   </div>
+
+  {{-- Logo --}}
+  <div class="logo">
+    <a href="{{ action('MasterBox\Guest\HomeController@getIndex') }}" class="logo__link">
+      <img class="logo__picture" src="{{ url('images/logo.png') }}" />
+    </a>
+  </div>
+
+  {{-- Navbar --}}
+  @include('masterbox.partials.navbar')
+
+  @yield('content')
+  
+  @section('footer-spacer')
+  <div class="+spacer"></div>
+  @show
 
   {{-- Footer --}}
   @section('footer')
-    @include('masterbox.partials.footer')
+  @include('masterbox.partials.footer')
   @show
 
 </body>

@@ -11,6 +11,7 @@ class Default
     @tooltipster()
     @inputMaskDate()
     @responsiveMenu()
+    @stickyFooter()
 
   ##
   # Polyfill placeholders 
@@ -133,6 +134,18 @@ class Default
     else
       $('.js-menu').slicknav()
 
+  ##
+  # Always stick that fucking footer 
+  # on the bottom of the page
+  ##
+  stickyFooter: ->
+    docHeight = $(window).height()
+    footerHeight = $('.js-footer-stick').height()
+    footerTop = $('.js-footer-stick').position().top + footerHeight
+    
+    if footerTop < docHeight
+      $('.js-footer-stick').css('margin-top', 10 + (docHeight - footerTop) + 'px')
+    
 
 
 

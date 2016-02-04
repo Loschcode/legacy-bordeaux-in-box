@@ -66,22 +66,6 @@ a {
   text-decoration: none;
   color: #364347; }
 
-#page-wrapper {
-  min-height: 100%;
-  margin-bottom: -204px; }
-  @media (max-width: 750px) {
-    #page-wrapper {
-      margin-bottom: -272px; } }
-  #page-wrapper:after {
-    content: "";
-    display: block; }
-
-#footer-wrapper, #page-wrapper:after {
-  height: 204px; }
-  @media (max-width: 750px) {
-    #footer-wrapper, #page-wrapper:after {
-      height: 272px; } }
-
 @media (max-width: 750px) {
   .header {
     display: none; } }
