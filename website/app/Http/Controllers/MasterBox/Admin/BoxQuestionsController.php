@@ -69,6 +69,8 @@ class BoxQuestionsController extends BaseController {
 
 			'question_id' => 'required|integer',
 			'question' => 'required|min:5',
+      'question_gift' => 'required|min:5',
+      'only_gift' => 'required',
 			'short_question' => 'required|max:15',
 			'slug' => '',
 			'type' => 'required|not_in:0',
@@ -90,8 +92,10 @@ class BoxQuestionsController extends BaseController {
     $box_question = BoxQuestion::findOrFail($fields['question_id']);
 
 		$box_question->question = $fields['question'];
+    $box_question->question_gift = $fields['question_gift'];
 		$box_question->short_question = $fields['short_question'];
 		$box_question->slug = $fields['slug'];
+    $box_question->only_gift = $fields['only_gift'];
 
 		$box_question->type = $fields['type'];
 		$box_question->position = $fields['position'];
@@ -105,6 +109,7 @@ class BoxQuestionsController extends BaseController {
 		}
 
 		$box_question->save();
+    $this->update_box_questions_positions();
 
 		session()->flash('message', "La question a bien été mise à jour");
 		
@@ -138,7 +143,9 @@ class BoxQuestionsController extends BaseController {
 		$rules = [
 
 			'question' => 'required|min:5',
+      'question_gift' => 'required|min:5',
 			'short_question' => 'required|max:15',
+      'only_gift' => 'required',
 			'slug' => '',
 			'type' => 'required|not_in:0',
 			'position' => 'required|not_in:0',
@@ -161,13 +168,16 @@ class BoxQuestionsController extends BaseController {
     $box_question = new BoxQuestion;
 
 		$box_question->question = $fields['question'];
+    $box_question->question_gift = $fields['question_gift'];
 		$box_question->short_question = $fields['short_question'];
 		$box_question->slug = $fields['slug'];
-
+    $box_question->only_gift = $fields['only_gift'];
+    
 		$box_question->type = $fields['type'];
 		$box_question->position = $fields['position'];
     
     $box_question->save();
+    $this->update_box_questions_positions();
 
 		session()->flash('message', "La question a bien été ajoutée à la box");
 		
@@ -187,6 +197,18 @@ class BoxQuestionsController extends BaseController {
 		session()->flash('message', "Cette question a été archivée");
 		return redirect()->back();
 	}
+
+  private function update_box_questions_positions() {
+
+    $box_questions = BoxQuestion::orderBy('position', 'asc')->orderBy('updated_at', 'desc')->get();
+    $num = 1;
+    foreach ($box_questions as $box_question) {
+      $box_question->position = $num;
+      $box_question->save();
+      $num++;
+    }
+
+  }
 
 	private function _generate_position_listing($inc=0)
 	{

@@ -49,7 +49,14 @@
 
             <div class="custombox">
               <div class="custombox__wrapper">
-                <h3 class="custombox__question">{{ $question->question }}</h3>
+                <h3 class="custombox__question">
+
+                @if ($order_preference->isGift())
+                  {{ $question->question_gift }}
+                @else
+                  {{ $question->question }}
+                @endif
+                </h3>
                 @if ($question->type == 'checkbox')
                   <p class="custombox__multiple">(Plusieurs choix sont possibles)</p>
                 @endif

@@ -39,6 +39,17 @@
       @endif
     </div>
 
+    <!-- Question Gift -->
+    <div class="form-group @if ($errors->first('question_gift')) has-error has-feedback @endif">
+      {!! Form::label("question_gift", "Question à offrir", ['class' => 'control-label']) !!}
+      {!! Form::text("question_gift", Request::old("question_gift"), ['class' => 'form-control']) !!}
+
+      @if ($errors->first('question_gift'))
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        <span class="help-block">{{ $errors->first('question_gift') }}</span>
+      @endif
+    </div>
+
     <!-- Short question -->
     <div class="form-group @if ($errors->first('short_question')) has-error has-feedback @endif">
       {!! Form::label("short_question", "Résumé", ['class' => 'control-label']) !!}
@@ -79,6 +90,15 @@
       @endif
     </div>
 
+    <!-- Only gift -->
+    <div class="form-group @if ($errors->first('only_gift')) has-error has-feedback @endif">
+      {!! Form::label("only_gift", "Exclusif à offrir", ['class' => 'control-label']) !!}
+      {!! Form::select('only_gift', [0 => 'Non', 1 => 'Oui'], Request::old('only_gift'), ['class' => 'form-control']) !!}
+      @if ($errors->first('only_gift'))
+        <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        <span class="help-block">{{ $errors->first('only_gift') }}</span>
+      @endif
+    </div>
 
   {!! Form::submit("Ajouter cette question", ['class' => 'spyro-btn spyro-btn-lg spyro-btn-success']) !!}
 

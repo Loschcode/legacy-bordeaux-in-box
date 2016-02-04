@@ -22,8 +22,9 @@
 		<tr>
 			<th>Position</th>
 			<th>Question</th>
+      <th>Question en cas de cadeau</th>
 			<th>Résumé</th>
-			<th>Filtre doit correspondre</th>
+			<th>Seulement à offrir</th>
 			<th>Slug</th>
 			<th>Type</th>
 			<th>Réponses</th>
@@ -40,8 +41,9 @@
 			<tr>
 				<th>{{$question->position}}</th>
 				<th>{{$question->question}}</th>
+        <th>{{$question->question_gift}}</th>
 				<th>{{$question->short_question}}</th>
-				<th>{!! Html::boolYesOrNo($question->filter_must_match) !!}</th>
+				<th>{!! Html::boolYesOrNo($question->only_gift) !!}</th>
 				<th>{{$question->slug}}</th>
 				<th>{!! Html::getReadableQuestionType($question->type) !!}</th>
 				<th>

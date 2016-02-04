@@ -16,5 +16,5 @@ Transaction Bancaire
 @stop
 
 @section('call-action')
-  {!! Html::emailAction('Voir mes abonnements', action('MasterBox\Customer\ProfileController@getIndex')) !!}
+  {!! Html::emailAction('Voir mes abonnements', action('MasterBox\Customer\ProfileController@getOrders')) !!}
 @stop

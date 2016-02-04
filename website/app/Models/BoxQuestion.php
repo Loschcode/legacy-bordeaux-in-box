@@ -11,6 +11,11 @@ class BoxQuestion extends Model {
 	 */
 	protected $table = 'box_questions';
 
+  protected $casts = [
+      
+      'only_gift' => 'boolean',
+  ];
+
   /**
    * Create / Update
    */
@@ -53,4 +58,15 @@ class BoxQuestion extends Model {
 
 	}
 
+  /**
+   * Scope
+   */
+  
+  public function scopeNotOnlyGift($query)
+  {
+
+    return $query->where('only_gift', '!=', TRUE);
+
+  }
+   
 }
