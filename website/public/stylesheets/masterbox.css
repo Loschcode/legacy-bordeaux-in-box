@@ -622,6 +622,9 @@ a {
   font-family: "Lato", sans-serif;
   font-weight: 300;
   padding-top: 17px; }
+  @media (max-width: 750px) {
+    .pipeline__description {
+      font-size: 10.54px; } }
 .pipeline__progress {
   position: relative;
   background-color: #ECF0F1;

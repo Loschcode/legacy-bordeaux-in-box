@@ -15,7 +15,7 @@
   @include('masterbox.partials.pipeline', ['step' => 1])
 
   {{-- Section --}}
-  <div class="grid-9 grid-centered">
+  <div class="grid-9 grid-centered grid-11@xs">
     <div class="section">
       <h2 class="section__title --choose-frequency">Fréquence de livraison</h2>
       <p id="section" class="section__description --choose-frequency">
@@ -31,7 +31,7 @@
   <div class="+spacer"></div>
 
   {{-- Choices --}}
-  <div class="grid-7 grid-centered">
+  <div class="grid-7 grid-centered grid-11@xs">
     {!! Form::open() !!}
       @if ($order_preference->isGift())
   
