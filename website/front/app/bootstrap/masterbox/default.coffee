@@ -13,6 +13,10 @@ class Default
     @responsiveMenu()
     @stickyFooter()
 
+    $(window).resize =>
+
+      @stickyFooter()
+
   ##
   # Polyfill placeholders 
   ##
@@ -139,6 +143,7 @@ class Default
   # on the bottom of the page
   ##
   stickyFooter: ->
+
     docHeight = $(window).height()
     footerHeight = $('.js-footer-stick').height()
     footerTop = $('.js-footer-stick').position().top + footerHeight
