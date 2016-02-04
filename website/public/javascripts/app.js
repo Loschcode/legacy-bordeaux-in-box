@@ -221,6 +221,7 @@ Default = (function() {
     this.labelautyForm();
     this.tooltipster();
     this.inputMaskDate();
+    this.responsiveMenu();
   }
 
   Default.prototype.polyfillPlaceholders = function() {
@@ -306,6 +307,10 @@ Default = (function() {
 
   Default.prototype.inputMaskDate = function() {
     return $('.js-input-mask-date').inputmask("99/99/9999");
+  };
+
+  Default.prototype.responsiveMenu = function() {
+    return $('.js-menu').slicknav();
   };
 
   return Default;

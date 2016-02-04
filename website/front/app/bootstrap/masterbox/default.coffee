@@ -10,6 +10,7 @@ class Default
     @labelautyForm()
     @tooltipster()
     @inputMaskDate()
+    @responsiveMenu()
 
   ##
   # Polyfill placeholders 
@@ -120,6 +121,13 @@ class Default
   inputMaskDate: ->
 
     $('.js-input-mask-date').inputmask("99/99/9999")
+
+  ##
+  # Set responsive to the menu
+  ##
+  responsiveMenu: ->
+
+    $('.js-menu').slicknav()
 
 
 

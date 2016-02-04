@@ -1,6 +1,6 @@
 <div class="navbar">
 
-  <ul class="navbar__list">
+  <ul class="navbar__list js-menu">
     <li class="navbar__item"><a class="js-anchor" href="{{ action('MasterBox\Guest\HomeController@getIndex') }}#how-to">Comment ça marche ?</a></li>
     <li class="navbar__item"><a class="js-anchor" href="{{ action('MasterBox\Guest\HomeController@getIndex') }}#inside">Ce qu'il y a dans la boîte</a></li>
 
