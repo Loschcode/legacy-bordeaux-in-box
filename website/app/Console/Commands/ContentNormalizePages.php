@@ -118,39 +118,37 @@ EOD;
         $string = <<<EOD
 ## Que vais-je trouver dans la box ?
 
-Des petites marques locales, des créateurs, des artisans de Gironde ... Cela dépend des mois et des envies de l'équipe ! Chaque mois est différent donc il y aura toujours quelque chose pour te plaire dedans. Pour te donner quelques exemples, on y a déjà glissé du vin, des bijoux, du parfum, des cosmétiques, des cartes cadeaux pour des séances photo, des petites plantes, des préparations pour canelés, des places de concert, des dessins d'artistes ou encore des jouets pour enfants (pour les Mamounes) !
+C'est une surprise ! C'est le principe de Bordeaux in Box et on y dérogera pas ! Mais on peut quand même vous dire que vous y trouverez toujours des produits issus de la Gironde, du fait-main, des bonnes choses à manger, des accessoires de mode et des petites choses pour vous émerveiller ! Si vous hésitez toujours, vous pouvez toujours jeter un coup d'oeil à nos précédentes boxs !
 
-Si tu es très très curieuse, voici le lien vers nos albums photo facebook où nous réunissons les photos prises par vous !
+## Je n'ai pas reçu la même box que celle sur la photo, est-ce normal ?
 
-
-
-## Comment fonctionnent les thèmes ?
-
-Chaque thème correspond à un style dominant qu'on met dans ta box mais toutes reçoivent au moins un bijou de créateur et une petite bouteille de vin ainsi que deux autres produits. Ces thèmes ne veulent pas dire que tu recevras chaque mois un produit lié à ce thème mais influencent notre manière de concevoir la box et comment nos partenaires travaillent. Et dès qu'un produit correspond ou que l'on a une idée, cela nous permet de savoir à qui les donner !
-Ainsi, les Princesses auront plus souvent des choses pour se faire belles ou décorer leur petit chez-soi. Les Mamounes, des doudous pour enfants, des petites choses pour la maison ou encore des choses pour se faire du bien et les Poulettes des dessins ou autres créations d'artiste, des places de théâtre ou même des dégustations de bière ! :)
-
-
+Notre but, c'est de vous surprendre tous les mois avec de beaux produits souvent faits à la main et il nous arrive donc de les glisser dans une box plutôt que dans une autre, c'est ce qui fait le charme de la surprise !
 
 ## Combien coûte-t-elle ?
 
-La box coûte actuellement 24,90€ en abonnement, si tu hésites, tu peux tester notre box pour 26,90€ sans abonnement.
+La box coûte actuellement 24,90€ en abonnement. Et si tu hésites, tu peux tester notre box pour 26,90€ sans abonnement !
+Et si tu souhaites la recevoir près de chez toi ou directement chez toi, quelques petits euros se rajoutent pour la livraison ! 
 
+## Quand vais-je la recevoir ?
 
+Lors de ton abonnement et depuis ton compte, tu peux savoir quelle box tu attends. Après, il ne te reste plus qu'à patienter car elle arrive toujours entre le 10 et le 20 du mois !
 
-## Quand est-elle envoyée ?
+## Si je n'habite pas sur Bordeaux ou la Gironde, est-ce handicapant ?
 
-La date d'envoi est indiqué sur le site dans l'espace client (Mon compte -> Abonnements -> Détails) une fois la commande faite mais en général, elle arrive autour du 10 du mois donc si tu tardes trop à la commander, il faudra attendre la suivante ! ;)
-
-
-
-## Si je n'habite pas sur Bordeaux, est-ce handicapant ?
-
-Non ! Pas du tout ! Dans la box, on fait toujours attention à mettre beaucoup de produits directement utilisables. Alors bien sûr, nous ne te glisserons pas les invitations aux soirées ou aux évènements que l'on organise à Bordeaux si tu habites trop loin, mais nous les remplacerons par un petit quelque chose en plus ! :)
-
+Non ! Pas du tout ! En effet, nous veillons bien à ce que tout le contenu de la box soit parfaitement utilisable d'où que tu te trouves !
 
 ## Quelles sont les règles et conditions d'achat de ma box ?
 
 Lors de l'achat de ta box, tu acceptes nos [conditions générales de vente](http://www.bordeauxinbox.fr/cgv). Celles-ci sont plutôt classiques et flexibles donc pas d'inquiétude ;)
+
+## Quels sont les moyens de paiement ?
+
+Le paiement se fait uniquement par carte bancaire (Carte Bleue, Visa et MasterCard) pour rendre cela plus facile mais si vous avez un souci, contactez-nous et on essaiera de trouver une solution !
+
+## Je n'arrive pas à me connecter à mon compte, que faire ?
+Embêtant ! Pas de panique, n'oubliez pas de vérifier que vous utilisez bien l'adresse email avec laquelle vous aviez créé votre compte ! Et sinon, contactez-nous !
+
+Toujours pas trouver une réponse à ta question ? N'hésite pas à [nous contacter](http://www.bordeauxinbox.fr/contact) !
 EOD;
         return $string;
 
