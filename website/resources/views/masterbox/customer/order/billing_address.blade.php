@@ -14,7 +14,7 @@
     @include('masterbox.partials.pipeline', ['step' => 2])
 
     {{-- Section --}}
-    <div class="grid-9 grid-centered">
+    <div class="grid-9 grid-centered grid-11@xs">
       <div class="section">
         <h2 class="section__title --choose-frequency">Livraison / Facturation</h2>
         <p class="section__description --choose-frequency">
@@ -46,7 +46,7 @@
 
         @endif
 
-        <div class="grid-8 grid-centered">
+        <div class="grid-8 grid-centered grid-11@xs">
             
           {{-- Delivery informations --}}
 
