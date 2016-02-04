@@ -558,6 +558,14 @@ class InvoicesController extends BaseController {
     $payment->stripe_charge = $this->stripe_environment['charge_id'];
     $payment->stripe_card = $this->stripe_environment['card_id'];
 
+    /**
+     * We also try to retrieve the subscription id if there's any subscription
+     */
+    $stripe_subscription_id = Payments::getSubscriptionidFromChargeId($this->stripe_environment['charge_id']);
+
+    if ($stripe_subscription_id !== NULL)
+      $payment->stripe_subscription = $stripe_subscription_id;
+
     $payment->type = $payment_type;
     $payment->paid = $this->stripe_transaction['paid'];
     $payment->last4 = Payments::getLast4FromCard($this->stripe_environment['customer_id'], $this->stripe_environment['card_id']);

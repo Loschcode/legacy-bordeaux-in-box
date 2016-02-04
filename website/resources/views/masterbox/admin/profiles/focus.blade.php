@@ -55,6 +55,7 @@
             @if ($order_preference != NULL)
 
             <strong>A offrir:</strong> {{ ($order_preference->gift) ? 'Oui' : 'Non' }}<br />
+            <strong>A emporter:</strong> {{ ($order_preference->take_away) ? 'Oui' : 'Non' }}<br />
             <strong>Zone (prochaines livraisons):</strong>
 
             @if ($profile->orders()->orderBy('id', 'desc')->first() !== NULL)

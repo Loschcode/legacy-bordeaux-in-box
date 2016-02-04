@@ -50,6 +50,10 @@ class StripeNormalizePaymentSubscriptions extends Command {
 
         $this->info("Analysing the charge `$stripe_charge_id`");
 
+        /**
+         * There's a duplicate of this in the Payments library
+         * For log purpose it has been duplicated and a little changed there
+         */
         $charge_callback = Payments::getCharge($stripe_charge_id);
 
         if (!$charge_callback['success']) {

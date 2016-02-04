@@ -69,12 +69,12 @@
           <th>
           @foreach ($payment->orders()->get() as $order)
           
-          <a class="button button__link" href="{{ action('MasterBox\Admin\DeliveriesController@getFocus', ['id' => $order->delivery_serie()->first()->id]) }}"> 
-
-          {{ Html::dateFrench($order->delivery_serie()->first()->delivery, true) }}
-
-          </a>
-
+          @if ($order->delivery_serie()->first())
+            <a class="button button__link" href="{{ action('MasterBox\Admin\DeliveriesController@getFocus', ['id' => $order->delivery_serie()->first()->id]) }}"> 
+              {{ Html::dateFrench($order->delivery_serie()->first()->delivery, true) }}
+            </a>
+          @endif
+          
           @endforeach
           
           </th>

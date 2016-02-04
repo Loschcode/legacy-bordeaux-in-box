@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\MasterBox\Customer;
 
 use App\Http\Controllers\MasterBox\BaseController;
-use Session, Auth, Request, Redirect, URL, Validator;
+use Session, Auth, Request, Redirect, URL, Validator, Config;
 
 use App\Models\Box;
 use App\Models\Customer;
@@ -563,7 +563,7 @@ class PurchaseController extends BaseController {
 
       // We look how many boxes we will send
       // The infinite plan is special, the num orders is artificial (we will add them up progressively)
-      if ($order_preference->frequency == 0) $num_orders = 3;
+      if ($order_preference->frequency == 0) $num_orders = Config::get('bdxnbx.infinite_plan_orders');
       else $num_orders = $order_preference->frequency;
 
       $delivery_series = DeliverySerie::nextOpenSeries();
@@ -689,11 +689,12 @@ class PurchaseController extends BaseController {
       } else {
 
         // If it's not a gift, even for 1 month subscription we will subscribe and directly cancel after the payment
-        $plan_price = $order_preference->totalPricePerMonth();
-        $plan_name = 'plan' . $plan_price * 100;
+        $plan_name = guess_stripe_plan_from_order_preference($order_preference);
+
         $order_preference->stripe_plan = $plan_name;
         $order_preference->save();
 
+        $plan_price = $order_preference->totalPricePerMonth();
         $feedback = Payments::makeSubscription($stripe_customer, $customer, $profile, $plan_name, $plan_price);
 
         if (is_array($feedback)) {
@@ -747,7 +748,7 @@ class PurchaseController extends BaseController {
     if ($order_preference->isGift())
       $questions = $profile->unansweredQuestions()->with('answers')->orderBy('position', 'asc')->get();
     else
-      $questions = $profile->notOnlyGift()->unansweredQuestions()->with('answers')->orderBy('position', 'asc')->get();
+      $questions = $profile->unansweredQuestions()->notOnlyGift()->with('answers')->orderBy('position', 'asc')->get();
     
     // If no more questions, redirect.
     if ($questions->count() == 0) {
