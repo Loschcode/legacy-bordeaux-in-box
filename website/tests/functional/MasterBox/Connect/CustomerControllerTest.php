@@ -39,8 +39,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
 
   /** @test */
   public function should_subscribe_me_when_i_provide_right_informations()
-  {
-    
+  {    
     // Make valid subscribing customer
     $form_customer = $this->fakeCustomerForm();
 

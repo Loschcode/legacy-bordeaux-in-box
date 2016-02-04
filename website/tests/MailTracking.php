@@ -2,6 +2,7 @@
 
 trait MailTracking
 {
+
     /**
      * Delivered emails.
      */

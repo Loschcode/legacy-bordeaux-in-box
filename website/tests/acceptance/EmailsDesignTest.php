@@ -12,11 +12,10 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
  */
 class EmailsDesignTest extends TestCase
 {
-
   /**
-   * Hook laravel setup under phpunit
+   * Hook laravel setup
    */
-  protected function refreshApplication()
+  public function setUp()
   {
     // Hook env mail configuration to send messages by mailtrap
     // I'm hooking everything to be sure we will never 
@@ -28,7 +27,14 @@ class EmailsDesignTest extends TestCase
     putenv('MAIL_USERNAME=5287667f211735eec');
     putenv('MAIL_PASSWORD=e08e5c4f172d1c');
 
-    parent::refreshApplication();
+    parent::setUp();
+  }
+
+  public function tearDown()
+  {
+    // Back to the normal driver
+    putenv('MAIL_DRIVER=log');
+    parent::tearDown();
   }
 
   /** @test */

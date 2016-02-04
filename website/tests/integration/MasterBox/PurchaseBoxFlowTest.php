@@ -17,7 +17,7 @@ class PurchaseBoxFlowTest extends TestCase
 
   use DatabaseTransactions;
   use MailTracking;
-
+  
   public function setUp()
   {
     parent::setUp();

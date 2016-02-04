@@ -14,7 +14,6 @@ class Shared_Service_InvoiceControllerTest extends TestCase
 {
 
   use DatabaseTransactions;
-  use MailTracking;
 
   /** @test */
   public function charged_customer_without_order_got_invoice_callback_from_stripe()
