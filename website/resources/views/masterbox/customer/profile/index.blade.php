@@ -1,6 +1,5 @@
 @extends('masterbox.layouts.master')
 
-
 @section('gotham')
   {!! Html::gotham([
     'controller' => 'masterbox.customer.profile.index',
@@ -12,7 +11,7 @@
 @section('content')
   
   <div class="container">
-    <div class="row">
+    <div class="row row-align-center@xs">
       <div class="grid-2">
         @include('masterbox.partials.sidebar_profile')
       </div>
