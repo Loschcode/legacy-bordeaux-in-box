@@ -1,5 +1,19 @@
 <?php
 
+/**
+ * We guess the stripe plan from the order preference
+ * @param  object $order_preference
+ * @return string 
+ */
+function guess_stripe_plan_from_order_preference($order_preference) {
+
+  $plan_price = $order_preference->totalPricePerMonth();
+  $plan_name = 'plan' . $plan_price * 100;
+
+  return $plan_name;
+
+}
+
 function gmap_link($from, $to) {
 
   $from_url = urlencode($from);

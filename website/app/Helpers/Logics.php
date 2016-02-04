@@ -123,6 +123,8 @@ function generate_new_order($customer, $profile) {
   $last_order = $profile->orders()->orderBy('created_at', 'desc')->orderBy('orders.id', 'desc')->first();
   $last_delivery_serie = $last_order->delivery_serie()->first();
 
+  $order_preference = $profile->order_preference()->first();
+
   $delivery_spot = $last_order->delivery_spot()->first();
 
   try {
@@ -150,15 +152,25 @@ function generate_new_order($customer, $profile) {
   if ($delivery_spot !== NULL) $order->delivery_spot()->associate($delivery_spot);
 
   $order->status = 'scheduled';
-  $order->gift = $last_order->gift;
-  $order->take_away = $last_order->take_away;
-  $order->unity_and_fees_price = $last_order->unity_and_fees_price;
-  
+  $order->gift = $order_preference->gift;
+  $order->take_away = $order_preference->take_away;
+
   /**
    * We don't forget to guess the delivery fees / unity price of the order
    */
-  $order->delivery_fees = $last_order->delivery_fees;
-  $order->unity_price = $last_order->unity_price;
+  if ($order->gift) {
+
+    $order->unity_and_fees_price = $order_preference->totalPricePerMonth() / $order_preference->frequency;
+    $order->delivery_fees = $order_preference->delivery_fees / $order_preference->frequency;
+    $order->unity_price = $order_preference->unity_price / $order_preference->frequency;
+
+  } else {
+
+    $order->unity_and_fees_price = $order_preference->totalPricePerMonth();
+    $order->delivery_fees = $order_preference->delivery_fees;
+    $order->unity_price = $order_preference->unity_price;
+
+  }
 
   $order->save();
 
@@ -170,10 +182,9 @@ function generate_new_order($customer, $profile) {
   $order_billing->coordinate_id = \App\Models\Coordinate::getMatchingOrGenerate($customer->address, $customer->zip, $customer->city)->id;
   $order_billing->save();
 
-
   $last_order_destination = $last_order->destination()->first();
 
-  if ($last_order_destination != NULL) {
+  if ($last_order_destination !== NULL) {
 
     // We make the order destination
     $order_destination = new \App\Models\OrderDestination;

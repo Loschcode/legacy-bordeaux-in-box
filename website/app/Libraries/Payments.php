@@ -610,6 +610,33 @@ class Payments {
 
     }
 
+    public static function getSubscriptionidFromChargeId($stripe_charge_id)
+    {
+
+      $charge_callback = self::getCharge($stripe_charge_id);
+
+      if (!$charge_callback['success'])
+        return NULL;
+
+      $stripe_invoice_id = $charge_callback['charge']['invoice'];
+
+      if ($stripe_invoice_id === NULL)
+        return NULL;
+
+      $invoice_callback = self::getInvoice($stripe_invoice_id);
+
+      if (!$invoice_callback['success'])
+        return NULL;
+
+      $stripe_subscription_id = $invoice_callback['invoice']['subscription'];
+
+      if ($invoice_callback['invoice']['subscription'] === NULL)
+        return NULL;
+
+      return $stripe_subscription_id;
+
+    }
+
     /**
      * Get a subscription
      * @param  string $stripe_customer stripe customer id

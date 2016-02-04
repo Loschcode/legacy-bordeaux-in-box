@@ -1,7 +1,6 @@
 <?php
 
 return [
-
   /**
    * BOTS
    */
@@ -11,6 +10,11 @@ return [
    * SYSTEM
    */
   'version' => '2.0.0',
+
+  /**
+   * ORDERS MANAGEMENT
+   */
+  'infinite_plan_orders' => 3,
 
   /**
    * Other

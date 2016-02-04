@@ -4,13 +4,14 @@ use App\Http\Controllers\MasterBox\BaseController;
 
 use Carbon\Carbon;
 
-use Request, Validator, Auth, URL;
+use Request, Validator, Auth, URL, Config;
 
 use App\Models\Box;
 use App\Models\Customer;
 use App\Models\CustomerProfile;
 use App\Models\CustomerProfileNote;
 use App\Models\DeliverySpot;
+use App\Models\DeliveryPrice;
 use App\Models\OrderDestination;
 use App\Models\BoxQuestion;
 use App\Models\Coordinate;
@@ -73,13 +74,112 @@ class ProfilesController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $profile = CustomerProfile::findOrFail($fields['profile_id']);
+      /**
+       * We get the important datas
+       */
+      $customer_profile = CustomerProfile::findOrFail($fields['profile_id']);
+      $customer = $customer_profile->customer()->first();
+      $customer_payment_profile = $customer_profile->payment_profile()->orderBy('created_at', 'desc')->first();
+      $customer_order_preference = $customer_profile->order_preference()->first();
+      $delivery_price = DeliveryPrice::findOrFail($fields['delivery_price_id']);
 
       /**
-       * TODO HERE
+       * First we update the basics
+       */
+      $customer_order_preference->frequency = $delivery_price->frequency;
+      $customer_order_preference->unity_price = $delivery_price->unity_price;
+      $customer_order_preference->delivery_fees = $fields['delivery_fees'];
+      $customer_order_preference->take_away = $fields['take_away'];
+
+      $plan_name = guess_stripe_plan_from_order_preference($customer_order_preference);
+      $customer_order_preference->stripe_plan = $plan_name;
+
+      /**
+       * We manage the Stripe side
+       */
+      $stripe_customer = $customer_profile->stripe_customer;
+      $old_stripe_subscription = $customer_payment_profile->stripe_subscription;
+      $plan_price = $customer_order_preference->totalPricePerMonth();
+
+      /**
+       * We cancel the old subscription first
+       */
+      $callback = Payments::cancelSubscription($stripe_customer, $old_stripe_subscription);
+      
+      if ($callback === FALSE) {
+
+        // EDIT : We continue anyway and we will notice the user
+        //session()->flash('error', "Aucun abonnement n'a pu être annulé via Stripe");
+        //return redirect()->back();
+        $no_past_subscription = TRUE;
+
+      } else {
+        $no_past_subscription = FALSE;
+      }
+
+      $customer_order_preference->save();
+
+      /**
+       * Now we update the orders
+       */
+      $orders = $customer_profile->orders()->onlyPayable()->orderBy('created_at', 'asc')->orderBy('id', 'asc')->get();
+      
+      $current = 1;
+
+      $order_max = $customer_order_preference->frequency; // we re-calibrate the number of orders depending on the new offer
+
+      if ($order_max === 0)
+        $order_max = Config::get('bdxnbx.infinite_plan_orders');
+
+      /**
+       * We first delete all the payable orders
+       */
+      foreach ($orders as $order) {
+
+        $order->delete();
+
+      }
+
+      while ($current < $order_max) {
+
+        /**
+         * We generate fresh orders
+         */
+        generate_new_order($customer, $customer_profile);
+
+        $current++;
+
+      }
+
+      /**
+       * We artificially create a new subscription with the new order preference data
+       */
+      // TODO: the delay ?
+      $callback = Payments::makeSubscription($stripe_customer, $customer, $customer_profile, $plan_name, $plan_price);
+      
+      if (is_array($callback)) {
+
+        session()->flash('error', "Impossible de créer le nouvel abonnement. Veuillez vérifier Stripe et la consistance des données de l'utilisateur.");
+        return redirect()->back();
+
+      }
+      
+      /**
+       * We update the subscription in all the areas we need to
+       */
+      $customer_payment_profile->stripe_subscription = $callback;
+      $customer_payment_profile->stripe_plan = $plan_name;
+      $customer_payment_profile->save();
+
+      /**
+       * Now we update the payment profile
        */
       
-      session()->flash('message', "L'abonnement a bien été changé");
+      // TODO: arranger le système
+      if ($no_past_subscription)
+        session()->flash('message', "L'abonnement a bien été changé. ATTENTION : Aucun abonnement n'a pu être annulé via Stripe avant la mise à jour. Il se peut que cet abonnement ait été relancé après expiration.");
+      else
+        session()->flash('message', "L'abonnement a bien été changé");
       return redirect()->back();
 
     } else {
