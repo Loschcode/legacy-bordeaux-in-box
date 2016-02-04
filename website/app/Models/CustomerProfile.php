@@ -120,6 +120,13 @@ class CustomerProfile extends Model {
 
 	}
 
+  public function logs()
+  {
+
+    return $this->hasMany('App\Models\CustomerProfileLog');
+
+  }
+
 	public function payments()
 	{
 

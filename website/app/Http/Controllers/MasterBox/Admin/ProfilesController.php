@@ -201,6 +201,29 @@ class ProfilesController extends BaseController {
     ));
   }
 
+  /**
+   * Display questions/answers
+   * @param  string $id The id of the profile
+   * @return \Illuminate\View\View
+   */
+  public function getLogs($id)
+  {
+    $profile = CustomerProfile::findOrFail($id);
+    $logs = $profile->logs()->get();
+
+    $log = new \App\Models\CustomerProfileLog;
+    $log->log = 'fuck';
+    $log->administrator_id = \App\Models\Administrator::first()->id;
+    $log->customer_profile_id = $profile->id;
+    //$log->metadata = ['fuck' => 'yeah'];
+    $log->save();
+
+    return view('masterbox.admin.profiles.logs')->with(compact(
+      'profile',
+      'logs'
+    ));
+  }
+
 	/**
 	 * We a edit a profile
 	 */
