@@ -90,11 +90,11 @@
 
               <br />
               Offre : {{ Form::select('delivery_price_id', generate_delivery_prices()) }}<br />
-              A emporter : {{ Form::select('take_away', [0 => 'Non', 1 => 'Oui']) }}<br />
+              A emporter : {{ Form::select('take_away', [0 => 'Non', 1 => 'Oui'], $order_preference->take_away) }} <em>(Note : n'oubliez pas de mettre à jour les informations cruciales à cette donnée si jamais elle est changée)</em><br />
               Frais de livraison : {{ Form::select('delivery_fees', generate_delivery_fees()) }}<br />
               Prochain prélèvement : {{ Form::select('next_charge', [0 => 'Immédiat', 15 => 'Dans 15 jours', 30 => 'Dans 30 jours']) }}<br />
 
-              {{ Form::submit('Valider') }} <br/>
+              {{ Form::submit("Changer l'offre maintenant") }} <br/>
              {{ Form::close() }}
 
            @endif
