@@ -1,16 +1,11 @@
-<!DOCTYPE HTML>
-<html lang="fr-FR">
-	<head>
-		<meta charset="utf-8">
-	</head>
-	<body>
-		<div>
+@extends('masterbox.layouts.email')
 
-			Email : {{$contact_email}}<br />
-			Service : {{$contact_service}}<br /><br />
+@section('title')
+Prise de contact
+@stop
 
-			Message : {{$contact_message}}
-		</div>
-	</body>
-</html>
-
+@section('content')
+	{!! Html::emailLine('<strong>Email:</strong> ' . $contact_email) !!}
+	{!! Html::emailLine('<strong>Service:</strong> ' . $contact_service) !!}
+	{!! Html::emailLine('<strong>Message:</strong> ' . $contact_message) !!}
+@stop

@@ -10,6 +10,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
 {
 
   use DatabaseTransactions;
+  use MailTracking;
 
   /** @test */
   public function should_be_redirected_to_the_login_page_when_i_am_a_guest()

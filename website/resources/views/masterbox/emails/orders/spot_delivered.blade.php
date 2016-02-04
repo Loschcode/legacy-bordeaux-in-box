@@ -1,35 +1,26 @@
-<!DOCTYPE HTML>
-<html lang="fr-FR">
-	<head>
-		<meta charset="utf-8">
-	</head>
-	<body>
-		<div>
+@extends('masterbox.layouts.email')
 
-			Bonjour {{$first_name}},<br /><br />
+@section('title')
+Box en cours de livraison
+@stop
 
-			Ta box {{$box_title}} 
+@section('content')
+  {!! Html::emailLine("Bonjour $first_name,") !!}
 
-			@if ($gift)
+  @if ($gift)
+  	{!! Html::emailLine("Ta box (à offrir) pour la série du <strong>$series_date</strong> est en cours de livraison en ce moment même à notre point relais partenaire") !!}
+  @else
+  	{!! Html::emailLine("Ta box pour la série du <strong>$series_date</strong> est en cours de livraison en ce moment même à notre point relais partenaire") !!}
+  @endif
 
-			 (à offrir)
+  {!! Html::emailLine("Rendez vous dès que possible à <strong>$spot_name_and_infos</strong>") !!}
+	
+	{!! Html::emailLine('<strong>Horaires:</strong>') !!}
+	{!! Html::emailLine($spot_schedule) !!}
 
-			@endif
+ @stop
 
-			 pour la série du {{$series_date}} vient d'être livrée à notre point relais partenaire.<br /><br />
-
-			Rendez-vous dès que possible à {{$spot_name_and_infos}}<br /><br />
-
-			Horaires : {{$spot_schedule}}<br/><br/>
-
-			Plus d'infos : <a href="https://www.bordeauxinbox.fr/profile#abonnements">https://www.bordeauxinbox.fr/profile#abonnements</a><br /><br />
-
-			L'équipe Bordeaux in Box :)<br /><br />
-
-			-------<br />
-			NOTE : Veuillez à ne pas répondre à ce message. Pour nous contacter envoyez un email à <a href="mailto:bonjour@bordeauxinbox.com">bonjour@boreauxinbox.com</a>
-
-		</div>
-	</body>
-</html>
+ @section('call-action')
+  {!! Html::emailAction('Plus d\'informations', action('MasterBox\Customer\ProfileController@getIndex')) !!}
+ @stop
 

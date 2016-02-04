@@ -1,14 +1,9 @@
-<!DOCTYPE HTML>
-<html lang="fr-FR">
-  <head>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <div>
+@extends('masterbox.layouts.email')
 
-      {{$content}}
-      
-    </div>
-  </body>
-</html>
+@section('title')
+Notification
+@stop
 
+@section('content')
+  {!! Html::emailLine($content) !!}
+@stop

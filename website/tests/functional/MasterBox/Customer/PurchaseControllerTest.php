@@ -13,6 +13,7 @@ class MasterBox_Customer_PurchaseControllerTest extends TestCase
 {
 
   use DatabaseTransactions;
+  use MailTracking;
 
   /** @test */
   public function should_be_redirected_to_the_subscribe_page_when_i_am_a_guest_an_i_try_to_order_a_gift_box()

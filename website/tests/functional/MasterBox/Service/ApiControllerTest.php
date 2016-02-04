@@ -11,6 +11,7 @@ class MasterBox_Service_ApiControllerTest extends TestCase
 {
 
   use DatabaseTransactions;
+  use MailTracking;
 
   /** @test */
   public function should_not_reach_post_box_question_customer_answer_when_not_logged()

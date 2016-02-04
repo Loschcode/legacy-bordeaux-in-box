@@ -10,6 +10,7 @@ class MasterBox_Guest_BlogControllerTest extends TestCase
 {
 
   use DatabaseTransactions;
+  use MailTracking;
 
   /** @test */
   public function should_see_articles()

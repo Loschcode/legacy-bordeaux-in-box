@@ -10,6 +10,7 @@ class MasterBox_Connect_ProfileControllerTest extends TestCase
 {
 
   use DatabaseTransactions;
+  use MailTracking;
 
   /** @test */
   public function should_be_redirect_to_login_page_when_not_connected_when_reach_index()

@@ -10,6 +10,7 @@ class MasterBox_Guest_HomeControllerTest extends TestCase
 {
 
   use DatabaseTransactions;
+  use MailTracking;
 
   /** @test */
   public function should_see_homepage()

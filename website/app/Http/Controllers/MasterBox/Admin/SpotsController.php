@@ -93,7 +93,7 @@ class SpotsController extends BaseController {
 				// We need to reload the profile because it's a modified model because of customer_profiles()
 				$profile = CustomerProfile::find($profile->id);
 
-				// One more conditio just in case
+				// One more condition just in case
 				if ($profile->status === 'subscribed') {
 
 		      $next_orders = $profile->orders()->whereNull('date_sent')->get();
@@ -112,7 +112,7 @@ class SpotsController extends BaseController {
 
 		      }
 
-		      $box = $profile->box()->first();
+		      //$box = $profile->box()->first();
 		      $customer = $profile->customer()->first();
 
 			    /**
@@ -128,7 +128,7 @@ class SpotsController extends BaseController {
 						'new_spot_name_and_infos' => $new_spot->emailReadableSpot(),
 						'new_spot_schedule' => nl2br($new_spot->schedule), // the schedule might be on a couple of lines
 
-						'box_title' => $box->title
+						//'box_title' => $box->title
 
 					];
 
@@ -140,7 +140,7 @@ class SpotsController extends BaseController {
 					if (!isset($already_delivered[$email])) {
 					
 						// Finally we send the email
-						mailing_send($profile, "Changement de point relais", 'emails.spots.transfer', $data, NULL);
+						mailing_send($profile, "Changement de point relais", 'masterbox.emails.spots.transfer', $data, NULL);
 						$already_delivered[$email] = TRUE;
 
 					}

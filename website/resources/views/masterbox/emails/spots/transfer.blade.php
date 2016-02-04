@@ -1,28 +1,22 @@
-<!DOCTYPE HTML>
-<html lang="fr-FR">
-  <head>
-    <meta charset="utf-8">
-  </head>
-  <body>
-    <div>
+@extends('masterbox.layouts.email')
 
-      Bonjour {{$first_name}},<br /><br />
+@section('title')
+Changement de ton point relais
+@stop
 
-      Les abonnements reliés au point relais {{$old_spot_name}} viennent d'être transférés vers le point relais {{$new_spot_name}}. Ton abonnement à la box {{$box_title}} en fait partie.<br /><br />
+@section('content')
+  {!! Html::emailLine("Bonjour $first_name,") !!}
+  
+  {!! Html::emailLine("Les abonnements reliés au point relais <strong>$old_spot_name</strong> viennent d'être transférés vers le point relais <strong>$new_spot_name</strong>. Ton abonnement en fait partie.") !!}<br/>
 
-      Nouveau point relais : {{$new_spot_name_and_infos}}<br />
-      Horaires : {!! $new_spot_schedule !!}<br /><br />
+  {!! Html::emailLine("<strong>Nouveau point relais:</strong> $new_spot_name_and_infos") !!}
+  {!! Html::emailLine("<strong>Horaires:</strong>") !!}
+  {!! Html::emailLine($new_spot_schedule) !!}<br/>
 
-      Si tu souhaites sélectionner un autre point relais, n'hésite pas à le modifier directement depuis ton compte.<br /><br />
+  {!! Html::emailLine("Si tu souhaites sélectionner un autre point relais, n'hésite pas à le modifier directement depuis ton compte") !!}<br/>
 
-       <a href="https://www.bordeauxinbox.fr/profile">https://www.bordeauxinbox.fr/profile</a><br /><br />
+@stop
 
-      L'équipe Bordeaux in Box :)<br /><br />
-
-      -------<br />
-       NOTE : Veuillez à ne pas répondre à ce message. Pour nous contacter envoyez un email à <a href="mailto:bonjour@bordeauxinbox.com">bonjour@boreauxinbox.com</a>
-
-    </div>
-  </body>
-</html>
-
+@section('call-action')
+  {!! Html::emailAction('Accèder à mon compte', action('MasterBox\Customer\ProfileController@getIndex')) !!}
+@stop
