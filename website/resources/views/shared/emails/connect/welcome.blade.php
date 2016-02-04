@@ -1,14 +1,16 @@
-<!DOCTYPE HTML>
-<html lang="fr-FR">
-	<head>
-		<meta charset="utf-8">
-	</head>
-	<body>
-		<div>
-			Bonjour {{$first_name}},<br /><br />
+@extends('masterbox.layouts.email')
 
-			Toute l'équipe te souhaite la bienvenue sur Bordeaux in Box !<br /><br />
-		</div>
-	</body>
-</html>
+@section('title')
+Bienvenue !
+@stop
 
+@section('content')
+  {!! Html::emailLine("Bonjour $first_name,") !!}
+  
+  {!! Html::emailLine("Toute l'équipe te souhaite la bienvenue sur <strong>Bordeaux in Box !</strong>") !!}
+  
+@stop
+
+@section('call-action')
+  {!! Html::emailAction('Voir mon profil', action('MasterBox\Customer\ProfileController@getIndex')) !!}
+@stop

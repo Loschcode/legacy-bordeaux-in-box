@@ -1,16 +1,16 @@
-<!DOCTYPE HTML>
-<html lang="fr-FR">
-	<head>
-		<meta charset="utf-8">
-	</head>
-	<body>
-		<div>
-			Bonjour,<br /><br />
+@extends('masterbox.layouts.email')
 
-			Pour réintialiser ton mot de passe, il te suffit de cliquer sur le lien suivant<br /><br />
+@section('title')
+Oublie de mot de passe
+@stop
 
-			<strong><a href="{{ action('MasterBox\Connect\PasswordRemindersController@getReset', ['token' => $token]) }}">{{ action('MasterBox\Connect\PasswordRemindersController@getReset', ['token' => $token]) }}</a></strong>
-		</div>
-	</body>
-</html>
+@section('content')
+  {!! Html::emailLine("Bonjour,") !!}
+  
+  {!! Html::emailLine("Pour réintialiser ton mot de passe, il te suffit de cliquer sur le lien suivant :") !!}
+  
+@stop
 
+@section('call-action')
+  {!! Html::emailAction('Réinitialiser mon mot de passe', action('MasterBox\Connect\PasswordRemindersController@getReset', ['token' => $token])) !!}
+@stop
