@@ -824,6 +824,9 @@ a {
 .sidebar__list {
   border-radius: 5px;
   margin-top: 34px; }
+  @media (max-width: 750px) {
+    .sidebar__list {
+      margin-left: 0 !important; } }
 .sidebar__link {
   width: 100%;
   height: 100%;
@@ -843,6 +846,11 @@ a {
   padding-left: 6.800000000000001px;
   border-radius: 3px;
   margin-bottom: 10.2px; }
+  @media (max-width: 750px) {
+    .sidebar__link {
+      background: inherit;
+      border: 0;
+      margin: 0; } }
   .sidebar__link:hover {
     color: white;
     background: #298fca;
@@ -853,6 +861,9 @@ a {
     color: white;
     background: #298fca;
     border-color: #298fca #298fca #026aa7; }
+    @media (max-width: 750px) {
+      .sidebar__link.\--active {
+        background: #b12448; } }
     .sidebar__link.\--active i {
       color: white; }
 .sidebar__icon {
@@ -875,6 +886,9 @@ a {
   padding: 34px;
   padding-top: 17px;
   border: 2px solid #ECF0F1; }
+  @media (max-width: 750px) {
+    .profile__section {
+      padding: 13.600000000000001px; } }
 
 .table__wrapper {
   width: 100%; }

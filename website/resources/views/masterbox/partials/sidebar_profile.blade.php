@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="js-menu hide@xs sidebar">
   <ul class="sidebar__list">
     <li class="sidebar__item"><a class="sidebar__link {{ Html::cssLinkProfileMenuActive('account', $active_menu) }}" href="{{ action('MasterBox\Customer\ProfileController@getIndex') }}"><i class="fa fa-cog sidebar__icon"></i> Mon compte</a></li>
     <li class="sidebar__item"><a class="sidebar__link {{ Html::cssLinkProfileMenuActive('orders', $active_menu) }}" href="{{ action('MasterBox\Customer\ProfileController@getOrders') }}"><i class="fa fa-shopping-bag sidebar__icon"></i> Abonnements</a></li>

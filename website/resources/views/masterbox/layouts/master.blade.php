@@ -67,7 +67,9 @@
     </div>
 
     {{-- Navbar --}}
-    @include('masterbox.partials.navbar')
+    @section('navbar')
+     @include('masterbox.partials.navbar')
+    @show
     
     @yield('content')
     
