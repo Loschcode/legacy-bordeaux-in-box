@@ -209,10 +209,13 @@ module.exports = Admin;
 });
 
 ;require.register("bootstrap/masterbox/default", function(exports, require, module) {
-var Default;
+var Default,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 Default = (function() {
   function Default() {
+    this.processStickyFooter = bind(this.processStickyFooter, this);
+    this.stickyFooter = bind(this.stickyFooter, this);
     this.polyfillPlaceholders();
     this.notificationFormErrors();
     this.notificationSuccessMessage();
@@ -223,11 +226,6 @@ Default = (function() {
     this.inputMaskDate();
     this.responsiveMenu();
     this.stickyFooter();
-    $(window).resize((function(_this) {
-      return function() {
-        return _this.stickyFooter();
-      };
-    })(this));
   }
 
   Default.prototype.polyfillPlaceholders = function() {
@@ -326,6 +324,17 @@ Default = (function() {
   };
 
   Default.prototype.stickyFooter = function() {
+    if ($('.js-footer-stick').length > 0) {
+      this.processStickyFooter();
+      return $(window).resize((function(_this) {
+        return function() {
+          return _this.processStickyFooter();
+        };
+      })(this));
+    }
+  };
+
+  Default.prototype.processStickyFooter = function() {
     var docHeight, footerHeight, footerTop;
     docHeight = $(window).height();
     footerHeight = $('.js-footer-stick').height();

@@ -7,6 +7,7 @@
 ##
 Bootstrap = require 'core/bootstrap'
 
+
 # Hey sir, is the document ready ?
 $ ->
 

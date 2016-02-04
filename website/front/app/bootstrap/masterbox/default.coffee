@@ -13,10 +13,6 @@ class Default
     @responsiveMenu()
     @stickyFooter()
 
-    $(window).resize =>
-
-      @stickyFooter()
-
   ##
   # Polyfill placeholders 
   ##
@@ -142,7 +138,16 @@ class Default
   # Always stick that fucking footer 
   # on the bottom of the page
   ##
-  stickyFooter: ->
+  stickyFooter: =>
+    
+    if $('.js-footer-stick').length > 0
+
+      @processStickyFooter()
+
+      $(window).resize =>
+        @processStickyFooter()
+
+  processStickyFooter: =>
 
     docHeight = $(window).height()
     footerHeight = $('.js-footer-stick').height()
