@@ -13,7 +13,7 @@
 <div class="container">
   <div class="article article__wrapper">
 
-    <div class="grid-8 grid-centered">
+    <div class="grid-8 grid-centered grid-11@xs">
       <div class="article__cover-container">
         <img class="article__cover" src="{{ $blog_article->thumbnail->full }}" />
       </div>
@@ -30,9 +30,9 @@
       <div class="+spacer"></div>
 
       @foreach ($random_articles->chunk(4) as $chunk)
-        <div class="row">
+        <div class="row row-align-center@xs">
           @foreach ($chunk as $article)
-            <div class="grid-3">
+            <div class="grid-3 grid-12@xs">
               <div class="partner">
                 <div class="partner__picture-container">
                   <a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['slug' => $article->slug]) }}">
