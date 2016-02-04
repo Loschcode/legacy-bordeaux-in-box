@@ -1,3 +1,6 @@
+###
+# Admin Bootstrap for masterbox section
+###
 AdminSidebar = require 'libraries/admin-sidebar'
 Config = require 'config'
 

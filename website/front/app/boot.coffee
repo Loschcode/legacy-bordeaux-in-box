@@ -8,10 +8,15 @@
 ##
 BootstrapMasterboxDefault = require 'bootstrap/masterbox/default'
 BootstrapMasterboxAdmin = require 'bootstrap/masterbox/admin'
+BootstrapMasterboxFront = require 'bootstrap/masterbox/front'
+
+# Polify placeholders
+$('input, textarea').placeholder()
 
 switch _.getApp()
   when 'masterbox'
     new BootstrapMasterboxDefault()
+    new BootstrapMasterboxFront()
   when 'masterbox-admin'
     new BootstrapMasterboxDefault()
     new BootstrapMasterboxAdmin()

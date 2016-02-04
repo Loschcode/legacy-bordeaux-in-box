@@ -1,8 +1,10 @@
+###
+# Default Bootstrap for masterbox section
+###
 class Default
 
   constructor: ->
 
-    @polyfillPlaceholders()
     @notificationFormErrors()
     @notificationSuccessMessage()
     @notificationErrorMessage()
@@ -10,15 +12,8 @@ class Default
     @labelautyForm()
     @tooltipster()
     @inputMaskDate()
-    @responsiveMenu()
     @stickyFooter()
 
-  ##
-  # Polyfill placeholders 
-  ##
-  polyfillPlaceholders: ->
-
-    $('input, textarea').placeholder()
 
   ##
   # Notify errors from forms validated by Laravel
@@ -124,22 +119,11 @@ class Default
     $('.js-input-mask-date').inputmask("99/99/9999")
 
   ##
-  # Set responsive to the menu
-  ##
-  responsiveMenu: ->
-
-    if $('.js-menu-sidebar').length > 0
-      $('.js-menu-sidebar').slicknav
-        label: "SECTIONS"
-    else
-      $('.js-menu').slicknav()
-
-  ##
   # Always stick that fucking footer 
   # on the bottom of the page
   ##
   stickyFooter: =>
-    
+
     if $('.js-footer-stick').length > 0
 
       @processStickyFooter()

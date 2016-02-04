@@ -110,15 +110,20 @@
   globals.require = require;
 })();
 require.register("boot", function(exports, require, module) {
-var BootstrapMasterboxAdmin, BootstrapMasterboxDefault;
+var BootstrapMasterboxAdmin, BootstrapMasterboxDefault, BootstrapMasterboxFront;
 
 BootstrapMasterboxDefault = require('bootstrap/masterbox/default');
 
 BootstrapMasterboxAdmin = require('bootstrap/masterbox/admin');
 
+BootstrapMasterboxFront = require('bootstrap/masterbox/front');
+
+$('input, textarea').placeholder();
+
 switch (_.getApp()) {
   case 'masterbox':
     new BootstrapMasterboxDefault();
+    new BootstrapMasterboxFront();
     break;
   case 'masterbox-admin':
     new BootstrapMasterboxDefault();
@@ -127,6 +132,10 @@ switch (_.getApp()) {
 });
 
 ;require.register("bootstrap/masterbox/admin", function(exports, require, module) {
+
+/*
+ * Admin Bootstrap for masterbox section
+ */
 var Admin, AdminSidebar, Config;
 
 AdminSidebar = require('libraries/admin-sidebar');
@@ -209,6 +218,10 @@ module.exports = Admin;
 });
 
 ;require.register("bootstrap/masterbox/default", function(exports, require, module) {
+
+/*
+ * Default Bootstrap for masterbox section
+ */
 var Default,
   bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
@@ -216,7 +229,6 @@ Default = (function() {
   function Default() {
     this.processStickyFooter = bind(this.processStickyFooter, this);
     this.stickyFooter = bind(this.stickyFooter, this);
-    this.polyfillPlaceholders();
     this.notificationFormErrors();
     this.notificationSuccessMessage();
     this.notificationErrorMessage();
@@ -224,13 +236,8 @@ Default = (function() {
     this.labelautyForm();
     this.tooltipster();
     this.inputMaskDate();
-    this.responsiveMenu();
     this.stickyFooter();
   }
-
-  Default.prototype.polyfillPlaceholders = function() {
-    return $('input, textarea').placeholder();
-  };
 
   Default.prototype.notificationFormErrors = function() {
     var hasErrors, text, textErrors, title, titleErrors;
@@ -313,16 +320,6 @@ Default = (function() {
     return $('.js-input-mask-date').inputmask("99/99/9999");
   };
 
-  Default.prototype.responsiveMenu = function() {
-    if ($('.js-menu-sidebar').length > 0) {
-      return $('.js-menu-sidebar').slicknav({
-        label: "SECTIONS"
-      });
-    } else {
-      return $('.js-menu').slicknav();
-    }
-  };
-
   Default.prototype.stickyFooter = function() {
     if ($('.js-footer-stick').length > 0) {
       this.processStickyFooter();
@@ -349,6 +346,31 @@ Default = (function() {
 })();
 
 module.exports = Default;
+});
+
+;require.register("bootstrap/masterbox/front", function(exports, require, module) {
+var Front;
+
+Front = (function() {
+  function Front() {
+    this.responsiveMenu();
+  }
+
+  Front.prototype.responsiveMenu = function() {
+    if ($('.js-menu-sidebar').length > 0) {
+      return $('.js-menu-sidebar').slicknav({
+        label: "SECTIONS"
+      });
+    } else {
+      return $('.js-menu').slicknav();
+    }
+  };
+
+  return Front;
+
+})();
+
+module.exports = Front;
 });
 
 ;require.register("config", function(exports, require, module) {
