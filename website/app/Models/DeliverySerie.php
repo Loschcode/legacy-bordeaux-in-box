@@ -36,6 +36,13 @@ class DeliverySerie extends Model {
 
 	}
 
+  public function notes()
+  {
+
+    return $this->hasMany('App\Models\CustomerProfileNote');
+
+  }
+
   public function serie_products()
   {
 

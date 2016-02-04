@@ -14,6 +14,13 @@ function readable_question_type($slug) {
 
 }
 
+function readable_note_type($type) {
+
+  $arr = generate_note_type_form();
+  return $arr[$type];
+
+}
+
 /**
  * Get the customer profile status in human 
  * readable format.

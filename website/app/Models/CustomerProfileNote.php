@@ -30,4 +30,11 @@ class CustomerProfileNote extends Model {
 
 	}
 
+  public function delivery_serie()
+  {
+
+    return $this->belongsTo('App\Models\DeliverySerie', 'delivery_serie_id');
+
+  }
+
 }

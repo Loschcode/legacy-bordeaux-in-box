@@ -1,11 +1,46 @@
 <?php
 
+function generate_available_series_form($starter=TRUE) {
+
+  $series = App\Models\DeliverySerie::withOrdersOnly()->orderBy('delivery', 'desc')->get();
+  
+  if ($starter)
+    $form = [0 => '-'];
+  else
+    $form = [];
+
+  foreach ($series as $serie) {
+
+    $data = $serie->delivery;
+    $label = $serie->id;
+
+    $form[$label] = $data;
+
+  }
+
+  return $form;
+
+}
+
 function generate_children_sex() {
 
   $final = ["0" => 'Fille ou garçon ?'];
   $final += Config::get('bdxnbx.children_sex_fields');
 
   return $final;
+
+}
+
+function generate_note_type_form() {
+
+  return [
+
+    "general" => "Général",
+    "remark" => "Remarque",
+    "finances" => "Finances",
+    "bug" => "Bugs",
+
+  ];
 
 }
 

@@ -211,13 +211,6 @@ class ProfilesController extends BaseController {
     $profile = CustomerProfile::findOrFail($id);
     $logs = $profile->logs()->get();
 
-    $log = new \App\Models\CustomerProfileLog;
-    $log->log = 'fuck';
-    $log->administrator_id = \App\Models\Administrator::first()->id;
-    $log->customer_profile_id = $profile->id;
-    //$log->metadata = ['fuck' => 'yeah'];
-    $log->save();
-
     return view('masterbox.admin.profiles.logs')->with(compact(
       'profile',
       'logs'
@@ -329,6 +322,8 @@ class ProfilesController extends BaseController {
 
 		$rules = [
 			'customer_profile_id' => 'required|numeric',
+      'serie' => 'required|numeric',
+      'type' => 'required',
 			'note' => 'required',
 		];
 
@@ -341,6 +336,12 @@ class ProfilesController extends BaseController {
 			$profile = CustomerProfile::findOrFail($fields['customer_profile_id']);
 			$note = new CustomerProfileNote;
 			$note->customer_profile_id = $profile->id;
+
+      if ($fields['serie'] != 0)
+        $note->delivery_serie_id = $fields['serie'];
+
+      $note->type = $fields['type'];
+      
 			$note->administrator_id = Auth::guard('administrator')->user()->id; // Need to change here.
 			$note->note = $fields['note'];
 

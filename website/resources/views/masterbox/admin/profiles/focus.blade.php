@@ -112,7 +112,7 @@
             
             <div class="note">
               <div class="note__wrapper">
-                <h3 class="note__title">Ecrit par <strong>
+                <h3 class="note__title">Ecrit par <strong> 
 
                 @if ($note->administrator()->first() === NULL)
                   {{Config::get('bdxnbx.bot')}}
@@ -120,7 +120,17 @@
                   {{ $note->administrator()->first()->getFullName() }}
                 @endif
 
-                </strong> le <strong>{{$note->created_at->format('d/m/Y')}}</strong></h3>
+                </strong> le <strong>{{$note->created_at->format('d/m/Y')}}</strong>
+
+                <em>
+                  ({{Html::getReadableNoteType($note->type)}}
+                  @if ($note->delivery_serie()->first() !== NULL)
+                  , Série {{$note->delivery_serie()->first()->delivery}}
+                  @endif
+                  )
+                </em>
+
+                </h3>
 
                 <p class="note__content">{{ $note->note }}</p>
               </div>
@@ -133,6 +143,9 @@
             {!! Form::hidden('customer_profile_id', $profile->id) !!}
     
             {!! Form::textarea("note", Request::old('note'), ['class' => 'form__input --small-textarea']) !!}
+            
+            Série : {{ Form::select('serie', generate_available_series_form()) }}<br/>
+            Classification : {{ Form::select('type', generate_note_type_form()) }}<br/>
 
             {!! Html::checkError('note', $errors) !!}
 

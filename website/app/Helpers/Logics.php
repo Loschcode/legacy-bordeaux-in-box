@@ -1,6 +1,27 @@
 <?php
 
 /**
+ * Add a customer profile log
+ * @param  object $customer_profile
+ * @param  string $log_message
+ * @param  array  $metadata
+ * @return void
+ */
+function customer_profile_log($customer_profile, $log_message, $metadata=[]) {
+
+  $log = new \App\Models\CustomerProfileLog;
+  $log->log = $log_message;
+
+  if (!Auth::guard('administrator')->guest())
+    $log->administrator_id = Auth::guard('administrator')->user()->id;
+
+  $log->customer_profile_id = $customer_profile->id;
+  $log->metadata = $metadata;
+  $log->save();
+
+}
+
+/**
  * We generate a complete billing without any order
  * @return object
  */

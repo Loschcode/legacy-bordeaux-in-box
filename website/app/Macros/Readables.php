@@ -11,6 +11,12 @@ Html::macro('getReadableProductSize', function($size)
 
 });
 
+Html::macro('getReadableNoteType', function($type)
+{
+
+  return readable_note_type($type);
+
+});
 Html::macro('getReadableProfilePriority', function($priority)
 {
 
