@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="container">
-  <div class="grid-8 grid-centered">
+  <div class="grid-8 grid-centered grid-11@xs">
 
 
     {!! Form::open() !!}
