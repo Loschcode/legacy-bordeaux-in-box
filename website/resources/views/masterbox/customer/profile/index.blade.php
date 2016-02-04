@@ -1,7 +1,5 @@
 @extends('masterbox.layouts.master')
 
-@section('navbar')
-@stop
 
 @section('gotham')
   {!! Html::gotham([

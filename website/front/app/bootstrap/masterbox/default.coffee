@@ -127,7 +127,13 @@ class Default
   ##
   responsiveMenu: ->
 
-    $('.js-menu').slicknav()
+    if $('.js-menu-sidebar').length > 0
+      $('.js-menu-sidebar').slicknav
+        label: "SECTIONS"
+    else
+      $('.js-menu').slicknav()
+
+
 
 
 

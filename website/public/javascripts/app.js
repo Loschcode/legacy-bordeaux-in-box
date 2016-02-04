@@ -310,7 +310,13 @@ Default = (function() {
   };
 
   Default.prototype.responsiveMenu = function() {
-    return $('.js-menu').slicknav();
+    if ($('.js-menu-sidebar').length > 0) {
+      return $('.js-menu-sidebar').slicknav({
+        label: "SECTIONS"
+      });
+    } else {
+      return $('.js-menu').slicknav();
+    }
   };
 
   return Default;

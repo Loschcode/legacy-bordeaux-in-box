@@ -6,6 +6,9 @@
   ]) !!}
 @stop
 
+@section('navbar')
+@stop
+
 @section('content')
 
 <div class="container">

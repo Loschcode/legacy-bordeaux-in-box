@@ -67,10 +67,8 @@
     </div>
 
     {{-- Navbar --}}
-    @section('navbar')
-     @include('masterbox.partials.navbar')
-    @show
-    
+    @include('masterbox.partials.navbar')
+
     @yield('content')
     
     @section('footer-spacer')

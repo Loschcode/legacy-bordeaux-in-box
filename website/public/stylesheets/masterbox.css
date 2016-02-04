@@ -1792,7 +1792,8 @@ select + .chosen-container-multi .chosen-results li.result-selected {
     .slicknav_menu {
       display: block; } }
   .slicknav_menu a {
-    color: white; }
+    color: white;
+    outline: 0; }
     .slicknav_menu a:hover {
       color: white;
       background: #be264d; }
