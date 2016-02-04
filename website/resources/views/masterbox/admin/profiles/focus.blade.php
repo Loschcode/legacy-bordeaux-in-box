@@ -82,7 +82,7 @@
 
             <br />
 
-            @if (!$order_preference->isGift())
+            @if (!$order_preference->isGift() && ($profile->status === 'subscribed'))
 
               {{ Form::open(array('action' => 'MasterBox\Admin\ProfilesController@postUpdateOffer')) }}
               {{ Form::hidden('profile_id', $profile->id)}}
