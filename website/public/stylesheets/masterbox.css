@@ -861,6 +861,9 @@ a {
 .profile__wrapper {
   margin-top: 34px;
   margin-left: 34px; }
+  @media (max-width: 750px) {
+    .profile__wrapper {
+      margin-left: 0; } }
 .profile__title {
   font-family: "Montserrat", sans-serif;
   font-weight: 400;

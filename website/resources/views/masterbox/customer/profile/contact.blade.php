@@ -3,11 +3,11 @@
 @section('content')
 
   <div class="container">
-    <div class="row">
-      <div class="grid-2">
+    <div class="row row-align-center@xs">
+      <div class="grid-2 hide@xs">
         @include('masterbox.partials.sidebar_profile')
       </div>
-      <div class="grid-9">
+      <div class="grid-9 grid-11@xs">
         <div class="profile profile__wrapper">
           <div class="profile__section">
             <h3 class="profile__title">Contact</h3>
