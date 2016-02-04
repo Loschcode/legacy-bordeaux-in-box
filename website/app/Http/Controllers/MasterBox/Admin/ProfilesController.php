@@ -56,7 +56,14 @@ class ProfilesController extends BaseController {
     $rules = [
 
       'profile_id' => 'required|numeric',
+
       'delivery_price_id' => 'required',
+
+      'take_away' => 'required',
+      'delivery_fees' => 'required',
+
+      'next_charge' => 'required'
+
 
       ];
 
@@ -67,10 +74,12 @@ class ProfilesController extends BaseController {
     if ($validator->passes()) {
 
       $profile = CustomerProfile::findOrFail($fields['profile_id']);
-      $profile->priority = $fields['priority'];
-      $profile->save();
 
-      session()->flash('message', "La priorité de l'abonnement a été mise à jour");
+      /**
+       * TODO HERE
+       */
+      
+      session()->flash('message', "L'abonnement a bien été changé");
       return redirect()->back();
 
     } else {

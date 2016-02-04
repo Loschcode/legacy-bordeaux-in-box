@@ -22,7 +22,7 @@ function generate_available_series_form($starter=TRUE) {
 
 }
 
-function generate_delivery_fees($starter=TRUE) {
+function generate_delivery_fees($is_regional=TRUE, $starter=TRUE) {
 
   $delivery_setting = App\Models\DeliverySetting::first();
 
@@ -31,9 +31,12 @@ function generate_delivery_fees($starter=TRUE) {
   else
     $form = [];
 
-  $form['take_away'] = 'Frais de point relais partenaire ('.euros(0).')';
-  $form['regional_delivery_fees'] = 'Frais de livraison régionale ('.euros($delivery_setting->regional_delivery_fees).')';
-  $form['national_delivery_fees'] = 'Frais de livraison nationale ('.euros($delivery_setting->national_delivery_fees).')';
+  $form[0] = 'Frais de point relais partenaire ('.euros(0).')';
+
+  if ($is_regional)
+    $form[$delivery_setting->regional_delivery_fees] = 'Frais de livraison régionale ('.euros($delivery_setting->regional_delivery_fees).')';
+  else
+    $form[$delivery_setting->national_delivery_fees] = 'Frais de livraison nationale ('.euros($delivery_setting->national_delivery_fees).')';
 
 
   return $form;
