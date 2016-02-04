@@ -223,6 +223,11 @@ Default = (function() {
     this.inputMaskDate();
     this.responsiveMenu();
     this.stickyFooter();
+    $(window).resize((function(_this) {
+      return function() {
+        return _this.stickyFooter();
+      };
+    })(this));
   }
 
   Default.prototype.polyfillPlaceholders = function() {
