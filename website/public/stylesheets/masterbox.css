@@ -744,6 +744,9 @@ a {
   font-size: 27.200000000000003px;
   text-align: center;
   padding-bottom: 34px; }
+  @media (max-width: 750px) {
+    .custombox__question {
+      font-size: 23.799999999999997px; } }
 .custombox__choices {
   margin-top: 10.2px;
   text-align: center; }
@@ -753,6 +756,9 @@ a {
   margin-top: 51px;
   padding-top: 23.799999999999997px;
   padding-bottom: 6.800000000000001px; }
+  @media (max-width: 750px) {
+    .custombox__footer {
+      text-align: center !important; } }
 .custombox__skip {
   text-align: center;
   padding-top: 34px; }
