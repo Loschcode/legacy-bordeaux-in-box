@@ -16,6 +16,9 @@
   +part(picture-container)
     min-height: 11.4vr
 
+    +breakpoint(xs)
+      min-height: 0
+
   +part(picture)
     max-width: 100%
     display: block
@@ -30,7 +33,13 @@
       margin: 0 auto
       padding-top: 1.6vr
 
+      +breakpoint(xs)
+        padding-top: 0
+
     +option(step3)
       max-width: 70%
       margin: 0 auto
       padding-top: 1.4vr
+
+      +breakpoint(xs)
+        padding-top: 0

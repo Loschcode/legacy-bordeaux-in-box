@@ -2003,7 +2003,7 @@ body.stop-scrolling {
   .row\@xs, .row-reverse\@xs {
     zoom: 1; } }
 @media screen and (max-width: 750px) {
-  .grid-0\@xs, .grid-1\@xs, .grid-2\@xs, .grid-3\@xs, .grid-4\@xs, .grid-5\@xs, .grid-6\@xs, .grid-7\@xs, .grid-8\@xs, .grid-9\@xs, .grid-10\@xs, .grid-11\@xs, .grid-12\@xs, [class*="grid-"] {
+  .grid-0\@xs, .grid-1\@xs, .grid-2\@xs, .grid-3\@xs, .grid-4\@xs, .grid-5\@xs, .grid-6\@xs, .grid-7\@xs, .grid-8\@xs, .grid-9\@xs, .grid-10\@xs, .grid-11\@xs, .grid-12\@xs {
     display: inline-block;
     min-height: 1px;
     float: left;
@@ -4256,10 +4256,6 @@ body {
 
 .container-fluid {
   max-width: 100%; }
-
-@media screen and (max-width: 750px) {
-  [class*="grid-"] {
-    width: 100%; } }
 
 
 /*# sourceMappingURL=vendor.css.map*/
