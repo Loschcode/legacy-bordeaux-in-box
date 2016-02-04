@@ -18,7 +18,7 @@
     <div class="grid-2">
       @include('masterbox.partials.sidebar_profile')
     </div>
-    <div class="grid-9">
+    <div class="grid-9 grid-11@xs">
       <div class="profile profile__wrapper">
         <div class="profile__section">
           <h3 class="profile__title">Commandes Planifiées</h3>

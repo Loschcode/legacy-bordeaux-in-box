@@ -4,6 +4,9 @@
     border-radius: 5px
     margin-top: 1vr
 
+    +breakpoint(xs)
+      margin-left: 0 !important
+
   +part(link)
     width: 100%
     height: 100%
@@ -21,6 +24,11 @@
     border-radius: 3px
     margin-bottom: 0.3vr
 
+    +breakpoint(xs)
+      background: inherit
+      border: 0
+      margin: 0
+
     &:hover
       color: white
       background: #298fca
@@ -33,6 +41,9 @@
       color: white
       background: color-get(blue)
       border-color: #298fca #298fca #026aa7
+
+      +breakpoint(xs)
+        background: color-dark(pink-fluo, 13%)
 
       i
         color: white

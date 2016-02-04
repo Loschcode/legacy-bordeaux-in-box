@@ -11,6 +11,11 @@ class Default
     @tooltipster()
     @inputMaskDate()
     @responsiveMenu()
+    @stickyFooter()
+
+    $(window).resize =>
+
+      @stickyFooter()
 
   ##
   # Polyfill placeholders 
@@ -127,7 +132,26 @@ class Default
   ##
   responsiveMenu: ->
 
-    $('.js-menu').slicknav()
+    if $('.js-menu-sidebar').length > 0
+      $('.js-menu-sidebar').slicknav
+        label: "SECTIONS"
+    else
+      $('.js-menu').slicknav()
+
+  ##
+  # Always stick that fucking footer 
+  # on the bottom of the page
+  ##
+  stickyFooter: ->
+
+    docHeight = $(window).height()
+    footerHeight = $('.js-footer-stick').height()
+    footerTop = $('.js-footer-stick').position().top + footerHeight
+    
+    if footerTop < docHeight
+      $('.js-footer-stick').css('margin-top', 10 + (docHeight - footerTop) + 'px')
+    
+
 
 
 

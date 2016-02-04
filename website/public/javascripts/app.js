@@ -222,6 +222,12 @@ Default = (function() {
     this.tooltipster();
     this.inputMaskDate();
     this.responsiveMenu();
+    this.stickyFooter();
+    $(window).resize((function(_this) {
+      return function() {
+        return _this.stickyFooter();
+      };
+    })(this));
   }
 
   Default.prototype.polyfillPlaceholders = function() {
@@ -310,7 +316,23 @@ Default = (function() {
   };
 
   Default.prototype.responsiveMenu = function() {
-    return $('.js-menu').slicknav();
+    if ($('.js-menu-sidebar').length > 0) {
+      return $('.js-menu-sidebar').slicknav({
+        label: "SECTIONS"
+      });
+    } else {
+      return $('.js-menu').slicknav();
+    }
+  };
+
+  Default.prototype.stickyFooter = function() {
+    var docHeight, footerHeight, footerTop;
+    docHeight = $(window).height();
+    footerHeight = $('.js-footer-stick').height();
+    footerTop = $('.js-footer-stick').position().top + footerHeight;
+    if (footerTop < docHeight) {
+      return $('.js-footer-stick').css('margin-top', 10 + (docHeight - footerTop) + 'px');
+    }
   };
 
   return Default;

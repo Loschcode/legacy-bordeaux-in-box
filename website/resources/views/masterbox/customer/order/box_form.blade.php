@@ -14,7 +14,7 @@
     @include('masterbox.partials.pipeline', ['step' => 4])
 
     {{-- Section --}}
-    <div class="grid-9 grid-centered">
+    <div class="grid-9 grid-centered grid-11@xs">
       <div class="section">
         <h2 class="section__title --choose-frequency">
           @if ($order_preference->isGift())
@@ -37,7 +37,7 @@
     
     <div class="+spacer-small"></div>
     
-    <div class="grid-8 grid-centered labelauty-default-small">
+    <div class="grid-8 grid-centered labelauty-default-small grid-11@xs">
             
       @foreach ($questions as $key => $question)
 

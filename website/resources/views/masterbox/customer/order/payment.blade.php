@@ -25,7 +25,7 @@
     @include('masterbox.partials.pipeline', ['step' => 3])
 
     {{-- Section --}}
-    <div class="grid-9 grid-centered">
+    <div class="grid-9 grid-centered grid-11@xs">
       <div class="section">
         <h2 class="section__title --choose-frequency">Paiement</h2>
         <p class="section__description --choose-frequency">
@@ -38,7 +38,7 @@
     
     <div class="payment">
       <div class="row">
-        <div class="grid-6">
+        <div class="grid-6 grid-11@xs gr-centered@xs">
           <div class="payment__container">
             <h3 class="payment__title">Résumé commande</h3>
 
@@ -93,7 +93,8 @@
             <button id="trigger-payment" class="button button__payment"><i class="fa fa-credit-card"></i> Procéder au paiement sécurisé</button>
           </div>
         </div>
-        <div class="grid-6">
+        <div class="+spacer-small show@xs"></div>
+        <div class="grid-6 grid-11@xs gr-centered@xs">
           <div class="payment__container">
             <h3 class="payment__title">Facturation</h3>
             <p class="payment__description">

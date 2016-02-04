@@ -11,11 +11,11 @@
 @section('content')
   
   <div class="container">
-    <div class="row">
+    <div class="row row-align-center@xs">
       <div class="grid-2">
         @include('masterbox.partials.sidebar_profile')
       </div>
-      <div class="grid-9">
+      <div class="grid-9 grid-11@xs">
         <div class="profile">
           <div class="profile__wrapper">
             
@@ -29,11 +29,12 @@
                 <p>Nous utilisons cette adresse email pour toutes informations relatives à ton compte.</p>
                 {!! Form::label("email", "Email", ['class' => 'form__label']) !!}
 
-                <div class="row">
-                  <div class="grid-9">
+                <div class="row row-align-center@xs">
+                  <div class="grid-9 grid-11@xs">
                     {!! Form::email("email", ($customer->email) ? $customer->email : Request::old("email"), ['class' => 'form__input']) !!}
                   </div>
-                  <div class="grid-3">
+                  <div class="+spacer-extra-small show@xs"></div>
+                  <div class="grid-3 grid-11@xs">
                     <button type="submit" class="button button__submit --profile">Mettre à jour</button>
                   </div>
                 </div>
@@ -52,12 +53,14 @@
                   <h3 class="profile__title">Sécurité</h3>
                   <p>Le mot de passe permet de protéger ton compte.</p>
                   {!! Form::label("password", "Nouveau mot de passe", ['class' => 'form__label']) !!}
-
-                  <div class="row">
-                    <div class="grid-9">
+                  
+                  <div class="row row-align-center@xs">
+                    <div class="grid-9 grid-11@xs">
                       {!! Form::password("password", ['class' => 'form__input']) !!}
                     </div>
-                    <div class="grid-3">
+                    <div class="+spacer-extra-small show@xs"></div>
+
+                    <div class="grid-3 grid-11@xs">
                       <button type="submit" class="button button__submit --profile">Mettre à jour</button>
                     </div>
                   </div>

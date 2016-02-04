@@ -155,14 +155,14 @@ return array(
         "destination_last_name" => "nom",
         "destination_first_name" => "prénom",
         "destination_city" => "ville",
-        "destination_zip" => "zip",
+        "destination_zip" => "code postal",
         "destination_address" => "adresse",
         "billing_last_name" => "nom",
         "billing_first_name" => "prénom",
         "billing_city" => "ville",
-        "billing_zip" => "zip",
+        "billing_zip" => "code postal",
         "billing_address" => "adresse",
-        "zip" => "Code postal"
+        "zip" => "code postal"
     ),
 
 );
