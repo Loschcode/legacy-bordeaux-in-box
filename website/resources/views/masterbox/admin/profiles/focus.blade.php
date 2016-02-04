@@ -79,7 +79,29 @@
 
             <br />
             <strong>Prix total :</strong> {{$order_preference->totalPricePerMonth()}} &euro; (unité : {{$order_preference->unity_price}} &euro;, livraison : {{$order_preference->delivery_fees}} &euro;)
+
+            <br />
+
+            @if (!$order_preference->isGift())
+
+              {{ Form::open(array('action' => 'MasterBox\Admin\ProfilesController@postUpdateOffer')) }}
+              {{ Form::hidden('profile_id', $profile->id)}}
+              <strong>Changement d'offre :</strong>
+
+              <br />
+              Offre : {{ Form::select('delivery_price_id', generate_delivery_prices()) }}<br />
+              A emporter : {{ Form::select('take_away', [0 => 'Non', 1 => 'Oui']) }}<br />
+              Frais de livraison : {{ Form::select('delivery_fees', generate_delivery_fees()) }}<br />
+              Prochain prélèvement : {{ Form::select('next_charge', [0 => 'Immédiat', 15 => 'Dans 15 jours', 30 => 'Dans 30 jours']) }}<br />
+
+              {{ Form::submit('Valider') }} <br/>
+             {{ Form::close() }}
+
+           @endif
+
             @endif
+
+
             
             <div class="+spacer-extra-small"></div>
             <strong>Créé le:</strong> {{ Html::dateFrench($profile->created_at, true) }}<br />

@@ -22,6 +22,46 @@ function generate_available_series_form($starter=TRUE) {
 
 }
 
+function generate_delivery_fees($starter=TRUE) {
+
+  $delivery_setting = App\Models\DeliverySetting::first();
+
+  if ($starter)
+    $form = [-1 => '-'];
+  else
+    $form = [];
+
+  $form['take_away'] = 'Frais de point relais partenaire ('.euros(0).')';
+  $form['regional_delivery_fees'] = 'Frais de livraison régionale ('.euros($delivery_setting->regional_delivery_fees).')';
+  $form['national_delivery_fees'] = 'Frais de livraison nationale ('.euros($delivery_setting->national_delivery_fees).')';
+
+
+  return $form;
+
+}
+
+function generate_delivery_prices($gift=FALSE, $starter=TRUE) {
+
+  $delivery_prices = App\Models\DeliveryPrice::where('gift', '=', $gift)->orderBy('id', 'desc')->get();
+
+  if ($starter)
+    $form = [0 => '-'];
+  else
+    $form = [];
+
+  foreach ($delivery_prices as $delivery_price) {
+
+    $data = $delivery_price->title . ' (unité : '.euros($delivery_price->unity_price).' / fréquence : '.$delivery_price->frequency.')';
+    $label = $delivery_price->id;
+
+    $form[$label] = $data;
+
+  }
+
+  return $form;
+
+}
+
 function generate_children_sex() {
 
   $final = ["0" => 'Fille ou garçon ?'];

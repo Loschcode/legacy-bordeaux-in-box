@@ -42,14 +42,46 @@ class ProfilesController extends BaseController {
    */
   public function getIndex()
   {
-		//$config_graph_customer_profile_status_progress = $this->customer_profile_status_progress_graph_config();
 
     return view('masterbox.admin.profiles.index');
 
-    //->with(compact(
-      //'profiles',
-      //'config_graph_customer_profile_status_progress'
-    //));
+  }
+
+  /**
+   * We update the priority of the profile
+   */
+  public function postUpdateOffer()
+  {
+
+    $rules = [
+
+      'profile_id' => 'required|numeric',
+      'delivery_price_id' => 'required',
+
+      ];
+
+    $fields = Request::all();
+    $validator = Validator::make($fields, $rules);
+
+    // The form validation was good
+    if ($validator->passes()) {
+
+      $profile = CustomerProfile::findOrFail($fields['profile_id']);
+      $profile->priority = $fields['priority'];
+      $profile->save();
+
+      session()->flash('message', "La priorité de l'abonnement a été mise à jour");
+      return redirect()->back();
+
+    } else {
+
+      // We return the same page with the error and saving the input datas
+      return redirect()->to(URL::previous())
+      ->withInput()
+      ->withErrors($validator);
+
+    }
+
   }
 
   /**
@@ -341,7 +373,7 @@ class ProfilesController extends BaseController {
         $note->delivery_serie_id = $fields['serie'];
 
       $note->type = $fields['type'];
-      
+
 			$note->administrator_id = Auth::guard('administrator')->user()->id; // Need to change here.
 			$note->note = $fields['note'];
 
