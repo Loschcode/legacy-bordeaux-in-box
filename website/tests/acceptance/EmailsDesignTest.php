@@ -40,7 +40,7 @@ class EmailsDesignTest extends TestCase
   /** @test */
   public function email_general()
   {    
-    $this->sendEmail('masterbox.emails.general', ['content' => $this->faker->paragraph(10)], 'masterbox.emails.general');
+    $this->sendEmail('masterbox.emails.general', ['content' => $this->faker->paragraph(10), 'email' > $this->faker->email], 'masterbox.emails.general');
   }
 
   /** @test */
@@ -48,12 +48,14 @@ class EmailsDesignTest extends TestCase
   {
     $this->sendEmail('masterbox.emails.transaction', [
       'first_name' => $this->faker->email,
+      'email' => $this->faker->email,
       'amount' => rand(1, 50) . '&euro;',
       'paid' => true
     ], 'masterbox.emails.transaction - [$paid=true]');
 
     $this->sendEmail('masterbox.emails.transaction', [
       'first_name' => $this->faker->email,
+      'email' => $this->faker->email,
       'amount' => rand(1, 50) . '&euro;',
       'paid' => false
     ], 'masterbox.emails.transaction - [$paid=false]');
@@ -64,6 +66,7 @@ class EmailsDesignTest extends TestCase
   {
     $this->sendEmail('masterbox.emails.contact', [
       'contact_email' => $this->faker->email,
+      'email' => $this->faker->email,
       'contact_service' => $this->faker->sentence(),
       'contact_message' => $this->faker->paragraph(10)
     ], 'masterbox.emails.contact');
@@ -74,11 +77,13 @@ class EmailsDesignTest extends TestCase
   {
      $this->sendEmail('masterbox.emails.subscription.expired', [
        'first_name' => $this->faker->firstName,
+       'email' => $this->faker->email,
        'last_box_was_sent' => false
      ], 'masterbox.emails.subscription.expired - [$last_box_was_sent = false]');
 
      $this->sendEmail('masterbox.emails.subscription.expired', [
        'first_name' => $this->faker->firstName,
+       'email' => $this->faker->email,
        'last_box_was_sent' => true
      ], 'masterbox.emails.subscription.expired - [$last_box_was_sent = true]');   
 
@@ -91,6 +96,7 @@ class EmailsDesignTest extends TestCase
 
     $this->sendEmail('masterbox.emails.spots.transfer', [
       'first_name' => $this->faker->firstName,
+      'email' => $this->faker->email,
       'old_spot_name' => App\Models\DeliverySpot::orderBy(DB::raw('RAND()'))->first()->name,
       'new_spot_name' => $new_spot->name,
       'new_spot_name_and_infos' => $new_spot->emailReadableSpot(),
@@ -122,6 +128,7 @@ class EmailsDesignTest extends TestCase
 
       $this->sendEmail('masterbox.emails.orders.shipped_delivered', [
         'first_name' => $customer->first_name,
+        'email' => $this->faker->email,
         'series_date' => $series->delivery,
         'destination_address' => $destination_address,
         'billing_address' => $billing_address,
@@ -141,6 +148,7 @@ class EmailsDesignTest extends TestCase
 
       'first_name' => App\Models\Customer::orderBy(DB::raw('RAND()'))->first()->first_name,
       'series_date' => $series->delivery,
+      'email' => $this->faker->email,
       'gift' => false,
       'spot_name' => $spot->name,
       'spot_name_and_infos' => $spot->emailReadableSpot(),
@@ -152,6 +160,7 @@ class EmailsDesignTest extends TestCase
       'first_name' => App\Models\Customer::orderBy(DB::raw('RAND()'))->first()->first_name,
       'series_date' => $series->delivery,
       'gift' => true,
+      'email' => $this->faker->email,
       'spot_name' => $spot->name,
       'spot_name_and_infos' => $spot->emailReadableSpot(),
       'spot_schedule' => nl2br($spot->schedule), // the schedule might be on a couple of lines
@@ -169,6 +178,9 @@ class EmailsDesignTest extends TestCase
    */
   private function sendEmail($view, $datas, $subject)
   {
+
+    $datas['email'] = 'test@test.com';
+    
     $sent = Mail::send($view, $datas, function($m) use ($subject) {
       $m->from('testing-sender@bordeauxinbox.com', 'Bordeaux in Box');
       $m->to('testing-receipt@bordeauxinbox.com')->subject($subject);

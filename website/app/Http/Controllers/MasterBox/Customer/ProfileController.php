@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\DeliverySpot;
 use App\Models\DeliverySerie;
 use App\Models\Payment;
+use App\Models\Customer;
 use App\Models\CustomerProfile;
 use App\Models\Coordinate;
 
@@ -30,7 +31,7 @@ class ProfileController extends BaseController {
      */
     public function __construct()
     {
-        $this->middleware('is.customer');
+        $this->middleware('is.customer', ['except' => ['getUnsubscribeEmails']]);
     }
 
 	/**
@@ -153,6 +154,23 @@ class ProfileController extends BaseController {
 
     }
 
+  public function getUnsubscribeEmails($email)
+  {
+
+    $customer = Customer::where('email', '=', $email)->first();
+
+    if ($customer !== NULL) {
+
+      $customer->emails_allowed = FALSE;
+      $customer->save();
+
+      session()->flash('message', "Désinscription de la liste de diffusion confirmée. Aucun email ne sera envoyé, ceci comprenant les transactions bancaires, livraisons ou toutes autres informations.");
+
+    }
+
+    return redirect()->action('MasterBox\Guest\HomeController@getIndex');
+
+  }
 
   /**
    * Change bank card

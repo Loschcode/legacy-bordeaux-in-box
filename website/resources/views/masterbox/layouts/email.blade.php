@@ -327,8 +327,13 @@ body,.wrapper{background-color:#f2f6f7}.wrapper h1{color:#58595b}.wrapper h1{}.w
                   <tbody><tr>
                     <td class="footer__inner" style="padding: 0;font-size: 12px;line-height: 19px;">
 
+
                       <div>
-                        <div>La Petite Box SAS<br />
+                        <div>
+                          <a href="{{ action('MasterBox\Customer\ProfileController@getUnsubscribeEmails', ['email' => $email]) }}">Se désinscrire de la liste de diffusion</a>
+                          <br /><br />
+
+                          La Petite Box SAS<br />
                           SIRET 811 767 532 00013<br />
                           18 avenue Gustave Eiffel, 33600 Pessac</div>
                         </div>

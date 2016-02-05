@@ -111,6 +111,22 @@ function mailing_send($profile, $subject, $template, $template_data, $additional
   $customer = $profile->customer()->first();
   $email = $customer->email;
 
+  /**
+   * In case we can't send an email
+   */
+  if ($customer->emails_allowed === FALSE)
+    return FALSE;
+
+  $template_data = array_merge($template_data, [
+
+    'email' => $email,
+    'customer' => $customer,
+    'profile' => $profile,
+    'subject' => $subject,
+    'template' => $template
+
+    ]);
+
   $datas = [
 
     'email' => $email,
@@ -130,6 +146,12 @@ function mailing_send($profile, $subject, $template, $template_data, $additional
 function mailing_send_customer_only($customer, $subject, $template, $template_data, $additional_mailgun_variables=NULL) {
 
   $email = $customer->email;
+
+  /**
+   * In case we can't send an email
+   */
+  if ($customer->emails_allowed === FALSE)
+    return FALSE;
 
   $datas = [
 

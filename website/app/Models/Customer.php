@@ -19,6 +19,11 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 	 */
 	protected $table = 'customers';
 
+  protected $casts = [
+      
+      'emails_allowed' => 'boolean',
+  ];
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
@@ -175,6 +180,13 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
   /**
    * Scope
    */
+  
+  public function scopeEmailsAllowedOnly($query)
+  {
+
+    return $query->where('emails_allowed', '=', TRUE);
+
+  }
   
   public function scopeWithCoordinateOnly($query)
   {
