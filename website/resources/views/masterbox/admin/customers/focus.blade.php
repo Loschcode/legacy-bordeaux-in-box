@@ -8,8 +8,8 @@
 
 <div class="row">
   <div class="grid-8">
-    <h1 class="title title__section">Client</h1>
-    <h2 class="title title__subsection">{{ $customer->getFullName() }}</h2>
+    <h1 class="title title__section"><i class="fa fa-user"></i> Client</h1>
+    <h2 class="title title__subsection">{{ $customer->getFullName() }} (#{{ $customer->id }})</h2>
   </div>
   <div class="grid-4">
     <div class="+text-right">

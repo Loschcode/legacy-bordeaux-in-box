@@ -38,6 +38,21 @@ class Index extends Controller
         { data: "email" }
         { data: "phone_format" }
         {
+          render: (date, type, full, meta) =>
+
+            datas = 
+              focus_profile: _.slash($('table').data('focus-profile'))
+
+            return @view('masterbox.admin.customers.render_total_paid', _.extend(datas, full))
+        }
+        { 
+          render: (data, type, full, meta) ->
+            _.euro(full.turnover)
+        }
+        { data: "city"}
+        { data: "zip"}
+        { data: "address"}
+        {
           sortable: false,
           render: (data, type, full, meta) =>
 

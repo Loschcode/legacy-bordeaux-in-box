@@ -14,11 +14,13 @@
 
 <div class="row">
 	<div class="grid-8">
-		<h1 class="title title__section">Clients</h1>
+		<h1 class="title title__section"><i class="fa fa-user"></i> Clients ({{ App\Models\Customer::count() }})</h1>
 	</div>
 </div>
 
 <div class="divider divider__section"></div>
+
+{!! Html::info("Les utilisateurs correspondent aux comptes d'inscription, ils ne sont pas représentatifs des `profils` reliés aux commandes et encore moins des utilisateurs actifs et/ou ayant commandé.") !!}
 
 {{-- Table rendered by ajax --}}
 <table 
@@ -34,6 +36,11 @@
       <th>Nom</th>
       <th>Email</th>
       <th>Téléphone</th>
+      <th>Abonnements</th>
+      <th>Total payé</th>
+      <th>Ville</th>
+      <th>Code Postal</th>
+      <th>Adresse</th>
       <th>Action</th>
     </tr>
   </thead>

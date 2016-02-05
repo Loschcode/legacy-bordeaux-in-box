@@ -474,6 +474,26 @@ Index = (function(superClass) {
         }, {
           data: "phone_format"
         }, {
+          render: (function(_this) {
+            return function(date, type, full, meta) {
+              var datas;
+              datas = {
+                focus_profile: _.slash($('table').data('focus-profile'))
+              };
+              return _this.view('masterbox.admin.customers.render_total_paid', _.extend(datas, full));
+            };
+          })(this)
+        }, {
+          render: function(data, type, full, meta) {
+            return _.euro(full.turnover);
+          }
+        }, {
+          data: "city"
+        }, {
+          data: "zip"
+        }, {
+          data: "address"
+        }, {
           sortable: false,
           render: (function(_this) {
             return function(data, type, full, meta) {
@@ -1907,6 +1927,83 @@ var __templateData = function (__obj) {
       }
     
       __out.push('\n    </div>\n  </div>\n</div>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
+});
+
+;require.register("views/masterbox/admin/customers/render_total_paid", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      var i, len, profile, ref;
+    
+      if (this.profiles.length > 0) {
+        __out.push('\n  ');
+        ref = this.profiles;
+        for (i = 0, len = ref.length; i < len; i++) {
+          profile = ref[i];
+          __out.push('\n    <a class="button button__link" href="');
+          __out.push(_.slash(this.focus_profile) + profile.id);
+          __out.push('">#');
+          __out.push(__sanitize(profile.id));
+          __out.push(' (');
+          __out.push(_.profileStatus(profile.status));
+          __out.push(')</a><br/>\n  ');
+        }
+        __out.push('\n');
+      } else {
+        __out.push('\n  Aucun abonnement\n');
+      }
     
     }).call(this);
     
