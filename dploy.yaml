@@ -2,6 +2,7 @@ production:
     scheme: sftp
     host: 178.62.239.135
     port: 22
+    slots: 5
     user: root
     pass: lapetiteboxrocks
     check: true
