@@ -106,16 +106,8 @@ class ProfilesController extends BaseController {
        */
       $callback = Payments::cancelSubscription($stripe_customer, $old_stripe_subscription);
       
-      if ($callback === FALSE) {
-
-        // EDIT : We continue anyway and we will notice the user
-        //session()->flash('error', "Aucun abonnement n'a pu être annulé via Stripe");
-        //return redirect()->back();
-        $no_past_subscription = TRUE;
-
-      } else {
-        $no_past_subscription = FALSE;
-      }
+      if ($callback === FALSE)
+        session()->flash('error', "Aucun abonnement n'a pu être annulé via Stripe avant la mise à jour. Il se peut que cet abonnement ait été relancé après expiration.");
 
       $customer_order_preference->save();
 
@@ -155,13 +147,34 @@ class ProfilesController extends BaseController {
        * We artificially create a new subscription with the new order preference data
        */
       // TODO: the delay ?
-      $callback = Payments::makeSubscription($stripe_customer, $customer, $customer_profile, $plan_name, $plan_price);
+      if ($customer_order_preference->frequency === 1) {
+
+        /**
+         * It's a direct invoice
+         */
+        $callback = Payments::invoice($stripe_customer, $customer, $customer_profile, $plan_price);
+
+        if ($callback !== TRUE) {
+
+          session()->flash('error', "Impossible de charger l'utilisateur. Veuillez vérifier Stripe et la consistance des données de l'utilisateur.");
+          return redirect()->back();
+
+        }
+
+      } else {
+        
+        /**
+         * It's a subscription
+         */
+        $callback = Payments::makeSubscription($stripe_customer, $customer, $customer_profile, $plan_name, $plan_price);
+
+        if (is_array($callback)) {
+
+          session()->flash('error', "Impossible de créer le nouvel abonnement. Veuillez vérifier Stripe et la consistance des données de l'utilisateur.");
+          return redirect()->back();
+
+        }
       
-      if (is_array($callback)) {
-
-        session()->flash('error', "Impossible de créer le nouvel abonnement. Veuillez vérifier Stripe et la consistance des données de l'utilisateur.");
-        return redirect()->back();
-
       }
       
       /**
@@ -174,12 +187,7 @@ class ProfilesController extends BaseController {
       /**
        * Now we update the payment profile
        */
-      
-      // TODO: arranger le système
-      if ($no_past_subscription)
-        session()->flash('message', "L'abonnement a bien été changé. ATTENTION : Aucun abonnement n'a pu être annulé via Stripe avant la mise à jour. Il se peut que cet abonnement ait été relancé après expiration.");
-      else
-        session()->flash('message', "L'abonnement a bien été changé");
+      session()->flash('message', "L'abonnement a bien été changé");
       return redirect()->back();
 
     } else {
