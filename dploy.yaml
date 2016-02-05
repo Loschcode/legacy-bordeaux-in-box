@@ -7,5 +7,5 @@ production:
     check: true
     path:
         local: /website
-        remote: /var/bordeaux_in_box_v2/website
+        remote: /var/www/website
     exclude: ["dploy.yaml"]
