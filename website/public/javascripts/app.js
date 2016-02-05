@@ -563,10 +563,15 @@ Index = (function(superClass) {
         }, {
           data: "readable_status"
         }, {
+          data: "readable_priority"
+        }, {
+          data: "created_at"
+        }, {
           sortable: false,
           render: (function(_this) {
             return function(data, type, full, meta) {
               var datas;
+              console.log(full);
               datas = {
                 link_focus: _.slash($('table').data('focus-profile')) + full.id,
                 link_delete: _.slash($('table').data('delete-profile')) + full.id

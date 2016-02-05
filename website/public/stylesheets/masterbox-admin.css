@@ -461,6 +461,28 @@ a {
   margin-bottom: 14.4px;
   margin-top: 14.4px; }
 
+.label__default {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-size: 14.4px;
+  display: inline-block;
+  border-radius: 5px;
+  padding: 7.2px;
+  padding-top: 3.6px;
+  padding-bottom: 3.6px; }
+  .label__default.\--green {
+    background-color: #2cc36b;
+    color: white; }
+  .label__default.\--grey {
+    background-color: #a3b6bb;
+    color: white; }
+  .label__default.\--red {
+    background-color: #CF0F40;
+    color: white; }
+  .label__default.\--blue {
+    background-color: #298fca;
+    color: white; }
+
 .chosen-container.chosen-container-single {
   width: 100% !important; }
 

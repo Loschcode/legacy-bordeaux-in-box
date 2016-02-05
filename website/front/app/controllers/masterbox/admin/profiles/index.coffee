@@ -32,10 +32,14 @@ class Index extends Controller
         { data: @dataCountOrdersNotSent }
         { data: @dataCountPaymentsDone }
         { data: "readable_status" }
+        { data: "readable_priority"}
+        { data: "created_at" }
         {
           sortable: false
           render: (data, type, full, meta) =>
             
+            console.log full
+
             datas =
               link_focus: _.slash($('table').data('focus-profile')) + full.id
               link_delete: _.slash($('table').data('delete-profile')) + full.id

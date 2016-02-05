@@ -18,7 +18,7 @@ class CustomerProfile extends Model {
    *
    * @var array
    */
-	protected $appends = ['readable_status'];
+	protected $appends = ['readable_status', 'readable_priority'];
 
 	/**
 	 * Create / Update
@@ -189,6 +189,11 @@ class CustomerProfile extends Model {
   public function getReadableStatusAttribute()
   {
   	return readable_profile_status($this->status);
+  }
+
+  public function getReadablePriorityAttribute()
+  {
+    return readable_profile_priority($this->priority);
   }
 
 	/**
