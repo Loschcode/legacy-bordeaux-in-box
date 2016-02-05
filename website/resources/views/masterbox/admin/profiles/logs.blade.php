@@ -53,7 +53,7 @@
         <tr>
 
           <th>{{$log->id}}</th>
-          <th>{{$log->log}}}</th>
+          <th>{{$log->log}}</th>
           <th>
           @foreach ($log->metadata as $label => $data)
           ({{$label}} : {{$data}}) 

@@ -1,5 +1,31 @@
 <?php
 
+function prepare_log_metadata() {
+
+  $metadata = [];
+  foreach (func_get_args() as $array) {
+
+    if (isset($array['created_at'])) unset($array['created_at']);
+    if (isset($array['updated_at'])) unset($array['updated_at']);
+    if (isset($array['id'])) unset($array['id']);
+
+    foreach ($array as $label => $element) {
+
+      if (is_bool($element)) {
+        if ($element === TRUE) $array[$label] = "TRUE";
+        if ($element === FALSE) $array[$label] = "FALSE";
+      }
+
+    }
+
+    $metadata = array_merge($metadata, $array);
+
+  }
+
+  return $metadata;
+
+}
+
 /**
  * Add a customer profile log
  * @param  object $customer_profile

@@ -197,9 +197,11 @@ class ProfilesController extends BaseController {
       $customer_payment_profile->save();
 
       /**
-       * Now we update the payment profile
+       * Now we commit everything and redirect
        */
       \DB::commit();
+      $metadata = prepare_log_metadata($customer_payment_profile->toArray(), $customer_order_preference->toArray());
+      customer_profile_log($customer_profile, "Changement d'abonnement utilisateur", $metadata);
       session()->flash('message', "L'abonnement a bien été changé");
       return redirect()->back();
 
@@ -310,14 +312,14 @@ class ProfilesController extends BaseController {
     $profile = CustomerProfile::findOrFail($id);
     $customer = $profile->customer()->first();
 
-    $next_delivery_order = $profile->orders()->whereNull('date_completed')->orderBy('orders.created_at', 'DESC')->first();
+    $last_delivery_order = $profile->orders()->whereNull('date_completed')->orderBy('orders.created_at', 'DESC')->orderBy('orders.id', 'DESC')->first();
 
     $order_destination = NULL;
     $order_delivery_spot = NULL;
 
     if ($next_delivery_order != NULL) {
-      $order_destination = $next_delivery_order->destination()->first();
-      $order_delivery_spot = $next_delivery_order->delivery_spot()->first();
+      $order_destination = $last_delivery_order->destination()->first();
+      $order_delivery_spot = $last_delivery_order->delivery_spot()->first();
     } 
 
     $delivery_spots = DeliverySpot::where('active', TRUE)->orderBy('created_at', 'desc')->get();
