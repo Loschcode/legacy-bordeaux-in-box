@@ -96,12 +96,6 @@ class RemoveBoxesWholeSystem extends Migration
         }
       }
 
-      // Trashed
-      $trashed_box_questions = BoxQuestion::onlyTrashed()->get();
-      foreach ($trashed_box_questions as $box_question) {
-          $box_question->forceDelete();
-      }
-
         /**
          * End of data conversion
          */
