@@ -56,14 +56,14 @@ class ProfilesController extends BaseController {
 
     $rules = [
 
-      'profile_id' => 'required|numeric',
-
+      'profile_id'        => 'required|numeric',
+      
       'delivery_price_id' => 'required',
-
-      'take_away' => 'required',
-      'delivery_fees' => 'required',
-
-      'next_charge' => 'required'
+      
+      'take_away'         => 'required',
+      'delivery_fees'     => 'required',
+      
+      'next_charge'       => 'required'
 
 
       ];
@@ -74,25 +74,29 @@ class ProfilesController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
+      // We transform some stuff
+      if ($fields['next_charge'] == '0')
+        $fields['next_charge'] = NULL;
+
       // We might rollback if Stripe does shit
       \DB::beginTransaction();
 
       /**
        * We get the important datas
        */
-      $customer_profile = CustomerProfile::findOrFail($fields['profile_id']);
-      $customer = $customer_profile->customer()->first();
-      $customer_payment_profile = $customer_profile->payment_profile()->orderBy('created_at', 'desc')->first();
+      $customer_profile          = CustomerProfile::findOrFail($fields['profile_id']);
+      $customer                  = $customer_profile->customer()->first();
+      $customer_payment_profile  = $customer_profile->payment_profile()->orderBy('created_at', 'desc')->first();
       $customer_order_preference = $customer_profile->order_preference()->first();
-      $delivery_price = DeliveryPrice::findOrFail($fields['delivery_price_id']);
+      $delivery_price            = DeliveryPrice::findOrFail($fields['delivery_price_id']);
 
       /**
        * First we update the basics
        */
-      $customer_order_preference->frequency = $delivery_price->frequency;
-      $customer_order_preference->unity_price = $delivery_price->unity_price;
+      $customer_order_preference->frequency     = $delivery_price->frequency;
+      $customer_order_preference->unity_price   = $delivery_price->unity_price;
       $customer_order_preference->delivery_fees = $fields['delivery_fees'];
-      $customer_order_preference->take_away = $fields['take_away'];
+      $customer_order_preference->take_away     = $fields['take_away'];
 
       $plan_name = guess_stripe_plan_from_order_preference($customer_order_preference);
       $customer_order_preference->stripe_plan = $plan_name;
@@ -100,9 +104,9 @@ class ProfilesController extends BaseController {
       /**
        * We manage the Stripe side
        */
-      $stripe_customer = $customer_profile->stripe_customer;
+      $stripe_customer         = $customer_profile->stripe_customer;
       $old_stripe_subscription = $customer_payment_profile->stripe_subscription;
-      $plan_price = $customer_order_preference->totalPricePerMonth();
+      $plan_price              = $customer_order_preference->totalPricePerMonth();
 
       /**
        * We cancel the old subscription first
@@ -149,12 +153,14 @@ class ProfilesController extends BaseController {
       /**
        * We artificially create a new subscription with the new order preference data
        */
-      // TODO: the delay ?
       if ($customer_order_preference->frequency === 1) {
 
         /**
          * It's a direct charge
          */
+        if ($fields['next_charge'] !== NULL)
+          session()->flash('error', "Cette charge ne peut pas être retardée, le prélèvement va s'effectuer immédiatement.");
+
         $callback = Payments::makeCharge($stripe_customer, $customer, $customer_profile, $plan_price);
 
         if ($callback !== TRUE) {
@@ -170,7 +176,8 @@ class ProfilesController extends BaseController {
         /**
          * It's a subscription
          */
-        $callback = Payments::makeSubscription($stripe_customer, $customer, $customer_profile, $plan_name, $plan_price);
+        
+        $callback    = Payments::makeSubscription($stripe_customer, $customer, $customer_profile, $plan_name, $plan_price, $fields['next_charge']);
 
         if (is_array($callback)) {
 

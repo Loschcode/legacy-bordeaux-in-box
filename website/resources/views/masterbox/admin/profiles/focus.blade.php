@@ -124,7 +124,7 @@
                    <div class="dialog__divider"></div>
                  </div>
 
-                 {!! Html::info("N'oubliez pas de mettre à jour les informations cruciales à la donnée `A emporter` si jamais elle est changée") !!}
+                 {!! Html::info("N'oubliez pas de mettre à jour les informations cruciales à la donnée `A emporter` si jamais elle est changée. Les box dont la fréquence est 1 mois sont systématiquement prélevées dans l'immédiat.") !!}
                   
                     Offre: {{ Form::select('delivery_price_id', generate_delivery_prices(), '', ['class' => 'js-chosen', 'data-width' => '350px']) }}<br/>
                     A emporter: {{ Form::select('take_away', [0 => 'Non', 1 => 'Oui'], $order_preference->take_away, ['class' => 'js-chosen', 'data-width' => '100px']) }}<br/>

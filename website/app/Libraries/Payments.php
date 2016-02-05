@@ -239,15 +239,16 @@ class Payments {
 
     }
 
-    /**
+     /**
      * Make a subscription with a defined plan
      * @param  string $stripe_customer stripe customer id
      * @param  object $customer            user db object
      * @param  object $profile         user profile db object
      * @param  string $plan            named plan
+     * @param  integer $next_charge   next charge in days from today
      * @return mixed                  bool / id
      */
-    public static function makeSubscription($stripe_customer, $customer, $profile, $plan_name, $plan_price)
+    public static function makeSubscription($stripe_customer, $customer, $profile, $plan_name, $plan_price, $next_charge=NULL)
     {
         
         self::prepare_stripe();
@@ -255,17 +256,23 @@ class Payments {
         $stripe_customer = \Stripe\Customer::retrieve($stripe_customer);
         $stripe_plan = self::makeOrRetrieveStripePlan($plan_name, $plan_price);
 
+        if ($next_charge === NULL)
+          $trial_end = NULL;
+        else
+          $trial_end = time() + (60 * 60 * 24 * $next_charge);
+
         try {
 
             $callback = $stripe_customer->subscriptions->create(array(
 
                 "plan" => $stripe_plan['id'],
+                "trial_end" => $trial_end,
 
                 "metadata" => [
-
-                    'customer_id' => $customer->id,
-                    'customer_profile_id' => $profile->id,
-                    'payment_type' => 'plan'
+                    
+                    'customer_id'         =>   $customer->id,
+                    'customer_profile_id' =>   $profile->id,
+                    'payment_type'        =>   'plan'
 
                 ]
 
