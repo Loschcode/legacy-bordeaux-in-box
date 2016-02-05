@@ -15,7 +15,7 @@ class CompanyBilling extends Model {
    * Attributes
    */
   
-  public function getAddressAttribute() {
+  /*public function getAddressAttribute() {
 
     if ($this->coordinate()->first() === NULL)
       return '';
@@ -38,7 +38,7 @@ class CompanyBilling extends Model {
 
     return $this->coordinate()->first()->zip;
 
-  }
+  }*/
 
   /**
    * Create / Update
