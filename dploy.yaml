@@ -6,6 +6,6 @@ production:
     pass: lapetiteboxrocks
     check: true
     path:
-        local: /website
+        local: website
         remote: /var/www/website
     exclude: ["dploy.yaml"]
