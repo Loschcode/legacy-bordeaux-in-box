@@ -229,9 +229,15 @@ Default = (function() {
   function Default() {
     this.processStickyFooter = bind(this.processStickyFooter, this);
     this.stickyFooter = bind(this.stickyFooter, this);
+    this.getNotificationErrorMessage = bind(this.getNotificationErrorMessage, this);
+    this.hasNotificationErrorMessage = bind(this.hasNotificationErrorMessage, this);
+    this.notificationErrorMessage = bind(this.notificationErrorMessage, this);
+    this.hasNotificationSuccessMessage = bind(this.hasNotificationSuccessMessage, this);
+    this.getNotificationSuccessMessage = bind(this.getNotificationSuccessMessage, this);
+    this.notificationSuccessMessage = bind(this.notificationSuccessMessage, this);
+    this.processNotifications = bind(this.processNotifications, this);
     this.notificationFormErrors();
-    this.notificationSuccessMessage();
-    this.notificationErrorMessage();
+    this.processNotifications();
     this.chosenSelect();
     this.labelautyForm();
     this.tooltipster();
@@ -270,35 +276,94 @@ Default = (function() {
     });
   };
 
-  Default.prototype.notificationSuccessMessage = function() {
+  Default.prototype.processNotifications = function() {
+    var notificationSuccess;
+    if (this.hasNotificationErrorMessage() && this.hasNotificationSuccessMessage()) {
+      notificationSuccess = this.notificationSuccessMessage;
+      return this.notificationErrorMessage(notificationSuccess);
+    } else {
+      this.notificationErrorMessage();
+      return this.notificationSuccessMessage();
+    }
+  };
+
+  Default.prototype.notificationSuccessMessage = function(callback) {
     var successMessage;
-    successMessage = _.trim($('#gotham').data('success-message'));
+    successMessage = this.getNotificationSuccessMessage();
     if (_.isEmpty(successMessage)) {
       return;
     }
-    return swal({
-      title: 'Succès',
-      text: successMessage,
-      type: 'success',
-      confirmButtonColor: '#A5DC86',
-      html: true
-    });
+    if (_.isFunction(callback)) {
+      return swal({
+        title: 'Succès',
+        text: successMessage,
+        type: 'success',
+        confirmButtonColor: '#A5DC86',
+        html: true
+      }, function() {
+        return callback();
+      });
+    } else {
+      return swal({
+        title: 'Succès',
+        text: successMessage,
+        type: 'success',
+        confirmButtonColor: '#A5DC86',
+        html: true
+      });
+    }
   };
 
-  Default.prototype.notificationErrorMessage = function() {
-    var errorMessage;
-    errorMessage = _.trim($('#gotham').data('error-message'));
-    if (_.isEmpty(errorMessage)) {
-      return;
+  Default.prototype.getNotificationSuccessMessage = function() {
+    return _.trim($('#gotham').data('success-message'));
+  };
+
+  Default.prototype.hasNotificationSuccessMessage = function() {
+    var successMessage;
+    successMessage = this.getNotificationSuccessMessage();
+    if (_.isEmpty(successMessage)) {
+      return false;
     }
-    return swal({
-      title: 'Erreur',
-      text: errorMessage,
-      type: 'error',
-      confirmButtonColor: '#D83F66',
-      html: true,
-      timer: 4000
-    });
+    return true;
+  };
+
+  Default.prototype.notificationErrorMessage = function(callback) {
+    if (this.hasNotificationErrorMessage()) {
+      if (_.isFunction(callback)) {
+        return swal({
+          title: 'Erreur',
+          text: this.getNotificationErrorMessage(),
+          type: 'error',
+          confirmButtonColor: '#D83F66',
+          html: true,
+          timer: 4000
+        }, function() {
+          return callback();
+        });
+      } else {
+        return swal({
+          title: 'Erreur',
+          text: this.getNotificationErrorMessage(),
+          type: 'error',
+          confirmButtonColor: '#D83F66',
+          html: true,
+          timer: 4000
+        });
+      }
+    }
+  };
+
+  Default.prototype.hasNotificationErrorMessage = function() {
+    var errorMessage;
+    errorMessage = this.getNotificationErrorMessage();
+    if (_.isEmpty(errorMessage)) {
+      return false;
+    }
+    return true;
+  };
+
+  Default.prototype.getNotificationErrorMessage = function() {
+    return _.trim($('#gotham').data('error-message'));
   };
 
   Default.prototype.chosenSelect = function() {

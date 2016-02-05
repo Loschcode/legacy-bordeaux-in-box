@@ -5,6 +5,8 @@
 		'controller' => 'masterbox.guest.home.index',
 		'no-boxes-title' => 'Désolé',
 		'no-boxes-text' => 'Il ne reste plus aucune box pour ce mois ci !',
+		'error-message' => '',
+		'success-message' => ''
 	]) !!}
 @stop
 

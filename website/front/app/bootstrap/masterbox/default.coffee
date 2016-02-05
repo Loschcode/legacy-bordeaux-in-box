@@ -6,8 +6,7 @@ class Default
   constructor: ->
 
     @notificationFormErrors()
-    @notificationSuccessMessage()
-    @notificationErrorMessage()
+    @processNotifications()
     @chosenSelect()
     @labelautyForm()
     @tooltipster()
@@ -54,39 +53,125 @@ class Default
       timer: 1750
 
   ##
+  # Sweet alert don't stack the alerts shown
+  # This process will handle two modals stacked
+  # if laravel returns an error message and a success message
+  # we display the error and AFTER the success.
+  # Else we just let as is.
+  ##
+  processNotifications: =>
+
+    if @hasNotificationErrorMessage() and @hasNotificationSuccessMessage()
+
+      notificationSuccess = @notificationSuccessMessage
+
+      # Run notification error and attach callback success
+      @notificationErrorMessage(notificationSuccess)
+
+    else
+
+      # Process default
+      @notificationErrorMessage()
+      @notificationSuccessMessage()
+
+  ##
   # If laravel returned a success message, it displays a sweet alert
   ##
-  notificationSuccessMessage: ->
+  notificationSuccessMessage: (callback) =>
 
-    successMessage = _.trim($('#gotham').data('success-message'))
+    successMessage = @getNotificationSuccessMessage()
 
     if _.isEmpty(successMessage)
       return
 
-    swal
-      title: 'Succès'
-      text: successMessage
-      type: 'success'
-      confirmButtonColor: '#A5DC86'
-      html: true
+    if _.isFunction(callback)
+      swal
+        title: 'Succès'
+        text: successMessage
+        type: 'success'
+        confirmButtonColor: '#A5DC86'
+        html: true
+      , ->
+        callback()
+
+    else
+      swal
+        title: 'Succès'
+        text: successMessage
+        type: 'success'
+        confirmButtonColor: '#A5DC86'
+        html: true
+  
+
+  ##
+  # Fetch the success message
+  ##
+  getNotificationSuccessMessage: =>
+
+    return _.trim($('#gotham').data('success-message'))
+
+  ##
+  # Check if laravel returned a success message.
+  ## 
+  hasNotificationSuccessMessage: =>
+    
+    successMessage = @getNotificationSuccessMessage()
+
+    if _.isEmpty(successMessage)
+      return false
+
+    return true
+
 
   ##
   # If laravel returned an error message, it displays a sweet alert
   ##
-  notificationErrorMessage: ->
+  notificationErrorMessage: (callback) =>
 
-    errorMessage = _.trim($('#gotham').data('error-message'))
+    if @hasNotificationErrorMessage()
+
+      if _.isFunction(callback)
+
+        swal
+          title: 'Erreur'
+          text: @getNotificationErrorMessage()
+          type: 'error'
+          confirmButtonColor: '#D83F66'
+          html: true
+          timer: 4000
+        , -> 
+          callback()
+
+      else
+
+        swal
+          title: 'Erreur'
+          text: @getNotificationErrorMessage()
+          type: 'error'
+          confirmButtonColor: '#D83F66'
+          html: true
+          timer: 4000
+  
+  
+  ##
+  # Check if laravel returned an error message.
+  ## 
+  hasNotificationErrorMessage: =>
+    
+    errorMessage = @getNotificationErrorMessage()
 
     if _.isEmpty(errorMessage)
-      return
+      return false
 
-    swal
-      title: 'Erreur'
-      text: errorMessage
-      type: 'error'
-      confirmButtonColor: '#D83F66'
-      html: true
-      timer: 4000
+    return true
+
+  ##
+  # Fetch the error message
+  ##
+  getNotificationErrorMessage: =>
+
+    return _.trim($('#gotham').data('error-message'))
+
 
   ##
   # Prettify selects
