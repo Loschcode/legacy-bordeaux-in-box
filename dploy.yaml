@@ -1,0 +1,11 @@
+production:
+    scheme: sftp
+    host: 178.62.239.135
+    port: 22
+    user: root
+    pass: lapetiteboxrocks
+    check: true
+    path:
+        local: /website
+        remote: /var/bordeaux_in_box_v2/website
+    exclude: ["dploy.yaml"]
