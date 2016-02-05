@@ -47,7 +47,7 @@
 
             {{ Form::open(array('action' => 'MasterBox\Admin\ProfilesController@postUpdatePriority')) }}
             {{ Form::hidden('profile_id', $profile->id)}}
-            <strong>Priorité :</strong> {{ Form::select('priority', generate_priority_form(), $profile->priority) }} {{ Form::submit('Valider') }} <br/>
+            <strong>Priorité :</strong> {{ Form::select('priority', generate_priority_form(), $profile->priority, ['class' => 'js-chosen', 'data-width' => '100px']) }} {{ Form::submit('Valider', ['class' => 'button button__default']) }} <br/>
             {{ Form::close() }}
 
             <div class="+spacer-extra-small"></div>
@@ -82,23 +82,7 @@
             <strong>Prix total :</strong> {{$order_preference->totalPricePerMonth()}} &euro; (unité : {{$order_preference->unity_price}} &euro;, livraison : {{$order_preference->delivery_fees}} &euro;)
 
             <br />
-
-            @if (!$order_preference->isGift() && ($profile->status === 'subscribed'))
-
-              {{ Form::open(array('action' => 'MasterBox\Admin\ProfilesController@postUpdateOffer')) }}
-              {{ Form::hidden('profile_id', $profile->id)}}
-              <strong>Changement d'offre :</strong>
-
-              <br />
-              Offre : {{ Form::select('delivery_price_id', generate_delivery_prices()) }}<br />
-              A emporter : {{ Form::select('take_away', [0 => 'Non', 1 => 'Oui'], $order_preference->take_away) }} <em>(Note : n'oubliez pas de mettre à jour les informations cruciales à cette donnée si jamais elle est changée)</em><br />
-              Frais de livraison : {{ Form::select('delivery_fees', generate_delivery_fees($profile->orders()->orderBy('id', 'desc')->first()->isRegionalOrder())) }}<br />
-              Prochain prélèvement : {{ Form::select('next_charge', [0 => 'Immédiat', 15 => 'Dans 15 jours', 30 => 'Dans 30 jours']) }}<br />
-
-              {{ Form::submit("Changer l'offre maintenant") }} <br/>
-             {{ Form::close() }}
-
-           @endif
+  
 
             @endif
 
@@ -113,6 +97,35 @@
 
            <a class="button button__default --red js-confirm-delete" href="{{ action('MasterBox\Admin\ProfilesController@getCancelSubscription', ['id' => $profile->id]) }}"><i class="fa fa-times-circle"></i> Annuler cet abonnement</a>
 
+          @endif
+
+           @if (!$order_preference->isGift() && ($profile->status === 'subscribed'))
+             
+             <a class="button button__default --yellow" href="#switch-offer" data-modal><i class="fa fa-pencil"></i> Changer l'offre</a>
+             <div class="+hidden">
+               <div id="switch-offer" class="modal">
+                 {{ Form::open(array('action' => 'MasterBox\Admin\ProfilesController@postUpdateOffer')) }}
+                 {{ Form::hidden('profile_id', $profile->id)}}
+
+                 <div class="dialog">
+                   <h4 class="dialog__title">Changement d'offre</h4>
+                   <div class="dialog__divider"></div>
+                 </div>
+
+                 {!! Html::info("N'oubliez pas de mettre à jour les informations cruciales à la donnée `A emporter` si jamais elle est changée") !!}
+                  
+                    Offre: {{ Form::select('delivery_price_id', generate_delivery_prices(), '', ['class' => 'js-chosen', 'data-width' => '350px']) }}<br/>
+                    A emporter: {{ Form::select('take_away', [0 => 'Non', 1 => 'Oui'], $order_preference->take_away, ['class' => 'js-chosen', 'data-width' => '100px']) }}<br/>
+                    Frais de livraison: {{ Form::select('delivery_fees', generate_delivery_fees($profile->orders()->orderBy('id', 'desc')->first()->isRegionalOrder()), '', ['class' => 'js-chosen', 'data-width' => '250px']) }}<br />
+                    Prochain prélèvement: {{ Form::select('next_charge', [0 => 'Immédiat', 15 => 'Dans 15 jours', 30 => 'Dans 30 jours'], '', ['class' => 'js-chosen', 'data-width' => '250px']) }}<br />
+          
+                  <div class="+spacer-extra-small"></div>
+                  {{ Form::submit("Changer l'offre maintenant", ['class' => 'button button__default']) }} <br/>
+                 {{ Form::close() }}
+
+               </div>
+             </div>
+           
           @endif
 
         </div>
@@ -167,11 +180,13 @@
     
             {!! Form::textarea("note", Request::old('note'), ['class' => 'form__input --small-textarea']) !!}
             
-            Série : {{ Form::select('serie', generate_available_series_form()) }}<br/>
-            Classification : {{ Form::select('type', generate_note_type_form()) }}<br/>
+            Série : {{ Form::select('serie', generate_available_series_form(), '', ['class' => 'js-chosen', 'data-width' => '350px']) }}<br/>
+            Classification : {{ Form::select('type', generate_note_type_form(), '', ['class' => 'js-chosen']) }}<br/>
 
             {!! Html::checkError('note', $errors) !!}
-
+            
+            <div class="+spacer-extra-small"></div>
+            
             {!! Form::submit("Ajouter cette note", ['class' => 'button button__default']) !!}
 
           {!! Form::close() !!}

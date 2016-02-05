@@ -302,8 +302,20 @@ Default = (function() {
   };
 
   Default.prototype.chosenSelect = function() {
-    return $('.js-chosen').chosen({
+    var defaults;
+    defaults = {
       disable_search_threshold: 30
+    };
+    return $('.js-chosen').each(function() {
+      var config;
+      if (this.hasAttribute('data-width')) {
+        config = _.merge({}, defaults, {
+          width: $(this).data('width')
+        });
+      } else {
+        config = defaults;
+      }
+      return $(this).chosen(config);
     });
   };
 

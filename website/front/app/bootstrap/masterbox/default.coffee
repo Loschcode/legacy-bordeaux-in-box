@@ -93,8 +93,17 @@ class Default
   ##
   chosenSelect: ->
 
-    $('.js-chosen').chosen
+    defaults = 
       disable_search_threshold: 30
+
+    $('.js-chosen').each ->
+
+      if this.hasAttribute('data-width')
+        config = _.merge({}, defaults, {width: $(this).data('width')})
+      else
+        config = defaults
+        
+      $(this).chosen(config)
 
   ##
   # Prettify radios / checkboxes

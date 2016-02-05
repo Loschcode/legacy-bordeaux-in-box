@@ -224,6 +224,14 @@ a {
         top: 1px;
         -webkit-box-shadow: none;
                 box-shadow: none; }
+    .button__default.\--yellow {
+      background: #f1c40f;
+      -webkit-box-shadow: inset 0 -3px #dab10d;
+              box-shadow: inset 0 -3px #dab10d; }
+      .button__default.\--yellow:active {
+        top: 1px;
+        -webkit-box-shadow: none;
+                box-shadow: none; }
   .button__connect {
     background-color: #b1c2c6;
     font-size: 12.24px;
@@ -484,160 +492,7 @@ a {
     color: white; }
 
 .chosen-container.chosen-container-single {
-  width: 100% !important; }
-
-.chosen-container-single .chosen-single div b {
-  background: url(chosen-sprite.png) no-repeat 3px 10px !important; }
-
-.chosen-container-active.chosen-with-drop .chosen-single div b {
-  background: url(chosen-sprite.png) no-repeat -15px 10px !important; }
-
-a.chosen-single {
-  padding: 10.799999999999999px !important;
-  font-size: 18px !important;
-  height: auto !important;
-  border: 1px solid #D6DBDF !important;
-  border-radiu: 5px !important;
-  -webkit-box-shadow: none !important;
-          box-shadow: none !important;
-  font-family: "Lato", sans-serif;
-  font-weight: 400; }
-
-.chosen-search input[type=text] {
-  -webkit-box-shadow: none !important;
-          box-shadow: none !important;
-  border-color: #e994aa !important; }
-
-select + .chosen-container.chosen-container-single .chosen-single {
-  display: block;
-  width: 100%;
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857;
-  color: #555;
-  vertical-align: middle;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  background-image: none; }
-  select + .chosen-container.chosen-container-single .chosen-single div {
-    top: 4px;
-    color: #000; }
-select + .chosen-container .chosen-drop {
-  background-color: #FFF;
-  border: 1px solid #CCC;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  background-clip: padding-box;
-  margin: 2px 0 0; }
-select + .chosen-container .chosen-search input[type=text] {
-  display: block;
-  width: 100%;
-  height: 34px;
-  padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.42857;
-  color: #555;
-  vertical-align: middle;
-  background-color: #FFF;
-  border: 1px solid #CCC;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  background-image: none; }
-select + .chosen-container .chosen-results {
-  margin: 2px 0 0;
-  padding: 5px 0;
-  font-size: 14px;
-  list-style: none;
-  background-color: #fff;
-  margin-bottom: 5px; }
-  select + .chosen-container .chosen-results li {
-    display: block;
-    padding: 3px 20px;
-    clear: both;
-    font-weight: normal;
-    line-height: 1.42857;
-    color: #333;
-    white-space: nowrap;
-    background-image: none; }
-    select + .chosen-container .chosen-results li.active-result {
-      display: block;
-      padding: 3px 20px;
-      clear: both;
-      font-weight: normal;
-      line-height: 1.42857;
-      color: #333;
-      white-space: nowrap;
-      background-image: none; }
-    select + .chosen-container .chosen-results li:hover, select + .chosen-container .chosen-results li.active-result:hover, select + .chosen-container .chosen-results li.highlighted {
-      color: #FFF;
-      text-decoration: none;
-      background-color: #dc5477 !important;
-      background-image: none; }
-select + .chosen-container-multi .chosen-choices {
-  display: block;
-  width: 100%;
-  min-height: 34px;
-  padding: 6px;
-  font-size: 14px;
-  line-height: 1.42857;
-  color: #555;
-  vertical-align: middle;
-  background-color: #FFF;
-  border: 1px solid #CCC;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-transition: border-color ease-in-out 0.15s, -webkit-box-shadow ease-in-out 0.15s;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  background-image: none; }
-  select + .chosen-container-multi .chosen-choices li.search-field input[type="text"] {
-    height: auto;
-    padding: 5px 0; }
-  select + .chosen-container-multi .chosen-choices li.search-choice {
-    background-image: none;
-    padding: 3px 24px 3px 5px;
-    margin: 0 6px 0 0;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1.42857;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: middle;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    color: #333;
-    background-color: #FFF;
-    border-color: #CCC; }
-    select + .chosen-container-multi .chosen-choices li.search-choice .search-choice-close {
-      top: 8px;
-      right: 6px; }
-select + .chosen-container-multi.chosen-container-active .chosen-choices {
-  border-color: #66AFE9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
-select + .chosen-container.chosen-container-single.chosen-container-active .chosen-single, select + .chosen-container .chosen-search input[type=text]:focus {
-  border-color: #66AFE9;
-  outline: 0;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6); }
-select + .chosen-container-multi .chosen-results li.result-selected {
-  display: list-item;
-  color: #ccc;
-  cursor: default;
-  background-color: white; }
+  display: inline-block; }
 
 table.dataTable {
   text-align: left !important;
