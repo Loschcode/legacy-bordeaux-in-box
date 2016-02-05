@@ -297,7 +297,8 @@ body,.wrapper{background-color:#f2f6f7}.wrapper h1{color:#58595b}.wrapper h1{}.w
           </tbody></table>
 
           <div style="font-size: 20px;line-height: 20px;mso-line-height-rule: exactly;">&nbsp;</div>
-
+          
+          <?php /*
           <table class="layout layout--no-gutter" style="border-collapse: collapse;table-layout: fixed;Margin-left: auto;Margin-right: auto;overflow-wrap: break-word;word-wrap: break-word;word-break: break-word;background-color: #ffffff;" align="center" emb-background-style>
             <tbody><tr>
               <td class="column" style='font-size: 14px;line-height: 21px;padding: 0;text-align: left;vertical-align: top;color: #808285;font-family: "Open Sans",sans-serif;' width="600">
@@ -309,6 +310,7 @@ body,.wrapper{background-color:#f2f6f7}.wrapper h1{color:#58595b}.wrapper h1{}.w
               </td>
             </tr>
           </tbody></table>
+          */ ?>
 
           <div style="font-size: 20px;line-height: 20px;mso-line-height-rule: exactly;">&nbsp;</div>
 
