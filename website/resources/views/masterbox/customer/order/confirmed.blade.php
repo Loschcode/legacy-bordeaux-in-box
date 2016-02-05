@@ -16,12 +16,12 @@
 		
 		<div class="+spacer-small"></div>
 
-    <div class="grid-8 grid-centered grid-11@xs">
+    <div class="grid-8 grid-centered grid-11@xs gr-centered@xs">
     	<div class="row row-align-center@xs">
     		<div class="grid-6 grid-11@xs">
 	    		<a href="{{ action('MasterBox\Guest\HomeController@getIndex') }}" class="button button__submit --grey">Revenir à l'accueil</a>
 	    	</div>
-        <div class="+spacer-small clear show@xs"></div>
+        <div class="+spacer-small clear show@xs hide"></div>
 	    	<div class="grid-6 grid-11@xs">
 	    		<a href="{{ action('MasterBox\Customer\ProfileController@getOrders') }}" class="button button__submit">Suivre ma commande</a>
 	    	</div>
