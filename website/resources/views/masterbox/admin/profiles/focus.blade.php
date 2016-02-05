@@ -38,7 +38,19 @@
           <div class="typography">
             <strong>Client:</strong> <a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id]) }}">{{ $profile->customer()->first()->getFullName() }}</a><br />
 
-            <strong>Naissance:</strong> {{$profile->getAnswer('birthday')}} ({{$profile->getAge()}} ans)<br />
+            <strong>Naissance:</strong> 
+            
+            @if ($profile->getAge() == 0)
+
+            Inconnu
+
+            @else
+
+            {{$profile->getAnswer('birthday')}} ({{$profile->getAge()}} ans)
+
+            @endif
+
+            <br />
             
             <div class="+spacer-extra-small"></div>
 
