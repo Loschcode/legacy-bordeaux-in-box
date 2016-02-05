@@ -26,19 +26,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 14.4px;
+  height: 13.600000000000001px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 36px;
+  height: 34px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 72px;
+  height: 68px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 180px;
+  height: 170px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -437,25 +437,27 @@ a {
       .step__picture.\--step3 {
         padding-top: 0; } }
 
-.product__picture-container {
-  min-height: 251.60000000000002px;
-  text-align: center;
-  padding-top: 34px; }
-.product__picture.\--glasses {
-  padding-top: 54.400000000000006px; }
-.product__picture.\--underwear {
-  padding-top: 54.400000000000006px; }
-.product__title {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  color: white;
-  font-size: 23.799999999999997px;
-  text-align: center; }
-.product__description {
-  text-align: center;
-  color: white;
-  padding: 10.2px;
-  padding-bottom: 68px; }
+.product {
+  height: 510px; }
+  .product__picture-container {
+    min-height: 251.60000000000002px;
+    text-align: center;
+    padding-top: 34px; }
+  .product__picture.\--glasses {
+    padding-top: 54.400000000000006px; }
+  .product__picture.\--underwear {
+    padding-top: 54.400000000000006px; }
+  .product__title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    color: white;
+    font-size: 23.799999999999997px;
+    text-align: center; }
+  .product__description {
+    text-align: center;
+    color: white;
+    padding: 10.2px;
+    padding-bottom: 68px; }
 
 .background__green {
   background-color: #4de3be; }

@@ -33,7 +33,7 @@
                   <div class="grid-9 grid-11@xs">
                     {!! Form::email("email", ($customer->email) ? $customer->email : Request::old("email"), ['class' => 'form__input']) !!}
                   </div>
-                  <div class="+spacer-extra-small show@xs"></div>
+                  <div class="+spacer-extra-small show@xs hide"></div>
                   <div class="grid-3 grid-11@xs">
                     <button type="submit" class="button button__submit --profile">Mettre à jour</button>
                   </div>
@@ -58,7 +58,7 @@
                     <div class="grid-9 grid-11@xs">
                       {!! Form::password("password", ['class' => 'form__input']) !!}
                     </div>
-                    <div class="+spacer-extra-small show@xs"></div>
+                    <div class="+spacer-extra-small show@xs hide"></div>
 
                     <div class="grid-3 grid-11@xs">
                       <button type="submit" class="button button__submit --profile">Mettre à jour</button>
