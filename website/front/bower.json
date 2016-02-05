@@ -26,7 +26,8 @@
     "jquery-modal": "~0.6.1",
     "jssocials": "~1.1.0",
     "jquery.inputmask": "~3.2.7",
-    "slicknav": "~1.0.5"
+    "slicknav": "~1.0.5",
+    "textarea-autosize": "~0.4.1"
   },
   "overrides": {
     "reset-css": {

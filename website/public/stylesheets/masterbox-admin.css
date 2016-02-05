@@ -25,19 +25,19 @@
   text-transform: capitalize; }
 
 #csstyle .\+spacer-extra-small {
-  height: 14.4px;
+  height: 13.600000000000001px;
   content: " "; }
 
 #csstyle .\+spacer-small {
-  height: 36px;
+  height: 34px;
   content: " "; }
 
 #csstyle .\+spacer {
-  height: 72px;
+  height: 68px;
   content: " "; }
 
 #csstyle .\+spacer-large {
-  height: 180px;
+  height: 170px;
   content: " "; }
 
 #csstyle .\+hidden {
@@ -490,6 +490,13 @@ a {
   .label__default.\--blue {
     background-color: #298fca;
     color: white; }
+
+textarea {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  max-height: 300px;
+  min-height: 31px;
+  overflow-x: hidden; }
 
 .chosen-container.chosen-container-single {
   display: inline-block; }

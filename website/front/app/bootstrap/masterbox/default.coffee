@@ -12,6 +12,7 @@ class Default
     @tooltipster()
     @inputMaskDate()
     @stickyFooter()
+    @textareaAutosize()
 
 
   ##
@@ -233,7 +234,13 @@ class Default
     
     if footerTop < docHeight
       $('.js-footer-stick').css('margin-top', 10 + (docHeight - footerTop) + 'px')
-    
+  
+  ##
+  # Init textarea auto size on textarea
+  ##
+  textareaAutosize: =>
+
+    $('textarea').textareaAutoSize()
 
 
 

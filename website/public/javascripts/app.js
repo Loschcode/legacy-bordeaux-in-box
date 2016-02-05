@@ -227,6 +227,7 @@ var Default,
 
 Default = (function() {
   function Default() {
+    this.textareaAutosize = bind(this.textareaAutosize, this);
     this.processStickyFooter = bind(this.processStickyFooter, this);
     this.stickyFooter = bind(this.stickyFooter, this);
     this.getNotificationErrorMessage = bind(this.getNotificationErrorMessage, this);
@@ -243,6 +244,7 @@ Default = (function() {
     this.tooltipster();
     this.inputMaskDate();
     this.stickyFooter();
+    this.textareaAutosize();
   }
 
   Default.prototype.notificationFormErrors = function() {
@@ -416,6 +418,10 @@ Default = (function() {
     if (footerTop < docHeight) {
       return $('.js-footer-stick').css('margin-top', 10 + (docHeight - footerTop) + 'px');
     }
+  };
+
+  Default.prototype.textareaAutosize = function() {
+    return $('textarea').textareaAutoSize();
   };
 
   return Default;
