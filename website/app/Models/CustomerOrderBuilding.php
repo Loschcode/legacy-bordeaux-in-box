@@ -15,7 +15,7 @@ class CustomerOrderBuilding extends Model {
    * Attributes
    */
   
-  /*public function getDestinationAddressAttribute() {
+  public function getDestinationAddressAttribute() {
 
     if ($this->destination_coordinate()->first() === NULL)
       return '';
@@ -40,7 +40,7 @@ class CustomerOrderBuilding extends Model {
 
     return $this->destination_coordinate()->first()->zip;
 
-  }*/
+  }
 
 	/**
 	 * Belongs To
