@@ -14,7 +14,7 @@
 @section('content')
 
 <div class="container">
-  <div class="row">
+  <div class="row row-align-center@xs">
     <div class="grid-2">
       @include('masterbox.partials.sidebar_profile')
     </div>
