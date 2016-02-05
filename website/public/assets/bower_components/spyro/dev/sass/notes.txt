@@ -1,3 +1,0 @@
-All files in this folder with "_namefile.sass" is under-development
-
-Enjoy
