@@ -674,7 +674,7 @@ class PurchaseController extends BaseController {
       if (($order_preference->gift) || ($order_preference->frequency == 1)) {
         
         // If it's a gift it's a direct invoice
-        $feedback = Payments::invoice($stripe_customer, $customer, $profile, $order_preference->totalPricePerMonth());
+        $feedback = Payments::makeCharge($stripe_customer, $customer, $profile, $order_preference->totalPricePerMonth());
 
         if ($feedback !== TRUE) {
           // Not sure about it, but to be clean we might delete the orders we just built

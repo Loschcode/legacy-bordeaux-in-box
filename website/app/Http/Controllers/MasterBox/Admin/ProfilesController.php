@@ -74,6 +74,9 @@ class ProfilesController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
+      // We might rollback if Stripe does shit
+      \DB::beginTransaction();
+
       /**
        * We get the important datas
        */
@@ -150,13 +153,14 @@ class ProfilesController extends BaseController {
       if ($customer_order_preference->frequency === 1) {
 
         /**
-         * It's a direct invoice
+         * It's a direct charge
          */
-        $callback = Payments::invoice($stripe_customer, $customer, $customer_profile, $plan_price);
+        $callback = Payments::makeCharge($stripe_customer, $customer, $customer_profile, $plan_price);
 
         if ($callback !== TRUE) {
 
           session()->flash('error', "Impossible de charger l'utilisateur. Veuillez vérifier Stripe et la consistance des données de l'utilisateur.");
+          \DB::rollback();
           return redirect()->back();
 
         }
@@ -171,6 +175,7 @@ class ProfilesController extends BaseController {
         if (is_array($callback)) {
 
           session()->flash('error', "Impossible de créer le nouvel abonnement. Veuillez vérifier Stripe et la consistance des données de l'utilisateur.");
+          \DB::rollback();
           return redirect()->back();
 
         }
@@ -187,13 +192,14 @@ class ProfilesController extends BaseController {
       /**
        * Now we update the payment profile
        */
+      \DB::commit();
       session()->flash('message', "L'abonnement a bien été changé");
       return redirect()->back();
 
     } else {
 
       // We return the same page with the error and saving the input datas
-      return redirect()->to(URL::previous())
+      return redirect()->back()
       ->withInput()
       ->withErrors($validator);
 
@@ -670,7 +676,7 @@ class ProfilesController extends BaseController {
     $order_preference = $profile->order_preference()->first();
     $raw_amount = $order_preference->totalPricePerMonth();
 
-    $callback = Payments::invoice($stripe_customer, $customer, $profile, $raw_amount);
+    $callback = Payments::makeCharge($stripe_customer, $customer, $profile, $raw_amount);
 
     if (is_array($callback)) {
 

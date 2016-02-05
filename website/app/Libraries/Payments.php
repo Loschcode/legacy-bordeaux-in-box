@@ -442,14 +442,14 @@ class Payments {
     }
 
     /**
-     * We invoice a customer once
+     * We charge a customer once
      * @param  string $stripe_customer customer stripe
      * @param  object $customer            db user
      * @param  object $profile         db user profile
      * @param  float $raw_amount      amount (e.g. 50.00)
      * @return mixed                  error string / true
      */
-    public static function invoice($stripe_customer, $customer, $profile, $raw_amount)
+    public static function makeCharge($stripe_customer, $customer, $profile, $raw_amount)
     {
 
         self::prepare_stripe();
