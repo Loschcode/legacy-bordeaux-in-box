@@ -37,6 +37,21 @@ class Order extends Model {
 
         static::deleting(function($order) {
 
+          if ($order->billing()->first() !== NULL)
+            $order->billing()->first()->delete();
+
+          if ($order->company_billing()->first() !== NULL)
+            $order->company_billing()->delete();
+
+          if ($order->destination()->first() !== NULL)
+            $order->destination()->first()->delete();
+
+          foreach ($order->order_payments()->get() as $order_payment) {
+
+            $order_payment->delete();
+
+          }
+
         });
 
   }
@@ -100,6 +115,13 @@ class Order extends Model {
 	/**
 	 * HasMany
 	 */
+  
+  public function order_payments()
+  {
+
+    return $this->hasMany('App\Models\OrderPayment');
+
+  }
 
 	public function payments()
 	{

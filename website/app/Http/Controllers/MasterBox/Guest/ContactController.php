@@ -57,7 +57,7 @@ class ContactController extends BaseController {
 
           'contact_email' => $fields['email'],
           'contact_service' => readable_contact_service($fields['service']),
-          'contact_message' => $fields['message']
+          'contact_message' => $fields['message'],
 
           );
 
@@ -72,6 +72,8 @@ class ContactController extends BaseController {
           $email = ContactSetting::first()->tech_support;
 
         }
+
+        $data['email'] = $email;
 
         $contact->recipient = $email;
         $contact->save();

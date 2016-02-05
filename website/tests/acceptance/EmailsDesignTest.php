@@ -179,8 +179,9 @@ class EmailsDesignTest extends TestCase
   private function sendEmail($view, $datas, $subject)
   {
 
-    $datas['email'] = 'test@test.com';
-    
+    if (!isset($datas['email']))
+      $datas['email'] = 'test@test.com';
+
     $sent = Mail::send($view, $datas, function($m) use ($subject) {
       $m->from('testing-sender@bordeauxinbox.com', 'Bordeaux in Box');
       $m->to('testing-receipt@bordeauxinbox.com')->subject($subject);

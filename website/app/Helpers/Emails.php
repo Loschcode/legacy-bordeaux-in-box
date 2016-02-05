@@ -153,6 +153,15 @@ function mailing_send_customer_only($customer, $subject, $template, $template_da
   if ($customer->emails_allowed === FALSE)
     return FALSE;
 
+  $template_data = array_merge($template_data, [
+
+    'email' => $email,
+    'customer' => $customer,
+    'subject' => $subject,
+    'template' => $template
+
+    ]);
+
   $datas = [
 
     'email' => $email,
