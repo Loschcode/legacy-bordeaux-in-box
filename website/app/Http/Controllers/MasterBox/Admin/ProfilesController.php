@@ -176,8 +176,7 @@ class ProfilesController extends BaseController {
         /**
          * It's a subscription
          */
-        
-        $callback    = Payments::makeSubscription($stripe_customer, $customer, $customer_profile, $plan_name, $plan_price, $fields['next_charge']);
+        $callback = Payments::makeSubscription($stripe_customer, $customer, $customer_profile, $plan_name, $plan_price, $fields['next_charge']);
 
         if (is_array($callback)) {
 
@@ -200,8 +199,10 @@ class ProfilesController extends BaseController {
        * Now we commit everything and redirect
        */
       \DB::commit();
+
       $metadata = prepare_log_metadata($customer_payment_profile->toArray(), $customer_order_preference->toArray());
-      customer_profile_log($customer_profile, "Changement d'abonnement utilisateur", $metadata);
+      customer_profile_log($customer_profile, "Changement d'abonnement client", $metadata);
+
       session()->flash('message', "L'abonnement a bien été changé");
       return redirect()->back();
 
@@ -317,7 +318,7 @@ class ProfilesController extends BaseController {
     $order_destination = NULL;
     $order_delivery_spot = NULL;
 
-    if ($next_delivery_order != NULL) {
+    if ($last_delivery_order != NULL) {
       $order_destination = $last_delivery_order->destination()->first();
       $order_delivery_spot = $last_delivery_order->delivery_spot()->first();
     } 
@@ -467,10 +468,16 @@ class ProfilesController extends BaseController {
 
 		if ($feedback == FALSE) {
 
+      $metadata = prepare_log_metadata($payment_profile->toArray(), $profile->toArray());
+      customer_profile_log($profile, "Annulation d'abonnement client (sans Stripe)", $metadata);
+
 			session()->flash('error', "Aucun abonnement n'a été trouvé sur les serveurs Stripe. L'annulation est locale uniquement.");
 			session()->flash('message', "L'abonnement de l'utilisateur a été correctement annulé");
 
 		} else {
+
+      $metadata = prepare_log_metadata($payment_profile->toArray(), $profile->toArray());
+      customer_profile_log($customer_profile, "Annulation d'abonnement client (avec Stripe)", $metadata);
 
 			session()->flash('message', "L'abonnement de l'utilisateur a été correctement annulé");
 
