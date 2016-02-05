@@ -338,7 +338,7 @@ Default = (function() {
           type: 'error',
           confirmButtonColor: '#D83F66',
           html: true,
-          timer: 4000
+          closeOnConfirm: false
         }, function() {
           return callback();
         });

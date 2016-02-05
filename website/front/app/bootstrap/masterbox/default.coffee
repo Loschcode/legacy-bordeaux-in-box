@@ -132,14 +132,13 @@ class Default
     if @hasNotificationErrorMessage()
 
       if _.isFunction(callback)
-
         swal
           title: 'Erreur'
           text: @getNotificationErrorMessage()
           type: 'error'
           confirmButtonColor: '#D83F66'
           html: true
-          timer: 4000
+          closeOnConfirm: false
         , -> 
           callback()
 
