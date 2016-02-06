@@ -39,6 +39,15 @@ class InvoicesController extends BaseController {
   protected $stripe_metadata = FALSE;
 
   /**
+   * Callback
+   */
+  public function getTest() {
+
+    exit('Yes.');
+
+  }
+
+  /**
    * Home page
    */
   public function postIndex()
