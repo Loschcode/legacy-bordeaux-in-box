@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Bordeaux in Box - Page indisponible</title>
+        <title>Bordeaux in Box - Erreur interne du serveur</title>
 
         <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
 
@@ -45,7 +45,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <img src="{{ url('images/404.png') }}" />
+                <img src="{{ url('images/500.png') }}" />
             </div>
         </div>
     </body>
