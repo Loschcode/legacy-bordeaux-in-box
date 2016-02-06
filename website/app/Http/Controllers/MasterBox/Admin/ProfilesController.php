@@ -477,7 +477,7 @@ class ProfilesController extends BaseController {
 		} else {
 
       $metadata = prepare_log_metadata($payment_profile->toArray(), $profile->toArray());
-      customer_profile_log($customer_profile, "Annulation d'abonnement client (avec Stripe)", $metadata);
+      customer_profile_log($profile, "Annulation d'abonnement client (avec Stripe)", $metadata);
 
 			session()->flash('message', "L'abonnement de l'utilisateur a été correctement annulé");
 
