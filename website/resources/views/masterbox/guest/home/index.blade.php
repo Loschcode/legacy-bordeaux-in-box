@@ -63,7 +63,7 @@
 <div class="container grid-11@xs gr-centered@xs">
 	{{-- Section how it works --}}
 	<div id="how-to" class="section">
-		<h1 class="section__title">Comment ça marche ?</h1>
+		<h1 class="section__title">Comment ça marche</h1>
 		<p class="section__description">Plaisir perso ou idée cadeau, voici comment ça marche !</p>
 	</div>
 </div>
