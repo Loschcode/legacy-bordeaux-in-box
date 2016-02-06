@@ -54,7 +54,7 @@ class InvoicesController extends BaseController {
      * We end it properly
      */
     if (!$this->is_handlable_transaction($datas)) {
-      $this->log_now('Trace : ' . $this->inject_var_dump($datas));
+      $this->log_now('Trace event : ' . $datas->id);
       return $this->end_transaction();
     }
 
