@@ -40,7 +40,7 @@ class Handler extends ExceptionHandler
             $url = request()->url();
 
             // TODO : rendre moins dégueulasse. Laurent 06/02/2016
-            if (strpos($url, '/traces/')) {
+            if (!strpos($url, '/traces/')) {
 
               $data = array('exception' => $e, 'url' => $url);
 
