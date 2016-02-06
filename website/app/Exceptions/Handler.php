@@ -34,17 +34,24 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        /*if (app()->environment() == 'production')
+        if (app()->environment() == 'production')
         {
             $email = 'laurent@bordeauxinbox.com';
-            $data = array('exception' => $e, 'url' => request()->url());
+            $url = request()->url();
 
-            Mail::send('shared.emails.errors', $data, function($message) use ($email)
-            {
-                $message->to($email)->subject('Bordeaux in Box Error');
-            });
+            // TODO : rendre moins dégueulasse. Laurent 06/02/2016
+            if (!strpos($url, '/traces/')) {
 
-        }*/
+              $data = array('exception' => $e, 'url' => $url);
+
+              Mail::send('shared.emails.errors', $data, function($message) use ($email)
+              {
+                  $message->to($email)->subject('Bordeaux in Box Error');
+              });
+
+            }
+
+        }
 
         parent::report($e);
         
