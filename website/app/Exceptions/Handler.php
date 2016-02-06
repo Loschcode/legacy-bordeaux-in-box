@@ -34,7 +34,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        
+        /*
         if (app()->environment() == 'production')
         {
             $email = 'laurent@bordeauxinbox.com';
@@ -46,6 +46,7 @@ class Handler extends ExceptionHandler
             });
 
         }
+        */
         
 
         parent::report($e);
