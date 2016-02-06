@@ -50,7 +50,13 @@ class ApiController extends BaseController {
 
     if (empty($search)) {
 
-      $customers = Customer::with('profiles')->orderBy($order_column, $order_sort)->skip($start)->take($length)->get();
+      $customers = Customer::with('profiles')
+                           ->orderBy($order_column, $order_sort)
+                           ->skip($start)
+                           ->take($length)
+                           ->orderBy('created_at', 'desc')
+                           ->get();
+
       $total_results_after_filtered = $total_results;
 
     } else {
@@ -61,7 +67,11 @@ class ApiController extends BaseController {
       $query = Customer::research($search);
 
       $total_results_after_filtered = $query->count();
-      $customers = $query->orderBy($order_column, $order_sort)->skip($start)->take($length)->get();
+      $customers = $query->orderBy($order_column, $order_sort)
+                         ->skip($start)
+                         ->take($length)
+                         ->orderBy('created_at', 'desc')
+                         ->get();
 
 
     }
@@ -105,7 +115,9 @@ class ApiController extends BaseController {
       if (isset($column_label[$order_column]))
         $profiles = $profiles->orderBy($column_label[$order_column], $order_sort);
 
-      $profiles = $profiles->select('customer_profiles.*')->get();
+      $profiles = $profiles->select('customer_profiles.*')
+                           ->orderBy('created_at', 'desc')
+                           ->get();
 
       $total_results_after_filtered = $total_results;
 
@@ -121,6 +133,7 @@ class ApiController extends BaseController {
       $profiles = $query->skip($start)
                         ->take($length)
                         ->select('customer_profiles.*')
+                        ->orderBy('created_at', 'desc')
                         ->get();
 
          //dd(\DB::getQueryLog());
