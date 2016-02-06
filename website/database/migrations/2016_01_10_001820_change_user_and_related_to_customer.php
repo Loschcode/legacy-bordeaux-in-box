@@ -19,16 +19,16 @@ class ChangeUserAndRelatedToCustomer extends Migration
         $table->dropForeign('box_answers_box_question_id_foreign');
       });
 
-      Schema::table('box_question_customer_answers', function ($table) {
+      Schema::table('box_question_user_answers', function ($table) {
         $table->dropForeign('user_answers_box_question_id_foreign');
         $table->dropForeign('user_answers_user_profile_id_foreign');
       });
 
-      Schema::table('customer_payment_profiles', function ($table) {
+      Schema::table('user_payment_profiles', function ($table) {
         $table->dropForeign('user_payment_profiles_user_profile_id_foreign');
       });
 
-      Schema::table('customer_profiles', function ($table) {
+      Schema::table('user_profiles', function ($table) {
         $table->dropForeign('user_profiles_user_id_foreign');
       });
 
