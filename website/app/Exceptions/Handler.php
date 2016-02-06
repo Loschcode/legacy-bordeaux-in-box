@@ -38,7 +38,7 @@ class Handler extends ExceptionHandler
         if (app()->environment() == 'production')
         {
             $email = 'laurent@bordeauxinbox.com';
-            $data = array('exception' => $e, 'url' => url(''));
+            $data = array('exception' => $e, 'url' => request()->url());
 
             Mail::send('shared.emails.errors', $data, function($message) use ($email)
             {
@@ -47,7 +47,7 @@ class Handler extends ExceptionHandler
 
         }
         */
-        
+
 
         parent::report($e);
         
