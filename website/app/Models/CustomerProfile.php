@@ -163,8 +163,8 @@ class CustomerProfile extends Model {
     /**
      * If it's an ID
      */
-    if (intVal($search) !== 0)
-      return $query->where('customers.id', $search);
+    if (intval($search) !== 0)
+      return $query->where('customer_profiles.id', $search);
 
     foreach ($search_words as $word) {
 
