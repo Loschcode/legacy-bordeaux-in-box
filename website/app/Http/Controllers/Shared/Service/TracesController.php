@@ -40,6 +40,9 @@ class TracesController extends BaseController {
     elseif (isset($datas['message-id'])) 
       $mailgun_message_id = $datas['message-id'];
 
+    else
+      return response()->make('Trace succeeded.', 200); // No message id, we can't follow up
+
     if ($event === 'delivered') {
 
       // The important variable here
