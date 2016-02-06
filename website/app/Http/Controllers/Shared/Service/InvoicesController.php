@@ -303,13 +303,15 @@ class InvoicesController extends BaseController {
 
     // For the email
     $email_amount = euros($database_amount);
-    if ($this->stripe_transaction['refund']) $email_amount = $email_amount . ' (remboursement)';
+    
+    if ($this->stripe_transaction['refund'])
+      $email_amount = $email_amount . ' (remboursement)';
 
     $data = [
 
-    'first_name' => $customer->first_name,
-    'amount' => $email_amount,
-    'paid' => $payment->paid,
+      'first_name' => $customer->first_name,
+      'amount' => $email_amount,
+      'paid' => $payment->paid,
 
     ];
 

@@ -37,7 +37,7 @@ class Shared_Service_InvoiceControllerTest extends TestCase
 
       ]);
 
-    $this->post('shared/service/invoices', ['webhook' => $this->fakeStripeChargeCallback($customer_payment_profile, $amount_in_cents)]);
+    $this->post('shared/service/invoices/webhook', ['webhook' => $this->fakeStripeChargeCallback($customer_payment_profile, $amount_in_cents)]);
 
     $this->assertResponseOk();
 
