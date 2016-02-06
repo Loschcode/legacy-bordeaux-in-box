@@ -32,4 +32,3 @@ Route::post('traces/emails', array(function() {
   return redirect()->to('/');
 
 }));
-
