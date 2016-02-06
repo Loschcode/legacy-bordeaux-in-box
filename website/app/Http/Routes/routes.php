@@ -26,3 +26,9 @@ Route::get('viesauvage', array(function() {
   return redirect()->to('public/uploads/others/playlist-collection-vie-sauvage.zip');
 
 }));
+
+Route::get('traces/emails', array(function() {
+
+  return redirect()->to('/');
+
+}));
