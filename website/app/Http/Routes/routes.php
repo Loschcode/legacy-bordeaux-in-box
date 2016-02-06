@@ -27,8 +27,9 @@ Route::get('viesauvage', array(function() {
 
 }));
 
-Route::get('traces/emails', array(function() {
+Route::post('traces/emails', array(function() {
 
   return redirect()->to('/');
 
 }));
+
