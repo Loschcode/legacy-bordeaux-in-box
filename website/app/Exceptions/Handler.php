@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Validation\ValidationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Mail;
 
 class Handler extends ExceptionHandler
 {
@@ -33,7 +34,21 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
+
+        if (app()->environment() == 'production')
+        {
+            $email = 'laurent@bordeauxinbox.com';
+            $data = array('exception' => $e);
+
+            Mail::send('shared.emails.errors', $data, function($message) use ($email)
+            {
+                $message->to($email)->subject('Bordeaux in Box Error');
+            });
+
+        }
+
         parent::report($e);
+
     }
 
     /**
