@@ -39,18 +39,9 @@ class InvoicesController extends BaseController {
   protected $stripe_metadata = FALSE;
 
   /**
-   * Callback
-   */
-  public function getTest() {
-
-    exit('Yes.');
-
-  }
-
-  /**
    * Home page
    */
-  public function postIndex()
+  public function postWebhook()
   {
 
     /**
@@ -62,8 +53,10 @@ class InvoicesController extends BaseController {
      * If we don't manage this event we shouldn't go further
      * We end it properly
      */
-    if (!$this->is_handlable_transaction($datas))
+    if (!$this->is_handlable_transaction($datas)) {
+      $this->log_now('Trace event : ' . $datas->id);
       return $this->end_transaction();
+    }
 
     /**
      * Now we setup all stripe variables
