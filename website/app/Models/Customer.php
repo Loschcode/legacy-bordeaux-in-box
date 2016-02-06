@@ -37,7 +37,7 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
    * @var array
    */
  	protected $appends = ['address', 'city', 'zip', 'phone_format', 'role_format', 'turnover', 'full_name'];
-  
+  /*
   public function getAddressAttribute() {
 
     if ($this->coordinate()->first() === NULL)
@@ -63,7 +63,7 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 
     return $this->coordinate()->first()->zip;
 
-  }
+  }*/
 
   /**
    * Create / Update
