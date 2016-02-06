@@ -53,8 +53,10 @@ class InvoicesController extends BaseController {
      * If we don't manage this event we shouldn't go further
      * We end it properly
      */
-    if (!$this->is_handlable_transaction($datas))
+    if (!$this->is_handlable_transaction($datas)) {
+      $this->log_now('Trace : ' . $this->inject_var_dump($datas));
       return $this->end_transaction();
+    }
 
     /**
      * Now we setup all stripe variables
