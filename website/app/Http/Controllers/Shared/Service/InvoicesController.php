@@ -782,7 +782,7 @@ class InvoicesController extends BaseController {
 
           $paid = intval($order->already_paid);
 
-          if ($order->already_paid <= $order->unity_and_fees_price) {
+          if ($order->already_paid < $order->unity_and_fees_price) {
 
             $orders_unpaid_plans++;
 
