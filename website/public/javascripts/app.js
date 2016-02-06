@@ -1600,7 +1600,7 @@ _.mixin({
 
 _.mixin({
   euro: function(number) {
-    return number.toFixed(2) + ' &euro;';
+    return parseFloat(number).toFixed(2) + ' &euro;';
   }
 });
 

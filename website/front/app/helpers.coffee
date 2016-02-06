@@ -54,7 +54,8 @@ _.mixin slash: (string) ->
 ##
 _.mixin euro: (number) ->
 
-  return number.toFixed(2) + ' &euro;'
+  return parseFloat(number).toFixed(2) + ' &euro;'
+
 
 ##
 # Translate the profile status
