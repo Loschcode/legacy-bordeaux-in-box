@@ -201,14 +201,12 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 
     $search_words = explode(' ', $search);
 
-    $query->with('profiles');
-
     /**
      * If it's an ID
      */
 
-    if (intVal($search) !== 0)
-      return $query->where('customers.id', $search);
+    if (intval($search) !== 0)
+      return $query->where('customers.id', $search)->with('profiles');
 
     foreach ($search_words as $word) {
 
@@ -222,7 +220,7 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
       });
     }
 
-    return $query;
+    return $query->with('profiles');
 
   }
 	

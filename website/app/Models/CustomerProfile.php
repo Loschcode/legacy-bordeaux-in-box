@@ -157,14 +157,13 @@ class CustomerProfile extends Model {
 
     $search_words = explode(' ', $search);
 
-    $query->with(['customer', 'orders', 'payments']);
     $query->join('customers', 'customers.id', '=', 'customer_profiles.customer_id');
 
     /**
      * If it's an ID
      */
-    if (intVal($search) !== 0)
-      return $query->where('customers.id', $search);
+    if (intval($search) !== 0)
+      return $query->where('customer_profiles.id', $search)->with(['customer', 'orders', 'payments']);
 
     foreach ($search_words as $word) {
 
@@ -178,7 +177,7 @@ class CustomerProfile extends Model {
       });
     }
 
-    return $query;
+    return $query->with(['customer', 'orders', 'payments']);
 
   }
 

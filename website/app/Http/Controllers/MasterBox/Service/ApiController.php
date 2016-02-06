@@ -64,10 +64,7 @@ class ApiController extends BaseController {
     //
     //\DB::enableQueryLog();
 
-      if (intVal($search) !== 0)
-        $query = Customer::where('customers.id', '=', $search);
-      else
-        $query = Customer::research($search);
+      $query = Customer::research($search);
 
       $total_results_after_filtered = $query->count();
       $customers = $query->orderBy($order_column, $order_sort)
@@ -128,10 +125,8 @@ class ApiController extends BaseController {
     
     //\DB::enableQueryLog();
 
-      if (intVal($search) !== 0)
-        $query = CustomerProfile::where('customer_profiles.id', '=', $search);
-      else
-        $query = CustomerProfile::research($search);
+
+     $query = CustomerProfile::research($search);
 
      if (isset($column_label[$order_column]))
         $query = $query->orderBy($column_label[$order_column], $order_sort);
