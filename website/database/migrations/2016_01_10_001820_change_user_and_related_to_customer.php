@@ -19,7 +19,7 @@ class ChangeUserAndRelatedToCustomer extends Migration
         $table->dropForeign('box_answers_box_question_id_foreign');
       });
 
-      Schema::table('box_question_user_answers', function ($table) {
+      Schema::table('user_answers', function ($table) {
         $table->dropForeign('user_answers_box_question_id_foreign');
         $table->dropForeign('user_answers_user_profile_id_foreign');
       });
