@@ -20,11 +20,6 @@ class ChangeCustomerProfileNotesAdministratorId extends Migration
 
       $notes = CustomerProfileNote::get();
 
-      Schema::table('customer_profile_notes', function ($table) {
-        $table->dropForeign('user_profile_notes_user_id_foreign');
-        $table->dropForeign('user_profile_notes_user_profile_id_foreign');
-      });
-
       foreach ($notes as $note) {
 
         if ($note->customer_id !== NULL) {
