@@ -11,7 +11,7 @@ class OrderDestination extends Model {
 	 */
 	protected $table = 'order_destinations';
   
-  /*public function getAddressAttribute() {
+  public function getAddressAttribute() {
 
     if ($this->coordinate()->first() === NULL)
       return '';
@@ -34,7 +34,7 @@ class OrderDestination extends Model {
 
     return $this->coordinate()->first()->zip;
 
-  }*/
+  }
 
 	/**
 	 * Belongs To

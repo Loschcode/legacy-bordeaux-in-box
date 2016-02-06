@@ -17,7 +17,7 @@ class DeliverySpot extends Model {
       'active' => 'boolean',
   ];
 
-  /*public function getAddressAttribute() {
+  public function getAddressAttribute() {
 
     if ($this->coordinate()->first() === NULL)
       return '';
@@ -42,7 +42,7 @@ class DeliverySpot extends Model {
 
     return $this->coordinate()->first()->zip;
 
-  }*/
+  }
   
 	/**
 	 * Create / Update

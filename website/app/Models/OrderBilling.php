@@ -11,7 +11,7 @@ class OrderBilling extends Model {
 	 */
 	protected $table = 'order_billings';
   
-  /*public function getAddressAttribute() {
+  public function getAddressAttribute() {
 
     if ($this->coordinate()->first() === NULL)
       return '';
@@ -34,7 +34,7 @@ class OrderBilling extends Model {
 
     return $this->coordinate()->first()->zip;
 
-  }*/
+  }
 
 	/**
 	 * Belongs To
