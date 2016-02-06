@@ -93,7 +93,7 @@
             <button id="trigger-payment" class="button button__payment"><i class="fa fa-credit-card"></i> Procéder au paiement sécurisé</button>
           </div>
         </div>
-        <div class="+spacer-small show@xs"></div>
+        <div class="+spacer-small show@xs hide"></div>
         <div class="grid-6 grid-11@xs gr-centered@xs">
           <div class="payment__container">
             <h3 class="payment__title">Facturation</h3>

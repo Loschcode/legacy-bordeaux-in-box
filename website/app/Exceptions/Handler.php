@@ -46,10 +46,10 @@ class Handler extends ExceptionHandler
             });
 
         }
-
-        parent::report($e);
         */
 
+        parent::report($e);
+        
     }
 
     /**
@@ -61,6 +61,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        dd($e);
         return parent::render($request, $e);
     }
 }
