@@ -64,8 +64,8 @@ class ApiController extends BaseController {
     //
     //\DB::enableQueryLog();
 
-      if (intVal($search) !== 0)
-        $query = Customer::where('customers.id', '=', $search);
+      if (intval($search) !== 0)
+        $query = Customer::where('customers.id', '=', $search)->with('profiles');
       else
         $query = Customer::research($search);
 
@@ -128,7 +128,7 @@ class ApiController extends BaseController {
     
     //\DB::enableQueryLog();
 
-      if (intVal($search) !== 0)
+      if (intval($search) !== 0)
         $query = CustomerProfile::where('customer_profiles.id', '=', $search);
       else
         $query = CustomerProfile::research($search);
