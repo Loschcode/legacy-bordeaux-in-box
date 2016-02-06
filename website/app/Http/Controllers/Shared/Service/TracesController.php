@@ -98,7 +98,7 @@ class TracesController extends BaseController {
 
     }
 
-    return Response::make('Trace succeeded.', 200);
+    return response()->make('Trace succeeded.', 200);
 
   }
 
@@ -125,7 +125,7 @@ class TracesController extends BaseController {
 
     mailing_send($profile, 'Fake subject', 'emails.orders.shipped_delivered', $data, NULL);
 
-    return Response::make('Test succeeded.', 200);
+    return response()->make('Test succeeded.', 200);
 
   }
 
