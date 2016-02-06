@@ -303,7 +303,7 @@ class InvoicesController extends BaseController {
 
     // For the email
     $email_amount = euros($database_amount);
-    
+
     if ($this->stripe_transaction['refund'])
       $email_amount = $email_amount . ' (remboursement)';
 
@@ -538,7 +538,10 @@ class InvoicesController extends BaseController {
     if ($original_payment !== NULL) {
 
       foreach ($original_payment->orders()->get() as $order) {
-        $payment->orders()->attach($order->id);
+
+        // If it's not already attached
+        if ($payment->orders()->where($order->id)->first() !== NULL)
+          $payment->orders()->attach($order->id);
       }
 
     }
