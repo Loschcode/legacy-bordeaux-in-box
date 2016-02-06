@@ -49,6 +49,7 @@ class ChangeUserAndRelatedToCustomer extends Migration
       Schema::table('payments', function ($table) {
         $table->dropForeign('payments_user_id_foreign');
         $table->dropForeign('payments_user_profile_id_foreign');
+        $table->dropForeign('payments_order_id_foreign');
       });
       // END OF MOVED
 
@@ -82,8 +83,17 @@ class ChangeUserAndRelatedToCustomer extends Migration
         $table->dropForeign('user_profile_notes_user_profile_id_foreign');
       });
 
-      // END OF MOVED 4
-      
+      // END OF MOVED 4      
+
+      Schema::table('user_order_preferences', function(Blueprint $table)
+      {
+
+        $table->dropForeign('user_order_preferences_user_profile_id_foreign');
+        $table->dropForeign('user_order_preferences_delivery_spot_id_foreign');
+
+      });
+
+      // END OF MOVED 5
       /**
        * Workaround for the ENUM problem (Thank you Laravel 5.2, you suck.)
        */

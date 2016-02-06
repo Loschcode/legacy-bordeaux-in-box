@@ -29,7 +29,7 @@ class RemoveOrderIdFromPaymentsAndLoopIt extends Migration
 
       Schema::table('payments', function($table)
       {
-         $table->dropForeign('payments_order_id_foreign');
+         //$table->dropForeign('payments_order_id_foreign');
          $table->dropColumn('order_id');
       });
 
