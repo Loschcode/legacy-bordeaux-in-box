@@ -39,6 +39,7 @@ class Handler extends ExceptionHandler
             $email = 'laurent@bordeauxinbox.com';
             $url = request()->url();
 
+            // TODO : rendre moins dégueulasse. Laurent 06/02/2016
             if (strpos($url, '/traces/')) {
 
               $data = array('exception' => $e, 'url' => $url);
