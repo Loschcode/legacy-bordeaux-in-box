@@ -20,10 +20,6 @@ class ChangeBlogArticlesAndImageArticlesAdministratorId extends Migration
 
       $blog_articles = BlogArticle::get();
 
-      Schema::table('blog_articles', function ($table) {
-        $table->dropForeign('blog_articles_user_id_foreign');
-      });
-
       foreach ($blog_articles as $blog_article) {
 
         if ($blog_article->customer_id !== NULL) {
@@ -51,10 +47,6 @@ class ChangeBlogArticlesAndImageArticlesAdministratorId extends Migration
       // SAME FOR IMAGE ARTICLES
 
       $image_articles = ImageArticle::get();
-
-      Schema::table('image_articles', function ($table) {
-        $table->dropForeign('image_articles_user_id_foreign');
-      });
 
       foreach ($image_articles as $image_article) {
 

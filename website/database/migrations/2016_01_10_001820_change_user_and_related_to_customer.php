@@ -52,6 +52,38 @@ class ChangeUserAndRelatedToCustomer extends Migration
       });
       // END OF MOVED
 
+      Schema::table('image_articles', function ($table) {
+        $table->dropForeign('image_articles_user_id_foreign');
+      });
+
+      Schema::table('blog_articles', function ($table) {
+        $table->dropForeign('blog_articles_user_id_foreign');
+      });
+
+      // END OF MOVED 2
+      
+      Schema::table('box_questions', function(Blueprint $table)
+      {
+        $table->dropForeign('box_questions_box_id_foreign');
+      });
+      Schema::table('user_profiles', function(Blueprint $table)
+      {
+        $table->dropForeign('user_profiles_box_id_foreign');
+      });
+      Schema::table('orders', function(Blueprint $table)
+      {
+        $table->dropForeign('orders_box_id_foreign');
+      });
+
+      // END OF MOVED 3
+
+      Schema::table('user_profile_notes', function ($table) {
+        $table->dropForeign('user_profile_notes_user_id_foreign');
+        $table->dropForeign('user_profile_notes_user_profile_id_foreign');
+      });
+
+      // END OF MOVED 4
+      
       /**
        * Workaround for the ENUM problem (Thank you Laravel 5.2, you suck.)
        */

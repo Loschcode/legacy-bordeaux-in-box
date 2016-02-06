@@ -16,20 +16,6 @@ class RemoveBoxesWholeSystem extends Migration
     public function up()
     {
 
-
-      Schema::table('box_questions', function(Blueprint $table)
-      {
-        $table->dropForeign('box_questions_box_id_foreign');
-      });
-      Schema::table('customer_profiles', function(Blueprint $table)
-      {
-        $table->dropForeign('user_profiles_box_id_foreign');
-      });
-      Schema::table('orders', function(Blueprint $table)
-      {
-        $table->dropForeign('orders_box_id_foreign');
-      });
-
       Schema::dropIfExists('boxes');
 
       Schema::table('box_questions', function ($table) {
