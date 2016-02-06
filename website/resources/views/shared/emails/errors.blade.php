@@ -8,7 +8,8 @@
 
 			Error found on Bordeaux in Box production website<br /><br />
 
-			{{$exception}}
+      URL : {{$url}}<br />
+			EXCEPTION : {{$exception}}
 			
 		</div>
 	</body>
