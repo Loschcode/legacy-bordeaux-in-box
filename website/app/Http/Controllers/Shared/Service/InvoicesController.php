@@ -151,7 +151,7 @@ class InvoicesController extends BaseController {
      * Now we can check if the amount refunded wasn't total or not, if it's a refund
      */
     
-    if (($this->stripe_transaction['refund']) && ($his->stripe_raw->amount_refunded < $this->stripe_raw->amount)) {
+    if (($this->stripe_transaction['refund']) && ($this->stripe_raw->amount_refunded < $this->stripe_raw->amount)) {
 
       warning_tech_admin('masterbox.emails.admin.partial_refund_order_problem', 'Problème de remboursement partiel d\'une commande', $customer, $customer_profile, NULL, $this->log_store);
 
