@@ -34,7 +34,7 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-        if (app()->environment() == 'production')
+        /*if (app()->environment() == 'production')
         {
             $email = 'laurent@bordeauxinbox.com';
             $data = array('exception' => $e, 'url' => request()->url());
@@ -44,7 +44,7 @@ class Handler extends ExceptionHandler
                 $message->to($email)->subject('Bordeaux in Box Error');
             });
 
-        }
+        }*/
 
         parent::report($e);
         
