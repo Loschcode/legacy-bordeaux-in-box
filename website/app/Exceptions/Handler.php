@@ -41,14 +41,16 @@ class Handler extends ExceptionHandler
 
             // TODO : rendre moins dégueulasse. Laurent 06/02/2016
             if (!strpos($url, '/traces/')) {
+              if (!strpos($e, 'HttpKernel\Exception\NotFoundHttpException')) {
 
-              $data = array('exception' => $e, 'url' => $url);
+                $data = array('exception' => $e, 'url' => $url);
 
-              Mail::send('shared.emails.errors', $data, function($message) use ($email)
-              {
-                  $message->to($email)->subject('Bordeaux in Box Error');
-              });
+                Mail::send('shared.emails.errors', $data, function($message) use ($email)
+                {
+                    $message->to($email)->subject('Bordeaux in Box Error');
+                });
 
+              } 
             }
 
         }
