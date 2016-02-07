@@ -18,8 +18,8 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
 
 	{{-- SASS app --}}
-	<link href="{{ url('stylesheets/vendor.css') }}" rel="stylesheet">
-	<link href="{{ url('stylesheets/masterbox-admin.css') }}" rel="stylesheet">
+	<link href="{{ Html::version('stylesheets/vendor.css') }}" rel="stylesheet">
+	<link href="{{ Html::version('stylesheets/masterbox-admin.css') }}" rel="stylesheet">
 
 	{{-- CoffeeScript App --}}
 	@if ( ! $app->environment('production'))
@@ -31,8 +31,8 @@
 
 	@endif
 
-	<script src="{{ url('javascripts/vendor.js') }}"></script>
-	<script src="{{ url('javascripts/app.js') }}"></script>
+	<script src="{{ Html::version('javascripts/vendor.js') }}"></script>
+	<script src="{{ Html::version('javascripts/app.js') }}"></script>
 	<script>require('initialize');</script>
 
 </head>
