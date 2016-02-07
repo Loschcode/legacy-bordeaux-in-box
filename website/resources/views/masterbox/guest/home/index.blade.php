@@ -6,7 +6,7 @@
 		'no-boxes-title' => 'Désolé',
 		'no-boxes-text' => 'Il ne reste plus aucune box pour ce mois ci !',
 	]) !!}
-@stops
+@stop
 
 @section('content')
 
