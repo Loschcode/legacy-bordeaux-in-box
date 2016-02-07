@@ -120,6 +120,10 @@ BootstrapMasterboxFront = require('bootstrap/masterbox/front');
 
 $('input, textarea').placeholder();
 
+if (_.getEnvironment() === 'production') {
+  console.log = function() {};
+}
+
 switch (_.getApp()) {
   case 'masterbox':
     new BootstrapMasterboxDefault();
