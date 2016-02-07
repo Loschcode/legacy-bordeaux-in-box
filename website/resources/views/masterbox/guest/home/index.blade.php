@@ -215,14 +215,14 @@
 				<div class="grid-1">
 					<div class="seen__picture --blackbox"><img src="{{ url('images/seen/blackbox.png') }}" /></div>
 				</div>
+				<div class="grid-2">
+					<div class="seen__picture --vivre-bordeaux"><img src="{{ url('images/seen/vivre-bordeaux.png') }}" /></div>
+				</div>
 				<div class="grid-1">
-					<div class="seen__picture --france2"><img src="{{ url('images/seen/france3.png') }}" /></div>
+					<div class="seen__picture --france3"><img src="{{ url('images/seen/france3.png') }}" /></div>
 				</div>
 				<div class="grid-2">
 					<div class="seen__picture --objectif-aquitaine"><img src="{{ url('images/seen/objectif-aquitaine.jpg') }}" /></div>
-				</div>
-				<div class="grid-2">
-					<div class="seen__picture --vivre-bordeaux"><img src="{{ url('images/seen/vivre-bordeaux.png') }}" /></div>
 				</div>
 			</div>
 		</div>

@@ -7,6 +7,7 @@
     display: inline-block
     text-align: center
     width: 100%
+    position: relative
 
     img
       max-width: 100%
@@ -32,8 +33,17 @@
     +option(objectif-aquitaine)
       padding-top: 0.4vr
 
+    +option(france3)
+      img
+        position: absolute
+        top: -0.55vr
+        left: 0
+
     +option(vivre-bordeaux)
-      padding-top: 0.4vr
+      padding-top: 0
+
+      img
+        max-width: 45%
 
   +part(line)
     padding-top: 1vr
