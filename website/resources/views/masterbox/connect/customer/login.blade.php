@@ -5,7 +5,7 @@
 <div class="+spacer-small"></div>
 
 <div class="container">
-<div class="grid-6 grid-centered">
+<div class="grid-6 grid-centered grid-11@xs">
 
   <a class="button button__facebook" href="{{ action('MasterBox\Connect\CustomerController@getLoginWithFacebook') }}"><i class="fa fa-facebook-official"></i> Se connecter via Facebook</a>
 

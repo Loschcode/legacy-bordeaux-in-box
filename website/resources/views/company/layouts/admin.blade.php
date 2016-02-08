@@ -15,10 +15,10 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
 
   <!-- Vendor.css -->
-  <link href="{{ url('stylesheets/vendor.css') }}" rel="stylesheet">
+  <link href="{{ Html::version('stylesheets/vendor.css') }}" rel="stylesheet">
 
   <!-- App -->
-  <link href="{{ url('assets/css/admin.css') }}" rel="stylesheet">
+  <link href="{{ Html::version('assets/css/admin.css') }}" rel="stylesheet">
 
 </head>
 

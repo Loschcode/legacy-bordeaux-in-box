@@ -13,6 +13,12 @@ BootstrapMasterboxFront = require 'bootstrap/masterbox/front'
 # Polify placeholders
 $('input, textarea').placeholder()
 
+# Avoid console log if production
+if _.getEnvironment() is 'production'
+
+  console.log = ->
+    return
+
 switch _.getApp()
   when 'masterbox'
     new BootstrapMasterboxDefault()

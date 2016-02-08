@@ -8,7 +8,7 @@
 
   {!! Form::open(['action' => 'MasterBox\Connect\CustomerController@postSubscribe']) !!}
 
-  <div class="grid-6 grid-centered">
+  <div class="grid-6 grid-centered grid-11@xs">
     <a class="button button__facebook" href="{{ action('MasterBox\Connect\CustomerController@getLoginWithFacebook') }}"><i class="fa fa-facebook-official"></i> S'inscrire via Facebook</a>
     
     <div class="divider divider__or">OU</div>
@@ -57,8 +57,6 @@
     <button id="test-subscribe" type="submit" class="button button__submit --panel">M'inscrire</button>
   </div>
   {!! Form::close() !!}
-
-</div>
 
 </div>
 
