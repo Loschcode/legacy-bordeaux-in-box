@@ -67,7 +67,12 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
-    {
+    {   
+        // Hook for php errors such as "undefined variable"
+        if ( ! $this->isHttpException($e)) {
+            return response()->view('errors.500');
+        }
+
         return parent::render($request, $e);
     }
 }
