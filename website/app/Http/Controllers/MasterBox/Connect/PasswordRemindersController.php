@@ -65,9 +65,6 @@ class PasswordRemindersController extends BaseController {
     {
         $this->validate($request, ['email' => 'required|email']);
 
-        $fields = Request::all();
-        $email = $fields['email'];
-
         $response = Password::sendResetLink($request->only('email'), function (Message $message) {
           
             $message->subject($this->getEmailSubject());

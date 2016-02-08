@@ -330,9 +330,12 @@ body,.wrapper{background-color:#f2f6f7}.wrapper h1{color:#58595b}.wrapper h1{}.w
 
                       <div>
                         <div>
+                        
                           @if (isset($email))
+
                             <a href="{{ action('MasterBox\Customer\ProfileController@getUnsubscribeEmails', ['email' => $email]) }}">Se désinscrire de la liste de diffusion</a>
                             <br /><br />
+
                           @endif
 
                           La Petite Box SAS<br />
