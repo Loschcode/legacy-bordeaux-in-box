@@ -69,7 +69,7 @@ class Handler extends ExceptionHandler
     public function render($request, Exception $e)
     {   
         // Hook for php errors such as "undefined variable"
-        if ( ! $this->isHttpException($e)) {
+        if ( ! $this->isHttpException($e) && getenv('APP_DEBUG') != 'true') {
             return response()->view('errors.500');
         }
 

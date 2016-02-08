@@ -44,7 +44,6 @@ class ProfileController extends BaseController {
      */
     public function getIndex()
     {
-
     	$customer = Auth::guard('customer')->user();
     	$profiles = $customer->profiles()->orderBy('created_at', 'desc')->get();
 
