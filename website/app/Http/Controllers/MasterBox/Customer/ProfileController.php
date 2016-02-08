@@ -31,7 +31,7 @@ class ProfileController extends BaseController {
      */
     public function __construct()
     {
-        $this->middleware('is.customer', ['except' => ['getUnsubscribeEmails']]);
+      $this->middleware('is.customer', ['except' => ['getUnsubscribeEmails']]);
     }
 
 	/**
@@ -127,7 +127,6 @@ class ProfileController extends BaseController {
     // Get the orders details from one profile
     public function getOrder($id)
     {
-
     	$customer = Auth::guard('customer')->user();
 
     	// Small protection to be sure it's the correct user
@@ -141,13 +140,20 @@ class ProfileController extends BaseController {
       $payment_profile = $profile->payment_profile()->first();
       $active_menu = 'orders';
 
+      if ($payment_profile === NULL) {
+        $last_digits = '';
+      } else {
+        $last_digits = $payment_profile->last4;
+      }
+
 		  return view('masterbox.customer.profile.order')->with(compact(
         'customer',
         'profile',
         'payment_profile',
         'orders',
         'payments',
-        'active_menu'
+        'active_menu',
+        'last_digits'
       ));
 
 

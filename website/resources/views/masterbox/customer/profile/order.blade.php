@@ -4,10 +4,11 @@
   <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
 @stop
 
+
 @section('gotham')
   {!! Html::gotham([
     'controller' => 'masterbox.customer.profile.order',
-    'card-last-digits' => $payment_profile->last4
+    'card-last-digits' => $last_digits
   ]) !!}
 @stop
 
