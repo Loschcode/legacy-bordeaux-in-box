@@ -527,6 +527,26 @@ class DeliveriesController extends BaseController {
 
   }
 
+  public function getListingOrdersFromSeriesAndSpot($series_id, $spot_id)
+  {
+
+    $series = DeliverySerie::findOrFail($series_id);
+    $spot = DeliverySpot::find($spot_id);
+    
+    // Find orders
+    $orders = Order::notCanceledOrders()->where('delivery_serie_id', $series->id)->where('take_away', true)->where('delivery_spot_id', '=', $spot->id)->get();
+
+    $html = view('masterbox.admin.deliveries.listing_orders_from_series_and_spot')->with(compact(
+      'orders',
+      'series',
+      'spot'
+    ));
+    
+    return generate_pdf($html, null, false, false);
+
+
+  }
+
   /**
    * We make a CSV out of the orders only from the spots
    * @return void
