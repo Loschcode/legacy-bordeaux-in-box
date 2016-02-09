@@ -45,7 +45,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <img src="{{ url('images/500.png') }}" />
+                <img src="{{ url('images/internal-error.png') }}" />
             </div>
         </div>
     </body>
