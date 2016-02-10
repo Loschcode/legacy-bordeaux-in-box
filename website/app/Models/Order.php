@@ -281,14 +281,30 @@ class Order extends Model {
 	public function scopeRegionalOrders($query)
 	{
 
-		return $query->join('order_destinations', 'order_destinations.order_id', '=', 'orders.id')->whereNested(function($query) {
+		return $query->join('order_destinations', 'order_destinations.order_id', '=', 'orders.id')
+                 ->join('coordinates', 'order_destinations.coordinate_id', '=', 'coordinates.id')
+                 ->whereNested(function($query) {
 
-			$query->where('order_destinations.zip', 'LIKE', '33%');
+			$query->where('coordinates.zip', 'LIKE', '33%');
 			$query->orWhere('orders.take_away', '=', true);
 
 		});
 
 	}
+
+  public function scopeRegionalOrdersNotTakeAway($query)
+  {
+
+    return $query->join('order_destinations', 'order_destinations.order_id', '=', 'orders.id')
+                 ->join('coordinates', 'order_destinations.coordinate_id', '=', 'coordinates.id')
+                 ->whereNested(function($query) {
+
+      $query->where('coordinates.zip', 'LIKE', '33%');
+      $query->orWhere('orders.take_away', '=', false);
+
+    });
+
+  }
 
 	public function scopeNotGift($query)
 	{

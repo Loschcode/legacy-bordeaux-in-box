@@ -40,7 +40,7 @@
               <td>{{ $order->customer()->first()->getFullName() }}</td>
               <td>{{ $order->customer()->first()->phone }}</td>
               <td>{{ $order->customer()->first()->email }}</td>
-              <td><a target="_blank" class="button --sm --default" href="{{ action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a></td>
+              <td><a target="_blank" class="button --sm --default" href="{{ action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a></td>
             </tr>
           @endforeach
         </tbody>

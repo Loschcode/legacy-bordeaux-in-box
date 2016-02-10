@@ -50,12 +50,11 @@ class EasyGoController extends BaseController {
     $count_not_take_away = DeliverySerie::nextOpenSeries()->first()->orders()->notCanceledOrders()->where('take_away', false)->count();
 
     // Count orders not in a spot and oustide of 33 zip
-    $count_not_take_away_not_33 = DeliverySerie::nextOpenSeries()->first()->orders()->notCanceledOrders()->join('order_destinations', 'order_destinations.order_id', '=', 'orders.id')->whereNested(function($query) {
-
-      $query->where('order_destinations.zip', 'NOT LIKE', '33%');
-      $query->where('orders.take_away', '=', false);
-
-    })->count();
+    $count_not_take_away_not_33 = DeliverySerie::nextOpenSeries()->first()
+                                               ->orders()
+                                               ->notCanceledOrders()
+                                               ->regionalOrdersNotTakeAway()
+                                               ->count();
 
     // Spots (array with ID of spots for the orders)
     $spots = $this->_fetch_spots($orders);

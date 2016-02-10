@@ -149,7 +149,7 @@
           
           @foreach ($customer->profiles()->get() as $profile)
 
-                <a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $profile->id])}}">
+                <a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $profile->id])}}">
                 
 
                 {!! Html::getReadableProfileStatus($profile->status) !!}

@@ -60,7 +60,7 @@
           </span>
         @endif
 
-        <a target="_blank" class="button --lg --primary" href="{{ action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a>
+        <a target="_blank" class="button --lg --primary" href="{{ action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a>
 
       </div>
 

@@ -140,7 +140,7 @@
 
 								@if ($profile_note->customer_profile()->first() !== NULL)
 
-                    <a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile_note->customer_profile()->first()->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $profile_note->customer_profile()->first()->id])}}">
+                    <a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile_note->customer_profile()->first()->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $profile_note->customer_profile()->first()->id])}}">
                     
 
                     {!! Html::getReadableProfileStatus($profile_note->customer_profile()->first()->status) !!}
@@ -219,7 +219,7 @@
 
 								@if ($email_trace->customer_profile()->first() !== NULL)
 
-                    <a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile_note->customer_profile()->first()->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getEdit', ['id' => $profile_note->customer_profile()->first()->id])}}">
+                    <a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile_note->customer_profile()->first()->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $profile_note->customer_profile()->first()->id])}}">
                     
 
                     {!! Html::getReadableProfileStatus($profile_note->customer_profile()->first()->status) !!}
