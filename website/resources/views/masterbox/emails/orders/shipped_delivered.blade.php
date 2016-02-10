@@ -19,11 +19,11 @@ Box en cours de livraison
 	<br />
 
 	@if (($gift) && ($billing_address))
-		{!! Html::emailLine("<strong>Adresse de facturation</strong>: $billing_address") !!}
+		{!! Html::emailLine("<strong>Adresse de facturation</strong> : $billing_address") !!}
 	@endif
 
 	@if ($destination_address)
-		{!! Html::emailLine("Adresse de livraison: $destination_address") !!}
+		{!! Html::emailLine("<strong>Adresse de livraison</strong> : $destination_address") !!}
 	@endif
 
 @stop

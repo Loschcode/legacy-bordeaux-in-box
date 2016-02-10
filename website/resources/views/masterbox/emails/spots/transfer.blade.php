@@ -13,8 +13,11 @@ Changement de ton point relais
 
   <br />
 
-  {!! Html::emailLine("<strong>Nouveau point relais:</strong> $new_spot_name_and_infos") !!}
-  {!! Html::emailLine("<strong>Horaires:</strong>") !!}
+  {!! Html::emailLine("<strong>Nouveau point relais :</strong> $new_spot_name_and_infos") !!}
+
+  <br />
+  
+  {!! Html::emailLine("<strong>Horaires :</strong>") !!}
   {!! Html::emailLine($new_spot_schedule) !!}
 
   <br />

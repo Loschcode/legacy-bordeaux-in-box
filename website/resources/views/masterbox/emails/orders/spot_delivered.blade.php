@@ -21,7 +21,10 @@ Box en cours de livraison
 
   <br />
 	
-	{!! Html::emailLine('<strong>Horaires:</strong>') !!}
+	{!! Html::emailLine('<strong>Horaires :</strong>') !!}
+
+  <br />
+  
 	{!! Html::emailLine($spot_schedule) !!}
 
  @stop
