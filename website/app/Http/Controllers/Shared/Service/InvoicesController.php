@@ -540,7 +540,7 @@ class InvoicesController extends BaseController {
       foreach ($original_payment->orders()->get() as $order) {
 
         // If it's not already attached
-        if ($payment->orders()->where($order->id)->first() !== NULL)
+        if ($payment->orders()->where('orders.id', '=', $order->id)->first() !== NULL)
           $payment->orders()->attach($order->id);
         
       }
