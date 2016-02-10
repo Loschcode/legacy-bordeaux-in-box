@@ -67,14 +67,7 @@ class DeliveriesController extends BaseController {
   {
 
     $series = DeliverySerie::find($id);
-    //$spots = DeliverySpot::get();
-    //$form_stats = $series->getFormStats();
-    $orders = $series->orders()->get();
-
-    //$config_graph_series_orders = $this->series_orders_graph_config($series);
-
-    //$series_email_listing = get_email_listing_from_orders($series->orders()->notCanceledOrders()->get());
-    //$series_unfinished_email_listing = get_email_listing_from_unfinished_profiles($series);
+    $orders = $series->orders()->notCanceledOrders()->get();
 
     return view('masterbox.admin.deliveries.focus')->with(compact(
       'series',

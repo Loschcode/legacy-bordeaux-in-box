@@ -125,8 +125,6 @@ class EmailManagerController extends BaseController {
 
 			// Now we get the important informations we don't have yet
 			$email = $customer->email;
-			$box = $order->box()->first();
-
 			$gift = $order->gift;
 
 			$data = [
@@ -141,12 +139,10 @@ class EmailManagerController extends BaseController {
 				'spot_name_and_infos' => $spot->emailReadableSpot(),
 				'spot_schedule' => nl2br($spot->schedule), // the schedule might be on a couple of lines
 
-				'box_title' => $box->title
-
 			];
 
 			// Finally we send the email
-			mailing_send($profile, "Ta box vient d'être livrée", 'emails.orders.spot_delivered', $data, NULL);
+			mailing_send($profile, "Ta box vient d'être livrée", 'masterbox.emails.orders.spot_delivered', $data, NULL);
 			$email_counter++;
 
 		}
