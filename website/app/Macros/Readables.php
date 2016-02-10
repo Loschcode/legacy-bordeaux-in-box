@@ -149,21 +149,7 @@ Html::macro('boolYesOrNo', function($bool)
 Html::macro('convertMonth', function($date)
 {
 
-  $timestamp = strtotime($date);
-  $month = date('m', $timestamp);
-
-  if ($month == '1') return 'Janvier';
-  if ($month == '2') return 'Février';
-  if ($month == '3') return 'Mars';
-  if ($month == '4') return 'Avril';
-  if ($month == '5') return 'Mai';
-  if ($month == '6') return 'Juin';
-  if ($month == '7') return 'Juillet';
-  if ($month == '8') return 'Aout';
-  if ($month == '9') return 'Septembre';
-  if ($month == '10') return 'Octobre';
-  if ($month == '11') return 'Novembre';
-  if ($month == '12') return 'Décembre';
+  return convert_month($date);
 
 });
 

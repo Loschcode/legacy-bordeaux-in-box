@@ -6,6 +6,8 @@ Bienvenue !
 
 @section('content')
   {!! Html::emailLine("Bonjour $first_name,") !!}
+
+  <br />
   
   {!! Html::emailLine("Toute l'équipe te souhaite la bienvenue sur <strong>Bordeaux in Box !</strong>") !!}
   

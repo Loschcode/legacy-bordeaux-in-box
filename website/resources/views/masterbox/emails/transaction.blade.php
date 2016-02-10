@@ -6,6 +6,8 @@ Transaction Bancaire
 
 @section('content')
   {!! Html::emailLine("Bonjour $first_name,") !!}
+
+  <br />
   
   @if ($paid)
     {!! Html::emailLine("Une transaction bancaire d'un montant de $amount vient d'être effectuée sur Bordeaux in Box. Pour plus de détails n'hésite pas à cliquer sur le lien en dessous.") !!}
