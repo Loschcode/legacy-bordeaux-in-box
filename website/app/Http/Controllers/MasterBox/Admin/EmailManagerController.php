@@ -72,7 +72,6 @@ class EmailManagerController extends BaseController {
 
 			// Now we get the important informations we don't have yet
 			$email = $customer->email;
-			$box = $order->box()->first();
 
 			$data = [
 
@@ -85,12 +84,10 @@ class EmailManagerController extends BaseController {
 
 				'gift' => $gift,
 
-				'box_title' => $box->title
-
 			];
 
 			// Finally we send the email
-			mailing_send($profile, "Ta box est en cours de livraison", 'emails.orders.shipped_delivered', $data, NULL);
+			mailing_send($profile, "Ta box est en cours de livraison", 'masterbox.emails.orders.shipped_delivered', $data, NULL);
 			$email_counter++;
 
 		}

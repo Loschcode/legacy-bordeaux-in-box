@@ -11,7 +11,7 @@ Box en cours de livraison
   <br />
 
   @if ($gift)
-  	{!! Html::emailLine("Ta box (à offrir) pour la série du <strong>$series_date</strong> est en cours de livraison en ce moment même et ne devrait pas tarder à arriver !") !!}
+  	{!! Html::emailLine("Ta box (à offrir) pour la série du <strong>".series_date($series_date)."</strong> est en cours de livraison en ce moment même et ne devrait pas tarder à arriver !") !!}
   @else
   	{!! Html::emailLine("Ta box pour la série du <strong>".series_date($series_date)."</strong> est en cours de livraison en ce moment même et ne devrait pas tarder à arriver !") !!}
   @endif
