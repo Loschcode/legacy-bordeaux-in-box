@@ -21,12 +21,12 @@ class SlackController extends BaseController {
 
   public function postCommandGeneral()
   {
-    $this->processCommandTrello('general');
+    return $this->processCommandTrello('general');
   }
 
   public function postCommandDev()
   {
-    $this->processCommandTrello('dev');
+    return $this->processCommandTrello('dev');
   }
 
   public function processCommandTrello($type)
