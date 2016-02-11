@@ -29,6 +29,11 @@ Route::group(['namespace' => 'Shared', 'prefix' => "shared"], function() {
      */
     Route::controller('images', 'ImagesController');
 
+    /**
+     * Slack 
+     */
+    Route::controller('slack', 'SlackController');
+    
   });
 
 });
