@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\MasterBox\BaseController;
 use App\Libraries\Trello;
+use Mail;
 
 class SlackController extends BaseController {
 
@@ -31,7 +32,6 @@ class SlackController extends BaseController {
   public function processCommandTrello($type)
   {
 
-    $command = request()->input('command');
     $text = trim(request()->input('text'));
 
     if (empty($text)) {
@@ -100,7 +100,24 @@ class SlackController extends BaseController {
 
   public function postCommandTodoist()
   {
-    return 'en cours de dev';
+    
+    $text = trim(request()->input('text'));
+
+    if (empty($text)) {
+      return 'Erreur: Aucun texte pour la task';
+    }
+
+    $send = Mail::raw('', function($message) use ($text) {
+      $message->to('project.152585713.4929638@todoist.net')
+        ->subject($text . ' @slack');
+    });
+
+    if ($send) {
+      return 'Task ajoutée avec succès';
+    }
+
+    return 'Erreur: Impossible d\'ajouter la task';
+
   }
  
 
