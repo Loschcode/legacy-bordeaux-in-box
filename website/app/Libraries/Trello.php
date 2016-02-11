@@ -46,18 +46,18 @@ class Trello {
     // Fetch board id 
     $board_id = $this->getBoardIdByName($board_name);
 
-    if ($board_id === FALSE) return ['success' => FALSE, 'message' => 'Impossible de trouver la board ' + $board_name];
+    if ($board_id === FALSE) return ['success' => FALSE, 'message' => 'Impossible de trouver la board ' . $board_name];
 
     // Fetch member id 
     $member_id = $this->getMemberIdByName($board_id, $member_name);
 
-    if ($member_id === FALSE) return ['success' => FALSE, 'message' => 'Impossible de trouver le membre ' + $member_name];
+    if ($member_id === FALSE) return ['success' => FALSE, 'message' => 'Impossible de trouver le membre ' . $member_name];
 
 
     // Fetch list id 
     $list_id = $this->getListIdByName($board_id, $list_name);
 
-    if ($list_id === FALSE) return ['success' => FALSE, 'message' => 'Impossible de trouver la liste ' + $list_name + ' dans la board ' + $board_name];
+    if ($list_id === FALSE) return ['success' => FALSE, 'message' => 'Impossible de trouver la liste ' + $list_name + ' dans la board ' . $board_name];
 
     // Add task 
     $request = $this->client->request('POST', 'https://api.trello.com/1/cards/?idList=' . $list_id . '&pos=top&idMembers=' . $member_id . '&name=' . $title . '&' . $this->signature);
