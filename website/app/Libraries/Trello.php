@@ -54,7 +54,7 @@ class Trello {
 
 
     // Add task 
-    $request = $this->client->request('POST', 'https://api.trello.com/1/cards/?idList=' . $list_id . '&pos=bottom&name=' . $title . '&' . $this->signature);
+    $request = $this->client->request('POST', 'https://api.trello.com/1/cards/?idList=' . $list_id . '&pos=top&name=' . $title . '&' . $this->signature);
 
 
     if ($request->getStatusCode() !== 200) return ['success' => FALSE, 'message' => 'Board trouvée, Liste trouvée, mais impossible d\'ajouter la task'];
