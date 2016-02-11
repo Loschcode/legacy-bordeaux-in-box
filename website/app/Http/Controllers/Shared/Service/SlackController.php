@@ -70,7 +70,7 @@ class SlackController extends BaseController {
       break;
 
       case 'snowboarder':
-        $username = 'loshcode';
+        $username = 'loschcode';
       break;
 
       case 'lolo':
