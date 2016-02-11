@@ -16,33 +16,39 @@ class SlackController extends BaseController {
   public function postCommandGeneral()
   {
 
-    return 'en cours de dev';
-
     $command = request()->input('command');
     $text = trim(request()->input('text'));
 
-    /**
-     * Marketing command
-     */
-    if ($command === '/marketing') {
-
-      // Explode params
-      $params = explode(' ', $text);
-
-      // Fetch username
-      $username = $params[0];
-        
-      // Forget username
-      unset($params[0]);
-
-      // Fetch task description
-      $task = implode(' ', $params);
-
-      // Add task
-      $trello = new Trello();
-      $response = $trello->addTask('test', 'List', $task);
-
+    if (empty($text)) {
+      return 'Erreur: Il manque la personne à assigner ainsi que le nom de la task';
     }
+
+    // Explode params
+    $params = explode(' ', $text);
+
+    if (count($params) === 1) {
+      return 'Erreur: Il manque le titre de la task';
+    }
+
+    // Fetch username
+    $username = $params[0];
+        
+    // Forget username
+    unset($params[0]);
+
+    // Fetch task description
+    $task = implode(' ', $params);
+
+    // Add task
+    $trello = new Trello();
+    $response = $trello->addTask('Bordeaux in Box - General', 'To do', $task);
+
+    if ($response['success'] === FALSE) {
+      return 'Erreur: ' . $response['message'];
+    }
+
+    return 'La task à été ajoutée !';
+
   }
 
     public function postCommandDev()
