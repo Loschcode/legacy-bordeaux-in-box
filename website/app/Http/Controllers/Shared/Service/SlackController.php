@@ -5,6 +5,11 @@ use App\Libraries\Trello;
 
 class SlackController extends BaseController {
 
+  private $general_board = 'Bordeaux in Box - General';
+  private $general_list = 'To do';
+  private $dev_board = 'Bordeaux in Box - Dev';
+  private $dev_list = 'To do';
+
   /*
   |--------------------------------------------------------------------------
   | Slack Controller
@@ -13,7 +18,18 @@ class SlackController extends BaseController {
   | Everything about slack commands
   |
   */
+
   public function postCommandGeneral()
+  {
+    $this->processCommandTrello('general');
+  }
+
+  public function postCommandDev()
+  {
+    $this->processCommandTrello('dev');
+  }
+
+  public function processCommandTrello($type)
   {
 
     $command = request()->input('command');
@@ -41,7 +57,7 @@ class SlackController extends BaseController {
 
     // Add task
     $trello = new Trello();
-    $response = $trello->addTask('Bordeaux in Box - General', 'To do', $task);
+    $response = $trello->addTask($this{$type . '_board'}, $this->{$type . '_list'}, $task);
 
     if ($response['success'] === FALSE) {
       return 'Erreur: ' . $response['message'];
@@ -51,15 +67,10 @@ class SlackController extends BaseController {
 
   }
 
-    public function postCommandDev()
-    {
-      return 'en cours de dev';
-    }
-
-    public function postCommandTodoist()
-    {
-      return 'en cours de dev';
-    }
+  public function postCommandTodoist()
+  {
+    return 'en cours de dev';
+  }
  
 
 }
