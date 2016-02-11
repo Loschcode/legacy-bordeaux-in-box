@@ -13,10 +13,10 @@ class SlackController extends BaseController {
   | Everything about slack commands
   |
   */
- 
-
-  public function postAddTask()
+  public function postCommandGeneral()
   {
+
+    return 'en cours de dev';
 
     $command = request()->input('command');
     $text = trim(request()->input('text'));
@@ -43,6 +43,18 @@ class SlackController extends BaseController {
       $response = $trello->addTask('test', 'List', $task);
 
     }
+
+    public function postCommandDev()
+    {
+      return 'en cours de dev';
+    }
+
+    public function postCommandTodoist()
+    {
+      return 'en cours de dev';
+    }
+
+
 
   }
 
