@@ -865,6 +865,17 @@ class PurchaseController extends BaseController {
 
     ];
 
+    /**
+     * Small protection, if it doesn't exist we remove the building itself
+     */
+    if (!isset($methods_from_step[$order_building->step])) {
+
+      $order_building->delete();
+      return action("MasterBox\Customer\PurchaseController@getIndex");
+
+
+    }
+
     // Let's redirect depending on the step
     return action("MasterBox\Customer\PurchaseController@".$methods_from_step[$order_building->step]);
 
