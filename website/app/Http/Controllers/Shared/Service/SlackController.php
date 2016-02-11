@@ -84,7 +84,7 @@ class SlackController extends BaseController {
 
     // Add task
     $trello = new Trello();
-    $response = $trello->addTask($this->{$type . '_board'}, $this->{$type . '_list'}, $task);
+    $response = $trello->addTask($this->{$type . '_board'}, $this->{$type . '_list'}, $task, $username);
 
     if ($response['success'] === FALSE) {
       return 'Erreur: ' . $response['message'];

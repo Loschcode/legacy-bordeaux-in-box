@@ -41,7 +41,7 @@ class Trello {
    * @param string $member_name      The member to assign
    * @return array The response
    */
-  public function addTask($board_name, $list_name, $title, $member_name='')
+  public function addTask($board_name, $list_name, $title, $member_name)
   {
     // Fetch board id 
     $board_id = $this->getBoardIdByName($board_name);
