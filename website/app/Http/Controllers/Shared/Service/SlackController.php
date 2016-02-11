@@ -18,7 +18,6 @@ class SlackController extends BaseController {
   | Everything about slack commands
   |
   */
-
   public function postCommandGeneral()
   {
     return $this->processCommandTrello('general');
@@ -54,6 +53,34 @@ class SlackController extends BaseController {
 
     // Fetch task description
     $task = implode(' ', $params);
+
+    // Find right username
+    // Can be better to put that in an array.
+    switch($username) {
+      case 'jeremie':
+        $username = 'jeremieges';
+      break;
+
+      case 'jérémie':
+        $username = 'jeremieges';
+      break;
+
+      case 'laurent':
+        $username = 'loschcode';
+      break;
+
+      case 'lolo':
+        $username = 'loschcode';
+      break; 
+
+      case 'ges':
+        $username = 'jeremieges';
+      break;
+
+      default:
+        return 'Impossible de trouver le membre (' . $username . ')';
+      break;
+    }
 
     // Add task
     $trello = new Trello();
