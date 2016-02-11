@@ -17,8 +17,8 @@ class SlackController extends BaseController {
 
   public function postAddTask()
   {
-    return 'ok c\'est un test';
-    
+    dd(request()->all());
+
     $trello = new Trello();
 
     $trello->addTask('test', 'List', 'Je suis enorme putain', 'Superbe description');
