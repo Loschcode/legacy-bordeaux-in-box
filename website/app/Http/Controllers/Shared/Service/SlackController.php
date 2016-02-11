@@ -43,6 +43,7 @@ class SlackController extends BaseController {
       $response = $trello->addTask('test', 'List', $task);
 
     }
+  }
 
     public function postCommandDev()
     {
@@ -53,12 +54,6 @@ class SlackController extends BaseController {
     {
       return 'en cours de dev';
     }
-
-
-
-  }
-
-
  
 
 }
