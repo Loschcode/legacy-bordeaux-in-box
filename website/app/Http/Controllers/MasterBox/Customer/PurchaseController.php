@@ -532,6 +532,14 @@ class PurchaseController extends BaseController {
     $order_preference = $order_building->order_preference()->first();
     $delivery_spot = $order_preference->delivery_spot()->first(); // May be NULL
 
+    /**
+     * Small protection to avoid steps bugs
+     */
+    if ($order_preference->step !== 'payment') {
+      $redirect = $this->guessStepFromUser();
+      return redirect($redirect);
+    }
+
     return view('masterbox.customer.order.payment')->with(compact(
       'customer',
       'order_building',
@@ -562,6 +570,15 @@ class PurchaseController extends BaseController {
       $customer = Auth::guard('customer')->user();
       $order_building = $customer->order_buildings()->getCurrent()->first();
       $profile = $order_building->profile()->first();
+      $order_preference = $order_building->order_preference()->first();
+
+      /**
+       * Small protection to avoid steps bugs
+       */
+      if ($order_preference->step !== 'payment') {
+        $redirect = $this->guessStepFromUser();
+        return redirect($redirect);
+      }
 
       /**
        * Stripe process system
@@ -794,6 +811,15 @@ class PurchaseController extends BaseController {
     $customer = Auth::guard('customer')->user();
 
     $order_building = $customer->order_buildings()->getLastPaid()->first();
+
+    // So we never paid
+    if ($order_building === NULL) {
+
+      $redirect = $this->guessStepFromUser();
+      return redirect($redirect);
+
+    }
+
     $order_preference = $order_building->order_preference()->first();
     $profile = $order_building->profile()->first();
 
