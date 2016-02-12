@@ -32,7 +32,7 @@ class PurchaseBoxFlowTest extends TestCase
   {
     $this->pickGift()
       ->seePageIs('customer/purchase/choose-frequency')
-      ->pickFrequency(0)
+      ->pickFrequency(1, TRUE)
       ->seePageIs('connect/customer/subscribe')
       ->subscribe(['email' => 'jeremieges@test.com'])
       ->seePageIs('customer/purchase/billing-address')
@@ -44,7 +44,7 @@ class PurchaseBoxFlowTest extends TestCase
   {
     $this->pickClassic()
       ->seePageIs('customer/purchase/choose-frequency')
-      ->pickFrequency(0)
+      ->pickFrequency(0, FALSE)
       ->seePageIs('connect/customer/subscribe')
       ->subscribe(['email' => 'jeremieges@test.com'])
       ->seePageIs('customer/purchase/billing-address')
@@ -56,7 +56,7 @@ class PurchaseBoxFlowTest extends TestCase
   {
     $this->pickGift()
         ->seePageIs('customer/purchase/choose-frequency')
-        ->pickFrequency(5)
+        ->pickFrequency(5, TRUE)
       ->subscribe(['email' => 'jeremieges@test.com'])
       ->seePageIs('customer/purchase/billing-address');
     
@@ -73,7 +73,7 @@ class PurchaseBoxFlowTest extends TestCase
   public function pick_3_months_frequency_for_a_gift()
   {
     $this->pickGift()
-      ->pickFrequency(3)
+      ->pickFrequency(3, TRUE)
       ->subscribe(['email' => 'jeremieges@test.com'])
       ->seePageIs('customer/purchase/billing-address');
     
@@ -90,7 +90,7 @@ class PurchaseBoxFlowTest extends TestCase
   public function pick_1_month_frequency_for_a_gift()
   {
     $this->pickGift()
-      ->pickFrequency(1)
+      ->pickFrequency(1, TRUE)
       ->subscribe(['email' => 'jeremieges@test.com'])
       ->seePageIs('customer/purchase/billing-address');
     
@@ -107,7 +107,7 @@ class PurchaseBoxFlowTest extends TestCase
   public function pick_1_month_frequency_for_a_classic_box()
   {
     $this->pickClassic()
-      ->pickFrequency(1)
+      ->pickFrequency(1, FALSE)
       ->subscribe(['email' => 'jeremieges@test.com'])
       ->seePageIs('customer/purchase/billing-address');
     
@@ -123,7 +123,7 @@ class PurchaseBoxFlowTest extends TestCase
   public function pick_unlimited_months_frequency_for_a_classic_box()
   {
     $this->pickClassic()
-      ->pickFrequency(0)
+      ->pickFrequency(0, FALSE)
       ->subscribe(['email' => 'jeremieges@test.com'])
       ->seePageIs('customer/purchase/billing-address');
     
@@ -402,7 +402,7 @@ class PurchaseBoxFlowTest extends TestCase
    */
   private function pickFrequencyGift()
   {
-    $this->pickFrequency(6);
+    $this->pickFrequency(5, TRUE);
 
     return $this;
   }
@@ -413,7 +413,7 @@ class PurchaseBoxFlowTest extends TestCase
    */
   private function pickFrequencyClassic()
   {
-    $this->pickFrequency(3);
+    $this->pickFrequency(3, FALSE);
 
     return $this;
   }
@@ -423,10 +423,10 @@ class PurchaseBoxFlowTest extends TestCase
    * @param  int $id Frequency id wanted
    * @return self
    */
-  private function pickFrequency($frequency)
+  private function pickFrequency($frequency, $gift)
   {
     $this->visit('customer/purchase/choose-frequency');
-    $this->fillFormFrequencyAndSubmit(['delivery_price' => \App\Models\DeliveryPrice::where('frequency', '=', $frequency)->first()->id]);
+    $this->fillFormFrequencyAndSubmit(['delivery_price' => \App\Models\DeliveryPrice::where('frequency', '=', $frequency)->where('gift', '=', $gift)->first()->id]);
 
     return $this;
   }

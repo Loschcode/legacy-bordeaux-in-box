@@ -129,6 +129,15 @@ class PurchaseController extends BaseController {
 
       $customer = Auth::guard('customer')->user();
       $order_building = $customer->order_buildings()->getCurrent()->first();
+
+      if ($order_building === NULL) {
+
+        // Then we redirect
+        $redirect = $this->guessStepFromUser();
+        return redirect($redirect);
+
+      }
+
       $order_preference = $order_building->order_preference()->first();
 
       if ($order_preference->gift)
