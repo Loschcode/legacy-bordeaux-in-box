@@ -127,12 +127,14 @@ class ProfilesController extends BaseController {
 
       $order_max = $customer_order_preference->frequency; // we re-calibrate the number of orders depending on the new offer
 
+        session()->flash('error', "Fucking problème : " . $order_max);
+        \DB::rollback();
+        return redirect()->back();
+        
       if ($order_max === 0) {
 
         $order_max = Config::get('bdxnbx.infinite_plan_orders');
-        session()->flash('error', "Fucking problème");
-        \DB::rollback();
-        
+
       }
 
       /**
