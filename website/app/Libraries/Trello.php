@@ -43,6 +43,10 @@ class Trello {
    */
   public function addTask($board_name, $list_name, $title, $member_name)
   {
+
+    // Security format title (we send the title via url)
+    $title = urlencode($title);
+  
     // Fetch board id 
     $board_id = $this->getBoardIdByName($board_name);
 
