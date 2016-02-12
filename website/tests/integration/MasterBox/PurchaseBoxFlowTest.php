@@ -413,7 +413,7 @@ class PurchaseBoxFlowTest extends TestCase
    */
   private function pickFrequencyClassic()
   {
-    $this->pickFrequency(3, FALSE);
+    $this->pickFrequency(1, FALSE);
 
     return $this;
   }

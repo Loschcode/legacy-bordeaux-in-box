@@ -80,7 +80,7 @@
   
 </body>
 
-@if (is_someone_online_slack())
+@if (app()->environment() !== 'testing') && (is_someone_online_slack())
 
   {{-- Support --}}
   <script src="https://cdn.smooch.io/smooch.min.js"></script>
