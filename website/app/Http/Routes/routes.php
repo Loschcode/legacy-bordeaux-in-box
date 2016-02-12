@@ -33,7 +33,7 @@ Route::post('traces/emails', array(function() {
 
 }));
 
-Routes::get('test', array(function() {
+Route::get('test', array(function() {
 
   dd(Config::get('bdxnbx.infinite_plan_orders'));
 
