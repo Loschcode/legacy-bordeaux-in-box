@@ -1839,5 +1839,8 @@ textarea {
   border-color: #be264d !important;
   color: white !important; }
 
+#sk-holder #sk-container #sk-conversation .sk-logo {
+  display: none !important; }
+
 
 /*# sourceMappingURL=masterbox.css.map*/

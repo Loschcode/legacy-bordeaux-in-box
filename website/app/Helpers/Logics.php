@@ -1,5 +1,18 @@
 <?php
 
+function is_someone_online_slack()
+{
+
+  return Cache::remember('is_someone_online_slack', 5, function() {
+
+    $slack = new App\Libraries\Slack;
+
+    return $slack->isSomeoneOnline();
+
+  });
+
+}
+
 function prepare_log_metadata() {
 
   $metadata = [];
