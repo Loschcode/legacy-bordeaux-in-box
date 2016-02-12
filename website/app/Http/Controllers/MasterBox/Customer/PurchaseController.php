@@ -535,7 +535,7 @@ class PurchaseController extends BaseController {
     /**
      * Small protection to avoid steps bugs
      */
-    if ($order_preference->step !== 'payment') {
+    if ($order_building->step !== 'payment') {
       $redirect = $this->guessStepFromUser();
       return redirect($redirect);
     }
@@ -575,7 +575,7 @@ class PurchaseController extends BaseController {
       /**
        * Small protection to avoid steps bugs
        */
-      if ($order_preference->step !== 'payment') {
+      if ($order_building->step !== 'payment') {
         $redirect = $this->guessStepFromUser();
         return redirect($redirect);
       }
