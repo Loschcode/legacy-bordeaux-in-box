@@ -1,46 +1,45 @@
 @extends('masterbox.layouts.master')
 
+@section('gotham')
+  
+  {!! Html::gotham([
+    'controller' => 'masterbox.guest.home.spots'
+  ]) !!}
+
+@stop
+
 @section('content')
   
-  <div id="js-page-spot"></div>
-
-  <div class="block-description text-center">
-    <div class="container">
-      <div class="col-md-8 col-md-offset-2">
-        <h1 class="title-step">Nos point relais partenaires</h1>
-        <p>
-          Besoin d'informations sur les points relais ? Envie de remettre tes boxes vides car elles prennent de la place ? Voici la liste de nos points relais partenaires ...
-        </p>
+  <div class="grid-8 grid-centered grid-11@xs">
+    <div class="section section__wrapper">
+      <h1 class="section__title --page">Nos points relais partenaires</h1>
+      <div class="section__description">
+            Besoin d'informations sur les points relais ? Envie de remettre tes boxes vides car elles prennent de la place ? Voici la liste de nos points relais partenaires ...
       </div>
     </div>
   </div>
-
-  <div class="clearfix"></div>
-  <div class="spacer50"></div>
+  
+  <div class="+spacer-small"></div>
 
   <div class="container">
 
-    {!! Form::open(['class' => 'form-component']) !!}
+    <div class="grid-7 grid-centered grid-11@xs">
+      @foreach ($delivery_spots as $delivery_spot)
 
-    @foreach ($delivery_spots as $delivery_spot)
+      <div class="labelauty-choose-spot">
 
-      <div class="col-md-6 col-md-offset-3" id="spot-{{ $delivery_spot->id }}">
+          {!! Form::radio('chosen_spot', $delivery_spot->id, '', ['id' => $delivery_spot->id, 'data-labelauty' => Html::getTextCheckboxSpot($delivery_spot)]) !!}
+          
+          <div class="+spacer-extra-small"></div>
 
-        {!! Form::label($delivery_spot->id, $delivery_spot->readableSpot(), ['class' => 'hidden']) !!}
-        {!! Form::radio('chosen_spot', $delivery_spot->id, false, array('id' => $delivery_spot->id, 'class' => 'choose-spot')) !!}
-
-        <div id="{{ 'gm-' . $delivery_spot->id }}" class="google-maps hidden">
-          <a target="_blank" href="{{ gmap_link_guest($delivery_spot->getFullAddress()) }}" class="spyro-btn spyro-btn-inverse spyro-btn-lg spyro-btn-block"><i class="fa fa-google"></i> Voir sur Google Maps</a>
-        </div>
+          <a id="gmap-{{ $delivery_spot->id }}" href="{{ gmap_link_simple($delivery_spot->getFullAddress()) }}" target="_blank" class="button button__google-map +hidden">Voir sur Google map</a>
 
       </div>
+      
 
-    @endforeach
+      @endforeach
+    </div>
 
-    <div class="clearfix"></div>
-    {!! Form::close() !!}
   </div>
-
-  <div class="spacer50"></div>
 
 @stop

@@ -1463,6 +1463,42 @@ Index = (function(superClass) {
 module.exports = Index;
 });
 
+;require.register("controllers/masterbox/guest/home/spots", function(exports, require, module) {
+var Controller, Spots,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Spots = (function(superClass) {
+  extend(Spots, superClass);
+
+  function Spots() {
+    return Spots.__super__.constructor.apply(this, arguments);
+  }
+
+  Spots.prototype.before = function() {};
+
+  Spots.prototype.run = function() {
+    return this.on('click', 'label', this.displayGoogleMap);
+  };
+
+  Spots.prototype.displayGoogleMap = function() {
+    var id;
+    $('[id^=gmap]').addClass('+hidden');
+    id = $(this).attr('for');
+    if ($('#gmap-' + id).hasClass('+hidden')) {
+      return $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn();
+    }
+  };
+
+  return Spots;
+
+})(Controller);
+
+module.exports = Spots;
+});
+
 ;require.register("core/bootstrap", function(exports, require, module) {
 var Bootstrap;
 
