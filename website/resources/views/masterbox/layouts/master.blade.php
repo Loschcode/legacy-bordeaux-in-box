@@ -77,8 +77,43 @@
   @section('footer')
   @include('masterbox.partials.footer')
   @show
-
+  
 </body>
+
+{{-- Support --}}
+<script src="https://cdn.smooch.io/smooch.min.js"></script>
+
+@if (Auth::guard('customer')->check())
+  <script>
+  Smooch.init({
+    appToken: '3lcdwxsxss1gvpzcel9yhunam',
+    givenName: '{{ Auth::guard('customer')->user()->full_name }}',
+    email: '{{ Auth::guard('customer')->user()->email }}',
+    customText: {
+      headerText: 'Besoin d\'aide ?',
+      inputPlaceholder: 'Écris ton message',
+      sendButtonText: 'Envoyer',
+      introText: '',
+      settingsText: ''
+    }
+  });
+  </script>
+@else
+
+<script>
+Smooch.init({
+  appToken: '3lcdwxsxss1gvpzcel9yhunam',
+  customText: {
+    headerText: 'Besoin d\'aide ?',
+    inputPlaceholder: 'Écris ton message',
+    sendButtonText: 'Envoyer',
+    introText: '',
+    settingsText: ''
+  }
+});
+</script>
+
+@endif
 
 {{-- Facebook Conversion Code for Impressions --}}
 @include('masterbox.partials.facebook_conversions')
