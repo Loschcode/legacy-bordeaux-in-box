@@ -32,3 +32,9 @@ Route::post('traces/emails', array(function() {
   return redirect()->to('/');
 
 }));
+
+Routes::get('test', array(function() {
+
+  dd(Config::get('bdxnbx.infinite_plan_orders'));
+
+}));
