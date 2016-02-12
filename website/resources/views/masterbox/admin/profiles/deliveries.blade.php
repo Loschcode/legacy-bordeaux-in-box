@@ -63,7 +63,15 @@
       </th>
       <th>
         @if ($order->take_away)
-        Point relais ({{$order->delivery_spot()->first()->name}})
+        Point relais (
+
+        @if ($order->delivery_spot()->first() !== NULL)
+        {{$order->delivery_spot()->first()->name}}
+        @else
+        Inconnu
+        @endif
+
+        )
         @else
         @if ($order->destination()->first() == NULL)
         En livraison (destination inconnue)
@@ -204,6 +212,7 @@
     <div class="panel__content">
       
       <div class="labelauty-default-small">
+
         @if ($order_delivery_spot != NULL)
 
         {!! Form::open(['action' => 'MasterBox\Admin\ProfilesController@postEditSpot']) !!}
@@ -228,7 +237,24 @@
 
 
         @else
-          Aucun détails
+          
+          <strong>Aucun point relais n'est encore défini.</strong><br />
+
+          {!! Form::open(['action' => 'MasterBox\Admin\ProfilesController@postEditSpot']) !!}
+        
+          @foreach ($delivery_spots as $delivery_spot)
+
+            {!! Form::hidden('customer_profile_id', $profile->id) !!}
+
+                {!! Form::radio('selected_spot', $delivery_spot->id, false, ['id' => $delivery_spot->id, 'data-labelauty' => $delivery_spot->name]) !!}
+
+
+          @endforeach
+
+          {!! Form::submit("Valider", ['class' => 'button button__default']) !!}
+  
+          {!! Form::close() !!}
+
         @endif
       </div>
     </div>
