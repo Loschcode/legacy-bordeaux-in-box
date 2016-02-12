@@ -17,6 +17,11 @@ class HomeController extends BaseController {
   | Home page system
   |
   */
+ 
+ public function getTest()
+ {
+  dd(Config::get('bdxnbx.infinite_plan_orders'));
+ }
 
   /**
    * Home page
