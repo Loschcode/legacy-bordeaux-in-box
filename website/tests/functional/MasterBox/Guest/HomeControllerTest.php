@@ -45,11 +45,11 @@ class MasterBox_Guest_HomeControllerTest extends TestCase
     $this->visit('/')
       ->seePageIs('/');
 
-    $this->click('L\'offrir')->seePageIs('connect/customer/subscribe');
+    $this->click('L\'offrir')->seePageIs('connect/customer/choose-frequency');
 
     $this->visit('/');
 
-    $this->click('La recevoir')->seePageIs('connect/customer/subscribe');
+    $this->click('La recevoir')->seePageIs('connect/customer/choose-frequency');
 
   }
 

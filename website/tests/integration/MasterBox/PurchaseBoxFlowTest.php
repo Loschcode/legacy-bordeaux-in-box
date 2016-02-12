@@ -31,9 +31,11 @@ class PurchaseBoxFlowTest extends TestCase
   public function pick_gift_and_subscribe()
   {
     $this->pickGift()
+      ->seePageIs('customer/purchase/choose-frequency')
+      ->pickFrequency(6)
       ->seePageIs('connect/customer/subscribe')
       ->subscribe(['email' => 'jeremieges@test.com'])
-      ->seePageIs('customer/purchase/choose-frequency')
+      ->seePageIs('customer/purchase/billing-address')
       ->seeInDatabase('customers', ['email' => 'jeremieges@test.com']);
   }
 
@@ -41,9 +43,11 @@ class PurchaseBoxFlowTest extends TestCase
   public function pick_classic_and_subscribe()
   {
     $this->pickClassic()
+      ->seePageIs('customer/purchase/choose-frequency')
+      ->pickFrequency(6)
       ->seePageIs('connect/customer/subscribe')
       ->subscribe(['email' => 'jeremieges@test.com'])
-      ->seePageIs('customer/purchase/choose-frequency')
+      ->seePageIs('customer/purchase/billing-address')
       ->seeInDatabase('customers', ['email' => 'jeremieges@test.com']);
   }
 
@@ -51,8 +55,9 @@ class PurchaseBoxFlowTest extends TestCase
   public function pick_5_months_frequency_for_a_gift()
   {
     $this->pickGift()
+        ->seePageIs('customer/purchase/choose-frequency')
+        ->pickFrequency(6)
       ->subscribe(['email' => 'jeremieges@test.com'])
-      ->pickFrequency(6) // id 6 = 5 months
       ->seePageIs('customer/purchase/billing-address');
     
     // Fetch customer created
@@ -68,8 +73,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function pick_3_months_frequency_for_a_gift()
   {
     $this->pickGift()
-      ->subscribe(['email' => 'jeremieges@test.com'])
       ->pickFrequency(5) // id 5 = 3 months
+      ->subscribe(['email' => 'jeremieges@test.com'])
       ->seePageIs('customer/purchase/billing-address');
     
     // Fetch customer created
@@ -85,8 +90,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function pick_1_month_frequency_for_a_gift()
   {
     $this->pickGift()
-      ->subscribe(['email' => 'jeremieges@test.com'])
       ->pickFrequency(4) // id 4 = 1 month
+      ->subscribe(['email' => 'jeremieges@test.com'])
       ->seePageIs('customer/purchase/billing-address');
     
     // Fetch customer created
@@ -102,8 +107,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function pick_1_month_frequency_for_a_classic_box()
   {
     $this->pickClassic()
-      ->subscribe(['email' => 'jeremieges@test.com'])
       ->pickFrequency(7) // id 7 = 1 month
+      ->subscribe(['email' => 'jeremieges@test.com'])
       ->seePageIs('customer/purchase/billing-address');
     
     // Fetch customer created
@@ -118,8 +123,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function pick_unlimited_months_frequency_for_a_classic_box()
   {
     $this->pickClassic()
-      ->subscribe(['email' => 'jeremieges@test.com'])
       ->pickFrequency(3) // id 3 = unlimited
+      ->subscribe(['email' => 'jeremieges@test.com'])
       ->seePageIs('customer/purchase/billing-address');
     
     // Fetch customer created
@@ -134,8 +139,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function populate_firstname_lastname_destination_when_classic()
   {
     $this->pickClassic()
-      ->subscribe(['first_name' => 'jeremie', 'last_name' => 'ges'])
-      ->pickFrequencyClassic();
+      ->pickFrequencyClassic()
+      ->subscribe(['first_name' => 'jeremie', 'last_name' => 'ges']);
 
     $this->seeInField('destination_first_name', 'jeremie');
     $this->seeInField('destination_last_name', 'ges');
@@ -145,8 +150,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function must_not_display_delivery_mode_if_not_regional_when_classic()
   {
     $this->pickClassic()
-      ->subscribe()
       ->pickFrequencyClassic()
+      ->subscribe()
       ->fillFormDestinationBillingAndSubmit([
         'destination_zip' => '95000'
       ])
@@ -158,8 +163,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function must_not_display_delivery_mode_if_not_regional_when_gift()
   {
     $this->pickGift()
-      ->subscribe()
       ->pickFrequencyGift()
+      ->subscribe()
       ->fillFormDestinationBillingAndSubmit([
         'destination_zip' => '95000'
       ])
@@ -170,8 +175,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function must_display_delivery_mode_if_regional_when_classic()
   {
     $this->pickClassic()
-      ->subscribe()
       ->pickFrequencyClassic()
+      ->subscribe()
       ->fillFormDestinationBillingAndSubmit([
         'destination_zip' => '33470'
       ])
@@ -182,8 +187,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function must_display_delivery_mode_if_regional_when_gift()
   {
     $this->pickGift()
-      ->subscribe()
       ->pickFrequencyGift()
+      ->subscribe()
       ->fillFormDestinationBillingAndSubmit([
         'destination_zip' => '33470'
       ])
@@ -194,8 +199,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function can_pay_when_gift()
   {
     $this->pickGift()
-      ->subscribe(['email' => 'jeremieges@test.com'])
       ->pickFrequencyGift()
+      ->subscribe(['email' => 'jeremieges@test.com'])
       ->fillFormDestinationBillingAndSubmit([
         'destination_zip' => '95000'
       ])
@@ -219,8 +224,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function can_pay_when_classic()
   {
     $this->pickClassic()
-      ->subscribe(['email' => 'jeremieges@test.com'])
       ->pickFrequencyClassic()
+      ->subscribe(['email' => 'jeremieges@test.com'])
       ->fillFormDestinationBillingAndSubmit([
         'destination_zip' => '95000'
       ])
@@ -244,8 +249,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function display_success_page_after_payment_without_customization()
   {
     $this->pickClassic()
-      ->subscribe()
       ->pickFrequencyClassic()
+      ->subscribe()
       ->fillFormDestinationBillingAndSubmit()
       ->pay()
       ->pickNoCustomization()
@@ -256,8 +261,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function should_be_possible_to_pick_a_spot_when_regional()
   {
     $this->pickClassic()
+     ->pickFrequencyClassic()
       ->subscribe()
-      ->pickFrequencyClassic()
       ->fillFormDestinationBillingAndSubmit([
         'destination_zip' => '33000'
       ])
@@ -270,8 +275,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function should_not_be_possible_to_pick_a_spot_when_not_regional()
   {
     $this->pickClassic()
-      ->subscribe()
       ->pickFrequencyClassic()
+      ->subscribe()
       ->fillFormDestinationBillingAndSubmit([
         'destination_zip' => '95000'
       ])
@@ -282,8 +287,8 @@ class PurchaseBoxFlowTest extends TestCase
   public function should_be_possible_to_go_back_to_current_step_when_i_browse_outside_of_the_pipeline()
   {
     $this->pickClassic()
-      ->subscribe()
       ->pickFrequencyClassic()
+      ->subscribe()
       ->visit('/')
       ->pickClassic()
       ->seePageIs('customer/purchase/billing-address');

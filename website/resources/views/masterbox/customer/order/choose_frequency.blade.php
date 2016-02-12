@@ -19,11 +19,13 @@
     <div class="section">
       <h2 class="section__title --choose-frequency">Fréquence de livraison</h2>
       <p id="section" class="section__description --choose-frequency">
-        @if ($order_preference->isGift())
+
+        @if ($is_gift)
           Envie de faire plaisir sur la durée ?
         @else
           Envie de recevoir une jolie box chaque mois ? Ou juste faire un test ?
         @endif
+        
       </p>
     </div>
   </div>
@@ -33,20 +35,43 @@
   {{-- Choices --}}
   <div class="grid-7 grid-centered grid-11@xs">
     {!! Form::open() !!}
-      @if ($order_preference->isGift())
+      @if ($is_gift)
   
         @foreach ($delivery_prices as $key => $delivery_price)
+
           <div class="{{ $delivery_price->getLabelautyFocusClass() }}">
-            {!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencyGiftText()]) !!}
+
+            @if ($order_preference === NULL)
+
+              {!! Form::radio('delivery_price', $delivery_price->id, Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencyGiftText()]) !!}
+
+            @else
+
+              {!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencyGiftText()]) !!}
+
+            @endif
+
+
           </div>
           <div class="+spacer-extra-small"></div>
+
         @endforeach
 
       @else
 
         @foreach ($delivery_prices as $key => $delivery_price)
           <div class="{{ $delivery_price->getLabelautyFocusClass() }}">
-            {!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencySubscriptionText()]) !!}
+
+            @if ($order_preference === NULL)
+
+              {!! Form::radio('delivery_price', $delivery_price->id, Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencySubscriptionText()]) !!}
+
+            @else
+
+              {!! Form::radio('delivery_price', $delivery_price->id, ($order_preference->frequency == $delivery_price->frequency) ? true : Request::old($delivery_price->id), ['id' => $delivery_price->id, 'data-labelauty' => $delivery_price->getCheckboxFrequencySubscriptionText()]) !!}
+
+            @endif
+
           </div>
           <div class="+spacer-extra-small"></div>
 
