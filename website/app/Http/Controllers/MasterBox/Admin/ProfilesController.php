@@ -127,8 +127,12 @@ class ProfilesController extends BaseController {
 
       $order_max = $customer_order_preference->frequency; // we re-calibrate the number of orders depending on the new offer
 
-      if ($order_max === 0)
+      // Keep the '==' not '===' because it's buggy for no real reason. Thank you PHP (Laurent, 2016-02-12)
+      if ($order_max == 0) {
+
         $order_max = Config::get('bdxnbx.infinite_plan_orders');
+
+      }
 
       /**
        * We first delete all the payable orders
@@ -139,7 +143,7 @@ class ProfilesController extends BaseController {
 
       }
 
-      while ($current < $order_max) {
+      while ($current <= $order_max) {
 
         /**
          * We generate fresh orders
