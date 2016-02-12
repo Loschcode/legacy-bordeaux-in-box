@@ -101,10 +101,17 @@ class PaymentsController extends BaseController {
 			$payment = Payment::find($fields['payment_id']);
 			$order = Order::find($fields['order_id']);
 
-			if ($payment == NULL) return redirect()->to('/');
+			if ($payment === NULL)
+        return redirect()->action('MasterBox\Guest\HomeController@getIndex');
 
-			if ($order == NULL) $payment->order_id = NULL;
-			else {
+      // We remove all the orders
+      foreach ($payment->orders()->get() as $order) {
+
+        $payment->orders()->detach($order);
+      
+      }
+
+			if ($order !== NULL) {
 
 				// If it's a normal payment 
 				// We should consider the order as paid now
@@ -113,7 +120,7 @@ class PaymentsController extends BaseController {
 					$order->already_paid = $order->already_paid + $payment->amount;
 					$order->payment_way = 'stripe_card'; // all the payments from here are stripe cards
 
-					if (($order->stauts == 'scheduled') || ($order->status == 'paid') || ($order->status == 'half-paid')) {
+					if (($order->status == 'scheduled') || ($order->status == 'paid') || ($order->status == 'half-paid')) {
 
 						// Half paid
 						if ($order->already_paid < $order->unity_and_fees_price) {
@@ -131,7 +138,7 @@ class PaymentsController extends BaseController {
 
 					// If there were an old order, we should remove the payment from it
 					// And cancel the amount
-					$old_order = $payment->order()->first();
+					$old_order = $payment->orders()->first();
 
 					if ($old_order !== NULL) {
 
@@ -175,7 +182,7 @@ class PaymentsController extends BaseController {
 
 				}
 
-				$payment->order_id = $order->id;
+				$payment->orders()->attach($order);
 
 			}
 
