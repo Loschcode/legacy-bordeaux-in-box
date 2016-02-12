@@ -1810,5 +1810,34 @@ textarea {
   min-height: 31px;
   overflow-x: hidden; }
 
+#sk-container #sk-header {
+  background-color: #D83F66 !important;
+  color: white !important;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  border-bottom: 1px solid #be264d !important; }
+  #sk-container #sk-header i {
+    color: white !important; }
+
+#sk-conversation .sk-row.sk-right-row .sk-msg {
+  background-color: #D83F66 !important; }
+  #sk-conversation .sk-row.sk-right-row .sk-msg:after {
+    border-left-color: #D83F66 !important; }
+
+#sk-holder #sk-container #sk-footer .message-input {
+  width: 70% !important; }
+
+#sk-holder #sk-container #sk-badge {
+  background-color: white !important;
+  color: #D83F66 !important;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 400;
+  font-weight: 700 !important; }
+
+#sk-holder #sk-container .btn-sk-primary {
+  background-color: #D83F66 !important;
+  border-color: #be264d !important;
+  color: white !important; }
+
 
 /*# sourceMappingURL=masterbox.css.map*/
