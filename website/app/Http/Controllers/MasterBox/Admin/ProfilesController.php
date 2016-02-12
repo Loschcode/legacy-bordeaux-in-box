@@ -144,6 +144,9 @@ class ProfilesController extends BaseController {
         /**
          * We generate fresh orders
          */
+        
+        session()->flash('error', "Fucking problème");
+        \DB::rollback();
         generate_new_order($customer, $customer_profile);
 
         $current++;
