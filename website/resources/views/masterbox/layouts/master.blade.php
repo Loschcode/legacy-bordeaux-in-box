@@ -80,17 +80,37 @@
   
 </body>
 
-{{-- Support --}}
-<script src="https://cdn.smooch.io/smooch.min.js"></script>
+@if (is_someone_online_slack())
 
-@if (Auth::guard('customer')->check())
+  {{-- Support --}}
+  <script src="https://cdn.smooch.io/smooch.min.js"></script>
+
+  @if (Auth::guard('customer')->check())
+    <script>
+    Smooch.init({
+      appToken: '3lcdwxsxss1gvpzcel9yhunam',
+      givenName: '{{ Auth::guard('customer')->user()->full_name }}',
+      email: '{{ Auth::guard('customer')->user()->email }}',
+      properties: {
+        customer_id: '{{ Auth::guard('customer')->user()->id }}',
+        customer_admin_url: '{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => Auth::guard('customer')->user()->id]) }}'
+      },
+      customText: {
+        headerText: 'Une question ? Demande-nous !',
+        inputPlaceholder: 'Écris ton message',
+        sendButtonText: 'Envoyer',
+        introText: '',
+        settingsText: ''
+      }
+    });
+    </script>
+  @else
+
   <script>
   Smooch.init({
     appToken: '3lcdwxsxss1gvpzcel9yhunam',
-    givenName: '{{ Auth::guard('customer')->user()->full_name }}',
-    email: '{{ Auth::guard('customer')->user()->email }}',
     customText: {
-      headerText: 'Besoin d\'aide ?',
+      headerText: 'Une question ? Demande-nous !',
       inputPlaceholder: 'Écris ton message',
       sendButtonText: 'Envoyer',
       introText: '',
@@ -98,21 +118,8 @@
     }
   });
   </script>
-@else
 
-<script>
-Smooch.init({
-  appToken: '3lcdwxsxss1gvpzcel9yhunam',
-  customText: {
-    headerText: 'Besoin d\'aide ?',
-    inputPlaceholder: 'Écris ton message',
-    sendButtonText: 'Envoyer',
-    introText: '',
-    settingsText: ''
-  }
-});
-</script>
-
+  @endif
 @endif
 
 {{-- Facebook Conversion Code for Impressions --}}
