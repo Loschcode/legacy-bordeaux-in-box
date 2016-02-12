@@ -99,6 +99,12 @@ class DeliverySpot extends Model {
    * Scope
    */
   
+  public function scopeOnlyActive($query) {
+
+    return $query->where('active', '=', TRUE);
+
+  }
+
   public function scopeOrderByDistanceFrom($query, $coordinate) {
 
     $latitude = $coordinate->latitude;

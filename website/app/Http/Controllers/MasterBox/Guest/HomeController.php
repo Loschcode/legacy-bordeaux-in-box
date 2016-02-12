@@ -75,14 +75,14 @@ class HomeController extends BaseController {
   /**
    * Spots page
    */
-  /*
+  
   public function getSpots()
   {
-    $delivery_spots = DeliverySpot::get();
+    $delivery_spots = DeliverySpot::onlyActive()->get();
     return view('masterbox.guest.home.spots')->with(compact(
       'delivery_spots'
     ));
   }
-  */
+
 
 }

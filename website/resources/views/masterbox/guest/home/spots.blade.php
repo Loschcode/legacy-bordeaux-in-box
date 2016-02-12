@@ -1,5 +1,5 @@
-<?php /*
 @extends('masterbox.layouts.master')
+
 @section('content')
   
   <div id="js-page-spot"></div>
@@ -30,7 +30,7 @@
         {!! Form::radio('chosen_spot', $delivery_spot->id, false, array('id' => $delivery_spot->id, 'class' => 'choose-spot')) !!}
 
         <div id="{{ 'gm-' . $delivery_spot->id }}" class="google-maps hidden">
-          <a target="_blank" href="http://maps.google.com/?q={{ $delivery_spot->googleMaps() }}" class="spyro-btn spyro-btn-inverse spyro-btn-lg spyro-btn-block"><i class="fa fa-google"></i> Voir sur Google Maps</a>
+          <a target="_blank" href="{{ gmap_link_guest($delivery_spot->getFullAddress()) }}" class="spyro-btn spyro-btn-inverse spyro-btn-lg spyro-btn-block"><i class="fa fa-google"></i> Voir sur Google Maps</a>
         </div>
 
       </div>
@@ -41,9 +41,6 @@
     {!! Form::close() !!}
   </div>
 
-
   <div class="spacer50"></div>
-  {!! View::make('masterbox.partials.front.footer') !!}
 
 @stop
-*/ ?>

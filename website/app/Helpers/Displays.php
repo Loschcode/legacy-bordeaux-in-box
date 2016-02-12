@@ -23,6 +23,14 @@ function gmap_link($from, $to) {
   
 }
 
+function gmap_link_guest($to) {
+
+  $to_url = urlencode($to);
+
+  return "https://www.google.com/maps/dir/$to_url";
+
+}
+
 function gmap_link_simple($to) {
 
   $to_url = urlencode($to);
