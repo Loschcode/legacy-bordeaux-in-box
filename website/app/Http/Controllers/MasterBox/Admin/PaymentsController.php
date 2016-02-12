@@ -99,94 +99,25 @@ class PaymentsController extends BaseController {
 		if ($validator->passes()) {
 
 			$payment = Payment::find($fields['payment_id']);
-			$order = Order::find($fields['order_id']);
+			$new_order = Order::find($fields['order_id']);
 
 			if ($payment === NULL)
         return redirect()->action('MasterBox\Guest\HomeController@getIndex');
 
-      // We remove all the orders
-      foreach ($payment->orders()->get() as $order) {
+      // We remove all the orders and remove the paid
+      foreach ($payment->orders()->get() as $old_order) {
 
-        $payment->orders()->detach($order);
+        $old_order->already_paid = 0;
+        $old_order->save();
+        $payment->orders()->detach($old_order);
       
-      }
-
-			if ($order !== NULL) {
-
-				// If it's a normal payment 
-				// We should consider the order as paid now
-				if (($payment->amount > 0) && ($payment->paid)) {
-
-					$order->already_paid = $order->already_paid + $payment->amount;
-					$order->payment_way = 'stripe_card'; // all the payments from here are stripe cards
-
-					if (($order->status == 'scheduled') || ($order->status == 'paid') || ($order->status == 'half-paid')) {
-
-						// Half paid
-						if ($order->already_paid < $order->unity_and_fees_price) {
-
-							$order->status = 'half-paid';
-
-						// Completely paid or even more
-						} else {
-
-							$order->status = 'paid';
-
-						}
-
-					}
-
-					// If there were an old order, we should remove the payment from it
-					// And cancel the amount
-					$old_order = $payment->orders()->first();
-
-					if ($old_order !== NULL) {
-
-						// We recalculate the already paid
-						$already_paid = $old_order->already_paid - $payment->amount;
-						if ($already_paid < 0) $already_paid = 0;
-						$old_order->already_paid = $already_paid;
-
-						// If it was paid and the amount is less, it becomes half-paid or unpaid
-						if (($old_order->status == 'paid') || ($old_order->status == 'half-paid')) {
-
-							if (!$old_order->already_paid) $old_order->status == 'unpaid';
-							elseif ($old_order->already_paid < $old_order->unity_and_fees_price) $old_order->status = 'half-paid';
-
-						}
-
-						$old_order->save();
-
-					}
-
-				}
-
-				// If it's a refund we need to change the data
-				// Linked with the already_paid
-				if ($payment->amount <= 0) {
-
-					// We recalculate the already paid
-					$already_paid = $order->already_paid + $payment->amount;
-					if ($already_paid < 0) $already_paid = 0;
-
-					$order->already_paid = $already_paid;
-
-					// If it was paid and the amount is less, it becomes half-paid or unpaid
-					if (($old_order->status == 'paid') || ($old_order->status == 'half-paid')) {
-
-						if (!$order->already_paid) $order->status == 'unpaid';
-						elseif ($order->already_paid < $order->unity_and_fees_price) $order->status = 'half-paid';
-
-					}
-
-
-				}
-
-				$payment->orders()->attach($order);
-
 			}
 
-			$order->save();
+      // We attach the new order and update the paid
+      $payment->orders()->attach($new_order);
+      $new_order->already_paid = $payment->amount;
+
+			$new_order->save();
 			$payment->save();
 
 			// Then we redirect
@@ -196,7 +127,7 @@ class PaymentsController extends BaseController {
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return redirect()->to(URL::previous())
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
