@@ -19,24 +19,23 @@ class MasterBox_Customer_PurchaseControllerTest extends TestCase
   public function should_be_redirected_to_the_subscribe_page_when_i_am_a_guest_an_i_try_to_order_a_gift_box()
   {
     $this->visit('customer/purchase/gift')
-      ->seePageIs('connect/customer/subscribe');
+      ->seePageIs('customer/purchase/choose-frequency');
   }
 
   /** @test */
   public function should_be_redirected_to_the_subscribe_page_when_i_am_a_guest_an_i_try_to_order_a_classicbox()
   {
     $this->visit('customer/purchase/classic')
-      ->seePageIs('connect/customer/subscribe');
+      ->seePageIs('customer/purchase/choose-frequency');
   }
 
-  public function should_not_see_frequency_page_when_i_am_connected_but_i_did_not_choose_the_type_of_order()
+  public function should_be_redirected_to_the_subscribe_page_when_i_am_choosing_a_frequency()
   {
-    // Create customer
-    $customer = factory(Customer::class)->create();
 
-    $this->actingAs($customer, 'customer')
-      ->visit('customer/purchase/choose-frequency')
-      ->seePageIs('/');
+    $this->visit('customer/purchase/choose-frequency')
+         ->fillFormFrequencyAndSubmit(['delivery_price' => 6])
+         ->seePageIs('connect/customer/subscribe');
   }
+
 
 }
