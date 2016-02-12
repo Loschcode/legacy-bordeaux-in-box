@@ -9,7 +9,7 @@
 
   <title>Bordeaux In Box</title>
 
-  <link rel="icon" href="{{ url('assets/img/admin-favicon.ico') }}" />
+  <link rel="icon" href="{{ url('images/admin-favicon.ico') }}" />
 
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
