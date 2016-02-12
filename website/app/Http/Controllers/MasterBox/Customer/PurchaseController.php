@@ -38,8 +38,8 @@ class PurchaseController extends BaseController {
    */
   public function __construct()
   {
-    $this->middleware('is.customer', array('except' => ['getIndex', 'getClassic', 'getGift']));
-    $this->middleware('has.unpaid.order.building', array('except' => ['getClassic', 'getGift', 'getBoxForm', 'postBoxForm', 'getConfirmed']));
+    $this->middleware('is.customer', array('except' => ['getClassic', 'getGift', 'getChooseFrequency', 'postChooseFrequency']));
+    $this->middleware('has.unpaid.order.building', array('except' => ['getIndex', 'getClassic', 'getGift', 'getChooseFrequency', 'postChooseFrequency', 'getBoxForm', 'postBoxForm', 'getConfirmed']));
 
     $this->middleware('has.paid.order.building', array('only' => ['getBoxForm', 'postBoxForm']));
     $this->middleware('below.serie.counter', array('except' => ['postPayment']));
@@ -54,8 +54,10 @@ class PurchaseController extends BaseController {
    */
   public function getIndex()
   {
+
     $redirect = $this->guessStepFromUser();
     return redirect($redirect);
+
   }
 
   /**
@@ -66,16 +68,12 @@ class PurchaseController extends BaseController {
 
     session()->put('isGift', FALSE);
 
-    if (Auth::guard('customer')->guest()) {
-
-      session()->put('after-login-redirection', Request::url());
-      return redirect()->action('MasterBox\Connect\CustomerController@getSubscribe');
-      
-    }
+    if (Auth::guard('customer')->guest())
+      return redirect()->action('MasterBox\Customer\PurchaseController@getChooseFrequency');
 
     $redirect = $this->guessStepFromUser();
-
     return redirect($redirect);
+
   }
 
   /**
@@ -86,15 +84,10 @@ class PurchaseController extends BaseController {
 
     session()->put('isGift', TRUE);
 
-    if (Auth::guard('customer')->guest())  {
-
-      session()->put('after-login-redirection', Request::url());
-      return redirect()->action('MasterBox\Connect\CustomerController@getSubscribe');
-
-    }
+    if (Auth::guard('customer')->guest())
+      return redirect()->action('MasterBox\Customer\PurchaseController@getChooseFrequency');
 
     $redirect = $this->guessStepFromUser();
-
     return redirect($redirect);
 
   }
@@ -105,16 +98,57 @@ class PurchaseController extends BaseController {
   public function getChooseFrequency()
   {
 
-    $next_series = DeliverySerie::nextOpenSeries();
-
-    $customer = Auth::guard('customer')->user();
-
-    $order_building = $customer->order_buildings()->getCurrent()->first();
-    $order_preference = $order_building->order_preference()->first();
-
-    $delivery_prices = DeliveryPrice::where('gift', $order_preference->gift)->orderBy('unity_price', 'asc')->get();
+    if (Auth::guard('customer')->guest()) {
+      
+      /**
+       * We prepare the redirection
+       */
+      session()->put('after-login-redirection', Request::url());
     
-    return view('masterbox.customer.order.choose_frequency')->with(compact('next_series', 'delivery_prices', 'order_preference'));
+      $customer = NULL;
+      $order_building = NULL;
+      $order_preference = NULL;
+
+      if (session()->get('isGift') === TRUE)
+        $is_gift = TRUE;
+      else
+        $is_gift = FALSE;
+
+    } else {
+
+      /**
+       * If the guy just subscribed and has this session defined
+       * We will make the whole special process
+       */
+      if (session()->get('postChooseFrequency')) {
+
+        $redirect = $this->guessStepFromUser();
+        return redirect($redirect);
+
+      }
+
+      $customer = Auth::guard('customer')->user();
+      $order_building = $customer->order_buildings()->getCurrent()->first();
+      $order_preference = $order_building->order_preference()->first();
+
+      if ($order_preference->gift)
+        $is_gift = TRUE;
+      else
+        $is_gift = FALSE;
+
+    }
+
+    $next_series = DeliverySerie::nextOpenSeries();
+    $delivery_prices = DeliveryPrice::where('gift', $is_gift)->orderBy('unity_price', 'asc')->get();
+    
+    return view('masterbox.customer.order.choose_frequency')->with(
+                  compact(
+                    'next_series',
+                    'delivery_prices', 
+                    'order_preference',
+                    'is_gift'
+                  )
+                );
 
   }
 
@@ -136,34 +170,17 @@ class PurchaseController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
-      $delivery_price = DeliveryPrice::find($fields['delivery_price']);
+      if (Auth::guard('customer')->guest())  {
 
-      if ($delivery_price === NULL) return redirect()->back();
+        /**
+         * If he's not logged in we propose him to do so and we save what he chose
+         */
+        session()->put('postChooseFrequency', $fields['delivery_price']);
+        return redirect()->action('MasterBox\Connect\CustomerController@getSubscribe');
 
-      $customer = Auth::guard('customer')->user();
-      $order_building = $customer->order_buildings()->getCurrent()->first();
-      $profile = $order_building->profile()->first();
+      }
 
-      // We change the profile status (the guy chose something)
-      $profile->status = 'in-progress';
-      $profile->save();
-
-      $order_preference = $order_building->order_preference()->first();
-
-      // We duplicate the delivery price (because it could change with the time)
-      $order_preference->frequency = $delivery_price->frequency;
-      $order_preference->unity_price = $delivery_price->unity_price;
-      $order_preference->save();
-
-      // Let's go to the next step
-      $order_building->step = 'billing-address';
-      $order_building->save();
-
-      // Then we redirect
-      $redirect = $this->guessStepFromUser();
-      return redirect()->to($redirect);
-
-      //return redirect()->back();
+      return redirect()->to($this->save_choose_frequency($fields['delivery_price']));
 
     } else {
 
@@ -173,6 +190,41 @@ class PurchaseController extends BaseController {
       ->withErrors($validator);
 
     }
+
+  }
+
+  private function save_choose_frequency($delivery_price_id) {
+
+    $delivery_price = DeliveryPrice::where('id', '=', $delivery_price_id)->first();
+
+    if ($delivery_price === NULL)
+      return redirect()->action('MasterBox\Customer\PurchaseController@getChooseFrequency');
+
+    $customer = Auth::guard('customer')->user();
+    $order_building = $customer->order_buildings()->getCurrent()->first();
+    $profile = $order_building->profile()->first();
+
+    // We change the profile status (the guy chose something)
+    $profile->status = 'in-progress';
+    $profile->save();
+
+    $order_preference = $order_building->order_preference()->first();
+
+    // We duplicate the delivery price (because it could change with the time)
+    $order_preference->frequency = $delivery_price->frequency;
+    $order_preference->unity_price = $delivery_price->unity_price;
+    $order_preference->save();
+
+    // Let's go to the next step
+    $order_building->step = 'billing-address';
+    $order_building->save();
+
+    // We force forget this now that we used the process (might unset nothing in many cases)
+    session()->forget('postChooseFrequency');
+
+    // Then we redirect
+    $redirect = $this->guessStepFromUser();
+    return $redirect;
 
   }
 
@@ -851,6 +903,9 @@ class PurchaseController extends BaseController {
 
       }
     }
+
+    if (session()->get('postChooseFrequency'))
+      return $this->save_choose_frequency(session()->get('postChooseFrequency'));
 
     /**
      * Dynamic URL from step

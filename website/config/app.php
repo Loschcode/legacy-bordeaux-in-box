@@ -191,6 +191,7 @@ return [
 
         Artdarek\OAuth\OAuthServiceProvider::class,
 
+        //Maknz\Slack\SlackServiceProvider::class,
 
     ],
 
@@ -256,6 +257,8 @@ return [
         'Markdown'  => GrahamCampbell\Markdown\Facades\Markdown::class,
         
         'OAuth'     => Artdarek\OAuth\Facade\OAuth::class,
+        
+        'Slack'     => Maknz\Slack\Facades\Slack::class,
         
 
     ],
