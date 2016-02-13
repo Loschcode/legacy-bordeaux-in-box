@@ -1,5 +1,133 @@
 @extends('masterbox.layouts.admin')
 
+@section('content')
+    
+
+  <div class="row">
+    <div class="grid-8">
+      <h1 class="title title__section">Séries</h1>
+    </div>
+  </div>
+
+  <div class="divider divider__section"></div>
+  
+  <table class="js-datatable-simple">
+
+    <thead>
+
+      <tr>
+        <th>ID</th>
+        <th>Série</th>
+        <th>Chiffres</th>
+        <th>Commandes</th>
+        <th>Compteur</th>
+        <th>Achèvement</th>
+        <th>Téléchargements</th>
+        <th>Action</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      @foreach ($series as $serie)
+
+        <tr>
+
+          <td>{{$serie->id}}</td>
+          <td>{{$serie->delivery}}</td>
+          <td>{{ Html::euros($serie->orders()->sum('already_paid'))}}</td>
+          <td>
+          <a class="button button__link" href="{{ action('MasterBox\Admin\DeliveriesController@getFocus', ['id' => $serie->id]) }}">{{$serie->orders()->notCanceledOrders()->count()}}</a>
+
+          </td>
+          <td>
+          @if ($serie->goal == 0)
+          N/A
+          @else
+          {{$serie->getCounter()}}
+          @endif
+          </td>
+
+          <td>
+          @if ($serie->getAchievement() === FALSE)
+          N/A
+          @else
+          {{ $serie->getAchievement() }} %
+          @endif
+
+          </td>
+
+          <td>
+          <a class="button button__link" href="{{ action('MasterBox\Admin\DeliveriesController@getDownloadCsvOrdersFromSeries', ['id' => $serie->id]) }}">Commandes</a> - 
+          <a class="button button__link" href="{{ action('MasterBox\Admin\DeliveriesController@getDownloadCsvSpotsOrdersFromSeries', ['id' => $serie->id]) }}">Points relais</a>
+          </td>
+          <td>
+
+          @if ($serie->closed == NULL)
+            <a title="Bloquer" class="button button__table js-tooltip" href="{{ action('MasterBox\Admin\DeliveriesController@getLock', ['id' => $serie->id]) }}"><i class="fa fa-lock"></i></a>
+            <a title="Editer" class="button button__table js-tooltip" href="{{ action('MasterBox\Admin\DeliveriesController@getEdit', ['id' => $serie->id]) }}"><i class="fa fa-pencil"></i></a>
+          @else
+            <a title="Envoyer les emails pour confirmer les livraisons à domicile ?" class="button button__table js-tooltip" href="{{ action('MasterBox\Admin\EmailManagerController@getSendEmailToSeriesShippedOrders', ['id' => $serie->id]) }}"><i class="fa fa-envelope"></i></a>
+
+            @if ($serie->isUnlockable())
+              <a title="Débloquer" class="button button__table" href="{{ action('MasterBox\Admin\DeliveriesController@getUnlock', ['id' => $serie->id])}}"><i class="fa fa-unlock"></i></a>
+            @endif
+
+          @endif
+
+          @if ($serie->orders()->first() == NULL)
+            <a title="Supprimer" class="button button__table" href="{{ action('MasterBox\Admin\DeliveriesController@getDelete', ['id' => $serie->id]) }}"><i class="fa fa-trash-o"></i></a>
+          @endif
+
+        </tr>
+
+      @endforeach
+
+      </tbody>
+
+    </table>
+    
+    <div class="+spacer-small"></div>
+
+    <div class="grid-12">
+      <div class="panel panel__wrapper">
+
+        <div class="panel__header">
+          <h3 class="panel__title">Ajouter une série</h3>
+        </div>
+        <div class="panel__content">
+          
+          {!! Form::open(['class' => 'form-inline']) !!}
+            
+            <div class="row">
+              <div class="grid-6">
+                {!! Form::label("delivery", "Date de livraison", ['class' => 'form__label']) !!}
+                {!! Form::text("delivery", Request::old("delivery"), ['class' => 'form__input', 'placeholder' => 'Date de livraison']) !!}
+                {!! Html::checkError('delivery', $errors) !!}
+              </div>
+              <div class="grid-6">
+                {!! Form::label("goal", "Objectif", ['class' => 'form__label']) !!}
+                {!! Form::text("goal", Request::old("goal"), ['class' => 'form__input', 'placeholder' => 'Objectif']) !!}
+                {!! Html::checkError('goal', $errors) !!}
+              </div>
+            </div>
+            
+            <div class="+spacer-extra-small"></div>
+
+            {!! Form::submit("Ajouter la série", ['class' => 'button button__default']) !!}
+            
+          {!! Form::close() !!}
+
+        </div>
+      </div>
+    </div>
+
+@stop
+
+<?php /*
+@extends('masterbox.layouts.admin')
+
 @section('page')
   <i class="fa fa-bank"></i> Séries &amp; Finances
 @stop
@@ -300,3 +428,4 @@
     </div>
 
 @stop
+*/ ?>

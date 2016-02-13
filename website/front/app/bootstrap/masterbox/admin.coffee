@@ -51,6 +51,7 @@ class Admin
     $('.js-datatable-simple').DataTable
       length: false
       language: Config.datatable.language.fr
+      aaSorting: []
 
   ##
   # Popup a sweet alert when you want to delete 
