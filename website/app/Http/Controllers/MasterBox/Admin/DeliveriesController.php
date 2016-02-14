@@ -170,9 +170,9 @@ class DeliveriesController extends BaseController {
       ];
 
 
-    $fields = Request::all();
+    $fields = request()->all();
 
-    $validator = Validator::make($fields, $rules);
+    $validator = validator()->make($fields, $rules);
 
     // The form validation was good
     if ($validator->passes()) {

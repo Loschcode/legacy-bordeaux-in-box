@@ -1,37 +1,29 @@
-@extends('masterbox.layouts.admin')
+<div class="dialog">
+  <h4 class="dialog__title">Edition série {{ Html::dateFrench($series->delivery, true) }} (#{{ $series->id }})</h4>
+  <div class="dialog__divider"></div>
+</div>
 
-@section('page')
-  <i class="fa fa-map-marker"></i> Edition la série du {{$series->delivery}}
-@stop
-
-@section('buttons')
-
-@if (URL::previous() != Request::root())
-  
-  <a href="{{URL::previous()}}" class="spyro-btn spyro-btn-success">Retour</a>
-
-@endif
-
-@stop
-
-@section('content')
-
-  {!! Form::open() !!}
-
-  
-  {!! Form::hidden('delivery_series_id', $series->id) !!}
-
-  <div class="form-group @if ($errors->first('delivery')) has-error has-feedback @endif">
-      {{ Form::label("delivery", "Date de livraison", ['class' => 'sr-only']) }}
-      {{ Form::text("delivery", Request::old("delivery") ? Request::old("delivery") : $series->delivery, ['class' => 'form-control', 'placeholder' => 'Date de livraison']) }}
+<div class="panel panel__wrapper">
+  <div class="panel__header">
+    <h3 class="panel__title">Edition</h3>
   </div>
 
-  <!-- Counter -->
-  <div class="form-group @if ($errors->first('goal')) has-error has-feedback @endif">
-    {!! Form::label("goal", "Objectif", ['class' => 'sr-only']) !!}
-    {!! Form::text("goal", Request::old("goal") ? Request::old("goal") : $series->goal, ['class' => 'form-control', 'placeholder' => 'Objectif']) !!}
+  <div class="panel__content">
+    {!! Form::open() !!}
+
+    {!! Form::hidden('delivery_series_id', $series->id) !!}
+
+    {{ Form::label("delivery", "Date de livraison", ['class' => 'form__label']) }}
+    {{ Form::text("delivery", Request::old("delivery") ? Request::old("delivery") : $series->delivery, ['class' => 'form__input', 'placeholder' => 'Date de livraison']) }}
+
+    {!! Form::label("goal", "Objectif", ['class' => 'form__label']) !!}
+    {!! Form::text("goal", Request::old("goal") ? Request::old("goal") : $series->goal, ['class' => 'form__input', 'placeholder' => 'Objectif']) !!}
+
+    <div class="+spacer-small"></div>
+
+    {!! Form::submit("Editer cette série", ['class' => 'button button__default']) !!}
+
   </div>
+</div>
 
-  {!! Form::submit("Editer cette série", ['class' => 'spyro-btn spyro-btn-lg spyro-btn-success']) !!}
 
-@stop
