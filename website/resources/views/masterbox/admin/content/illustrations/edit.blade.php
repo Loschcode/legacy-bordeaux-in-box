@@ -1,9 +1,11 @@
 @extends('masterbox.layouts.admin')
 
-@section('content')
-  
+@section('navbar')
   @include('masterbox.admin.partials.navbar_content')
-  
+@stop
+
+@section('content')
+    
   <div class="row">
     <div class="grid-8">
       <h1 class="title title__section">Illustrations</h1>

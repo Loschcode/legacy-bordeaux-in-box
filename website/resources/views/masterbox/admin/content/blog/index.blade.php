@@ -41,8 +41,8 @@
         <td>{{$blog_article->administrator()->first()->getFullName()}}</td>
         <td>{{ Html::dateFrench($blog_article->created_at) }}</td>
         <td>
-          <a class="button__table" href="{{ action('MasterBox\Admin\ContentController@getEditBlog', ['id' => $blog_article->id]) }}"><i class="fa fa-pencil"></i></a>
-          <a class="js-confirm-delete button__table" href="{{ action('MasterBox\Admin\ContentController@getDeleteBlog', ['id' => $blog_article->id]) }}"><i class="fa fa-trash-o"></i></a>
+          <a class="button button__default --blue --table" href="{{ action('MasterBox\Admin\ContentController@getEditBlog', ['id' => $blog_article->id]) }}"><i class="fa fa-pencil"></i></a>
+          <a class="js-confirm-delete button button__default --red --table" href="{{ action('MasterBox\Admin\ContentController@getDeleteBlog', ['id' => $blog_article->id]) }}"><i class="fa fa-trash-o"></i></a>
         </td>
       </tr>
 

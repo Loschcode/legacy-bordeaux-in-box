@@ -1,9 +1,11 @@
 @extends('masterbox.layouts.admin')
 
+@section('navbar')
+  @include('masterbox.admin.partials.navbar_content')
+@stop
+
 @section('content')
   
-  @include('masterbox.admin.partials.navbar_content')
-
   <div class="row">
     <div class="grid-8">
       <h1 class="title title__section">Pages</h1>
@@ -28,7 +30,7 @@
       <tr>
         <td>{{ $page->title }}</td>
         <td>
-          <a class="button__table" href="{{ action('MasterBox\Admin\ContentController@getEditPage', ['id' => $page->id]) }}"><i class="fa fa-pencil"></i></a>
+          <a class="button button__default --blue --table" href="{{ action('MasterBox\Admin\ContentController@getEditPage', ['id' => $page->id]) }}"><i class="fa fa-pencil"></i></a>
         </td>
       </tr>
 
