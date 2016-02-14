@@ -113,7 +113,7 @@
 
            @if (!$order_preference->isGift() && ($profile->status === 'subscribed'))
              
-             <a class="button button__default --yellow" href="#switch-offer" data-modal><i class="fa fa-pencil"></i> Changer l'offre</a>
+             <a class="button button__default --green" href="#switch-offer" data-modal><i class="fa fa-pencil"></i> Changer l'offre</a>
              <div class="+hidden">
                <div id="switch-offer" class="modal">
                  {{ Form::open(array('action' => 'MasterBox\Admin\ProfilesController@postUpdateOffer')) }}

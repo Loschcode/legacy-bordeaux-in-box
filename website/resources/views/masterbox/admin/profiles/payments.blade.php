@@ -70,7 +70,7 @@
           @foreach ($payment->orders()->get() as $order)
           
           @if ($order->delivery_serie()->first())
-            <a class="button button__link" href="{{ action('MasterBox\Admin\DeliveriesController@getFocus', ['id' => $order->delivery_serie()->first()->id]) }}"> 
+            <a class="button button__default --green --table" href="{{ action('MasterBox\Admin\DeliveriesController@getFocus', ['id' => $order->delivery_serie()->first()->id]) }}"> 
               {{ Html::dateFrench($order->delivery_serie()->first()->delivery, true) }}
             </a>
           @endif
@@ -85,7 +85,7 @@
           <th>{{ Html::dateFrench($payment->created_at, true) }}</th>
           <th>
 
-           <a data-modal class="button button__table" href="{{ url('/admin/payments/focus/' . $payment->id) }}"><i class="fa fa-eye"></i></a>
+           <a data-modal class="button button__default --green --table" href="{{ url('/admin/payments/focus/' . $payment->id) }}"><i class="fa fa-search"></i></a>
 
           </th>
 
