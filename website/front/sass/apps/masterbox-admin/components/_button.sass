@@ -72,14 +72,14 @@
     color: color-dark(blue)
 
   +part(default)
-    background-color: color-dark(grey, 20%)
+    background-color: color-get(blue-flat)
     font-size: 0.34vr
     text-align: center
     padding: 0.2vr
     border-radius: 5px
     color: white
     text-transform: uppercase
-    box-shadow: inset 0 -3px color-dark(grey, 28%)
+    box-shadow: inset 0 -3px color-dark(blue-flat, 10%)
     outline: 0
     color: white
     +font-montserrat(400)
@@ -87,6 +87,13 @@
     &:active
       top: 1px
       box-shadow: none
+
+    +option(table)
+      padding-top: 0.1vr
+      padding-bottom: 0.1vr
+      padding-right: 0.2vr
+      padding-left: 0.2vr
+      text-transform: capitalize
   
     +option(red)
       background: color-get(red)
@@ -100,6 +107,14 @@
       background: color-get(yellow-flat)
       box-shadow: inset 0 -3px color-dark(yellow-flat)
 
+      &:active
+        top: 1px
+        box-shadow: none
+
+    +option(green)
+      background: color-get(green-flat)
+      box-shadow: inset 0 -3px color-dark(green-flat)
+      
       &:active
         top: 1px
         box-shadow: none

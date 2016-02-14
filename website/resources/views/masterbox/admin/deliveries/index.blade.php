@@ -35,11 +35,10 @@
         <tr>
 
           <td>{{$serie->id}}</td>
-          <td>{{$serie->delivery}}</td>
+          <td><a class="button button__default --table --green" href="{{ action('MasterBox\Admin\DeliveriesController@getFocus', ['id' => $serie->id]) }}">{{ Html::dateFrench($serie->delivery, true) }} ({{ $serie->delivery }})</a></td>
           <td>{{ Html::euros($serie->orders()->sum('already_paid'))}}</td>
           <td>
-          <a class="button button__link" href="{{ action('MasterBox\Admin\DeliveriesController@getFocus', ['id' => $serie->id]) }}">{{$serie->orders()->notCanceledOrders()->count()}}</a>
-
+          {{$serie->orders()->notCanceledOrders()->count()}}
           </td>
           <td>
           @if ($serie->goal == 0)
@@ -59,25 +58,25 @@
           </td>
 
           <td>
-          <a class="button button__link" href="{{ action('MasterBox\Admin\DeliveriesController@getDownloadCsvOrdersFromSeries', ['id' => $serie->id]) }}">Commandes</a> - 
-          <a class="button button__link" href="{{ action('MasterBox\Admin\DeliveriesController@getDownloadCsvSpotsOrdersFromSeries', ['id' => $serie->id]) }}">Points relais</a>
+          <a class="button button__default --table" href="{{ action('MasterBox\Admin\DeliveriesController@getDownloadCsvOrdersFromSeries', ['id' => $serie->id]) }}">Commandes</a>
+          <a class="button button__default --table" href="{{ action('MasterBox\Admin\DeliveriesController@getDownloadCsvSpotsOrdersFromSeries', ['id' => $serie->id]) }}">Points relais</a>
           </td>
           <td>
 
           @if ($serie->closed == NULL)
-            <a title="Bloquer" class="button button__table js-tooltip" href="{{ action('MasterBox\Admin\DeliveriesController@getLock', ['id' => $serie->id]) }}"><i class="fa fa-lock"></i></a>
-            <a title="Editer" class="button button__table js-tooltip" href="{{ action('MasterBox\Admin\DeliveriesController@getEdit', ['id' => $serie->id]) }}"><i class="fa fa-pencil"></i></a>
+            <a title="Bloquer la série" class="button button__default --table --red js-tooltip" href="{{ action('MasterBox\Admin\DeliveriesController@getLock', ['id' => $serie->id]) }}"><i class="fa fa-lock"></i></a>
+            <a title="Editer la série" class="button button__default --green --table js-tooltip" href="{{ action('MasterBox\Admin\DeliveriesController@getEdit', ['id' => $serie->id]) }}"><i class="fa fa-pencil"></i></a>
           @else
-            <a title="Envoyer les emails pour confirmer les livraisons à domicile ?" class="button button__table js-tooltip" href="{{ action('MasterBox\Admin\EmailManagerController@getSendEmailToSeriesShippedOrders', ['id' => $serie->id]) }}"><i class="fa fa-envelope"></i></a>
+            <a title="Envoyer les emails pour confirmer les livraisons à domicile ?" class="button button__default --red --table js-tooltip" href="{{ action('MasterBox\Admin\EmailManagerController@getSendEmailToSeriesShippedOrders', ['id' => $serie->id]) }}"><i class="fa fa-envelope"></i></a>
 
             @if ($serie->isUnlockable())
-              <a title="Débloquer" class="button button__table" href="{{ action('MasterBox\Admin\DeliveriesController@getUnlock', ['id' => $serie->id])}}"><i class="fa fa-unlock"></i></a>
+              <a title="Débloquer" class="button button__default --table" href="{{ action('MasterBox\Admin\DeliveriesController@getUnlock', ['id' => $serie->id])}}"><i class="fa fa-unlock"></i></a>
             @endif
 
           @endif
 
           @if ($serie->orders()->first() == NULL)
-            <a title="Supprimer" class="button button__table" href="{{ action('MasterBox\Admin\DeliveriesController@getDelete', ['id' => $serie->id]) }}"><i class="fa fa-trash-o"></i></a>
+            <a title="Supprimer" class="button button__default --table --red" href="{{ action('MasterBox\Admin\DeliveriesController@getDelete', ['id' => $serie->id]) }}"><i class="fa fa-trash-o"></i></a>
           @endif
 
         </tr>
