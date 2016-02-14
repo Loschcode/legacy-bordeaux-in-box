@@ -91,6 +91,8 @@ exports.config =
   notificationsTitle: 'Gotham'
 
   plugins:
+    cssnano:
+      zindex: false
 
     #--------------------------------------------------------------------------
     # Postcss
