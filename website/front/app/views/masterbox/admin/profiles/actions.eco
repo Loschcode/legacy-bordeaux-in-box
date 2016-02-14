@@ -1,2 +1,2 @@
-<a href="<%- @link_focus %>" class="button button__table"><i class="fa fa-eye"></i></a>
-<a href="<%- @link_delete %>" class="button button__table js-confirm-delete"><i class="fa fa-trash-o"></i></a>
+<a href="<%- @link_focus %>" class="button button__default --green --table"><i class="fa fa-search"></i></a>
+<a href="<%- @link_delete %>" class="button button__default --red --table js-confirm-delete"><i class="fa fa-trash-o"></i></a>

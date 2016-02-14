@@ -736,7 +736,7 @@ Index = (function(superClass) {
   Index.prototype.dataCustomer = function(row, type, val, meta) {
     var link;
     link = _.slash($('table').data('focus-customer')) + row.customer.id;
-    return '<a class="button button__link" href="' + link + '">' + row.customer.full_name + '</a>';
+    return '<a class="button button__default --table --green" href="' + link + '">' + row.customer.full_name + '</a>';
   };
 
   Index.prototype.dataCountOrdersNotSent = function(row, type, val, meta) {
@@ -2230,11 +2230,11 @@ var __templateData = function (__obj) {
     
       __out.push(this.link_focus);
     
-      __out.push('" class="button button__table"><i class="fa fa-eye"></i></a>\n<a href="');
+      __out.push('" class="button button__default --green --table"><i class="fa fa-search"></i></a>\n<a href="');
     
       __out.push(this.link_delete);
     
-      __out.push('" class="button button__table js-confirm-delete"><i class="fa fa-trash-o"></i></a>');
+      __out.push('" class="button button__default --red --table js-confirm-delete"><i class="fa fa-trash-o"></i></a>');
     
     }).call(this);
     

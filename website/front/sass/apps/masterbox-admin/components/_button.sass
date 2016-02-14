@@ -34,6 +34,14 @@
       top: 1px
       box-shadow: none
 
+    +option(red)
+      background-color: color-get(red)
+      box-shadow: inset 0 -3px color-dark(red, 4%)
+
+      &:active
+        top: 1px
+        box-shadow: none
+
   +part(submit)
     background-color: color-dark(grey, 20%)
     font-size: 0.65vr

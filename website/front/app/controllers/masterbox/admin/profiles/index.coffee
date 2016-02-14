@@ -81,7 +81,7 @@ class Index extends Controller
 
     link = _.slash($('table').data('focus-customer')) + row.customer.id
 
-    return '<a class="button button__link" href="' + link + '">' + row.customer.full_name + '</a>'
+    return '<a class="button button__default --table --green" href="' + link + '">' + row.customer.full_name + '</a>'
 
 
   ##

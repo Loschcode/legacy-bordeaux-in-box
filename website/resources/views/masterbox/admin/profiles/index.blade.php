@@ -13,7 +13,7 @@
 		<h1 class="title title__section">Abonnements</h1>
 	</div>
 	<div class="grid-6 +text-right">
-		<a href="{{ action('MasterBox\Admin\ProfilesController@getResetProfilesPriorities') }}" class="button button__section">Réinitialiser les priorités des abonnements</a>
+		<a href="{{ action('MasterBox\Admin\ProfilesController@getResetProfilesPriorities') }}" class="button button__section --red">Réinitialiser les priorités des abonnements</a>
 	</div>
 </div>
 
