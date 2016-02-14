@@ -42,6 +42,7 @@ class SlackController extends BaseController {
   {
 
     $text = trim(request()->input('text'));
+    $username = request()->input('user_name');
 
     if (empty($text)) {
       return 'Erreur: Il manque la personne à assigner ainsi que le nom de la task';
@@ -94,6 +95,9 @@ class SlackController extends BaseController {
         return 'Impossible de trouver le membre (' . $username . ')';
       break;
     }
+
+    // Add from who
+    $task .= ' - ajoutée par ' . $username;
 
     // Add task
     $trello = new Trello();
