@@ -14,7 +14,7 @@
 
 	<div class="divider divider__section"></div>
 	
-  {!! Html::info('Voici le détail des commandes pour la box du '. Html::dateFrench($series->delivery, true)) !!}
+  {!! Html::info('Voici le détail des commandes pour la série du '. Html::dateFrench($series->delivery, true)) !!}
 	
 	<a class="button button__default" href="{{url('/admin/deliveries/download-csv-orders-from-series/'.$series->id)}}">CSV des commandes de la série</a>
 
@@ -59,7 +59,7 @@
 
   				<th>{{$order->id}}</th>
   				<th>{{$order->delivery_serie()->first()->delivery}}</th>
-  				<th><a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $order->customer_profile()->first()->customer()->first()->id]) }}">{{$order->customer_profile()->first()->customer()->first()->getFullName()}}</a></th>
+  				<th><a class="button button__default --green --table" href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $order->customer_profile()->first()->customer()->first()->id]) }}">{{$order->customer_profile()->first()->customer()->first()->getFullName()}}</a></th>
 
   				<th>{{ $order->customer_profile()->first()->customer()->first()->getFullAddress()}} </th>
   				<th>{{ $order->customer_profile()->first()->customer()->first()->phone}} </th>
@@ -84,7 +84,7 @@
 
   					@foreach ($order->payments()->get() as $payment)
 
-  						(<a data-modal href="{{ action('MasterBox\Admin\PaymentsController@getFocus', ['id' => $payment->id]) }}">+</a>)
+  						<a data-modal class="button button__default --green --table" href="{{ action('MasterBox\Admin\PaymentsController@getFocus', ['id' => $payment->id]) }}"><i class="fa fa-plus"></i></a>
 
   					@endforeach
 
@@ -110,16 +110,18 @@
   				<th>
 
   				@if ($order->date_completed != NULL)
-  					<a href="{{ action('MasterBox\Admin\OrdersController@getConfirmSent', ['id' => $order->id]) }}">Envoi confirmé</a> |
+  					<a class="button button__default --table js-confirm" data-confirm-text="L'envoi pour cette commande sera confirmé" href="{{ action('MasterBox\Admin\OrdersController@getConfirmSent', ['id' => $order->id]) }}">Envoi confirmé</a>
 
   				@else
-  					<a href="{{ action('MasterBox\Admin\OrdersController@getConfirmReady', ['id' => $order->id]) }}">Prête pour envoi</a> |
+  					<a class="button button__default --table js-confirm" data-confirm-text="La commande est prête pour envoi ?" href="{{ action('MasterBox\Admin\OrdersController@getConfirmReady', ['id' => $order->id]) }}">Prête pour envoi</a>
 
   				@endif
   				
-  				<a href="{{ action('MasterBox\Admin\OrdersController@getConfirmProblem', ['id' => $order->id]) }}">Signaler problème</a> |
-  				<a href="{{ action('MasterBox\Admin\OrdersController@getConfirmCancel', ['id' => $order->id]) }}">Annuler</a> |
-  				<a href="{{ action('MasterBox\Admin\OrdersController@getDelete', ['id' => $order->id]) }}">Archiver</a>
+  				<a class="button button__default --table --red js-confirm" data-confirm-text="La commande sera signalé comme problématique" href="{{ action('MasterBox\Admin\OrdersController@getConfirmProblem', ['id' => $order->id]) }}">Signaler problème</a>
+
+  				<a class="button button__default --table --red js-confirm" data-confirm-text="La commande va être annulé" href="{{ action('MasterBox\Admin\OrdersController@getConfirmCancel', ['id' => $order->id]) }}">Annuler</a>
+
+  				<a class="button button__default --table --red js-confirm-delete" href="{{ action('MasterBox\Admin\OrdersController@getDelete', ['id' => $order->id]) }}">Archiver</a>
 
   				</th>
 
