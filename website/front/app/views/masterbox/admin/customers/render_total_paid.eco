@@ -1,7 +1,0 @@
-<% if @profiles.length > 0: %>
-  <% for profile in @profiles: %>
-    <a class="button button__link" href="<%- _.slash(@focus_profile) + profile.id %>">#<%= profile.id %> (<%- _.profileStatus(profile.status) %>)</a><br/>
-  <% end %>
-<% else: %>
-  Aucun abonnement
-<% end %>

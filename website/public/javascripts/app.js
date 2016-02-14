@@ -589,7 +589,7 @@ Index = (function(superClass) {
               datas = {
                 focus_profile: _.slash($('table').data('focus-profile'))
               };
-              return _this.view('masterbox.admin.customers.render_total_paid', _.extend(datas, full));
+              return _this.view('masterbox.admin.customers.render_subscriptions', _.extend(datas, full));
             };
           })(this)
         }, {
@@ -1682,6 +1682,23 @@ _.mixin({
     }
   }
 });
+
+_.mixin({
+  colorProfileStatusButton: function(status) {
+    switch (status) {
+      case 'in-progress':
+        return '--blue';
+      case 'expired':
+        return '--red';
+      case 'not-subscribed':
+        return '--red';
+      case 'subscribed':
+        return '--green';
+      default:
+        return '--blue';
+    }
+  }
+});
 });
 
 ;require.register("initialize", function(exports, require, module) {
@@ -1968,11 +1985,11 @@ var __templateData = function (__obj) {
     
       __out.push(this.link_focus);
     
-      __out.push('" class="button button__table"><i class="fa fa-eye"></i></a>\n<a href="');
+      __out.push('" class="button button__default --green --table"><i class="fa fa-search"></i></a>\n<a href="');
     
       __out.push(this.link_edit);
     
-      __out.push('" class="button button__table"><i class="fa fa-pencil"></i></a>\n');
+      __out.push('" class="button button__default --blue --table"><i class="fa fa-pencil"></i></a>\n');
     
     }).call(this);
     
@@ -2090,7 +2107,7 @@ if (typeof define === 'function' && define.amd) {
 }
 });
 
-;require.register("views/masterbox/admin/customers/render_total_paid", function(exports, require, module) {
+;require.register("views/masterbox/admin/customers/render_subscriptions", function(exports, require, module) {
 var __templateData = function (__obj) {
   if (!__obj) __obj = {};
   var __out = [], __capture = function(callback) {
@@ -2137,13 +2154,15 @@ var __templateData = function (__obj) {
         ref = this.profiles;
         for (i = 0, len = ref.length; i < len; i++) {
           profile = ref[i];
-          __out.push('\n    <a class="button button__link" href="');
+          __out.push('\n\n    <a class="button button__default --table ');
+          __out.push(__sanitize(_.colorProfileStatusButton(profile.status)));
+          __out.push('" href="');
           __out.push(_.slash(this.focus_profile) + profile.id);
           __out.push('">#');
           __out.push(__sanitize(profile.id));
           __out.push(' (');
           __out.push(_.profileStatus(profile.status));
-          __out.push(')</a><br/>\n  ');
+          __out.push(')</a><br/>\n    \n  ');
         }
         __out.push('\n');
       } else {
