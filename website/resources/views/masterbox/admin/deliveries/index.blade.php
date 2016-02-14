@@ -64,10 +64,10 @@
           <td>
 
           @if ($serie->closed == NULL)
-            <a title="Bloquer la série" class="button button__default --table --red js-tooltip" href="{{ action('MasterBox\Admin\DeliveriesController@getLock', ['id' => $serie->id]) }}"><i class="fa fa-lock"></i></a>
+            <a title="Bloquer la série" data-confirm-text="La série va être bloquée !" class="button button__default --table --red js-tooltip js-confirm" href="{{ action('MasterBox\Admin\DeliveriesController@getLock', ['id' => $serie->id]) }}"><i class="fa fa-lock"></i></a>
             <a title="Editer la série" class="button button__default --green --table js-tooltip" href="{{ action('MasterBox\Admin\DeliveriesController@getEdit', ['id' => $serie->id]) }}"><i class="fa fa-pencil"></i></a>
           @else
-            <a title="Envoyer les emails pour confirmer les livraisons à domicile ?" class="button button__default --red --table js-tooltip" href="{{ action('MasterBox\Admin\EmailManagerController@getSendEmailToSeriesShippedOrders', ['id' => $serie->id]) }}"><i class="fa fa-envelope"></i></a>
+            <a title="Envoyer les emails pour confirmer les livraisons à domicile ?" data-confirm-text="Les emails vont être envoyés pour confirmer les livraisons à domicile (La Poste)" class="button button__default --red --table js-tooltip js-confirm" href="{{ action('MasterBox\Admin\EmailManagerController@getSendEmailToSeriesShippedOrders', ['id' => $serie->id]) }}"><i class="fa fa-envelope"></i></a>
 
             @if ($serie->isUnlockable())
               <a title="Débloquer" class="button button__default --table" href="{{ action('MasterBox\Admin\DeliveriesController@getUnlock', ['id' => $serie->id])}}"><i class="fa fa-unlock"></i></a>
@@ -76,7 +76,7 @@
           @endif
 
           @if ($serie->orders()->first() == NULL)
-            <a title="Supprimer" class="button button__default --table --red" href="{{ action('MasterBox\Admin\DeliveriesController@getDelete', ['id' => $serie->id]) }}"><i class="fa fa-trash-o"></i></a>
+            <a title="Supprimer" class="button button__default --table --red js-confirm-delete" href="{{ action('MasterBox\Admin\DeliveriesController@getDelete', ['id' => $serie->id]) }}"><i class="fa fa-trash-o"></i></a>
           @endif
 
         </tr>

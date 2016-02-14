@@ -152,6 +152,7 @@ Admin = (function() {
     this.modal();
     this.datatable();
     this.deleteConfirm();
+    this.confirm();
     this.markdownEditor();
   }
 
@@ -193,6 +194,26 @@ Admin = (function() {
         type: 'warning',
         title: 'Es-tu sûr ?',
         text: 'La ressource sera supprimé définitivement',
+        showCancelButton: true,
+        confirmButtonText: "Oui je suis sûr",
+        cancelButtonText: "Annuler",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, (function(_this) {
+        return function() {
+          return window.location.href = $(_this).attr('href');
+        };
+      })(this));
+    });
+  };
+
+  Admin.prototype.confirm = function() {
+    return $(document).on('click', '.js-confirm', function(e) {
+      e.preventDefault();
+      return swal({
+        type: 'warning',
+        title: 'Es-tu sûr ?',
+        text: $(this).data('confirm-text'),
         showCancelButton: true,
         confirmButtonText: "Oui je suis sûr",
         cancelButtonText: "Annuler",
