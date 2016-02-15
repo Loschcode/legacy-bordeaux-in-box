@@ -99,7 +99,7 @@ class PaymentsController extends BaseController {
 		if ($validator->passes()) {
 
 			$payment = Payment::find($fields['payment_id']);
-			$new_order = Order::where('id', '=', $fields['order_id']);
+			$new_order = Order::where('id', '=', $fields['order_id'])->first();
 
 			if ($payment === NULL)
         return redirect()->action('MasterBox\Guest\HomeController@getIndex');
