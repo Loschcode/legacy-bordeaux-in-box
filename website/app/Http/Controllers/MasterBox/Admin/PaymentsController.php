@@ -99,7 +99,7 @@ class PaymentsController extends BaseController {
 		if ($validator->passes()) {
 
 			$payment = Payment::find($fields['payment_id']);
-			$new_order = Order::find($fields['order_id']);
+			$new_order = Order::where('id', '=', $fields['order_id']);
 
 			if ($payment === NULL)
         return redirect()->action('MasterBox\Guest\HomeController@getIndex');
@@ -113,16 +113,26 @@ class PaymentsController extends BaseController {
       
 			}
 
-      // We attach the new order and update the paid
-      $payment->orders()->attach($new_order);
-      $new_order->already_paid = $payment->amount;
+      if ($new_order !== NULL) {
 
-			$new_order->save();
-			$payment->save();
+        // We attach the new order and update the paid
+        $payment->orders()->attach($new_order);
+        $new_order->already_paid = $payment->amount;
 
-			// Then we redirect
-			session()->flash('message', "Le paiement vient d'être relié");
-			return redirect()->back();
+  			$new_order->save();
+  			$payment->save();
+
+        // Then we redirect
+        session()->flash('message', "Le paiement vient d'être relié");
+
+      } else {
+
+  			// Then we redirect
+  			session()->flash('message', "Le paiement vient d'être détaché");
+
+      }
+
+      return redirect()->back();
 
 		} else {
 
