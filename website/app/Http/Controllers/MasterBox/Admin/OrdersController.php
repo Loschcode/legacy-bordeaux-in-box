@@ -56,7 +56,38 @@ class OrdersController extends BaseController {
 
   }
 
-  public function postUpdateOrderStatus()
+  public function getFulfilAlreadyPaid($id)
+  {
+
+    $order = Order::find($id);
+    $order->already_paid = $order->unity_and_fees_price;
+
+    if (!in_array($order->status, ['delivered', 'canceled']))
+      $order->status = 'paid';
+
+    $order->save();
+
+    session()->flash('message', "La commande a été artificiellement payée.");
+    return redirect()->back();
+
+  }
+
+  public function getEmptyAlreadyPaid($id)
+  {
+
+    $order = Order::find($id);
+    $order->already_paid = 0;
+
+    if (($order->status === 'paid') || ($order->status === 'half-paid'))
+      $order->status = 'unpaid';
+
+    $order->save();
+
+    session()->flash('message', "La commande a été artificiellement vidée de tout paiement.");
+    return redirect()->back();
+  }
+
+  public function postUpdateStatus()
   {
 
     $rules = [
@@ -76,10 +107,52 @@ class OrdersController extends BaseController {
       $order->status = $fields['order_status'];
       $order->save();
 
+      session()->flash('message', "Le statut de la commande a été modifié");
+
       return redirect()->back()
       ->withInput();
 
     } else {
+
+      session()->flash('error', "Une erreur est apparu lors de la modification du statut.");
+
+      // We return the same page with the error and saving the input datas
+      return redirect()->back()
+      ->withInput()
+      ->withErrors($validator);
+
+    }
+
+  }
+
+  public function postUpdatePaymentWay()
+  {
+
+    $rules = [
+
+      'order_id' => 'required|numeric',
+      'order_payment_way' => 'required',
+
+      ];
+
+    $fields = Request::all();
+    $validator = Validator::make($fields, $rules);
+
+    // The form validation was good
+    if ($validator->passes()) {
+
+      $order = Order::find($fields['order_id']);
+      $order->payment_way = $fields['order_payment_way'];
+      $order->save();
+
+      session()->flash('message', "Le statut de la commande a été modifié");
+
+      return redirect()->back()
+      ->withInput();
+
+    } else {
+
+      session()->flash('error', "Une erreur est apparu lors de la modification du type de paiement.");
 
       // We return the same page with the error and saving the input datas
       return redirect()->back()

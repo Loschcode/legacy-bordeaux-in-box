@@ -247,7 +247,8 @@ class PaymentsController extends BaseController {
 	/**
 	 * We make it fail
 	 */
-	public function getMakeSuccess($id)
+  // WE SHOULDNT USE IT ANYMORE IN ANY SITUATION (Laurent, 2016-02-14)
+	/*public function getMakeSuccess($id)
 	{
 
 		$payment = Payment::find($id);
@@ -295,6 +296,6 @@ class PaymentsController extends BaseController {
 
 		}
 
-	}
+	}*/
 
 }

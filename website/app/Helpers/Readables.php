@@ -131,6 +131,24 @@ function readable_order_status($status) {
 
 }
 
+function generate_status_form() {
+
+  return [
+
+        'paid' => 'Payé',
+        'unpaid' => 'Non payé',
+        'half-paid' => 'Partiellement payé',
+        'scheduled' => 'Planifié',
+        'packing' => 'En préparation',
+        'ready' => 'Prêt pour envoi',
+        'delivered' => 'Envoyé',
+        'failed' => 'Echec',
+        'canceled' => 'Annulé'
+
+        ];
+
+}
+
 /**
  * Translate the customer role
  * @param  string $role The role (ex. user, admin)

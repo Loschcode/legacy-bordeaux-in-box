@@ -38,6 +38,7 @@
       <th>Statut</th>
       <th>Montant déjà payé</th>
       <th>Prix total</th>
+      <th>Type de paiement</th>
       <th>A offrir</th>
       <th>Etat de la commande</th>
       <th>Date complétée</th>
@@ -81,15 +82,43 @@
         @endif
       </th>
       <th>
-        {!! Html::getReadableOrderStatus($order->status) !!}
+
+        {{ Form::open(array('action' => 'MasterBox\Admin\OrdersController@postUpdateStatus')) }}
+        {{ Form::hidden('order_id', $order->id)}}
+        {{ Form::select('order_status', generate_status_form(), $order->status, ['class' => 'js-chosen', 'data-width' => '150px']) }} {{ Form::submit('OK', ['class' => 'button button__default']) }} <br/>
+        {{ Form::close() }}
+
       </th>
-      <th>{{ Html::euros($order->already_paid) }}
-        @if ($order->payment_way != NULL)
-        <?php $ways = Config::get('bdxnbx.payment_ways'); ?>
-        ({{$ways[$order->payment_way]}})
-        @endif
+      <th>
+
+      {{ Html::euros($order->already_paid) }}
+
+      @if ($order->already_paid < $order->unity_and_fees_price)
+
+      <a class="button button__default --green --table js-tooltip js-confirm" data-confirm-text="Considérer comme payé" title="Payé" href="{{ action('MasterBox\Admin\OrdersController@getFulfilAlreadyPaid', ['id' => $order->id]) }}"><i class="fa fa-arrow-up"></i></a>
+
+      @else
+
+      <a class="button button__default --red --table js-tooltip js-confirm" data-confirm-text="Artificiellement vider le paiement" title="Impayé" href="{{ action('MasterBox\Admin\OrdersController@getEmptyAlreadyPaid', ['id' => $order->id]) }}"><i class="fa fa-arrow-down"></i></a>
+      
+      @endif
+
       </th>
       <th>{{ Html::euros($order->unity_and_fees_price) }}</th>
+      <th>
+
+        @if ($order->payment_way === NULL)
+        N/A
+        @else
+
+        {{ Form::open(array('action' => 'MasterBox\Admin\OrdersController@postUpdatePaymentWay')) }}
+        {{ Form::hidden('order_id', $order->id)}}
+        {{ Form::select('order_payment_way', Config::get('bdxnbx.payment_ways'), $order->payment_way, ['class' => 'js-chosen', 'data-width' => '130px']) }} {{ Form::submit('OK', ['class' => 'button button__default']) }} <br/>
+        {{ Form::close() }}
+
+        @endif
+
+      </th>
       <th>
         {!! Html::boolYesOrNo($order->gift) !!}
       </th>
