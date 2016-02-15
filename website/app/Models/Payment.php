@@ -100,17 +100,14 @@ class Payment extends Model {
 
   }
 
-  public function getCompanybillings()
+  public function getCompanyBillings()
   {
-
 
     return $this->where('payments.id', '=', $this->id)
                 ->join('company_billing_lines', 'company_billing_lines.payment_id', '=', 'payments.id')
                 ->join('company_billings', 'company_billing_lines.company_billing_id', '=', 'company_billings.id')
                 ->groupBy('company_billings.id')
                 ->select('company_billings.*')->get();
-
-
 
   }
 

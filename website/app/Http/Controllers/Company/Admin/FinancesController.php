@@ -85,8 +85,6 @@ class FinancesController extends BaseController {
 
     return generate_csv_finances_spreadsheet($csv_name, $payments, $only_fees);
 
-    return generate_csv_finances_spreadsheet($csv_name, $payments);
-
   }
 
   public function getFinancesSpreadsheetTotalDebits($only_fees=FALSE)
@@ -103,8 +101,6 @@ class FinancesController extends BaseController {
       $csv_name = 'finances-spreadsheet-debits-'.time().'.csv';
 
     return generate_csv_finances_spreadsheet($csv_name, $payments, $only_fees);
-
-    return generate_csv_finances_spreadsheet($csv_name, $payments);
 
   }
 

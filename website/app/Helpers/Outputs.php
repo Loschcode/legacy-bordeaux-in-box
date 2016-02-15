@@ -134,7 +134,7 @@ function generate_csv_finances_spreadsheet($file_name, $payments, $only_fees=FAL
     $customer = $profile->customer()->first();
     $email = $customer->email;
 
-    $order = $payment->order()->first();
+    $order = $payment->orders()->first();
     if ($order !== NULL) {
       $delivery_serie = $order->delivery_serie()->first();
     } else {
@@ -203,7 +203,20 @@ function generate_csv_finances_spreadsheet($file_name, $payments, $only_fees=FAL
 
       $crediteur = retrieve_customer_id($customer);
       $type_crediteur = "Personnel";
-      $facture = "\"=HYPERLINK(\"\"https://www.bordeauxinbox.fr/v1/archive/public-bill/".$payment->bill_id."\"\"%coma% \"\"".$payment->bill_id."\"\")\"";
+
+      $company_billing = $payment->getCompanyBillings()->first();
+
+      $hyperlink = action('Company\Guest\BillingController@getWatch', ['encrypted_access' => $company_billing->encrypted_access]);
+
+      /*$hyper_link_with_quotes = "\"\"$hyperlink\"\"";
+
+      $first_part = substr($hyperlink, 0, 200);
+      $second_part = substr($hyperlink, 200);
+
+      $facture = "\"=HYPERLINK(CONCATENATE(\"\"$first_part\"\"%coma%\"\"$second_part\"\")%coma% \"\"".$company_billing->bill_id."\"\")\"";*/
+
+      $facture = $hyperlink;
+
 
     }
 
