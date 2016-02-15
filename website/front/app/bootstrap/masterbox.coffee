@@ -1,7 +1,4 @@
-##
-# Bootstrap for the front section of the admin (guest, customer, etc ...)
-##
-class Front 
+class Masterbox
 
   constructor: ->
 
@@ -18,4 +15,4 @@ class Front
     else
       $('.js-menu').slicknav()
 
-module.exports = Front
+module.exports = Masterbox

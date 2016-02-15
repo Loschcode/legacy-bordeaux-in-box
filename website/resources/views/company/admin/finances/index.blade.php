@@ -1,8 +1,61 @@
 @extends('company.layouts.admin')
 
-@section('page')
-  <i class="fa fa-calculator"></i> Finances
+@section('content')
+  <div class="row">
+    <div class="grid-8">
+      <h1 class="title title__section"><i class="fa fa-calculator"></i> Finances</h1>
+    </div>
+  </div>
+
+  <div class="divider divider__section"></div>
+
+  {!! Html::info('Rapport des factures et différents chiffres clés.') !!}
+
+  <a class="button button__default --blue" href="{{ action('Company\Admin\FinancesController@getFinancesSpreadsheetTotalCredits') }}">Spreadsheet crédits total</a>
+  <a class="button button__default --blue" href="{{ action('Company\Admin\FinancesController@getFinancesSpreadsheetTotalCredits', ['only_fees' => TRUE]) }}">Spreadsheet crédits frais Stripe total</a>
+  <div class="+spacer-extra-small"></div>
+  <a class="button button__default --blue" href="{{ action('Company\Admin\FinancesController@getFinancesSpreadsheetTotalDebits') }}">Spreadsheet débits total</a>
+  <a class="button button__default --blue" href="{{ action('Company\Admin\FinancesController@getFinancesSpreadsheetTotalDebits', ['only_fees' => TRUE]) }}">Spreadsheet débits remboursement frais Stripe total</a>
+
+
+  <table class="js-datatable-simple">
+
+    <thead>
+
+      <tr>
+        <th>ID</th>
+        <th>Série</th>
+        <th>Chiffres</th>
+        <th>Téléchargements</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      @foreach ($series as $serie)
+
+        <tr>
+
+          <th>{{$serie->id}}</th>
+          <th>{{ Html::dateFrench($serie->delivery, true) }} ({{ $serie->delivery }})</th>
+          <th>{{ Html::euros($serie->orders()->sum('already_paid')) }}</th>
+
+          <th>
+          <a class="button button__default --blue --table" href="{{ url('/admin/taxes/bills/' . $serie->id)}}">Factures</a> <a class="button button__default --blue --table" href="{{ url('/admin/taxes/payments/' . $serie->id)}}">Paiements</a>
+          </th>
+
+        </tr>
+
+      @endforeach
+
+      </tbody>
+
+    </table>
 @stop
+
+<?php /*
+@extends('company.layouts.admin')
 
 @section('content')
   @if (session()->has('message'))
@@ -71,3 +124,4 @@
     </div>
 
 @stop
+*/ ?>

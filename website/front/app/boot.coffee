@@ -6,9 +6,9 @@
 # place to init some jQuery plugins or some defaults for the project. 
 # In short, bootstrap your app here.
 ##
-BootstrapMasterboxDefault = require 'bootstrap/masterbox/default'
-BootstrapMasterboxAdmin = require 'bootstrap/masterbox/admin'
-BootstrapMasterboxFront = require 'bootstrap/masterbox/front'
+Default = require 'bootstrap/default'
+Admin = require 'bootstrap/admin'
+Masterbox = require 'bootstrap/masterbox'
 
 # Polify placeholders
 $('input, textarea').placeholder()
@@ -21,8 +21,11 @@ if _.getEnvironment() is 'production'
 
 switch _.getApp()
   when 'masterbox'
-    new BootstrapMasterboxDefault()
-    new BootstrapMasterboxFront()
+    new Default()
+    new Masterbox()
   when 'masterbox-admin'
-    new BootstrapMasterboxDefault()
-    new BootstrapMasterboxAdmin()
+    new Default()
+    new Admin()
+  when 'company-admin'
+    new Default()
+    new Admin()

@@ -19,7 +19,7 @@
 
 	{{-- SASS app --}}
 	<link href="{{ Html::version('stylesheets/vendor.css') }}" rel="stylesheet">
-	<link href="{{ Html::version('stylesheets/masterbox-admin.css') }}" rel="stylesheet">
+	<link href="{{ Html::version('stylesheets/admin.css') }}" rel="stylesheet">
 
 	{{-- CoffeeScript App --}}
 	@if ( ! $app->environment('production'))

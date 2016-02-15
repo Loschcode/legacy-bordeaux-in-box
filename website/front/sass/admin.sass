@@ -1,0 +1,25 @@
+// ===========================================================
+// Admin
+// ===========================================================
+// 
+// Admin sections in the projects are similar. We don't 
+// want to copy a shit load of files for each admin projects.
+// Let's just use this "boilerplate". If you want to add 
+// some tweaks in an admin section. Create an another app which
+// will add some features on this boilerplate.
+
+// Boot the core, it imports the helpers, mixins, functions, etc.
+@import 'core/boot'
+
+// Boot the app
+@import 'apps/admin/boot'
+
+// Import the hooks wanted
+@import 'hooks/textarea-autosize'
+@import 'hooks/masterbox-admin/chosen'
+@import 'hooks/datatable'
+@import 'hooks/labelauty'
+@import 'hooks/jquery-modal'
+
+// Import tweaks
+@import 'helpers/tweaks'

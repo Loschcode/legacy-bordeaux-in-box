@@ -1,6 +1,3 @@
-###
-# Default Bootstrap for masterbox section
-###
 class Default
 
   constructor: ->

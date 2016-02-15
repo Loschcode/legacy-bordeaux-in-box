@@ -55,7 +55,7 @@ exports.config =
       joinTo:
         'stylesheets/vendor.css': /^(vendor|bower_components|sass\/vendor\/gridle)/
         'stylesheets/masterbox.css': /^sass\/masterbox.sass/
-        'stylesheets/masterbox-admin.css': /^sass\/masterbox-admin.sass/
+        'stylesheets/admin.css': /^sass\/admin.sass/
 
 
       order:
