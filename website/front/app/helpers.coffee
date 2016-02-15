@@ -69,4 +69,16 @@ _.mixin profileStatus: (status) ->
     when 'subscribed' then 'Abonné'
     else status
 
+##
+# Returns the right css class
+##
+_.mixin colorProfileStatusButton: (status) ->
+
+  return switch status
+    when 'in-progress' then '--blue'
+    when 'expired' then '--red'
+    when 'not-subscribed' then '--red'
+    when 'subscribed' then '--green'
+    else '--blue'
+
 

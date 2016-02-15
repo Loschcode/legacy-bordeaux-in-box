@@ -1,5 +1,9 @@
 @extends('masterbox.layouts.admin')
 
+@section('navbar')
+  @include('masterbox.admin.partials.navbar_content')
+@stop
+
 @section('content')
     
   <div class="row">

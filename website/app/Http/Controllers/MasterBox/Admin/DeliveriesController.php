@@ -45,12 +45,12 @@ class DeliveriesController extends BaseController {
     
     # Payment part
     $payments = Payment::orderBy('created_at', 'desc')->get();
-    $series = DeliverySerie::withOrdersOnly()->orderBy('delivery', 'desc')->get();
+    $series = DeliverySerie::withOrdersOnly()->orderBy('id', 'desc')->get();
     $prices = DeliveryPrice::orderBy('unity_price')->get();
     $settings = DeliverySetting::first();
 
-    $config_graph_all_orders = $this->all_orders_graph_config($series);
-    $config_graph_all_payments = $this->all_payments_graph_config($series);
+    //$config_graph_all_orders = $this->all_orders_graph_config($series);
+    //$config_graph_all_payments = $this->all_payments_graph_config($series);
 
     return view('masterbox.admin.deliveries.index')->with(compact(
       'payments',
@@ -60,6 +60,15 @@ class DeliveriesController extends BaseController {
       'config_graph_all_orders',
       'config_graph_all_payments'
     ));
+
+  }
+
+  /**
+   * Display configuration offers
+   * @return [type] [description]
+   */
+  public function getConfigurationOffers()
+  {
 
   }
 
@@ -161,9 +170,9 @@ class DeliveriesController extends BaseController {
       ];
 
 
-    $fields = Request::all();
+    $fields = request()->all();
 
-    $validator = Validator::make($fields, $rules);
+    $validator = validator()->make($fields, $rules);
 
     // The form validation was good
     if ($validator->passes()) {
@@ -343,10 +352,10 @@ class DeliveriesController extends BaseController {
 
   }
 
-    /**
-     * Add a new serie
-     * @return void
-     */
+  /**
+   * Add a new serie
+   * @return void
+   */
   public function postIndex()
   {
 
@@ -355,14 +364,13 @@ class DeliveriesController extends BaseController {
     $rules = [
 
       'delivery' => 'required',
-      'goal' => 'integer',
+      'goal' => 'required|integer',
 
       ];
 
+    $fields = request()->all();
 
-    $fields = Request::all();
-
-    $validator = Validator::make($fields, $rules);
+    $validator = validator()->make($fields, $rules);
 
     // The form validation was good
     if ($validator->passes()) {
@@ -370,9 +378,7 @@ class DeliveriesController extends BaseController {
       $serie = new DeliverySerie;
 
       $serie->delivery = $fields['delivery'];
-
-      if ($fields['goal']) $serie->goal = $fields['goal'];
-      else $serie->goal = NULL;
+      $serie->goal = $fields['goal'];
 
       $serie->save();
 

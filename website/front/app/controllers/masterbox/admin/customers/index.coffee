@@ -43,7 +43,7 @@ class Index extends Controller
             datas = 
               focus_profile: _.slash($('table').data('focus-profile'))
 
-            return @view('masterbox.admin.customers.render_total_paid', _.extend(datas, full))
+            return @view('masterbox.admin.customers.render_subscriptions', _.extend(datas, full))
         }
         { 
           render: (data, type, full, meta) ->

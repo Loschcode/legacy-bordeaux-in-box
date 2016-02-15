@@ -41,11 +41,11 @@
       <th>{{$spot->getSeriesOrders($series)->count()}}</th>
       <th>{{$spot->getDeliveredSeriesOrders($series)->count()}}</th>
       <th>
-        <a class="button button__link" href="{{ url('/admin/deliveries/download-csv-orders-from-series-and-spot/' . $series->id . '/' . $spot->id) }}">Commandes (CSV)</a>
+        <a class="button button__default --table" href="{{ url('/admin/deliveries/download-csv-orders-from-series-and-spot/' . $series->id . '/' . $spot->id) }}">Commandes (CSV)</a>
       </th>
       <th>
-        <a title="Affiche le listing des commandes pour ce spot" class="button button__table js-tooltip" href="{{ action('MasterBox\Admin\DeliveriesController@getListingOrdersFromSeriesAndSpot', ['series_id' => $series->id, 'spot_id' => $spot->id]) }}"><i class="fa fa-eye"></i></a>
-        <a title="Envoyer les emails pour confirmer les livraisons au point relais ?" class="button button__table js-tooltip" href="{{ action('MasterBox\Admin\EmailManagerController@getSendEmailToSeriesSpotOrders', ['series_id' => $series->id, 'spot_id' => $spot->id]) }}"><i class="fa fa-envelope"></i></a>
+        <a title="Affiche le pdf du listing des commandes pour ce spot" class="button button__default --green --table js-tooltip" href="{{ action('MasterBox\Admin\DeliveriesController@getListingOrdersFromSeriesAndSpot', ['series_id' => $series->id, 'spot_id' => $spot->id]) }}"><i class="fa fa-search"></i></a>
+        <a data-confirm-text="Le système va envoyer les emails pour confirmer les livraisons au point relais" title="Envoyer les emails pour confirmer les livraisons au point relais ?" class="button button__default --table --red js-confirm js-tooltip" href="{{ action('MasterBox\Admin\EmailManagerController@getSendEmailToSeriesSpotOrders', ['series_id' => $series->id, 'spot_id' => $spot->id]) }}"><i class="fa fa-envelope"></i></a>
 
       </th>
     </tr>

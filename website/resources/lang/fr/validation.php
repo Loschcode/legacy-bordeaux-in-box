@@ -162,7 +162,9 @@ return array(
         "billing_city" => "ville",
         "billing_zip" => "code postal",
         "billing_address" => "adresse",
-        "zip" => "code postal"
+        "zip" => "code postal",
+        "delivery" => "date de livraison",
+        "goal" => "objectif"
     ),
 
 );

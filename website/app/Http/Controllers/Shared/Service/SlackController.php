@@ -4,6 +4,14 @@ use App\Http\Controllers\MasterBox\BaseController;
 use App\Libraries\Trello;
 use Mail;
 
+/*
+|--------------------------------------------------------------------------
+| Slack Controller
+|--------------------------------------------------------------------------
+|
+| Slack Commands !
+|
+*/
 class SlackController extends BaseController {
 
   private $general_board = 'Bordeaux in Box - General';
@@ -11,19 +19,20 @@ class SlackController extends BaseController {
   private $dev_board = 'Bordeaux in Box - Dev';
   private $dev_list = 'To do';
 
-  /*
-  |--------------------------------------------------------------------------
-  | Slack Controller
-  |--------------------------------------------------------------------------
-  |
-  | Everything about slack commands
-  |
-  */
+ 
+  /**
+   * Command Slack: /general [user] [title task]
+   * Add a task in the trello board general for the user given
+   */
   public function postCommandGeneral()
   {
     return $this->processCommandTrello('general');
   }
 
+  /**
+   * Command Slack: /dev [user] [title task]
+   * Add a task in the trello board dev for the user given
+   */
   public function postCommandDev()
   {
     return $this->processCommandTrello('dev');
@@ -33,6 +42,7 @@ class SlackController extends BaseController {
   {
 
     $text = trim(request()->input('text'));
+    $username = request()->input('user_name');
 
     if (empty($text)) {
       return 'Erreur: Il manque la personne à assigner ainsi que le nom de la task';
@@ -86,6 +96,9 @@ class SlackController extends BaseController {
       break;
     }
 
+    // Add from who
+    $task .= ' - ajoutée par ' . $username;
+
     // Add task
     $trello = new Trello();
     $response = $trello->addTask($this->{$type . '_board'}, $this->{$type . '_list'}, $task, $username);
@@ -98,18 +111,24 @@ class SlackController extends BaseController {
 
   }
 
+  /**
+   * Command Slack: /hugo [title task]
+   * Add a task in the todoist of hugo
+   */
   public function postCommandTodoist()
   {
-    
+
     $text = trim(request()->input('text'));
+    $username = request()->input('user_name');
 
     if (empty($text)) {
       return 'Erreur: Aucun texte pour la task';
     }
 
-    $send = Mail::raw('', function($message) use ($text) {
+    // Send an email to the todoist project (will auto create a task)
+    $send = Mail::raw('', function($message) use ($text, $username) {
       $message->to('project.152585713.4929638@todoist.net')
-        ->subject($text . ' @slack');
+        ->subject($text . ' - ajoutée par ' . $username .  ' @slack');
     });
 
     if ($send) {

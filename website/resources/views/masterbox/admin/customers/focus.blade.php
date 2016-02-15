@@ -66,7 +66,7 @@
                 <td>{{ $profile->id }}</td>
                 <td>{{ $profile->contract_id }}</td>
                 <td>{!! Html::getReadableProfileStatus($profile->status) !!}</td>
-                <td><a class="button button__table" href="{{action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $profile->id])}}"><i class="fa fa-eye"></i></a></td>
+                <td><a class="button button__default --green --table" href="{{action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $profile->id])}}"><i class="fa fa-search"></i></a></td>
                 </tr>
               @endforeach
             </tbody>

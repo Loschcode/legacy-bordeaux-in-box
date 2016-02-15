@@ -12,6 +12,7 @@ class Admin
     @modal()
     @datatable()
     @deleteConfirm()
+    @confirm()
     @markdownEditor()
 
   ##
@@ -51,6 +52,7 @@ class Admin
     $('.js-datatable-simple').DataTable
       length: false
       language: Config.datatable.language.fr
+      aaSorting: []
 
   ##
   # Popup a sweet alert when you want to delete 
@@ -74,6 +76,31 @@ class Admin
       , =>
 
         window.location.href = $(this).attr('href')
+
+  ##
+  # Popup a sweet alert when you want to display a confirm on 
+  # something 
+  ##
+  confirm: ->
+
+    $(document).on 'click', '.js-confirm', (e) ->
+
+      e.preventDefault();
+
+      swal
+        type: 'warning'
+        title: 'Es-tu sûr ?'
+        text: $(this).data('confirm-text')
+        showCancelButton: true
+        confirmButtonText: "Oui je suis sûr", 
+        cancelButtonText: "Annuler"
+        closeOnConfirm: false
+        showLoaderOnConfirm: true
+      , =>
+
+        window.location.href = $(this).attr('href')
+
+
 
   ##
   # Renders a markdown editor where you want

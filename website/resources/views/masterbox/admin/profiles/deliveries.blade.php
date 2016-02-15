@@ -102,10 +102,10 @@
       <th>
 
           @if ($order->status != 'canceled')
-          <a class="button button__table js-tooltip" title="Annuler" href="{{ action('MasterBox\Admin\OrdersController@getConfirmCancel', ['id' => $order->id]) }}"><i class="fa fa-gavel"></i></a>
+          <a class="button button__default --red --table js-tooltip js-confirm" data-confirm-text="Cette livraison va être annulée" title="Annuler" href="{{ action('MasterBox\Admin\OrdersController@getConfirmCancel', ['id' => $order->id]) }}"><i class="fa fa-gavel"></i></a>
           @endif
 
-          <a class="button button__table js-confirm-delete" href="{{ action('MasterBox\Admin\OrdersController@getDelete', ['id' => $order->id]) }}"><i class="fa fa-trash"></i></a>
+          <a class="button button__default --red --table js-confirm-delete" href="{{ action('MasterBox\Admin\OrdersController@getDelete', ['id' => $order->id]) }}"><i class="fa fa-trash"></i></a>
 
         </th>
 
@@ -138,7 +138,7 @@
           @endif
         </div>
 
-        <a class="button button__default" href="{{ action('MasterBox\Admin\CustomersController@getEdit', ['id' => $customer->id]) }}"><i class="fa fa-pencil"></i> Editer</a>
+        <a class="button button__default --green" href="{{ action('MasterBox\Admin\CustomersController@getEdit', ['id' => $customer->id]) }}"><i class="fa fa-pencil"></i> Editer</a>
 
       </div>
     </div>

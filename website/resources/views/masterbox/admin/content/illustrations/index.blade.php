@@ -1,8 +1,10 @@
 @extends('masterbox.layouts.admin')
 
-@section('content')
-
+@section('navbar')
   @include('masterbox.admin.partials.navbar_content')
+@stop
+
+@section('content')
 
   <div class="row">
     <div class="grid-8">
@@ -32,8 +34,8 @@
       <tr>
         <td>{{ $image_article->title }}</td>
         <td>
-          <a class="button__table" href="{{ action('MasterBox\Admin\ContentController@getEditIllustration', ['id' => $image_article->id]) }}"><i class="fa fa-pencil"></i></a>
-          <a class="button__table js-confirm-delete" href="{{ action('MasterBox\Admin\ContentController@getDeleteIllustration', ['id' => $image_article->id]) }}"><i class="fa fa-trash-o"></i></a>
+          <a class="button button__default --blue --table" href="{{ action('MasterBox\Admin\ContentController@getEditIllustration', ['id' => $image_article->id]) }}"><i class="fa fa-pencil"></i></a>
+          <a class="button button__default --red --table js-confirm-delete" href="{{ action('MasterBox\Admin\ContentController@getDeleteIllustration', ['id' => $image_article->id]) }}"><i class="fa fa-trash-o"></i></a>
 
         </td>
       </tr>
