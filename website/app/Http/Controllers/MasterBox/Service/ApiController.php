@@ -8,6 +8,7 @@ use App\Models\DeliverySerie;
 use App\Models\BoxQuestionCustomerAnswer;
 use App\Models\CustomerProfile;
 use App\Models\Customer;
+use App\Models\Order;
 
 use Auth, Validator;
 
@@ -187,6 +188,65 @@ class ApiController extends BaseController {
 
     $count = $current_serie->orders()->notCanceledOrders()->count();
     return response()->json(['count' => $count]);
+  }
+
+
+  /**
+   * Will update the status of an order
+   * @return json
+   */
+  public function postUpdateStatusOrder()
+  {
+
+    $rules = [
+
+      'order_id' => 'required|numeric',
+      'order_status' => 'required',
+
+      ];
+
+    $fields = request()->all();
+    $validator = validator()->make($fields, $rules);
+
+    if ( ! $validator->passes()) {
+      return response()->json(['success' => FALSE, 'message' => 'Une erreur est apparu lors de la modification du statut.']);
+    }
+
+    $order = Order::find($fields['order_id']);
+    $order->status = $fields['order_status'];
+    $order->save();
+
+    return response()->json(['success' => TRUE, 'message' => 'Le statut de la commande a été modifié']);
+
+  }
+
+  /**
+   * Will update the payment type used for the order
+   * @return json
+   */
+  public function postUpdatePaymentWayOrder()
+  {
+
+    $rules = [
+
+      'order_id' => 'required|numeric',
+      'order_payment_way' => 'required',
+
+      ];
+
+    $fields = request()->all();
+    $validator = validator()->make($fields, $rules);
+
+    if ( ! $validator->passes()) {
+      return ['success' => FALSE, 'message' => 'Une erreur est apparu lors de la modification du type de paiement.'];
+    }
+
+    $order = Order::find($fields['order_id']);
+    $order->payment_way = $fields['order_payment_way'];
+    $order->save();
+
+    return ['success' => TRUE, 'message' => 'Le statut de la commande a été modifié'];
+
   }
 
   /**

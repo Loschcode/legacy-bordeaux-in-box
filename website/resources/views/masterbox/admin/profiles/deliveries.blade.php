@@ -1,5 +1,11 @@
 @extends('masterbox.layouts.admin')
 
+@section('gotham')
+  {!! Html::gotham([
+    'controller' => 'masterbox.admin.profiles.deliveries'
+  ]) !!}
+@stop
+
 @section('navbar')
   @include('masterbox.admin.partials.navbar_profiles')
 @stop
@@ -81,13 +87,9 @@
         @endif
         @endif
       </th>
-      <th>
-
-        {{ Form::open(array('action' => 'MasterBox\Admin\OrdersController@postUpdateStatus')) }}
-        {{ Form::hidden('order_id', $order->id)}}
-        {{ Form::select('order_status', generate_status_form(), $order->status, ['class' => 'js-chosen', 'data-width' => '150px']) }} {{ Form::submit('OK', ['class' => 'button button__default']) }} <br/>
-        {{ Form::close() }}
-
+      <th data-order-id="{{ $order->id }}" data-token="{{ csrf_token() }}">
+        {{ Form::select('order_status', generate_status_form(), $order->status, ['class' => 'js-chosen', 'data-width' => '150px']) }} 
+        <div class="js-loader"></div>
       </th>
       <th>
 
@@ -110,11 +112,11 @@
         @if ($order->payment_way === NULL)
         N/A
         @else
-
-        {{ Form::open(array('action' => 'MasterBox\Admin\OrdersController@postUpdatePaymentWay')) }}
-        {{ Form::hidden('order_id', $order->id)}}
-        {{ Form::select('order_payment_way', Config::get('bdxnbx.payment_ways'), $order->payment_way, ['class' => 'js-chosen', 'data-width' => '130px']) }} {{ Form::submit('OK', ['class' => 'button button__default']) }} <br/>
-        {{ Form::close() }}
+          
+          <div data-order-id="{{ $order->id }}" data-token="{{ csrf_token() }}">
+            {{ Form::select('order_payment_way', Config::get('bdxnbx.payment_ways'), $order->payment_way, ['class' => 'js-chosen', 'data-width' => '130px']) }}
+            <div class="js-loader"></div>
+          </div>
 
         @endif
 
