@@ -5,7 +5,7 @@ use App\Models\EmailTrace;
 function warning_tech_admin($template, $subject, $customer, $customer_profile, $payment=NULL, $log_store=NULL) {
 
   // Communication recipient will receive the failure
-  $email = App\Models\ContactSetting::first()->tech_support;
+  $email = 'laurent@bordeauxinbox.com'; //App\Models\ContactSetting::first()->tech_support;
 
   $data = [
 
