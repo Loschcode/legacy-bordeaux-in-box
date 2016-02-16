@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\MasterBox\Customer;
 
 use App\Http\Controllers\MasterBox\BaseController;
-use Session, Auth, Request, Redirect, URL, Validator, Config;
+use Session, Auth, Request, Redirect, URL, Validator, Config, Log;
 
 use App\Models\Box;
 use App\Models\Customer;
