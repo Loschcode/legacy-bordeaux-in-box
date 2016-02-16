@@ -16,7 +16,6 @@
     <thead>
 
       <tr>
-        <th></th>
         <th>ID</th>
         <th>Liaisons</th>
         <th>Adresse</th>
@@ -38,42 +37,13 @@
 
       @foreach ($coordinates as $coordinate)
 
-        <tr
-          data-stripe-customer="" 
-          data-stripe-event="" 
-          data-stripe-charge="" 
-          data-stripe-card=""
-        >
-          <th class="js-more"><a href="#" class="button button__table"><i class="fa fa-plus-square-o"></i></a></th>
+        <tr>
 
           <th>{{$coordinate->id}}</th>
           <th>
 
-          @foreach ($coordinate->company_billings()->get() as $company_billing)
-            <a target="_blank" href="{{ action('Company\Guest\BillingController@getWatch', ['encrypted_access' => $company_billing->encrypted_access]) }}">Facture #{{$company_billing->id}}</a> |
-          @endforeach
-
-          @foreach ($coordinate->customers()->get() as $customer)
-          <a target="_blank" href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $customer->id])}}">Client #{{$customer->id}}</a>
-          @endforeach
-
-
-          @foreach ($coordinate->customer_order_buildings()->get() as $customer_order_building)
-          <a href="#">Building #{{$customer_order_building->id}}</a>
-          @endforeach
-
-          @foreach ($coordinate->delivery_spots()->get() as $delivery_spot)
-          <a target="_blank" href="{{ action('MasterBox\Admin\SpotsController@getEdit', ['id' => $delivery_spot->id])}}">Point relais #{{$delivery_spot->id}}</a>
-          @endforeach
-
-          @foreach ($coordinate->order_billings()->get() as $order_billing)
-          <a target="_blank" href="#">Facturation #{{$order_billing->id}}</a>
-          @endforeach
-
-          @foreach ($coordinate->order_destinations()->get() as $order_destination)
-          <a target="_blank" href="#">Destination #{{$order_destination->id}}</a>
-          @endforeach
-
+          <a data-modal class="button button__default --green --table" href="{{ action('Company\Admin\CoordinatesController@getLinks', ['id' => $coordinate->id]) }}"><i class="fa fa-search"></i></a>
+          
           </th>
           <th>{{$coordinate->address}}</th>
           <th>{{$coordinate->address_detail}}</th>

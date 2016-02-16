@@ -40,6 +40,20 @@ class CoordinatesController extends BaseController {
   }
 
   /**
+   * Show Links for the coordinate given
+   * @param  int $id The id of the coordinate
+   * @return \Illuminate\Illuminate\View
+   */
+  public function getLinks($id)
+  {
+    $coordinate = Coordinate::findOrFail($id);
+
+    return view('company.admin.coordinates.links')->with(compact(
+      'coordinate'
+    ));
+  }
+
+  /**
    * We a edit a coordinate
    */
   public function getEdit($id)
