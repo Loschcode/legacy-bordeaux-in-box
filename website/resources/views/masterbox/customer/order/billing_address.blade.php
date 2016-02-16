@@ -109,7 +109,7 @@
 
               {!! Form::textarea("destination_address_detail", ($destination->address_detail) ? $destination->address_detail : Request::old("destination_address_detail"), ['class' => 'billing__input --textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
               {!! Html::checkError('destination_address_detail', $errors) !!}
-              
+
             </div>
           </div>
           <div class="+spacer-small"></div>
@@ -250,7 +250,7 @@
                 {!! Form::textarea("billing_address", (Request::old("billing_address")) ? Request::old("billing_address") : $customer->address, ['class' => 'billing__input --textarea']) !!}
                 {!! Html::checkError('billing_address', $errors) !!}
 
-                {!! Form::textarea("billing_address_detail", ($billing->address_detail) ? $billing->address_detail : Request::old("billing_address_detail"), ['class' => 'billing__input --textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
+                {!! Form::textarea("billing_address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("billing_address_detail"), ['class' => 'billing__input --textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
                 {!! Html::checkError('billing_address_detail', $errors) !!}
 
               </div>
