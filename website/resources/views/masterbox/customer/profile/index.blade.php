@@ -121,6 +121,11 @@
                 {!! Form::textarea("address", ($customer->address) ? $customer->address : Request::old("address"), ['class' => 'form__input --small-textarea']) !!}
                 {!! Html::checkError('address', $errors, 'edit_billing') !!}
 
+                {!! Form::label("address_detail", "Complément d'adresse", ['class' => 'form__label']) !!}
+                {!! Form::textarea("address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("address_detail"), ['class' => 'form__input --small-textarea']) !!}
+                {!! Html::checkError('address_detail', $errors, 'edit_billing') !!}
+
+
                 {!! Html::checkError('old_password', $errors, 'edit_billing') !!}
 
                 <button class="button button__submit">Mettre à jour</button>
@@ -175,6 +180,12 @@
                   {!! Form::label("destination_address", "Adresse", ['class' => 'form__label']) !!}
                   {!! Form::textarea("destination_address", ($destination->address) ? $destination->address : Request::old("destination_address"), ['class' => 'form__input --small-textarea']) !!}
                   {!! Html::checkError('destination_address', $errors, 'edit_destination') !!}
+
+          
+                  {!! Form::label("destination_address_detail", "Complément d'adresse", ['class' => 'form__label']) !!}
+                  {!! Form::textarea("destination_address_detail", ($destination->address_detail) ? $destination->address_detail : Request::old("destination_address_detail"), ['class' => 'form__input --small-textarea']) !!}
+                  {!! Html::checkError('destination_address_detail', $errors, 'edit_destination') !!}
+
 
                   {!! Html::checkError('old_password', $errors, 'edit_destination') !!}
 

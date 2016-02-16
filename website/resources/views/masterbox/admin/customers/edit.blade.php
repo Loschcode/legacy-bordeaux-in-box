@@ -64,6 +64,11 @@
   {!! Form::textarea("address", ($customer->address) ? $customer->address : Request::old("address"), ['class' => 'form__input']) !!}
   {!! Html::checkError('address', $errors) !!}
 
+  {!! Form::label("address_detail", "Complément d'adresse", ['class' => 'form__label']) !!}
+  {!! Form::textarea("address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("address_detail"), ['class' => 'form__input']) !!}
+  {!! Html::checkError('address_detail', $errors) !!}
+
+
   {!! Form::submit("Editer l'article", ['class' => 'button button__submit']) !!}
   {!! Form::close() !!}
 </div>

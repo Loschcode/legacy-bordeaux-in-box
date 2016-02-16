@@ -24,6 +24,15 @@ class CustomerOrderBuilding extends Model {
 
   }
 
+  public function getDestinationAddressDetailAttribute() {
+
+    if ($this->destination_coordinate()->first() === NULL)
+      return '';
+    
+    return $this->destination_coordinate()->first()->address_detail;
+
+  }
+
   public function getDestinationCityAttribute() {
 
     if ($this->destination_coordinate()->first() === NULL)

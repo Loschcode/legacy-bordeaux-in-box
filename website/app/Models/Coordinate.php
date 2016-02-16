@@ -131,19 +131,24 @@ class Coordinate extends Model {
 
   }
 
-  public static function getMatchingOrGenerate($address, $zip, $city)
+  public static function getMatchingOrGenerate($address, $zip, $city, $address_detail='')
   {
 
     /**
      * We check if it already exists
      */
-    $coordinate = Coordinate::where('address', '=', $address)->where('address_detail', '=', '')->where('zip', '=', $zip)->where('city', '=', $city)->first();
+    $coordinate = Coordinate::where('address', '=', $address)
+                            ->where('address_detail', '=', $address_detail)
+                            ->where('zip', '=', $zip)
+                            ->where('city', '=', $city)
+                            ->first();
 
     if ($coordinate !== NULL)
       return $coordinate;
 
     $coordinate = new Coordinate;
     $coordinate->address = $address;
+    $coordinate->address_detail = $address_detail;
     $coordinate->zip = $zip;
     $coordinate->city = $city;
     $coordinate->country = 'France';

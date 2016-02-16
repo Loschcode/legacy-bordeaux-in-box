@@ -103,6 +103,7 @@ class CustomersController extends BaseController {
     'last_name' => 'required', 
 
     'address' => 'required',
+    'address_detail' => '',
     'zip' => 'required',
     'city' => 'required'
 
@@ -116,6 +117,9 @@ class CustomersController extends BaseController {
 		// The form validation was good
     if ($validator->passes()) {
 
+      if (!isset($fields['address_detail']))
+        $fields['address_detail'] = '';
+      
      $customer = Customer::findOrFail($fields['customer_id']);
 
 
@@ -132,7 +136,7 @@ class CustomersController extends BaseController {
      $customer->first_name = $fields['first_name'];
      $customer->last_name = $fields['last_name'];
 
-     $customer->coordinate_id = Coordinate::getMatchingOrGenerate($fields['address'], $fields['zip'], $fields['city'])->id;
+     $customer->coordinate_id = Coordinate::getMatchingOrGenerate($fields['address'], $fields['zip'], $fields['city'], $fields['address_detail'])->id;
 
      $customer->save();
 
@@ -156,7 +160,7 @@ class CustomersController extends BaseController {
 
               $billing->first_name = $customer->first_name;
               $billing->last_name = $customer->last_name;
-              $billing->coordinate_id = Coordinate::getMatchingOrGenerate($customer->address, $customer->zip, $customer->city)->id;
+              $billing->coordinate_id = Coordinate::getMatchingOrGenerate($customer->address, $customer->zip, $customer->city, $customer->address_detail)->id;
 
 								// We save everything
               $billing->save();

@@ -19,6 +19,14 @@ class OrderBilling extends Model {
     return $this->coordinate()->first()->address; 
 
   }
+  public function getAddressDetailAttribute() {
+
+    if ($this->coordinate()->first() === NULL)
+      return '';
+
+    return $this->coordinate()->first()->address_detail; 
+
+  }
   public function getCityAttribute() {
 
     if ($this->coordinate()->first() === NULL)

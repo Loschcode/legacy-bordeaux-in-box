@@ -364,6 +364,7 @@ class ProfileController extends BaseController {
       'first_name' => 'required',
       'last_name' => 'required', 
       'address' => 'required',
+      'address_detail' => '',
       'zip' => 'required',
       'city' => 'required',
 
@@ -383,13 +384,16 @@ class ProfileController extends BaseController {
     $validator = Validator::make($fields, $rules);
 
     if ($validator->passes()) {
-      
+    
       if ($customer !== NULL) {
+
+        if (!isset($fields['address_detail']))
+          $fields['address_detail'] = '';
 
         $customer->first_name = $fields['first_name'];
         $customer->last_name = $fields['last_name'];
         $customer->phone = $fields['phone'];
-        $customer->coordinate_id = Coordinate::getMatchingOrGenerate($fields['address'], $fields['zip'], $fields['city'])->id;
+        $customer->coordinate_id = Coordinate::getMatchingOrGenerate($fields['address'], $fields['zip'], $fields['city'], $fields['address_detail'])->id;
 
         $customer->save();
 
@@ -454,6 +458,7 @@ class ProfileController extends BaseController {
       'destination_last_name' => 'required', 
 
       'destination_address' => 'required',
+      'destination_address_detail' => '',
       'destination_zip' => 'required',
       'destination_city' => 'required',
 
@@ -475,6 +480,9 @@ class ProfileController extends BaseController {
     if ($validator->passes()) {
 
       if ($customer !== NULL) {
+
+        if (!isset($fields['destination_address_detail']))
+          $fields['destination_address_detail'] = '';
 
         // If the customer got profiles we will edit the next deliveries
         if ($customer->profiles()->first() != NULL) {
@@ -506,7 +514,7 @@ class ProfileController extends BaseController {
 
                   $destination->first_name = $fields['destination_first_name'];
                   $destination->last_name = $fields['destination_last_name'];
-                  $destination->coordinate_id = Coordinate::getMatchingOrGenerate($fields['destination_address'], $fields['destination_zip'], $fields['destination_city'])->id;
+                  $destination->coordinate_id = Coordinate::getMatchingOrGenerate($fields['destination_address'], $fields['destination_zip'], $fields['destination_city'], $fields['destination_address_detail'])->id;
 
 
                   // We save everything

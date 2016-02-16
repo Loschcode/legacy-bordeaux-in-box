@@ -47,6 +47,15 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 
   }
 
+  public function getAddressDetailAttribute() {
+
+    if ($this->coordinate()->first() === NULL)
+      return '';
+
+    return $this->coordinate()->first()->address_detail; 
+
+  }
+
   public function getCityAttribute() {
 
     if ($this->coordinate()->first() === NULL)

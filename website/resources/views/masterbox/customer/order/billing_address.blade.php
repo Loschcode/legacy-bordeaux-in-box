@@ -106,6 +106,10 @@
               </div>
               {!! Form::textarea("destination_address", ($destination->address) ? $destination->address : Request::old("destination_address"), ['class' => 'billing__input --textarea']) !!}
               {!! Html::checkError('destination_address', $errors) !!}
+
+              {!! Form::textarea("destination_address_detail", ($destination->address_detail) ? $destination->address_detail : Request::old("destination_address_detail"), ['class' => 'billing__input --textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
+              {!! Html::checkError('destination_address_detail', $errors) !!}
+              
             </div>
           </div>
           <div class="+spacer-small"></div>
@@ -164,6 +168,9 @@
                 {!! Form::label('billing_address', 'Adresse') !!}
               </div>
               {!! Form::textarea("billing_address", $customer->address, ['class' => 'billing__input --textarea --disabled', 'disabled' => 'disabled']) !!}
+
+              {!! Form::textarea("billing_address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("billing_address_detail"), ['class' => 'billing__input --textarea --disabled', 'disabled' => 'disabled']) !!}
+              {!! Html::checkError('billing_address_detail', $errors) !!}
 
             </div>
             <div class="panel__footer">
@@ -242,6 +249,9 @@
                 </div>
                 {!! Form::textarea("billing_address", (Request::old("billing_address")) ? Request::old("billing_address") : $customer->address, ['class' => 'billing__input --textarea']) !!}
                 {!! Html::checkError('billing_address', $errors) !!}
+
+                {!! Form::textarea("billing_address_detail", ($billing->address_detail) ? $billing->address_detail : Request::old("billing_address_detail"), ['class' => 'billing__input --textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
+                {!! Html::checkError('billing_address_detail', $errors) !!}
 
               </div>
 

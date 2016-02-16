@@ -100,7 +100,16 @@
             <p class="payment__description">
               Nom / Prénom : {{$customer->last_name}} {{$customer->first_name}}<br/>
               Ville : {{$customer->city}}, {{$customer->zip}}<br/>
-              Adresse : {{$customer->address}}<br/>
+              Adresse : {{$customer->address}}
+
+              @if (!empty($customer->address_detail))
+
+              , {{$customer->address_detail}}
+
+              @endif
+
+              <br/>
+
             </p>
           </div>
 
@@ -123,7 +132,15 @@
 
                 Nom / Prénom : {{$order_building->destination_last_name}} {{$order_building->destination_first_name}}<br/>
                 Ville : {{$order_building->destination_city}}, {{$order_building->destination_zip}}<br/>
-                Adresse : {{$order_building->destination_address}}<br/>
+                Adresse : {{$order_building->destination_address}}
+
+                @if (!empty($order_building->destination_address_detail))
+
+                , {{$order_building->destination_address_detail}}
+
+                @endif
+
+                <br />
 
               @endif
             </p>

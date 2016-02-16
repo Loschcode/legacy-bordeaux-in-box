@@ -214,6 +214,10 @@
               {!! Form::textarea("destination_address", ($order_destination->address) ? $order_destination->address : Request::old("destination_address"), ['class' => 'form__input']) !!}<br />
               {!! Html::checkError('destination_address', $errors) !!}
 
+              {!! Form::label("destination_address_detail", "Complément d'adresse", ['class' => 'form__label']) !!}
+              {!! Form::textarea("destination_address_detail", ($order_destination->address_detail) ? $order_destination->address_detail : Request::old("destination_address_detail"), ['class' => 'form__input']) !!}<br />
+              {!! Html::checkError('destination_address_detail', $errors) !!}
+
             
             <div class="spacer20"></div>
 

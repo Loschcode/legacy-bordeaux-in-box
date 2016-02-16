@@ -665,7 +665,7 @@ class ProfilesController extends BaseController {
         $order_destination->order_id = $order->id;
         $order_destination->first_name = $order_billing->first_name;
         $order_destination->last_name = $order_billing->last_name;
-        $order_destination->coordinate_id = Coordinate::getMatchingOrGenerate($order_billing->address, $order_billing->zip, $order_billing->city)->id;
+        $order_destination->coordinate_id = Coordinate::getMatchingOrGenerate($order_billing->address, $order_billing->zip, $order_billing->city, $order_billing->address_detail)->id;
 
         $order_destination->save();
 
@@ -692,6 +692,7 @@ class ProfilesController extends BaseController {
 			'destination_city' => 'required',
 			'destination_zip' => 'required',
 			'destination_address' => 'required',
+      'destination_address_detail' => '',
 
 			];
 
@@ -700,6 +701,9 @@ class ProfilesController extends BaseController {
 
 		// The form validation was good
 		if ($validator->passes()) {
+
+      if (!isset($fields['destination_address_detail']))
+        $fields['destination_address_detail'] = '';
 
 			$profile = CustomerProfile::find($fields['customer_profile_id']);
 			$next_orders = $profile->orders()->where('locked', FALSE)->get();
@@ -711,7 +715,7 @@ class ProfilesController extends BaseController {
 				// We refresh the destination informations
 				$order_destination->first_name = $fields['destination_first_name'];
 				$order_destination->last_name = $fields['destination_last_name'];
-        $order_destination->coordinate_id = Coordinate::getMatchingOrGenerate($fields['destination_address'], $fields['destination_zip'], $fields['destination_city'])->id;
+        $order_destination->coordinate_id = Coordinate::getMatchingOrGenerate($fields['destination_address'], $fields['destination_zip'], $fields['destination_city'], $fields['destination_address_detail'])->id;
 
 				$order_destination->save();
 

@@ -255,6 +255,7 @@ class PurchaseController extends BaseController {
       $destination = new \stdClass();
       $destination->city = $order_building->destination_city;
       $destination->address = $order_building->destination_address;
+      $destination->address_detail = $order_building->destination_address_detail;
       $destination->zip = $order_building->destination_zip;
       $destination->first_name = $order_building->destination_first_name;
       $destination->last_name = $order_building->destination_last_name;
@@ -264,6 +265,7 @@ class PurchaseController extends BaseController {
       $destination = new \stdClass();
       $destination->city = $customer->city;
       $destination->address = $customer->address;
+      $destination->address_detail = $customer->address_detail;
       $destination->zip = $customer->zip;
       $destination->first_name = $customer->first_name;
       $destination->last_name = $customer->last_name;
@@ -290,12 +292,14 @@ class PurchaseController extends BaseController {
       'billing_city' => 'required',
       'billing_zip' => 'required',
       'billing_address' => 'required',
+      'billing_address_detail' => '',
 
       'destination_first_name' => 'required',
       'destination_last_name' => 'required',
       'destination_city' => 'required',
       'destination_zip' => 'required',
       'destination_address' => 'required',
+      'destination_address_detail' => '',
 
       ];
 
@@ -314,6 +318,12 @@ class PurchaseController extends BaseController {
     // The form validation was good
     if ($validator->passes()) {
 
+      if (!isset($fields['billing_address_detail']))
+        $fields['billing_address_detail'] = '';
+
+      if (!isset($fields['destination_address_detail']))
+        $fields['destination_address_detail'] = '';
+
       $customer = Auth::guard('customer')->user();
       
       if (isset($fields['customer_phone'])) {
@@ -330,7 +340,7 @@ class PurchaseController extends BaseController {
       if ((!$customer->hasBillingAddress()) || ($customer->profiles()->count() <= 1)) {
 
         // We refresh the billing informations
-        $customer->coordinate_id = Coordinate::getMatchingOrGenerate($fields['billing_address'], $fields['billing_zip'], $fields['billing_city'])->id;
+        $customer->coordinate_id = Coordinate::getMatchingOrGenerate($fields['billing_address'], $fields['billing_zip'], $fields['billing_city'], $fields['billing_address_detail'])->id;
         $customer->save();
 
       }
@@ -338,7 +348,7 @@ class PurchaseController extends BaseController {
       // We refresh the destination informations
       $order_building->destination_first_name = $fields['destination_first_name'];
       $order_building->destination_last_name = $fields['destination_last_name'];
-      $order_building->destination_coordinate_id = Coordinate::getMatchingOrGenerate($fields['destination_address'], $fields['destination_zip'], $fields['destination_city'])->id;
+      $order_building->destination_coordinate_id = Coordinate::getMatchingOrGenerate($fields['destination_address'], $fields['destination_zip'], $fields['destination_city'], $fields['destination_address_detail'])->id;
 
       // Let's go to the next step
       $order_building->step = 'delivery-mode';
