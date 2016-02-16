@@ -164,7 +164,9 @@ return array(
         "billing_address" => "adresse",
         "zip" => "code postal",
         "delivery" => "date de livraison",
-        "goal" => "objectif"
+        "goal" => "objectif",
+        "old_spot" => "point relais d'origine",
+        "new_spot" => "nouveau point relais"
     ),
 
 );

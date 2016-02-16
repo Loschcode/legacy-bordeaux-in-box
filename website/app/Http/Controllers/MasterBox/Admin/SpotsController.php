@@ -33,15 +33,19 @@ class SpotsController extends BaseController {
 	public function getIndex()
 	{
 
-		$active_spots = DeliverySpot::where('active', TRUE)->orderBy('created_at', 'desc')->get();
-		$unactive_spots = DeliverySpot::where('active', FALSE)->orderBy('created_at', 'desc')->get();
-		
+		if (request()->input('show') == 'unactive') {
+			$spots = DeliverySpot::where('active', FALSE)->orderBy('created_at', 'desc')->get();
+		} elseif (request()->input('show') == 'active') {
+			$spots = DeliverySpot::where('active', TRUE)->orderBy('created_at', 'desc')->get();
+		} else {
+			$spots = DeliverySpot::where('active', TRUE)->orderBy('created_at', 'desc')->get();
+		}
+
 		$spots_list = $this->generate_active_spots_list();
 
 		return view('masterbox.admin.spots.index')->with(compact(
       'spots_list',
-      'active_spots',
-      'unactive_spots'
+      'spots'
     ));
 
 	}
