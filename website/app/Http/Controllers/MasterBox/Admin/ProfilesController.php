@@ -529,7 +529,7 @@ class ProfilesController extends BaseController {
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return redirect()->to(URL::previous())
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
@@ -538,6 +538,57 @@ class ProfilesController extends BaseController {
 
 	}
 
+  public function postEditNote()
+  {
+
+    $rules = [
+      'serie' => 'required|numeric',
+      'type' => 'required',
+      'note' => 'required',
+    ];
+
+    $fields = Request::all();
+    $validator = Validator::make($fields, $rules);
+
+    // The form validation was good
+    if ($validator->passes()) {
+
+      if ($note->administrator_id != Auth::guard('administrator')->user()->id) {
+
+        session()->flash('error', "Impossible d'éditer une note qui ne vous appartient pas");
+        
+        // We return the same page with the error and saving the input datas
+        return redirect()->back()
+        ->withInput()
+        ->withErrors($validator);
+
+      }
+
+      if ($fields['serie'] != 0)
+        $note->delivery_serie_id = $fields['serie'];
+      else
+        $note->delivery_serie_id = NULL;
+
+      $note->type = $fields['type'];
+      $note->note = $fields['note'];
+
+      $note->save();
+
+      // Then we redirect
+      session()->flash('message', "Votre note a été éditée");
+      return redirect()->back();
+
+    } else {
+
+      // We return the same page with the error and saving the input datas
+      return redirect()->back()
+      ->withInput()
+      ->withErrors($validator);
+
+    }
+
+
+  }
 
   public function postEditSpot()
   {
