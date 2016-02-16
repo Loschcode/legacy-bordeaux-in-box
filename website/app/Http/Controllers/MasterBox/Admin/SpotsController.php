@@ -5,6 +5,7 @@ use App\Http\Controllers\MasterBox\BaseController;
 use Request, Validator;
 
 use App\Models\DeliverySpot;
+use App\Models\Coordinate;
 use App\Models\CustomerProfile;
 
 class SpotsController extends BaseController {
@@ -26,10 +27,10 @@ class SpotsController extends BaseController {
     	$this->beforeMethod();
     }
     
-    /**
-     * Get the listing page of the spots
-     * @return void
-     */
+   /**
+    * Get the listing page of the spots
+    * @return void
+    */
 	public function getIndex()
 	{
 
@@ -262,7 +263,8 @@ class SpotsController extends BaseController {
 
 			$delivery_spot->save();
 
-			return redirect()->to('/admin/spots')
+			return redirect()->action('MasterBox\Admin\SpotsController@getIndex')
+			->with('message', 'Le point relais à été mis à jour')
 			->withInput();
 
 		} else {

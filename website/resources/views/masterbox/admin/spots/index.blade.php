@@ -18,6 +18,8 @@
 	  </div>
 	</div>
 
+	<div class="divider divider__section"></div>
+
 	{!! Html::info("Lorsqu'un point relais est désactivé, il n'est plus visible dans la liste des points relais des nouvelles commandes utilisateur mais reste en place pour les commandes en cours. On ne peut pas supprimer un point relais reliés à des commandes en cours.") !!}
 	
 		<table class="js-datatable-simple">
