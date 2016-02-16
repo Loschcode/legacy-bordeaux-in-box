@@ -53,7 +53,7 @@
 				<a class="sidebar__link" href="{{ action('MasterBox\Admin\EasyGoController@getIndex') }}"><i class="fa fa-heart"></i> Easy Go</a>
 			</li>
 			<li class="sidebar__item">
-				<a class="sidebar__link" href="{{ action('MasterBox\Admin\DeliveriesController@getIndex') }}"><i class="fa fa-bank"></i> Séries &amp; Finances</a>
+				<a class="sidebar__link" href="{{ action('MasterBox\Admin\DeliveriesController@getIndex') }}"><i class="fa fa-bank"></i> Séries</a>
 			</li>
 			<li class="sidebar__item">
 				<a class="sidebar__link" href="{{ action('MasterBox\Admin\SpotsController@getIndex') }}"><i class="fa fa-map-marker"></i> Points relais</a>
