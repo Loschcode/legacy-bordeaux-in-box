@@ -11,10 +11,10 @@ Route::group(['namespace' => 'Company', 'prefix' => 'company', 'middleware' => [
   /**
    * Company Admin Area
    */
-  Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function() {
+  Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['is.admin']], function() {
 
-    // , 'middleware' => 'isAdminMiddleware'
     Route::controller('finances', 'FinancesController');
+    Route::controller('coordinates', 'CoordinatesController');
     Route::controller('', 'DashboardController');
 
   });

@@ -51,9 +51,15 @@
         </a>
       </li>
       </li>
+
       <li class="sidebar__item">
         <a class="sidebar__link" href="{{ action('Company\Admin\FinancesController@getIndex') }}"><i class="fa fa-calculator"></i> Finances</a>
       </li>
+
+      <li class="sidebar__item">
+        <a class="sidebar__link" href="{{ action('Company\Admin\CoordinatesController@getIndex') }}"><i class="fa fa-location-arrow"></i> Coordonnées</a>
+      </li>
+
     </ul>
   </div>
   <div class="page page__wrapper">

@@ -42,10 +42,55 @@ class Coordinate extends Model {
 
   }
 
-  /*public function getCleanMessageAttribute()
+  /**
+   * HasMany
+   */
+
+  public function company_billings()
   {
 
-  }*/
+    return $this->hasMany('App\Models\CompanyBilling');
+    
+  }
+
+  public function customers()
+  {
+
+    return $this->hasMany('App\Models\Customer');
+    
+  }
+
+  public function customer_order_buildings()
+  {
+
+    return $this->hasMany('App\Models\CustomerOrderBuilding', 'destination_coordinate_id');
+    
+  }
+
+  public function delivery_spots()
+  {
+
+    return $this->hasMany('App\Models\DeliverySpot');
+    
+  }
+
+  public function order_billings()
+  {
+
+    return $this->hasMany('App\Models\OrderBilling');
+    
+  }
+
+  public function order_destinations()
+  {
+
+    return $this->hasMany('App\Models\OrderDestination');
+    
+  }
+
+  /**
+   * Methods
+   */
 
   public function getDistanceFrom($to_coordinate) {
 
@@ -92,7 +137,7 @@ class Coordinate extends Model {
     /**
      * We check if it already exists
      */
-    $coordinate = Coordinate::where('address', '=', $address)->where('zip', '=', $zip)->where('city', '=', $city)->first();
+    $coordinate = Coordinate::where('address', '=', $address)->where('address_detail', '=', '')->where('zip', '=', $zip)->where('city', '=', $city)->first();
 
     if ($coordinate !== NULL)
       return $coordinate;
