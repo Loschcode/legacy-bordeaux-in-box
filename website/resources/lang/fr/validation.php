@@ -166,7 +166,8 @@ return array(
         "delivery" => "date de livraison",
         "goal" => "objectif",
         "old_spot" => "point relais d'origine",
-        "new_spot" => "nouveau point relais"
+        "new_spot" => "nouveau point relais",
+        "schedule" => "horaires"
     ),
 
 );
