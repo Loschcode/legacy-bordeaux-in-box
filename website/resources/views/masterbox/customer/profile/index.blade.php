@@ -121,13 +121,15 @@
                 {!! Form::textarea("address", ($customer->address) ? $customer->address : Request::old("address"), ['class' => 'form__input --small-textarea']) !!}
                 {!! Html::checkError('address', $errors, 'edit_billing') !!}
 
-                {!! Form::label("address_detail", "Complément d'adresse", ['class' => 'form__label']) !!}
-                {!! Form::textarea("address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("address_detail"), ['class' => 'form__input --small-textarea']) !!}
+                {!! Form::text("address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("address_detail"), ['class' => 'form__input --small-textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
+
                 {!! Html::checkError('address_detail', $errors, 'edit_billing') !!}
 
 
                 {!! Html::checkError('old_password', $errors, 'edit_billing') !!}
-
+                
+                <div class="+spacer-small"></div>
+                
                 <button class="button button__submit">Mettre à jour</button>
 
               </div>
@@ -182,13 +184,14 @@
                   {!! Html::checkError('destination_address', $errors, 'edit_destination') !!}
 
           
-                  {!! Form::label("destination_address_detail", "Complément d'adresse", ['class' => 'form__label']) !!}
-                  {!! Form::textarea("destination_address_detail", ($destination->address_detail) ? $destination->address_detail : Request::old("destination_address_detail"), ['class' => 'form__input --small-textarea']) !!}
+                  {!! Form::text("destination_address_detail", ($destination->address_detail) ? $destination->address_detail : Request::old("destination_address_detail"), '', ['class' => 'form__input --small-textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
+
                   {!! Html::checkError('destination_address_detail', $errors, 'edit_destination') !!}
 
 
                   {!! Html::checkError('old_password', $errors, 'edit_destination') !!}
-
+                  
+                  <div class="+spacer-small"></div>
                   <button class="button button__submit">Mettre à jour</button>
 
                 </div>

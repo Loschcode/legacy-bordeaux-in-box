@@ -100,16 +100,22 @@
                   {!! Html::checkError('destination_zip', $errors) !!}
                 </div>
               </div>
+              
+              <div class="row billing__container">
+                <div class="billing__label">
+                  {!! Form::label('destination_address', 'Adresse') !!}
+                </div>
+                {!! Form::textarea("destination_address", ($destination->address) ? $destination->address : Request::old("destination_address"), ['class' => 'billing__input --textarea']) !!}
 
-              <div class="billing__label">
-                {!! Form::label('destination_address', 'Adresse') !!}
+
+                {!! Form::text("destination_address_detail", ($destination->address_detail) ? $destination->address_detail : Request::old("destination_address_detail"), ['class' => 'billing__input --address-details', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
+
+                {!! Html::checkError('destination_address', $errors) !!}
+                {!! Html::checkError('destination_address_detail', $errors) !!}
+
               </div>
-              {!! Form::textarea("destination_address", ($destination->address) ? $destination->address : Request::old("destination_address"), ['class' => 'billing__input --textarea']) !!}
-              {!! Html::checkError('destination_address', $errors) !!}
 
-              {!! Form::textarea("destination_address_detail", ($destination->address_detail) ? $destination->address_detail : Request::old("destination_address_detail"), ['class' => 'billing__input --textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
-              {!! Html::checkError('destination_address_detail', $errors) !!}
-
+                <div class="+spacer-small"></div>
             </div>
           </div>
           <div class="+spacer-small"></div>
@@ -134,7 +140,6 @@
                   
                   {!! Form::text("fake_billing_first_name", $customer->first_name, ['class' => 'billing__input --disabled', 'disabled' => 'disabled']) !!}
 
-
                 </div>
                 <div class="grid-6">
                   <div class="billing__label">
@@ -154,7 +159,6 @@
                   
                   {!! Form::text("fake_billing_city", $customer->city, ['class' => 'billing__input --disabled', 'disabled' => 'disabled']) !!}
 
-
                 </div>
                 <div class="grid-6">
                   <div class="billing__label">
@@ -163,14 +167,18 @@
                   {!! Form::text("billing_zip", $customer->zip, ['class' => 'billing__input --disabled', 'disabled' => 'disabled']) !!}
                 </div>
               </div>
+              
+              <div class="row billing__container">
+                <div class="billing__label">
+                  {!! Form::label('billing_address', 'Adresse') !!}
+                </div>
+                {!! Form::textarea("billing_address", $customer->address, ['class' => 'billing__input --textarea --disabled', 'disabled' => 'disabled']) !!}
 
-              <div class="billing__label">
-                {!! Form::label('billing_address', 'Adresse') !!}
+                {!! Form::text("billing_address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("billing_address_detail"), ['class' => 'billing__input --address-details --disabled', 'disabled' => 'disabled']) !!}
+
               </div>
-              {!! Form::textarea("billing_address", $customer->address, ['class' => 'billing__input --textarea --disabled', 'disabled' => 'disabled']) !!}
 
-              {!! Form::textarea("billing_address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("billing_address_detail"), ['class' => 'billing__input --textarea --disabled', 'disabled' => 'disabled']) !!}
-              {!! Html::checkError('billing_address_detail', $errors) !!}
+              <div class="+spacer-small"></div>
 
             </div>
             <div class="panel__footer">
@@ -243,15 +251,20 @@
                 @endif
 
                 <div class="+spacer-extra-small"></div>
+                
+                <div class="row billing__container">
+                  <div class="billing__label">
+                    {!! Form::label('billing_address', 'Adresse') !!}
+                  </div>
+                  {!! Form::textarea("billing_address", (Request::old("billing_address")) ? Request::old("billing_address") : $customer->address, ['class' => 'billing__input --textarea']) !!}
 
-                <div class="billing__label">
-                  {!! Form::label('billing_address', 'Adresse') !!}
+                  {!! Form::textarea("billing_address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("billing_address_detail"), ['class' => 'billing__input --address-details --textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
+
+                  {!! Html::checkError('billing_address', $errors) !!}
+                  {!! Html::checkError('billing_address_detail', $errors) !!}
                 </div>
-                {!! Form::textarea("billing_address", (Request::old("billing_address")) ? Request::old("billing_address") : $customer->address, ['class' => 'billing__input --textarea']) !!}
-                {!! Html::checkError('billing_address', $errors) !!}
 
-                {!! Form::textarea("billing_address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("billing_address_detail"), ['class' => 'billing__input --textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
-                {!! Html::checkError('billing_address_detail', $errors) !!}
+                <div class="+spacer-small"></div>
 
               </div>
 
