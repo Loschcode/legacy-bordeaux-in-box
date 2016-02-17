@@ -83,10 +83,11 @@ class EasyGoController extends BaseController {
 
   public function getUnpaid()
   {
-    // Fetch unpaid orders
-    $unpaid = Order::with('customer_profile', 'customer')->LockedOrdersWithoutOrder()->notCanceledOrders()->where('already_paid', 0)->get();
 
-    return view('masterbox.admin.easygo.unpaid')->with(compact('unpaid'));
+    // Fetch orders 
+    $orders =  Order::with('customer_profile', 'customer')->LockedOrdersWithoutOrder()->notCanceledOrders()->get();
+
+    return view('masterbox.admin.easygo.unpaid')->with(compact('orders'));
 
   }
 

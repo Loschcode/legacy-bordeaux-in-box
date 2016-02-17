@@ -42,20 +42,20 @@
         </thead>
         <tbody class="listing__content">
 
-          @foreach ($unpaid as $order)
-
-            @if ($order->payments->count() > 0)
-              <tr>
-                <td>{{ $order->customer()->first()->getFullName() }}</td>
-                <td>{{ $order->customer()->first()->phone }}</td>
-                <td>{{ $order->already_paid }}&euro; / {{ $order->unity_and_fees_price }}&euro; <br/> {{ $order->payments()->count() }} tentative(s) de paiement</td>
-                <td>
-                  <a target="_blank" class="button --default --sm" href="{{ action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a>
-                  <div class="spacer --sm"></div>
-                  <a class="button --danger --sm" href="{{ url('/admin/orders/confirm-cancel/' . $order->id) }}">Annuler Commande</a>
-                </td>
-              </tr>
-            @endif
+          @foreach ($orders as $order)
+              
+              @if ($order->hasProblemPayment())
+                <tr>
+                  <td>{{ $order->customer()->first()->getFullName() }}</td>
+                  <td>{{ $order->customer()->first()->phone }}</td>
+                  <td>{{ $order->already_paid }}&euro; / {{ $order->unity_and_fees_price }}&euro; <br/> {{ $order->payments()->count() }} tentative(s) de paiement</td>
+                  <td>
+                    <a target="_blank" class="button --default --sm" href="{{ action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a>
+                    <div class="spacer --sm"></div>
+                    <a class="button --danger --sm" href="{{ url('/admin/orders/confirm-cancel/' . $order->id) }}">Annuler Commande</a>
+                  </td>
+                </tr>
+              @endif
 
           @endforeach
         </tbody>
