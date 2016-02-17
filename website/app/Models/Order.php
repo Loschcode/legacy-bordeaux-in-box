@@ -160,6 +160,21 @@ class Order extends Model {
 		return round($this->unity_and_fees_price * 0.80, 2);
 
 	}
+
+  /**
+   * Check if we have some problems with the payments of the order
+   * @return boolean
+   */
+  public function hasProblemPayment()
+  {
+
+    if ($this->already_paid == 0) {
+      return true;
+    }
+
+    return false;
+
+  }
 	
 	/**
 	 * We will try to find the zip from the destination, or the billing, or the user himself
@@ -211,6 +226,7 @@ class Order extends Model {
 		}
 
 	}
+
 
   /**
    * Only the payable orders (used in the Invoice to credit orders)
