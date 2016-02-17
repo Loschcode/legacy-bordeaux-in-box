@@ -32,7 +32,7 @@ class BillingAddress extends Controller
 
     e.preventDefault()
 
-    fields = ['city', 'zip', 'address']
+    fields = ['city', 'zip', 'address', 'address_detail']
 
     _.each fields, (field) =>
 
