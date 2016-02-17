@@ -110,12 +110,12 @@
 
                 {!! Form::text("destination_address_detail", ($destination->address_detail) ? $destination->address_detail : Request::old("destination_address_detail"), ['class' => 'billing__input --address-details', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
 
-                {!! Html::checkError('destination_address', $errors) !!}
-                {!! Html::checkError('destination_address_detail', $errors) !!}
-
               </div>
 
                 <div class="+spacer-small"></div>
+
+                {!! Html::checkError('destination_address', $errors) !!}
+                {!! Html::checkError('destination_address_detail', $errors) !!}
             </div>
           </div>
           <div class="+spacer-small"></div>
@@ -258,13 +258,14 @@
                   </div>
                   {!! Form::textarea("billing_address", (Request::old("billing_address")) ? Request::old("billing_address") : $customer->address, ['class' => 'billing__input --textarea']) !!}
 
-                  {!! Form::textarea("billing_address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("billing_address_detail"), ['class' => 'billing__input --address-details --textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
+                  {!! Form::text("billing_address_detail", ($customer->address_detail) ? $customer->address_detail : Request::old("billing_address_detail"), ['class' => 'billing__input --address-details', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
 
-                  {!! Html::checkError('billing_address', $errors) !!}
-                  {!! Html::checkError('billing_address_detail', $errors) !!}
                 </div>
 
                 <div class="+spacer-small"></div>
+                
+                {!! Html::checkError('billing_address', $errors) !!}
+                {!! Html::checkError('billing_address_detail', $errors) !!}
 
               </div>
 
