@@ -131,6 +131,20 @@ class Coordinate extends Model {
 
   }
 
+  public function getLinks()
+  {
+
+    return (
+            $this->company_billings()->count() +
+            $this->customers()->count() + 
+            $this->customer_order_buildings()->count() + 
+            $this->delivery_spots()->count() +
+            $this->order_billings()->count() + 
+            $this->order_destinations()->count()
+            );
+
+  }
+
   public static function getMatchingOrGenerate($address, $zip, $city, $address_detail='')
   {
 
