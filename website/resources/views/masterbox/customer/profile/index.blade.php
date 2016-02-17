@@ -184,7 +184,7 @@
                   {!! Html::checkError('destination_address', $errors, 'edit_destination') !!}
 
           
-                  {!! Form::text("destination_address_detail", ($destination->address_detail) ? $destination->address_detail : Request::old("destination_address_detail"), '', ['class' => 'form__input --address-details --small-textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
+                  {!! Form::text("destination_address_detail", ($destination->address_detail) ? $destination->address_detail : Request::old("destination_address_detail"), ['class' => 'form__input --small-textarea', 'placeholder' => 'Complément d\'adresse si nécessaire (Numéro d\'appartement ...)']) !!}
                   
                   <div class="+spacer-small"></div>
 
