@@ -43,6 +43,8 @@ class EasyGoController extends BaseController {
     // Count sponsors / has sponsors
     $count_sponsors = $this->_fetch_sponsors($orders);
 
+    $count_total_orders = DeliverySerie::nextOpenSeries()->first()->orders()->notCanceledOrders()->count();
+
     // Count birthdays
     $count_birthdays = $this->_fetch_birthdays($orders);
 
@@ -72,6 +74,7 @@ class EasyGoController extends BaseController {
       'count_birthdays',
       'count_not_take_away',
       'count_not_take_away_not_33',
+      'count_total_orders',
       'spots'
 
     ));

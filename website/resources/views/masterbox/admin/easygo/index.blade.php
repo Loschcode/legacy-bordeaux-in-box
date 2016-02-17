@@ -1,4 +1,4 @@
-@extends('masterbox.layouts.easygo')
+@extends('masterbox.layouts.admin')
 
 @section('content')
 
