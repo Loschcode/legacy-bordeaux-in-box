@@ -12,7 +12,7 @@ class Slack {
    * Token to perform requests on the slack api
    * @var string
    */
-  const TOKEN = 'xoxp-20506674819-20554262691-21079003184-6b765dcb2a';
+  const TOKEN = 'xoxp-20506674819-20554262691-21756728099-e75ff628cc';
 
   /**
    * Init an instance of the class

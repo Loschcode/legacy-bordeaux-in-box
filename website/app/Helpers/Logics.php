@@ -3,7 +3,7 @@
 function is_someone_online_slack()
 {
 
-  return Cache::remember('is_someone_online_slack', 1, function() {
+  return Cache::remember('is_someone_online_slack', 5, function() {
 
     $slack = new App\Libraries\Slack;
 
