@@ -42,7 +42,8 @@
           <th>{{$coordinate->id}}</th>
           <th>
 
-          <a data-modal class="button button__default --green --table" href="{{ action('Company\Admin\CoordinatesController@getLinks', ['id' => $coordinate->id]) }}"><i class="fa fa-search"></i></a>
+          <a data-modal class="button button__default --green --table" href="{{ action('Company\Admin\CoordinatesController@getLinks', ['id' => $coordinate->id]) }}">
+          {{$coordinate->getLinks()}}</a>
           
           </th>
           <th>{{$coordinate->address}}</th>
