@@ -18,7 +18,7 @@ class CustomerProfile extends Model {
    *
    * @var array
    */
-	protected $appends = ['readable_status', 'readable_priority'];
+	protected $appends = ['readable_status', 'readable_status_step', 'readable_priority'];
 
 	/**
 	 * Create / Update
@@ -193,6 +193,19 @@ class CustomerProfile extends Model {
   public function getReadablePriorityAttribute()
   {
     return readable_profile_priority($this->priority);
+  }
+
+  public function getReadableStatusStepAttribute()
+  {
+
+    $order_building = $this->order_buildings()->orderBy('id', 'desc')->first();
+
+    if ($order_building === NULL)
+      return '';
+
+    else
+      return $order_building->step;
+
   }
 
 	/**
