@@ -84,6 +84,20 @@ function get_email_listing_from_customers_having_a_profile_subscribed()
 
 }
 
+function get_email_listing_from_customers_who_never_bought_a_box()
+{
+  $emails = App\Models\Customer::whereDoesntHave('profiles')
+    ->orWhereHas('profiles', function($q) {
+      $q
+        ->where('status', '!=', 'subscribed')
+        ->where('status', '!=', 'canceled')
+        ->where('status', '!=', 'expired');
+    })
+    ->lists('email');
+
+  return $emails;
+}
+
 /**
  * Get email listing from a got orders list (model object)
  * @param  object $orders
