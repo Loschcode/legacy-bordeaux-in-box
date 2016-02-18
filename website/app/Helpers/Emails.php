@@ -68,15 +68,19 @@ function get_email_listing_from_orders($orders) {
  */
 function get_email_listing_from_all_customers() {
 
-  $emails_list = [];
+  return App\Models\Customer::lists('email');
 
-  foreach (App\Models\Customer::get() as $customer) {
+}
 
-      array_push($emails_list, $customer->email);
+/**
+ * @return array
+ */
+function get_email_listing_from_customers_having_a_profile_subscribed()
+{
 
-  }
-
-  return $emails_list;
+  return App\Models\Customer::whereHas('profiles', function($q) {
+    $q->where('status', 'subscribed');
+  })->lists('email');
 
 }
 
