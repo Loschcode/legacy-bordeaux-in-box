@@ -17,6 +17,7 @@
 <a href="{{ action('MasterBox\Admin\CustomersController@getEmails') }}" class="button button__default --blue">Tout les clients</a>
 <a href="{{ action('MasterBox\Admin\CustomersController@getEmails', ['sort' => 'having-a-profile-subscribed']) }}" class="button button__default --blue">Clients avec un abonnement en cours</a>
 <a href="{{ action('MasterBox\Admin\CustomersController@getEmails', ['sort' => 'never-bought-a-box']) }}" class="button button__default --blue">Clients n'ayant jamais commandés</a>
+<a href="{{ action('MasterBox\Admin\CustomersController@getEmails', ['sort' => 'bought-a-box-but-stop']) }}" class="button button__default --blue">Clients ayant déjà commandés une box mais qui ont stop</a>
 
 
 <div class="+spacer-extra-small"></div>

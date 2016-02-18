@@ -51,6 +51,11 @@ class CustomersController extends BaseController {
 
     switch ($sort) {
 
+      case 'bought-a-box-but-stop':
+        $emails = get_email_listing_from_customers_who_bought_a_box_but_stop();
+        $title = 'Email des clients ayant déjà acheté une box mais qui n\'en ont plus actuellement';
+      break;
+
       case 'never-bought-a-box':
         $emails = get_email_listing_from_customers_who_never_bought_a_box();
         $title = 'Emails des clients n\'ayant jamais achetés une box';
