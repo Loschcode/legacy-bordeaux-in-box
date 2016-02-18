@@ -36,7 +36,7 @@
 				<div class="grid-11@xs gr-centered@xs">
 					<div class="counter">
 						<div class="counter__content">
-							Il ne reste que {{ str_replace('dans', '', strtolower(Html::diffHumans($next_series->first()->delivery, 5
+							Il reste moins de 10 boxs et {{ str_replace('dans', '', strtolower(Html::diffHumans($next_series->first()->delivery, 5
 							))) }} pour commander la box de {!! Html::convertMonth($next_series->first()->delivery) !!}
 						</div>
 					</div>
