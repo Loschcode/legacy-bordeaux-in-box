@@ -128,7 +128,15 @@
                   
                     Offre: {{ Form::select('delivery_price_id', generate_delivery_prices(), '', ['class' => 'js-chosen', 'data-width' => '350px']) }}<br/>
                     A emporter: {{ Form::select('take_away', [0 => 'Non', 1 => 'Oui'], $order_preference->take_away, ['class' => 'js-chosen', 'data-width' => '100px']) }}<br/>
-                    Frais de livraison: {{ Form::select('delivery_fees', generate_delivery_fees($profile->orders()->orderBy('id', 'desc')->first()->isRegionalOrder()), '', ['class' => 'js-chosen', 'data-width' => '250px']) }}<br />
+
+                    @if ($profile->orders()->orderBy('id', 'desc')->first() === NULL)
+                    Frais de livraison: {{ Form::select('delivery_fees', generate_delivery_fees(FALSE), '', ['class' => 'js-chosen', 'data-width' => '250px']) }}
+                    @else
+                    Frais de livraison: {{ Form::select('delivery_fees', generate_delivery_fees($profile->orders()->orderBy('id', 'desc')->first()->isRegionalOrder()), '', ['class' => 'js-chosen', 'data-width' => '250px']) }}
+                    @endif
+
+                    <br />
+
                     Prochain prélèvement: {{ Form::select('next_charge', [0 => 'Immédiat', 15 => 'Dans 15 jours', 30 => 'Dans 30 jours'], '', ['class' => 'js-chosen', 'data-width' => '250px']) }}<br />
           
                   <div class="+spacer-extra-small"></div>
