@@ -68,15 +68,79 @@ function get_email_listing_from_orders($orders) {
  */
 function get_email_listing_from_all_customers() {
 
-  $emails_list = [];
+  return App\Models\Customer::lists('email');
 
+}
+
+/**
+ * @return array
+ */
+function get_email_listing_from_customers_having_a_profile_subscribed()
+{
+
+  return App\Models\Customer::whereHas('profiles', function($q) {
+    $q->where('status', 'subscribed');
+  })->lists('email');
+
+}
+
+/**
+ * @return array
+ */
+function get_email_listing_from_customers_who_never_bought_a_box()
+{
+  $emails = App\Models\Customer::whereDoesntHave('profiles')
+    ->orWhereHas('profiles', function($q) {
+      $q
+        ->where('status', '!=', 'subscribed')
+        ->where('status', '!=', 'canceled')
+        ->where('status', '!=', 'expired');
+    })
+    ->lists('email');
+
+  return $emails;
+}
+
+/**
+ * @return array
+ */
+function get_email_listing_from_customers_who_bought_a_box_but_stop()
+{
+
+  $emails = [];
+
+  // Loop every customers
   foreach (App\Models\Customer::get() as $customer) {
 
-      array_push($emails_list, $customer->email);
+    // Has profile
+    if ($customer->profiles()->first() !== NULL) {
+
+      $has_expired = FALSE;
+      $has_subscribed = FALSE;
+
+      // We try to find if the customer has a profile expired and has not a profile
+      // subscribed
+      foreach ($customer->profiles()->get() as $profile) {
+
+        if ($profile->status == 'expired') {
+          $has_expired = TRUE;
+        }
+
+        if ($profile->status == 'subscribed') {
+          $has_subscribed = TRUE;
+        }
+
+      }
+
+      if ($has_expired === TRUE && $has_subscribed === FALSE) {
+        $emails[] = $customer->email;
+      }
+
+    }
 
   }
 
-  return $emails_list;
+  return $emails;
 
 }
 

@@ -46,13 +46,37 @@ class CustomersController extends BaseController {
    * Display the emails from all customers
    * @return \Illuminate\View\View
    */
-  public function getEmails()
+  public function getEmails($sort='')
   {
 
-    $emails = get_email_listing_from_all_customers();
+    switch ($sort) {
+
+      case 'bought-a-box-but-stop':
+        $emails = get_email_listing_from_customers_who_bought_a_box_but_stop();
+        $title = 'Email des clients ayant déjà acheté une box mais qui n\'en ont plus actuellement';
+      break;
+
+      case 'never-bought-a-box':
+        $emails = get_email_listing_from_customers_who_never_bought_a_box();
+        $title = 'Emails des clients n\'ayant jamais achetés une box';
+      break;
+
+      case 'having-a-profile-subscribed':
+        $emails = get_email_listing_from_customers_having_a_profile_subscribed();
+        $title = 'Emails des clients ayant actuellement un abonnement à une box';
+      break;
+
+      default:
+        $emails = get_email_listing_from_all_customers();
+        $title = 'Emails de tout les clients';
+      break;  
+
+    }
+
 
     return view('masterbox.admin.customers.emails')->with(compact(
-      'emails'
+      'emails',
+      'title'
       ));
 
   }

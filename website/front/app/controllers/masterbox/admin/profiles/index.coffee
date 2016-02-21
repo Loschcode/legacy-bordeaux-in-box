@@ -31,7 +31,7 @@ class Index extends Controller
         { data: @dataCustomer }
         { data: @dataCountOrdersNotSent }
         { data: @dataCountPaymentsDone }
-        { data: "readable_status" }
+        { data: @dataReadableStatus }
         { data: "readable_priority"}
         { data: "created_at" }
         {
@@ -73,6 +73,18 @@ class Index extends Controller
 
       row.child(html).show()
       tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o')
+
+  dataReadableStatus: (row) ->
+    
+    status = row.status
+    readable_status = row.readable_status
+    readable_status_step = row.readable_status_step
+
+    if status is 'in-progress'
+        return readable_status + '(' + readable_status_step + ')'
+
+    return readable_status
+
 
   ##
   # Fetch the data customer
