@@ -337,7 +337,7 @@ class CustomerController extends BaseController {
       // We get some datas
       $facebook_id = $result['id'];
 
-      if (isset($result['email'])) {
+      if (!isset($result['email'])) {
 
         $facebook_email = time() . uniqid() . 'facebook.com';
         $facebook_email_not_found = TRUE;
