@@ -336,7 +336,19 @@ class CustomerController extends BaseController {
 
       // We get some datas
       $facebook_id = $result['id'];
-      $facebook_email = $result['email'];
+
+      if (isset($result['email'])) {
+
+        $facebook_email = time() . uniqid() . 'facebook.com';
+        $facebook_email_not_found = TRUE;
+
+      } else {
+
+        $facebook_email = $result['email'];
+        $facebook_email_not_found = FALSE;
+
+      }
+
       $facebook_first_name = $result['first_name'];
       $facebook_last_name = $result['last_name'];
 
@@ -344,6 +356,12 @@ class CustomerController extends BaseController {
       $callback = $this->autologin_or_generate('facebook', $facebook_id, $facebook_email, $facebook_first_name, $facebook_last_name);
       
       if ($callback['success']) {
+
+        if ($facebook_email_not_found) {
+
+          warning_tech_admin('masterbox.emails.admin.no_facebook_email_found', 'Email Facebook jamais retourné', $callback['customer']);
+
+        }
 
         // If there's an after login redirection
         if (session()->get('after-login-redirection')) 
