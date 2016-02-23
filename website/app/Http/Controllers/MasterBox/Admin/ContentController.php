@@ -297,7 +297,7 @@ class ContentController extends BaseController {
 			'image_article_id' => 'required|integer',
 			'title' => 'required|min:5',
 			'slug' => 'required',
-			'description' => 'required|min:5',
+			'description' => 'min:5',
 
 			'image' => 'image'
 
@@ -363,7 +363,7 @@ class ContentController extends BaseController {
 		$rules = [
 
 			'title' => 'required|min:5',
-			'description' => 'required|min:5',
+			'description' => 'min:5',
 
 			'image' => 'required|image'
 
