@@ -303,16 +303,17 @@ class PurchaseController extends BaseController {
 
       ];
 
-    /**
-     * It's mandatory if it exists effectively
-     */
-    if (Request::get('customer_phone'))
-      $rules['customer_phone'] = 'required';
-
     // We auto trim everything
     Request::merge(array_map('trim', Request::all()));
 
     $fields = Request::all();
+
+    /**
+     * It's mandatory if it exists effectively
+     */
+    if (isset($fields['customer_phone']))
+      $rules['customer_phone'] = 'required';
+
     $validator = Validator::make($fields, $rules);
 
     // The form validation was good

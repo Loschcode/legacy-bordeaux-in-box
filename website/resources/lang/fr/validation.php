@@ -167,7 +167,8 @@ return array(
         "goal" => "objectif",
         "old_spot" => "point relais d'origine",
         "new_spot" => "nouveau point relais",
-        "schedule" => "horaires"
+        "schedule" => "horaires",
+        "customer_phone" => "téléphone"
     ),
 
 );
