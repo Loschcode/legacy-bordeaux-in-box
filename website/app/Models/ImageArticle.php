@@ -74,11 +74,9 @@ class ImageArticle extends Model {
 		
   public function getImageAttribute($value)
   {
-
     $image = json_decode($value);
-    $image->full = '/public/uploads/' . $image->folder . '/' . $image->filename;
+    $image->full = '/uploads/' . $image->folder . '/' . $image->filename;
     return $image;
-
   }
 
 	public function get_next()

@@ -1,53 +1,36 @@
-<?php /*
+@extends('masterbox.layouts.master')
+
+
 @section('content')
-	
-	<div class="container illus">
 
-		<div class="spacer50"></div>
-		<div class="col-md-8 col-md-offset-2">
-			@if ($image_article === NULL)
-				<div class="spyro-well text-center">Aucun potin pour le moment</div>
-			@else
+<div class="illustration">
 
-				<div class="text-center">
-					<h1>{{$image_article->title}}</h1><br />
-				</div>
+	<div class="grid-8 grid-centered">
 
-				<img class="img-responsive thumbnail img-align" src="{{ url($image_article->image->full) }}">
+		<h1 class="illustration__name">{{$image_article->title}}</h1>
 
-				<div class="text-center">
+		<div class="illustration__image-container">
+			<img class="illustration__image" src="{{ url($image_article->image->full) }}">
+		</div>
 
-					<div class="col-md-4 col-md-offset-4">
-						@if ($previous_article !== NULL || $next_article !== NULL)
-							<nav>
-							  <ul class="pager">
-							  	@if ($previous_article !== NULL)
-							  		<li class="previous"><a href="{{url('illustrations/index/'.$previous_article->id)}}">&larr; Ancien</a></li>
-							  	@else
-							  		<li class="previous disabled"><a href="#">&larr; Ancien</a></li>
-							  	@endif
+		<div class="illustration__description +text-center">
+			{{ $image_article->description }}
+		</div>
 
-							  	@if ($next_article !== NULL)
-							    	<li class="next"><a href="{{url('illustrations/index/'.$next_article->id)}}">Suivant  &rarr;</a></li>
-							  	@else
-							  		<li class="next disabled"><a href="#">Suivant &rarr;</a></li>
-							  	@endif
-							  </ul>
-							</nav>
-						@endif
-					</div>
-				</div>
+		<div class="+text-center">
+			@if ($previous_article !== NULL || $next_article !== NULL)
+
+				@if ($previous_article !== NULL)
+				<a class="button button__default" href="{{url('illustrations/index/'.$previous_article->id)}}">&larr; Box précédente</a>
+				@endif
+
+				@if ($next_article !== NULL)
+				<a class="button button__default" href="{{url('illustrations/index/'.$next_article->id)}}">Box suivante  &rarr;</a>
+				@endif
 			@endif
 		</div>
-		<div class="clearfix"></div>
 	</div>
+</div>
 
-	<div class="spacer100"></div>
 
-	@if ($image_article === NULL)
-		{!! View::make('masterbox.partials.front.footer')->with('stick', true) !!}
-	@else
-		{!! View::make('masterbox.partials.front.footer') !!}
-	@endif
-@stop
-*/ ?>
+	@stop
