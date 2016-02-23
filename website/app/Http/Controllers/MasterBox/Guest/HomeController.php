@@ -6,6 +6,7 @@ use App\Models\DeliverySerie;
 use App\Models\BlogArticle;
 use App\Models\DeliverySpot;
 use App\Models\Page;
+use App\Models\ImageArticle;
 
 class HomeController extends BaseController {
 
@@ -31,9 +32,13 @@ class HomeController extends BaseController {
     // Blog articles
     $articles = BlogArticle::orderBy('id', 'DESC')->limit(8)->get();
 
+    // Illustrations
+    $image_article = ImageArticle::orderBy('id', 'desc')->first();
+
     return view('masterbox.guest.home.index')->with(compact(
       'next_series', 
-      'articles'
+      'articles',
+      'image_article'
     ));
 
 

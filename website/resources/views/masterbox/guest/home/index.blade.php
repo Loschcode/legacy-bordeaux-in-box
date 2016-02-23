@@ -154,6 +154,12 @@
 		</div>
 	</div>
 	<div class="clear"></div>
+		
+		<div class="+spacer-extra-small"></div>
+		<div class="grid-5 grid-centered grid-11@xs">
+			<a class="button button__home-partner" href="{{ action('MasterBox\Guest\IllustrationsController@getIndex') }}">Voir nos dernières box ...</a>
+		</div>
+
 
 </div>
 <div class="clear"></div>
