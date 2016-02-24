@@ -128,4 +128,7 @@
 {{-- Google analytics tracking --}}
 @include('masterbox.partials.google_analytics')
 
+{{-- Hotjar tracking (mouse, events, etc) --}}
+@include('masterbox.partials.hotjar')
+
 </html>
