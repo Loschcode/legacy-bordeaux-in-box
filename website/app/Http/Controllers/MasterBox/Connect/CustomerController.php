@@ -400,19 +400,25 @@ class CustomerController extends BaseController {
          */
         $customer = Customer::where('email', '=', $email)->first();
 
-        if ($customer !== NULL)
-          return ['success' => FALSE, 'error' => "L'email $email est déjà utilisé par un de nos comptes enregistrés."];
+        // We will just convert it for now
+        if ($customer === NULL) {
 
-        $customer = new Customer;
-        $customer->email = $email;
-        $customer->password = '';
-        $customer->first_name = $first_name;
-        $customer->last_name = $last_name;
+          // OLD WORKING SYSTEM
+          /*if ($customer !== NULL)
+            return ['success' => FALSE, 'error' => "L'email $email est déjà utilisé par un de nos comptes enregistrés."];*/
 
-        $customer->provider = $provider;
-        $customer->provider_id = $provider_id;
+          $customer = new Customer;
+          $customer->email = $email;
+          $customer->password = '';
+          $customer->first_name = $first_name;
+          $customer->last_name = $last_name;
 
-        $customer->save();
+          $customer->provider = $provider;
+          $customer->provider_id = $provider_id;
+
+          $customer->save();
+
+        }
 
       }
 

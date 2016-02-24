@@ -248,7 +248,7 @@ class Payments {
      * @param  integer $next_charge   next charge in days from today
      * @return mixed                  bool / id
      */
-    public static function makeSubscription($stripe_customer, $customer, $profile, $plan_name, $plan_price, $next_charge=NULL)
+    public static function makeSubscription($stripe_customer, $customer, $profile, $plan_name, $plan_price, $next_charge=NULL, $branch="masterbox")
     {
         
         self::prepare_stripe();
@@ -272,7 +272,8 @@ class Payments {
                     
                     'customer_id'         =>   $customer->id,
                     'customer_profile_id' =>   $profile->id,
-                    'payment_type'        =>   'plan'
+                    'payment_type'        =>   'plan',
+                    'branch'              =>   $branch
 
                 ]
 
@@ -456,7 +457,7 @@ class Payments {
      * @param  float $raw_amount      amount (e.g. 50.00)
      * @return mixed                  error string / true
      */
-    public static function makeCharge($stripe_customer, $customer, $profile, $raw_amount)
+    public static function makeCharge($stripe_customer, $customer, $profile, $raw_amount, $branch="masterbox")
     {
 
         self::prepare_stripe();
@@ -477,7 +478,8 @@ class Payments {
 
                 'customer_id' => $customer->id,
                 'customer_profile_id' => $profile->id,
-                'payment_type' => 'direct_invoice'
+                'payment_type' => 'direct_invoice',
+                'branch' => $branch
 
               ]
 
