@@ -24,6 +24,7 @@
 
     <thead>
       <tr>
+        <th></th>
         <th>Titre</th>
         <th>Action</th>
       </tr>
@@ -32,6 +33,7 @@
       @foreach ($image_articles as $image_article)
 
       <tr>
+        <td><img height="70" src="{{ Html::resizeImage('small', $image_article->image->filename) }}" /></td>
         <td>{{ $image_article->title }}</td>
         <td>
           <a class="button button__default --blue --table" href="{{ action('MasterBox\Admin\ContentController@getEditIllustration', ['id' => $image_article->id]) }}"><i class="fa fa-pencil"></i></a>
