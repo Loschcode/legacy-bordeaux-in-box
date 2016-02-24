@@ -18,6 +18,7 @@ class IllustrationsController extends BaseController {
   /**
    * Illustrations
    */
+
   public function getIndex($id=NULL)
   {
     if ($id === NULL)

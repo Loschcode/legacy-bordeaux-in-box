@@ -8,9 +8,11 @@
 	<div class="grid-8 grid-centered grid-11@xs">
 
 		<h1 class="illustration__name">{{$image_article->title}}</h1>
-
-		<div class="illustration__image-container">
-			<img class="illustration__image" src="{{ url($image_article->image->full) }}">
+		
+		<div class="grid-8 grid-centered">
+			<div class="illustration__image-container">
+				<img class="illustration__image" src="{{ url($image_article->image->full) }}">
+			</div>
 		</div>
 
 		<div class="illustration__description +text-center">
