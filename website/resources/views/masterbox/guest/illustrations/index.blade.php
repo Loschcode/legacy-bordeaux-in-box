@@ -23,11 +23,11 @@
 			@if ($previous_article !== NULL || $next_article !== NULL)
 
 				@if ($previous_article !== NULL)
-				<a class="button button__default" href="{{url('illustrations/index/'.$previous_article->id)}}">&larr; Box précédente</a>
+				<a class="button button__default" href="{{ action('MasterBox\Guest\IllustrationsController@getIllustration', ['slug' => $previous_article->slug]) }}">&larr; Box précédente</a>
 				@endif
 
 				@if ($next_article !== NULL)
-				<a class="button button__default" href="{{url('illustrations/index/'.$next_article->id)}}">Box suivante  &rarr;</a>
+				<a class="button button__default" href="{{ action('MasterBox\Guest\IllustrationsController@getIllustration', ['slug' => $next_article->slug]) }}">Box suivante  &rarr;</a>
 				@endif
 			@endif
 		</div>

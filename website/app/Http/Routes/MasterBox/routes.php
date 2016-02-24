@@ -100,9 +100,8 @@ Route::group(['namespace' => 'MasterBox', 'prefix' => '', 'middleware' => ['web'
     /**
      * Illustrations
      */
-    Route::get('illustrations/index/{id}', function($id) { return redirect()->to('illustration/'.$id.'-redirect'); });
-    Route::get('illustration/{id}-{slug}', array('uses' => 'IllustrationsController@checkSeoIllustrations'));
-    Route::controller('illustrations', 'IllustrationsController');
+    Route::get('illustrations', 'IllustrationsController@getIndex');
+    Route::get('illustration/{slug}', 'IllustrationsController@getIllustration');
 
     /**
      * Contact

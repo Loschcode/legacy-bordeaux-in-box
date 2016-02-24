@@ -19,56 +19,55 @@ class IllustrationsController extends BaseController {
    * Illustrations
    */
 
-  public function getIndex($id=NULL)
+  public function getIndex()
   {
-    if ($id === NULL)
-    {
-      $next_article = NULL;
-      $image_article = ImageArticle::orderBy('created_at', 'desc')->first();
 
-      if ($image_article !== NULL) 
-      {
-        $previous_article = $image_article->get_previous();
-      } 
-      else 
-      {
-        $previous_article = NULL;
-      }      
+    $next_article = NULL;
+    $image_article = ImageArticle::orderBy('created_at', 'desc')->first();
 
-    } 
-    else 
-    {
-      $image_article = ImageArticle::find($id);
-
-      if ($image_article === NULL)
-      {
-        abort(404);
-      }
-
+    if ($image_article !== NULL) 
       $previous_article = $image_article->get_previous();
-      $next_article = $image_article->get_next();
+    else 
+      $previous_article = NULL;
+    
+    return view('masterbox.guest.illustrations.index')->with(compact(
+      'next_article',
+      'image_article',
+      'previous_article'
+      ));
 
-    }
+  }
+
+  public function getIllustration($slug)
+  {
+
+    $image_article = ImageArticle::where('slug', '=', $slug)->first();
+
+    if ($image_article === NULL)
+      abort(404);
+
+    $previous_article = $image_article->get_previous();
+    $next_article = $image_article->get_next();
 
     return view('masterbox.guest.illustrations.index')->with(compact(
       'next_article',
       'image_article',
       'previous_article'
-    ));
-
+      ));
+    
   }
 
-  public function checkSeoIllustrations($id, $slug)
+
+
+  /*public function checkSeoIllustrations($id, $slug)
   {
     $image_article = ImageArticle::findOrFail($id);
     
     // If not correct slug
     if ($slug !== $image_article->slug)
-    {
       return redirect('illustration/'.$id.'-'.$image_article->slug); // SEO Optimized
-    }
 
     return $this->getIndex($id);
-  }
+  }*/
 
 }
