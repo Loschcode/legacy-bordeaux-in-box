@@ -57,6 +57,21 @@ class StripeNormalizeMetadata extends Command {
 
         $stripe_subscription = $callback['subscription'];
 
+        /**
+         * Default masterbox branch if unset
+         */
+        if (!isset($stripe_subscription->metadata->branch)) {
+
+          $stripe_subscription->metadata->branch = 'masterbox';
+          $stripe_subscription->save();
+
+          continue;
+
+        }
+
+        /**
+         * If old user metadata, convert to customer
+         */
         if ((isset($stripe_subscription->metadata->user_id)) && (isset($stripe_subscription->metadata->user_profile_id))) {
 
           $this->info("Old metadata detected, we will change them ... (".$stripe_subscription_id.")");
@@ -73,11 +88,12 @@ class StripeNormalizeMetadata extends Command {
 
           $stripe_subscription->save();
 
-        } else {
-
-          $this->info("Metadata seem already well done. Nothing to do here.");
+          continue;
 
         }
+
+        $this->info("Metadata seem already well done. Nothing to do here.");
+
 
 
       } else {
