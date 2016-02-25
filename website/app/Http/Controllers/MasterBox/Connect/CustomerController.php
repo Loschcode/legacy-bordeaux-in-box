@@ -99,6 +99,8 @@ class CustomerController extends BaseController {
       // Auto-connection : on
       Auth::guard('customer')->login($customer);
 
+      \Slack::send('New customer *'.$customer->getFullName().' (#'.$customer->id.')* registered to Bordeaux in Box _- Come on !_');
+
       if (session()->get('after-login-redirection')) {
 
         return redirect(session()->get('after-login-redirection'));

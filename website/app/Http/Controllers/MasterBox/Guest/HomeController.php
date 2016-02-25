@@ -24,6 +24,7 @@ class HomeController extends BaseController {
    */
   public function getIndex()
   {
+
     //$coord = \App\Libraries\GoogleGeocoding::getCoordinates('18 allée pierre corneille', 'Gujan-mestras', '33470');
     //dd($coord);
 

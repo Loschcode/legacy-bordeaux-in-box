@@ -191,7 +191,8 @@ return [
 
         Artdarek\OAuth\OAuthServiceProvider::class,
 
-        //Maknz\Slack\SlackServiceProvider::class,
+        // Slack
+        Maknz\Slack\SlackServiceProvider::class,
 
     ],
 
