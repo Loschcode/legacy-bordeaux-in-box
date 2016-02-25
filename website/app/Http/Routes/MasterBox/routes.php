@@ -101,7 +101,7 @@ Route::group(['namespace' => 'MasterBox', 'prefix' => '', 'middleware' => ['web'
      * Illustrations
      */
     Route::get('illustrations', 'IllustrationsController@getIndex');
-    Route::get('illustration/{slug}', 'IllustrationsController@getIllustratio');
+    Route::get('illustration/{slug}', 'IllustrationsController@getIllustration');
 
     /**
      * Contact
