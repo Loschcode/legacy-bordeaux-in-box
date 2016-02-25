@@ -93,14 +93,37 @@ function get_email_listing_from_customers_having_a_profile_subscribed()
  */
 function get_email_listing_from_customers_who_never_bought_a_box()
 {
-  $emails = App\Models\Customer::whereDoesntHave('profiles')
-    ->orWhereHas('profiles', function($q) {
-      $q
-        ->where('status', '!=', 'subscribed')
-        ->where('status', '!=', 'canceled')
-        ->where('status', '!=', 'expired');
-    })
-    ->lists('email');
+
+  $customers = App\Models\Customer::all();
+  $emails = [];
+
+  foreach ($customers as $customer) {
+
+    if ($customer->profiles()->first() === NULL) {
+      $emails[] = $customer->email;
+    } else {
+
+      foreach ($customer->profiles()->get() as $profile) {
+
+        $has_subscribed = FALSE;
+        $has_expired = FALSE;
+
+        if ($profile->status == 'expired') {
+          $has_expired = TRUE;
+        }
+
+        if ($profile->status == 'subscribed') {
+          $has_subscribed = TRUE;
+        }
+
+      }
+
+      if ($has_subscribed === FALSE && $has_expired === FALSE) {
+        $emails[] = $customer->email;
+      }
+
+    }
+  }
 
   return $emails;
 }

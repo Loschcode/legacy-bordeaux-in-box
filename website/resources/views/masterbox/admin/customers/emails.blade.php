@@ -1,5 +1,6 @@
 @extends('masterbox.layouts.admin')
 
+
 @section('navbar')
   @include('masterbox.admin.partials.navbar_customers')
 @stop
@@ -25,13 +26,27 @@
 <div class="panel">
   <div class="panel__wrapper">
     <div class="panel__header">
-      <h3 class="panel__title">{{ $title }} ({{ count($emails) }})</h3>
+      <div class="row">
+        <div class="grid-10">
+          <h3 class="panel__title">{{ $title }} ({{ count($emails) }})</h3>
+        </div>
+        <div class="grid-2">
+          <div class="+text-right">
+            <a href="{{ Request::url() . '?format=text' }}"class="button button__default --green">TEXT</a>
+            <a href="{{ Request::url() . '?format=csv' }}"class="button button__default --green">CSV</a>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="panel__content">
-      
-      @foreach ($emails as $email)
-        {{ $email }},
-      @endforeach
+      {!! Html::info('CTRL+A et CTRL+C dans le champ pour copier les emails') !!}
+      @if ( ! Request::has('format') OR Request::input('format') === 'text')
+        <textarea class="form__input">@foreach ($emails as $email){{ $email }}, @endforeach
+        </textarea>
+      @else
+        {{-- &#13;&#10 = New line in a textarea --}}
+        <textarea class="form__input">Email,&#13;&#10;@foreach ($emails as $email){{ $email }}&#13;&#10;@endforeach</textarea>
+      @endif
 
     </div>
   </div>
