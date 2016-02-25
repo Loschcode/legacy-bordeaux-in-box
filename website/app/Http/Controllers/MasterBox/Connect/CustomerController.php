@@ -359,11 +359,8 @@ class CustomerController extends BaseController {
       
       if ($callback['success']) {
 
-        if ($facebook_email_not_found) {
-
+        if ($facebook_email_not_found)
           warning_tech_admin('masterbox.emails.admin.no_facebook_email_found', 'Email Facebook jamais retourné', $callback['customer']);
-
-        }
 
         // If there's an after login redirection
         if (session()->get('after-login-redirection')) 
