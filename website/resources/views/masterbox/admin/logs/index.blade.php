@@ -1,5 +1,77 @@
 @extends('masterbox.layouts.admin')
 
+@section('navbar')
+		
+	<li class="navbar__item"><a class="navbar__link" href="#" data-jq-dropdown="#logs">Logs <i class="fa fa-angle-down"></i></a></li>
+	<li class="navbar__item"><a class="navbar__link" href="#" data-jq-dropdown="#configuration">Configuration <i class="fa fa-angle-down"></i></a></li>
+
+	<div id="logs" class="jq-dropdown jq-dropdown-tip">
+		<ul class="jq-dropdown-menu">
+			<li><a href="{{ action('MasterBox\Admin\LogsController@getIndex') }}">Prises de contact</a></li>
+			<li><a href="{{ action('MasterBox\Admin\LogsController@getOrdersHistory') }}">Historique des commandes</a></li>
+			<li><a href="{{ action('MasterBox\Admin\LogsController@getEmailTraces') }}">Traces des emails</a></li>
+		</ul>
+	</div>
+
+	<div id="configuration" class="jq-dropdown jq-dropdown-tip">
+		<ul class="jq-dropdown-menu">
+			<li><a href="{{ action('MasterBox\Admin\LogsController@getIndex') }}">Emails Transactionnels</a></li>
+		</ul>
+	</div>
+
+@stop
+
+@section('content')
+	
+	<div class="row">
+	  <div class="grid-8">
+	    <h1 class="title title__section">Logs &amp; Configuration</h1>
+	    <h3 class="title title__subsection">Prises de contact</h3>
+	  </div>
+	</div>
+
+	{!! Html::info('Toutes les demandes faites par le formulaire de contact sont enregistrées ci-dessous (500 dernières)') !!}
+
+	<table class="js-datatable-simple">
+
+		<thead>
+
+			<tr>
+				<th>Service</th>
+				<th>De</th>
+				<th>Pour</th>
+				<th>Date</th>
+				<th>Action</th>
+			</tr>
+
+		</thead>
+
+		<tbody>
+
+			@foreach ($contacts as $contact)
+
+				<tr>
+					<td>{!! Html::getReadableContactService($contact->service) !!}</td>
+					<td>{!! $contact->email !!}</td>
+					<td>{!! $contact->recipient !!}</td>
+					<td>{!! Html::diffHumans($contact->created_at) !!}</td>
+					<td>			
+					<a class="button button__default --green --table"><i class="fa fa-search"></i></a>
+						<a class="button button__default --red --table js-confirm-delete" href="{{ action('MasterBox\Admin\LogsController@getDelete', ['id' => $contact->id]) }}"><i class="fa fa-trash"></i> </a>
+					</td>
+				</tr>
+
+			@endforeach
+
+		</tbody>
+
+	</table>
+
+
+
+@stop
+
+<?php /*
 @section('page')
 	<i class="fa fa-gear"></i> Logs &amp; Configuration
 @stop
@@ -309,3 +381,4 @@
 	
 
 @stop
+*/?>

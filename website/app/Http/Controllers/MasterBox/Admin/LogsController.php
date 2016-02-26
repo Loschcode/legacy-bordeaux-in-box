@@ -40,23 +40,34 @@ class LogsController extends BaseController {
 
 		$contacts = Contact::orderBy('created_at', 'DESC')->limit(500)->get();
 
-    $all_orders = Order::orderBy('created_at', 'DESC')->limit(500)->get();
-
-    $email_traces = EmailTrace::orderBy('created_at', 'DESC')->limit(500)->get();
-
-		$contact_setting = ContactSetting::first();
-
-    $profile_notes = CustomerProfileNote::orderBy('created_at', 'DESC')->limit(500)->get();
+		//$contact_setting = ContactSetting::first();
 
 		return view('masterbox.admin.logs.index')->with(compact(
-      'contacts',
-      'all_orders',
-      'email_traces',
-      'contact_setting',
-      'profile_notes'
+      'contacts'
     ));
-
 	}
+
+  public function getOrdersHistory()
+  {
+    $all_orders = Order::orderBy('created_at', 'DESC')->limit(500)->get();
+
+    return view('masterbox.admin.logs.orders_history')->with(compact('all_orders'));
+  }
+
+  public function getEmailTraces()
+  {
+    $email_traces = EmailTrace::orderBy('created_at', 'DESC')->limit(500)->get();
+
+    return view('masterbox.admin.logs.email_traces')->with(compact('email_traces'));
+  }
+
+  public function getProfileNotes()
+  {
+    $profile_notes = CustomerProfileNote::orderBy('created_at', 'DESC')->limit(500)->get();
+    
+    return view('masterbox.admin.logs.profile_notes')->with(compact('profile_notes'));
+  }
+
 
   public function getMore($id)
   {
