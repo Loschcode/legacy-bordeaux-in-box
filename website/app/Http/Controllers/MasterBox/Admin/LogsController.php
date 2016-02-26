@@ -40,32 +40,54 @@ class LogsController extends BaseController {
 
 		$contacts = Contact::orderBy('created_at', 'DESC')->limit(500)->get();
 
-    $all_orders = Order::orderBy('created_at', 'DESC')->limit(500)->get();
-
-    $email_traces = EmailTrace::orderBy('created_at', 'DESC')->limit(500)->get();
-
-		$contact_setting = ContactSetting::first();
-
-    $profile_notes = CustomerProfileNote::orderBy('created_at', 'DESC')->limit(500)->get();
-
 		return view('masterbox.admin.logs.index')->with(compact(
-      'contacts',
-      'all_orders',
-      'email_traces',
-      'contact_setting',
-      'profile_notes'
+      'contacts'
     ));
-
 	}
 
-  public function getMore($id)
+  /**
+   * Fetch and display message contact id
+   * @return \Illuminate\Illuminate\View
+   */
+  public function getContact($contact_id)
+  {
+    $contact = Contact::findOrFail($contact_id);
+
+    return view('masterbox.admin.logs.contact')->with(compact('contact'));
+  }
+
+
+  public function getEmailTraces()
+  {
+    $email_traces = EmailTrace::orderBy('created_at', 'DESC')->limit(500)->get();
+
+    return view('masterbox.admin.logs.email_traces')->with(compact('email_traces'));
+  }
+
+  public function getProfileNotes()
+  {
+    $profile_notes = CustomerProfileNote::orderBy('created_at', 'DESC')->limit(500)->get();
+    
+    return view('masterbox.admin.logs.profile_notes')->with(compact('profile_notes'));
+  }
+
+
+  public function getEmailTrace($id)
   {
 
-    $email_trace = EmailTrace::find($id);
+    $email_trace = EmailTrace::findOrFail($id);
 
-    return view('masterbox.admin.logs.more')->with(compact(
+    return view('masterbox.admin.logs.email_trace')->with(compact(
       'email_trace'
     ));
+  }
+
+  public function getEditSettings()
+  {
+    $contact_setting = ContactSetting::first();
+
+    return view('masterbox.admin.logs.edit_settings')->with(compact('contact_setting'));
+
   }
 
 	/**
@@ -95,18 +117,13 @@ class LogsController extends BaseController {
   public function getDeleteEmailTrace($id)
   {
 
-    $email_trace = EmailTrace::find($id);
+    $email_trace = EmailTrace::findOrFail($id);
 
-    if ($email_trace !== NULL)
-    {
+    $email_trace->delete();
 
-      $email_trace->delete();
+    session()->flash('message', "Cette trace a été définitivement supprimée");
+    return redirect()->back();
 
-      session()->flash('message', "Cette trace a été définitivement supprimée");
-      return redirect()->to(URL::previous().'#emails-traces');
-
-
-    }
 
   }
 
@@ -122,9 +139,9 @@ class LogsController extends BaseController {
 			];
 
 
-		$fields = Request::all();
+		$fields = request()->all();
 
-		$validator = Validator::make($fields, $rules);
+		$validator = validator()->make($fields, $rules);
 
 		// The form validation was good
 		if ($validator->passes()) {
@@ -137,13 +154,13 @@ class LogsController extends BaseController {
 			$contact_setting->save();
 
 			session()->flash('message', "La configuration a bien été mise à jour");
-			return redirect()->to('admin/logs#config')
+			return redirect()->action('MasterBox\Admin\LogsController@getEditSettings')
 			->withInput();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return redirect()->to('admin/logs#config')
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 
