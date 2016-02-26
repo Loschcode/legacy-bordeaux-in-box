@@ -15,7 +15,7 @@
 
 
 
-<table class="js-datas">
+<table class="js-datatable-simple">
 
   <thead>
 
@@ -49,10 +49,10 @@
 
         @if ($profile_note->customer_profile()->first() !== NULL)
 
-        <a class="spyro-btn btn-blue {{HTML::getColorFromProfileStatus($profile_note->customer_profile()->first()->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $profile_note->customer_profile()->first()->id])}}">
+        <a class="button button__default --table {{HTML::getColorFromProfileStatus($profile_note->customer_profile()->first()->status)}}" href="{{action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $profile_note->customer_profile()->first()->id])}}">
 
 
-          {!! Html::getReadableProfileStatus($profile_note->customer_profile()->first()->status) !!}
+          #{{ $profile_note->customer_profile()->first()->id }} {!! Html::getReadableProfileStatus($profile_note->customer_profile()->first()->status) !!}
 
         </a><br/>
 
@@ -63,10 +63,10 @@
       </th>
       <th>
 
-        @if ($profile_note->customer()->first() === NULL)
+      @if ($profile_note->customer_profile()->first() === NULL)
         N/A
         @else
-        <a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $profile_note->customer()->first()->id]) }}">{{$profile_note->customer()->first()->getFullName()}}</a>
+        <a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $profile_note->customer_profile()->first()->id]) }}">{{$profile_note->customer_profile()->first()->firstName}}</a>
         @endif
 
       </th>
