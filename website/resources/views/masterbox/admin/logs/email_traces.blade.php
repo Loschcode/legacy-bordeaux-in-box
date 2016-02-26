@@ -83,7 +83,7 @@
 
       <td>      
         <a data-modal class="button button__default --green --table" href="{{ action('MasterBox\Admin\LogsController@getEmailTrace', ['id' => $email_trace->id]) }}"><i class="fa fa-search"></i></a>
-        <a class="button button__default --red --table js-delete-confirm" href="{{url('admin/logs/delete-email-trace/'.$email_trace->id)}}"><i class="fa fa-trash"></i> </a>
+        <a class="button button__default --red --table js-confirm-delete" href="{{ action('MasterBox\Admin\LogsController@getDeleteEmailTrace', ['id' => $email_trace->id]) }}"><i class="fa fa-trash"></i> </a>
       </td>
     </tr>
 

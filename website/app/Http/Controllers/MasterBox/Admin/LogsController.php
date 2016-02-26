@@ -111,18 +111,13 @@ class LogsController extends BaseController {
   public function getDeleteEmailTrace($id)
   {
 
-    $email_trace = EmailTrace::find($id);
+    $email_trace = EmailTrace::findOrFail($id);
 
-    if ($email_trace !== NULL)
-    {
+    $email_trace->delete();
 
-      $email_trace->delete();
+    session()->flash('message', "Cette trace a été définitivement supprimée");
+    return redirect()->back();
 
-      session()->flash('message', "Cette trace a été définitivement supprimée");
-      return redirect()->to(URL::previous().'#emails-traces');
-
-
-    }
 
   }
 
