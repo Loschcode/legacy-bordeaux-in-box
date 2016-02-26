@@ -30,5 +30,11 @@ Changement de ton point relais
 @stop
 
 @section('call-action')
-  {!! Html::emailAction('Accèder à mon compte', action('MasterBox\Customer\ProfileController@getIndex')) !!}
+
+  @if (isset($profile) && ($profile !== NULL))
+    {!! Html::emailAction('Voir mon abonnement', action('MasterBox\Customer\ProfileController@getOrder', ['id' => $profile->id])) !!}
+  @else
+    {!! Html::emailAction('Accéder à mon compte', action('MasterBox\Customer\ProfileController@getIndex')) !!}
+  @endif
+
 @stop
