@@ -26,6 +26,11 @@ Transaction Bancaire
 @stop
 
 @section('call-action')
-  {!! Html::emailAction('Voir mes abonnements', action('MasterBox\Customer\ProfileController@getOrders')) !!}
-@stop
 
+  @if (isset($profile) && ($profile !== NULL))
+    {!! Html::emailAction('Voir mon abonnement', action('MasterBox\Customer\ProfileController@getOrder', ['id' => $profile->id])) !!}
+  @else
+    {!! Html::emailAction('Voir mes abonnements', action('MasterBox\Customer\ProfileController@getOrders')) !!}
+  @endif
+
+@stop
