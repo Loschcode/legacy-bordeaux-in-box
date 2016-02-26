@@ -17,7 +17,7 @@
       <div class="profile profile__wrapper">
         <div class="profile__section">
           <h3 class="profile__title">Abonnements</h3>
-          <p>Ci-dessous les abonnements auxquelles tu as souscris.<br/></p>
+          <p>Ci-dessous les abonnements auxquelles tu as souscrit.<br/></p>
           
           {{-- Default  --}}
           <div class="hide@xs">

@@ -39,10 +39,10 @@ class QuestionsNormalizeMasterbox extends Command
      */
     public function handle()
     {
-        $this->info('Deleting the children details question');
+        $this->line('Deleting the children details question');
 
         BoxQuestion::where('type', 'children_details')->delete();
 
-        $this->info('End of process.');
+        $this->line('End of process.');
     }
 }
