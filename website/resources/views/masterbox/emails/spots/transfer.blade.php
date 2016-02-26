@@ -32,9 +32,9 @@ Changement de ton point relais
 @section('call-action')
 
   @if (isset($profile) && ($profile !== NULL))
-    {!! Html::emailAction('Voir mon abonnement', action('MasterBox\Customer\ProfileController@getOrder', ['id' => $profile->id])) !!}
+    {!! Html::emailAction('Plus d\'informations', customer_connect_link($customer, action('MasterBox\Customer\ProfileController@getOrder', ['id' => $profile->id]))) !!}
   @else
-    {!! Html::emailAction('Accéder à mon compte', action('MasterBox\Customer\ProfileController@getIndex')) !!}
+    {!! Html::emailAction('Plus d\'informations', customer_connect_link($customer, action('MasterBox\Customer\ProfileController@getOrders'))) !!}
   @endif
 
 @stop

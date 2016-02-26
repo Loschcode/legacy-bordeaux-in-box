@@ -29,5 +29,11 @@ Box en cours de livraison
 @stop
 
 @section('call-action')
-  {!! Html::emailAction('Plus d\'informations', action('MasterBox\Customer\ProfileController@getIndex')) !!}
+
+  @if (isset($profile) && ($profile !== NULL))
+    {!! Html::emailAction('Plus d\'informations', customer_connect_link($customer, action('MasterBox\Customer\ProfileController@getOrder', ['id' => $profile->id]))) !!}
+  @else
+    {!! Html::emailAction('Plus d\'informations', customer_connect_link($customer, action('MasterBox\Customer\ProfileController@getOrders'))) !!}
+  @endif
+
 @stop

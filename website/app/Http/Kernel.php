@@ -56,6 +56,7 @@ class Kernel extends HttpKernel
       'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
 
       // App
+      'has.track' => \App\Http\Middleware\HasTrack::class,
       'below.serie.counter' => \App\Http\Middleware\BelowSerieCounter::class,
       'has.unpaid.order.building' => \App\Http\Middleware\HasUnpaidOrderBuilding::class,
       'has.paid.order.building' => \App\Http\Middleware\HasPaidOrderBuilding::class,

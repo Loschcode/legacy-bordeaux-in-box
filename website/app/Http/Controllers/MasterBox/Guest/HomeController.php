@@ -7,6 +7,7 @@ use App\Models\BlogArticle;
 use App\Models\DeliverySpot;
 use App\Models\Page;
 use App\Models\ImageArticle;
+use App\Models\Customer;
 
 class HomeController extends BaseController {
 

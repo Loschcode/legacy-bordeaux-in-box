@@ -39,6 +39,13 @@ function prepare_log_metadata() {
 
 }
 
+function customer_connect_link($customer, $link) {
+
+  $token = \App\Models\CustomerConnect::setAndGetToken($customer);
+  return $link.'?track='.$token;
+
+}
+
 /**
  * Add a customer profile log
  * @param  object $customer_profile
