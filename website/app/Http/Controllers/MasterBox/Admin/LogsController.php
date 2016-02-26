@@ -40,8 +40,6 @@ class LogsController extends BaseController {
 
 		$contacts = Contact::orderBy('created_at', 'DESC')->limit(500)->get();
 
-		//$contact_setting = ContactSetting::first();
-
 		return view('masterbox.admin.logs.index')->with(compact(
       'contacts'
     ));
@@ -82,6 +80,14 @@ class LogsController extends BaseController {
     return view('masterbox.admin.logs.email_trace')->with(compact(
       'email_trace'
     ));
+  }
+
+  public function getEditSettings()
+  {
+    $contact_setting = ContactSetting::first();
+
+    return view('masterbox.admin.logs.edit_settings')->with(compact('contact_setting'));
+
   }
 
 	/**
@@ -133,9 +139,9 @@ class LogsController extends BaseController {
 			];
 
 
-		$fields = Request::all();
+		$fields = request()->all();
 
-		$validator = Validator::make($fields, $rules);
+		$validator = validator()->make($fields, $rules);
 
 		// The form validation was good
 		if ($validator->passes()) {
@@ -148,13 +154,13 @@ class LogsController extends BaseController {
 			$contact_setting->save();
 
 			session()->flash('message', "La configuration a bien été mise à jour");
-			return redirect()->to('admin/logs#config')
+			return redirect()->action('MasterBox\Admin\LogsController@getEditSettings')
 			->withInput();
 
 		} else {
 
 			// We return the same page with the error and saving the input datas
-			return redirect()->to('admin/logs#config')
+			return redirect()->back()
 			->withInput()
 			->withErrors($validator);
 

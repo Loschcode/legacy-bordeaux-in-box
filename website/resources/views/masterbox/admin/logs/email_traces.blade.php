@@ -13,6 +13,8 @@
   </div>
 </div>
 
+{!! Html::info('Logs des emails envoyés par MailGun') !!}
+
 
 <table class="js-datatable-simple">
 

@@ -12,6 +12,6 @@
 
 <div id="configuration" class="jq-dropdown jq-dropdown-tip">
   <ul class="jq-dropdown-menu">
-    <li><a href="{{ action('MasterBox\Admin\LogsController@getIndex') }}">Emails Transactionnels</a></li>
+    <li><a href="{{ action('MasterBox\Admin\LogsController@getEditSettings') }}">Emails Transactionnels</a></li>
   </ul>
 </div>

@@ -9,7 +9,7 @@
 <div class="row">
   <div class="grid-8">
     <h1 class="title title__section">Logs &amp; Configuration</h1>
-    <h3 class="title title__subsection">Prises de contact</h3>
+    <h3 class="title title__subsection">Note des abonnements</h3>
   </div>
 </div>
 
