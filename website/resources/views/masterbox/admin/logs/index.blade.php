@@ -1,33 +1,16 @@
 @extends('masterbox.layouts.admin')
 
 @section('navbar')
-		
-	<li class="navbar__item"><a class="navbar__link" href="#" data-jq-dropdown="#logs">Logs <i class="fa fa-angle-down"></i></a></li>
-	<li class="navbar__item"><a class="navbar__link" href="#" data-jq-dropdown="#configuration">Configuration <i class="fa fa-angle-down"></i></a></li>
-
-	<div id="logs" class="jq-dropdown jq-dropdown-tip">
-		<ul class="jq-dropdown-menu">
-			<li><a href="{{ action('MasterBox\Admin\LogsController@getIndex') }}">Prises de contact</a></li>
-			<li><a href="{{ action('MasterBox\Admin\LogsController@getOrdersHistory') }}">Historique des commandes</a></li>
-			<li><a href="{{ action('MasterBox\Admin\LogsController@getEmailTraces') }}">Traces des emails</a></li>
-		</ul>
-	</div>
-
-	<div id="configuration" class="jq-dropdown jq-dropdown-tip">
-		<ul class="jq-dropdown-menu">
-			<li><a href="{{ action('MasterBox\Admin\LogsController@getIndex') }}">Emails Transactionnels</a></li>
-		</ul>
-	</div>
-
+	@include('masterbox.admin.partials.navbar_logs')
 @stop
 
 @section('content')
 	
 	<div class="row">
-	  <div class="grid-8">
-	    <h1 class="title title__section">Logs &amp; Configuration</h1>
-	    <h3 class="title title__subsection">Prises de contact</h3>
-	  </div>
+		<div class="grid-8">
+			<h1 class="title title__section">Logs &amp; Configuration</h1>
+			<h3 class="title title__subsection">Prises de contact</h3>
+		</div>
 	</div>
 
 	{!! Html::info('Toutes les demandes faites par le formulaire de contact sont enregistrées ci-dessous (500 dernières)') !!}
@@ -103,8 +86,120 @@
 
   	<div class="tab-pane" id="orders-history">
 
-	    	@include('masterbox.admin.partials.orders_table', array('orders' => $all_orders))
+			
+  <table class="js-datatable-simple">
 
+    <thead>
+
+      <tr>
+        <th>ID</th>
+        <th>Série</th>
+        <th>Client</th>
+        <th>Adresse utilisateur</th>
+        <th>Téléphone utilisateur</th>
+        <th>Email utilisateur</th>
+        <th>Questions</th>
+        <th>Réponses</th>
+        <th>Paiement</th>
+        <th>Status</th>
+        <th>A offrir</th>
+        <th>Etat de la commande</th>
+        <th>Mode</th>
+        <th>Destination / Spot</th>
+        <th>Zone</th>
+        <th>Création</th>
+        <th>Fin préparation</th>
+        <th>Statut de la commande</th>
+        <th>Action</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      @foreach ($orders as $order)
+
+        <?php $profile = $order->customer_profile()->first(); ?>
+
+        <tr>
+
+          <th>{{$order->id}}</th>
+          <th>{{$order->delivery_serie()->first()->delivery}}</th>
+          <th><a href="{{ action('MasterBox\Admin\CustomersController@getFocus', ['id' => $order->customer_profile()->first()->customer()->first()->id]) }}">{{$order->customer_profile()->first()->customer()->first()->getFullName()}}</a></th>
+
+          <th>{{ $order->customer_profile()->first()->customer()->first()->getFullAddress()}} </th>
+          <th>{{ $order->customer_profile()->first()->customer()->first()->phone}} </th>
+
+          <th>{{ $order->customer_profile()->first()->customer()->first()->email}} </th>
+
+          <th>
+          <!-- Questions -->
+
+            {!! order_questions($profile, " / ") !!}
+
+
+          </th>
+          <th>
+
+            {!! order_answers($profile, " / ") !!}
+
+
+          </th>
+          <th>
+            {{$order->already_paid}}€ / {{$order->unity_and_fees_price}}€
+
+            @foreach ($order->payments()->get() as $payment)
+
+              (<a href="{{url('/admin/payments/focus/'.$payment->id)}}">+</a>)
+
+            @endforeach
+
+          </th>
+          <th>
+          {!! Html::getReadableOrderStatus($order->status) !!}
+          </th>
+          <th>{!! Html::boolYesOrNo($order->gift) !!}</th>
+          <th>{!! Html::getReadableOrderLocked($order->locked) !!}</th>
+          <th>{!! Html::getReadableTakeAway($order->take_away) !!}</th>
+          <th>{!! Html::getOrderSpotOrDestination($order) !!}</th>
+          <th>
+          @if ($order->isRegionalOrder())
+            Régional
+          @else
+            Non régional
+          @endif
+          </th>
+          <th>{{$order->created_at}}</th>
+          <th>{{$order->date_completed}}</th>
+          <th>{!! Html::getReadableOrderStatus($order->status) !!}</th>
+
+          <th>
+
+          @if ($order->date_completed != NULL)
+
+            <a href="{{ url('/admin/orders/confirm-sent/'.$order->id) }}">Envoi confirmé</a> |
+
+          @else
+
+            <a href="{{ url('/admin/orders/confirm-ready/'.$order->id) }}">Prête pour envoi</a> |
+
+          @endif
+
+          <a href="{{ url('/admin/orders/confirm-problem/'.$order->id) }}">Signaler problème</a> |
+
+          <a href="{{ url('/admin/orders/confirm-cancel/'.$order->id) }}">Annuler</a> |
+
+          <a href="{{ url('/admin/orders/delete/'.$order->id) }}">Archiver</a>
+
+          </th>
+
+        </tr>
+
+      @endforeach
+
+    </tbody>
+
+  </table>
 		</div>
 
 		<!-- Tab List -->

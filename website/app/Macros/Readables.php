@@ -159,10 +159,10 @@ Html::macro('convertMonth', function($date)
 Html::macro('getColorFromProfileStatus', function($status)
 {
 
-  if ($status === 'subscribed') return 'spyro-btn-primary';
-  elseif ($status === 'not-subscribed') return 'spyro-btn-default';
-  elseif ($status === 'in-progress') return 'spyro-btn-success';
-  elseif ($status == 'expired') return 'spyro-btn-danger';
+  if ($status === 'subscribed') return '--green';
+  elseif ($status === 'not-subscribed') return '--blue';
+  elseif ($status === 'in-progress') return '--blue';
+  elseif ($status == 'expired') return '--red';
   else return '';
 
 });

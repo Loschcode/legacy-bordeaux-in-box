@@ -54,16 +54,10 @@ class LogsController extends BaseController {
   public function getContact($contact_id)
   {
     $contact = Contact::findOrFail($contact_id);
-    
+
     return view('masterbox.admin.logs.contact')->with(compact('contact'));
   }
 
-  public function getOrdersHistory()
-  {
-    $all_orders = Order::orderBy('created_at', 'DESC')->limit(500)->get();
-
-    return view('masterbox.admin.logs.orders_history')->with(compact('all_orders'));
-  }
 
   public function getEmailTraces()
   {
@@ -80,12 +74,12 @@ class LogsController extends BaseController {
   }
 
 
-  public function getMore($id)
+  public function getEmailTrace($id)
   {
 
-    $email_trace = EmailTrace::find($id);
+    $email_trace = EmailTrace::findOrFail($id);
 
-    return view('masterbox.admin.logs.more')->with(compact(
+    return view('masterbox.admin.logs.email_trace')->with(compact(
       'email_trace'
     ));
   }
