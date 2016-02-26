@@ -47,6 +47,17 @@ class LogsController extends BaseController {
     ));
 	}
 
+  /**
+   * Fetch and display message contact id
+   * @return \Illuminate\Illuminate\View
+   */
+  public function getContact($contact_id)
+  {
+    $contact = Contact::findOrFail($contact_id);
+    
+    return view('masterbox.admin.logs.contact')->with(compact('contact'));
+  }
+
   public function getOrdersHistory()
   {
     $all_orders = Order::orderBy('created_at', 'DESC')->limit(500)->get();

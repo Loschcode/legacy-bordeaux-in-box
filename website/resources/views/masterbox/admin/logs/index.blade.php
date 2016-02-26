@@ -37,6 +37,7 @@
 		<thead>
 
 			<tr>
+				<th>Id</th>
 				<th>Service</th>
 				<th>De</th>
 				<th>Pour</th>
@@ -51,12 +52,13 @@
 			@foreach ($contacts as $contact)
 
 				<tr>
+					<td>{{ $contact->id }}</td>
 					<td>{!! Html::getReadableContactService($contact->service) !!}</td>
 					<td>{!! $contact->email !!}</td>
 					<td>{!! $contact->recipient !!}</td>
 					<td>{!! Html::diffHumans($contact->created_at) !!}</td>
 					<td>			
-					<a class="button button__default --green --table"><i class="fa fa-search"></i></a>
+						<a data-modal class="button button__default --green --table" href="{{ action('MasterBox\Admin\LogsController@getContact', ['contact_id' => $contact->id]) }}"><i class="fa fa-search"></i></a>
 						<a class="button button__default --red --table js-confirm-delete" href="{{ action('MasterBox\Admin\LogsController@getDelete', ['id' => $contact->id]) }}"><i class="fa fa-trash"></i> </a>
 					</td>
 				</tr>
