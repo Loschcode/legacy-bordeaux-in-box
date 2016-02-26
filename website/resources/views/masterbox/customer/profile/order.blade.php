@@ -138,10 +138,10 @@
         <div id="credit-card" class="profile__section">
 
           <h3 class="profile__title">Carte bancaire associée</h3>
-
+          
           @if ($profile->badPaymentProfile())
 
-            <font color='red'><strong>Une anomalie a été constatée sur cet abonnement, veuillez contacter notre support pour plus d'informations.</strong></font>
+            <div class="alert alert__border --red">Une anomalie a été constatée sur cet abonnement, veuillez contacter notre support pour plus d'informations.</div>
 
           @else
 
@@ -188,9 +188,11 @@
             <button id="commit" type="submit" class="button button__submit">Mettre à jour</button>
 
             {!! Form::close() !!}
-          </div>
 
         @endif
+
+        </div>
+
 
       </div>
     </div>
