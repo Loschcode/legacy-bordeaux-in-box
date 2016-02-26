@@ -138,50 +138,59 @@
         <div id="credit-card" class="profile__section">
 
           <h3 class="profile__title">Carte bancaire associée</h3>
-          <p>Tu as la possibilité de changer la carte bancaire utilisée pour cet abonnement.</p>
-          
-          <div class="+spacer-extra-small"></div>
-          
-          {{-- Card widget --}}
-          <div class="card"></div>
 
-          {!! Form::open(['action' => 'MasterBox\Customer\ProfileController@postChangeCard', 'id' => 'form-edit-card']) !!}
+          @if ($profile->badPaymentProfile())
 
-          {!! Form::hidden('stripeToken', null, ['id' => 'stripe-token']) !!}
-          {!! Form::hidden('profile_id', $profile->id) !!}
-          {!! Form::hidden('old_password') !!}
+            <font color='red'><strong>Une anomalie a été constatée sur cet abonnement, veuillez contacter notre support pour plus d'informations.</strong></font>
 
-          {!! Form::label('card', 'Numéro de carte', ['class' => 'form__label']) !!}
-          {!! Form::text('card', null, ['id' => 'card', 'autocomplete' => 'off', 'class' => 'form__input']) !!}
-          {!! Html::checkError('card', $errors) !!}
-          <div id="errors-card" class="form__error"></div>
+          @else
 
-          <div class="row">
-            <div class="grid-6">
-              {!! Form::label('expiration', 'Date d\'expiration', ['class' => 'form__label']) !!}
-              {!! Form::text('expiration', null, ['id' => 'expiration', 'placeholder' => 'Format : MM/AA', 'autocomplete' => 'off', 'class' => 'form__input']) !!}
-                {!! Html::checkError('expiration', $errors) !!}
-                <div id="errors-expiration" class="form__error"></div>
+            <p>Tu as la possibilité de changer la carte bancaire utilisée pour cet abonnement.</p>
+            
+            <div class="+spacer-extra-small"></div>
+            
+            {{-- Card widget --}}
+            <div class="card"></div>
+
+            {!! Form::open(['action' => 'MasterBox\Customer\ProfileController@postChangeCard', 'id' => 'form-edit-card']) !!}
+
+            {!! Form::hidden('stripeToken', null, ['id' => 'stripe-token']) !!}
+            {!! Form::hidden('profile_id', $profile->id) !!}
+            {!! Form::hidden('old_password') !!}
+
+            {!! Form::label('card', 'Numéro de carte', ['class' => 'form__label']) !!}
+            {!! Form::text('card', null, ['id' => 'card', 'autocomplete' => 'off', 'class' => 'form__input']) !!}
+            {!! Html::checkError('card', $errors) !!}
+            <div id="errors-card" class="form__error"></div>
+
+            <div class="row">
+              <div class="grid-6">
+                {!! Form::label('expiration', 'Date d\'expiration', ['class' => 'form__label']) !!}
+                {!! Form::text('expiration', null, ['id' => 'expiration', 'placeholder' => 'Format : MM/AA', 'autocomplete' => 'off', 'class' => 'form__input']) !!}
+                  {!! Html::checkError('expiration', $errors) !!}
+                  <div id="errors-expiration" class="form__error"></div>
+              </div>
+              <div class="grid-6">
+                {!! Form::label('ccv', 'CVV', ['class' => 'form__label']) !!}
+                {!! Form::text('ccv', null, ['id' => 'cvc', 'placeholder' => 'Exemple : 585', 'autocomplete' => 'off', 'class' => 'form__input']) !!}
+                {!! Html::checkError('ccv', $errors) !!}
+                <div id="errors-ccv" class="form__error"></div>
+              </div>
             </div>
-            <div class="grid-6">
-              {!! Form::label('ccv', 'CVV', ['class' => 'form__label']) !!}
-              {!! Form::text('ccv', null, ['id' => 'cvc', 'placeholder' => 'Exemple : 585', 'autocomplete' => 'off', 'class' => 'form__input']) !!}
-              {!! Html::checkError('ccv', $errors) !!}
-              <div id="errors-ccv" class="form__error"></div>
-            </div>
+            
+            @if (session()->has('error'))
+              <div class="form__error">{{ session()->get('error') }}</div>
+            @endif
+            {!! Html::checkError('old_password', $errors) !!}
+            <div id="error-stripe" class="form__error"></div>
+
+            <div class="+spacer-extra-small"></div>
+            <button id="commit" type="submit" class="button button__submit">Mettre à jour</button>
+
+            {!! Form::close() !!}
           </div>
-          
-          @if (session()->has('error'))
-            <div class="form__error">{{ session()->get('error') }}</div>
-          @endif
-          {!! Html::checkError('old_password', $errors) !!}
-          <div id="error-stripe" class="form__error"></div>
 
-          <div class="+spacer-extra-small"></div>
-          <button id="commit" type="submit" class="button button__submit">Mettre à jour</button>
-
-          {!! Form::close() !!}
-        </div>
+        @endif
 
       </div>
     </div>

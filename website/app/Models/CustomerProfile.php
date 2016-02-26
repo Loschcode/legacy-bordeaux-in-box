@@ -345,6 +345,24 @@ class CustomerProfile extends Model {
 
 	}
 
+  /**
+   * Weird payment profile datas or non existing ones
+   */
+  public function badPaymentProfile()
+  {
+
+    $payment_profile = $this->payment_profile()->first();
+
+    if ($payment_profile === NULL)
+      return TRUE;
+
+    if (empty($payment_profile->stripe_customer))
+      return TRUE;
+
+    return FALSE;
+
+  }
+
 	/**
 	 * Get the total of not subscribed profile (not linked with any box, it means the user didn't chose anything)
 	 * @return object
