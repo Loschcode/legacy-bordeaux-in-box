@@ -189,7 +189,7 @@
 	
 	<div id="freewall-partners">
 		@foreach ($articles as $article)
-			<div class="js-brick grid-3">
+			<div class="js-brick" style="width: 250px">
 					<a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['slug' => $article->slug]) }}">
 						<img class="partner__picture" src="{{ Html::resizeImage('medium', $article->thumbnail->filename) }}" />
 					</a>

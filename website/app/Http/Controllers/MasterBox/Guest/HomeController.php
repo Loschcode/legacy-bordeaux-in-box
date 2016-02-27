@@ -32,7 +32,7 @@ class HomeController extends BaseController {
     $next_series = DeliverySerie::nextOpenSeries();
 
     // Blog articles
-    $articles = BlogArticle::orderBy('id', 'DESC')->limit(8)->get();
+    $articles = BlogArticle::orderBy('id', 'DESC')->limit(12)->get();
 
     // Illustrations
     $image_article = ImageArticle::orderBy('id', 'desc')->first();

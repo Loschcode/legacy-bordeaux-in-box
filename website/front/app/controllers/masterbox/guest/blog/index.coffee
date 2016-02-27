@@ -31,7 +31,7 @@ class Index extends Controller
 
     wall.reset
       selector: '.js-brick',
-      animate: false,
+      animate: true,
       cellW: 220,
       cellH: 'auto',
 
