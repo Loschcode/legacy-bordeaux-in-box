@@ -37,9 +37,11 @@
 			<h3>Bordeaux in Box met de la couleur dans votre box en mars.</h3>
 			
 			<div class="+spacer"></div>
-
-			<div class="container">
-				@include('masterbox.partials.buttons_call_actions', ['button' => 'button__home-action', 'counter' => true])
+			
+			<div class="hero__decorate">
+				<div class="container">
+					@include('masterbox.partials.buttons_call_actions', ['button' => 'button__home-action', 'counter' => true])
+				</div>
 			</div>
 
 			<div class="+text-right">

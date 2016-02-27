@@ -27,7 +27,7 @@
       box-shadow: none
 
   +part(home-action)
-    background: rgba(0,0,0,0.45)
+    background: color-get(pink-fluo)
     font-size: 0.55vr
     padding: 0.2vr
     text-align: center
@@ -47,16 +47,8 @@
       padding-right: 0.2vr
 
     &:hover, &:active
-      background: white
-      color: black
+      background: rgba(255,255,255,0.45)
 
-    +option(active)
-      background: color-get(pink-fluo)
-      transition: none
-
-      &:hover, &:active
-        background: white
-        color: black
 
   +part(home-sub-action)
     background: color-get(pink-fluo)
