@@ -117,6 +117,71 @@ class DeliveriesController extends BaseController {
       'form_stats',
       'series'
     ));
+
+  }
+
+  public function getStatistics($id)
+  {
+
+    $series = DeliverySerie::find($id);
+    $fresh_customer_profiles = $series->fresh_customer_profiles()->get();
+    $order_buildings = $series->customer_order_buildings()->get();
+
+    $fresh_customers = $series->fresh_customers()->get();
+    $fresh_customer_payment_profiles = $series->customers_payment_profiles(TRUE)->get();
+    
+    //$orders_not_canceled = $series->orders()->notCanceledOrders()->get();
+
+    $daily_statistics = [];
+
+    /**
+     * Unfinished customers count
+     */
+    foreach ($order_buildings as $order_building) {
+
+      $day = ucfirst(\Date::parse($order_building->created_at)->format('l'));
+
+      if (!isset($daily_statistics[$day]['order_buildings']))
+        $daily_statistics[$day]['order_buildings'] = 0;
+      else
+        $daily_statistics[$day]['order_buildings']++;
+
+    }
+
+    /**
+     * New customers count
+     */
+    foreach ($fresh_customers as $customer) {
+
+      $day = ucfirst(\Date::parse($customer->created_at)->format('l'));
+
+      if (!isset($daily_statistics[$day]['new_customers']))
+        $daily_statistics[$day]['new_customers'] = 0;
+      else
+        $daily_statistics[$day]['new_customers']++;
+
+    }
+
+    /**
+     * Customer which paid and has a payment profile
+     */
+    foreach ($fresh_customer_payment_profiles as $customer_payment_profile) {
+
+      $day = ucfirst(\Date::parse($customer_payment_profile->created_at)->format('l'));
+
+      if (!isset($daily_statistics[$day]['new_subscriptions']))
+        $daily_statistics[$day]['new_subscriptions'] = 0;
+      else
+        $daily_statistics[$day]['new_subscriptions']++;
+
+    }
+
+    return view('masterbox.admin.deliveries.statistics')->with(compact(
+      'series',
+      'daily_statistics'
+    ));
+
+
   }
 
   /**

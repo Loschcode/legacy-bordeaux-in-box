@@ -5,3 +5,5 @@
   {!! Html::addButtonNavbar('Questionnaire', action('MasterBox\Admin\DeliveriesController@getQuestionsAnswers', ['id' => $series->id])) !!}
 
   {!! Html::addButtonNavbar('Listing des emails', action('MasterBox\Admin\DeliveriesController@getListingEmails', ['id' => $series->id])) !!}
+
+  {!! Html::addButtonNavbar('Statistiques', action('MasterBox\Admin\DeliveriesController@getStatistics', ['id' => $series->id])) !!}

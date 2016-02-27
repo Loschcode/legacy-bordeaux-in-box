@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Models\Customer;
+
 class DeliverySerie extends Model {
 
 	/**
@@ -28,6 +30,92 @@ class DeliverySerie extends Model {
 		return $this->hasMany('App\Models\Order');
 
 	}
+
+  public function customer_profiles_with_orders($fresh=FALSE)
+  {
+
+    if (!$fresh) {
+
+      return $this->orders()->notCanceledOrders()
+      ->join('customer_profiles', 'orders.customer_profile_id', '=', 'customer_profiles.id')
+      ->select('customer_profiles.*');
+
+    } else {
+
+      return $this->orders()->notCanceledOrders()
+      ->join('customer_profiles', 'orders.customer_profile_id', '=', 'customer_profiles.id')
+      ->where('customer_profiles.created_at', '>', $this->getPreviousSeries()->closed)
+      ->select('customer_profiles.*');
+
+    }
+
+  }
+
+  public function customers_payment_profiles($fresh=FALSE)
+  {
+
+    if (!$fresh) {
+
+      return $this->orders()->notCanceledOrders()
+      ->join('customer_payment_profiles', 'customer_payment_profiles.customer_profile_id', '=', 'orders.customer_profile_id')
+      ->select('customer_payment_profiles.*');
+
+    } else {
+
+      return $this->orders()->notCanceledOrders()
+      ->join('customer_payment_profiles', 'customer_payment_profiles.customer_profile_id', '=', 'orders.customer_profile_id')
+      ->where('customer_payment_profiles.created_at', '>', $this->getPreviousSeries()->closed)
+      ->select('customer_payment_profiles.*');
+
+    }
+
+  }
+
+  public function customers_with_orders($fresh=FALSE)
+  {
+
+    if (!$fresh) {
+
+      return $this->orders()->notCanceledOrders()
+      ->join('customers', 'orders.customer_id', '=', 'customers.id')
+      ->select('customers.*');
+
+    } else {
+
+      return $this->orders()->notCanceledOrders()
+      ->join('customers', 'orders.customer_id', '=', 'customers.id')
+      ->where('customers.created_at', '>', $this->getPreviousSeries()->closed)
+      ->select('customers.*');
+
+    }
+
+
+  }
+
+  public function fresh_customers()
+  {
+    
+    $customers = Customer::where('created_at', '>', $this->getPreviousSeries()->closed);
+
+    if ($this->closed)
+      $customers->where('created_at', '<', $this->closed);
+
+    return $customers;
+
+  }
+
+  public function fresh_customer_profiles()
+  {
+    
+    $customer_profiles = CustomerProfile::where('created_at', '>', $this->getPreviousSeries()->closed);
+
+    if ($this->closed)
+      $customer_profiles->where('created_at', '<', $this->closed);
+
+    return $customer_profiles;
+
+  }
+
 
 	public function customer_order_buildings()
 	{
@@ -164,6 +252,13 @@ class DeliverySerie extends Model {
 		return $form_stats;
 
 	}
+
+  public function getPreviousSeries()
+  {
+
+    return DeliverySerie::where('id', '<', $this->id)->orderBy('id', 'desc')->first();
+
+  }
 
 	public function getCounter()
 	{
