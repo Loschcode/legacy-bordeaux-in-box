@@ -1,11 +1,16 @@
 +component(logo)
   text-align: center
-
+  
   +part(link)
-    width: 280px
+    width: 100%
     margin: 0 auto
     display: block
-    padding-top: 1vr
+    padding-top: 0.6vr
+    padding-left: 0.7vr
+    padding-bottom: 0.5vr
+
+    +breakpoint(xs)
+      padding-left: 0
 
   +part(picture)
     width: 100%

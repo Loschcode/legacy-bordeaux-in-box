@@ -50,23 +50,24 @@
   @show
   
   @section('header')
-    <div class="header">
-      <div class="header__item --first"></div>
-      <div class="header__item --second"></div>
-      <div class="header__item --third"></div>
-      <div class="header__item --fourth"></div>
-      <div class="header__item --fifth"></div>
+    
+    <div class="navbar__background" style="background-image: url('{{ url('images/teasing/teasing-mars.jpg') }}')">
+      <div class="row">
+        <div class="grid-3 grid-11@xs gr-centered@xs">
+          {{-- Logo --}}
+          <div class="logo">
+            <a href="{{ action('MasterBox\Guest\HomeController@getIndex') }}" class="logo__link">
+              <img class="logo__picture" src="{{ url('images/logo-white.png') }}" />
+            </a>
+          </div>
+        </div>
+        <div class="grid-9">
+          <div class="+spacer-small"></div>
+          {{-- Navbar --}}
+          @include('masterbox.partials.navbar', ['navbar_home' => true])
+        </div>
+      </div>
     </div>
-
-    {{-- Logo --}}
-    <div class="logo">
-      <a href="{{ action('MasterBox\Guest\HomeController@getIndex') }}" class="logo__link">
-        <img class="logo__picture" src="{{ url('images/logo.png') }}" />
-      </a>
-    </div>
-
-    {{-- Navbar --}}
-    @include('masterbox.partials.navbar')
   @show
 
   @yield('content')

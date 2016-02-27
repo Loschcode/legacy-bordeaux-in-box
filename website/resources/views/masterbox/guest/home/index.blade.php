@@ -20,7 +20,7 @@
 -->
 
 <div class="hero">
-	<div class="hero__container" style="background-image: url('images/teasing/teasing-mars.jpg')">
+	<div class="hero__container" style="background-image: url('{{ url('images/teasing/teasing-mars.jpg') }}')">
 		<div class="hero__overlay"></div>
 		<div class="hero__content">
 
