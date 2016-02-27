@@ -117,6 +117,68 @@ class DeliveriesController extends BaseController {
       'form_stats',
       'series'
     ));
+
+  }
+
+  public function getStatistics($id)
+  {
+
+    $series = DeliverySerie::find($id);
+    $customer_profiles = $series->customer_profiles()->get();
+    $customers_with_unfinished = $series->customers(TRUE)->get();
+    $customers = $series->customers()->get();
+    $orders_not_canceled = $series->orders()->notCanceledOrders()->get();
+
+    $daily_statistics = [];
+
+    /**
+     * Unfinished customers count
+     */
+    foreach ($customers_with_unfinished as $customer) {
+
+      $day = ucfirst(\Date::parse($customer->created_at)->format('l'));
+
+      if (!isset($daily_statistics[$day]['account_creation_with_unfinished']))
+        $daily_statistics[$day]['account_creation_with_unfinished'] = 0;
+      else
+        $daily_statistics[$day]['account_creation_with_unfinished']++;
+
+    }
+
+    /**
+     * Finished customers count
+     */
+    foreach ($customers as $customer) {
+
+      $day = ucfirst(\Date::parse($customer->created_at)->format('l'));
+
+      if (!isset($daily_statistics[$day]['account_creation_only_finished']))
+        $daily_statistics[$day]['account_creation_only_finished'] = 0;
+      else
+        $daily_statistics[$day]['account_creation_only_finished']++;
+
+    }
+
+    /**
+     * Not canceled orders
+     */
+    foreach ($orders_not_canceled as $order) {
+
+      $day = ucfirst(\Date::parse($order->created_at)->format('l'));
+
+      if (!isset($daily_statistics[$day]['not_canceled_orders']))
+        $daily_statistics[$day]['not_canceled_orders'] = 0;
+      else
+        $daily_statistics[$day]['not_canceled_orders']++;
+
+    }
+
+    return view('masterbox.admin.deliveries.statistics')->with(compact(
+      'series',
+      'daily_statistics'
+    ));
+
+
   }
 
   /**

@@ -29,6 +29,35 @@ class DeliverySerie extends Model {
 
 	}
 
+  public function customer_profiles()
+  {
+
+    return $this->orders()->notCanceledOrders()
+    ->join('customer_profiles', 'orders.customer_profile_id', '=', 'customer_profiles.id')
+    ->select('customer_profiles.*');
+
+  }
+
+  public function customers($unfinished=FALSE)
+  {
+
+    if (!$unfinished) {
+
+      return $this->orders()->notCanceledOrders()
+      ->join('customer_profiles', 'orders.customer_profile_id', '=', 'customer_profiles.id')
+      ->join('customers', 'customer_profiles.customer_id', '=', 'customers.id')
+      ->select('customers.*');
+
+    } else {
+
+      return $this->customer_order_buildings()
+      ->join('customers', 'customer_order_buildings.customer_id', '=', 'customers.id')
+      ->select('customers.*');
+
+    }
+
+  }
+
 	public function customer_order_buildings()
 	{
 
