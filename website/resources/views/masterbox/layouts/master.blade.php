@@ -52,6 +52,7 @@
   @section('header')
     
     <div class="navbar__background" style="background-image: url('{{ url('images/teasing/teasing-mars.jpg') }}')">
+      <div class="navbar__background-overlay"></div>
       <div class="row">
         <div class="grid-3 grid-11@xs gr-centered@xs">
           {{-- Logo --}}

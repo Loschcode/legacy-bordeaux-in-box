@@ -3,10 +3,21 @@
   +part(background)
     background-size: cover
     background-position: center center
+    position: relative
+
+  +part(background-overlay)
+    position: absolute
+    background-color: black
+    opacity: 0.4
+    width: 100%
+    height: 30%
+    top: 1.1vr
+
   +breakpoint(xs)
     display: none
     
   +part(list)
+    position: relative
     text-align: center
 
     +option(home)
@@ -21,6 +32,7 @@
           font-size: 0.45vr
 
   +part(item)
+    position: relative
     display: inline-block
     margin-right: 0.5vr
     font-size: 0.55vr
