@@ -50,6 +50,29 @@
       background: white
       color: black
 
+  +part(home-sub-action)
+    background: color-get(pink-fluo)
+    font-size: 0.55vr
+    padding: 0.2vr
+    text-align: center
+    border-radius: 10px
+    color: white
+    text-transform: uppercase
+    outline: 0
+    box-shadow: inset 0 -6px color-dark(pink-fluo, 12%)
+    color: white
+    width: 100%
+    +font-montserrat(400)
+
+    +breakpoint(xs)
+      margin-top: 0.3vr
+
+    i
+      padding-right: 0.2vr
+
+    &:active
+      top: 1px
+      box-shadow: none
 
   +part(home-partner)
     background-color: color-get(pink-fluo)
