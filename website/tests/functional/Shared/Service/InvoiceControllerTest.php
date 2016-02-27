@@ -19,6 +19,13 @@ class Shared_Service_InvoiceControllerTest extends TestCase
   public function charged_customer_without_order_got_invoice_callback_from_stripe()
   {
 
+    /**
+     * 
+     * IF THIS BLOWS UP DONT FORGET TO ACTIVATE ULTRAHOOK
+     * Current : ultrahook -k 3w1y73z3Z3pDadSkfQwBSjk02UMGCAwD stripes http://www.bordeauxinbox.dev:8000/shared/service/invoices/webhook
+     * 
+     */
+
     $amount_in_cents = 2490;
 
     $customer_payment_profile = factory(CustomerPaymentProfile::class)->create([
@@ -38,8 +45,6 @@ class Shared_Service_InvoiceControllerTest extends TestCase
       ]);
 
     $this->post('shared/service/invoices/webhook', ['webhook' => $this->fakeStripeChargeCallback($customer_payment_profile, $amount_in_cents)]);
-
-    $this->dump();
 
     $this->assertResponseOk();
 
