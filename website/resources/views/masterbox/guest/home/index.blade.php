@@ -40,9 +40,11 @@
 			
 			<div class="hero__decorate">
 				<div class="container">
-					@include('masterbox.partials.buttons_call_actions', ['button' => 'button__home-action', 'counter' => true])
+					@include('masterbox.partials.buttons_call_actions', ['button' => 'button__home-action'])
 				</div>
 			</div>
+
+			@include('masterbox.partials.counter_call_actions')
 
 			<div class="+text-right">
 				<h1>#Colorful</h1>
@@ -105,7 +107,7 @@
 	</div>
 	
 	<div class="+spacer-small"></div>
-	@include('masterbox.partials.buttons_call_actions', ['button' => 'button__home-sub-action', 'counter' => false])
+	@include('masterbox.partials.buttons_call_actions', ['button' => 'button__home-sub-action'])
 
 </div>
 <div class="clear"></div>
