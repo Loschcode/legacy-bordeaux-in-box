@@ -27,7 +27,7 @@
 			@include('masterbox.partials.navbar', ['navbar_home' => true])
 			
 			<div class="hero__logo">
-				<div class="grid-4 grid-centered">
+				<div class="grid-4 grid-11@xs grid-centered">
 					<div class="logo">
 						<img class="logo__picture" src="{{ url('images/logo-white.png') }}" />
 					</div>
