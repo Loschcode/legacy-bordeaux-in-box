@@ -27,19 +27,18 @@
       box-shadow: none
 
   +part(home-action)
-    background-color: color-get(pink-fluo)
+    background: rgba(0,0,0,0.45)
     font-size: 0.55vr
     padding: 0.2vr
     text-align: center
     border-radius: 10px
-    background: color-grey(grey)
     color: white
     text-transform: uppercase
-    box-shadow: inset 0 -5px color-dark(pink-fluo, 12%)
     outline: 0
     color: white
     width: 100%
     +font-montserrat(400)
+    transition: background 0.2s
 
     +breakpoint(xs)
       margin-top: 0.3vr
@@ -47,9 +46,10 @@
     i
       padding-right: 0.2vr
 
-    &:active
-      top: 1px
-      box-shadow: none
+    &:hover, &:active
+      background: white
+      color: black
+
 
   +part(home-partner)
     background-color: color-get(pink-fluo)

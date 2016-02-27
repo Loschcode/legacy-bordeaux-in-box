@@ -2,13 +2,12 @@
   
   +part(container)
     margin:
-      top: 1vr
       bottom: 1vr
     width: 100%
     position: relative
-    height: 8vr
     background-size: cover
     background-position: center 80%
+    background-color: color-get(dark)
 
   +part(overlay)
     position: absolute
@@ -21,9 +20,18 @@
     position: relative
     text-align: center
     color: white
-    padding-top: 1.4vr
+    padding-top: 0.2vr
 
     h1
-      +font-montserrat
-      font-size: 1.5vr
+      +font-amatic
+      font-size: 1.3vr
       text-transform: uppercase
+      margin-top: 3vr
+      padding-right: 0.5vr
+
+    h3
+      font-size: 0.6vr
+      margin-top: 0.4vr
+
+  +part(logo)
+    padding-top: 2.4vr

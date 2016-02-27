@@ -8,74 +8,96 @@
 	]) !!}
 @stop
 
+@section('header')
+@stop
+
 @section('content')
 
+<!--
 <div class="artwork artwork__container">
 	<img class="artwork__picture" src="{{ url('images/artwork.png') }}" />
 </div>
+-->
 
-<!--
 <div class="hero">
 	<div class="hero__container" style="background-image: url('images/teasing/teasing-mars.jpg')">
 		<div class="hero__overlay"></div>
 		<div class="hero__content">
-			<h1>Colorful</h1>
-			<h3>Bordeaux in Box met de la couleur dans votre box en mars</h3>
+
+			@include('masterbox.partials.navbar', ['navbar_home' => true])
+			
+			<div class="hero__logo">
+				<div class="grid-4 grid-centered">
+					<div class="logo">
+						<img class="logo__picture" src="{{ url('images/logo-white.png') }}" />
+					</div>
+				</div>
+			</div>
+
+			<h3>Bordeaux in Box met de la couleur dans votre box en mars.</h3>
+			
+			<div class="+spacer"></div>
+
+			<div class="container">
+
+					{{-- Buttons to order --}}
+					@if ($next_series->first() !== NULL)
+						@if ($next_series->first()->getCounter() !== 0 || $next_series->first()->getCounter() === FALSE)
+							
+							<div class="row row-align-center@xs">
+								<div class="grid-3 push-3 grid-11@xs grid-centered@xs push-0@xs">
+									<a id="test-pick-gift" class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getGift') }}"><i class="fa fa-gift"></i>L'offrir</a>
+								</div>
+								<div class="grid-3 push-3 grid-11@xs grid-centered@xs push-0@xs">
+									<a id="test-pick-classic" class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+								</div>
+							</div>
+							
+							<div class="grid-11@xs gr-centered@xs">
+								<div class="counter">
+									<div class="counter__content">
+										Il reste moins de 10 boxs et {{ str_replace('dans', '', strtolower(Html::diffHumans($next_series->first()->delivery, 5
+										))) }} pour commander la box de {!! Html::convertMonth($next_series->first()->delivery) !!}
+									</div>
+								</div>
+							</div>
+
+
+						@endif
+					@endif
+
+					{{-- No more boxes to order --}}
+					@if ($next_series->first() === NULL or $next_series->first()->getCounter() === 0)
+
+						<div class="row">
+							<div class="grid-3 push-3 grid-11@xs grid-centered@xs push-0@xs">
+								<a class="button button__home-action js-no-boxes" href="#"><i class="fa fa-gift"></i>L'offrir</a>
+							</div>
+							<div class="grid-3 push-3 grid-11@xs grid-centered@xs push-0@xs">
+								<a class="button button__home-action js-no-boxes" href="#"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+							</div>
+						</div>
+					@endif
+			</div>
+
+			<div class="+text-right">
+				<h1>#Colorful</h1>
+			</div>
 		</div>
 	</div>
 </div>
--->
 
+<!--
 <div class="grid-11@xs gr-centered@xs">
 	<div class="title --home-punchline">Des surprises tout les mois dans une petite boîte rien que pour toi !</div>
 </div>
+-->
 
-<div class="container">
-
-		{{-- Buttons to order --}}
-		@if ($next_series->first() !== NULL)
-			@if ($next_series->first()->getCounter() !== 0 || $next_series->first()->getCounter() === FALSE)
-				
-				<div class="row row-align-center@xs">
-					<div class="grid-3 push-3 grid-11@xs grid-centered@xs push-0@xs">
-						<a id="test-pick-gift" class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getGift') }}"><i class="fa fa-gift"></i>L'offrir</a>
-					</div>
-					<div class="grid-3 push-3 grid-11@xs grid-centered@xs push-0@xs">
-						<a id="test-pick-classic" class="button button__home-action" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
-					</div>
-				</div>
-				
-				<div class="grid-11@xs gr-centered@xs">
-					<div class="counter">
-						<div class="counter__content">
-							Il reste moins de 10 boxs et {{ str_replace('dans', '', strtolower(Html::diffHumans($next_series->first()->delivery, 5
-							))) }} pour commander la box de {!! Html::convertMonth($next_series->first()->delivery) !!}
-						</div>
-					</div>
-				</div>
-
-
-			@endif
-		@endif
-
-		{{-- No more boxes to order --}}
-		@if ($next_series->first() === NULL or $next_series->first()->getCounter() === 0)
-
-			<div class="row">
-				<div class="grid-3 push-3 grid-11@xs grid-centered@xs push-0@xs">
-					<a class="button button__home-action js-no-boxes" href="#"><i class="fa fa-gift"></i>L'offrir</a>
-				</div>
-				<div class="grid-3 push-3 grid-11@xs grid-centered@xs push-0@xs">
-					<a class="button button__home-action js-no-boxes" href="#"><i class="fa fa-shopping-cart"></i> La recevoir</a>
-				</div>
-			</div>
-		@endif
-</div>
 
 <div class="container grid-11@xs gr-centered@xs">
 	{{-- Section how it works --}}
 	<div id="how-to" class="section">
-		<h1 class="section__title">Comment ça marche</h1>
+		<h1 class="section__title --clear-space">Comment ça marche</h1>
 		<p class="section__description">Plaisir perso ou idée cadeau, voici comment ça marche !</p>
 	</div>
 </div>
