@@ -127,7 +127,7 @@ class DeliverySerie extends Model {
 
 		$form_stats = [];
 
-  	$answers = $this->orders()
+  	$answers = $this->orders()->notCanceledOrders()
   	->join('customer_profiles', 'orders.customer_profile_id', '=', 'customer_profiles.id')
   	->join('box_question_customer_answers', 'customer_profiles.id', '=', 'box_question_customer_answers.customer_profile_id')
   	->select('box_question_customer_answers.*')
@@ -145,21 +145,17 @@ class DeliverySerie extends Model {
 					if ($box_question->type === 'date') {
 
 						// Hot fix: Sometimes the format of date is incorrect
-						if (strlen($real_answer) === 10) {
+						if (strlen($real_answer) === 10)
 	          	$real_answer = get_age($real_answer) . ' ans';
-						} else {
+						else 
 							$real_answer = 'N/A';
-						}
-
-
-					} elseif ($box_question->type == 'children_details') {
-
-						// Nothing yet
 
 					}
 
-					if (!isset($form_stats[$box_question_id][$real_answer])) $form_stats[$box_question_id][$real_answer] = 1;
-					else $form_stats[$box_question_id][$real_answer]++;
+					if (!isset($form_stats[$box_question_id][$real_answer]))
+            $form_stats[$box_question_id][$real_answer] = 1;
+					else
+            $form_stats[$box_question_id][$real_answer]++;
 
 				}
 
