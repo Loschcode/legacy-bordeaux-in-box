@@ -15,6 +15,7 @@ class Index extends Controller
   before: ->
 
     @smoothScroll()
+    @freewallPartners()
 
   ##
   # Run
@@ -50,6 +51,25 @@ class Index extends Controller
 
     smoothScroll.init
       selector: '.js-anchor'
+
+  freewallPartners: =>
+
+    wall = new freewall("#freewall-partners")
+
+    wall.reset
+      selector: '.js-brick',
+      animate: false,
+      cellW: 220,
+      cellH: 'auto',
+
+      onResize: ->
+        wall.fitWidth()
+          
+    wall.container.find('.js-brick img').load ->
+      wall.fitWidth()
+    
+    $(window).trigger('resize')
+
 
 
 

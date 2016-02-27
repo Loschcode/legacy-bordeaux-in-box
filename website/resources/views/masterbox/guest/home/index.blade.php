@@ -174,21 +174,17 @@
 <div class="+spacer-small"></div>
 
 <div class="container-static">
-	@foreach ($articles->chunk(4) as $chunk)
-		<div class="row row-align-center@xs">
-			@foreach ($chunk as $article)
-				<div class="grid-3 grid-12@xs gr-centered@xs">
-					<div class="partner">
-						<div class="partner__picture-container">
-							<a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['slug' => $article->slug]) }}">
-								<img class="partner__picture" src="{{ Html::resizeImage('medium', $article->thumbnail->filename) }}" />
-							</a>
-						</div>
-					</div>
-				</div>
-			@endforeach
-		</div>
-	@endforeach
+	
+	<div id="freewall-partners">
+		@foreach ($articles as $article)
+			<div class="js-brick grid-3">
+					<a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['slug' => $article->slug]) }}">
+						<img class="partner__picture" src="{{ Html::resizeImage('medium', $article->thumbnail->filename) }}" />
+					</a>
+			</div>
+		@endforeach
+	</div>
+
 
 	<div class="grid-5 grid-centered grid-11@xs">
 		<a class="button button__home-partner" href="{{ action('MasterBox\Guest\BlogController@getIndex') }}">Voir les autres boutiques complices ...</a>

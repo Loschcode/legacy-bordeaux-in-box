@@ -1,0 +1,33 @@
++component(mosaic)
+  overflow: hidden
+  width: 100%
+  min-height: 10.4vr
+  position: relative
+  margin-top: 0.2vr
+  margin-bottom: 0.2vr
+
+  +part(media)
+    background-size: cover
+    min-height: 10.4vr
+    transition: 0.6s
+
+    &:hover
+      transform: scale(1.08)
+
+  +part(content)
+    background-color: white
+    position: absolute
+    bottom: 8%
+    right: 8%
+    left: 8%
+    padding: 0.6vr
+    min-height: 4vr
+    text-align: center
+
+    h1
+      +font-montserrat
+      font-size: 0.55vr
+      text-transform: uppercase
+
+    p
+      font-size: 0.4vr

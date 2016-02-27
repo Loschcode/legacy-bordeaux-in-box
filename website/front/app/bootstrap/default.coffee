@@ -11,7 +11,6 @@ class Default
     @stickyFooter()
     @textareaAutosize()
 
-
   ##
   # Notify errors from forms validated by Laravel
   ##
@@ -237,8 +236,6 @@ class Default
   textareaAutosize: =>
 
     $('textarea').textareaAutoSize()
-
-
 
 
 module.exports = Default
