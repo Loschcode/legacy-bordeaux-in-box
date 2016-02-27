@@ -14,6 +14,18 @@
 	<img class="artwork__picture" src="{{ url('images/artwork.png') }}" />
 </div>
 
+<!--
+<div class="hero">
+	<div class="hero__container" style="background-image: url('images/teasing/teasing-mars.jpg')">
+		<div class="hero__overlay"></div>
+		<div class="hero__content">
+			<h1>Colorful</h1>
+			<h3>Bordeaux in Box met de la couleur dans votre box en mars</h3>
+		</div>
+	</div>
+</div>
+-->
+
 <div class="grid-11@xs gr-centered@xs">
 	<div class="title --home-punchline">Des surprises tout les mois dans une petite boîte rien que pour toi !</div>
 </div>
@@ -117,7 +129,19 @@
 
 <div class="+spacer-small"></div>
 
-<div class="container-fluid hide@xs">
+<div class="container-static">
+
+	<div id="freewall-boxes">
+		@foreach ($image_articles as $article)
+			<div class="js-brick" style="width: 250px">
+					<a href="{{ action('MasterBox\Guest\IllustrationsController@getIllustration', ['slug' => $article->slug]) }}">
+						<img class="partner__picture" src="{{ Html::resizeImage('medium', $article->image->filename) }}" />
+					</a>
+			</div>
+		@endforeach
+	</div>
+
+	<!--
 	<div class="row">
 		<div class="grid-4 background background__green">
 			<div class="product">
@@ -152,8 +176,8 @@
 				</p>
 			</div>
 		</div>
-	</div>
-	<div class="clear"></div>
+		-->
+
 		
 		<div class="+spacer-extra-small"></div>
 		<div class="grid-5 grid-centered grid-11@xs">
@@ -177,7 +201,7 @@
 	
 	<div id="freewall-partners">
 		@foreach ($articles as $article)
-			<div class="js-brick grid-3">
+			<div class="js-brick" style="width: 250px">
 					<a href="{{ action('MasterBox\Guest\BlogController@getArticle', ['slug' => $article->slug]) }}">
 						<img class="partner__picture" src="{{ Html::resizeImage('medium', $article->thumbnail->filename) }}" />
 					</a>
