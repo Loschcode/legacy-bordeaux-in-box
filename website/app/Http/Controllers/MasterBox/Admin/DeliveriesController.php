@@ -124,52 +124,55 @@ class DeliveriesController extends BaseController {
   {
 
     $series = DeliverySerie::find($id);
-    $customer_profiles = $series->customer_profiles()->get();
-    $customers_with_unfinished = $series->customers(TRUE)->get();
-    $customers = $series->customers()->get();
-    $orders_not_canceled = $series->orders()->notCanceledOrders()->get();
+    $fresh_customer_profiles = $series->fresh_customer_profiles()->get();
+    $order_buildings = $series->customer_order_buildings()->get();
+
+    $fresh_customers = $series->fresh_customers()->get();
+    $fresh_customer_payment_profiles = $series->customers_payment_profiles(TRUE)->get();
+    
+    //$orders_not_canceled = $series->orders()->notCanceledOrders()->get();
 
     $daily_statistics = [];
 
     /**
      * Unfinished customers count
      */
-    foreach ($customers_with_unfinished as $customer) {
+    foreach ($order_buildings as $order_building) {
 
-      $day = ucfirst(\Date::parse($customer->created_at)->format('l'));
+      $day = ucfirst(\Date::parse($order_building->created_at)->format('l'));
 
-      if (!isset($daily_statistics[$day]['account_creation_with_unfinished']))
-        $daily_statistics[$day]['account_creation_with_unfinished'] = 0;
+      if (!isset($daily_statistics[$day]['order_buildings']))
+        $daily_statistics[$day]['order_buildings'] = 0;
       else
-        $daily_statistics[$day]['account_creation_with_unfinished']++;
+        $daily_statistics[$day]['order_buildings']++;
 
     }
 
     /**
-     * Finished customers count
+     * New customers count
      */
-    foreach ($customers as $customer) {
+    foreach ($fresh_customers as $customer) {
 
       $day = ucfirst(\Date::parse($customer->created_at)->format('l'));
 
-      if (!isset($daily_statistics[$day]['account_creation_only_finished']))
-        $daily_statistics[$day]['account_creation_only_finished'] = 0;
+      if (!isset($daily_statistics[$day]['new_customers']))
+        $daily_statistics[$day]['new_customers'] = 0;
       else
-        $daily_statistics[$day]['account_creation_only_finished']++;
+        $daily_statistics[$day]['new_customers']++;
 
     }
 
     /**
-     * Not canceled orders
+     * Customer which paid and has a payment profile
      */
-    foreach ($orders_not_canceled as $order) {
+    foreach ($fresh_customer_payment_profiles as $customer_payment_profile) {
 
-      $day = ucfirst(\Date::parse($order->created_at)->format('l'));
+      $day = ucfirst(\Date::parse($customer_payment_profile->created_at)->format('l'));
 
-      if (!isset($daily_statistics[$day]['not_canceled_orders']))
-        $daily_statistics[$day]['not_canceled_orders'] = 0;
+      if (!isset($daily_statistics[$day]['new_subscriptions']))
+        $daily_statistics[$day]['new_subscriptions'] = 0;
       else
-        $daily_statistics[$day]['not_canceled_orders']++;
+        $daily_statistics[$day]['new_subscriptions']++;
 
     }
 

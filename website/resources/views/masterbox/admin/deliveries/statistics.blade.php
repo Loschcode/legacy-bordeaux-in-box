@@ -20,9 +20,9 @@
   <thead>
     <tr>
       <th>Jour</th>
-      <th>Création de compte avec les non finalisés</th>
-      <th>Création de compte suivi de commandes uniquement</th>
-      <th>Commandes non annulées</th>
+      <th>Nouveaux inscrits</th>
+      <th>Commandes engagées</th>
+      <th>Commandes finalisées</th>
     </tr>
   </thead>
   <tbody>
@@ -34,20 +34,19 @@
 
           <th>
           
-          {{$daily_statistic['account_creation_with_unfinished']}}
+          {{$daily_statistic['new_customers']}}
 
           </th>
 
           <th>
           
-          {{$daily_statistic['account_creation_only_finished']}}
+          {{$daily_statistic['order_buildings']}}
 
           </th>
 
-
           <th>
           
-          {{$daily_statistic['not_canceled_orders']}}
+          {{$daily_statistic['new_subscriptions']}}
 
           </th>
 
