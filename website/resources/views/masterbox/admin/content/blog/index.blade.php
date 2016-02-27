@@ -38,7 +38,13 @@
       <tr>
         <td>{{ $blog_article->id }}</td>
         <td>{{$blog_article->title}}</td>
-        <td>{{$blog_article->administrator()->first()->getFullName()}}</td>
+        <td>
+        @if ($blog_article->administrator()->first() === NULL)
+        N/A
+        @else
+        {{$blog_article->administrator()->first()->getFullName()}}
+        @endif
+        </td>
         <td>{{ Html::dateFrench($blog_article->created_at) }}</td>
         <td>
           <a class="button button__default --blue --table" href="{{ action('MasterBox\Admin\ContentController@getEditBlog', ['id' => $blog_article->id]) }}"><i class="fa fa-pencil"></i></a>

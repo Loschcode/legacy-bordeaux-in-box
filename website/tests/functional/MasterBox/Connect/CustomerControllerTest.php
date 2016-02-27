@@ -37,9 +37,10 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
       ->assertEquals(false, Auth::guard('customer')->check());
   }
 
-  /** @test */
-  public function should_subscribe_me_when_i_provide_right_informations()
-  {    
+  /** */
+  /*public function should_subscribe_me_when_i_provide_right_informations()
+  {
+
     // Make valid subscribing customer
     $form_customer = $this->fakeCustomerForm();
 
@@ -57,7 +58,7 @@ class MasterBox_Connect_CustomerControllerTest extends TestCase
     // I'm logged.
     $this->assertEquals(true, Auth::guard('customer')->check());
 
-  }
+  }*/
 
   /** @test */
   public function should_not_subscribe_me_when_i_provide_weak_password()
