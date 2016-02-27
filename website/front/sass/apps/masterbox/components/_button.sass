@@ -50,6 +50,14 @@
       background: white
       color: black
 
+    +option(active)
+      background: color-get(pink-fluo)
+      transition: none
+
+      &:hover, &:active
+        background: white
+        color: black
+
   +part(home-sub-action)
     background: color-get(pink-fluo)
     font-size: 0.55vr

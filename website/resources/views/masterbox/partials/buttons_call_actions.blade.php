@@ -7,7 +7,7 @@
         <a id="test-pick-gift" class="button {{ $button }}" href="{{ action('MasterBox\Customer\PurchaseController@getGift') }}"><i class="fa fa-gift"></i>L'offrir</a>
       </div>
       <div class="grid-3 push-3 grid-11@xs grid-centered@xs push-0@xs">
-        <a id="test-pick-classic" class="button {{ $button }}" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+        <a id="test-pick-classic" class="button {{ $button }} --active" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}"><i class="fa fa-shopping-cart"></i> La recevoir</a>
       </div>
     </div>
     
@@ -34,7 +34,7 @@
       <a class="button {{ $button }} js-no-boxes" href="#"><i class="fa fa-gift"></i>L'offrir</a>
     </div>
     <div class="grid-3 push-3 grid-11@xs grid-centered@xs push-0@xs">
-      <a class="button {{ $button }} js-no-boxes" href="#"><i class="fa fa-shopping-cart"></i> La recevoir</a>
+      <a class="button {{ $button }} --active js-no-boxes" href="#"><i class="fa fa-shopping-cart"></i> La recevoir</a>
     </div>
   </div>
 @endif
