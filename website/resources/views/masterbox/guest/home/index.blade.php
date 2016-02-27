@@ -129,7 +129,19 @@
 
 <div class="+spacer-small"></div>
 
-<div class="container-fluid hide@xs">
+<div class="container-static">
+
+	<div id="freewall-boxes">
+		@foreach ($image_articles as $article)
+			<div class="js-brick" style="width: 250px">
+					<a href="{{ action('MasterBox\Guest\IllustrationsController@getIllustration', ['slug' => $article->slug]) }}">
+						<img class="partner__picture" src="{{ Html::resizeImage('medium', $article->image->filename) }}" />
+					</a>
+			</div>
+		@endforeach
+	</div>
+
+	<!--
 	<div class="row">
 		<div class="grid-4 background background__green">
 			<div class="product">
@@ -164,8 +176,8 @@
 				</p>
 			</div>
 		</div>
-	</div>
-	<div class="clear"></div>
+		-->
+
 		
 		<div class="+spacer-extra-small"></div>
 		<div class="grid-5 grid-centered grid-11@xs">

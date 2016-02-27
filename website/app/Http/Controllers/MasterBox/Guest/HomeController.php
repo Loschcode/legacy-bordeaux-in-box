@@ -35,12 +35,12 @@ class HomeController extends BaseController {
     $articles = BlogArticle::orderBy('id', 'DESC')->limit(12)->get();
 
     // Illustrations
-    $image_article = ImageArticle::orderBy('id', 'desc')->first();
+    $image_articles = ImageArticle::orderBy('id', 'desc')->limit(8)->get();
 
     return view('masterbox.guest.home.index')->with(compact(
       'next_series', 
       'articles',
-      'image_article'
+      'image_articles'
     ));
 
 
