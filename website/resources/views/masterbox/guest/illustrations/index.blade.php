@@ -5,7 +5,7 @@
 
 <div class="illustration">
 
-	<div class="grid-8 grid-centered grid-11@xs">
+	<div class="grid-9 grid-centered grid-11@xs">
 
 		<h1 class="illustration__name">{{$image_article->title}}</h1>
 		
