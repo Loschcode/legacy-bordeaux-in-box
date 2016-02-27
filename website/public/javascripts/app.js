@@ -1,2 +1,2584 @@
-!function(){"use strict";var t="undefined"==typeof window?global:window;if("function"!=typeof t.require){var e={},r={},o={},n={}.hasOwnProperty,i="components/",s=function(t,e){var r=0;e&&(0===e.indexOf(i)&&(r=i.length),e.indexOf("/",r)>0&&(e=e.substring(r,e.indexOf("/",r))));var n=o[t+"/index.js"]||o[e+"/deps/"+t+"/index.js"];return n?i+n.substring(0,n.length-".js".length):t},a=/^\.\.?(\/|$)/,u=function(t,e){for(var r,o=[],n=(a.test(e)?t+"/"+e:e).split("/"),i=0,s=n.length;s>i;i++)r=n[i],".."===r?o.pop():"."!==r&&""!==r&&o.push(r);return o.join("/")},c=function(t){return t.split("/").slice(0,-1).join("/")},p=function(e){return function(r){var o=u(c(e),r);return t.require(o,e)}},l=function(t,e){var o={id:t,exports:{}};return r[t]=o,e(o.exports,p(t),o),o.exports},f=function(t,o){var i=u(t,".");if(null==o&&(o="/"),i=s(t,o),n.call(r,i))return r[i].exports;if(n.call(e,i))return l(i,e[i]);var a=u(i,"./index");if(n.call(r,a))return r[a].exports;if(n.call(e,a))return l(a,e[a]);throw new Error('Cannot find module "'+t+'" from "'+o+'"')};f.alias=function(t,e){o[e]=t},f.register=f.define=function(t,r){if("object"==typeof t)for(var o in t)n.call(t,o)&&(e[o]=t[o]);else e[t]=r},f.list=function(){var t=[];for(var r in e)n.call(e,r)&&t.push(r);return t},f.brunch=!0,f._cache=r,t.require=f}}(),require.register("boot",function(t,e,r){var o,n,i;switch(n=e("bootstrap/default"),o=e("bootstrap/admin"),i=e("bootstrap/masterbox"),$("input, textarea").placeholder(),"production"===_.getEnvironment()&&(console.log=function(){}),_.getApp()){case"masterbox":new n,new i;break;case"masterbox-admin":new n,new o;break;case"company-admin":new n,new o}}),require.register("bootstrap/admin",function(t,e,r){var o,n,i;n=e("libraries/admin-sidebar"),i=e("config"),o=function(){function t(){this.sidebar(),this.modal(),this.datatable(),this.deleteConfirm(),this.confirm(),this.markdownEditor()}return t.prototype.sidebar=function(){return new n},t.prototype.modal=function(){return $.modal.defaults={escapeClose:!0,clickClose:!0,closeText:"Close",closeClass:"",showClose:!0,modalClass:"modal",spinnerHtml:'<i class="fa fa-refresh fa-spin"></i>',showSpinner:!0,fadeDuration:null,fadeDelay:1},$("[data-modal]").on("click",function(t){return t.preventDefault(),$(this).modal()})},t.prototype.datatable=function(){return $(".js-datatable-simple").DataTable({length:!1,language:i.datatable.language.fr,aaSorting:[]})},t.prototype.deleteConfirm=function(){return $(document).on("click",".js-confirm-delete",function(t){return t.preventDefault(),swal({type:"warning",title:"Es-tu sûr ?",text:"La ressource sera supprimé définitivement",showCancelButton:!0,confirmButtonText:"Oui je suis sûr",cancelButtonText:"Annuler",closeOnConfirm:!1,showLoaderOnConfirm:!0},function(t){return function(){return window.location.href=$(t).attr("href")}}(this))})},t.prototype.confirm=function(){return $(document).on("click",".js-confirm",function(t){return t.preventDefault(),swal({type:"warning",title:"Es-tu sûr ?",text:$(this).data("confirm-text"),showCancelButton:!0,confirmButtonText:"Oui je suis sûr",cancelButtonText:"Annuler",closeOnConfirm:!1,showLoaderOnConfirm:!0},function(t){return function(){return window.location.href=$(t).attr("href")}}(this))})},t.prototype.markdownEditor=function(){return $(".js-markdown").length>0?new SimpleMDE({element:$(".js-markdown")[0],spellChecker:!1}):void 0},t}(),r.exports=o}),require.register("bootstrap/default",function(t,e,r){var o,n=function(t,e){return function(){return t.apply(e,arguments)}};o=function(){function t(){this.textareaAutosize=n(this.textareaAutosize,this),this.processStickyFooter=n(this.processStickyFooter,this),this.stickyFooter=n(this.stickyFooter,this),this.getNotificationErrorMessage=n(this.getNotificationErrorMessage,this),this.hasNotificationErrorMessage=n(this.hasNotificationErrorMessage,this),this.notificationErrorMessage=n(this.notificationErrorMessage,this),this.hasNotificationSuccessMessage=n(this.hasNotificationSuccessMessage,this),this.getNotificationSuccessMessage=n(this.getNotificationSuccessMessage,this),this.notificationSuccessMessage=n(this.notificationSuccessMessage,this),this.processNotifications=n(this.processNotifications,this),this.notificationFormErrors(),this.processNotifications(),this.chosenSelect(),this.labelautyForm(),this.tooltipster(),this.inputMaskDate(),this.stickyFooter(),this.textareaAutosize()}return t.prototype.notificationFormErrors=function(){var t,e,r,o,n;return t=_.trim($("#gotham").data("form-errors")),_.isEmpty(t)||"1"!==t?void 0:(n=_.trim($("#gotham").data("form-errors-title")),r=_.trim($("#gotham").data("form-errors-text")),o=_.isEmpty(n)?"Attention":n,e=_.isEmpty(r)?"Des erreurs sont présentes dans le formulaire":r,swal({title:o,text:e,type:"error",confirmButtonColor:"#D83F66",html:!0,timer:1750}))},t.prototype.processNotifications=function(){var t;return this.hasNotificationErrorMessage()&&this.hasNotificationSuccessMessage()?(t=this.notificationSuccessMessage,this.notificationErrorMessage(t)):(this.notificationErrorMessage(),this.notificationSuccessMessage())},t.prototype.notificationSuccessMessage=function(t){var e;return e=this.getNotificationSuccessMessage(),_.isEmpty(e)?void 0:_.isFunction(t)?swal({title:"Succès",text:e,type:"success",confirmButtonColor:"#A5DC86",html:!0},function(){return t()}):swal({title:"Succès",text:e,type:"success",confirmButtonColor:"#A5DC86",html:!0})},t.prototype.getNotificationSuccessMessage=function(){return _.trim($("#gotham").data("success-message"))},t.prototype.hasNotificationSuccessMessage=function(){var t;return t=this.getNotificationSuccessMessage(),_.isEmpty(t)?!1:!0},t.prototype.notificationErrorMessage=function(t){return this.hasNotificationErrorMessage()?_.isFunction(t)?swal({title:"Erreur",text:this.getNotificationErrorMessage(),type:"error",confirmButtonColor:"#D83F66",html:!0,closeOnConfirm:!1},function(){return t()}):swal({title:"Erreur",text:this.getNotificationErrorMessage(),type:"error",confirmButtonColor:"#D83F66",html:!0,timer:4e3}):void 0},t.prototype.hasNotificationErrorMessage=function(){var t;return t=this.getNotificationErrorMessage(),_.isEmpty(t)?!1:!0},t.prototype.getNotificationErrorMessage=function(){return _.trim($("#gotham").data("error-message"))},t.prototype.chosenSelect=function(){var t;return t={disable_search_threshold:30},$(".js-chosen").each(function(){var e;return e=this.hasAttribute("data-width")?_.merge({},t,{width:$(this).data("width")}):t,$(this).chosen(e)})},t.prototype.labelautyForm=function(){return $(":checkbox").labelauty(),$(":radio").labelauty()},t.prototype.tooltipster=function(){return $(".js-tooltip").tooltipster()},t.prototype.inputMaskDate=function(){return $(".js-input-mask-date").inputmask("99/99/9999")},t.prototype.stickyFooter=function(){return $(".js-footer-stick").length>0?(this.processStickyFooter(),$(window).resize(function(t){return function(){return t.processStickyFooter()}}(this))):void 0},t.prototype.processStickyFooter=function(){var t,e,r;return t=$(window).height(),e=$(".js-footer-stick").height(),r=$(".js-footer-stick").position().top+e,t>r?$(".js-footer-stick").css("margin-top",10+(t-r)+"px"):void 0},t.prototype.textareaAutosize=function(){return $("textarea").textareaAutoSize()},t}(),r.exports=o}),require.register("bootstrap/masterbox",function(t,e,r){var o;o=function(){function t(){this.responsiveMenu()}return t.prototype.responsiveMenu=function(){return $(".js-menu-sidebar").length>0?$(".js-menu-sidebar").slicknav({label:"SECTIONS"}):$(".js-menu").slicknav()},t}(),r.exports=o}),require.register("config",function(t,e,r){r.exports={stripe:{testing:"pk_test_HNPpbWh3FV4Lw4RmIQqirqsj",production:"pk_live_EhCVbntIqph3ppfNCiN6wq3x"},datatable:{language:{fr:{sProcessing:"Traitement en cours...",sSearch:"Rechercher&nbsp;:",sLengthMenu:"Afficher _MENU_ &eacute;l&eacute;ments",sInfo:"Affichage de l'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",sInfoEmpty:"Affichage de l'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment",sInfoFiltered:"(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",sInfoPostFix:"",sLoadingRecords:'<i class="fa fa-spinner fa-spin"></i> Chargement en cours...',sZeroRecords:"Aucun &eacute;l&eacute;ment &agrave; afficher",sEmptyTable:"Aucune donn&eacute;e disponible dans le tableau",oPaginate:{sFirst:"Premier",sPrevious:"Pr&eacute;c&eacute;dent",sNext:"Suivant",sLast:"Dernier"},oAria:{sSortAscending:": activer pour trier la colonne par ordre croissant",sSortDescending:": activer pour trier la colonne par ordre d&eacute;croissant"}}}}}}),require.register("controllers/example-controller",function(t,e,r){var o,n,i=function(t,e){function r(){this.constructor=t}for(var o in e)s.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},s={}.hasOwnProperty;o=e("core/controller"),n=function(t){function e(){return e.__super__.constructor.apply(this,arguments)}return i(e,t),e.prototype.before=function(){},e.prototype.run=function(){},e}(o),r.exports=n}),require.register("controllers/masterbox/admin/customers/index",function(t,e,r){var o,n,i,s=function(t,e){return function(){return t.apply(e,arguments)}},a=function(t,e){function r(){this.constructor=t}for(var o in e)u.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},u={}.hasOwnProperty;n=e("core/controller"),o=e("config"),i=function(t){function e(){return this.displayMore=s(this.displayMore,this),e.__super__.constructor.apply(this,arguments)}return a(e,t),e.prototype.before=function(){return this.table=$("table").DataTable({length:!1,language:o.datatable.language.fr,ajax:$("table").data("request"),processing:!0,serverSide:!0,order:[[1,"asc"]],columns:[{orderable:!1,className:"more-details",data:null,defaultContent:'<a href="#" class="button button__table"><i class="fa fa-plus-square-o"></i></a>'},{data:"id"},{data:"full_name"},{data:"email"},{data:"phone_format"},{render:function(t){return function(e,r,o,n){var i;return i={focus_profile:_.slash($("table").data("focus-profile"))},t.view("masterbox.admin.customers.render_subscriptions",_.extend(i,o))}}(this)},{render:function(t,e,r,o){return _.euro(r.turnover)}},{data:"city"},{data:"zip"},{data:"address"},{sortable:!1,render:function(t){return function(e,r,o,n){var i;return i={link_edit:_.slash($("table").data("edit-customer"))+o.id,link_focus:_.slash($("table").data("focus-customer"))+o.id},t.view("masterbox.admin.customers.actions",i)}}(this)}]})},e.prototype.run=function(){return this.delayed("click",".more-details",this.displayMore)},e.prototype.displayMore=function(t){var e,r,o,n;return t.preventDefault(),n=$(t.currentTarget).closest("tr"),o=this.table.row(n),o.child.isShown()?(o.child.hide(),n.find(".more-details i").removeClass("fa-minus-square-o").addClass("fa-plus-square-o")):(e=o.data(),e.focus_profile=$("table").data("focus-profile"),r=this.view("masterbox.admin.customers.more",e),o.child(r).show(),n.find(".more-details i").removeClass("fa-plus-square-o").addClass("fa-minus-square-o"))},e}(n),r.exports=i}),require.register("controllers/masterbox/admin/profiles/deliveries",function(t,e,r){var o,n,i=function(t,e){return function(){return t.apply(e,arguments)}},s=function(t,e){function r(){this.constructor=t}for(var o in e)a.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},a={}.hasOwnProperty;o=e("core/controller"),n=function(t){function e(){return this.updatePaymentWay=i(this.updatePaymentWay,this),this.updateStatus=i(this.updateStatus,this),e.__super__.constructor.apply(this,arguments)}return s(e,t),e.prototype.before=function(){},e.prototype.run=function(){return this.delayed("change","[name=order_status]",this.updateStatus),this.delayed("change","[name=order_payment_way]",this.updatePaymentWay)},e.prototype.updateStatus=function(t){var e,r,o,n;return r=$(t.currentTarget).parent(),e=r.find(".js-loader"),e.html('<i class="fa fa-spin fa-refresh"></i> Mise à jour'),o={_token:r.data("token"),order_id:r.data("order-id"),order_status:$(t.currentTarget).val()},n=$.post("/service/api/update-status-order",o),n.done(function(t){return function(r){return e.html(""),r.success?t.showSuccess(r.message):void 0}}(this))},e.prototype.showSuccess=function(t){return swal({title:"Succès",text:t,type:"success",confirmButtonColor:"#A5DC86",html:!0})},e.prototype.updatePaymentWay=function(t){var e,r,o,n;return r=$(t.currentTarget).parent(),e=r.find(".js-loader"),e.html('<i class="fa fa-spin fa-refresh"></i> Mise à jour'),o={_token:r.data("token"),order_id:r.data("order-id"),order_payment_way:$(t.currentTarget).val()},n=$.post("/service/api/update-payment-way-order",o),n.done(function(t){return function(r){return e.html(""),r.success?t.showSuccess(r.message):void 0}}(this))},e}(o),r.exports=n}),require.register("controllers/masterbox/admin/profiles/index",function(t,e,r){var o,n,i,s=function(t,e){return function(){return t.apply(e,arguments)}},a=function(t,e){function r(){this.constructor=t}for(var o in e)u.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},u={}.hasOwnProperty;n=e("core/controller"),o=e("config"),i=function(t){function e(){return this.displayMore=s(this.displayMore,this),e.__super__.constructor.apply(this,arguments)}return a(e,t),e.prototype.before=function(){return this.table=$("table").DataTable({length:!1,language:o.datatable.language.fr,ajax:$("table").data("request"),processing:!0,serverSide:!0,order:[[1,"asc"]],columns:[{orderable:!1,className:"more-details",data:null,defaultContent:'<a href="#" class="button button__table"><i class="fa fa-plus-square-o"></i></a>'},{data:"id"},{data:"contract_id"},{data:this.dataCustomer},{data:this.dataCountOrdersNotSent},{data:this.dataCountPaymentsDone},{data:this.dataReadableStatus},{data:"readable_priority"},{data:"created_at"},{sortable:!1,render:function(t){return function(e,r,o,n){var i;return console.log(o),i={link_focus:_.slash($("table").data("focus-profile"))+o.id,link_delete:_.slash($("table").data("delete-profile"))+o.id},t.view("masterbox.admin.profiles.actions",i)}}(this)}]})},e.prototype.run=function(){return this.delayed("click",".more-details",this.displayMore)},e.prototype.displayMore=function(t){var e,r,o,n;return t.preventDefault(),n=$(t.currentTarget).closest("tr"),o=this.table.row(n),o.child.isShown()?(o.child.hide(),n.find(".more-details i").removeClass("fa-minus-square-o").addClass("fa-plus-square-o")):(e=o.data(),r=this.view("masterbox.admin.profiles.more",e),o.child(r).show(),n.find(".more-details i").removeClass("fa-plus-square-o").addClass("fa-minus-square-o"))},e.prototype.dataReadableStatus=function(t){var e,r,o;return o=t.status,e=t.readable_status,r=t.readable_status_step,"in-progress"===o?e+"("+r+")":e},e.prototype.dataCustomer=function(t,e,r,o){var n;return n=_.slash($("table").data("focus-customer"))+t.customer.id,'<a class="button button__default --table --green" href="'+n+'">'+t.customer.full_name+"</a>"},e.prototype.dataCountOrdersNotSent=function(t,e,r,o){var n,i;return n=t.orders,i=0,_.forEach(n,function(t,e){return null===t.date_sent?i++:void 0}),i},e.prototype.dataCountPaymentsDone=function(t,e,r,o){return t.payments.length},e}(n),r.exports=i}),require.register("controllers/masterbox/admin/profiles/payments",function(t,e,r){var o,n,i,s=function(t,e){return function(){return t.apply(e,arguments)}},a=function(t,e){function r(){this.constructor=t}for(var o in e)u.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},u={}.hasOwnProperty;n=e("core/controller"),o=e("config"),i=function(t){function e(){return this.displayMore=s(this.displayMore,this),e.__super__.constructor.apply(this,arguments)}return a(e,t),e.prototype.before=function(){return this.table=$("table").DataTable({length:!1,language:o.datatable.language.fr,order:[[1,"asc"]]})},e.prototype.run=function(){return this.delayed("click",".js-more",this.displayMore)},e.prototype.displayMore=function(t){var e,r,o,n;return t.preventDefault(),n=$(t.currentTarget).closest("tr"),o=this.table.row(n),o.child.isShown()?(o.child.hide(),n.find(".more-details i").removeClass("fa-minus-square-o").addClass("fa-plus-square-o")):(e={stripe_customer:n.data("stripe-customer"),stripe_event:n.data("stripe-event"),stripe_charge:n.data("stripe-charge"),stripe_card:n.data("stripe-card")},r=this.view("masterbox.admin.profiles.payments.more",e),o.child(r).show(),n.find(".more-details i").removeClass("fa-plus-square-o").addClass("fa-minus-square-o"))},e}(n),r.exports=i}),require.register("controllers/masterbox/customer/profile/index",function(t,e,r){var o,n,i=function(t,e){function r(){this.constructor=t}for(var o in e)s.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},s={}.hasOwnProperty;o=e("core/controller"),n=function(t){function e(){return e.__super__.constructor.apply(this,arguments)}return i(e,t),e.prototype.before=function(){return window.location.hash&&$(window.location.hash).length>0?smoothScroll.animateScroll(null,window.location.hash):void 0},e.prototype.run=function(){return this.hasProvider()||(this.on("submit","#form-edit-email",this.askPassword),this.on("submit","#form-edit-password",this.askPassword),this.on("submit","#form-edit-billing",this.askPassword),this.on("submit","#form-edit-destination",this.askPassword),this.on("submit","#form-edit-spot",this.askPassword)),this.on("click","label",this.displayGoogleMap)},e.prototype.displayGoogleMap=function(){var t;return $("[id^=gmap]").addClass("+hidden"),t=$(this).attr("for"),$("#gmap-"+t).hasClass("+hidden")?$("#gmap-"+t).stop().hide().removeClass("+hidden").fadeIn():void 0},e.prototype.hasProvider=function(){var t;return t=_.trim($("#gotham").data("has-provider")),_.isEmpty(t)?!1:"1"===t?!0:!1},e.prototype.askPassword=function(t){return t.preventDefault(),swal({title:"Mot de passe",text:"Veuillez renseigner votre mot de passe",type:"input",confirmButtonColor:"#D83F66",showCancelButton:!0,cancelButtonText:"Annuler",closeOnConfirm:!1,showLoaderOnConfirm:!0,inputType:"password"},function(t){return function(e){return e===!1?!1:""===e?(swal.showInputError("Le mot de passe est requis"),!1):($(t).find("[name=old_password]").val(e),$(t).off("submit").submit())}}(this))},e}(o),r.exports=n}),require.register("controllers/masterbox/customer/profile/order",function(t,e,r){var o,n,i=function(t,e){return function(){return t.apply(e,arguments)}},s=function(t,e){function r(){this.constructor=t}for(var o in e)a.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},a={}.hasOwnProperty;o=e("core/controller"),n=function(t){function e(){return this.askPassword=i(this.askPassword,this),this.generateStripeToken=i(this.generateStripeToken,this),this.submitCard=i(this.submitCard,this),e.__super__.constructor.apply(this,arguments)}return s(e,t),e.prototype.before=function(){return this.initCard(),Stripe.setPublishableKey(_.getStripeKey()),window.location.hash&&$(window.location.hash).length>0?smoothScroll.animateScroll(null,window.location.hash):void 0},e.prototype.run=function(){return this.on("submit","#form-edit-card",this.submitCard)},e.prototype.initCard=function(){var t,e;return t=_.trim($("#gotham").data("card-last-digits")),e=_.isEmpty(t)?"**** **** **** ****":"**** **** **** "+t,new Card({form:"#form-edit-card",container:".card",debug:!1,formSelectors:{numberInput:"[name=card]",expiryInput:"[name=expiration]",cvcInput:"[name=ccv]"},messages:{validDate:"EXPIRE\nA FIN",monthYear:"MM/AA"},placeholders:{name:"",number:e}})},e.prototype.submitCard=function(t){var e,r,o,n;return t.preventDefault(),o=new Syphon,e=o.exclude("_token").get("#form-edit-card"),this.cleanErrors(e),this.cleanErrorStripe(),r={card:"required|valid_card_number",expiration:"required|valid_card_expiry",ccv:"required|valid_card_cvc"},n=new Validator,n.make(e,r),n.fails()?this.displayErrors(e,n):this.generateStripeToken()},e.prototype.generateStripeToken=function(){var t,e;return e=new Syphon,t=e.exclude("_token").get("#form-edit-card"),this.displayLoader(),Stripe.card.createToken({number:t.card,cvc:t.ccv,exp_month:_.trim(t.expiration.split("/")[0]),exp_year:_.trim(t.expiration.split("/")[1])},function(t){return function(e,r){return console.log(r),t.hideLoader(),200!==e?void t.displayErrorStripe(r):($("[name=stripeToken]").val(r.id),t.askPassword())}}(this))},e.prototype.askPassword=function(){return swal({title:"Mot de passe",text:"Veuillez renseigner votre mot de passe",type:"input",confirmButtonColor:"#D83F66",showCancelButton:!0,cancelButtonText:"Annuler",closeOnConfirm:!1,showLoaderOnConfirm:!0,inputType:"password"},function(t){return function(t){return t===!1?!1:""===t?(swal.showInputError("Le mot de passe est requis"),!1):($("#form-edit-card").find("[name=old_password]").val(t),$("#form-edit-card").get(0).submit())}}(this))},e.prototype.displayLoader=function(){return $("#commit").prop("disabled",!0).addClass("--disabled")},e.prototype.hideLoader=function(){return $("#commit").prop("disabled",!1).removeClass("--disabled")},e.prototype.displayErrorStripe=function(t){return $("#error-stripe").text("Un problème est survenue, veuillez vérifier votre saisie.")},e.prototype.cleanErrorStripe=function(){return $("#error-stripe").text("")},e.prototype.displayErrors=function(t,e){return _.forEach(t,function(t,r){return e.errors.has(r)&&$("#errors-"+r).length>0?$("#errors-"+r).text(e.errors.first(r)):void 0})},e.prototype.cleanErrors=function(t){return _.forEach(t,function(t,e){return $("#errors-"+e).length>0?$("#errors-"+e).text(""):void 0})},e}(o),r.exports=n}),require.register("controllers/masterbox/customer/profile/orders",function(t,e,r){var o,n,i=function(t,e){function r(){this.constructor=t}for(var o in e)s.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},s={}.hasOwnProperty;o=e("core/controller"),n=function(t){function e(){return e.__super__.constructor.apply(this,arguments)}return i(e,t),e.prototype.before=function(){return $("tr[data-href]").tooltipster({position:"right",theme:"tooltipster-default"})},e.prototype.run=function(){return this.on("click","tr[data-href]",this.rowClicked)},e.prototype.rowClicked=function(t){return t.preventDefault(),window.location.href=$(this).data("href")},e}(o),r.exports=n}),require.register("controllers/masterbox/customer/purchase/billing-address",function(t,e,r){var o,n,i=function(t,e){function r(){this.constructor=t}for(var o in e)s.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},s={}.hasOwnProperty;n=e("core/controller"),o=function(t){function e(){return e.__super__.constructor.apply(this,arguments)}return i(e,t),e.prototype.before=function(){},e.prototype.run=function(){return this.on("click","#copy",this.copyFormDestination)},e.prototype.copyFormDestination=function(t){var e;return t.preventDefault(),e=["city","zip","address","address_detail"],_.each(e,function(t){return function(t){var e;return e=$("[name=destination_"+t+"]").val(),$("[name=billing_"+t+"]").val(e)}}(this))},e}(n),r.exports=o}),require.register("controllers/masterbox/customer/purchase/box-form",function(t,e,r){var o,n,i,s=function(t,e){function r(){this.constructor=t}for(var o in e)a.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},a={}.hasOwnProperty;n=e("core/controller"),i=e("libraries/custom-box"),o=function(t){function e(){return e.__super__.constructor.apply(this,arguments)}return s(e,t),e.prototype.before=function(){return new i},e.prototype.run=function(){},e}(n),r.exports=o}),require.register("controllers/masterbox/customer/purchase/choose-frequency",function(t,e,r){var o,n,i=function(t,e){function r(){this.constructor=t}for(var o in e)s.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},s={}.hasOwnProperty;n=e("core/controller"),o=function(t){function e(){return e.__super__.constructor.apply(this,arguments)}return i(e,t),e.prototype.before=function(){},e.prototype.run=function(){return this.on("click","label",this.smoothScroll)},e.prototype.smoothScroll=function(t){return smoothScroll.animateScroll(null,"#section")},e}(n),r.exports=o}),require.register("controllers/masterbox/customer/purchase/choose-spot",function(t,e,r){var o,n,i=function(t,e){return function(){return t.apply(e,arguments)}},s=function(t,e){function r(){this.constructor=t}for(var o in e)a.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},a={}.hasOwnProperty;n=e("core/controller"),o=function(t){function e(){return this.hideGoogleMap=i(this.hideGoogleMap,this),this.showGoogleMap=i(this.showGoogleMap,this),e.__super__.constructor.apply(this,arguments)}return s(e,t),e.prototype.currentGoogleMap=!1,e.prototype.before=function(){var t;return $("input:checked").length>0?(t=$("input:checked").first().attr("id"),this.showGoogleMap(t)):void 0},e.prototype.run=function(){return this.on("click","label",function(t){return function(e){var r;return r=$(e.currentTarget).attr("for"),t.showGoogleMap(r)}}(this))},e.prototype.showGoogleMap=function(t){return t!==this.currentGoogleMap?(this.currentGoogleMapMap!==!1&&this.hideGoogleMap(this.currentGoogleMap),$("#gmap-"+t).stop().hide().removeClass("+hidden").fadeIn(),this.currentGoogleMap=t):void 0},e.prototype.hideGoogleMap=function(t){return $("#gmap-"+t).addClass("+hidden")},e}(n),r.exports=o}),require.register("controllers/masterbox/customer/purchase/delivery-mode",function(t,e,r){var o,n,i=function(t,e){function r(){this.constructor=t}for(var o in e)s.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},s={}.hasOwnProperty;o=e("core/controller"),n=function(t){function e(){return e.__super__.constructor.apply(this,arguments)}return i(e,t),e.prototype.before=function(){},e.prototype.run=function(){return this.on("click","label",this.smoothScroll)},e.prototype.smoothScroll=function(t){return smoothScroll.animateScroll(null,"#section")},e}(o),r.exports=n}),require.register("controllers/masterbox/customer/purchase/payment",function(t,e,r){var o,n,i=function(t,e){return function(){return t.apply(e,arguments)}},s=function(t,e){function r(){this.constructor=t}for(var o in e)a.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},a={}.hasOwnProperty;o=e("core/controller"),n=function(t){function e(){return this.displayWriting=i(this.displayWriting,this),this.displayDefault=i(this.displayDefault,this),this.afterPayment=i(this.afterPayment,this),this.initStripe=i(this.initStripe,this),e.__super__.constructor.apply(this,arguments)}return s(e,t),e.prototype.afterPaymentProcessing=!1,e.prototype.before=function(){return this.initStripe()},e.prototype.run=function(){return $("#trigger-payment").click(function(t){return function(e){return e.preventDefault(),$(t).prop("disabled")!==!0?(t.displayLoading("En cours de chargement"),t.handler.open({name:"Bordeaux in Box",description:"Commande Box",currency:"eur",amount:$("#gotham").data("amount"),email:$("#gotham").data("customer-email")})):void 0}}(this))},e.prototype.initStripe=function(){return this.handler=StripeCheckout.configure({key:_.getStripeKey(),image:"https://s3.amazonaws.com/stripe-uploads/acct_14e5CdIIyezb3ziumerchant-icon-1452677496121-bdxinbox.png",locale:"fr",token:this.afterPayment,allowRememberMe:!0,opened:function(t){return function(){return t.displayWriting()}}(this),closed:function(t){return function(){return setTimeout(function(){return t.afterPaymentProcessing?void 0:t.displayDefault()},1500)}}(this)})},e.prototype.afterPayment=function(t){var e;return e=t.id,this.afterPaymentProcessing=!0,this.displayLoading("En cours de redirection"),$("#stripe-token").val(e),$("#payment-form").submit()},e.prototype.displayLoading=function(t){return $("#trigger-payment").prop("disabled",!0).addClass("--disabled").html('<i class="fa fa-spinner fa-spin"></i> '+t)},e.prototype.displayDefault=function(){return $("#trigger-payment").prop("disabled",!1).removeClass("--disabled").html('<i class="fa fa-credit-card"></i> Procéder au paiement sécurisé')},e.prototype.displayWriting=function(){return $("#trigger-payment").prop("disabled",!0).addClass("--disabled").html("Saisie en cours")},e}(o),r.exports=n}),require.register("controllers/masterbox/guest/blog/article",function(t,e,r){var o,n,i=function(t,e){function r(){this.constructor=t}for(var o in e)s.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},s={}.hasOwnProperty;n=e("core/controller"),o=function(t){function e(){return e.__super__.constructor.apply(this,arguments)}return i(e,t),e.prototype.before=function(){return $("#share").jsSocials({shares:["facebook","pinterest","twitter","email"],showCount:!0,showLabel:!0,text:$("#gotham").data("text"),facebook:{label:"Partager"},pinterest:{media:$("#gotham").data("pinterest-media")}})},e.prototype.run=function(){},e}(n),r.exports=o}),require.register("controllers/masterbox/guest/blog/index",function(t,e,r){var o,n,i=function(t,e){return function(){return t.apply(e,arguments)}},s=function(t,e){function r(){this.constructor=t}for(var o in e)a.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},a={}.hasOwnProperty;o=e("core/controller"),n=function(t){function e(){return this.freewall=i(this.freewall,this),e.__super__.constructor.apply(this,arguments)}return s(e,t),e.prototype.before=function(){return this.freewall()},e.prototype.run=function(){},e.prototype.freewall=function(){var t;return t=new freewall("#freewall"),t.reset({selector:".js-brick",animate:!1,cellW:220,cellH:"auto",onResize:function(){return t.fitWidth()}}),t.container.find(".js-brick img").load(function(){return t.fitWidth()}),$(window).trigger("resize")},e}(o),r.exports=n}),require.register("controllers/masterbox/guest/home/index",function(t,e,r){var o,n,i=function(t,e){return function(){return t.apply(e,arguments)}},s=function(t,e){function r(){this.constructor=t}for(var o in e)a.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},a={}.hasOwnProperty;o=e("core/controller"),n=function(t){function e(){return this.freewallPartners=i(this.freewallPartners,this),this.alertNoBoxes=i(this.alertNoBoxes,this),e.__super__.constructor.apply(this,arguments)}return s(e,t),e.prototype.before=function(){return this.smoothScroll(),this.freewallPartners()},e.prototype.run=function(){return this.on("click",".js-no-boxes",this.alertNoBoxes)},e.prototype.alertNoBoxes=function(t){return t.preventDefault(),swal({title:$("#gotham").data("no-boxes-title"),text:$("#gotham").data("no-boxes-text"),type:"error",confirmButtonColor:"#D83F66",html:!0})},e.prototype.smoothScroll=function(){return smoothScroll.init({selector:".js-anchor"})},e.prototype.freewallPartners=function(){var t;return t=new freewall("#freewall-partners"),t.reset({selector:".js-brick",animate:!1,cellW:220,cellH:"auto",onResize:function(){return t.fitWidth()}}),t.container.find(".js-brick img").load(function(){return t.fitWidth()}),$(window).trigger("resize")},e}(o),r.exports=n}),require.register("controllers/masterbox/guest/home/spots",function(t,e,r){var o,n,i=function(t,e){function r(){this.constructor=t}for(var o in e)s.call(e,o)&&(t[o]=e[o]);return r.prototype=e.prototype,t.prototype=new r,t.__super__=e.prototype,t},s={}.hasOwnProperty;o=e("core/controller"),n=function(t){function e(){return e.__super__.constructor.apply(this,arguments)}return i(e,t),e.prototype.before=function(){},e.prototype.run=function(){return this.on("click","label",this.displayGoogleMap)},e.prototype.displayGoogleMap=function(){var t;return $("[id^=gmap]").addClass("+hidden"),t=$(this).attr("for"),$("#gmap-"+t).hasClass("+hidden")?$("#gmap-"+t).stop().hide().removeClass("+hidden").fadeIn():void 0;
-},e}(o),r.exports=n}),require.register("core/bootstrap",function(t,e,r){var o;o=function(){function t(){}return t.prototype.run=function(){var t,r;return e("helpers"),e("validators"),e("boot"),t=$("#gotham").data("controller"),null==t||_.isEmpty(t)?void 0:(r=this._formatPath(t),t=e("controllers/"+r),t=new t,null!=t.before&&t.before(),t._gothamStop?void 0:t.run())},t.prototype._formatPath=function(t){return t.split(".").join("/")},t}(),r.exports=o}),require.register("core/controller",function(t,e,r){var o,n;n=e("core/view"),o=function(){function t(){}return t.prototype._gothamStop=!1,t.prototype.stop=function(){return this._gothamStop=!0},t.prototype.log=function(t){return console.log(t)},t.prototype.on=function(t,e,r){return $(e).on(t,r)},t.prototype.off=function(t,e,r){return $(e).off(t,r)},t.prototype.delayed=function(t,e,r){return $(document).on(t,e,r)},t.prototype.view=function(t,e){var r;return r=new n,r.render(t,e)},t}(),r.exports=o}),require.register("core/view",function(t,e,r){var o;o=function(){function t(){}return t.prototype.render=function(t,r){return t=t.split(".").join("/"),(t=e("views/"+t))(r)},t}(),r.exports=o}),require.register("helpers",function(t,e,r){var o;o=e("config"),_.mixin({getApp:function(){return $("body").data("app")}}),_.mixin({getEnvironment:function(){return $("body").data("environment")}}),_.mixin({getStripeKey:function(){return"production"===_.getEnvironment()?o.stripe.production:o.stripe.testing}}),_.mixin({slash:function(t){var e;return e=t.slice(-1),"/"===e?t:t+"/"}}),_.mixin({euro:function(t){return parseFloat(t).toFixed(2)+" &euro;"}}),_.mixin({profileStatus:function(t){switch(t){case"in-progress":return"En cours de création";case"expired":return"Expiré";case"not-subscribed":return"Non abonné";case"subscribed":return"Abonné";default:return t}}}),_.mixin({colorProfileStatusButton:function(t){switch(t){case"in-progress":return"--blue";case"expired":return"--red";case"not-subscribed":return"--red";case"subscribed":return"--green";default:return"--blue"}}})}),require.register("initialize",function(t,e,r){var o;o=e("core/bootstrap"),$(function(){var t;return t=new o({request:window.location.pathname}),t.run()})}),require.register("libraries/admin-sidebar",function(t,e,r){var o;o=function(){function t(){$("#sidebar").on("mouseenter",this.sidebarEnter),$("#sidebar").on("mouseleave",this.sidebarLeave)}return t.prototype.sidebarEnter=function(){return $(this).css("width","270px"),$("#sidebar-brand").css("display","block")},t.prototype.sidebarLeave=function(){return $(this).css("width","60px"),$("#sidebar-brand").css("display","none")},t}(),r.exports=o}),require.register("libraries/custom-box",function(t,e,r){var o,n=function(t,e){return function(){return t.apply(e,arguments)}};o=function(){function t(){this.cleanError=n(this.cleanError,this),this.showError=n(this.showError,this),this.fetchDatasQuestion=n(this.fetchDatasQuestion,this),this.fetchDatasCurrentQuestion=n(this.fetchDatasCurrentQuestion,this),this.showDefault=n(this.showDefault,this),this.showLoading=n(this.showLoading,this),this.isQuestionRadioButton=n(this.isQuestionRadioButton,this),this.hasNextQuestion=n(this.hasNextQuestion,this),this.hideQuestion=n(this.hideQuestion,this),this.showQuestion=n(this.showQuestion,this),this.showNextQuestion=n(this.showNextQuestion,this),this.postAddAnswer=n(this.postAddAnswer,this),this.labelClicked=n(this.labelClicked,this),this.formSubmited=n(this.formSubmited,this),this.skipClicked=n(this.skipClicked,this),this.showQuestion(1,!1),this.currentQuestion=1,this.events()}return t.prototype.processingAjax=!1,t.prototype.events=function(){return $("form").on("submit",this.formSubmited),$(":radio").on("click",this.labelClicked),$(".js-skip").on("click",this.skipClicked)},t.prototype.skipClicked=function(t){return t.preventDefault(),this.processingAjax?void 0:this.showNextQuestion()},t.prototype.formSubmited=function(t){return t.preventDefault(),this.postAddAnswer()},t.prototype.labelClicked=function(t){return this.isQuestionRadioButton(this.currentQuestion)?this.processingAjax?t.preventDefault():this.postAddAnswer():void 0},t.prototype.postAddAnswer=function(){var t;return this.processingAjax?void 0:(this.showLoading(),this.cleanError(),t=this.fetchDatasCurrentQuestion(),console.log(t),this.processingAjax=!0,$.post("/service/api/box-question-customer-answer",t,function(t){return function(e){return t.processingAjax=!1,t.showDefault(),e.success?t.showNextQuestion():t.showError(e.errors)}}(this)))},t.prototype.showNextQuestion=function(){return this.hasNextQuestion(this.currentQuestion)?(this.hideQuestion(this.currentQuestion),this.showQuestion(this.currentQuestion+1),this.currentQuestion=this.currentQuestion+1):(this.showLoading(),window.location.href="/customer/purchase/confirmed")},t.prototype.showQuestion=function(t,e){return e===!1?$("[id=question-"+t+"]").removeClass("+hidden"):$("[id=question-"+t+"]").fadeIn().removeClass("+hidden")},t.prototype.hideQuestion=function(t){return $("[id=question-"+t+"]").addClass("+hidden")},t.prototype.hasNextQuestion=function(t){var e;return e=t+1,$("[id=question-"+e+"]").length>0?!0:!1},t.prototype.isQuestionRadioButton=function(t){var e;return e=$("#question-"+t).data("type"),"radiobutton"===e?!0:!1},t.prototype.showLoading=function(){return this.isQuestionRadioButton(this.currentQuestion)?$("#question-"+this.currentQuestion).find("#loader").html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement'):$("#question-"+this.currentQuestion).find("button").prop("disabled",!0).addClass("--disabled").html('<i class="fa fa-spin fa-circle-o-notch"></i> Suivant'),$("#question-"+this.currentQuestion).find(".js-skip").addClass("--disabled")},t.prototype.showDefault=function(){return this.isQuestionRadioButton(this.currentQuestion)?$("#question-"+this.currentQuestion).find("#loader").html(""):$("#question-"+this.currentQuestion).find("button").prop("disabled",!1).removeClass("--disabled").html("Suivant"),$("#question-"+this.currentQuestion).find(".js-skip").removeClass("--disabled")},t.prototype.fetchDatasCurrentQuestion=function(){return this.fetchDatasQuestion(this.currentQuestion)},t.prototype.fetchDatasQuestion=function(t){var e;return e=new Syphon,e.get("#question-"+t+" form")},t.prototype.showError=function(t){return $("#question-"+this.currentQuestion).find("#error").html(t)},t.prototype.cleanError=function(){return $("#question-"+this.currentQuestion).find("#error").html("")},t}(),r.exports=o}),require.register("validators",function(t,e,r){Validator.errors({required:"Le champ :attribute est requis",valid_card_number:"Numéro de carte invalide",valid_card_expiry:"Date d'expiration invalide",valid_card_cvc:"Code de vérification invalide"}),Validator.attributes({card:"numéro de carte",expiration:"date d'expiration",ccv:"cvv"}),Validator.rule("valid_card_number",function(t,e,r){return $.payment.validateCardNumber(e)?!0:!1}),Validator.rule("valid_card_expiry",function(t,e,r){var o;return o=e.split("/"),$.payment.validateCardExpiry(o[0],o[1])?!0:!1}),Validator.rule("valid_card_cvc",function(t,e,r){return $.payment.validateCardCVC(e)?!0:!1})}),require.register("views/masterbox/admin/customers/actions",function(t,e,r){var o=function(t){t||(t={});var e,r=[],o=t.safe,n=t.escape;return e=t.safe=function(t){if(t&&t.ecoSafe)return t;("undefined"==typeof t||null==t)&&(t="");var e=new String(t);return e.ecoSafe=!0,e},n||(n=t.escape=function(t){return(""+t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}),function(){(function(){r.push('<a href="'),r.push(this.link_focus),r.push('" class="button button__default --green --table"><i class="fa fa-search"></i></a>\n<a href="'),r.push(this.link_edit),r.push('" class="button button__default --blue --table"><i class="fa fa-pencil"></i></a>\n')}).call(this)}.call(t),t.safe=o,t.escape=n,r.join("")};"function"==typeof define&&define.amd?define([],function(){return o}):"object"==typeof r&&r&&r.exports&&(r.exports=o)}),require.register("views/masterbox/admin/customers/more",function(t,e,r){var o=function(t){t||(t={});var e,r=[],o=function(t){return t&&t.ecoSafe?t:"undefined"!=typeof t&&null!=t?i(t):""},n=t.safe,i=t.escape;return e=t.safe=function(t){if(t&&t.ecoSafe)return t;("undefined"==typeof t||null==t)&&(t="");var e=new String(t);return e.ecoSafe=!0,e},i||(i=t.escape=function(t){return(""+t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}),function(){(function(){var t,e,n,i;if(r.push('<div class="tablechild">\n  <div class="row">\n    <div class="grid-6">\n      <h3 class="tablechild__title">A propos</h3>\n      <strong>Total Payé:</strong> '),r.push(_.euro(this.turnover)),r.push("<br/>\n      <strong>Adresse:</strong> \n      "),this.address.length>0?(r.push("\n        "),r.push(this.address),r.push(", "),r.push(this.city),r.push(" ("),r.push(this.zip),r.push(")\n      ")):r.push("\n        N/A\n      "),r.push('\n    </div>\n    <div class="grid-6">\n      <h3 class="tablechild__title">Abonnements</h3>\n      '),this.profiles.length>0){for(r.push("\n        "),i=this.profiles,t=0,e=i.length;e>t;t++)n=i[t],r.push('\n          <a class="tablechild__link" href="'),r.push(_.slash(this.focus_profile)+n.id),r.push('">Abonnement #'),r.push(o(n.id)),r.push(" ("),r.push(_.profileStatus(n.status)),r.push(")</a><br/>\n        ");r.push("\n      ")}else r.push("\n        Aucun abonnement\n      ");r.push("\n    </div>\n  </div>\n</div>")}).call(this)}.call(t),t.safe=n,t.escape=i,r.join("")};"function"==typeof define&&define.amd?define([],function(){return o}):"object"==typeof r&&r&&r.exports&&(r.exports=o)}),require.register("views/masterbox/admin/customers/render_subscriptions",function(t,e,r){var o=function(t){t||(t={});var e,r=[],o=function(t){return t&&t.ecoSafe?t:"undefined"!=typeof t&&null!=t?i(t):""},n=t.safe,i=t.escape;return e=t.safe=function(t){if(t&&t.ecoSafe)return t;("undefined"==typeof t||null==t)&&(t="");var e=new String(t);return e.ecoSafe=!0,e},i||(i=t.escape=function(t){return(""+t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}),function(){(function(){var t,e,n,i;if(this.profiles.length>0){for(r.push("\n  "),i=this.profiles,t=0,e=i.length;e>t;t++)n=i[t],r.push('\n\n    <a class="button button__default --table '),r.push(o(_.colorProfileStatusButton(n.status))),r.push('" href="'),r.push(_.slash(this.focus_profile)+n.id),r.push('">#'),r.push(o(n.id)),r.push(" ("),r.push(_.profileStatus(n.status)),r.push(")</a><br/>\n    \n  ");r.push("\n")}else r.push("\n  Aucun abonnement\n")}).call(this)}.call(t),t.safe=n,t.escape=i,r.join("")};"function"==typeof define&&define.amd?define([],function(){return o}):"object"==typeof r&&r&&r.exports&&(r.exports=o)}),require.register("views/masterbox/admin/profiles/actions",function(t,e,r){var o=function(t){t||(t={});var e,r=[],o=t.safe,n=t.escape;return e=t.safe=function(t){if(t&&t.ecoSafe)return t;("undefined"==typeof t||null==t)&&(t="");var e=new String(t);return e.ecoSafe=!0,e},n||(n=t.escape=function(t){return(""+t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}),function(){(function(){r.push('<a href="'),r.push(this.link_focus),r.push('" class="button button__default --green --table"><i class="fa fa-search"></i></a>\n<a href="'),r.push(this.link_delete),r.push('" class="button button__default --red --table js-confirm-delete"><i class="fa fa-trash-o"></i></a>')}).call(this)}.call(t),t.safe=o,t.escape=n,r.join("")};"function"==typeof define&&define.amd?define([],function(){return o}):"object"==typeof r&&r&&r.exports&&(r.exports=o)}),require.register("views/masterbox/admin/profiles/more",function(t,e,r){var o=function(t){t||(t={});var e,r=[],o=t.safe,n=t.escape;return e=t.safe=function(t){if(t&&t.ecoSafe)return t;("undefined"==typeof t||null==t)&&(t="");var e=new String(t);return e.ecoSafe=!0,e},n||(n=t.escape=function(t){return(""+t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}),function(){(function(){r.push('<div class="tablechild">\n  <div class="row">\n    <div class="grid-3">\n      <h3 class="tablechild__title">Abonnement</h3>\n      <strong>Date de création:</strong> '),r.push(this.created_at),r.push('<br/>\n    </div>\n    <div class="grid-6">\n      <h3 class="tablechild__title">Client</h3>\n      <strong>Total Payé:</strong> '),r.push(_.euro(this.customer.turnover)),r.push("<br/>\n      <strong>Téléphone:</strong> \n      "),this.customer.phone_format.length>0?(r.push("\n        "),r.push(this.customer.phone_format),r.push("\n      ")):r.push("\n        N/A\n      "),r.push("\n      <br/>\n      <strong>Email:</strong> "),r.push(this.customer.email),r.push("<br/>\n      <strong>Adresse:</strong> \n      "),this.customer.address.length>0?(r.push("\n        "),r.push(this.customer.address),r.push(", "),r.push(this.customer.city),r.push(" ("),r.push(this.customer.zip),r.push(")\n      ")):r.push("\n        N/A\n      "),r.push("\n    </div>\n</div>")}).call(this)}.call(t),t.safe=o,t.escape=n,r.join("")};"function"==typeof define&&define.amd?define([],function(){return o}):"object"==typeof r&&r&&r.exports&&(r.exports=o)}),require.register("views/masterbox/admin/profiles/payments/more",function(t,e,r){var o=function(t){t||(t={});var e,r=[],o=t.safe,n=t.escape;return e=t.safe=function(t){if(t&&t.ecoSafe)return t;("undefined"==typeof t||null==t)&&(t="");var e=new String(t);return e.ecoSafe=!0,e},n||(n=t.escape=function(t){return(""+t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}),function(){(function(){r.push('<div class="tablechild">\n  <h3 class="tablechild__title">Stripe</h3>\n  <strong>Customer:</strong> '),r.push(this.stripe_customer),r.push("<br/>\n  <strong>Event:</strong> "),r.push(this.stripe_event),r.push("<br/>\n  <strong>Charge:</strong> "),r.push(this.stripe_charge),r.push("<br/>\n  <strong>Card:</strong> "),r.push(this.stripe_card),r.push("<br/>\n</div>\n\n")}).call(this)}.call(t),t.safe=o,t.escape=n,r.join("")};"function"==typeof define&&define.amd?define([],function(){return o}):"object"==typeof r&&r&&r.exports&&(r.exports=o)});
+(function() {
+  'use strict';
+
+  var globals = typeof window === 'undefined' ? global : window;
+  if (typeof globals.require === 'function') return;
+
+  var modules = {};
+  var cache = {};
+  var aliases = {};
+  var has = ({}).hasOwnProperty;
+
+  var endsWith = function(str, suffix) {
+    return str.indexOf(suffix, str.length - suffix.length) !== -1;
+  };
+
+  var _cmp = 'components/';
+  var unalias = function(alias, loaderPath) {
+    var start = 0;
+    if (loaderPath) {
+      if (loaderPath.indexOf(_cmp) === 0) {
+        start = _cmp.length;
+      }
+      if (loaderPath.indexOf('/', start) > 0) {
+        loaderPath = loaderPath.substring(start, loaderPath.indexOf('/', start));
+      }
+    }
+    var result = aliases[alias + '/index.js'] || aliases[loaderPath + '/deps/' + alias + '/index.js'];
+    if (result) {
+      return _cmp + result.substring(0, result.length - '.js'.length);
+    }
+    return alias;
+  };
+
+  var _reg = /^\.\.?(\/|$)/;
+  var expand = function(root, name) {
+    var results = [], part;
+    var parts = (_reg.test(name) ? root + '/' + name : name).split('/');
+    for (var i = 0, length = parts.length; i < length; i++) {
+      part = parts[i];
+      if (part === '..') {
+        results.pop();
+      } else if (part !== '.' && part !== '') {
+        results.push(part);
+      }
+    }
+    return results.join('/');
+  };
+
+  var dirname = function(path) {
+    return path.split('/').slice(0, -1).join('/');
+  };
+
+  var localRequire = function(path) {
+    return function expanded(name) {
+      var absolute = expand(dirname(path), name);
+      return globals.require(absolute, path);
+    };
+  };
+
+  var initModule = function(name, definition) {
+    var module = {id: name, exports: {}};
+    cache[name] = module;
+    definition(module.exports, localRequire(name), module);
+    return module.exports;
+  };
+
+  var require = function(name, loaderPath) {
+    var path = expand(name, '.');
+    if (loaderPath == null) loaderPath = '/';
+    path = unalias(name, loaderPath);
+
+    if (has.call(cache, path)) return cache[path].exports;
+    if (has.call(modules, path)) return initModule(path, modules[path]);
+
+    var dirIndex = expand(path, './index');
+    if (has.call(cache, dirIndex)) return cache[dirIndex].exports;
+    if (has.call(modules, dirIndex)) return initModule(dirIndex, modules[dirIndex]);
+
+    throw new Error('Cannot find module "' + name + '" from '+ '"' + loaderPath + '"');
+  };
+
+  require.alias = function(from, to) {
+    aliases[to] = from;
+  };
+
+  require.register = require.define = function(bundle, fn) {
+    if (typeof bundle === 'object') {
+      for (var key in bundle) {
+        if (has.call(bundle, key)) {
+          modules[key] = bundle[key];
+        }
+      }
+    } else {
+      modules[bundle] = fn;
+    }
+  };
+
+  require.list = function() {
+    var result = [];
+    for (var item in modules) {
+      if (has.call(modules, item)) {
+        result.push(item);
+      }
+    }
+    return result;
+  };
+
+  require.brunch = true;
+  require._cache = cache;
+  globals.require = require;
+})();
+require.register("boot", function(exports, require, module) {
+var Admin, Default, Masterbox;
+
+Default = require('bootstrap/default');
+
+Admin = require('bootstrap/admin');
+
+Masterbox = require('bootstrap/masterbox');
+
+$('input, textarea').placeholder();
+
+if (_.getEnvironment() === 'production') {
+  console.log = function() {};
+}
+
+switch (_.getApp()) {
+  case 'masterbox':
+    new Default();
+    new Masterbox();
+    break;
+  case 'masterbox-admin':
+    new Default();
+    new Admin();
+    break;
+  case 'company-admin':
+    new Default();
+    new Admin();
+}
+});
+
+;require.register("bootstrap/admin", function(exports, require, module) {
+var Admin, AdminSidebar, Config;
+
+AdminSidebar = require('libraries/admin-sidebar');
+
+Config = require('config');
+
+Admin = (function() {
+  function Admin() {
+    this.sidebar();
+    this.modal();
+    this.datatable();
+    this.deleteConfirm();
+    this.confirm();
+    this.markdownEditor();
+  }
+
+  Admin.prototype.sidebar = function() {
+    return new AdminSidebar();
+  };
+
+  Admin.prototype.modal = function() {
+    $.modal.defaults = {
+      escapeClose: true,
+      clickClose: true,
+      closeText: 'Close',
+      closeClass: '',
+      showClose: true,
+      modalClass: "modal",
+      spinnerHtml: '<i class="fa fa-refresh fa-spin"></i>',
+      showSpinner: true,
+      fadeDuration: null,
+      fadeDelay: 1.0
+    };
+    return $('[data-modal]').on('click', function(e) {
+      e.preventDefault();
+      return $(this).modal();
+    });
+  };
+
+  Admin.prototype.datatable = function() {
+    return $('.js-datatable-simple').DataTable({
+      length: false,
+      language: Config.datatable.language.fr,
+      aaSorting: []
+    });
+  };
+
+  Admin.prototype.deleteConfirm = function() {
+    return $(document).on('click', '.js-confirm-delete', function(e) {
+      e.preventDefault();
+      return swal({
+        type: 'warning',
+        title: 'Es-tu sûr ?',
+        text: 'La ressource sera supprimé définitivement',
+        showCancelButton: true,
+        confirmButtonText: "Oui je suis sûr",
+        cancelButtonText: "Annuler",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, (function(_this) {
+        return function() {
+          return window.location.href = $(_this).attr('href');
+        };
+      })(this));
+    });
+  };
+
+  Admin.prototype.confirm = function() {
+    return $(document).on('click', '.js-confirm', function(e) {
+      e.preventDefault();
+      return swal({
+        type: 'warning',
+        title: 'Es-tu sûr ?',
+        text: $(this).data('confirm-text'),
+        showCancelButton: true,
+        confirmButtonText: "Oui je suis sûr",
+        cancelButtonText: "Annuler",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true
+      }, (function(_this) {
+        return function() {
+          return window.location.href = $(_this).attr('href');
+        };
+      })(this));
+    });
+  };
+
+  Admin.prototype.markdownEditor = function() {
+    if ($('.js-markdown').length > 0) {
+      return new SimpleMDE({
+        element: $('.js-markdown')[0],
+        spellChecker: false
+      });
+    }
+  };
+
+  return Admin;
+
+})();
+
+module.exports = Admin;
+});
+
+;require.register("bootstrap/default", function(exports, require, module) {
+var Default,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+Default = (function() {
+  function Default() {
+    this.textareaAutosize = bind(this.textareaAutosize, this);
+    this.processStickyFooter = bind(this.processStickyFooter, this);
+    this.stickyFooter = bind(this.stickyFooter, this);
+    this.getNotificationErrorMessage = bind(this.getNotificationErrorMessage, this);
+    this.hasNotificationErrorMessage = bind(this.hasNotificationErrorMessage, this);
+    this.notificationErrorMessage = bind(this.notificationErrorMessage, this);
+    this.hasNotificationSuccessMessage = bind(this.hasNotificationSuccessMessage, this);
+    this.getNotificationSuccessMessage = bind(this.getNotificationSuccessMessage, this);
+    this.notificationSuccessMessage = bind(this.notificationSuccessMessage, this);
+    this.processNotifications = bind(this.processNotifications, this);
+    this.notificationFormErrors();
+    this.processNotifications();
+    this.chosenSelect();
+    this.labelautyForm();
+    this.tooltipster();
+    this.inputMaskDate();
+    this.stickyFooter();
+    this.textareaAutosize();
+  }
+
+  Default.prototype.notificationFormErrors = function() {
+    var hasErrors, text, textErrors, title, titleErrors;
+    hasErrors = _.trim($('#gotham').data('form-errors'));
+    if (_.isEmpty(hasErrors)) {
+      return;
+    }
+    if (hasErrors !== '1') {
+      return;
+    }
+    titleErrors = _.trim($('#gotham').data('form-errors-title'));
+    textErrors = _.trim($('#gotham').data('form-errors-text'));
+    if (!_.isEmpty(titleErrors)) {
+      title = titleErrors;
+    } else {
+      title = 'Attention';
+    }
+    if (!_.isEmpty(textErrors)) {
+      text = textErrors;
+    } else {
+      text = 'Des erreurs sont présentes dans le formulaire';
+    }
+    return swal({
+      title: title,
+      text: text,
+      type: 'error',
+      confirmButtonColor: '#D83F66',
+      html: true,
+      timer: 1750
+    });
+  };
+
+  Default.prototype.processNotifications = function() {
+    var notificationSuccess;
+    if (this.hasNotificationErrorMessage() && this.hasNotificationSuccessMessage()) {
+      notificationSuccess = this.notificationSuccessMessage;
+      return this.notificationErrorMessage(notificationSuccess);
+    } else {
+      this.notificationErrorMessage();
+      return this.notificationSuccessMessage();
+    }
+  };
+
+  Default.prototype.notificationSuccessMessage = function(callback) {
+    var successMessage;
+    successMessage = this.getNotificationSuccessMessage();
+    if (_.isEmpty(successMessage)) {
+      return;
+    }
+    if (_.isFunction(callback)) {
+      return swal({
+        title: 'Succès',
+        text: successMessage,
+        type: 'success',
+        confirmButtonColor: '#A5DC86',
+        html: true
+      }, function() {
+        return callback();
+      });
+    } else {
+      return swal({
+        title: 'Succès',
+        text: successMessage,
+        type: 'success',
+        confirmButtonColor: '#A5DC86',
+        html: true
+      });
+    }
+  };
+
+  Default.prototype.getNotificationSuccessMessage = function() {
+    return _.trim($('#gotham').data('success-message'));
+  };
+
+  Default.prototype.hasNotificationSuccessMessage = function() {
+    var successMessage;
+    successMessage = this.getNotificationSuccessMessage();
+    if (_.isEmpty(successMessage)) {
+      return false;
+    }
+    return true;
+  };
+
+  Default.prototype.notificationErrorMessage = function(callback) {
+    if (this.hasNotificationErrorMessage()) {
+      if (_.isFunction(callback)) {
+        return swal({
+          title: 'Erreur',
+          text: this.getNotificationErrorMessage(),
+          type: 'error',
+          confirmButtonColor: '#D83F66',
+          html: true,
+          closeOnConfirm: false
+        }, function() {
+          return callback();
+        });
+      } else {
+        return swal({
+          title: 'Erreur',
+          text: this.getNotificationErrorMessage(),
+          type: 'error',
+          confirmButtonColor: '#D83F66',
+          html: true,
+          timer: 4000
+        });
+      }
+    }
+  };
+
+  Default.prototype.hasNotificationErrorMessage = function() {
+    var errorMessage;
+    errorMessage = this.getNotificationErrorMessage();
+    if (_.isEmpty(errorMessage)) {
+      return false;
+    }
+    return true;
+  };
+
+  Default.prototype.getNotificationErrorMessage = function() {
+    return _.trim($('#gotham').data('error-message'));
+  };
+
+  Default.prototype.chosenSelect = function() {
+    var defaults;
+    defaults = {
+      disable_search_threshold: 30
+    };
+    return $('.js-chosen').each(function() {
+      var config;
+      if (this.hasAttribute('data-width')) {
+        config = _.merge({}, defaults, {
+          width: $(this).data('width')
+        });
+      } else {
+        config = defaults;
+      }
+      return $(this).chosen(config);
+    });
+  };
+
+  Default.prototype.labelautyForm = function() {
+    $(':checkbox').labelauty();
+    return $(':radio').labelauty();
+  };
+
+  Default.prototype.tooltipster = function() {
+    return $('.js-tooltip').tooltipster();
+  };
+
+  Default.prototype.inputMaskDate = function() {
+    return $('.js-input-mask-date').inputmask("99/99/9999");
+  };
+
+  Default.prototype.stickyFooter = function() {
+    if ($('.js-footer-stick').length > 0) {
+      this.processStickyFooter();
+      return $(window).resize((function(_this) {
+        return function() {
+          return _this.processStickyFooter();
+        };
+      })(this));
+    }
+  };
+
+  Default.prototype.processStickyFooter = function() {
+    var docHeight, footerHeight, footerTop;
+    docHeight = $(window).height();
+    footerHeight = $('.js-footer-stick').height();
+    footerTop = $('.js-footer-stick').position().top + footerHeight;
+    if (footerTop < docHeight) {
+      return $('.js-footer-stick').css('margin-top', 10 + (docHeight - footerTop) + 'px');
+    }
+  };
+
+  Default.prototype.textareaAutosize = function() {
+    return $('textarea').textareaAutoSize();
+  };
+
+  return Default;
+
+})();
+
+module.exports = Default;
+});
+
+;require.register("bootstrap/masterbox", function(exports, require, module) {
+var Masterbox;
+
+Masterbox = (function() {
+  function Masterbox() {
+    this.responsiveMenu();
+  }
+
+  Masterbox.prototype.responsiveMenu = function() {
+    if ($('.js-menu-sidebar').length > 0) {
+      return $('.js-menu-sidebar').slicknav({
+        label: "SECTIONS"
+      });
+    } else {
+      return $('.js-menu').slicknav();
+    }
+  };
+
+  return Masterbox;
+
+})();
+
+module.exports = Masterbox;
+});
+
+;require.register("config", function(exports, require, module) {
+module.exports = {
+  stripe: {
+    testing: 'pk_test_HNPpbWh3FV4Lw4RmIQqirqsj',
+    production: 'pk_live_EhCVbntIqph3ppfNCiN6wq3x'
+  },
+  datatable: {
+    language: {
+      fr: {
+        sProcessing: 'Traitement en cours...',
+        sSearch: 'Rechercher&nbsp;:',
+        sLengthMenu: 'Afficher _MENU_ &eacute;l&eacute;ments',
+        sInfo: 'Affichage de l\'&eacute;l&eacute;ment _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments',
+        sInfoEmpty: 'Affichage de l\'&eacute;l&eacute;ment 0 &agrave; 0 sur 0 &eacute;l&eacute;ment',
+        sInfoFiltered: '(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)',
+        sInfoPostFix: '',
+        sLoadingRecords: '<i class="fa fa-spinner fa-spin"></i> Chargement en cours...',
+        sZeroRecords: 'Aucun &eacute;l&eacute;ment &agrave; afficher',
+        sEmptyTable: 'Aucune donn&eacute;e disponible dans le tableau',
+        oPaginate: {
+          sFirst: 'Premier',
+          sPrevious: 'Pr&eacute;c&eacute;dent',
+          sNext: 'Suivant',
+          sLast: 'Dernier'
+        },
+        oAria: {
+          sSortAscending: ': activer pour trier la colonne par ordre croissant',
+          sSortDescending: ': activer pour trier la colonne par ordre d&eacute;croissant'
+        }
+      }
+    }
+  }
+};
+});
+
+;require.register("controllers/example-controller", function(exports, require, module) {
+var Controller, Example,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Example = (function(superClass) {
+  extend(Example, superClass);
+
+  function Example() {
+    return Example.__super__.constructor.apply(this, arguments);
+  }
+
+  Example.prototype.before = function() {};
+
+  Example.prototype.run = function() {};
+
+  return Example;
+
+})(Controller);
+
+module.exports = Example;
+});
+
+;require.register("controllers/masterbox/admin/customers/index", function(exports, require, module) {
+var Config, Controller, Index,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Config = require('config');
+
+Index = (function(superClass) {
+  extend(Index, superClass);
+
+  function Index() {
+    this.displayMore = bind(this.displayMore, this);
+    return Index.__super__.constructor.apply(this, arguments);
+  }
+
+  Index.prototype.before = function() {
+    return this.table = $('table').DataTable({
+      length: false,
+      language: Config.datatable.language.fr,
+      ajax: $('table').data('request'),
+      processing: true,
+      serverSide: true,
+      order: [[1, 'asc']],
+      columns: [
+        {
+          orderable: false,
+          className: 'more-details',
+          data: null,
+          defaultContent: '<a href="#" class="button button__table"><i class="fa fa-plus-square-o"></i></a>'
+        }, {
+          data: "id"
+        }, {
+          data: "full_name"
+        }, {
+          data: "email"
+        }, {
+          data: "phone_format"
+        }, {
+          render: (function(_this) {
+            return function(date, type, full, meta) {
+              var datas;
+              datas = {
+                focus_profile: _.slash($('table').data('focus-profile'))
+              };
+              return _this.view('masterbox.admin.customers.render_subscriptions', _.extend(datas, full));
+            };
+          })(this)
+        }, {
+          render: function(data, type, full, meta) {
+            return _.euro(full.turnover);
+          }
+        }, {
+          data: "city"
+        }, {
+          data: "zip"
+        }, {
+          data: "address"
+        }, {
+          sortable: false,
+          render: (function(_this) {
+            return function(data, type, full, meta) {
+              var datas;
+              datas = {
+                link_edit: _.slash($('table').data('edit-customer')) + full.id,
+                link_focus: _.slash($('table').data('focus-customer')) + full.id
+              };
+              return _this.view('masterbox.admin.customers.actions', datas);
+            };
+          })(this)
+        }
+      ]
+    });
+  };
+
+  Index.prototype.run = function() {
+    return this.delayed('click', '.more-details', this.displayMore);
+  };
+
+  Index.prototype.displayMore = function(e) {
+    var datas, html, row, tr;
+    e.preventDefault();
+    tr = $(e.currentTarget).closest('tr');
+    row = this.table.row(tr);
+    if (row.child.isShown()) {
+      row.child.hide();
+      return tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+    } else {
+      datas = row.data();
+      datas['focus_profile'] = $('table').data('focus-profile');
+      html = this.view('masterbox.admin.customers.more', datas);
+      row.child(html).show();
+      return tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+    }
+  };
+
+  return Index;
+
+})(Controller);
+
+module.exports = Index;
+});
+
+;require.register("controllers/masterbox/admin/profiles/deliveries", function(exports, require, module) {
+var Controller, Deliveries,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Deliveries = (function(superClass) {
+  extend(Deliveries, superClass);
+
+  function Deliveries() {
+    this.updatePaymentWay = bind(this.updatePaymentWay, this);
+    this.updateStatus = bind(this.updateStatus, this);
+    return Deliveries.__super__.constructor.apply(this, arguments);
+  }
+
+  Deliveries.prototype.before = function() {};
+
+  Deliveries.prototype.run = function() {
+    this.delayed('change', '[name=order_status]', this.updateStatus);
+    return this.delayed('change', '[name=order_payment_way]', this.updatePaymentWay);
+  };
+
+  Deliveries.prototype.updateStatus = function(e) {
+    var $loader, $th, datas, request;
+    $th = $(e.currentTarget).parent();
+    $loader = $th.find('.js-loader');
+    $loader.html('<i class="fa fa-spin fa-refresh"></i> Mise à jour');
+    datas = {
+      _token: $th.data('token'),
+      order_id: $th.data('order-id'),
+      order_status: $(e.currentTarget).val()
+    };
+    request = $.post('/service/api/update-status-order', datas);
+    return request.done((function(_this) {
+      return function(response) {
+        $loader.html('');
+        if (response.success) {
+          return _this.showSuccess(response.message);
+        }
+      };
+    })(this));
+  };
+
+  Deliveries.prototype.showSuccess = function(message) {
+    return swal({
+      title: 'Succès',
+      text: message,
+      type: 'success',
+      confirmButtonColor: '#A5DC86',
+      html: true
+    });
+  };
+
+  Deliveries.prototype.updatePaymentWay = function(e) {
+    var $loader, $th, datas, request;
+    $th = $(e.currentTarget).parent();
+    $loader = $th.find('.js-loader');
+    $loader.html('<i class="fa fa-spin fa-refresh"></i> Mise à jour');
+    datas = {
+      _token: $th.data('token'),
+      order_id: $th.data('order-id'),
+      order_payment_way: $(e.currentTarget).val()
+    };
+    request = $.post('/service/api/update-payment-way-order', datas);
+    return request.done((function(_this) {
+      return function(response) {
+        $loader.html('');
+        if (response.success) {
+          return _this.showSuccess(response.message);
+        }
+      };
+    })(this));
+  };
+
+  return Deliveries;
+
+})(Controller);
+
+module.exports = Deliveries;
+});
+
+;require.register("controllers/masterbox/admin/profiles/index", function(exports, require, module) {
+var Config, Controller, Index,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Config = require('config');
+
+Index = (function(superClass) {
+  extend(Index, superClass);
+
+  function Index() {
+    this.displayMore = bind(this.displayMore, this);
+    return Index.__super__.constructor.apply(this, arguments);
+  }
+
+  Index.prototype.before = function() {
+    return this.table = $('table').DataTable({
+      length: false,
+      language: Config.datatable.language.fr,
+      ajax: $('table').data('request'),
+      processing: true,
+      serverSide: true,
+      order: [[1, 'asc']],
+      columns: [
+        {
+          orderable: false,
+          className: 'more-details',
+          data: null,
+          defaultContent: '<a href="#" class="button button__table"><i class="fa fa-plus-square-o"></i></a>'
+        }, {
+          data: "id"
+        }, {
+          data: "contract_id"
+        }, {
+          data: this.dataCustomer
+        }, {
+          data: this.dataCountOrdersNotSent
+        }, {
+          data: this.dataCountPaymentsDone
+        }, {
+          data: this.dataReadableStatus
+        }, {
+          data: "readable_priority"
+        }, {
+          data: "created_at"
+        }, {
+          sortable: false,
+          render: (function(_this) {
+            return function(data, type, full, meta) {
+              var datas;
+              console.log(full);
+              datas = {
+                link_focus: _.slash($('table').data('focus-profile')) + full.id,
+                link_delete: _.slash($('table').data('delete-profile')) + full.id
+              };
+              return _this.view('masterbox.admin.profiles.actions', datas);
+            };
+          })(this)
+        }
+      ]
+    });
+  };
+
+  Index.prototype.run = function() {
+    return this.delayed('click', '.more-details', this.displayMore);
+  };
+
+  Index.prototype.displayMore = function(e) {
+    var datas, html, row, tr;
+    e.preventDefault();
+    tr = $(e.currentTarget).closest('tr');
+    row = this.table.row(tr);
+    if (row.child.isShown()) {
+      row.child.hide();
+      return tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+    } else {
+      datas = row.data();
+      html = this.view('masterbox.admin.profiles.more', datas);
+      row.child(html).show();
+      return tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+    }
+  };
+
+  Index.prototype.dataReadableStatus = function(row) {
+    var readable_status, readable_status_step, status;
+    status = row.status;
+    readable_status = row.readable_status;
+    readable_status_step = row.readable_status_step;
+    if (status === 'in-progress') {
+      return readable_status + '(' + readable_status_step + ')';
+    }
+    return readable_status;
+  };
+
+  Index.prototype.dataCustomer = function(row, type, val, meta) {
+    var link;
+    link = _.slash($('table').data('focus-customer')) + row.customer.id;
+    return '<a class="button button__default --table --green" href="' + link + '">' + row.customer.full_name + '</a>';
+  };
+
+  Index.prototype.dataCountOrdersNotSent = function(row, type, val, meta) {
+    var orders, orders_not_sent;
+    orders = row.orders;
+    orders_not_sent = 0;
+    _.forEach(orders, function(value, key) {
+      if (value.date_sent === null) {
+        return orders_not_sent++;
+      }
+    });
+    return orders_not_sent;
+  };
+
+  Index.prototype.dataCountPaymentsDone = function(row, type, val, meta) {
+    return row.payments.length;
+  };
+
+  return Index;
+
+})(Controller);
+
+module.exports = Index;
+});
+
+;require.register("controllers/masterbox/admin/profiles/payments", function(exports, require, module) {
+var Config, Controller, Payments,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Config = require('config');
+
+Payments = (function(superClass) {
+  extend(Payments, superClass);
+
+  function Payments() {
+    this.displayMore = bind(this.displayMore, this);
+    return Payments.__super__.constructor.apply(this, arguments);
+  }
+
+  Payments.prototype.before = function() {
+    return this.table = $('table').DataTable({
+      length: false,
+      language: Config.datatable.language.fr,
+      order: [[1, 'asc']]
+    });
+  };
+
+  Payments.prototype.run = function() {
+    return this.delayed('click', '.js-more', this.displayMore);
+  };
+
+  Payments.prototype.displayMore = function(e) {
+    var datas, html, row, tr;
+    e.preventDefault();
+    tr = $(e.currentTarget).closest('tr');
+    row = this.table.row(tr);
+    if (row.child.isShown()) {
+      row.child.hide();
+      return tr.find('.more-details i').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+    } else {
+      datas = {
+        stripe_customer: tr.data('stripe-customer'),
+        stripe_event: tr.data('stripe-event'),
+        stripe_charge: tr.data('stripe-charge'),
+        stripe_card: tr.data('stripe-card')
+      };
+      html = this.view('masterbox.admin.profiles.payments.more', datas);
+      row.child(html).show();
+      return tr.find('.more-details i').removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+    }
+  };
+
+  return Payments;
+
+})(Controller);
+
+module.exports = Payments;
+});
+
+;require.register("controllers/masterbox/customer/profile/index", function(exports, require, module) {
+var Controller, Index,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Index = (function(superClass) {
+  extend(Index, superClass);
+
+  function Index() {
+    return Index.__super__.constructor.apply(this, arguments);
+  }
+
+  Index.prototype.before = function() {
+    if (window.location.hash) {
+      if ($(window.location.hash).length > 0) {
+        return smoothScroll.animateScroll(null, window.location.hash);
+      }
+    }
+  };
+
+  Index.prototype.run = function() {
+    if (!this.hasProvider()) {
+      this.on('submit', '#form-edit-email', this.askPassword);
+      this.on('submit', '#form-edit-password', this.askPassword);
+      this.on('submit', '#form-edit-billing', this.askPassword);
+      this.on('submit', '#form-edit-destination', this.askPassword);
+      this.on('submit', '#form-edit-spot', this.askPassword);
+    }
+    return this.on('click', 'label', this.displayGoogleMap);
+  };
+
+  Index.prototype.displayGoogleMap = function() {
+    var id;
+    $('[id^=gmap]').addClass('+hidden');
+    id = $(this).attr('for');
+    if ($('#gmap-' + id).hasClass('+hidden')) {
+      return $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn();
+    }
+  };
+
+  Index.prototype.hasProvider = function() {
+    var hasProvider;
+    hasProvider = _.trim($('#gotham').data('has-provider'));
+    if (_.isEmpty(hasProvider)) {
+      return false;
+    }
+    if (hasProvider === '1') {
+      return true;
+    }
+    return false;
+  };
+
+  Index.prototype.askPassword = function(e) {
+    e.preventDefault();
+    return swal({
+      title: 'Mot de passe',
+      text: 'Veuillez renseigner votre mot de passe',
+      type: 'input',
+      confirmButtonColor: '#D83F66',
+      showCancelButton: true,
+      cancelButtonText: 'Annuler',
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true,
+      inputType: 'password'
+    }, (function(_this) {
+      return function(value) {
+        if (value === false) {
+          return false;
+        }
+        if (value === "") {
+          swal.showInputError('Le mot de passe est requis');
+          return false;
+        }
+        $(_this).find('[name=old_password]').val(value);
+        return $(_this).off('submit').submit();
+      };
+    })(this));
+  };
+
+  return Index;
+
+})(Controller);
+
+module.exports = Index;
+});
+
+;require.register("controllers/masterbox/customer/profile/order", function(exports, require, module) {
+var Controller, Order,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Order = (function(superClass) {
+  extend(Order, superClass);
+
+  function Order() {
+    this.askPassword = bind(this.askPassword, this);
+    this.generateStripeToken = bind(this.generateStripeToken, this);
+    this.submitCard = bind(this.submitCard, this);
+    return Order.__super__.constructor.apply(this, arguments);
+  }
+
+  Order.prototype.before = function() {
+    this.initCard();
+    Stripe.setPublishableKey(_.getStripeKey());
+    if (window.location.hash) {
+      if ($(window.location.hash).length > 0) {
+        return smoothScroll.animateScroll(null, window.location.hash);
+      }
+    }
+  };
+
+  Order.prototype.run = function() {
+    return this.on('submit', '#form-edit-card', this.submitCard);
+  };
+
+  Order.prototype.initCard = function() {
+    var lastDigits, number;
+    lastDigits = _.trim($('#gotham').data('card-last-digits'));
+    if (_.isEmpty(lastDigits)) {
+      number = '**** **** **** ****';
+    } else {
+      number = '**** **** **** ' + lastDigits;
+    }
+    return new Card({
+      form: '#form-edit-card',
+      container: '.card',
+      debug: false,
+      formSelectors: {
+        numberInput: '[name=card]',
+        expiryInput: '[name=expiration]',
+        cvcInput: '[name=ccv]'
+      },
+      messages: {
+        validDate: 'EXPIRE\nA FIN',
+        monthYear: 'MM/AA'
+      },
+      placeholders: {
+        name: '',
+        number: number
+      }
+    });
+  };
+
+  Order.prototype.submitCard = function(e) {
+    var card, rules, syphon, validation;
+    e.preventDefault();
+    syphon = new Syphon();
+    card = syphon.exclude('_token').get('#form-edit-card');
+    this.cleanErrors(card);
+    this.cleanErrorStripe();
+    rules = {
+      card: 'required|valid_card_number',
+      expiration: 'required|valid_card_expiry',
+      ccv: 'required|valid_card_cvc'
+    };
+    validation = new Validator();
+    validation.make(card, rules);
+    if (validation.fails()) {
+      return this.displayErrors(card, validation);
+    } else {
+      return this.generateStripeToken();
+    }
+  };
+
+  Order.prototype.generateStripeToken = function() {
+    var card, syphon;
+    syphon = new Syphon();
+    card = syphon.exclude('_token').get('#form-edit-card');
+    this.displayLoader();
+    return Stripe.card.createToken({
+      number: card.card,
+      cvc: card.ccv,
+      exp_month: _.trim(card.expiration.split('/')[0]),
+      exp_year: _.trim(card.expiration.split('/')[1])
+    }, (function(_this) {
+      return function(status, response) {
+        console.log(response);
+        _this.hideLoader();
+        if (status !== 200) {
+          _this.displayErrorStripe(response);
+          return;
+        }
+        $('[name=stripeToken]').val(response.id);
+        return _this.askPassword();
+      };
+    })(this));
+  };
+
+  Order.prototype.askPassword = function() {
+    return swal({
+      title: 'Mot de passe',
+      text: 'Veuillez renseigner votre mot de passe',
+      type: 'input',
+      confirmButtonColor: '#D83F66',
+      showCancelButton: true,
+      cancelButtonText: 'Annuler',
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true,
+      inputType: 'password'
+    }, (function(_this) {
+      return function(value) {
+        if (value === false) {
+          return false;
+        }
+        if (value === "") {
+          swal.showInputError('Le mot de passe est requis');
+          return false;
+        }
+        $('#form-edit-card').find('[name=old_password]').val(value);
+        return $('#form-edit-card').get(0).submit();
+      };
+    })(this));
+  };
+
+  Order.prototype.displayLoader = function() {
+    return $('#commit').prop('disabled', true).addClass('--disabled');
+  };
+
+  Order.prototype.hideLoader = function() {
+    return $('#commit').prop('disabled', false).removeClass('--disabled');
+  };
+
+  Order.prototype.displayErrorStripe = function(response) {
+    return $('#error-stripe').text('Un problème est survenue, veuillez vérifier votre saisie.');
+  };
+
+  Order.prototype.cleanErrorStripe = function() {
+    return $('#error-stripe').text('');
+  };
+
+  Order.prototype.displayErrors = function(inputs, validation) {
+    return _.forEach(inputs, function(value, key) {
+      if (validation.errors.has(key) && $('#errors-' + key).length > 0) {
+        return $('#errors-' + key).text(validation.errors.first(key));
+      }
+    });
+  };
+
+  Order.prototype.cleanErrors = function(inputs) {
+    return _.forEach(inputs, function(value, key) {
+      if ($('#errors-' + key).length > 0) {
+        return $('#errors-' + key).text('');
+      }
+    });
+  };
+
+  return Order;
+
+})(Controller);
+
+module.exports = Order;
+});
+
+;require.register("controllers/masterbox/customer/profile/orders", function(exports, require, module) {
+var Controller, Orders,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Orders = (function(superClass) {
+  extend(Orders, superClass);
+
+  function Orders() {
+    return Orders.__super__.constructor.apply(this, arguments);
+  }
+
+  Orders.prototype.before = function() {
+    return $('tr[data-href]').tooltipster({
+      position: 'right',
+      theme: 'tooltipster-default'
+    });
+  };
+
+  Orders.prototype.run = function() {
+    return this.on('click', 'tr[data-href]', this.rowClicked);
+  };
+
+  Orders.prototype.rowClicked = function(e) {
+    e.preventDefault();
+    return window.location.href = $(this).data('href');
+  };
+
+  return Orders;
+
+})(Controller);
+
+module.exports = Orders;
+});
+
+;require.register("controllers/masterbox/customer/purchase/billing-address", function(exports, require, module) {
+var BillingAddress, Controller,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+BillingAddress = (function(superClass) {
+  extend(BillingAddress, superClass);
+
+  function BillingAddress() {
+    return BillingAddress.__super__.constructor.apply(this, arguments);
+  }
+
+  BillingAddress.prototype.before = function() {};
+
+  BillingAddress.prototype.run = function() {
+    return this.on('click', '#copy', this.copyFormDestination);
+  };
+
+  BillingAddress.prototype.copyFormDestination = function(e) {
+    var fields;
+    e.preventDefault();
+    fields = ['city', 'zip', 'address', 'address_detail'];
+    return _.each(fields, (function(_this) {
+      return function(field) {
+        var value;
+        value = $('[name=destination_' + field + ']').val();
+        return $('[name=billing_' + field + ']').val(value);
+      };
+    })(this));
+  };
+
+  return BillingAddress;
+
+})(Controller);
+
+module.exports = BillingAddress;
+});
+
+;require.register("controllers/masterbox/customer/purchase/box-form", function(exports, require, module) {
+var BoxForm, Controller, CustomBox,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+CustomBox = require('libraries/custom-box');
+
+BoxForm = (function(superClass) {
+  extend(BoxForm, superClass);
+
+  function BoxForm() {
+    return BoxForm.__super__.constructor.apply(this, arguments);
+  }
+
+  BoxForm.prototype.before = function() {
+    return new CustomBox();
+  };
+
+  BoxForm.prototype.run = function() {};
+
+  return BoxForm;
+
+})(Controller);
+
+module.exports = BoxForm;
+});
+
+;require.register("controllers/masterbox/customer/purchase/choose-frequency", function(exports, require, module) {
+var ChooseFrequency, Controller,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+ChooseFrequency = (function(superClass) {
+  extend(ChooseFrequency, superClass);
+
+  function ChooseFrequency() {
+    return ChooseFrequency.__super__.constructor.apply(this, arguments);
+  }
+
+  ChooseFrequency.prototype.before = function() {};
+
+  ChooseFrequency.prototype.run = function() {
+    return this.on('click', 'label', this.smoothScroll);
+  };
+
+  ChooseFrequency.prototype.smoothScroll = function(e) {
+    return smoothScroll.animateScroll(null, '#section');
+  };
+
+  return ChooseFrequency;
+
+})(Controller);
+
+module.exports = ChooseFrequency;
+});
+
+;require.register("controllers/masterbox/customer/purchase/choose-spot", function(exports, require, module) {
+var ChooseSpot, Controller,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+ChooseSpot = (function(superClass) {
+  extend(ChooseSpot, superClass);
+
+  function ChooseSpot() {
+    this.hideGoogleMap = bind(this.hideGoogleMap, this);
+    this.showGoogleMap = bind(this.showGoogleMap, this);
+    return ChooseSpot.__super__.constructor.apply(this, arguments);
+  }
+
+  ChooseSpot.prototype.currentGoogleMap = false;
+
+  ChooseSpot.prototype.before = function() {
+    var id;
+    if ($('input:checked').length > 0) {
+      id = $('input:checked').first().attr('id');
+      return this.showGoogleMap(id);
+    }
+  };
+
+  ChooseSpot.prototype.run = function() {
+    return this.on('click', 'label', (function(_this) {
+      return function(e) {
+        var id;
+        id = $(e.currentTarget).attr('for');
+        return _this.showGoogleMap(id);
+      };
+    })(this));
+  };
+
+  ChooseSpot.prototype.showGoogleMap = function(id) {
+    if (id !== this.currentGoogleMap) {
+      if (this.currentGoogleMapMap !== false) {
+        this.hideGoogleMap(this.currentGoogleMap);
+      }
+      $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn();
+      return this.currentGoogleMap = id;
+    }
+  };
+
+  ChooseSpot.prototype.hideGoogleMap = function(id) {
+    return $('#gmap-' + id).addClass('+hidden');
+  };
+
+  return ChooseSpot;
+
+})(Controller);
+
+module.exports = ChooseSpot;
+});
+
+;require.register("controllers/masterbox/customer/purchase/delivery-mode", function(exports, require, module) {
+var Controller, DeliveryMode,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+DeliveryMode = (function(superClass) {
+  extend(DeliveryMode, superClass);
+
+  function DeliveryMode() {
+    return DeliveryMode.__super__.constructor.apply(this, arguments);
+  }
+
+  DeliveryMode.prototype.before = function() {};
+
+  DeliveryMode.prototype.run = function() {
+    return this.on('click', 'label', this.smoothScroll);
+  };
+
+  DeliveryMode.prototype.smoothScroll = function(e) {
+    return smoothScroll.animateScroll(null, '#section');
+  };
+
+  return DeliveryMode;
+
+})(Controller);
+
+module.exports = DeliveryMode;
+});
+
+;require.register("controllers/masterbox/customer/purchase/payment", function(exports, require, module) {
+var Controller, Payment,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Payment = (function(superClass) {
+  extend(Payment, superClass);
+
+  function Payment() {
+    this.displayWriting = bind(this.displayWriting, this);
+    this.displayDefault = bind(this.displayDefault, this);
+    this.afterPayment = bind(this.afterPayment, this);
+    this.initStripe = bind(this.initStripe, this);
+    return Payment.__super__.constructor.apply(this, arguments);
+  }
+
+  Payment.prototype.afterPaymentProcessing = false;
+
+  Payment.prototype.before = function() {
+    return this.initStripe();
+  };
+
+  Payment.prototype.run = function() {
+    return $('#trigger-payment').click((function(_this) {
+      return function(e) {
+        e.preventDefault();
+        if ($(_this).prop('disabled') !== true) {
+          _this.displayLoading('En cours de chargement');
+          return _this.handler.open({
+            name: 'Bordeaux in Box',
+            description: 'Commande Box',
+            currency: 'eur',
+            amount: $('#gotham').data('amount'),
+            email: $('#gotham').data('customer-email')
+          });
+        }
+      };
+    })(this));
+  };
+
+  Payment.prototype.initStripe = function() {
+    return this.handler = StripeCheckout.configure({
+      key: _.getStripeKey(),
+      image: 'https://s3.amazonaws.com/stripe-uploads/acct_14e5CdIIyezb3ziumerchant-icon-1452677496121-bdxinbox.png',
+      locale: 'fr',
+      token: this.afterPayment,
+      allowRememberMe: true,
+      opened: (function(_this) {
+        return function() {
+          return _this.displayWriting();
+        };
+      })(this),
+      closed: (function(_this) {
+        return function() {
+          return setTimeout(function() {
+            if (!_this.afterPaymentProcessing) {
+              return _this.displayDefault();
+            }
+          }, 1500);
+        };
+      })(this)
+    });
+  };
+
+  Payment.prototype.afterPayment = function(token) {
+    var secret;
+    secret = token.id;
+    this.afterPaymentProcessing = true;
+    this.displayLoading('En cours de redirection');
+    $('#stripe-token').val(secret);
+    return $('#payment-form').submit();
+  };
+
+  Payment.prototype.displayLoading = function(message) {
+    return $('#trigger-payment').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spinner fa-spin"></i> ' + message);
+  };
+
+  Payment.prototype.displayDefault = function() {
+    return $('#trigger-payment').prop('disabled', false).removeClass('--disabled').html('<i class="fa fa-credit-card"></i> Procéder au paiement sécurisé');
+  };
+
+  Payment.prototype.displayWriting = function() {
+    return $('#trigger-payment').prop('disabled', true).addClass('--disabled').html('Saisie en cours');
+  };
+
+  return Payment;
+
+})(Controller);
+
+module.exports = Payment;
+});
+
+;require.register("controllers/masterbox/guest/blog/article", function(exports, require, module) {
+var Article, Controller,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Article = (function(superClass) {
+  extend(Article, superClass);
+
+  function Article() {
+    return Article.__super__.constructor.apply(this, arguments);
+  }
+
+  Article.prototype.before = function() {
+    return $("#share").jsSocials({
+      shares: ["facebook", "pinterest", "twitter", "email"],
+      showCount: true,
+      showLabel: true,
+      text: $('#gotham').data('text'),
+      facebook: {
+        label: "Partager"
+      },
+      pinterest: {
+        media: $('#gotham').data('pinterest-media')
+      }
+    });
+  };
+
+  Article.prototype.run = function() {};
+
+  return Article;
+
+})(Controller);
+
+module.exports = Article;
+});
+
+;require.register("controllers/masterbox/guest/blog/index", function(exports, require, module) {
+var Controller, Index,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Index = (function(superClass) {
+  extend(Index, superClass);
+
+  function Index() {
+    this.freewall = bind(this.freewall, this);
+    return Index.__super__.constructor.apply(this, arguments);
+  }
+
+  Index.prototype.before = function() {
+    return this.freewall();
+  };
+
+  Index.prototype.run = function() {};
+
+  Index.prototype.freewall = function() {
+    var wall;
+    wall = new freewall("#freewall");
+    wall.reset({
+      selector: '.js-brick',
+      animate: false,
+      cellW: 220,
+      cellH: 'auto',
+      onResize: function() {
+        return wall.fitWidth();
+      }
+    });
+    wall.container.find('.js-brick img').load(function() {
+      return wall.fitWidth();
+    });
+    return $(window).trigger('resize');
+  };
+
+  return Index;
+
+})(Controller);
+
+module.exports = Index;
+});
+
+;require.register("controllers/masterbox/guest/home/index", function(exports, require, module) {
+var Controller, Index,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Index = (function(superClass) {
+  extend(Index, superClass);
+
+  function Index() {
+    this.freewallPartners = bind(this.freewallPartners, this);
+    this.alertNoBoxes = bind(this.alertNoBoxes, this);
+    return Index.__super__.constructor.apply(this, arguments);
+  }
+
+  Index.prototype.before = function() {
+    this.smoothScroll();
+    return this.freewallPartners();
+  };
+
+  Index.prototype.run = function() {
+    return this.on('click', '.js-no-boxes', this.alertNoBoxes);
+  };
+
+  Index.prototype.alertNoBoxes = function(e) {
+    e.preventDefault();
+    return swal({
+      title: $('#gotham').data('no-boxes-title'),
+      text: $('#gotham').data('no-boxes-text'),
+      type: 'error',
+      confirmButtonColor: '#D83F66',
+      html: true
+    });
+  };
+
+  Index.prototype.smoothScroll = function() {
+    return smoothScroll.init({
+      selector: '.js-anchor'
+    });
+  };
+
+  Index.prototype.freewallPartners = function() {
+    var wall;
+    wall = new freewall("#freewall-partners");
+    wall.reset({
+      selector: '.js-brick',
+      animate: false,
+      cellW: 220,
+      cellH: 'auto',
+      onResize: function() {
+        return wall.fitWidth();
+      }
+    });
+    wall.container.find('.js-brick img').load(function() {
+      return wall.fitWidth();
+    });
+    return $(window).trigger('resize');
+  };
+
+  return Index;
+
+})(Controller);
+
+module.exports = Index;
+});
+
+;require.register("controllers/masterbox/guest/home/spots", function(exports, require, module) {
+var Controller, Spots,
+  extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  hasProp = {}.hasOwnProperty;
+
+Controller = require('core/controller');
+
+Spots = (function(superClass) {
+  extend(Spots, superClass);
+
+  function Spots() {
+    return Spots.__super__.constructor.apply(this, arguments);
+  }
+
+  Spots.prototype.before = function() {};
+
+  Spots.prototype.run = function() {
+    return this.on('click', 'label', this.displayGoogleMap);
+  };
+
+  Spots.prototype.displayGoogleMap = function() {
+    var id;
+    $('[id^=gmap]').addClass('+hidden');
+    id = $(this).attr('for');
+    if ($('#gmap-' + id).hasClass('+hidden')) {
+      return $('#gmap-' + id).stop().hide().removeClass('+hidden').fadeIn();
+    }
+  };
+
+  return Spots;
+
+})(Controller);
+
+module.exports = Spots;
+});
+
+;require.register("core/bootstrap", function(exports, require, module) {
+var Bootstrap;
+
+Bootstrap = (function() {
+  function Bootstrap() {}
+
+  Bootstrap.prototype.run = function() {
+    var controller, pathController;
+    require('helpers');
+    require('validators');
+    require('boot');
+    controller = $('#gotham').data('controller');
+    if (controller == null) {
+      return;
+    }
+    if (_.isEmpty(controller)) {
+      return;
+    }
+    pathController = this._formatPath(controller);
+    controller = require('controllers/' + pathController);
+    controller = new controller();
+    if (controller['before'] != null) {
+      controller.before();
+    }
+    if (!controller._gothamStop) {
+      return controller.run();
+    }
+  };
+
+  Bootstrap.prototype._formatPath = function(str) {
+    return str.split('.').join('/');
+  };
+
+  return Bootstrap;
+
+})();
+
+module.exports = Bootstrap;
+});
+
+;require.register("core/controller", function(exports, require, module) {
+var Controller, View;
+
+View = require('core/view');
+
+Controller = (function() {
+  Controller.prototype._gothamStop = false;
+
+  function Controller() {}
+
+  Controller.prototype.stop = function() {
+    return this._gothamStop = true;
+  };
+
+  Controller.prototype.log = function(value) {
+    return console.log(value);
+  };
+
+  Controller.prototype.on = function(trigger, selector, handler) {
+    return $(selector).on(trigger, handler);
+  };
+
+  Controller.prototype.off = function(trigger, selector, handler) {
+    return $(selector).off(trigger, handler);
+  };
+
+  Controller.prototype.delayed = function(trigger, selector, handler) {
+    return $(document).on(trigger, selector, handler);
+  };
+
+  Controller.prototype.view = function(template, datas) {
+    var view;
+    view = new View();
+    return view.render(template, datas);
+  };
+
+  return Controller;
+
+})();
+
+module.exports = Controller;
+});
+
+;require.register("core/view", function(exports, require, module) {
+var View;
+
+View = (function() {
+  function View() {}
+
+  View.prototype.render = function(template, datas) {
+    template = template.split('.').join('/');
+    template = require('views/' + template);
+    return template(datas);
+  };
+
+  return View;
+
+})();
+
+module.exports = View;
+});
+
+;require.register("helpers", function(exports, require, module) {
+var Config;
+
+Config = require('config');
+
+_.mixin({
+  getApp: function() {
+    return $('body').data('app');
+  }
+});
+
+_.mixin({
+  getEnvironment: function() {
+    return $('body').data('environment');
+  }
+});
+
+_.mixin({
+  getStripeKey: function() {
+    if (_.getEnvironment() === 'production') {
+      return Config.stripe.production;
+    }
+    return Config.stripe.testing;
+  }
+});
+
+_.mixin({
+  slash: function(string) {
+    var last;
+    last = string.slice(-1);
+    if (last === '/') {
+      return string;
+    }
+    return string + '/';
+  }
+});
+
+_.mixin({
+  euro: function(number) {
+    return parseFloat(number).toFixed(2) + ' &euro;';
+  }
+});
+
+_.mixin({
+  profileStatus: function(status) {
+    switch (status) {
+      case 'in-progress':
+        return 'En cours de création';
+      case 'expired':
+        return 'Expiré';
+      case 'not-subscribed':
+        return 'Non abonné';
+      case 'subscribed':
+        return 'Abonné';
+      default:
+        return status;
+    }
+  }
+});
+
+_.mixin({
+  colorProfileStatusButton: function(status) {
+    switch (status) {
+      case 'in-progress':
+        return '--blue';
+      case 'expired':
+        return '--red';
+      case 'not-subscribed':
+        return '--red';
+      case 'subscribed':
+        return '--green';
+      default:
+        return '--blue';
+    }
+  }
+});
+});
+
+;require.register("initialize", function(exports, require, module) {
+var Bootstrap;
+
+Bootstrap = require('core/bootstrap');
+
+$(function() {
+  var bootstrap;
+  bootstrap = new Bootstrap({
+    request: window.location.pathname
+  });
+  return bootstrap.run();
+});
+});
+
+;require.register("libraries/admin-sidebar", function(exports, require, module) {
+var AdminSidebar;
+
+AdminSidebar = (function() {
+  function AdminSidebar() {
+    $('#sidebar').on('mouseenter', this.sidebarEnter);
+    $('#sidebar').on('mouseleave', this.sidebarLeave);
+  }
+
+  AdminSidebar.prototype.sidebarEnter = function() {
+    $(this).css('width', '270px');
+    return $('#sidebar-brand').css('display', 'block');
+  };
+
+  AdminSidebar.prototype.sidebarLeave = function() {
+    $(this).css('width', '60px');
+    return $('#sidebar-brand').css('display', 'none');
+  };
+
+  return AdminSidebar;
+
+})();
+
+module.exports = AdminSidebar;
+});
+
+;require.register("libraries/custom-box", function(exports, require, module) {
+var CustomBox,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+CustomBox = (function() {
+  CustomBox.prototype.processingAjax = false;
+
+  function CustomBox() {
+    this.cleanError = bind(this.cleanError, this);
+    this.showError = bind(this.showError, this);
+    this.fetchDatasQuestion = bind(this.fetchDatasQuestion, this);
+    this.fetchDatasCurrentQuestion = bind(this.fetchDatasCurrentQuestion, this);
+    this.showDefault = bind(this.showDefault, this);
+    this.showLoading = bind(this.showLoading, this);
+    this.isQuestionRadioButton = bind(this.isQuestionRadioButton, this);
+    this.hasNextQuestion = bind(this.hasNextQuestion, this);
+    this.hideQuestion = bind(this.hideQuestion, this);
+    this.showQuestion = bind(this.showQuestion, this);
+    this.showNextQuestion = bind(this.showNextQuestion, this);
+    this.postAddAnswer = bind(this.postAddAnswer, this);
+    this.labelClicked = bind(this.labelClicked, this);
+    this.formSubmited = bind(this.formSubmited, this);
+    this.skipClicked = bind(this.skipClicked, this);
+    this.showQuestion(1, false);
+    this.currentQuestion = 1;
+    this.events();
+  }
+
+  CustomBox.prototype.events = function() {
+    $('form').on('submit', this.formSubmited);
+    $(':radio').on('click', this.labelClicked);
+    return $('.js-skip').on('click', this.skipClicked);
+  };
+
+  CustomBox.prototype.skipClicked = function(e) {
+    e.preventDefault();
+    if (!this.processingAjax) {
+      return this.showNextQuestion();
+    }
+  };
+
+  CustomBox.prototype.formSubmited = function(e) {
+    e.preventDefault();
+    return this.postAddAnswer();
+  };
+
+  CustomBox.prototype.labelClicked = function(e) {
+    if (this.isQuestionRadioButton(this.currentQuestion)) {
+      if (!this.processingAjax) {
+        return this.postAddAnswer();
+      } else {
+        return e.preventDefault();
+      }
+    }
+  };
+
+  CustomBox.prototype.postAddAnswer = function() {
+    var datas;
+    if (!this.processingAjax) {
+      this.showLoading();
+      this.cleanError();
+      datas = this.fetchDatasCurrentQuestion();
+      console.log(datas);
+      this.processingAjax = true;
+      return $.post('/service/api/box-question-customer-answer', datas, (function(_this) {
+        return function(response) {
+          _this.processingAjax = false;
+          _this.showDefault();
+          if (!response.success) {
+            return _this.showError(response.errors);
+          } else {
+            return _this.showNextQuestion();
+          }
+        };
+      })(this));
+    }
+  };
+
+  CustomBox.prototype.showNextQuestion = function() {
+    if (this.hasNextQuestion(this.currentQuestion)) {
+      this.hideQuestion(this.currentQuestion);
+      this.showQuestion(this.currentQuestion + 1);
+      return this.currentQuestion = this.currentQuestion + 1;
+    } else {
+      this.showLoading();
+      return window.location.href = '/customer/purchase/confirmed';
+    }
+  };
+
+  CustomBox.prototype.showQuestion = function(position, fadeIn) {
+    if (fadeIn === false) {
+      return $('[id=question-' + position + ']').removeClass('+hidden');
+    } else {
+      return $('[id=question-' + position + ']').fadeIn().removeClass('+hidden');
+    }
+  };
+
+  CustomBox.prototype.hideQuestion = function(position) {
+    return $('[id=question-' + position + ']').addClass('+hidden');
+  };
+
+  CustomBox.prototype.hasNextQuestion = function(currentQuestion) {
+    var nextQuestion;
+    nextQuestion = currentQuestion + 1;
+    if ($('[id=question-' + nextQuestion + ']').length > 0) {
+      return true;
+    }
+    return false;
+  };
+
+  CustomBox.prototype.isQuestionRadioButton = function(question) {
+    var type;
+    type = $('#question-' + question).data('type');
+    if (type === 'radiobutton') {
+      return true;
+    }
+    return false;
+  };
+
+  CustomBox.prototype.showLoading = function() {
+    if (this.isQuestionRadioButton(this.currentQuestion)) {
+      $('#question-' + this.currentQuestion).find('#loader').html('<i class="fa fa-spin fa-circle-o-notch"></i> En cours d\'enregistrement');
+    } else {
+      $('#question-' + this.currentQuestion).find('button').prop('disabled', true).addClass('--disabled').html('<i class="fa fa-spin fa-circle-o-notch"></i> Suivant');
+    }
+    return $('#question-' + this.currentQuestion).find('.js-skip').addClass('--disabled');
+  };
+
+  CustomBox.prototype.showDefault = function() {
+    if (this.isQuestionRadioButton(this.currentQuestion)) {
+      $('#question-' + this.currentQuestion).find('#loader').html('');
+    } else {
+      $('#question-' + this.currentQuestion).find('button').prop('disabled', false).removeClass('--disabled').html('Suivant');
+    }
+    return $('#question-' + this.currentQuestion).find('.js-skip').removeClass('--disabled');
+  };
+
+  CustomBox.prototype.fetchDatasCurrentQuestion = function() {
+    return this.fetchDatasQuestion(this.currentQuestion);
+  };
+
+  CustomBox.prototype.fetchDatasQuestion = function(question) {
+    var syphon;
+    syphon = new Syphon();
+    return syphon.get('#question-' + question + ' form');
+  };
+
+  CustomBox.prototype.showError = function(error) {
+    return $('#question-' + this.currentQuestion).find('#error').html(error);
+  };
+
+  CustomBox.prototype.cleanError = function() {
+    return $('#question-' + this.currentQuestion).find('#error').html('');
+  };
+
+  return CustomBox;
+
+})();
+
+module.exports = CustomBox;
+});
+
+;require.register("validators", function(exports, require, module) {
+Validator.errors({
+  required: 'Le champ :attribute est requis',
+  valid_card_number: 'Numéro de carte invalide',
+  valid_card_expiry: 'Date d\'expiration invalide',
+  valid_card_cvc: 'Code de vérification invalide'
+});
+
+Validator.attributes({
+  card: 'numéro de carte',
+  expiration: 'date d\'expiration',
+  ccv: 'cvv'
+});
+
+Validator.rule('valid_card_number', function(attribute, value, params) {
+  if ($.payment.validateCardNumber(value)) {
+    return true;
+  }
+  return false;
+});
+
+Validator.rule('valid_card_expiry', function(attribute, value, params) {
+  var expiry;
+  expiry = value.split('/');
+  if ($.payment.validateCardExpiry(expiry[0], expiry[1])) {
+    return true;
+  }
+  return false;
+});
+
+Validator.rule('valid_card_cvc', function(attribute, value, params) {
+  if ($.payment.validateCardCVC(value)) {
+    return true;
+  }
+  return false;
+});
+});
+
+;require.register("views/masterbox/admin/customers/actions", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<a href="');
+    
+      __out.push(this.link_focus);
+    
+      __out.push('" class="button button__default --green --table"><i class="fa fa-search"></i></a>\n<a href="');
+    
+      __out.push(this.link_edit);
+    
+      __out.push('" class="button button__default --blue --table"><i class="fa fa-pencil"></i></a>\n');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
+});
+
+;require.register("views/masterbox/admin/customers/more", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      var i, len, profile, ref;
+    
+      __out.push('<div class="tablechild">\n  <div class="row">\n    <div class="grid-6">\n      <h3 class="tablechild__title">A propos</h3>\n      <strong>Total Payé:</strong> ');
+    
+      __out.push(_.euro(this.turnover));
+    
+      __out.push('<br/>\n      <strong>Adresse:</strong> \n      ');
+    
+      if (this.address.length > 0) {
+        __out.push('\n        ');
+        __out.push(this.address);
+        __out.push(', ');
+        __out.push(this.city);
+        __out.push(' (');
+        __out.push(this.zip);
+        __out.push(')\n      ');
+      } else {
+        __out.push('\n        N/A\n      ');
+      }
+    
+      __out.push('\n    </div>\n    <div class="grid-6">\n      <h3 class="tablechild__title">Abonnements</h3>\n      ');
+    
+      if (this.profiles.length > 0) {
+        __out.push('\n        ');
+        ref = this.profiles;
+        for (i = 0, len = ref.length; i < len; i++) {
+          profile = ref[i];
+          __out.push('\n          <a class="tablechild__link" href="');
+          __out.push(_.slash(this.focus_profile) + profile.id);
+          __out.push('">Abonnement #');
+          __out.push(__sanitize(profile.id));
+          __out.push(' (');
+          __out.push(_.profileStatus(profile.status));
+          __out.push(')</a><br/>\n        ');
+        }
+        __out.push('\n      ');
+      } else {
+        __out.push('\n        Aucun abonnement\n      ');
+      }
+    
+      __out.push('\n    </div>\n  </div>\n</div>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
+});
+
+;require.register("views/masterbox/admin/customers/render_subscriptions", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      var i, len, profile, ref;
+    
+      if (this.profiles.length > 0) {
+        __out.push('\n  ');
+        ref = this.profiles;
+        for (i = 0, len = ref.length; i < len; i++) {
+          profile = ref[i];
+          __out.push('\n\n    <a class="button button__default --table ');
+          __out.push(__sanitize(_.colorProfileStatusButton(profile.status)));
+          __out.push('" href="');
+          __out.push(_.slash(this.focus_profile) + profile.id);
+          __out.push('">#');
+          __out.push(__sanitize(profile.id));
+          __out.push(' (');
+          __out.push(_.profileStatus(profile.status));
+          __out.push(')</a><br/>\n    \n  ');
+        }
+        __out.push('\n');
+      } else {
+        __out.push('\n  Aucun abonnement\n');
+      }
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
+});
+
+;require.register("views/masterbox/admin/profiles/actions", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<a href="');
+    
+      __out.push(this.link_focus);
+    
+      __out.push('" class="button button__default --green --table"><i class="fa fa-search"></i></a>\n<a href="');
+    
+      __out.push(this.link_delete);
+    
+      __out.push('" class="button button__default --red --table js-confirm-delete"><i class="fa fa-trash-o"></i></a>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
+});
+
+;require.register("views/masterbox/admin/profiles/more", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<div class="tablechild">\n  <div class="row">\n    <div class="grid-3">\n      <h3 class="tablechild__title">Abonnement</h3>\n      <strong>Date de création:</strong> ');
+    
+      __out.push(this.created_at);
+    
+      __out.push('<br/>\n    </div>\n    <div class="grid-6">\n      <h3 class="tablechild__title">Client</h3>\n      <strong>Total Payé:</strong> ');
+    
+      __out.push(_.euro(this.customer.turnover));
+    
+      __out.push('<br/>\n      <strong>Téléphone:</strong> \n      ');
+    
+      if (this.customer.phone_format.length > 0) {
+        __out.push('\n        ');
+        __out.push(this.customer.phone_format);
+        __out.push('\n      ');
+      } else {
+        __out.push('\n        N/A\n      ');
+      }
+    
+      __out.push('\n      <br/>\n      <strong>Email:</strong> ');
+    
+      __out.push(this.customer.email);
+    
+      __out.push('<br/>\n      <strong>Adresse:</strong> \n      ');
+    
+      if (this.customer.address.length > 0) {
+        __out.push('\n        ');
+        __out.push(this.customer.address);
+        __out.push(', ');
+        __out.push(this.customer.city);
+        __out.push(' (');
+        __out.push(this.customer.zip);
+        __out.push(')\n      ');
+      } else {
+        __out.push('\n        N/A\n      ');
+      }
+    
+      __out.push('\n    </div>\n</div>');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
+});
+
+;require.register("views/masterbox/admin/profiles/payments/more", function(exports, require, module) {
+var __templateData = function (__obj) {
+  if (!__obj) __obj = {};
+  var __out = [], __capture = function(callback) {
+    var out = __out, result;
+    __out = [];
+    callback.call(this);
+    result = __out.join('');
+    __out = out;
+    return __safe(result);
+  }, __sanitize = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else if (typeof value !== 'undefined' && value != null) {
+      return __escape(value);
+    } else {
+      return '';
+    }
+  }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+  __safe = __obj.safe = function(value) {
+    if (value && value.ecoSafe) {
+      return value;
+    } else {
+      if (!(typeof value !== 'undefined' && value != null)) value = '';
+      var result = new String(value);
+      result.ecoSafe = true;
+      return result;
+    }
+  };
+  if (!__escape) {
+    __escape = __obj.escape = function(value) {
+      return ('' + value)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    };
+  }
+  (function() {
+    (function() {
+      __out.push('<div class="tablechild">\n  <h3 class="tablechild__title">Stripe</h3>\n  <strong>Customer:</strong> ');
+    
+      __out.push(this.stripe_customer);
+    
+      __out.push('<br/>\n  <strong>Event:</strong> ');
+    
+      __out.push(this.stripe_event);
+    
+      __out.push('<br/>\n  <strong>Charge:</strong> ');
+    
+      __out.push(this.stripe_charge);
+    
+      __out.push('<br/>\n  <strong>Card:</strong> ');
+    
+      __out.push(this.stripe_card);
+    
+      __out.push('<br/>\n</div>\n\n');
+    
+    }).call(this);
+    
+  }).call(__obj);
+  __obj.safe = __objSafe, __obj.escape = __escape;
+  return __out.join('');
+};
+if (typeof define === 'function' && define.amd) {
+  define([], function() {
+    return __templateData;
+  });
+} else if (typeof module === 'object' && module && module.exports) {
+  module.exports = __templateData;
+} else {
+  __templateData;
+}
+});
+
+;
+//# sourceMappingURL=app.js.map

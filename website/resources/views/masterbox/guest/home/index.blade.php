@@ -14,6 +14,18 @@
 	<img class="artwork__picture" src="{{ url('images/artwork.png') }}" />
 </div>
 
+<!--
+<div class="hero">
+	<div class="hero__container" style="background-image: url('images/teasing/teasing-mars.jpg')">
+		<div class="hero__overlay"></div>
+		<div class="hero__content">
+			<h1>Colorful</h1>
+			<h3>Bordeaux in Box met de la couleur dans votre box en mars</h3>
+		</div>
+	</div>
+</div>
+-->
+
 <div class="grid-11@xs gr-centered@xs">
 	<div class="title --home-punchline">Des surprises tout les mois dans une petite boîte rien que pour toi !</div>
 </div>
