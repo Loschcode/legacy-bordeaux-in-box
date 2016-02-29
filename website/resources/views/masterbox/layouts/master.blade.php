@@ -62,10 +62,12 @@
             </a>
           </div>
         </div>
-        <div class="grid-9">
-          <div class="+spacer-small"></div>
-          {{-- Navbar --}}
-          @include('masterbox.partials.navbar', ['navbar_home' => true])
+        <div class="grid-9 grid-12@xs">
+          @section('navbar-links')
+            <div class="+spacer-small"></div>
+            {{-- Navbar --}}
+            @include('masterbox.partials.navbar', ['navbar_home' => true])
+          @show
         </div>
       </div>
     </div>

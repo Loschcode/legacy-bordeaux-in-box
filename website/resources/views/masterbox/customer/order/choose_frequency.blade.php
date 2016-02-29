@@ -7,13 +7,14 @@
   ]) !!}
 @stop
 
+@section('navbar-links')
+  @include('masterbox.partials.pipeline', ['step' => 1])
+@stop
+
 @section('content')
 
 <div class="container">
   
-  {{-- Pipeline --}}
-  @include('masterbox.partials.pipeline', ['step' => 1])
-
   {{-- Section --}}
   <div class="grid-9 grid-centered grid-11@xs">
     <div class="section">
