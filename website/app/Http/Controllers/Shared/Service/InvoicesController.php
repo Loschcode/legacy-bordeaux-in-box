@@ -238,7 +238,7 @@ class InvoicesController extends BaseController {
           $billing_line->amount = $payment->amount;
           $billing_line->save();
 
-        } else {
+        } elseif ($this->stripe_transaction['paid']) {
 
           $unity_price = $order->unity_price;
           $delivery_fees = $order->delivery_fees;
@@ -284,7 +284,7 @@ class InvoicesController extends BaseController {
         $billing_line->amount = $payment->amount;
         $billing_line->save();
 
-      } else {
+      } elseif ($this->stripe_transaction['paid']) {
 
         $billing_line = new CompanyBillingLine;
         $billing_line->company_billing_id = $company_billing->id;
