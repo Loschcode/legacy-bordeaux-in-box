@@ -32,10 +32,10 @@ class HomeController extends BaseController {
     $next_series = DeliverySerie::nextOpenSeries();
 
     // Blog articles
-    $articles = BlogArticle::orderBy('id', 'DESC')->get();
+    $articles = BlogArticle::orderBy('id', 'DESC')->limit(14)->get();
 
     // Illustrations
-    $image_articles = ImageArticle::orderBy('id', 'desc')->limit(8)->get();
+    $image_articles = ImageArticle::orderBy('id', 'desc')->get();
 
     return view('masterbox.guest.home.index')->with(compact(
       'next_series', 
