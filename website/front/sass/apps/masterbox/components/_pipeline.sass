@@ -7,6 +7,7 @@
     color: white
     padding-bottom: 0.4vr
     margin-top: 3.1px
+  
 
   +part(dot)
     width: 20px
@@ -14,22 +15,23 @@
     border-radius: 50%
     margin-right: auto
     margin-left: auto
-    display: block
     background-color: white
+    display: none
     position: absolute
     top: 38px
     left: 0
     right: 0
 
+
     +option(complete)
-      background-color: color-get(yellow)
+      display: block
 
       &:after
         content: " "
         width: 12px
         height: 12px
         border-radius: 50%
-        background-color: color-dark(yellow, 20%)
+        background-color: white
         position: absolute
         z-index: 2
         left: 4px
@@ -38,7 +40,6 @@
   +part(description)
     text-align: center
     font-size: 0.42vr
-    color: color-dark(grey, 20%)
     +font-lato(300)
     padding-top: 0.5vr
     color: white
@@ -50,7 +51,8 @@
 
   +part(progress)
     position: relative
-    background-color: white
+    background-color: color-get(grey)
+    opacity: 0.5
     width: 100%
     height: 7px
     
@@ -59,12 +61,21 @@
       left: 50%
 
     +option(last)
-      width: 50%
+      width: 70%
 
     +option(complete)
-      background-color: color-get(yellow)
-
+      background-color: white
+      opacity: 1
   +part(step)
     position: relative
+
+
+  +part(end)
+    color: white
+    position: absolute
+    font-size: 25px
+    right: 24.9%
+    top: 21px
+    opacity: 0.5
 
 

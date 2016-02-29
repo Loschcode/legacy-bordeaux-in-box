@@ -53,6 +53,7 @@
 				<div class="pipeline__step">
 					<h2 class="pipeline__title">Etape 4</h2>
 					<div class="pipeline__progress --last {{ Html::pipelineComplete(4, $step) }}"></div>
+					<div class="pipeline__end"><i class="fa fa-caret-right"></i></div>
 					
 					@if (Html::pipelineStepCompleted(4, $step) && Html::pipelinePaymentStepDone($step))
 						<span class="pipeline__dot --complete"></span>
