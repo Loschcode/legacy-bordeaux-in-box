@@ -124,6 +124,7 @@ class DeliveriesController extends BaseController {
   {
 
     $series = DeliverySerie::find($id);
+    $orders = $series->orders()->notCanceledOrders()->get();
     $fresh_customer_profiles = $series->fresh_customer_profiles()->get();
     $order_buildings = $series->customer_order_buildings()->get();
 
@@ -134,6 +135,18 @@ class DeliveriesController extends BaseController {
 
     $daily_statistics = [];
     $hourly_statistics = [];
+    $price_statistics = [];
+
+    foreach ($orders as $order) {
+
+      $price = $order->unity_and_fees_price;
+
+      if (!isset($price_statistics["$price"]))
+        $price_statistics["$price"] = 1;
+      else
+        $price_statistics["$price"]++;
+
+    }
 
     /**
      * Unfinished customers count
@@ -199,7 +212,8 @@ class DeliveriesController extends BaseController {
     return view('masterbox.admin.deliveries.statistics')->with(compact(
       'series',
       'daily_statistics',
-      'hourly_statistics'
+      'hourly_statistics',
+      'price_statistics'
     ));
 
 

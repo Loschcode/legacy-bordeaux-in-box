@@ -76,7 +76,7 @@
 <table class="js-datatable-simple">
   <thead>
     <tr>
-      <th>Jour</th>
+      <th>Heure</th>
       <th>Nouveaux inscrits</th>
       <th>Commandes engagées</th>
       <th>Commandes finalisées</th>
@@ -87,12 +87,12 @@
     @foreach ($hourly_statistics as $hour => $hourly_statistic)
 
       <tr>
-        <th><strong>{{$hour}}</strong></th>
+        <th><strong>{{$hour}} heure(s)</strong></th>
 
           <th>
           
           @if (!isset($hourly_statistic['new_customers']))
-          N/A
+          0
           @else
           {{$hourly_statistic['new_customers']}}
           @endif
@@ -102,7 +102,7 @@
           <th>
 
           @if (!isset($hourly_statistic['order_buildings']))
-          N/A
+          0
           @else
           {{$hourly_statistic['order_buildings']}}
           @endif
@@ -112,7 +112,7 @@
           <th>
           
           @if (!isset($hourly_statistic['new_subscriptions']))
-          N/A
+          0
           @else
           {{$hourly_statistic['new_subscriptions']}}
           @endif
@@ -127,4 +127,36 @@
 
 </table>
 
+<!-- Price statistics -->
+<table class="js-datatable-simple">
+  <thead>
+    <tr>
+      <th>Prix</th>
+      <th>Nombre de commandes</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    @foreach ($price_statistics as $price => $price_statistic)
+
+      <tr>
+        <th><strong>{{euros($price)}}</strong></th>
+
+          <th>
+          
+          @if (!isset($price_statistic))
+          0
+          @else
+          {{$price_statistic}}
+          @endif
+
+          </th>
+
+      </tr>
+
+    @endforeach
+
+  </tbody>
+
+</table>
 @stop
