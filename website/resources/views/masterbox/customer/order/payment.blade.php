@@ -119,7 +119,7 @@
             <h3 class="payment__title">Livraison</h3>
             <p class="payment__description">
               @if ($order_preference->take_away)
-                A emporter dans un point relais<br/>
+                <a target="_blank" class="button button__link --with-icon" href="{{ gmap_link($order_building->getFullDestinationAddress(), $delivery_spot->getFullAddress()) }}"><i class="fa fa-external-link"></i> A emporter dans un point relais</a><br/>
               @else
                 A une adresse spécifique<br/>
               @endif
@@ -152,6 +152,10 @@
       </div>
     </div>
    
+    <div class="+spacer-small"></div>
+    <div class="+text-center">
+      <a class="button button__step" href="{{ action('MasterBox\Customer\PurchaseController@getDeliveryMode') }}"><i class="fa  fa-arrow-circle-o-left"></i> Revenir au choix du mode de livraison</a>
+    </div>
 
   </div>
 

@@ -53,6 +53,12 @@
       {!! Form::close() !!}
 
     </div>
+    
+    <div class="+spacer-small"></div>
+    <div class="+text-center">
+      <a class="button button__step" href="{{ action('MasterBox\Customer\PurchaseController@getBillingAddress') }}"><i class="fa  fa-arrow-circle-o-left"></i> Revenir à la livraison / facturation</a>
+    </div>
+
 
   </div>
 

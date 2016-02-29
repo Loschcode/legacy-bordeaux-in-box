@@ -99,7 +99,7 @@ class Index extends Controller
   # Init fancybox
   ##
   showcase: =>
-
+    
     $('.js-showcase').fancybox()
 
 

@@ -16,7 +16,7 @@
 <div class="container">
   
   {{-- Section --}}
-  <div class="grid-9 grid-centered">
+  <div class="grid-9 grid-11@xs grid-centered">
     <div class="section">
       <h2 class="section__title --choose-frequency">Choisis ton point relais</h2>
       <p class="section__description --choose-frequency">
@@ -27,7 +27,7 @@
   
   <div class="+spacer"></div>
 
-  <div class="grid-7 grid-centered labelauty-choose-spot">
+  <div class="grid-7 grid-11@xs grid-centered labelauty-choose-spot">
 
     {!! Form::open() !!}
     
@@ -47,6 +47,11 @@
     
 
     {!! Form::close()  !!}
+    
+    <div class="+spacer-small"></div>
+      <div class="+text-center">
+        <a class="button button__step" href="{{ action('MasterBox\Customer\PurchaseController@getDeliveryMode') }}"><i class="fa  fa-arrow-circle-o-left"></i> Revenir au choix du mode de livraison</a>
+      </div>
   </div>
 
 </div>

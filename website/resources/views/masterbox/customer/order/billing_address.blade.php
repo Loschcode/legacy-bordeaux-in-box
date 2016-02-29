@@ -281,6 +281,9 @@
       {!! Form::close() !!}
     </div>
     
+    <div class="+text-center">
+      <a class="button button__step" href="{{ action('MasterBox\Customer\PurchaseController@getChooseFrequency') }}"><i class="fa  fa-arrow-circle-o-left"></i> Revenir au choix de la fréquence</a>
+    </div>
 
   </div>
   
