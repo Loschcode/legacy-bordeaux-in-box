@@ -133,6 +133,7 @@ class DeliveriesController extends BaseController {
     //$orders_not_canceled = $series->orders()->notCanceledOrders()->get();
 
     $daily_statistics = [];
+    $hourly_statistics = [];
 
     /**
      * Unfinished customers count
@@ -140,11 +141,17 @@ class DeliveriesController extends BaseController {
     foreach ($order_buildings as $order_building) {
 
       $day = ucfirst(\Date::parse($order_building->created_at)->format('l'));
+      $hour = \Date::parse($order_building->created_at)->format('G');
 
       if (!isset($daily_statistics[$day]['order_buildings']))
-        $daily_statistics[$day]['order_buildings'] = 0;
+        $daily_statistics[$day]['order_buildings'] = 1;
       else
         $daily_statistics[$day]['order_buildings']++;
+
+      if (!isset($hourly_statistics[$hour]['order_buildings']))
+        $hourly_statistics[$hour]['order_buildings'] = 1;
+      else
+        $hourly_statistics[$hour]['order_buildings']++;
 
     }
 
@@ -154,11 +161,17 @@ class DeliveriesController extends BaseController {
     foreach ($fresh_customers as $customer) {
 
       $day = ucfirst(\Date::parse($customer->created_at)->format('l'));
+      $hour = \Date::parse($customer->created_at)->format('G');
 
       if (!isset($daily_statistics[$day]['new_customers']))
-        $daily_statistics[$day]['new_customers'] = 0;
+        $daily_statistics[$day]['new_customers'] = 1;
       else
         $daily_statistics[$day]['new_customers']++;
+
+      if (!isset($hourly_statistics[$hour]['new_customers']))
+        $hourly_statistics[$hour]['new_customers'] = 1;
+      else
+        $hourly_statistics[$hour]['new_customers']++;
 
     }
 
@@ -168,17 +181,25 @@ class DeliveriesController extends BaseController {
     foreach ($fresh_customer_payment_profiles as $customer_payment_profile) {
 
       $day = ucfirst(\Date::parse($customer_payment_profile->created_at)->format('l'));
+      $hour = \Date::parse($customer_payment_profile->created_at)->format('G');
 
       if (!isset($daily_statistics[$day]['new_subscriptions']))
-        $daily_statistics[$day]['new_subscriptions'] = 0;
+        $daily_statistics[$day]['new_subscriptions'] = 1;
       else
         $daily_statistics[$day]['new_subscriptions']++;
+
+      if (!isset($hourly_statistics[$hour]['new_subscriptions']))
+        $hourly_statistics[$hour]['new_subscriptions'] = 1;
+      else
+        $hourly_statistics[$hour]['new_subscriptions']++;
+
 
     }
 
     return view('masterbox.admin.deliveries.statistics')->with(compact(
       'series',
-      'daily_statistics'
+      'daily_statistics',
+      'hourly_statistics'
     ));
 
 

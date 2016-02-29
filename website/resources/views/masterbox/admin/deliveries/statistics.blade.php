@@ -16,6 +16,8 @@
 
 {!! Html::info("Statistiques détaillées pour la série") !!}
 
+
+<!-- Daily statistics -->
 <table class="js-datatable-simple">
   <thead>
     <tr>
@@ -34,19 +36,86 @@
 
           <th>
           
+          @if (!isset($daily_statistic['new_customers']))
+          N/A
+          @else
           {{$daily_statistic['new_customers']}}
+          @endif
 
           </th>
 
           <th>
-          
+
+          @if (!isset($daily_statistic['order_buildings']))
+          N/A
+          @else
           {{$daily_statistic['order_buildings']}}
+          @endif
 
           </th>
 
           <th>
           
+          @if (!isset($daily_statistic['new_subscriptions']))
+          N/A
+          @else
           {{$daily_statistic['new_subscriptions']}}
+          @endif
+
+          </th>
+
+      </tr>
+
+    @endforeach
+
+  </tbody>
+
+</table>
+
+<!-- Hourly statistics -->
+<table class="js-datatable-simple">
+  <thead>
+    <tr>
+      <th>Jour</th>
+      <th>Nouveaux inscrits</th>
+      <th>Commandes engagées</th>
+      <th>Commandes finalisées</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    @foreach ($hourly_statistics as $hour => $hourly_statistic)
+
+      <tr>
+        <th><strong>{{$hour}}</strong></th>
+
+          <th>
+          
+          @if (!isset($hourly_statistic['new_customers']))
+          N/A
+          @else
+          {{$hourly_statistic['new_customers']}}
+          @endif
+
+          </th>
+
+          <th>
+
+          @if (!isset($hourly_statistic['order_buildings']))
+          N/A
+          @else
+          {{$hourly_statistic['order_buildings']}}
+          @endif
+
+          </th>
+
+          <th>
+          
+          @if (!isset($hourly_statistic['new_subscriptions']))
+          N/A
+          @else
+          {{$hourly_statistic['new_subscriptions']}}
+          @endif
 
           </th>
 
