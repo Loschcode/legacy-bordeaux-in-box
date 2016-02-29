@@ -28,7 +28,8 @@
     "jquery.inputmask": "~3.2.7",
     "slicknav": "~1.0.5",
     "textarea-autosize": "~0.4.1",
-    "freewall": "~1.0.5"
+    "freewall": "~1.0.5",
+    "fancybox": "~2.1.5"
   },
   "overrides": {
     "reset-css": {
@@ -86,6 +87,12 @@
         "imagesloaded": "~3.1.8",
         "magnific-popup": "~1.0.0"
       }
+    },
+    "fancybox": {
+      "main": [
+        "source/jquery.fancybox.js",
+        "source/jquery.fancybox.css"
+      ]
     }
   }
 }

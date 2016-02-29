@@ -130,7 +130,7 @@
 	<div id="freewall-boxes">
 		@foreach ($image_articles as $article)
 			<div class="js-brick" style="width: 250px">
-					<a href="{{ action('MasterBox\Guest\IllustrationsController@getIllustration', ['slug' => $article->slug]) }}">
+					<a rel="showcase" class="js-showcase" title="{{ $article->title }}" href="{{ $article->image->full }}">
 						<img class="partner__picture" src="{{ Html::resizeImage('medium', $article->image->filename) }}" />
 					</a>
 			</div>

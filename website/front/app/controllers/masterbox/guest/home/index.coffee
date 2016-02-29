@@ -17,7 +17,7 @@ class Index extends Controller
     @smoothScroll()
     @freewallPartners()
     @freewallBoxes()
-
+    @showcase()
   ##
   # Run
   #
@@ -53,6 +53,9 @@ class Index extends Controller
     smoothScroll.init
       selector: '.js-anchor'
 
+  ##
+  # Freewall layout for boxes
+  ##
   freewallBoxes: =>
 
     wall = new freewall("#freewall-boxes")
@@ -71,6 +74,9 @@ class Index extends Controller
     
     $(window).trigger('resize')
 
+  ##
+  # Freewall partners layout
+  ##
   freewallPartners: =>
 
     wall = new freewall("#freewall-partners")
@@ -88,6 +94,15 @@ class Index extends Controller
       wall.fitWidth()
     
     $(window).trigger('resize')
+
+  ##
+  # Init fancybox
+  ##
+  showcase: =>
+
+    $('.js-showcase').fancybox()
+
+
 
 
 
