@@ -5,6 +5,9 @@
   {{-- Charset --}}
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
+  @section('meta-facebook')
+  @show
+
   {{-- Title --}}
   <title>Bordeaux In Box</title>
 
