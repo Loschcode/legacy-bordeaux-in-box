@@ -8,6 +8,12 @@
 	]) !!}
 @stop
 
+@section('meta-facebook')
+	@foreach ($image_articles as $image_article)
+		<meta property="og:image" content="{{ Html::resizeImage('large', $image_article->image->filename) }}" />
+	@endforeach
+@stop
+
 @section('header')
 @stop
 
