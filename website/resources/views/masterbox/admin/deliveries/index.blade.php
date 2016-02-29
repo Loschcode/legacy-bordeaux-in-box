@@ -5,7 +5,7 @@
 
   <div class="row">
     <div class="grid-8">
-      <h1 class="title title__section">Séries</h1>
+      <h1 class="title title__section"><i class="fa fa-bookmark"></i> Séries</h1>
     </div>
   </div>
 

@@ -1,5 +1,5 @@
-<li class="navbar__item"><a class="navbar__link" href="#" data-jq-dropdown="#logs">Logs <i class="fa fa-angle-down"></i></a></li>
-<li class="navbar__item"><a class="navbar__link" href="#" data-jq-dropdown="#configuration">Configuration <i class="fa fa-angle-down"></i></a></li>
+<li class="navbar__item"><a class="navbar__link" href="#" data-jq-dropdown="#logs"><i class="fa fa-tasks"></i> Logs <i class="fa fa-angle-down"></i></a></li>
+<li class="navbar__item"><a class="navbar__link" href="#" data-jq-dropdown="#configuration"><i class="fa fa-gear"></i> Configuration <i class="fa fa-angle-down"></i></a></li>
 
 <div id="logs" class="jq-dropdown jq-dropdown-tip">
   <ul class="jq-dropdown-menu">

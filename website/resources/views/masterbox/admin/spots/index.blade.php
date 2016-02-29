@@ -1,8 +1,8 @@
 @extends('masterbox.layouts.admin')
 
 @section('navbar')
-	{!! Html::addButtonNavbar('Actifs', action('MasterBox\Admin\SpotsController@getIndex', ['show' => 'active'])) !!}
-	{!! Html::addButtonNavbar('Hors lignes', action('MasterBox\Admin\SpotsController@getIndex', ['show' => 'unactive'])) !!}
+	{!! Html::addButtonNavbar('<i class="fa fa-toggle-on"></i> Actifs', action('MasterBox\Admin\SpotsController@getIndex', ['show' => 'active'])) !!}
+	{!! Html::addButtonNavbar('<i class="fa fa-toggle-off"></i> Hors lignes', action('MasterBox\Admin\SpotsController@getIndex', ['show' => 'unactive'])) !!}
 @stop
 
 @section('content')
