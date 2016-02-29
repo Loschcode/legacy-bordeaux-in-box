@@ -23,12 +23,6 @@
 
 @section('content')
 
-<!--
-<div class="artwork artwork__container">
-	<img class="artwork__picture" src="{{ url('images/artwork.png') }}" />
-</div>
--->
-
 <div class="hero">
 	<div class="hero__container" style="background-image: url('{{ url('images/teasing/teasing-mars.jpg') }}')">
 		<div class="hero__overlay"></div>

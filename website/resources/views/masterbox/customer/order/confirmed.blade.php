@@ -9,6 +9,11 @@
 <div class="page page__wrapper">
   <div class="container">
     <div class="grid-8 grid-centered grid-11@xs">
+
+      <div class="artwork artwork__container">
+        <img class="artwork__picture" src="{{ url('images/artwork.png') }}" />
+      </div>
+      
       <div class="typography">
 				<p class="+text-center">Ton paiement a été effectué et sera confirmé dans quelques minutes, toute l'équipe espère que tu passeras un agréable moment lorsque tu recevras ta box !</p>
       </div>
