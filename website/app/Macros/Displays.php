@@ -70,7 +70,7 @@ Html::macro('getTextCheckboxSpot', function($delivery_spot, $order_building = ''
     '<span class="labelauty-title">' . $delivery_spot->name . '</span>' .
     '<span class="labelauty-description"><i class="fa fa-map-marker labelauty-icon"></i>' . $delivery_spot->address . ', ' . $delivery_spot->city . ' (' . $delivery_spot->zip . ')</span>';
 
-  if ( ! empty($order_building)) {
+  if ( ! empty($order_building) && $delivery_spot->getDistanceFromCoordinate($order_building->destination_coordinate()->first()) > 0) {
     $output .= '<span class="labelauty-distance">Distance ' . display_distance($delivery_spot->getDistanceFromCoordinate($order_building->destination_coordinate()->first())) . '</span>';
   }
 

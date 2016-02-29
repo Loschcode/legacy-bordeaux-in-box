@@ -54,7 +54,7 @@ function display_distance($in_meters) {
 
   } elseif ($in_meters <= 0) {
 
-    return;
+    return 'Inconnue';
 
   } elseif ($in_meters < 10) {
 
