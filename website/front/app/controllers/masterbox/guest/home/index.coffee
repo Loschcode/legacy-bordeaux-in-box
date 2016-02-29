@@ -100,7 +100,10 @@ class Index extends Controller
   ##
   showcase: =>
     
-    $('.js-showcase').fancybox()
+    $('.js-showcase').fancybox
+      helpers:
+        overlay:
+          locked: false
 
 
 
