@@ -12,8 +12,8 @@
   <meta property="og:url" content="{{ Request::url() }}" />
   <meta property="og:type" content="article" />
   <meta property="og:title" content="{{ $blog_article->title }}" />
-  <meta property="og:description" content="{{ Str::words(strip_tags($blog_article->content), 50) }}" />
-  <meta property="og:image" content="{{ $blog_article->thumbnail->full }}" />
+  <meta property="og:description" content="{{ Str::words(strip_tags(Markdown::convertToHtml($blog_article->content)), 50) }}" />
+  <meta property="og:image" content="{{ Html::resizeImage('large', $blog_article->thumbnail->full) }}" />
 @stop
 
 @section('content')
