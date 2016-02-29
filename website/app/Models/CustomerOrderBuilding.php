@@ -115,6 +115,7 @@ class CustomerOrderBuilding extends Model {
 	public function isRegionalAddress()
 	{
 
+    // TO CHANGE AT SOME POINT
 		$region = substr($this->destination_zip, 0, 2);
 		
 		if ($region === '33') return TRUE;

@@ -136,10 +136,22 @@ class DeliveriesController extends BaseController {
     $daily_statistics = [];
     $hourly_statistics = [];
     $price_statistics = [];
+    $geo_statistics = [];
 
     foreach ($orders as $order) {
 
       $price = $order->unity_and_fees_price;
+      $is_local = $order->destination()->first()->isRegionalAddress();
+
+      if ($is_local)
+        $geo = 'Gironde';
+      else
+        $geo = 'National';
+
+      if (!isset($geo_statistics["$geo"]))
+        $geo_statistics["$geo"] = 1;
+      else
+        $geo_statistics["$geo"]++;
 
       if (!isset($price_statistics["$price"]))
         $price_statistics["$price"] = 1;
@@ -213,7 +225,8 @@ class DeliveriesController extends BaseController {
       'series',
       'daily_statistics',
       'hourly_statistics',
-      'price_statistics'
+      'price_statistics',
+      'geo_statistics'
     ));
 
 

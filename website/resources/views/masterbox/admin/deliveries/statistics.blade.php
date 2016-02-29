@@ -159,4 +159,38 @@
   </tbody>
 
 </table>
+
+
+<!-- Geo statistics -->
+<table class="js-datatable-simple">
+  <thead>
+    <tr>
+      <th>Zone</th>
+      <th>Nombre de commandes</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    @foreach ($geo_statistics as $geo => $geo_statistic)
+
+      <tr>
+        <th><strong>{{$geo}}</strong></th>
+
+          <th>
+          
+          @if (!isset($geo_statistic))
+          0
+          @else
+          {{$geo_statistic}}
+          @endif
+
+          </th>
+
+      </tr>
+
+    @endforeach
+
+  </tbody>
+
+</table>
 @stop

@@ -62,6 +62,17 @@ class OrderDestination extends Model {
 
 	}
 
+  public function isRegionalAddress()
+  {
+
+    // TO CHANGE AT SOME POINT
+    $region = substr($this->zip, 0, 2);
+    
+    if ($region === '33') return TRUE;
+    else return FALSE;
+
+  }
+
 	public function emailReadableDestination()
 	{
 
