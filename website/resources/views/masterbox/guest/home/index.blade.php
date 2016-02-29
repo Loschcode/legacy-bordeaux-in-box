@@ -14,7 +14,7 @@
 	<meta property="og:title" content="Bordeaux in Box" />
 	<meta property="og:description" content="Chaque début de mois, on emballe la Gironde et on te l'expédie dans une jolie box." />
 	@foreach ($image_articles as $image_article)
-		<meta property="og:image" content="{{ Html::resizeImage('large', $image_article->image->filename) }}" />
+		<meta property="og:image" content="{{ $image_article->image->filename }}" />
 	@endforeach
 @stop
 
