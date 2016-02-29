@@ -48,6 +48,7 @@
         <th>Prix</th>
         <th>Statut</th>
         <th>Derniers chiffres de carte</th>
+        <th>Factures</th>
         <th>Date</th>
         <th>Action</th>
       </tr>
@@ -82,6 +83,21 @@
           <th>{{ Html::euros($payment->amount) }}</th>
           <th>{!! Html::getReadablePaymentStatus($payment->paid) !!}</th>
           <th>{{$payment->last4}}</th>
+          <th>
+            @foreach ($payment->getCompanyBillings() as $company_billing)
+
+            <a class="button button__table --bill" data-jq-dropdown="#jq-dropdown-{{ $company_billing->id }}" href="#">{{ $company_billing->bill_id }} <i class="fa fa-angle-down"></i></a>
+            <div id="jq-dropdown-{{ $company_billing->id }}" class="jq-dropdown jq-dropdown-tip">
+              <ul class="jq-dropdown-menu">
+                <li><a target="_blank" href="{{ action('Company\Guest\BillingController@getWatch', ['encrypted_access' => $company_billing->encrypted_access]) }}">Voir la facture</a></li>
+                <li><a href="{{ action('Company\Guest\BillingController@getDownload', ['encrypted_access' => $company_billing->encrypted_access]) }}">Télécharger la facture</a></li>
+              </ul>
+            </div>
+            <br />
+
+           @endforeach
+
+          </th>
           <th>{{ Html::dateFrench($payment->created_at, true) }}</th>
           <th>
 
