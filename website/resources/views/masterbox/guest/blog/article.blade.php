@@ -13,7 +13,7 @@
   <meta property="og:type" content="article" />
   <meta property="og:title" content="{{ $blog_article->title }}" />
   <meta property="og:description" content="{{ Str::words(strip_tags(Markdown::convertToHtml($blog_article->content)), 50) }}" />
-  <meta property="og:image" content="{{ Html::resizeImage('medium', $blog_article->thumbnail->filename) }}" />
+  <meta property="og:image" content="{{ Html::resizeImage('large', $blog_article->thumbnail->filename) }}" />
 @stop
 
 @section('content')
