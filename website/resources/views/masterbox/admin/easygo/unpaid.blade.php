@@ -5,7 +5,7 @@
 <div class="row">
   <div class="grid-8">
     <h1 class="title title__section">EasyGo</h1>
-    <h3 class="title title__subsection">Commandes non payées série {{ Html::dateFrench($serie->delivery, true) }}</h3>
+    <h3 class="title title__subsection">Commandes non payées série {{ Html::dateFrench($serie->delivery, true) }} (#{{ $serie->id }})</h3>
   </div>
 </div>
 

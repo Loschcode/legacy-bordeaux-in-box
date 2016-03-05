@@ -1,0 +1,45 @@
++component(easygo)
+
+  +part(counter)
+    margin-top: 1vr
+    background-color: color-get(grey)
+    display: inline-block
+    border-radius: 5px
+    padding:
+      right: 0.3vr
+      left: 0.3vr
+      top: 0.1vr
+      bottom: 0.1vr
+
+  +part(unpaid)
+    padding:
+      top: 0.05vr
+      bottom: 0.05vr
+      left: 0.3vr
+    font-weight: 700
+    color: color-get(red)
+    border-left: 4px solid color-get(red)
+
+  +part(link)
+    font-weight: 300
+    font-size: 0.45vr
+    display: block
+
+    +option(active)
+      color: color-get(blue-flat)
+      font-weight: 700
+
+  +part(title)
+    font-weight: 700
+
+  +part(label)
+    padding: 0.2vr
+    color: white
+    font-weight: 700
+    border-radius: 5px
+
+    +option(green)
+      background-color: color-get(green-flat)
+
+    +option(red)
+      background-color: color-get(red)

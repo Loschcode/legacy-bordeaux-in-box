@@ -6,81 +6,67 @@
   <?php
     $i++;
   ?>
-
-  <div class="order">
-    <div class="order__header">
-      <img title="Box Principale" class="order__image" src="{{ url('images/macaron-masterbox.png') }}">
-      <p class="order__title">
-        @if ($order->already_paid == 0)
-          <i class="fa fa-exclamation-triangle" style="color: red"></i>
-        @endif
-        N°{{ $i }} - {{ $order->customer_profile()->first()->customer()->first()->getFullName() }}
-      </p>
+  
+  <div class="panel panel__wrapper">
+    <div class="panel__header">
+      <h1 class="panel__title">
+      @if ($order->already_paid == 0)
+        <i class="fa fa-exclamation-triangle" style="color: red"></i>
+      @endif
+      N° {{ $i }} - {{ $order->customer_profile()->first()->customer()->first()->getFullName() }}</h1>
     </div>
+    <div class="panel__content">
 
-    <div class="spacer"></div>
-
-    <div class="order__content">
-      <div class="center">
-        <span class="button --lg --disabled --inverse">
-          Anniversaire:
+      <div class="row">
+        <div class="grid-10">
           @if ($order->customer_profile()->first()->isBirthday())
-            <i class="fa fa-check" style="color: green"></i>
+            <span class="easygo__label --green">Anniversaire: Oui</span>
           @else
-           <i class="fa fa-times"></i>
+            <span class="easygo__label --red">Anniversaire: Non</span>
           @endif
 
-        </span>
-
-        <span class="button --lg --disabled --default">
-          Marraine:
-          @if ($order->customer_profile()->first()->isSponsor())
-            <i class="fa fa-check" style="color: green"></i>
-          @else
-            <i class="fa fa-times"></i>
-          @endif
-        </span>
-
-        <span class="button --lg --disabled --default">
-          Cadeau:
           @if ($order->gift == true)
-            <i class="fa fa-check" style="color: green"></i>
+            <span class="easygo__label --green">Cadeau: Oui</span>
           @else
-            <i class="fa fa-times"></i>
+            <span class="easygo__label --red">Cadeau: Non</span>
           @endif
-        </span>
+
+          @if ($order->customer()->first()->orders()->notCanceledOrders()->where('status', 'delivered')->count() == 0)
+            <span class="easygo__label --green">Nouvelle cliente: Oui</span>
+          @else
+            <span class="easygo__label --red">Nouvelle cliente: Non ({{ $order->customer()->first()->orders()->notCanceledOrders()->where('status', 'delivered')->count() }} livrées)</span>
+          @endif
+
+
+        </div>
+        <div class="grid-2 +text-right">
+            <a target="_blank" class="button__default --green" href="{{ action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $order->customer_profile()->first()->id]) }}"><i class="fa fa-external-link"></i> En savoir plus</a>
+        </div>
+      </div>
+      
+      <div class="+spacer-extra-small"></div>
+      <div class="divider divider__section"></div>
+      
+      <div class="typography">
+
+        <strong>Age</strong><br/>
 
         @if (Html::getAge($order->customer_profile()->first()->getAnswer('birthday')) != 0)
-          <span class="button --lg --disabled --default">
-            {{ Html::getAge($order->customer_profile()->first()->getAnswer('birthday')) }} ans
-          </span>
+          {{ Html::getAge($order->customer_profile()->first()->getAnswer('birthday')) }} ans
         @else
-          <span class="button --lg --disabled --default">
-            N/A
-          </span>
+          N/A
         @endif
 
-        <a target="_blank" class="button --lg --primary" href="{{ action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $order->customer_profile()->first()->id]) }}">En savoir plus</a>
-
+        {!! Html::displayQuizz($order->customer_profile()->first(), ' ', true) !!}
       </div>
 
-      <div class="spacer"></div>
-
-      {!! Html::displayQuizz($order->customer_profile()->first()) !!}
-
-      <div class="spacer"></div>
-
-      <div class="center">
-        <a href="{{ action('MasterBox\Admin\OrdersController@getConfirmReady', ['id' => $order->id]) }}" class="button --success --xl">La box est prête</a>
-
-      </div>
+        <div class="center">
+          <a data-confirm-text="La box est-elle vraiment prête ?" href="{{ action('MasterBox\Admin\OrdersController@getConfirmReady', ['id' => $order->id]) }}" class="button__default --blue js-confirm">La box est prête</a>
+        </div>
 
     </div>
-
-    <div class="spacer"></div>
-
-
   </div>
+  
+  <div class="+spacer-small"></div>
 
-  <div class="spacer --lg"></div>
 @endforeach
