@@ -87,7 +87,12 @@ class EasyGoController extends BaseController {
     // Fetch orders 
     $orders =  Order::with('customer_profile', 'customer')->LockedOrdersWithoutOrder()->notCanceledOrders()->get();
 
-    return view('masterbox.admin.easygo.unpaid')->with(compact('orders'));
+    $serie = DeliverySerie::whereNotNull('closed')->orderBy('id', 'desc')->first();
+
+    return view('masterbox.admin.easygo.unpaid')->with(compact(
+      'orders',
+      'serie'
+    ));
 
   }
 
