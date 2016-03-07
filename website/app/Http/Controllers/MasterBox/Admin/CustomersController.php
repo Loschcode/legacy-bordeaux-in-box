@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\MasterBox\BaseController;
 
-use Request, Validator;
+use Request, Validator, Hash;
 use App\Models\Customer;
 use App\Models\Coordinate;
 
