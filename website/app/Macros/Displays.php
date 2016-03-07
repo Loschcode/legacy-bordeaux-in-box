@@ -193,8 +193,11 @@ Html::macro('displayQuizz', function ($profile, $spacer=" ", $long=false) {
 
   foreach ($questions as $question) {
 
-    if ((($long) && (empty($question->short_question))) or (empty($question->short_question))) $final_question = $question->question;
-    else $final_question = $question->short_question;
+    if ($long or empty($question->short_question)) {
+      $final_question = $question->question;
+    } else {
+      $final_question = $question->short_question;
+    }
 
     $output .= '<strong>' . $final_question . '</strong><br/>';
 
@@ -215,21 +218,19 @@ Html::macro('displayQuizz', function ($profile, $spacer=" ", $long=false) {
 
     } else {
 
-      if ($question->answers()->first() == NULL) {
-
+      if ($old_reply->count() == 0) {
         $output .= 'N/A';
+      } else {
+        foreach ($old_reply->get() as $answer) {
 
-      }
+          $output .= $answer->answer.$spacer;
 
-      foreach ($old_reply->get() as $answer) {
-
-        $output .= $answer->answer.$spacer;
-
+        }
       }
 
     }
 
-    $output .= '<br /><br/>';
+    $output .= '<br/>';
 
   }
 
@@ -237,3 +238,4 @@ Html::macro('displayQuizz', function ($profile, $spacer=" ", $long=false) {
   return $output;
 
 });
+
