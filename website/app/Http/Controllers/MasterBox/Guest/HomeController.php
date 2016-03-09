@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\MasterBox\BaseController;
 
+use Auth;
+
 use App\Models\DeliverySerie;
 use App\Models\BlogArticle;
 use App\Models\DeliverySpot;
@@ -25,6 +27,9 @@ class HomeController extends BaseController {
    */
   public function getIndex()
   {
+    
+    /*$navette_pickup = \App\Libraries\NavettePickUp::findSpotsFromCoordinates(48.856614, 2.3522219000000177);
+    dd($navette_pickup);*/
 
     //$coord = \App\Libraries\GoogleGeocoding::getCoordinates('18 allée pierre corneille', 'Gujan-mestras', '33470');
     //dd($coord);
