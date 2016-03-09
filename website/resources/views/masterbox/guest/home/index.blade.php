@@ -24,7 +24,7 @@
 @section('content')
 
 <div class="hero">
-	<div class="hero__container" style="background-image: url('{{ url('images/teasing/teasing-mars.jpg') }}')">
+	<div class="hero__container" style="background-image: url('{{ url('images/teasing/teasing-avril.jpg') }}')">
 		<div class="hero__overlay"></div>
 		<div class="hero__content">
 
@@ -38,7 +38,7 @@
 				</div>
 			</div>
 
-			<h3>Bordeaux in Box met de la couleur dans votre box en mars.</h3>
+			<h3>En Avril, craquez pour des gourmandises 100% girondines.</h3>
 			
 			<div class="+spacer"></div>
 			
@@ -51,7 +51,7 @@
 			@include('masterbox.partials.counter_call_actions')
 
 			<div class="+text-right">
-				<h1>#Colorful</h1>
+				<h1>#Gourmandise</h1>
 			</div>
 		</div>
 	</div>
