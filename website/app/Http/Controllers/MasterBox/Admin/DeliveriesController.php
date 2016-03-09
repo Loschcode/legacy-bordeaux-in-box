@@ -77,10 +77,29 @@ class DeliveriesController extends BaseController {
 
     $series = DeliverySerie::find($id);
     $orders = $series->orders()->notCanceledOrders()->get();
+    //\DB::enableQueryLog();
+    $not_paid_orders_num = $series->orders()->notCanceledOrders()->notFullyPaidOrders()->count();
+    //dd(\DB::getQueryLog());
 
     return view('masterbox.admin.deliveries.focus')->with(compact(
       'series',
-      'orders'
+      'orders',
+      'not_paid_orders_num'
+    ));
+
+  }
+
+  public function getNotPaidOrders($id)
+  {
+
+    $series = DeliverySerie::find($id);
+    $orders = $series->orders()->notCanceledOrders()->notFullyPaidOrders()->get();
+    $not_paid_orders_num = $orders->count();
+
+    return view('masterbox.admin.deliveries.focus')->with(compact(
+      'series',
+      'orders',
+      'not_paid_orders_num'
     ));
 
   }

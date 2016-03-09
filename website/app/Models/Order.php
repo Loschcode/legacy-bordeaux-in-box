@@ -292,6 +292,13 @@ class Order extends Model {
 
 	}
 
+  public function scopeNotFullyPaidOrders($query)
+  {
+
+    return $query->where('orders.already_paid', '<', \DB::raw('orders.unity_and_fees_price'));
+
+  }
+
 	// BE CAREFUL : This algorithm work only if the spots stay regional (i guess for a while considering our expansion is very slow)
 	// We should change it if we grow
 	public function scopeRegionalOrders($query)

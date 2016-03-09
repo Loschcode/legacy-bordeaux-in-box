@@ -20,6 +20,10 @@
 
 	<a class="button button__default" href="{{url('/admin/deliveries/download-csv-spots-orders-from-series/'.$series->id)}}">CSV des commandes à points relais de la série</a>
 
+  @if ($not_paid_orders_num > 0)
+  <a class="button button__default --red" href="{{url('/admin/deliveries/not-paid-orders/'.$series->id)}}">Commandes non payées ({{$not_paid_orders_num}})</a>
+  @endif
+
 
   <table class="js-datatable-simple">
 
