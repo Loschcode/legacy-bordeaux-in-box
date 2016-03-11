@@ -28,7 +28,7 @@ class HomeController extends BaseController {
   public function getIndex()
   {
     
-    /*$navette_pickup = \App\Libraries\NavettePickUp::findSpotsFromCoordinates(48.856614, 2.3522219000000177);
+    /*$navette_pickup = \App\Libraries\NavettePickUp::findSpotsFromCoordinates();
     dd($navette_pickup);*/
 
     //$coord = \App\Libraries\GoogleGeocoding::getCoordinates('18 allée pierre corneille', 'Gujan-mestras', '33470');

@@ -35,6 +35,8 @@ class NavettePickUp {
       // We get the results
       $raw_results = $client->GetPudo($parameters);
 
+      //dd("REQUEST:\n" . $client->__getLastRequest() . "\n");
+
       // We collect the spots results
       $pudo_results = $raw_results->GetPudoResult;
 
