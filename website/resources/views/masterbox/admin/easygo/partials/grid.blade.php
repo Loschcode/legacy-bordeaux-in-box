@@ -31,14 +31,34 @@
               @else
                 <span class="label__default --red">Nouvelle cliente: Non ({{ $order->customer()->first()->orders()->notCanceledOrders()->where('status', 'delivered')->count() }} livrées)</span>
               @endif
-
-
+              
                 <a target="_blank" class="button__default --green" href="{{ action('MasterBox\Admin\ProfilesController@getFocus', ['id' => $order->customer_profile()->first()->id]) }}"><i class="fa fa-external-link"></i> En savoir plus</a>
           
           <div class="+spacer-extra-small"></div>
           <div class="divider divider__section"></div>
           
           <div class="typography">
+            
+            @if ($order->take_away === false)
+                
+              <strong>Téléphone</strong><br/>
+
+              {{ $order->customer()->first()->phone_format }}<br/>
+
+              <strong>Adresse</strong><br/>
+              {{ $order->destination()->first()->first_name }}
+              {{ $order->destination()->first()->last_name }}<br/>
+
+              {{ $order->destination()->first()->address }},
+              {{ $order->destination()->first()->city }}
+              ({{ $order->destination()->first()->zip }})
+              <br/>
+
+            @endif
+
+
+
+
 
             <strong>Age</strong><br/>
 
