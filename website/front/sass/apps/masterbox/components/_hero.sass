@@ -1,28 +1,45 @@
 +component(hero)
   
-  +part(decorate)
-    background: rgba(0,0,0,0.45)
-    padding-top: 0.5vr
-    padding-bottom: 0.5vr
+  +part(title)
+    +font-amatic(700)
+    font-size: 1.2vr
+    display: block
+    margin-bottom: 1vr
+    word-spacing: 5px
+
+    +option(long-text)
+      font-size: 1vr
+
+  +part(divider)
+    width: 100%
+    border-bottom: 2px solid color-get(grey)
 
   +part(container)
     margin:
       bottom: 1vr
     width: 100%
+    height: 13.5vr
     position: relative
     background-size: cover
-    background-position: center 80%
-    background-color: color-get(dark)
+    background-position: center 70%
+    background-color: white
+
 
   +part(overlay)
     position: absolute
     height: 100%
     width: 100%
-    background-color: black
+    background-color: color-get(dark)
     opacity: 0.14
 
   +part(content)
-    position: relative
+    width: 88%
+    position: absolute
+    bottom: 30%
+    left: 0
+    right: 0
+    margin-right: auto
+    margin-left: auto
     text-align: center
     color: white
     padding-top: 0.2vr
@@ -39,7 +56,3 @@
       margin-top: 0.4vr
       font-weight: 700
       +font-lato
-
-
-  +part(logo)
-    padding-top: 2.4vr

@@ -61,10 +61,11 @@ class Index extends Controller
     wall = new freewall("#freewall-boxes")
 
     wall.reset
-      selector: '.js-brick',
-      animate: true,
-      cellW: 220,
-      cellH: 'auto',
+      selector: '.js-brick'
+      animate: true
+      cellW: 220
+      cellH: 'auto'
+
 
       onResize: ->
         wall.fitWidth()

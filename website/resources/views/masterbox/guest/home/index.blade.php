@@ -18,52 +18,43 @@
 	@endforeach
 @stop
 
-@section('header')
-@stop
-
 @section('content')
+	
+	  <ul id="slider">
+	    <li>
+		    <div class="hero">
+		    	<div class="hero__container" style="background-image: url('{{ url('images/box-february/cover.jpg') }}');">
+		    		<div class="hero__overlay" style="opacity: 0.5"></div>
+						
 
-<div class="hero">
-	<div class="hero__container" style="background-image: url('{{ url('images/teasing/teasing-avril.jpg') }}')">
-		<div class="hero__overlay"></div>
-		<div class="hero__content">
+			    		<div class="hero__content">	
+			    			<h2 class="hero__title --long-text">Tous les mois, des créations de Bordeaux et sa région <br/> directement envoyés chez vous, où que vous soyez !</h2>
+			    			<a href="#" class="button__hero">S'abonner</a>
 
-			@include('masterbox.partials.navbar', ['navbar_home' => true])
-			
-			<div class="hero__logo">
-				<div class="grid-4 grid-11@xs grid-centered">
-					<div class="logo">
-						<img class="logo__picture" src="{{ url('images/logo-white.png') }}" />
-					</div>
-				</div>
-			</div>
+			    						
+			    		</div>
+		    	</div>
+		    </div>
+	    </li>
+	        <li>
+	    	    <div class="hero">
+	    	    	<div class="hero__container" style="background-image: url('{{ url('images/teasing/teasing-avril.jpg') }}')">
+	    	    		<div class="hero__overlay"></div>
+	    					
+								
+	    		    		<div class="hero__content">	
+	    		    			<h2 class="hero__title">En Avril, craquez pour des gourmandises 100% girondines.</h2>
+	    		    			<a class="button__hero">S'abonner</a>
+	    		    		</div>
+	    	    	</div>
+	    	    </div>
+	        </li>
+	  
+	  </ul>
 
-			<h3>En Avril, craquez pour des gourmandises 100% girondines.</h3>
-			
-			<div class="+spacer"></div>
-			
-			<div class="hero__decorate">
-				<div class="container">
-					@include('masterbox.partials.buttons_call_actions', ['button' => 'button__home-action'])
-				</div>
-			</div>
 
-			@include('masterbox.partials.counter_call_actions')
-
-			<div class="+text-right">
-				<h1>#Gourmandise</h1>
-			</div>
-		</div>
-	</div>
-</div>
 
 <!--
-<div class="grid-11@xs gr-centered@xs">
-	<div class="title --home-punchline">Des surprises tout les mois dans une petite boîte rien que pour toi !</div>
-</div>
--->
-
-
 <div class="container grid-11@xs gr-centered@xs">
 	{{-- Section how it works --}}
 	<div id="how-to" class="section">
@@ -71,8 +62,9 @@
 		<p class="section__description">Plaisir perso ou idée cadeau, voici comment ça marche !</p>
 	</div>
 </div>
+-->
 
-
+<!--
 <div class="container-static">
 	<div class="row">
 		<div class="grid-4 grid-11@xs gr-centered@xs">
@@ -137,43 +129,6 @@
 		@endforeach
 	</div>
 
-	<!--
-	<div class="row">
-		<div class="grid-4 background background__green">
-			<div class="product">
-				<div class="product__picture-container">
-					<img class="product__picture" src="{{ url('images/products/cake.png') }}" />
-				</div>
-				<h3 class="product__title">Des produits prêts à manger</h3>
-				<p class="product__description">
-					Du vin, forcément on est à Bordeaux, des macarons, du thé, des chocolats et plein d'autres choses à croquer salées ou sucrées !
-				</p>
-			</div>
-		</div>
-		<div class="grid-4 background background__yellow">
-			<div class="product">
-				<div class="product__picture-container">
-					<img class="product__picture --underwear" src="{{ url('images/products/underwear.png') }}" />
-				</div>
-				<h3 class="product__title">Des objets prêts à utiliser</h3>
-				<p class="product__description">
-					Des produits de beauté, des jolis bijoux, des accessoires originaux pour les enfants ou pour les grands,				
-				</p>
-			</div>
-		</div>
-		<div class="grid-4 background background__pink">
-			<div class="product">
-				<div class="product__picture-container">
-					<img class="product__picture --glasses" src="{{ url('images/products/glasses.png') }}" />
-				</div>
-				<h3 class="product__title">Des offres prêtes à tester</h3>
-				<p class="product__description">
-					Places de concert, séances de bien-être, repas pour 2, visites culturelles, en plus des événements organisés par Bordeaux in Box.
-				</p>
-			</div>
-		</div>
-		-->
-
 		
 		<div class="+spacer-extra-small"></div>
 
@@ -181,11 +136,13 @@
 
 </div>
 <div class="clear"></div>
+-->
 
 <div class="container">
 	{{-- Section Partners --}}
 	<div class="section">
-		<h1 class="section__title">Nos complices</h1>
+		<h1 class="section__title --clear-space">Nos complices</h1>
+		<p class="section__description">Plus de 120 marques dénichées actuellement !</p>
 	</div>
 </div>
 
@@ -203,7 +160,7 @@
 		@endforeach
 	</div>
 
-
+	<div class="+spacer-small"></div>
 	<div class="grid-5 grid-centered grid-11@xs">
 		<a class="button button__home-partner" href="{{ action('MasterBox\Guest\BlogController@getIndex') }}">Voir les autres boutiques complices ...</a>
 	</div>
@@ -213,14 +170,11 @@
 <div class="+spacer"></div>
 
 
-{{-- Section seen --}}
-<div class="container hide@xs">
-	<div class="section">
-		<h1 class="section__title">Ils parlent de nous</h1>
-	</div>
-</div>
 
 	<div class="seen seen__wrapper hide@xs">
+		<div class="section">
+			<h1 class="section__title --clear-space">Ils parlent de nous</h1>
+		</div>
 		<div class="container-static">
 			<div class="row seen__line">
 				<div class="grid-2">
@@ -248,8 +202,13 @@
 		</div>
 	</div>
 
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#slider").lightSlider({item: 1, loop: true, slideMargin: 0, pager: false, auto: true, pause: 5000, speed: 1000});
+    });
+</script>
 @stop
 
 @section('footer-spacer')
 @stop
+

@@ -53,27 +53,8 @@
   @show
   
   @section('header')
-    
-    <div class="navbar__background" style="background-image: url('{{ url('images/teasing/teasing-avril.jpg') }}')">
-      <div class="navbar__background-overlay"></div>
-      <div class="row">
-        <div class="grid-3 grid-11@xs gr-centered@xs">
-          {{-- Logo --}}
-          <div class="logo">
-            <a href="{{ action('MasterBox\Guest\HomeController@getIndex') }}" class="logo__link">
-              <img class="logo__picture" src="{{ url('images/logo-white.png') }}" />
-            </a>
-          </div>
-        </div>
-        <div class="grid-9 grid-12@xs">
-          @section('navbar-links')
-            <div class="+spacer-small"></div>
-            {{-- Navbar --}}
-            @include('masterbox.partials.navbar', ['navbar_home' => true])
-          @show
-        </div>
-      </div>
-    </div>
+    @include('masterbox.partials.navbar')
+
   @show
 
   @yield('content')
