@@ -1586,6 +1586,7 @@ Index = (function(superClass) {
   extend(Index, superClass);
 
   function Index() {
+    this.slider = bind(this.slider, this);
     this.showcase = bind(this.showcase, this);
     this.freewallPartners = bind(this.freewallPartners, this);
     this.freewallBoxes = bind(this.freewallBoxes, this);
@@ -1597,7 +1598,8 @@ Index = (function(superClass) {
     this.smoothScroll();
     this.freewallPartners();
     this.freewallBoxes();
-    return this.showcase();
+    this.showcase();
+    return this.slider();
   };
 
   Index.prototype.run = function() {
@@ -1664,6 +1666,18 @@ Index = (function(superClass) {
           locked: false
         }
       }
+    });
+  };
+
+  Index.prototype.slider = function() {
+    return $('#slider').lightSlider({
+      item: 1,
+      loop: true,
+      slideMargin: 0,
+      pager: false,
+      auto: true,
+      pause: 5000,
+      speed: 1000
     });
   };
 

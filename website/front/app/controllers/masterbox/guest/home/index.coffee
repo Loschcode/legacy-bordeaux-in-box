@@ -18,6 +18,8 @@ class Index extends Controller
     @freewallPartners()
     @freewallBoxes()
     @showcase()
+    @slider()
+
   ##
   # Run
   #
@@ -106,6 +108,18 @@ class Index extends Controller
         overlay:
           locked: false
 
+  ##
+  # Init the home slider
+  ##
+  slider: =>
+    $('#slider').lightSlider
+      item: 1
+      loop: true
+      slideMargin: 0
+      pager: false
+      auto: true
+      pause: 5000
+      speed: 1000
 
 
 

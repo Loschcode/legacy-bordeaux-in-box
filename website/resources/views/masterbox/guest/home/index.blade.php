@@ -205,11 +205,6 @@
 		</div>
 	</div>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#slider").lightSlider({item: 1, loop: true, slideMargin: 0, pager: false, auto: true, pause: 5000, speed: 1000});
-    });
-</script>
 @stop
 
 @section('footer-spacer')
