@@ -36,7 +36,7 @@
         <div class="concept__picture-container">
           <img class="concept__picture" src="{{ url('images/box-february/jock.jpg') }}">
         </div>
-        <span class="concept__picture-details">Préparation pour un mug cake au chocolat </span>
+        <span class="concept__picture-details">Préparation pour un mug cake au chocolat de Jock</span>
 
       </div>
 
@@ -51,7 +51,7 @@
     
 
     <div class="row">
-      <div class="grid-4 grid-11@xs gr-centered@xs">
+      <div class="grid-4 push-2 grid-11@xs gr-centered@xs">
         <div class="concept__picture-container">
           <img class="concept__picture" src="{{ url('images/box-february/diy.jpg') }}">
         </div>
@@ -59,19 +59,12 @@
 
       </div>
 
-      <div class="grid-4 grid-11@xs gr-centered@xs">
+      <div class="grid-4 push-2 grid-11@xs gr-centered@xs">
         <div class="concept__picture-container">
           <img class="concept__picture" src="{{ url('images/box-february/clean.jpg') }}">
         </div>
         <span class="concept__picture-details">Dissolvant sans acétone parfumé à la pêche de L’Onglerie</span>
 
-      </div>
-
-      <div class="grid-4 grid-11@xs gr-centered@xs">
-        <div class="concept__picture-container">
-          <img class="concept__picture" src="{{ url('images/box-february/global.jpg') }}">
-          <span class="concept__picture-details">Vue générale de la box</span>
-        </div>
       </div>
     </div>
 
