@@ -55,6 +55,9 @@
   @section('header')
     @include('masterbox.partials.navbar')
 
+    @section('header-divider')
+      <div class="hero__divider"></div>
+    @show
   @show
 
   @yield('content')

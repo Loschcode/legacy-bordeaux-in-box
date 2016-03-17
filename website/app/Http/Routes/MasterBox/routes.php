@@ -115,7 +115,7 @@ Route::group(['namespace' => 'MasterBox', 'prefix' => '', 'middleware' => ['web'
     Route::get('/cgv', 'HomeController@getCgv');
     Route::get('/help', 'HomeController@getHelp');
     Route::get('/spots', 'HomeController@getSpots');
-    Route::get('/last-boxes', 'HomeController@getLastBoxes');
+    Route::get('/last-boxs', 'HomeController@getLastBoxs');
     Route::get('/concept', 'HomeController@getConcept');
 
     Route::get('', 'HomeController@getIndex');

@@ -18,6 +18,9 @@
 	@endforeach
 @stop
 
+@section('header-divider')
+@stop
+
 @section('content')
 	
 	  <ul id="slider">

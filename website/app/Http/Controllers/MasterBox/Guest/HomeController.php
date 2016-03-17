@@ -96,14 +96,14 @@ class HomeController extends BaseController {
     ));
   }
 
-  public function getLastBoxes()
+  public function getLastBoxs()
   {
 
   }
 
   public function getConcept()
   {
-    
+
   }
 
 
