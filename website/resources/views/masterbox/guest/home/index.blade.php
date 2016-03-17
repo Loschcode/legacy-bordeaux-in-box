@@ -2,9 +2,7 @@
 
 @section('gotham')
 	{!! Html::gotham([
-		'controller' => 'masterbox.guest.home.index',
-		'no-boxes-title' => 'Désolé',
-		'no-boxes-text' => 'Il ne reste plus aucune box pour ce mois ci !',
+		'controller' => 'masterbox.guest.home.index'
 	]) !!}
 @stop
 
@@ -32,7 +30,17 @@
 
 			    		<div class="hero__content">	
 			    			<h2 class="hero__title --long-text">Tous les mois, des créations de Bordeaux et sa région <br/> directement envoyés chez vous, où que vous soyez !</h2>
-			    			<a href="#" class="button__hero">S'abonner</a>
+			    			@if ($next_series->first() !== NULL)
+			    			  @if ($next_series->first()->getCounter() !== 0 || $next_series->first()->getCounter() === FALSE)
+			    			    
+			    					<a href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}" class="button__hero">S'abonner</a>
+			    				@endif
+			    			@endif
+
+			    			@if ($next_series->first() === NULL or $next_series->first()->getCounter() === 0)
+									<a href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}" class="button__hero js-no-boxes">S'abonner</a>
+
+								@endif
 
 			    						
 			    		</div>

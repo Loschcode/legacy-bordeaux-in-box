@@ -454,11 +454,14 @@ module.exports = Default;
 });
 
 ;require.register("bootstrap/masterbox", function(exports, require, module) {
-var Masterbox;
+var Masterbox,
+  bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 Masterbox = (function() {
   function Masterbox() {
+    this.alertNoBoxes = bind(this.alertNoBoxes, this);
     this.responsiveMenu();
+    this.alertNoBoxes();
   }
 
   Masterbox.prototype.responsiveMenu = function() {
@@ -469,6 +472,20 @@ Masterbox = (function() {
     } else {
       return $('.js-menu').slicknav();
     }
+  };
+
+  Masterbox.prototype.alertNoBoxes = function(e) {
+    return $('.js-no-boxes').on('click', (function(_this) {
+      return function() {
+        return swal({
+          title: 'Désolé',
+          text: 'Il ne reste plus aucune box pour ce mois-ci',
+          type: 'error',
+          confirmButtonColor: '#D83F66',
+          html: true
+        });
+      };
+    })(this));
   };
 
   return Masterbox;
@@ -1590,7 +1607,6 @@ Index = (function(superClass) {
     this.showcase = bind(this.showcase, this);
     this.freewallPartners = bind(this.freewallPartners, this);
     this.freewallBoxes = bind(this.freewallBoxes, this);
-    this.alertNoBoxes = bind(this.alertNoBoxes, this);
     return Index.__super__.constructor.apply(this, arguments);
   }
 
@@ -1602,20 +1618,7 @@ Index = (function(superClass) {
     return this.slider();
   };
 
-  Index.prototype.run = function() {
-    return this.on('click', '.js-no-boxes', this.alertNoBoxes);
-  };
-
-  Index.prototype.alertNoBoxes = function(e) {
-    e.preventDefault();
-    return swal({
-      title: $('#gotham').data('no-boxes-title'),
-      text: $('#gotham').data('no-boxes-text'),
-      type: 'error',
-      confirmButtonColor: '#D83F66',
-      html: true
-    });
-  };
+  Index.prototype.run = function() {};
 
   Index.prototype.smoothScroll = function() {
     return smoothScroll.init({
