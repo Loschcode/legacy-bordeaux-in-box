@@ -32,7 +32,7 @@ class MasterBox_Guest_HomeControllerTest extends TestCase
       ->seePageIs('/');
 
     $this->click('L\'offrir')->seePageIs('/');
-    $this->click('La recevoir')->seePageIs('/');
+    $this->click('S\'abonner')->seePageIs('/');
 
   }
 
@@ -49,7 +49,7 @@ class MasterBox_Guest_HomeControllerTest extends TestCase
 
     $this->visit('/');
 
-    $this->click('La recevoir')->seePageIs('customer/purchase/choose-frequency');
+    $this->click('S\'abonner')->seePageIs('customer/purchase/choose-frequency');
 
   }
 

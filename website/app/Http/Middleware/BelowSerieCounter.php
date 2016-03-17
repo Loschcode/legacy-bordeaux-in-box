@@ -19,10 +19,11 @@ class BelowSerieCounter {
     $next_serie = DeliverySerie::nextOpenSeries()->first();
 
     /**
-     * We the counter is done
+     * We check if the counter is done
      */
-    if (($next_serie->getCounter() !== FALSE) && ($next_serie->getCounter() <= 0))
+    if ($next_serie == NULL || ($next_serie->getCounter() !== FALSE) && ($next_serie->getCounter() <= 0)) {
       return redirect()->action('MasterBox\Guest\HomeController@getIndex');
+    }
 
     return $next($request);
     
