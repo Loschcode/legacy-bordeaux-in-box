@@ -96,11 +96,23 @@ class HomeController extends BaseController {
     ));
   }
 
-  public function getLastBoxs()
+  /**
+   * Page to show the box of a special month / year
+   * Right now we just display one box (february 2016)
+   */
+  public function getBox($month, $year)
   {
+    // It's a tmp condition (we really don't care for now)
+    if ($month != 'march' OR $year != '2016') {
+      abort(404);
+    }
 
+    return view('masterbox.guest.home.box');
   }
 
+  /**
+   * Concept page
+   */
   public function getConcept()
   {
 

@@ -141,13 +141,13 @@
   <div class="concept__picture-container">
 
   <img class="concept__picture" src="{{ url('images/box-february/cover.jpg') }}">
-    <span class="concept__picture-description">Box Février 2016</span>
+    <span class="concept__picture-description">Box Mars 2016</span>
   </div>
 
   <div class="+spacer-small"></div>
   
   <div class="+text-center">
-    <a class="button__hero" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}">Découvrir la box de février 2016</a>
+    <a class="button__hero" href="{{ action('MasterBox\Guest\HomeController@getBox', ['month' => 'march', 'year' => 2016]) }}">Découvrir la box de mars 2016</a>
   </div>
 
 </div>
