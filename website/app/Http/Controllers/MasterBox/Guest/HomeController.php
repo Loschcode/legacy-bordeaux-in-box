@@ -104,6 +104,8 @@ class HomeController extends BaseController {
   public function getConcept()
   {
 
+    return view('masterbox.guest.home.concept');
+
   }
 
 
