@@ -55,7 +55,7 @@
 								
 	    		    		<div class="hero__content">	
 	    		    			<h2 class="hero__title">En Avril, craquez pour des gourmandises 100% girondines.</h2>
-	    		    			<a class="button__hero">S'abonner</a>
+	    		    			<a href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}" class="button__hero">S'abonner</a>
 	    		    		</div>
 	    	    	</div>
 	    	    </div>
