@@ -36,7 +36,7 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
    *
    * @var array
    */
- 	protected $appends = ['address', 'city', 'zip', 'phone_format', 'role_format', 'turnover', 'full_name'];
+ 	protected $appends = ['address', 'address_detail', 'city', 'zip', 'phone_format', 'role_format', 'turnover', 'full_name'];
   
   public function getAddressAttribute() {
 
@@ -269,8 +269,14 @@ class Customer extends Model implements AuthenticatableContract, CanResetPasswor
 
 	public function getFullAddress()
 	{
+    if ( ! empty($this->address_detail)) {
+     
+      return $this->address . " - " . $this->address_detail . ", " . $this->city . " (" . $this->zip . ")";
 
-		return $this->address . ", " . $this->city . " (" . $this->zip . ")";
+    } else {
+
+		  return $this->address . ", " . $this->city . " (" . $this->zip . ")";
+    }
 
 	}
 

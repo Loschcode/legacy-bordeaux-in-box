@@ -50,6 +50,7 @@
               {{ $order->destination()->first()->last_name }}<br/>
 
               {{ $order->destination()->first()->address }},
+              {{ $order->destination()->first()->address_detail }}
               {{ $order->destination()->first()->city }}
               ({{ $order->destination()->first()->zip }})
               <br/>
