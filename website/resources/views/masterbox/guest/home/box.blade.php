@@ -13,7 +13,7 @@
     <div class="hero__content"> 
       <h2 class="hero__title --big">#Colorful</h2>
       <h2 class="hero__title --medium">La box du mois de mars</h2>
-      <p class="hero__description">Pour lutter conte l’hiver, on avait glissé de la couleur en pagaille dans la box.</p>
+      <p class="hero__description">Pour lutter contre l’hiver, on avait glissé de la couleur en pagaille dans la box.</p>
     </div>
   </div>
 </div>
