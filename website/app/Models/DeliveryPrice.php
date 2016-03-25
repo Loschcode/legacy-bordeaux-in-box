@@ -61,7 +61,7 @@ class DeliveryPrice extends Model {
 	{
 
 		if ($this->frequency == 1) return 'Une seule livraison';
-		elseif ($this->frequency == 0) return 'Sans engagement';
+		elseif ($this->frequency == 0) return 'Sans engagement (apres 2 mois)';
 
 		else return 'pendant ' . $this->frequency . ' mois';
 

@@ -37,6 +37,7 @@
           <strong>Ville:</strong> {!! Html::getReadableEmpty($customer->city) !!}<br />
           <strong>Code postal:</strong> {!! Html::getReadableEmpty($customer->zip) !!}<br />
           <strong>Adresse:</strong> {!! Html::getReadableEmpty($customer->address) !!}<br />
+          <strong>Adresse détail:</strong> {!! Html::getReadableEmpty($customer->address_detail) !!}<br/>
           <div class="+spacer-extra-small"></div>
           <strong>Emails totalement autorisés depuis le:</strong> {!! Html::getReadableEmpty($customer->emails_fully_authorized) !!}<br/>
         </div>

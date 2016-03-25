@@ -51,7 +51,15 @@ class Index extends Controller
         }
         { data: "city"}
         { data: "zip"}
-        { data: "address"}
+        { 
+          render: (data, type, full, meta) => 
+            address = full.address 
+
+            unless _.isEmpty(full.address_detail)
+              address += ' (' + full.address_detail + ')'
+
+            return address
+        }
         {
           sortable: false,
           render: (data, type, full, meta) =>

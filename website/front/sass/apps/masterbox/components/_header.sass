@@ -2,23 +2,36 @@
   
   +breakpoint(xs)
     display: none
+  
+  +part(logo-container)
+    text-align: center
+    margin-top: 1vr
+
+  +part(logo)
+    display: inline-block
+    width: 250px
+
+  +part(navbar-container)
+    text-align: center
+
+  +part(navbar)
+    display: block
+    font-size: 0.45vr
+    font-weight: 400
+    letter-spacing: 1px
+
+    li
+      display: inline-block
+      text-transform: uppercase
+      margin-right: 1vr
+      margin-bottom: 0.35vr
+
+  +part(account)
+    position: absolute
+    right: 0
+    top: 0.5vr
+    right: 2vr
+
+  +part(account-link)
+    +font-montserrat(400)
     
-  +part(item)
-    width: 20%
-    height: 0.25vr
-    float: left
-
-    +option(first)
-      background-color: color-get(green)
-
-    +option(second)
-      background-color: color-get(yellow)
-
-    +option(third)
-      background-color: color-get(purple)
-
-    +option(fourth)
-      background-color: color-get(red)
-
-    +option(fifth)
-      background-color: color-get(pink)

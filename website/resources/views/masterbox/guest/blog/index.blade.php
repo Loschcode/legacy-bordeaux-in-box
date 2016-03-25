@@ -8,7 +8,7 @@
 
 @section('content')
 
-<div class="+spacer"></div>
+<div class="+spacer-small"></div>
 
 <div class="container-static">
 	

@@ -29,7 +29,8 @@
     "slicknav": "~1.0.5",
     "textarea-autosize": "~0.4.1",
     "freewall": "~1.0.5",
-    "fancybox": "~2.1.5"
+    "fancybox": "~2.1.5",
+    "lightslider": "~1.1.5"
   },
   "overrides": {
     "reset-css": {

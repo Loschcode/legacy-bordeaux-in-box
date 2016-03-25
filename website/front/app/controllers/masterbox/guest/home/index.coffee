@@ -18,6 +18,8 @@ class Index extends Controller
     @freewallPartners()
     @freewallBoxes()
     @showcase()
+    @slider()
+
   ##
   # Run
   #
@@ -26,23 +28,6 @@ class Index extends Controller
   #
   ##
   run: ->
-
-    @on 'click', '.js-no-boxes', @alertNoBoxes
-
-  ##
-  # When we don't have anymore boxes and the user clicks 
-  # on the button to order, we display a sweet alert
-  ##
-  alertNoBoxes: (e) =>
-
-    e.preventDefault()
-
-    swal
-      title: $('#gotham').data('no-boxes-title')
-      text: $('#gotham').data('no-boxes-text')
-      type: 'error'
-      confirmButtonColor: '#D83F66'
-      html: true
 
   ##
   # When an user click on an anchor, we do an auto
@@ -61,10 +46,11 @@ class Index extends Controller
     wall = new freewall("#freewall-boxes")
 
     wall.reset
-      selector: '.js-brick',
-      animate: true,
-      cellW: 220,
-      cellH: 'auto',
+      selector: '.js-brick'
+      animate: true
+      cellW: 220
+      cellH: 'auto'
+
 
       onResize: ->
         wall.fitWidth()
@@ -105,6 +91,18 @@ class Index extends Controller
         overlay:
           locked: false
 
+  ##
+  # Init the home slider
+  ##
+  slider: =>
+    $('#slider').lightSlider
+      item: 1
+      loop: true
+      slideMargin: 0
+      pager: false
+      auto: true
+      pause: 5000
+      speed: 1000
 
 
 
