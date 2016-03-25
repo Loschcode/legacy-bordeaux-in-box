@@ -44,8 +44,6 @@ class NavettePickUp {
       if (!isset($pudo_results->Pudos->Pudo))
         return FALSE;
 
-      dd($pudo_results);
-
       foreach ($pudo_results->Pudos->Pudo as $spots) {
 
         dd($spots);
