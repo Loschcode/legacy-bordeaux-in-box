@@ -148,6 +148,22 @@
             </p>
           </div>
           
+
+          <div class="payment__container --no-border-top">
+            <h3 class="payment__title">Coupon</h3>
+            <p class="payment__description">
+            {!! Form::open(['action' => 'MasterBox\Customer\PurchaseController@postApplyCoupon']) !!}
+
+              {!! Form::label('coupon', ' ', ['class' => 'form__label']) !!}
+              {!! Form::text("coupon", Request::old("coupon"), ['class' => 'form__input', 'placeholder' => '']) !!}
+              {!! Html::checkError('coupon', $errors) !!}
+              
+              <button type="submit" class="button button__submit">Appliquer</button>
+
+            {!! Form::close() !!}
+            </p>
+          </div>
+
         </div>
       </div>
     </div>

@@ -572,7 +572,7 @@ class PurchaseController extends BaseController {
 
   public function postApplyCoupon()
   {
-    
+
     $rules = [
 
       'coupon' => 'required',
@@ -598,6 +598,7 @@ class PurchaseController extends BaseController {
         
           $order_preference->unity_price = 21.90;
           $order_building->delivery_serie_id = 37; // RAW
+          $order_building->end_series_special_offer = 37; // RAW
 
           $order_building->save();
           $order_preference->save();
@@ -606,12 +607,14 @@ class PurchaseController extends BaseController {
 
         }
 
+      }
+
       /*} elseif ($coupon === 'FIN-AVRIL-2016') {
 
         if ($order_preference->frequency === 1) {
         
           $order_preference->unity_price = 21.90;
-          $order_building->delivery_serie_id = 37; // RAW
+          $order_building->delivery_serie_id = 38; // RAW
 
           $order_building->save();
           $order_preference->save();
@@ -713,7 +716,14 @@ class PurchaseController extends BaseController {
       if ($order_preference->frequency == 0) $num_orders = Config::get('bdxnbx.infinite_plan_orders');
       else $num_orders = $order_preference->frequency;
 
-      $delivery_series = DeliverySerie::nextOpenSeries();
+      /**
+       * If it's a special offer we might have an artificial number (like FIN-MARS-2016)
+       */
+      if ($order_building->end_series_special_offer !== NULL)
+        $delivery_series = DeliverySerie::where('id', '=', $order_building->end_series_special_offer)->get();
+      else
+        $delivery_series = DeliverySerie::nextOpenSeries();
+
       $delivery_spot = $order_preference->delivery_spot()->first();
 
       /**
