@@ -150,7 +150,7 @@
           
 
           <div class="payment__container --no-border-top">
-            <h3 class="payment__title">Coupon</h3>
+            <h3 class="payment__title">Coupon magique</h3>
             <p class="payment__description">
             {!! Form::open(['action' => 'MasterBox\Customer\PurchaseController@postApplyCoupon']) !!}
 
