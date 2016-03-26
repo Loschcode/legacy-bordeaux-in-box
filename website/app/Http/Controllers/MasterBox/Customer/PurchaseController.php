@@ -570,6 +570,64 @@ class PurchaseController extends BaseController {
 
   }
 
+  public function postApplyCoupon()
+  {
+    
+    $rules = [
+
+      'coupon' => 'required',
+
+      ];
+
+    $fields = Request::all();
+    $validator = Validator::make($fields, $rules);
+
+    // The form validation was good
+    if ($validator->passes()) {
+
+      $customer = Auth::guard('customer')->user();
+      $order_building = $customer->order_buildings()->getCurrent()->first();
+      $profile = $order_building->profile()->first();
+      $order_preference = $order_building->order_preference()->first();
+
+      $coupon = $fields['coupon'];
+
+      if ($coupon === 'FIN-MARS-2016') {
+
+        if ($order_preference->frequency === 1) {
+        
+          $order_preference->unity_price = 21.90;
+          $order_building->delivery_serie_id = 37; // RAW
+
+          $order_building->save();
+          $order_preference->save();
+
+          session()->flash('message', "La réduction ainsi que l'inscription aux fin de séries de Mars 2016 a bie été prise en compte !");
+
+        }
+
+      /*} elseif ($coupon === 'FIN-AVRIL-2016') {
+
+        if ($order_preference->frequency === 1) {
+        
+          $order_preference->unity_price = 21.90;
+          $order_building->delivery_serie_id = 37; // RAW
+
+          $order_building->save();
+          $order_preference->save();
+
+          session()->flash('message', "La réduction ainsi que l'inscription aux fin de séries de Avril 2016 a bie été prise en compte !");
+
+        }
+
+      }*/
+
+    }
+
+    return redirect()->back();
+
+  }
+
   public function postPayment()
   {
 
