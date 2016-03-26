@@ -594,6 +594,8 @@ class PurchaseController extends BaseController {
 
       if ($coupon === 'FIN-MARS-2016') {
 
+        dd($order_preference);
+
         if ($order_preference->frequency === 1) {
         
           $order_preference->unity_price = 21.90;
