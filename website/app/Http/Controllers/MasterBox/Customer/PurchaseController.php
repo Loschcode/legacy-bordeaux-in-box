@@ -592,7 +592,7 @@ class PurchaseController extends BaseController {
 
       $coupon = $fields['coupon'];
 
-      if ($coupon === 'FIN-MARS-2016') {
+      /*if ($coupon === 'FIN-MARS-2016') {
 
         if ($order_preference->frequency == 1) {
         
@@ -607,9 +607,9 @@ class PurchaseController extends BaseController {
 
         }
 
-      }
+      }*/
 
-      /*} elseif ($coupon === 'FIN-AVRIL-2016') {
+      if ($coupon === 'FIN-AVRIL-2016') {
 
         if ($order_preference->frequency === 1) {
         
@@ -621,9 +621,17 @@ class PurchaseController extends BaseController {
 
           session()->flash('message', "La réduction ainsi que l'inscription aux fin de séries de Avril 2016 a bie été prise en compte !");
 
+        } else {
+
+          session()->flash('error', "La réduction ainsi que l'inscription aux fin de séries de Avril 2016 ne peut pas être effectuée sur un abonnement sans engagement.");
+
         }
 
-      }*/
+      } else {
+
+          session()->flash('error', "Coupon non valide.");
+
+      }
 
     }
 
