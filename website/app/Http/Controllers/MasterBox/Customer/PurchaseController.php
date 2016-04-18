@@ -611,7 +611,7 @@ class PurchaseController extends BaseController {
 
       if ($coupon === 'FIN-AVRIL-2016') {
 
-        if ($order_preference->frequency === 1) {
+        if ($order_preference->frequency == 1) {
         
           $order_preference->unity_price = 21.90;
           $order_building->delivery_serie_id = 38; // RAW
