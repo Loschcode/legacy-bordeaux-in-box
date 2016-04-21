@@ -40,7 +40,7 @@
           <li><a href="{{ action('MasterBox\Customer\PurchaseController@getGift') }}" class="header__navbar-link --highlight js-no-boxes">L'offrir</a></li>
         @endif
 
-        <li><a href="{{ action('MasterBox\Guest\HomeController@getBox', ['month' => 'march', 'year' => 2016]) }}" class="header__navbar-link">Dernières Boxs</a></li>
+        <li><a href="{{ action('MasterBox\Guest\HomeController@getBoxes') }}" class="header__navbar-link">Dernières Boxs</a></li>
         <li><a href="{{ action('MasterBox\Guest\BlogController@getIndex') }}" class="header__navbar-link">Complices</a></li>
 
       </ul>

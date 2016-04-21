@@ -24,8 +24,8 @@
 	  <ul id="slider">
 	    <li>
 		    <div class="hero">
-		    	<div class="hero__container" style="background-image: url('{{ url('images/box-february/cover.jpg') }}');">
-		    		<div class="hero__overlay" style="opacity: 0.5"></div>
+		    	<div class="hero__container" style="background-image: url('{{ url('images/box-march/cover.jpg') }}');">
+		    		<div class="hero__overlay" style="opacity: 0.24"></div>
 						
 
 			    		<div class="hero__content">	
@@ -49,12 +49,12 @@
 	    </li>
 	        <li>
 	    	    <div class="hero">
-	    	    	<div class="hero__container" style="background-image: url('{{ url('images/teasing/teasing-avril.jpg') }}')">
+	    	    	<div class="hero__container" style="background-image: url('{{ url('images/teasing/teasing-mai.jpg') }}')">
 	    	    		<div class="hero__overlay"></div>
 	    					
 								
 	    		    		<div class="hero__content">	
-	    		    			<h2 class="hero__title">En Avril, craquez pour des gourmandises 100% girondines.</h2>
+	    		    			<h2 class="hero__title">En Mai, préparez-vous pour le retour des soirées d’été !</h2>
 	    		    			<a href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}" class="button__hero">S'abonner</a>
 	    		    		</div>
 	    	    	</div>

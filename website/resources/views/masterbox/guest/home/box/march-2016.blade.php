@@ -6,7 +6,7 @@
 @section('content')
 
 <div class="hero hide@xs">
-  <div class="hero__container" style="background-image: url('{{ url('images/box-february/cover.jpg') }}');">
+  <div class="hero__container" style="background-image: url('{{ url('images/box-march/cover.jpg') }}');">
     <div class="hero__overlay" style="opacity: 0.5"></div>
 
 
@@ -26,7 +26,7 @@
     <div class="row">
       <div class="grid-4 grid-11@xs gr-centered@xs">
         <div class="concept__picture-container">
-          <img class="concept__picture" src="{{ url('images/box-february/jewerly.jpg') }}">
+          <img class="concept__picture" src="{{ url('images/box-march/jewerly.jpg') }}">
         </div>
         <span class="concept__picture-details">Boucles d’oreille de Mazurka Bijoux</span>
 
@@ -34,7 +34,7 @@
 
       <div class="grid-4 grid-11@xs gr-centered@xs">
         <div class="concept__picture-container">
-          <img class="concept__picture" src="{{ url('images/box-february/jock.jpg') }}">
+          <img class="concept__picture" src="{{ url('images/box-march/jock.jpg') }}">
         </div>
         <span class="concept__picture-details">Préparation pour un mug cake au chocolat de Jock</span>
 
@@ -42,7 +42,7 @@
 
       <div class="grid-4 grid-11@xs gr-centered@xs">
         <div class="concept__picture-container">
-          <img class="concept__picture" src="{{ url('images/box-february/beauty.jpg') }}">
+          <img class="concept__picture" src="{{ url('images/box-march/beauty.jpg') }}">
         </div>
         <span class="concept__picture-details">Vernis pailleté de L’Onglerie</span>
 
@@ -51,17 +51,17 @@
     
 
     <div class="row">
-      <div class="grid-4 push-2 grid-11@xs gr-centered@xs">
+      <div class="grid-4 push-2 grid-11@xs push-0@xs gr-centered@xs">
         <div class="concept__picture-container">
-          <img class="concept__picture" src="{{ url('images/box-february/diy.jpg') }}">
+          <img class="concept__picture" src="{{ url('images/box-march/diy.jpg') }}">
         </div>
         <span class="concept__picture-details">Kit pour fabriquer un col vintage de Blue Madone</span>
 
       </div>
 
-      <div class="grid-4 push-2 grid-11@xs gr-centered@xs">
+      <div class="grid-4 push-2 grid-11@xs push-0@xs gr-centered@xs">
         <div class="concept__picture-container">
-          <img class="concept__picture" src="{{ url('images/box-february/clean.jpg') }}">
+          <img class="concept__picture" src="{{ url('images/box-march/clean.jpg') }}">
         </div>
         <span class="concept__picture-details">Dissolvant sans acétone parfumé à la pêche de L’Onglerie</span>
 
@@ -78,6 +78,6 @@
 <div class="+spacer-extra-small"></div>
 
 <div class="+text-center">
-  <a class="button__hero" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}">Je m'abonne pour 24.90&euro; par mois</a>
+  <a class="button__hero --responsive" href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}">Je m'abonne pour 24.90&euro; par mois</a>
 </div>
 @stop

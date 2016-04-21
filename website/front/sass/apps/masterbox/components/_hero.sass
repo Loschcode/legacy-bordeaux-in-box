@@ -1,5 +1,5 @@
 +component(hero)
-    
+  
   +part(description)
     font-size: 0.6vr
   +part(title)
@@ -10,7 +10,9 @@
     word-spacing: 5px
 
     +option(long-text)
-      font-size: 1vr
+      font-size: 50px
+      line-height: 60px
+
 
     +option(big)
       font-size: 2.7vr
@@ -34,13 +36,16 @@
     background-position: center 70%
     background-color: white
 
+    +option(no-margin)
+      margin-bottom: 0
+
 
   +part(overlay)
     position: absolute
     height: 100%
     width: 100%
     background-color: color-get(dark)
-    opacity: 0.14
+    opacity: 0.24
 
   +part(content)
     width: 88%

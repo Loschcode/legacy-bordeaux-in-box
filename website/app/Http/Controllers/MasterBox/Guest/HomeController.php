@@ -102,12 +102,25 @@ class HomeController extends BaseController {
    */
   public function getBox($month, $year)
   {
-    // It's a tmp condition (we really don't care for now)
-    if ($month != 'march' OR $year != '2016') {
+
+    $available = [
+
+      'months' => ['march', 'april'],
+      'years' => [2016]
+
+    ];
+
+    if ( ! in_array($month, $available['months']) && ! in_array($year, $available['years'])) {
       abort(404);
     }
 
-    return view('masterbox.guest.home.box');
+    return view('masterbox.guest.home.box.' . $month . '-' . $year);
+  }
+
+  public function getBoxes() {
+
+    return view('masterbox.guest.home.boxes');
+
   }
 
   /**
