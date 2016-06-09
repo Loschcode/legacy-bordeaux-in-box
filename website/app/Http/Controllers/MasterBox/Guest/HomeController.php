@@ -98,14 +98,13 @@ class HomeController extends BaseController {
 
   /**
    * Page to show the box of a special month / year
-   * Right now we just display one box (february 2016)
    */
   public function getBox($month, $year)
   {
 
     $available = [
 
-      'months' => ['march', 'april'],
+      'months' => ['march', 'april', 'may'],
       'years' => [2016]
 
     ];

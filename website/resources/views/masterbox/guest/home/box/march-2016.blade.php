@@ -15,6 +15,12 @@
       <h2 class="hero__title --medium">La box du mois de mars</h2>
       <p class="hero__description">Pour lutter contre l’hiver, on avait glissé de la couleur en pagaille dans la box.</p>
     </div>
+    <div class="hero__partner">
+      <a href="http://www.princesse-aux-bidouilles.com/bordeaux-in-box-colourful/">
+        <img src="{{ url('images/box-march/partner.jpg') }}" />
+        <p>La Princesse aux Bidouilles a aimé <i class="fa fa-heart-o"></i></p>
+      </a>
+    </div>
   </div>
 </div>
 

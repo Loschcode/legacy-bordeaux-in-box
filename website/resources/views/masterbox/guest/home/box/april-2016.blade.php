@@ -15,6 +15,12 @@
       <h2 class="hero__title --medium">La box du mois d'avril</h2>
       <p class="hero__description">En Avril, la box était gourmande et remplie de bonnes choses à craquer !</p>
     </div>
+    <div class="hero__partner">
+       <a target="_blank" href="http://myfrenchbakery.fr/2016/04/15/charlotte-a-lananas/">
+        <img src="{{ url('images/box-april/partner.png') }}" />
+        <p>My French Bakery a aimé <i class="fa fa-heart-o"></i></p>
+      </a>
+    </div>
   </div>
 </div>
 

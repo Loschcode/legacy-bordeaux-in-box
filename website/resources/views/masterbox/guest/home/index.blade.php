@@ -49,12 +49,12 @@
 	    </li>
 	        <li>
 	    	    <div class="hero">
-	    	    	<div class="hero__container" style="background-image: url('{{ url('images/teasing/teasing-mai.jpg') }}')">
+	    	    	<div class="hero__container" style="background-image: url('{{ url('images/teasing/teasing-july.jpg') }}')">
 	    	    		<div class="hero__overlay"></div>
 	    					
 								
 	    		    		<div class="hero__content">	
-	    		    			<h2 class="hero__title">En Mai, préparez-vous pour le retour des soirées d’été !</h2>
+	    		    			<h2 class="hero__title --long-text">En route pour les vacances !</h2>
 	    		    			<a href="{{ action('MasterBox\Customer\PurchaseController@getClassic') }}" class="button__hero">S'abonner</a>
 	    		    		</div>
 	    	    	</div>
