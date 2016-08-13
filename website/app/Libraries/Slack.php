@@ -34,26 +34,26 @@ class Slack {
   public function isSomeoneOnline()
   {
     // Fetch users of the team
-    $request = $this->client->request('GET', 'https://slack.com/api/users.list?' . $this->signature);
-
-    // Fetch response of the request as json
-    $response = $this->getResponseJson($request);
-
-    if ($response['ok'] !== TRUE) return FALSE;
-
-    $members = $response['members'];
-
-    foreach ($members as $member) {
-
-      // For slack, slackbot is not a bot .. yeah, sure.
-      if ($member['is_bot'] === false && $member['name'] !== 'slackbot' && $this->isUserOnline($member['id'])) {
-
-        // Someone is online
-        return TRUE;
-
-      }
-
-    }
+    // $request = $this->client->request('GET', 'https://slack.com/api/users.list?' . $this->signature);
+    //
+    // // Fetch response of the request as json
+    // $response = $this->getResponseJson($request);
+    //
+    // if ($response['ok'] !== TRUE) return FALSE;
+    //
+    // $members = $response['members'];
+    //
+    // foreach ($members as $member) {
+    //
+    //   // For slack, slackbot is not a bot .. yeah, sure.
+    //   if ($member['is_bot'] === false && $member['name'] !== 'slackbot' && $this->isUserOnline($member['id'])) {
+    //
+    //     // Someone is online
+    //     return TRUE;
+    //
+    //   }
+    //
+    // }
 
     return FALSE;
 
@@ -66,7 +66,7 @@ class Slack {
    */
   public function isUserOnline($user_id)
   {
-    // Fetch presence of the user 
+    // Fetch presence of the user
     $request = $this->client->request('GET', 'https://slack.com/api/users.getPresence?user=' . $user_id . '&' . $this->signature);
 
     $response = $this->getResponseJson($request);
