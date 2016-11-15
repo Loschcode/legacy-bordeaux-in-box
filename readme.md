@@ -1,7 +1,7 @@
 
 # Bordeaux in Box
 
-![alt text](http://www.lessecretsdeclaire.fr/img/cms/BdxInBox1.jpg "Bordeaux in Box" =500x)
+![alt text](http://www.lessecretsdeclaire.fr/img/cms/BdxInBox1.jpg)
 
 This repository is my biggest and last PHP project.
 
@@ -30,8 +30,6 @@ Brunch / GothamJS
 
 I decided to publish the repository of my former company so the code could be useful to any coder. This is also a way to tell our story and live our mourning a little better.
 
-![alt text](http://www.tony-jazz.com/wp-content/uploads/2015/10/juillet.jpg =500x)
-
 ## Author
 
 [Laurent Schaffner - Chairman](http://www.laurentschaffner.com)
@@ -41,3 +39,5 @@ I decided to publish the repository of my former company so the code could be us
 ## License
 
 MIT License.
+
+![alt text](http://www.tony-jazz.com/wp-content/uploads/2015/10/juillet.jpg)
