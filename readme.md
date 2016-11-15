@@ -1,5 +1,5 @@
 
-# Wirecard Elastic
+# Bordeaux in Box
 
 ![alt text](http://www.lessecretsdeclaire.fr/img/cms/BdxInBox1.jpg "Bordeaux in Box")
 
@@ -33,4 +33,5 @@ I decided to publish the repository of my former company so at least pieces of t
 ## Author
 
 [Laurent Schaffner - Chairman](http://www.laurentschaffner.com)
+
 [Jérémie Ges - General Manager](http://gesjeremie.io)
