@@ -1,7 +1,7 @@
 
 # Bordeaux in Box
 
-![alt text](http://www.lessecretsdeclaire.fr/img/cms/BdxInBox1.jpg "Bordeaux in Box")
+![alt text](http://www.lessecretsdeclaire.fr/img/cms/BdxInBox1.jpg =500x)
 
 This repository is my biggest and last PHP project.
 
@@ -9,7 +9,7 @@ This repository is my biggest and last PHP project.
 
 We created a monthly delivery box company with two other associates and one graphic artist. The service grew well. We did multiple refactoring and integrated many different features, even did a marketing pivot.
 
-After 1.5 year of nearly perfect technical flow, the financial aspect of the company catch up and we decided to give up. Finances are the core of a company, and even when you manage everything else perfectly, *bad finance management leads indubitably to bankruptcy*.
+After 1.5 year of nearly perfect technical flow, the financial aspect of the company catch up and we decided to give up. Finances are the core of a company, and even when you manage everything else perfectly, __bad financial management leads indubitably to bankruptcy__.
 
 ## Development
 
@@ -29,6 +29,8 @@ Brunch / GothamJS
 ## Legacy
 
 I decided to publish the repository of my former company so the code could be useful to any coder. This is also a way to tell our story and live our mourning a little better.
+
+![alt text](http://www.tony-jazz.com/wp-content/uploads/2015/10/juillet.jpg =500x)
 
 ## Author
 
