@@ -9,7 +9,7 @@ This repository is my biggest and last PHP project.
 
 We created a monthly delivery box company with two other associates and one graphic artist. The service grew well. We did multiple refactoring and integrated many different features, even did a marketing pivot.
 
-After 1.5 year of nearly perfect technical flow, the financial aspect of the company catch up and we decided to give up.
+After 1.5 year of nearly perfect technical flow, the financial aspect of the company catch up and we decided to give up. Finances are the core of a company, and even when you manage everything else perfectly, *bad finance management leads indubitably to bankruptcy*.
 
 ## Development
 
@@ -28,10 +28,14 @@ Brunch / GothamJS
 
 ## Legacy
 
-I decided to publish the repository of my former company so at least pieces of the code can be useful to coders. This is also a way to tell our story and live our mourning a little better.
+I decided to publish the repository of my former company so the code could be useful to any coder. This is also a way to tell our story and live our mourning a little better.
 
 ## Author
 
 [Laurent Schaffner - Chairman](http://www.laurentschaffner.com)
 
 [Jérémie Ges - General Manager](http://gesjeremie.io)
+
+## License
+
+MIT License.
