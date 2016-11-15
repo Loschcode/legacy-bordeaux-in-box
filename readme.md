@@ -1,7 +1,7 @@
 
 # Bordeaux in Box
 
-![alt text](http://www.lessecretsdeclaire.fr/img/cms/BdxInBox1.jpg =500x)
+![alt text](http://www.lessecretsdeclaire.fr/img/cms/BdxInBox1.jpg "Bordeaux in Box" =500x)
 
 This repository is my biggest and last PHP project.
 
