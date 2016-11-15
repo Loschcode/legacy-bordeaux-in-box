@@ -1,24 +1,36 @@
-Bordeaux In Box 
-====
 
-The project Bordeaux in Box is getting big. I had to write a guideline in case any developer join the project. This file is all about sensitive changes you could make within the already working code.
+# Wirecard Elastic
 
+![alt text](http://www.lessecretsdeclaire.fr/img/cms/BdxInBox1.jpg "Bordeaux in Box")
 
-HOW TO : ADD A SPECIAL QUESTION / ANSWER TYPE
-====
+This repository is my biggest and last PHP project.
 
-You can easily add question types by modifying the `bdxnbx.php` config file. Then you have to enter the `OrderController` matching view where the form takes place and add whatever you want in it. You also have to change the validation rules within the `postOrder` method in this class.
+## History
 
-Sadly, I had to make a special question once ; the `children_details` which contains many dropdowns to fit the needs of the project.
+We created a monthly delivery box company with two other associates and one graphic artist. The service grew well. We did multiple refactoring and integrated many different features, even did a marketing pivot.
 
-It's a complex question that involve `user_answers`.`referent_id` field as the multiple-answers are all linked between each others.
+After 1.5 year of nearly perfect technical flow, the financial aspect of the company catch up and we decided to give up.
 
-To make a special field and make it work with the whole system you must be careful about :
+## Development
 
-  - The view itself where you put all the fields you want and set it as array if there are many.
-  - The rules linked to the post method that appears when the user validate what he wrote.
-  - The admin section where there are similar validations (but not all, the admin is more free of his moves) and the exact same fields written.
-  - The filters that could contain special `answer` that has to be converted and understood through the system.
-  - The statistics within the section use it too
+We built a very customized shopping cart tailored to the needs of our delivery service.
 
-Those reminders should be enough for now.
+We engineered systems to handle customer leads, order flow, a recurring payment system using stripe (>50 000 euros growth), and a module that programmatically fulfilled orders.
+
+We also aggregated data that was collected from our users and build out a reporting module with several easy to understand graphs that helped to make sense of many complex and relational data sets (>2 000 orders).
+
+## Technologies
+
+Laravel 5.0
+MySQL
+SASS / CSStyle
+Brunch / GothamJS
+
+## Legacy
+
+I decided to publish the repository of my former company so at least pieces of the code can be useful to coders. This is also a way to tell our story and live our mourning a little better.
+
+## Author
+
+[Laurent Schaffner - Chairman](http://www.laurentschaffner.com)
+[Jérémie Ges - General Manager](http://gesjeremie.io)
