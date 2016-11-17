@@ -3,7 +3,7 @@
 
 ![alt text](http://www.lessecretsdeclaire.fr/img/cms/BdxInBox1.jpg)
 
-This repository is my biggest and last PHP project.
+This repository is our biggest and last PHP project.
 
 ## History
 
