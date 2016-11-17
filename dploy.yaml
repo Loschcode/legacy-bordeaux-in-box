@@ -1,3 +1,6 @@
+# this server is not available anymore
+# therefore it's useless to try
+# it's a legacy project.
 production:
     scheme: sftp
     host: 178.62.239.135
