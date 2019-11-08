@@ -1,7 +1,7 @@
 
 # Bordeaux in Box
 
-![alt text](http://www.lessecretsdeclaire.fr/img/cms/BdxInBox1.jpg)
+![Bordeaux in Box](https://laurent.tech/assets/images/github/bordeaux-in-box.jpeg)
 
 This repository is our biggest and last PHP project.
 
